@@ -16,7 +16,7 @@ const DefaultPage = ({ title, route }) => {
           <h2>{title}</h2>
           <Button color="primary" block onClick={() => { redirectTo(route); }}>
             Check It Out
-            </Button>
+          </Button>
         </Col>
       </Row>
     </Container>
