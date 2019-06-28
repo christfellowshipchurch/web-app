@@ -1,0 +1,17 @@
+.pattern {
+    position: absolute;
+    background-repeat: repeat-y;
+    width: 20vw;
+    height: 100%;
+    z-Index: 0;
+    
+    background-size: cover;
+}
+
+.patternLeft {
+    left: 0;
+}
+
+.patternRight {
+    right: 0;
+}
