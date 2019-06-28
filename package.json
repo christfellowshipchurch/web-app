@@ -1,0 +1,78 @@
+{
+  "name": "christ-fellowship-react-dom",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@babel/cli": "^7.4.3",
+    "@christfellowshipchurch/flat-ui-web": "^1.0.8",
+    "@christfellowshipchurch/web-fonts": "^1.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-brands-svg-icons": "^5.9.0",
+    "@fortawesome/free-solid-svg-icons": "^5.9.0",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "apollo-boost": "^0.3.1",
+    "bootstrap": "^4.3.1",
+    "classnames": "^2.2.6",
+    "graphql": "^14.1.1",
+    "html-to-react": "^1.3.4",
+    "lodash": "^4.17.11",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.11.0",
+    "popper.js": "^1.14.7",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-apollo": "^2.5.2",
+    "react-dom": "^16.8.3",
+    "react-facebook-pixel": "^0.1.2",
+    "react-ga": "^2.5.7",
+    "react-image": "^2.0.0",
+    "react-meta-tags": "^0.7.4",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "reactstrap": "^7.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "jest",
+    "eject": "react-scripts eject",
+    "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
+    "prestart": "node ./scripts/get-introspection-data.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.0",
+    "eslint": "5.12.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.8.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss)$": "babel-jest"
+    },
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/src/**/?(*.)(spec|test|tests).{js,jsx,mjs}"
+    ],
+    "testEnvironment": "jsdom"
+  }
+}

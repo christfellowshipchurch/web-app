@@ -1,0 +1,36 @@
+.hero {
+    width: 100%;
+    min-height: 100vh;
+
+    background: url('../components/Hero/Christ-Fellowship-Conference-Background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.heroContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.heroImg {
+    width: 80%;
+}
+
+@media (min-width: 768px) {
+    .heroContainer {
+        flex-direction: row;
+    }
+
+    .heroImg {
+        width: 40%;
+    }
+}

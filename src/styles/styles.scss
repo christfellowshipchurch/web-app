@@ -1,0 +1,118 @@
+$gray-600: #6d6d6d;
+$gray-900: #1A1818;
+$cyan: #00aeef;
+
+$primary: $cyan;
+
+$border-radius: 0px;
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+body,
+.font-primary {
+    font-family: 'GothamHTF';
+}
+
+p,
+small,
+span,
+.font-secondary {
+    font-family: 'GothamCondensed';
+    font-size: larger;
+    letter-spacing: 0.5px;
+}
+
+.container-fluid {
+    padding: 0;
+    text-align: center;
+}
+
+.row {
+    margin: 0;
+}
+
+.slick-active {
+    button {
+        background: black !important;
+    }
+}
+
+.btn {
+    padding: 12px 50px;
+    font-size: 20px;
+    color: #FFFFFF;
+    letter-spacing: -0.25px;
+    text-align: center;
+    margin: 15px;    
+
+    @media (max-width: 1200px) { 
+        padding: 12px 25px;
+        margin: 10px;
+        font-size: 16px;
+     }
+}
+
+.text-dark {
+    color: $gray-900;
+
+    small, p, span {
+        color: $gray-600
+    }
+}
+
+.header-footer-color {
+    background-color: #1A1818;
+}
+
+.smaller-carousel {
+    width: 170px;
+    margin: auto;
+}
+
+.navbarExtend {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background-color: #232121;
+}
+
+.navbarFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.footerPadding {
+    padding-left:45px;
+    padding-right: 45px;
+    @media (max-width: 576px) { 
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.navbarPadding {
+    padding-left:45px;
+    padding-right: 30px;
+    @media (max-width: 576px) { 
+        padding-left: 20px;
+        padding-right: 5px;
+    }
+}
+
+.gridPadding {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    @media (max-width: 576px) { 
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+.titleWeight {
+    font-weight: 600;
+}
