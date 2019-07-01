@@ -3,6 +3,8 @@
 This is a repository for the Christ Fellowship website. 
 The website is a *ReactJS* Web App and uses *GraphQL* to pull content from *Rock RMS*.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/14629c48-db6b-49b0-950b-069dc1ae88f3/deploy-status)](https://app.netlify.com/sites/eloquent-hodgkin-806a2b/deploys)
+
 
 ## Getting Started
 
