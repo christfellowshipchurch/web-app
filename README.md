@@ -1,10 +1,7 @@
-# Christ Fellowship Web App
+# Christ Fellowship Web App [![Package Version](https://img.shields.io/github/package-json/v/christfellowshipchurch/christ-fellowship-web-app.svg)](https://github.com/christfellowshipchurch/christ-fellowship-web-app)
 
 This is a repository for the Christ Fellowship website. 
 The website is a *ReactJS* Web App and uses *GraphQL* to pull content from *Rock RMS*.
-
-[![Project Version](https://img.shields.io/github/package-json/v/christfellowshipchurch/christ-fellowship-web-app.svg)](https://github.com/christfellowshipchurch/christ-fellowship-web-app)
-
 
 ## Getting Started
 
