@@ -9,7 +9,7 @@ const DefaultPage = () => {
     <Row>
     <Content
     layout="right"
-    imageUrl="https://rock.gocf.org/GetImage.ashx?id=2168538"
+    imageUrl="https://lh5.googleusercontent.com/-EUNlbMBrBQE/AAAAAAAAAAI/AAAAAAAAAA8/dFvOtPyXv4I/photo.jpg"
     imageAlt="Alt text for my image"
     ratio="1by1"
 >
@@ -18,8 +18,13 @@ const DefaultPage = () => {
     </Content.Title>
 
     <Content.Body>
-        Here is our first page for our new website!
+      Hello Rob, this is your fully automated, cloud-hosted, personalized, agile kanbam webpage
+
+      
     </Content.Body>
+    <br/>
+    <i>Sponsored by Elastic Beanstock, Atlassian, Jenkins, AWS, ADT, Settop Boxes</i>
+
 </Content>
     </Row>
   </Container>
