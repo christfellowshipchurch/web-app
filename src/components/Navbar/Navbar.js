@@ -33,7 +33,7 @@ const Navbar = () => {
                 data = data.getWebsiteNavigation
 
                 const quickAction = {
-                    display: has(data, 'quickAction.call') && has(data, 'quickAction.action'),
+                    // display: has(data, 'quickAction.call') && has(data, 'quickAction.action'),
                     call: get(data, 'quickAction.call', ''),
                     action: get(data, 'quickAction.action', ''),
                 }

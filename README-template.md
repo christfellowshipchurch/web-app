@@ -1,7 +1,11 @@
-# Christ Fellowship Web App [![Package Version](https://img.shields.io/github/package-json/v/christfellowshipchurch/christ-fellowship-web-app.svg)](https://github.com/christfellowshipchurch/christ-fellowship-web-app) [![Netlify Status](https://api.netlify.com/api/v1/badges/14629c48-db6b-49b0-950b-069dc1ae88f3/deploy-status)](https://app.netlify.com/sites/eloquent-hodgkin-806a2b/deploys)
+# Christ Fellowship Web App [![Package Version](https://img.shields.io/github/package-json/v/christfellowshipchurch/christ-fellowship-web-app.svg)](https://github.com/christfellowshipchurch/christ-fellowship-web-app)
 
-This is a repository for the Christ Fellowship website. 
-The website is a *ReactJS* Web App and uses *GraphQL* to pull content from *Rock RMS*.
+| Build                         | Statements                                    | Branches                                  | Functions                                   | Lines                               | Built By                                                                              | We Love                                                                        |
+| ----------------------------- | --------------------------------------------- | ----------------------------------------- | ------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| ![BuildStatus](#buildstatus#) | ![Statements](#statements# "Make me better!") | ![Branches](#branches# "Make me better!") | ![Functions](#functions# "Make me better!") | ![Lines](#lines# "Make me better!") | ![BuiltBy](https://img.shields.io/badge/TypeScript-Lovers-black.svg "img.shields.io") | ![ForTheBadge](https://img.shields.io/badge/Using-Badges-red.svg "ForTheBadge" |
+
+This is a repository for the Christ Fellowship website.
+The website is a _ReactJS_ Web App and uses _GraphQL_ to pull content from _Rock RMS_.
 
 ## Getting Started
 
@@ -34,49 +38,48 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-
-
-
-
-
-
 ## Extras
 
-The app includes built-in components such as the **Navbar**, **Footer**, and **Grid**. These all use content that is set up in *Rock*.
+The app includes built-in components such as the **Navbar**, **Footer**, and **Grid**. These all use content that is set up in _Rock_.
 
 ### Pixel Manager
+
 This component manages Facbook Pixel and Google Analytics data and allows you to report button clicks and page views using **React Pixel** and **React-GA**.
 
-In order to use this component you will need to add your Pixel ID and Google Tracking number to your **.env** file. 
+In order to use this component you will need to add your Pixel ID and Google Tracking number to your **.env** file.
 
 ```
 REACT_APP_FB_CODE=
 REACT_APP_GA_CODE=
 ```
 
-### Netlify 
+### Netlify
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/14629c48-db6b-49b0-950b-069dc1ae88f3/deploy-status)](https://app.netlify.com/sites/eloquent-hodgkin-806a2b/deploys)
 
 We use Netlify for the building and deploying of our web app.
-
-
 
 ## Learn More
 
 ### React
+
 https://reactjs.org/
 
 ### GraphQL
+
 https://graphql.org/
 
 ### Rock RMS
+
 https://www.rockrms.com/
 
 ### React Facebook Pixel
+
 https://github.com/zsajjad/react-facebook-pixel
 
 ### React-GA
-https://github.com/react-ga/react-ga
 
+https://github.com/react-ga/react-ga
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -105,4 +108,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
