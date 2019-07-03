@@ -8,22 +8,22 @@ import { Container, Row, Col, Button } from 'reactstrap'
 import PixelManager from './components/PixelManager'
 
 
-export const mapEdgesToNodes = (data) => data.edges.map(n => n.node);
-export const redirectTo = (uri) => window.location.href = uri;
+export const mapEdgesToNodes = (data) => data.edges.map(n => n.node)
+export const redirectTo = (uri) => window.location.href = uri
 
 export const hexToRGB = (hex) => {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
     hex = hex.replace(shorthandRegex, function (m, r, g, b) {
         return r + r + g + g + b + b;
-    });
+    })
 
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
-    } : null;
+    } : null
 }
 export const getTextColorClass = (backgroundColor) => {
     var rgb = hexToRGB(backgroundColor)
@@ -31,7 +31,7 @@ export const getTextColorClass = (backgroundColor) => {
         (parseInt(rgb.g) * 587) +
         (parseInt(rgb.b) * 114)) / 1000);
     // return (o > 125) ? 'text-dark' : 'text-light';
-    return (o > 175) ? 'text-dark' : 'text-light';
+    return (o > 175) ? 'text-dark' : 'text-light'
 }
 
 
@@ -103,13 +103,13 @@ const renderContentWithImgSizing = (content) => {
         : null
 
     let textAlign
-        layout === 'right' || layout === 'left'
-            ? textAlign = 'text-left' : textAlign = ''
+    layout === 'right' || layout === 'left'
+        ? textAlign = 'text-left' : textAlign = ''
 
     let header
-        layout === 'right' || layout === 'left'
-            ? header = 'h2' : header = 'h1'
-            
+    layout === 'right' || layout === 'left'
+        ? header = 'h2' : header = 'h1'
+
     return (
         <div>
             {layout === 'original'
@@ -153,11 +153,11 @@ const renderContentWithImgSizing = (content) => {
 export const buttonClick = (call, action, title, openLinksInNewTab) => {
     PixelManager.reportButtonClick({ call: `${title} - ${call}`, action })
 
-    if(openLinksInNewTab){
-        const win = window.open(action,'_blank')
+    if (openLinksInNewTab) {
+        const win = window.open(action, '_blank')
         win.focus()
     }
-    else { 
+    else {
         redirectTo(action)
     }
 
