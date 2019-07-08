@@ -1,6 +1,8 @@
 import {
-    mapEdgesToNodes, hexToRGB
+    mapEdgesToNodes, hexToRGB, getTextColorClass, renderContent, buttonClick, renderButtons
 } from '../utils'
+import renderer from 'react-test-renderer'
+
 
 
 describe("Utility Methods", () => {
@@ -57,4 +59,50 @@ describe("Utility Methods", () => {
         expect(hexToRGB(full)).toEqual(rgb)
         expect(hexToRGB(shorthand)).toEqual(rgb)
     })
+
+    it('takes a hex value, returns text-color class', () => {
+        const lightColor = '#EBFFFF'
+        const darkColor = '#203131'
+        const darkText = 'text-dark'
+        const lightText = 'text-light'
+
+        expect(getTextColorClass(lightColor)).toEqual(darkText)
+        expect(getTextColorClass(darkColor)).toEqual(lightText)
+    })
+
+        //Snapshot Testing for Rendering Content//
+
+    it('renders content with background layout', () => {
+        const content = {
+            backgroundColor: '#203131',
+            imageAlt: 'image',
+            coverImage: [{ sources: [{ uri: "my-img-url.com" }] }],
+            imageRatio: '21by9',
+            title: 'Title',
+            body: 'Body',
+            contentLayout: 'background',
+            callsToAction: [{ call: 'call', action: 'action' }]
+        }
+        const tree = renderer.create(  
+            renderContent(content)           
+        )
+        expect(tree).toMatchSnapshot()
+    })
+
+    it('renders content with original layout', ()=>{
+        const content = {
+            backgroundColor: '#203131',
+            imageAlt: 'image',
+            imageRatio: '21by9',
+            title: 'Title',
+            body: 'Body',
+            contentLayout: 'original',
+            callsToAction: [{ call: 'call', action: 'action' }]
+        }
+        const tree = renderer.create(  
+            renderContent(content)
+        )
+        expect(tree).toMatchSnapshot()
+    })
+
 })

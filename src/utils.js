@@ -37,6 +37,8 @@ export const getTextColorClass = (backgroundColor) => {
 
 // Content Rendering Utils
 export const renderContent = (content) => {
+    console.log({content})
+
     //Checks for # in hex value for background color
     let textColor = 'text-dark'
     let containerStyles = {}
@@ -174,7 +176,6 @@ export const renderButtons = (callsToAction, buttonColor, title, openLinksInNewT
                 <Row className="my-2" key={i}>
                     <Col size="12">
                         <Button style={styles} onClick={() => buttonClick(n.call, n.action, title, openLinksInNewTab)}>
-                            {console.log(openLinksInNewTab)}
                             {n.call}
                         </Button>
                     </Col>

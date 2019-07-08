@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Utility Methods renders content with background layout 1`] = `
+<div
+  className="container-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="text-light col"
+    >
+      <div
+        className=""
+      >
+        <div>
+          <h2>
+            Title
+          </h2>
+          <div />
+          <div
+            className="px-0 container"
+          >
+            <div
+              className="my-2 row"
+            >
+              <div
+                className="col"
+                size="12"
+              >
+                <button
+                  aria-label={null}
+                  className="btn btn-secondary"
+                  onClick={[Function]}
+                  style={
+                    Object {
+                      "backgroundColor": undefined,
+                      "borderColor": undefined,
+                    }
+                  }
+                  type="button"
+                >
+                  call
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Utility Methods renders content with original layout 1`] = `
+<div
+  className="py-5 container-fluid"
+  style={
+    Object {
+      "backgroundColor": "#203131",
+    }
+  }
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="text-light col"
+      >
+        <div>
+          <div
+            className="w-100"
+          >
+            <video
+              autoPlay={true}
+              className="w-100"
+              loop={true}
+              muted={true}
+              playsInline={true}
+            >
+              <source
+                src={null}
+                type="video/mp4"
+              />
+            </video>
+            <img
+              alt="image"
+              className="w-100"
+              src={null}
+            />
+          </div>
+          <div
+            className=""
+          >
+            <div>
+              <h6
+                className="text-uppercase text-muted font-weight-bold "
+              />
+              <h2
+                className="text-uppercase titleWeight  h1"
+              >
+                Title
+              </h2>
+              <div
+                className="pt-1 "
+              />
+              <div
+                className="px-0 container"
+              >
+                <div
+                  className="my-2 row"
+                >
+                  <div
+                    className="col"
+                    size="12"
+                  >
+                    <button
+                      aria-label={null}
+                      className="btn btn-secondary"
+                      onClick={[Function]}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "borderColor": undefined,
+                        }
+                      }
+                      type="button"
+                    >
+                      call
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
