@@ -3,7 +3,7 @@ import {
     Query
 } from 'react-apollo'
 import {
-    get, has, find
+    get, find
 } from 'lodash'
 import getWebsiteHeader from '../../queries/getWebsiteHeader'
 
@@ -84,15 +84,15 @@ const Navbar = () => {
                             <UncontrolledCollapse toggler="#toggler" className='navbarExtend p-5 mt-5'>
                                 {data.navigationLinks.map((link, i) => (
                                     <NavItem key={i}>
-                                        <h1 className='d-none d-lg-block'>
-                                            <NavLink href="/#"
+                                        <h1 className='d-none d-lg-block navLink'>
+                                            <NavLink
                                                 onClick={() => buttonClick(link.call, link.action, title.navbar)}
                                                 className='text-white text-uppercase font-weight-bold'>
                                                 {link.call}
                                             </NavLink>
                                         </h1>
-                                        <h2 className='d-lg-none'>
-                                            <NavLink href="/#"
+                                        <h2 className='d-lg-none navLink'>
+                                            <NavLink
                                                 onClick={() => buttonClick(link.call, link.action, title.navbar)}
                                                 className='text-white text-uppercase font-weight-bold'>
                                                 {link.call}
