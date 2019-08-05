@@ -59,7 +59,7 @@ const Footer = () => {
                                     {socialMediaButton(data.twitterUrl, faTwitter, 'Twitter')}
                                 </div>
 
-                                <div className='dropdown-divider m-auto' style={{maxWidth: '700px', borderTop: '2px solid #595959'}} />
+                                <div className='dropdown-divider m-auto px-5' style={{maxWidth: '900px', borderTop: '2px solid #595959'}} />
                                 <br/>
 
                                 <a style={{color: '#c1c1c1', fontSize: '14px'}}>
