@@ -15,7 +15,7 @@ import {
     BrowserRouter
 } from 'react-router-dom';
 
-import '@christfellowshipchurch/web-fonts/lib/gotham/gotham.font.css'
+import '@christfellowshipchurch/web-ui-kit/lib/styles/css/christ-fellowship-bootstrap.css'
 import './styles/styles.scss'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
