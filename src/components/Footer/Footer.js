@@ -66,7 +66,7 @@ const Footer = () => {
                                 © {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
                                 </a>
 
-                                <div className='d-flex'>
+                                <div className='d-flex justify-content-center'>
                                     {data.footerLinks.map((link, i) => (
                                         <a  key={i}
                                             href="/#"
