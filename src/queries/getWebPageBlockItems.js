@@ -5,6 +5,17 @@ query getWebsitePages($website:String!, $title:String!) {
   getWebsitePageContentByTitle(website:$website, title:$title) {
     id
     title
+      
+    metaDescription
+    metaKeywords
+    openGraphProtocols {
+      name
+      content
+    }
+    twitterProtocols {
+      name
+      content
+    }
 
     childContentItemsConnection {
       edges {
@@ -33,14 +44,16 @@ query getWebsitePages($website:String!, $title:String!) {
             }
           }
 
-          ... on WebsiteContentItem {
+          ... on WebsiteBlockItem {
+            title
             subtitle
 
-            buttonColor
-            backgroundColor
-
             contentLayout
-            callsToAction {
+            callToAction {
+              call
+              action
+            }
+            secondaryCallToAction {
               call
               action
             }
@@ -48,14 +61,12 @@ query getWebsitePages($website:String!, $title:String!) {
     
             imageAlt
             imageRatio
-
-            openLinksInNewTab
           }
 
-          ... on WebsiteGroupContentItem {
+          ... on WebsiteGroupItem {
             groupLayout
             accordionType
-            backgroundColor
+            
           }
         }
       }

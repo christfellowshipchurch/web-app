@@ -8,21 +8,9 @@ $border-radius: 0px;
 
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
-body,
-.font-primary {
-    font-family: 'GothamHTF';
-}
-
-p,
+body p,
 small,
-span,
-.font-secondary {
-    font-family: 'GothamCondensed';
-    font-size: larger;
-    letter-spacing: 0.5px;
-}
-
-.container-fluid {
+span .container-fluid {
     padding: 0;
     text-align: center;
 }

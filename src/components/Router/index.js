@@ -3,13 +3,13 @@ import {
     Switch, Route
 } from 'react-router-dom';
 
-import DefaultPage, { LoadingPage, GridPage, FooterPage, RobPage } from '../Page';
+import DefaultPage, { LoadingPage, UIPage, FooterPage, RobPage } from '../Page';
 
 const Router = () => (
     <Switch>
         <Route exact path="/rob" component={RobPage} />
         <Route exact path="/footer" component={FooterPage} />
-        <Route exact path="/grid" component={GridPage} />
+        <Route exact path="/ui" component={UIPage} />
         <Route exact path="/loading" component={LoadingPage} />
         <Route exact path="/:page" component={DefaultPage} />
 
