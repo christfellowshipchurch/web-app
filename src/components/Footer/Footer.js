@@ -10,7 +10,7 @@ import getWebsiteFooter from '../../queries/getWebsiteFooter'
 
 import { Container, Row, Col } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faInstagram, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import {buttonClick} from '../../utils'
 
 const title ={
@@ -26,7 +26,7 @@ const socialMediaButton = (link, icon, call) => {
                     color='white' 
                     icon={icon} 
                     size='2x' 
-                    className='mr-3'
+                    className='mr-4'
                     onClick={() => buttonClick(call, link, title.socialMedia, 'True')}>
                 </FontAwesomeIcon>
             </a>
@@ -49,42 +49,33 @@ const Footer = () => {
                 const img = find(data.images, (n) => n.name === 'Brand Icon')
 
                 return (
-                    <Container fluid className='header-footer-color'>
-                        <Row className='m-auto align-items-center'>
-                            <Col xs="12" md="11" className="text-left pt-4 pb-3 footerPadding">
-                                <div>
+                    <Container fluid className='header-footer-color py-5' style={{backgroundColor: '#353535'}}>
+                        <Row className='d-flex justify-content-center'>
+                            <Col xs="12" md="11" className="pt-4 pb-3 footerPadding">
+                                <div className='mb-3'>
+                                    {socialMediaButton(data.youtubeUrl, faYoutube, 'Youtube')}
                                     {socialMediaButton(data.instagramUrl, faInstagram, 'Instagram')}
                                     {socialMediaButton(data.facebookUrl, faFacebook, 'Facebook')}
                                     {socialMediaButton(data.twitterUrl, faTwitter, 'Twitter')}
                                 </div>
 
-                                <p className='mb-0 font-weight-light text-light'>
-                                    &copy; {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
-                                </p>
+                                <div className='dropdown-divider m-auto px-5' style={{maxWidth: '900px', borderTop: '2px solid #595959'}} />
+                                <br/>
 
-                                <div className='d-flex'>
+                                <a style={{color: '#c1c1c1', fontSize: '14px'}}>
+                                © {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
+                                </a>
+
+                                <div>
                                     {data.footerLinks.map((link, i) => (
                                         <a  key={i}
                                             href="/#"
-                                            className='pr-3 text-white font-weight-bold'
+                                            className='text-light text-uppercase ml-4'
                                             onClick={() => buttonClick(link.call, link.action, title.footerLink, 'True')}>
                                             {link.call}
                                         </a>
                                     ))}
                                 </div>
-                            </Col>
-                            <Col xs="12" md="1" className='py-4 d-none d-sm-block'>
-                                {img && get(img, 'sources', null)
-                                    ? (
-                                        <div className='pr-4'>
-                                            <a href="/">
-                                                <img src={get(img, 'sources[0].uri', '')}
-                                                    style={{ height: '50px', width: 'auto' }}
-                                                    alt="Christ Fellowship Conference" />
-                                            </a>
-                                        </div>
-                                    )
-                                    : null}
                             </Col>
                         </Row>
                     </Container>
