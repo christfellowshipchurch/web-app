@@ -1,11 +1,12 @@
 import gql from 'graphql-tag';
 
-export default (id) => gql`
-query {
-  node(id:"${id}") {
-    ... on WebsiteGroupContentItem {
+export default gql`
+query getGroupBlockItems($id: ID!) {
+  node(id: $id) {
+    ... on WebsiteGroupItem {
       id
       title
+      htmlContent
       
       childContentItemsConnection {
         edges {
@@ -27,14 +28,16 @@ query {
               }
             }
 
-            ... on WebsiteContentItem {
+            ... on WebsiteBlockItem {
+              title
               subtitle
-
-              buttonColor
-              backgroundColor
               
               contentLayout
-              callsToAction {
+              callToAction {
+                call
+                action
+              }
+              secondaryCallToAction {
                 call
                 action
               }
@@ -48,9 +51,6 @@ query {
               }
               imageAlt
               imageRatio
-
-              gridImageLink
-              openLinksInNewTab
             }
           }
         }
