@@ -52,7 +52,7 @@ const Footer = () => {
                     <Container fluid className='header-footer-color py-5' style={{backgroundColor: '#353535'}}>
                         <Row className='d-flex justify-content-center'>
                             <Col xs="12" md="11" className="pt-4 pb-3 footerPadding">
-                                <div className='mb-3'>
+                                <div className='d-flex justify-content-center mb-3'>
                                     {socialMediaButton(data.youtubeUrl, faYoutube, 'Youtube')}
                                     {socialMediaButton(data.instagramUrl, faInstagram, 'Instagram')}
                                     {socialMediaButton(data.facebookUrl, faFacebook, 'Facebook')}
@@ -62,11 +62,11 @@ const Footer = () => {
                                 <div className='dropdown-divider m-auto px-5' style={{maxWidth: '900px', borderTop: '2px solid #595959'}} />
                                 <br/>
 
-                                <a style={{color: '#c1c1c1', fontSize: '14px'}}>
+                                <a className='d-flex justify-content-center' style={{color: '#c1c1c1', fontSize: '14px'}}>
                                 © {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
                                 </a>
 
-                                <div>
+                                <div className='d-flex'>
                                     {data.footerLinks.map((link, i) => (
                                         <a  key={i}
                                             href="/#"
