@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { buttonClick } from '../../utils'
 import Footer from '../Footer'
+import { Button } from '@christfellowshipchurch/web-ui-kit'
 
 
 // body is a react component
@@ -42,14 +43,16 @@ const Navbar = () => {
 
                 return (
                     <div className='fixed-top'>
-                        <Nav vertical className='header-footer-color'>
+                        <Nav vertical className='bg-white'>
                             <div className="d-flex">
                                 {img && get(img, 'sources', null)
                                     ? (
                                         <div className='navbarPadding py-3'>
                                             <a href="/">
-                                                <img src={get(img, 'sources[0].uri', '')}
-                                                    style={{ height: '50px', width: 'auto' }}
+                                                <img 
+                                                src='https://gochristfellowship.com/wp-content/themes/christfellowship/img/bodymovin/ChristFellowship.png'
+                                                // src={get(img, 'sources[0].uri', '')}
+                                                    style={{ height: '80px', width: 'auto' }}
                                                     alt="Christ Fellowship Conference" />
                                             </a>
                                         </div>
@@ -70,18 +73,19 @@ const Navbar = () => {
                                         </div>
                                         : null
                                     }
-                                    <div className='navbarPadding'>
+                                    <div className='d-flex align-items-center navbarPadding'>
+                                        <Button call='Plan Your Visit' />
                                         <FontAwesomeIcon
                                             id="toggler"
                                             icon={isExpanded ? faTimes : faBars}
                                             size='5x'
-                                            color="white"
+                                            color="grey"
                                             className='py-4'
                                             onClick={() => setIsExpanded(!isExpanded)} />
                                     </div>
                                 </div>
                             </div>
-                            <UncontrolledCollapse toggler="#toggler" className='navbarExtend p-5 mt-5'>
+                            <UncontrolledCollapse toggler="#toggler" className='bg-white navbarExtend p-5 mt-5'>
                                 {data.navigationLinks.map((link, i) => (
                                     <NavItem key={i}>
                                         <h1 className='d-none d-lg-block navLink'>
