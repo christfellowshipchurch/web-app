@@ -1,5 +1,5 @@
 import React from 'react'
-import { Loader, Block, Carousel, Row, TextInput, TextArea, Dropdown, Accordion, Button } from '@christfellowshipchurch/web-ui-kit'
+import { Carousel, Row, TextInput, TextArea, Dropdown, Accordion, Button } from '@christfellowshipchurch/web-ui-kit'
 
 const multipleContent =[
   {
@@ -99,7 +99,7 @@ const DefaultPage = () => {
           <br/>
           <br/>
           <br/>
-             <TextArea placeholder='Type your message' helper='this is helper text' label='this is a label' fail/>
+          <TextArea placeholder='Type your message' helper='this is helper text' label='this is a label' fail/>
           <br/>
           <br/>
           <br/>

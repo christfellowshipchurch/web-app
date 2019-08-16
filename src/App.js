@@ -9,7 +9,7 @@ const App = () => {
   window.scrollTo(0, 0)
 
   return (
-    <div className="App">
+    <div className="App bg-light">
       <SEO />
 
       <Navbar />
