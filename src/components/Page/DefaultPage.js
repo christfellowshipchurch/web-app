@@ -15,9 +15,8 @@ import getGroupContentItems from '../../queries/getGroupContentItems'
 import SEO from '../../seo'
 import PixelManager from '../PixelManager'
 
-import { Accordion, Carousel, Row, Loader, Block, Media } from '@christfellowshipchurch/web-ui-kit'
+import { Accordion, Carousel, Row, Loader, Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
 
-// TODO : handle mapping the props passed back from the API into the Block item from the web-ui-kit
 const ContentBlock = ({
   contentLayout,
   images,
@@ -26,7 +25,9 @@ const ContentBlock = ({
   imageRatio,
   subtitle,
   title,
-  htmlContent
+  htmlContent,
+  callToAction,
+  secondaryCallToAction
 }) => (lowerCase(contentLayout) === 'background'
   ? (
     <Media
@@ -47,6 +48,8 @@ const ContentBlock = ({
         <Block.Body className={`pt-1 pb-4 font-weight-light`}>
           {htmlContent}
         </Block.Body>
+
+        <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
       </Block>
     </Media>
   )
@@ -72,6 +75,8 @@ const ContentBlock = ({
           <Block.Body className={`pt-1 pb-4 font-weight-light`}>
             {htmlContent}
           </Block.Body>
+
+          <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
         </Block>
       </div>
     </div>
@@ -215,7 +220,9 @@ const FormattedCarousel = ({ children }) => (
             videoUrl,
             subtitle,
             title,
-            htmlContent
+            htmlContent,
+            callToAction,
+            secondaryCallToAction
           }, i) => __typename === 'WebsiteBlockItem'
               ? (
                 <Block
@@ -228,12 +235,22 @@ const FormattedCarousel = ({ children }) => (
                   <Block.Title>{title}</Block.Title>
                   <Block.Subtitle>{subtitle}</Block.Subtitle>
                   <Block.Body>{htmlContent}</Block.Body>
+
+                  <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
                 </Block>
               ) : null
           )}
         </Carousel>
       </div>
     </div>
+  </div>
+)
+
+const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
+  <div>
+    {callToAction && callToAction.call !== '' && <Button type='primary' call={callToAction.call} />}
+    <br></br>
+    {secondaryCallToAction && secondaryCallToAction !== '' && <Button type='link' call={secondaryCallToAction.call} />}
   </div>
 )
 
