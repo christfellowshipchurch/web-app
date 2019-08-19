@@ -3,7 +3,7 @@ import {
     Query
 } from 'react-apollo'
 import {
-    get, find
+    toLower
 } from 'lodash'
 
 import { buttonClick } from '../../utils'
@@ -11,25 +11,15 @@ import getWebsiteFooter from '../../queries/getWebsiteFooter'
 
 import { Container, Row, Col } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faCopyright } from '@fortawesome/pro-light-svg-icons'
+import { faFacebookSquare, faInstagram, faYoutube, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
-const title = {
-    socialMedia: 'Social Media Icon',
-    footerLink: 'Footer Links'
+const SM_ICONS = {
+    facebook: faFacebookSquare,
+    instagram: faInstagram,
+    youtube: faYoutube,
+    twitter: faTwitter
 }
-
-const SocialMediaButton = ({ link, icon, call }) => link && link !== ''
-    ? (
-        <a href="/#">
-            <FontAwesomeIcon
-                color='white'
-                icon={icon}
-                size='2x'
-                className='mr-4'
-                onClick={() => buttonClick(call, link, title.socialMedia, 'True')}>
-            </FontAwesomeIcon>
-        </a>
-    ) : null
 
 const Footer = () => {
     const website = process.env.REACT_APP_WEBSITE_KEY
@@ -43,32 +33,37 @@ const Footer = () => {
 
                 data = data.getWebsiteNavigation
 
-                return null
-
                 return (
                     <Container fluid className='header-footer-color py-5' style={{ backgroundColor: '#353535' }}>
                         <Row className='d-flex justify-content-center'>
                             <Col xs="12" md="11" className="pt-4 pb-3 footerPadding">
                                 <div className='d-flex justify-content-center mb-3'>
-                                    {/* <SocialMediaButton link={data.youtubeUrl} icon={faYoutube} call='YouTube' />
-                                    <SocialMediaButton link={data.instagramUrl} icon={faInstagram} call='Instagram' />
-                                    <SocialMediaButton link={data.facebookUrl} icon={faFacebook} call='Facebook' />
-                                    <SocialMediaButton link={data.twitterUrl} icon={faTwitter} call='Twitter' /> */}
+                                    {data.socialMediaLinks.map(({ call, action }, i) => (
+                                        <button
+                                            key={i}
+                                            href="/#"
+                                            className='btn btn-link ml-4'
+                                            onClick={() => { }}>
+                                            <FontAwesomeIcon icon={SM_ICONS[toLower(call)]} size='2x' />
+                                        </button>
+                                    ))}
                                 </div>
 
-                                <div className='dropdown-divider m-auto px-5' style={{ maxWidth: '900px', borderTop: '2px solid #595959' }} />
-                                <br />
+                                <hr className='bg-light w-75 my-3'></hr>
 
-                                <a className='d-flex justify-content-center' style={{ color: '#c1c1c1', fontSize: '14px' }}>
-                                    © {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
-                                </a>
+                                <p className='d-flex justify-content-center align-items-center text-light'>
+                                    <FontAwesomeIcon icon={faCopyright} />
+                                    <span className="pl-1">
+                                        {`${new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved`}
+                                    </span>
+                                </p>
 
                                 <div className='d-flex justify-content-center'>
                                     {data.footerLinks.map((link, i) => (
                                         <a key={i}
                                             href="/#"
-                                            className='text-light text-uppercase ml-4'
-                                            onClick={() => buttonClick(link.call, link.action, title.footerLink, 'True')}>
+                                            className='text-light text-uppercase font-weight-bold ml-4'
+                                            onClick={() => { }}>
                                             {link.call}
                                         </a>
                                     ))}

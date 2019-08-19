@@ -211,7 +211,7 @@ const GroupBlock = ({ id, groupLayout }) => {
 const FormattedCarousel = ({ children }) => (
   <div className="container py-5">
     <div className="row justify-content-center">
-      <div className="col-12 col-md-4">
+      <div className="col-10 col-md-4">
         <Carousel>
           {children.map(({
             __typename,
@@ -228,10 +228,13 @@ const FormattedCarousel = ({ children }) => (
                 <Block
                   key={i}
                   layout={'default'}
-                  imageUrl={get(images, '[0].sources[0].uri', '')}
-                  imageAlt={imageAlt}
-                  videoUrl={videoUrl}
-                  ratio='1by1' >
+                  media={{
+                    imageUrl: get(images, '[0].sources[0].uri', ''),
+                    imageAlt,
+                    videoUrl,
+                    ratio: '1by1',
+                    circle: true
+                  }} >
                   <Block.Title>{title}</Block.Title>
                   <Block.Subtitle>{subtitle}</Block.Subtitle>
                   <Block.Body>{htmlContent}</Block.Body>

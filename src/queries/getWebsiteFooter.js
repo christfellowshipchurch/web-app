@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export default gql`
   query websiteNavigation($website:String!) {
@@ -12,14 +12,15 @@ export default gql`
         name
       }
       
-      facebookUrl
-      twitterUrl
-      instagramUrl
-      
       footerLinks {
+        call
+        action
+      }
+
+      socialMediaLinks {
         call
         action
       }
     }
   }
-`;
+`
