@@ -862,26 +862,6 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@christfellowshipchurch/flat-ui-web@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/flat-ui-web/-/flat-ui-web-1.0.8.tgz#f2a337deab576c4d167e2fcf15861b9494d9f4e2"
-  integrity sha512-YjXRaybEiWIJeZPHaMRII+WEcF08yYuOh4ewr/Ac6ei9rExt6ajb2tWqJ67VEa+zD345x0INb6wp403PTylqnQ==
-  dependencies:
-    "@babel/cli" "^7.4.3"
-    "@fortawesome/fontawesome-svg-core" "^1.2.15"
-    "@fortawesome/free-solid-svg-icons" "^5.7.2"
-    "@fortawesome/react-fontawesome" "^0.1.4"
-    bootstrap "^4.3.1"
-    classnames "^2.2.6"
-    html-to-react "^1.3.4"
-    lodash "^4.17.11"
-    node-sass "^4.11.0"
-    popper.js "^1.14.7"
-    prop-types "^15.7.2"
-    react-image "^2.0.0"
-    react-slick "^0.24.0"
-    slick-carousel "^1.8.1"
-
 "@christfellowshipchurch/web-fonts@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-fonts/-/web-fonts-1.0.0.tgz#57a5430b7f47a4032ff9653397851b969175f291"
@@ -901,10 +881,10 @@
     pure-react-carousel "^1.20.0"
     react-image "^2.0.0"
 
-"@christfellowshipchurch/web-ui-kit@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.11.tgz#f6f4e2ac17ee37a90ba40505ce6574e49b521e81"
-  integrity sha512-cllwHc2xdWHVdtP5c9Qkdf8StCPGAOeZT/iJuWbTyho53upgwX1vZWKBfnORAIbCr803NQVQzvXMZj8i3hgA6g==
+"@christfellowshipchurch/web-ui-kit@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.16.tgz#79c9a9d9021d8ee7438066bd87215065b9bc2c03"
+  integrity sha512-S7oOOStCeAJ/oV8yhT1LADBKarBvZvURHru5g+d8LQU805pl0oG/0Y1syaxtXfc0h2Gb9PPUxUE1V/FfUXxHrg==
   dependencies:
     "@babel/cli" "^7.4.3"
     "@fortawesome/fontawesome-pro-light" "^5.0.13"
@@ -919,7 +899,7 @@
     classnames "^2.2.6"
     html-to-react "^1.3.4"
     lodash "^4.17.11"
-    node-sass "^4.11.0"
+    node-sass "^4.12.0"
     popper.js "^1.14.7"
     prop-types "^15.7.2"
     react-image "^2.0.0"
@@ -7368,7 +7348,7 @@ node-releases@^1.1.25:
   dependencies:
     semver "^5.3.0"
 
-node-sass@^4.11.0:
+node-sass@^4.11.0, node-sass@^4.12.0:
   version "4.12.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.12.0.tgz#0914f531932380114a30cc5fa4fa63233a25f017"
   integrity sha512-A1Iv4oN+Iel6EPv77/HddXErL2a+gZ4uBeZUy+a8O35CFYTXhgA8MgLCWBtwpGZdCvTvQ9d+bQxX/QC36GDPpQ==

@@ -1,9 +1,8 @@
-import React from 'react';
-import Router from './components/Router/index';
+import React from 'react'
+import Router from './components/Router/index'
 
-import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import SEO from './seo';
+import SEO from './seo'
 
 const App = () => {
   window.scrollTo(0, 0)
@@ -11,8 +10,6 @@ const App = () => {
   return (
     <div className="App bg-light">
       <SEO />
-
-      <Navbar />
 
       <div className="App-body mt-5">
         <Router />
@@ -23,4 +20,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App

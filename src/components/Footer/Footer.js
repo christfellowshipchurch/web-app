@@ -6,33 +6,30 @@ import {
     get, find
 } from 'lodash'
 
+import { buttonClick } from '../../utils'
 import getWebsiteFooter from '../../queries/getWebsiteFooter'
 
 import { Container, Row, Col } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import {buttonClick} from '../../utils'
 
-const title ={
+const title = {
     socialMedia: 'Social Media Icon',
     footerLink: 'Footer Links'
 }
 
-const socialMediaButton = (link, icon, call) => {
-    if (link && link !== '') {
-        return (
-            <a href="/#">
-                <FontAwesomeIcon 
-                    color='white' 
-                    icon={icon} 
-                    size='2x' 
-                    className='mr-4'
-                    onClick={() => buttonClick(call, link, title.socialMedia, 'True')}>
-                </FontAwesomeIcon>
-            </a>
-        )
-    }
-}
+const SocialMediaButton = ({ link, icon, call }) => link && link !== ''
+    ? (
+        <a href="/#">
+            <FontAwesomeIcon
+                color='white'
+                icon={icon}
+                size='2x'
+                className='mr-4'
+                onClick={() => buttonClick(call, link, title.socialMedia, 'True')}>
+            </FontAwesomeIcon>
+        </a>
+    ) : null
 
 const Footer = () => {
     const website = process.env.REACT_APP_WEBSITE_KEY
@@ -46,29 +43,29 @@ const Footer = () => {
 
                 data = data.getWebsiteNavigation
 
-                const img = find(data.images, (n) => n.name === 'Brand Icon')
+                return null
 
                 return (
-                    <Container fluid className='header-footer-color py-5' style={{backgroundColor: '#353535'}}>
+                    <Container fluid className='header-footer-color py-5' style={{ backgroundColor: '#353535' }}>
                         <Row className='d-flex justify-content-center'>
                             <Col xs="12" md="11" className="pt-4 pb-3 footerPadding">
                                 <div className='d-flex justify-content-center mb-3'>
-                                    {socialMediaButton(data.youtubeUrl, faYoutube, 'Youtube')}
-                                    {socialMediaButton(data.instagramUrl, faInstagram, 'Instagram')}
-                                    {socialMediaButton(data.facebookUrl, faFacebook, 'Facebook')}
-                                    {socialMediaButton(data.twitterUrl, faTwitter, 'Twitter')}
+                                    {/* <SocialMediaButton link={data.youtubeUrl} icon={faYoutube} call='YouTube' />
+                                    <SocialMediaButton link={data.instagramUrl} icon={faInstagram} call='Instagram' />
+                                    <SocialMediaButton link={data.facebookUrl} icon={faFacebook} call='Facebook' />
+                                    <SocialMediaButton link={data.twitterUrl} icon={faTwitter} call='Twitter' /> */}
                                 </div>
 
-                                <div className='dropdown-divider m-auto px-5' style={{maxWidth: '900px', borderTop: '2px solid #595959'}} />
-                                <br/>
+                                <div className='dropdown-divider m-auto px-5' style={{ maxWidth: '900px', borderTop: '2px solid #595959' }} />
+                                <br />
 
-                                <a className='d-flex justify-content-center' style={{color: '#c1c1c1', fontSize: '14px'}}>
-                                © {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
+                                <a className='d-flex justify-content-center' style={{ color: '#c1c1c1', fontSize: '14px' }}>
+                                    © {new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved
                                 </a>
 
                                 <div className='d-flex justify-content-center'>
                                     {data.footerLinks.map((link, i) => (
-                                        <a  key={i}
+                                        <a key={i}
                                             href="/#"
                                             className='text-light text-uppercase ml-4'
                                             onClick={() => buttonClick(link.call, link.action, title.footerLink, 'True')}>
@@ -85,4 +82,4 @@ const Footer = () => {
     )
 }
 
-export default Footer;
+export default Footer

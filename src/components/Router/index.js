@@ -1,20 +1,17 @@
-import React from 'react';
+import React from 'react'
 import {
     Switch, Route
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import DefaultPage, { LoadingPage, UIPage, FooterPage, RobPage } from '../Page';
+import DefaultPage, { UIPage } from '../Page'
 
 const Router = () => (
     <Switch>
-        <Route exact path="/rob" component={RobPage} />
-        <Route exact path="/footer" component={FooterPage} />
         <Route exact path="/ui" component={UIPage} />
-        <Route exact path="/loading" component={LoadingPage} />
         <Route exact path="/:page" component={DefaultPage} />
 
         <Route path="*" component={DefaultPage} />
     </Switch>
 )
 
-export default Router;
+export default Router
