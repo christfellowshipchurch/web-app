@@ -92,7 +92,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
   const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: page || title } })
 
   if (loading) return (
-    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center">
+    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
       <Loader />
     </div>
   )
@@ -149,7 +149,7 @@ const GroupBlock = ({ id, groupLayout }) => {
   const { loading, error, data } = useQuery(getGroupContentItems, { variables: { id } })
 
   if (loading) return (
-    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center">
+    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
       <Loader />
     </div>
   )

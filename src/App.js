@@ -13,7 +13,7 @@ const App = () => {
 
       <Navbar />
 
-      <div className="App-body mt-5">
+      <div className="App-body mt-0">
         <Router />
       </div>
 
