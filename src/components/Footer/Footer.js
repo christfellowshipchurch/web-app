@@ -6,7 +6,6 @@ import {
     toLower
 } from 'lodash'
 
-import { buttonClick } from '../../utils'
 import getWebsiteFooter from '../../queries/getWebsiteFooter'
 
 import { Container, Row, Col } from 'reactstrap'
@@ -32,6 +31,7 @@ const Footer = () => {
                 if (error) return <nav className="navbar navbar-expand-lg navbar-light bg-light"></nav>
 
                 data = data.getWebsiteNavigation
+                console.log('footer',{data})
 
                 return (
                     <Container fluid className='header-footer-color py-5' style={{ backgroundColor: '#353535' }}>
