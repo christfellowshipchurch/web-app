@@ -14,6 +14,7 @@ import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import SEO from '../../seo'
 import PixelManager from '../PixelManager'
+import Navbar, { NavbarWithOpacity } from '../Navbar'
 
 import { Accordion, Carousel, Row, Loader, Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
 
@@ -121,6 +122,11 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
         openGraphProtocols={openGraphProtocols}
         twitterProtocols={twitterProtocols}
       />
+
+      {page === 'home-page'
+        ? <NavbarWithOpacity />
+        : <Navbar />
+      }
 
       {blockItems.map((item, i) => {
         const classenames = i % 2 === 0 ? 'bg-white' : 'bg-light'

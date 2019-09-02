@@ -11,8 +11,6 @@ const App = () => {
     <div className="App bg-light">
       <SEO />
 
-      <NavbarWithOpacity />
-
       <div className="App-body mt-0">
         <Router />
       </div>
