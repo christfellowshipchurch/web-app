@@ -1,6 +1,6 @@
 import React from 'react'
 import Router from './components/Router/index'
-import Navbar from './components/Navbar'
+import { NavbarWithOpacity } from './components/Navbar'
 import Footer from './components/Footer'
 import SEO from './seo'
 
@@ -11,7 +11,7 @@ const App = () => {
     <div className="App bg-light">
       <SEO />
 
-      <Navbar />
+      <NavbarWithOpacity />
 
       <div className="App-body mt-0">
         <Router />
