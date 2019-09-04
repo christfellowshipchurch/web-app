@@ -20,6 +20,7 @@ import { Accordion, Carousel, Row, Loader, Block, Media, Button } from '@christf
 const ContentBlock = ({
   contentLayout,
   images,
+  videos,
   imageAlt,
   videoUrl,
   imageRatio,
@@ -33,7 +34,7 @@ const ContentBlock = ({
     <Media
       imageUrl={get(images, '[0].sources[0].uri', '')}
       imageAlt={imageAlt}
-      videoUrl={videoUrl}
+      videoUrl={get(videos, '[0].sources[0].uri', '')}
       ratio={imageRatio}
     >
       <Block contentLayout="default" className="text-light">
@@ -217,6 +218,7 @@ const FormattedCarousel = ({ children }) => (
             __typename,
             images,
             imageAlt,
+            videos,
             videoUrl,
             subtitle,
             title,
@@ -231,7 +233,7 @@ const FormattedCarousel = ({ children }) => (
                   media={{
                     imageUrl: get(images, '[0].sources[0].uri', ''),
                     imageAlt,
-                    videoUrl,
+                    videoUrl: get(videos, '[0].sources[0].uri', ''),
                     ratio: '1by1',
                     circle: true
                   }} >
