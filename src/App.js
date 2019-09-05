@@ -1,17 +1,23 @@
 import React from 'react'
 import Router from './components/Router/index'
-import { NavbarWithOpacity } from './components/Navbar'
 import Footer from './components/Footer'
 import SEO from './seo'
+import Navbar, { NavbarWithOpacity } from './components/Navbar'
 
 const App = () => {
+  const page = window.location.pathname
   window.scrollTo(0, 0)
 
   return (
-    <div className="App bg-light">
+    <div>
       <SEO />
 
-      <div className="App-body mt-0">
+      {page === 'home-page'
+        ? <NavbarWithOpacity />
+        : <Navbar />
+      }
+
+      <div className="mt-0">
         <Router />
       </div>
 
