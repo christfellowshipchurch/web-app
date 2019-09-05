@@ -45,24 +45,23 @@ const GroupBlock = ({ id, groupLayout }) => {
       )
     case 'accordion':
       return null
-      return (
-        <Accordion
-          blockTitle={groupTitle}
-          blockBody={groupBody}
-        >
-          {blockItems.map((accordionItem, j) => {
-            return (
-              <div key={j} title={accordionItem.title}>
-                <h2>{accordionItem.title}</h2>
-                {accordionItem.htmlContent}
-              </div>
-            )
-          }
-          )}
-        </Accordion>
-      )
+      // return (
+      //   <Accordion
+      //     blockTitle={groupTitle}
+      //     blockBody={groupBody}
+      //   >
+      //     {blockItems.map((accordionItem, j) => {
+      //       return (
+      //         <div key={j} title={accordionItem.title}>
+      //           <h2>{accordionItem.title}</h2>
+      //           {accordionItem.htmlContent}
+      //         </div>
+      //       )
+      //     }
+      //     )}
+      //   </Accordion>
+      // )
     case 'carousel':
-      // return null
       return (
         <FormattedCarousel>
           {blockItems}
