@@ -36,6 +36,7 @@ const ContentBlock = ({
       imageAlt={imageAlt}
       videoUrl={videoUrl}
       ratio={imageRatio}
+      className="bg-dark"
     >
       <Block contentLayout="default" className="text-light">
         <Block.Title className={`titleWeight`}>

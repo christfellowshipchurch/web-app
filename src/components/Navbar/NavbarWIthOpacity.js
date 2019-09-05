@@ -11,12 +11,12 @@ const NavbarWithOpacity = ({ offset }) => {
   useScrollPosition(({ currPos }) => {
     const opaque = currPos.y > (-1 * offset)
 
-    setBgColor(opaque ? 'transparent' : 'white')
+    setBgColor(opaque ? 'transparent' : 'dark')
     setVariant(opaque ? 'dark' : 'light')
     setImageKey(opaque ? 'brandImageAlt' : 'brandImage')
   })
 
-  return <Navbar bg={bgColor} variant={variant} brandImageKey={imageKey} />
+  return <Navbar bg={bgColor} variant={'dark'} brandImageKey={'brandImageAlt'} />
 
 }
 
