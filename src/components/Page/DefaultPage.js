@@ -64,7 +64,8 @@ const ContentBlock = ({
               imageAlt,
               videoUrl,
               ratio: imageRatio,
-              showControls: true
+              showControls: true,
+              rounded: true
             } : null}
         >
 
