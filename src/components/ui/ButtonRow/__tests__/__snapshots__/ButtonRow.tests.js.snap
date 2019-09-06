@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders a ButtonRow with an incomplete callToAction object 1`] = `
+<div>
+  <br />
+</div>
+`;
+
+exports[`Button renders a ButtonRow with an incomplete callToAction object 2`] = `
+<div>
+  <br />
+</div>
+`;
+
+exports[`Button renders a ButtonRow without a callToAction 1`] = `
+<div>
+  <br />
+  <button
+    className="btn btn-link font-weight-bold"
+    onClick={[Function]}
+  >
+    Title
+  </button>
+</div>
+`;
+
+exports[`Button renders a ButtonRow without crashing 1`] = `
+<div>
+  <button
+    className="btn btn-primary text-uppercase font-weight-bold"
+    onClick={[Function]}
+  >
+    Title
+  </button>
+  <br />
+  <button
+    className="btn btn-link font-weight-bold"
+    onClick={[Function]}
+  >
+    Title
+  </button>
+</div>
+`;
+
+exports[`Button renders a ButtonRow without secondaryCallToAction 1`] = `
+<div>
+  <button
+    className="btn btn-primary text-uppercase font-weight-bold"
+    onClick={[Function]}
+  >
+    Title
+  </button>
+  <br />
+</div>
+`;

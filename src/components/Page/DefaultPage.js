@@ -8,13 +8,14 @@ import {
   lowerCase, get
 } from 'lodash'
 import {
-  mapEdgesToNodes,
+  mapEdgesToNodes, redirectTo
 } from '../../utils'
 import getWebPageBlockItems from '../../queries/getWebPageBlockItems'
 import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import SEO from '../../seo'
 import PixelManager from '../PixelManager'
+import ButtonRow from '../ui/ButtonRow'
 
 import { Accordion, Carousel, Row, Loader, Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ui/ContentBlock'
@@ -62,6 +63,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
         const classenames = i % 2 === 0 ? 'bg-white' : 'bg-light'
         switch (item.__typename) {
           case 'WebsiteBlockItem':
+            console.log({ item })
             return (
               <div className={classenames} key={i}>
                 <ContentBlock {...item} />

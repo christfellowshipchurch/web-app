@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/cli": "^7.4.3",
     "@christfellowshipchurch/web-fonts": "^1.0.0",
-    "@christfellowshipchurch/web-ui-kit": "^0.0.20",
+    "@christfellowshipchurch/web-ui-kit": "^0.0.23",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
@@ -24,6 +24,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-apollo": "^3.0.0",
+    "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.8.6",
     "react-facebook-pixel": "^0.1.2",
     "react-ga": "^2.5.7",
@@ -81,6 +82,9 @@
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
       "<rootDir>/src/**/?(*.)(spec|test|tests).{js,jsx,mjs}"
     ],
-    "testEnvironment": "jsdom"
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ]
   }
 }
