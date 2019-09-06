@@ -7,13 +7,14 @@ import {
   lowerCase, get
 } from 'lodash'
 import {
-  mapEdgesToNodes,
+  mapEdgesToNodes, redirectTo
 } from '../../utils'
 import getWebPageBlockItems from '../../queries/getWebPageBlockItems'
 import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import SEO from '../../seo'
 import PixelManager from '../PixelManager'
+import ButtonRow from '../ui/ButtonRow'
 
 import { Accordion, Carousel, Row, Loader, Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
 
@@ -80,8 +81,7 @@ const ContentBlock = ({
         </Block>
       </div>
     </div>
-  )
-  )
+  ))
 
 
 
@@ -158,13 +158,9 @@ const GroupBlock = ({ id, groupLayout }) => {
     return <h1 className="text-center">There was an error loading block. Please try again.</h1>
   }
 
-  console.log({ data })
-
   const groupTitle = data.node.title
   const groupBody = data.node.htmlContent
   const blockItems = mapEdgesToNodes(data.node.childContentItemsConnection)
-
-  console.log({ blockItems })
 
   if (!blockItems || !blockItems.length) return null
 
@@ -246,14 +242,6 @@ const FormattedCarousel = ({ children }) => (
         </Carousel>
       </div>
     </div>
-  </div>
-)
-
-const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
-  <div>
-    {callToAction && callToAction.call !== '' && <Button type='primary' call={callToAction.call} />}
-    <br></br>
-    {secondaryCallToAction && secondaryCallToAction !== '' && <Button type='link' call={secondaryCallToAction.call} />}
   </div>
 )
 
