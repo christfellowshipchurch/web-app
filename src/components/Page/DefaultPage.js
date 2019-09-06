@@ -22,7 +22,7 @@ const ContentBlock = ({
   contentLayout,
   images,
   imageAlt,
-  videoUrl,
+  videos,
   imageRatio,
   subtitle,
   title,
@@ -34,7 +34,7 @@ const ContentBlock = ({
     <Media
       imageUrl={get(images, '[0].sources[0].uri', '')}
       imageAlt={imageAlt}
-      videoUrl={videoUrl}
+      videoUrl={get(videos, '[0].sources[0].uri', '')}
       ratio={imageRatio}
     >
       <Block contentLayout="default" className="text-light">
@@ -59,10 +59,15 @@ const ContentBlock = ({
       <div className="row">
         <Block
           layout={lowerCase(contentLayout)}
-          imageUrl={get(images, '[0].sources[0].uri', '')}
-          imageAlt={imageAlt}
-          videoUrl={videoUrl}
-          ratio={imageRatio}
+          media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
+            ? {
+              imageUrl: get(images, '[0].sources[0].uri', ''),
+              imageAlt,
+              videoUrl: get(videos, '[0].sources[0].uri', ''),
+              ratio: imageRatio,
+              showControls: true,
+              rounded: true
+            } : null}
         >
 
           <Block.Subtitle className={`text-muted font-weight-bold`}>
@@ -126,6 +131,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
         const classenames = i % 2 === 0 ? 'bg-white' : 'bg-light'
         switch (item.__typename) {
           case 'WebsiteBlockItem':
+            console.log({ item })
             return (
               <div className={classenames} key={i}>
                 <ContentBlock {...item} />
