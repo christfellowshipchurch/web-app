@@ -27,7 +27,7 @@ export const getTextColorClass = (backgroundColor) => {
     return (o > 175) ? 'text-dark' : 'text-light'
 }
 
-export const buttonClick = (call, action, title, openLinksInNewTab) => {
+export const buttonClick = ({ call, action, title, openLinksInNewTab }) => {
     PixelManager.reportButtonClick({ call: `${title} - ${call}`, action })
 
     if (openLinksInNewTab) {

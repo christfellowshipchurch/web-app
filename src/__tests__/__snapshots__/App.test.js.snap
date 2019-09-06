@@ -2,7 +2,7 @@
 
 exports[`App renders without crashing 1`] = `
 <div
-  className="App"
+  className="App bg-light"
 >
   <metaTags
     description="At Christ Fellowship Church, our goal is to help you know God, grow in your relationships, and discover your purpose so that you can impact the world."
@@ -66,7 +66,7 @@ exports[`App renders without crashing 1`] = `
   />
   <Navbar />
   <div
-    className="App-body mt-5"
+    className="App-body mt-0"
   >
     <Router />
   </div>

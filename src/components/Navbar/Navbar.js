@@ -3,6 +3,8 @@ import { Query, useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
 import { toLower, get, has, find, camelCase } from 'lodash'
 import { useScrollPosition } from '../../hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/fontawesome-pro-light'
 
 import { Navbar, Nav } from 'react-bootstrap'
 
@@ -50,7 +52,7 @@ const NavbarConnected = ({ bg, variant, brandImageKey }) => {
   //  return a defaulted header with the CF Icon centered
   if (loading) return <DefaultNavbar />
   if (error) {
-    console.log({ error })
+    console.error({ error })
     return <DefaultNavbar />
   }
 
@@ -67,7 +69,7 @@ const NavbarConnected = ({ bg, variant, brandImageKey }) => {
     }
 
     return (
-      <Navbar bg={bg} variant={variant} fixed='top' expand='lg'>
+      <Navbar bg={bg} variant={variant} sticky='top' expand='lg'>
         {brandImage &&
           <Navbar.Brand href="/">
             <img
@@ -77,7 +79,9 @@ const NavbarConnected = ({ bg, variant, brandImageKey }) => {
             />
           </Navbar.Brand>
         }
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav">
+          <FontAwesomeIcon icon={faBars} />
+        </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
             {navigationData.navigationLinks.map((link, i) => (

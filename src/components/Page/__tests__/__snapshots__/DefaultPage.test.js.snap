@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefaultPage renders ContentBlock with background layout with Media in background 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1 "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="container-fluid "
+    >
+      <div
+        className="row align-items-center"
+      >
+        <div
+          className="col-12 col-md-12 order-first"
+        />
+        <div
+          className="col-12 col-md text-center"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DefaultPage renders ContentBlock without background layout 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-first"
+    />
+    <div
+      className="col-12 col-md text-center"
+    >
+      <h6 />
+      <h2 />
+      <div />
+    </div>
+  </div>
+</div>
+`;
