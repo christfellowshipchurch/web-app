@@ -1,23 +1,17 @@
 import React from 'react'
-import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {
   useQuery
 } from 'react-apollo'
 import {
-  lowerCase, get
-} from 'lodash'
-import {
-  mapEdgesToNodes, redirectTo
+  mapEdgesToNodes,
 } from '../../utils'
 import getWebPageBlockItems from '../../queries/getWebPageBlockItems'
-import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import SEO from '../../seo'
 import PixelManager from '../PixelManager'
-import ButtonRow from '../ui/ButtonRow'
 
-import { Accordion, Carousel, Row, Loader, Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
+import { Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ui/ContentBlock'
 import GroupBlock from '../ui/GroupBlock'
 
@@ -38,8 +32,6 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
     console.error("ERROR: ", error)
     return <h1 className="text-center">There was an error loading the page. Please try again.</h1>
   }
-
-  // console.log({ data })
 
   const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection)
   const {
@@ -82,14 +74,6 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
     </>
   )
 }
-
-const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
-  <div>
-    {callToAction && callToAction.call !== '' && <Button type='primary' call={callToAction.call} />}
-    <br></br>
-    {secondaryCallToAction && secondaryCallToAction !== '' && <Button type='link' call={secondaryCallToAction.call} />}
-  </div>
-)
 
 DefaultPage.defaultProps = {
   title: 'home',

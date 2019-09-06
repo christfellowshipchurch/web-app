@@ -3,6 +3,8 @@ import classnames from 'classnames'
 import { lowerCase, get } from 'lodash'
 import { Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
 
+import ButtonRow from '../ButtonRow'
+
 const titleClasses = classnames(
   'font-weight-bold'
 )
@@ -13,14 +15,6 @@ const bodyClasses = classnames(
   'pt-1',
   'pb-4',
   'px-3'
-)
-
-const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
-  <div>
-    {callToAction && callToAction.call !== '' && <Button type='primary' call={callToAction.call} />}
-    <br></br>
-    {secondaryCallToAction && secondaryCallToAction !== '' && <Button type='link' call={secondaryCallToAction.call} />}
-  </div>
 )
 
 const ContentBlock = ({
