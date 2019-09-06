@@ -58,10 +58,14 @@ const ContentBlock = ({
       <div className="row">
         <Block
           layout={lowerCase(contentLayout)}
-          imageUrl={get(images, '[0].sources[0].uri', '')}
-          imageAlt={imageAlt}
-          videoUrl={videoUrl}
-          ratio={imageRatio}
+          media={get(images, '[0].sources[0].uri', null) || videoUrl
+            ? {
+              imageUrl: get(images, '[0].sources[0].uri', ''),
+              imageAlt,
+              videoUrl,
+              ratio: imageRatio,
+              showControls: true
+            } : null}
         >
 
           <Block.Subtitle className={`text-muted font-weight-bold`}>

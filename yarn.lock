@@ -881,10 +881,10 @@
     pure-react-carousel "^1.20.0"
     react-image "^2.0.0"
 
-"@christfellowshipchurch/web-ui-kit@^0.0.20":
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.20.tgz#98e9015d69bbd89807d3fa760b224d943b84f322"
-  integrity sha512-ZPQUVO7zrmAGp87iMJl7b+REUS/mF2y0GSRqKDPfn7TN6Lux3/9pfR76fqktl+0c4OlejxOjPNis/IVHkhNMtQ==
+"@christfellowshipchurch/web-ui-kit@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.23.tgz#c42005e5b9a4c079076ca1d1c3e0e2ec20b8b2de"
+  integrity sha512-qN3ovBBKehgXXfabsN8jnGGyZIbRShWHimlNf0ufMWAzFpFNRi0TIoo8tIgRNt0Db1YYCwhbIkk6legehg+6Ew==
   dependencies:
     "@babel/cli" "^7.4.3"
     "@fortawesome/fontawesome-pro-light" "^5.0.13"
@@ -902,6 +902,7 @@
     node-sass "^4.12.0"
     popper.js "^1.14.7"
     prop-types "^15.7.2"
+    react-deprecate "^0.1.0"
     react-image "^2.0.0"
     react-slick "^0.24.0"
     slick-carousel "^1.8.1"
@@ -9009,6 +9010,11 @@ react-app-polyfill@^1.0.2:
     raf "3.4.1"
     regenerator-runtime "0.13.3"
     whatwg-fetch "3.0.0"
+
+react-deprecate@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-deprecate/-/react-deprecate-0.1.0.tgz#817bdf22b8275fb767e9f49a8053f642600435c3"
+  integrity sha512-9ooyaovhANHgfuOxXRgrEiEfWjEhvygeSxrRTGxNlXErnXnyHBGjxCxrKYsT/Gsc62lS9rFOBeK0c2wwdyUnvQ==
 
 react-dev-utils@^9.0.3:
   version "9.0.3"
