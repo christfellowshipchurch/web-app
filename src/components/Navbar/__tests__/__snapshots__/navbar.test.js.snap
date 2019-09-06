@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavbarWithOpacity renders without crashing 1`] = `
+<NavbarConnected
+  bg="transparent"
+  brandImageKey="brandImageAlt"
+  variant="dark"
+/>
+`;

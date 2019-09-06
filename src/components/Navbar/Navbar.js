@@ -1,95 +1,126 @@
 import React, { useState } from 'react'
 import { Query, useQuery } from 'react-apollo'
-import { toLower, get, has, find } from 'lodash'
-import getWebsiteHeader from '../../queries/getWebsiteHeader'
+import PropTypes from 'prop-types'
+import { toLower, get, has, find, camelCase } from 'lodash'
+import { useScrollPosition } from '../../hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/fontawesome-pro-light'
+
+import { Navbar, Nav } from 'react-bootstrap'
+
+import GET_WEBSITE_HEADER from './getWebsiteHeader'
+import DefaultIcon from '../../images/default_icon.png'
 
 import { Button } from '@christfellowshipchurch/web-ui-kit'
 
-const Navbar = () => {
-  const website = process.env.REACT_APP_WEBSITE_KEY
-  const title = window.location.pathname
+// Takes a collection of images from
+//  the API's return data and formats
+//  it to be an array of the following
+//  object structure: { imageKey: { uri, alt } }
+const imageArrayToObject = (images) => {
+  let imagesObj = {}
 
-  let [isHome, setIsHome] = useState(true)
+  images.forEach((n, i) => {
+    const key = camelCase(get(n, 'name', i))
+    const uri = get(n, 'sources[0].uri', '')
+    const alt = get(n, 'name', 'Christ Fellowship Church')
 
-  if (title === '/home-page') {
-    isHome = true
-  } else {
-    isHome = false
-  }
+    imagesObj[key] = { uri, alt }
+  })
 
-  // const navPosition = isHome ? 'fixed-top' : ''
-
-  return (
-    <Query
-      query={getWebsiteHeader}
-      variables={{ website }}
-      fetchPolicy='cache-and-network'
-    >
-      {({ loading, error, data }) => {
-        if (loading)
-          return (
-            <nav className='navbar navbar-expand-lg navbar-light bg-light' />
-          )
-        if (error)
-          return (
-            <nav className='navbar navbar-expand-lg navbar-light bg-light' />
-          )
-
-        data = data.getWebsiteNavigation
-
-        const quickAction = {
-          display: has(data, 'quickAction.call') && has(data, 'quickAction.action'),
-          call: get(data, 'quickAction.call', ''),
-          action: get(data, 'quickAction.action', '')
-        }
-
-        const img = data.images[0].sources[0].uri       
-
-        const navColor = isHome ? 'transparent' : 'white'
-        const linkColor = isHome ? 'white' : 'dark'
-
-        return (
-          <div className={`fixed-top`} >
-            <nav
-              className={`navbar navbar-expand-lg navbar-light bg-${navColor}`}
-            >
-              {img ? (
-                <div className='pl-4'>
-                  <a href='/'>
-                    <img
-                      src={img}
-                      style={{ height: '80px', width: 'auto' }}
-                      alt='Christ Fellowship Brand Image'
-                    />
-                  </a>
-                </div>
-              ) : null}
-              <div className='ml-auto d-flex align-items-center'>
-                {data.navigationLinks.map((link, i) => (
-                  <div key={i} className='mx-4'>
-                    <a
-                      className={`text-${linkColor} my-auto`}
-                      href={link.action}
-                    >
-                      {link.call}
-                    </a>
-                  </div>
-                ))}
-                {quickAction.display ? (
-                  <div className='px-4'>
-                    <Button
-                      call={quickAction.call}
-                      action={quickAction.action}
-                      />
-                  </div>
-                ) : null}
-              </div>
-            </nav>
-          </div>
-        )
-      }}
-    </Query>
-  )
+  return imagesObj
 }
 
-export default Navbar
+const DefaultNavbar = () =>
+  <nav className='navbar navbar-default'>
+    <a href="/">
+      <img
+        src={DefaultIcon}
+        alt='Christ Fellowship Church Icon'
+      />
+    </a>
+  </nav>
+
+const NavbarConnected = ({ bg, variant, brandImageKey }) => {
+  const website = process.env.REACT_APP_WEBSITE_KEY
+  const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
+    variables: { website },
+    fetchPolicy: "cache-and-network"
+  })
+
+  // If Query state is loading or there's an error,
+  //  return a defaulted header with the CF Icon centered
+  if (loading) return <DefaultNavbar />
+  if (error) {
+    console.error({ error })
+    return <DefaultNavbar />
+  }
+
+  // Get the data object from the return data or default to null
+  const navigationData = get(data, 'getWebsiteNavigation', null)
+
+  if (navigationData) {
+    const images = imageArrayToObject(get(navigationData, 'images', []))
+    const brandImage = get(images, brandImageKey, null)
+    const quickAction = {
+      display: has(navigationData, 'quickAction.call') && has(navigationData, 'quickAction.action'),
+      call: get(navigationData, 'quickAction.call', ''),
+      action: get(navigationData, 'quickAction.action', '')
+    }
+
+    return (
+      <Navbar bg={bg} variant={variant} sticky='top' expand='lg'>
+        {brandImage &&
+          <Navbar.Brand href="/">
+            <img
+              src={brandImage.uri}
+              style={{ height: '80px', width: 'auto' }}
+              alt={brandImage.alt}
+            />
+          </Navbar.Brand>
+        }
+        <Navbar.Toggle aria-controls="basic-navbar-nav">
+          <FontAwesomeIcon icon={faBars} />
+        </Navbar.Toggle>
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            {navigationData.navigationLinks.map((link, i) => (
+              <Nav.Link
+                key={i}
+                href={link.action}
+                className='mx-3'>
+                {link.call}
+              </Nav.Link>
+            ))}
+            {quickAction.display &&
+              <div className="mx-3">
+                <Button
+                  call={quickAction.call}
+                  action={quickAction.action}
+                />
+              </div>
+            }
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    )
+  }
+
+  // If the expected data is not returned from the API,
+  //    return the default navbar
+  return <DefaultNavbar />
+}
+
+NavbarConnected.propTypes = {
+  bg: PropTypes.string,
+  variant: PropTypes.string,
+  brandImageKey: PropTypes.string,
+}
+
+NavbarConnected.defaultProps = {
+  bg: 'white',
+  variant: 'light',
+  brandImageKey: 'brandImage',
+}
+
+export default NavbarConnected
