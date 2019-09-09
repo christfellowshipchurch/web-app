@@ -3,7 +3,7 @@ import {
   useQuery
 } from 'react-apollo'
 import {
-  lowerCase, get
+  lowerCase
 } from 'lodash'
 import {
   mapEdgesToNodes,

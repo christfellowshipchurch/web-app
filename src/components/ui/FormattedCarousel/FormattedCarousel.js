@@ -1,15 +1,8 @@
 import React from 'react'
 import { get } from 'lodash'
-import { Carousel, Block, Button } from '@christfellowshipchurch/web-ui-kit'
+import { Carousel, Block } from '@christfellowshipchurch/web-ui-kit'
 import '../../../styles.css'
 
-const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
-  <div>
-      {callToAction && callToAction.call !== '' && <Button type='primary' call={callToAction.call} />}
-      <br></br>
-      {secondaryCallToAction && secondaryCallToAction !== '' && <Button type='link' call={secondaryCallToAction.call} />}
-  </div>
-)
 
 const FormattedCarousel = ({ children }) => (
   <div className="container pt-4">
@@ -29,10 +22,9 @@ const FormattedCarousel = ({ children }) => (
             secondaryCallToAction
           }, i) => __typename === 'WebsiteBlockItem'
               ? (
-                <>
+                <div key={i} >
                 <h2 className='text-center text-dark pb-1'>{title}</h2>
                 <Block
-                  key={i}
                   layout={'default'}
                   media={{
                     imageUrl: get(images, '[0].sources[0].uri', ''),
@@ -50,7 +42,7 @@ const FormattedCarousel = ({ children }) => (
                   {/* <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} /> */}
 
                 </Block>
-                </>
+                </div>
               ) : null
           )}
         </Carousel>

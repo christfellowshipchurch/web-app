@@ -31,7 +31,6 @@ const Footer = () => {
                 if (error) return <nav className="navbar navbar-expand-lg navbar-light bg-light"></nav>
 
                 data = data.getWebsiteNavigation
-                console.log('footer',{data})
 
                 return (
                     <Container fluid className='header-footer-color py-5' style={{ backgroundColor: '#353535' }}>
