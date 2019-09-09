@@ -26,3 +26,15 @@ body {
     width: 30px;
     height: 30px;
 }
+
+/* 
+* Carousel Styling
+*/
+.carousel-img {
+    width: 15% !important;  
+}
+@media (max-width: 768px) {
+    .carousel-img {
+        width: 50% !important;
+    }
+}

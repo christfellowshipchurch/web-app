@@ -1,6 +1,7 @@
 import React from 'react'
 import { get } from 'lodash'
 import { Carousel, Block, Button } from '@christfellowshipchurch/web-ui-kit'
+import '../../../styles.css'
 
 const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
   <div>
@@ -11,9 +12,9 @@ const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
 )
 
 const FormattedCarousel = ({ children }) => (
-  <div className="container py-5">
-    <div className="row justify-content-center">
-      <div className="col-10 col-md-4">
+  <div className="container pt-4">
+    <div className="row py-5">
+      <div className="col">
         <Carousel>
           {children.map(({
             __typename,
@@ -28,6 +29,8 @@ const FormattedCarousel = ({ children }) => (
             secondaryCallToAction
           }, i) => __typename === 'WebsiteBlockItem'
               ? (
+                <>
+                <h2 className='text-center text-dark pb-1'>{title}</h2>
                 <Block
                   key={i}
                   layout={'default'}
@@ -36,14 +39,18 @@ const FormattedCarousel = ({ children }) => (
                     imageAlt,
                     videoUrl: get(videos, '[0].sources[0].uri', ''),
                     ratio: '1by1',
-                    circle: true
+                    circle: true,
+                    className: 'carousel-img m-0 m-auto'
                   }} >
-                  <Block.Title>{title}</Block.Title>
-                  <Block.Subtitle>{subtitle}</Block.Subtitle>
-                  <Block.Body>{htmlContent}</Block.Body>
+                  <div className='d-flex justify-content-center'>
+                    <Block.Subtitle>{subtitle}</Block.Subtitle>
+                    <Block.Body className='col-10 pt-3 font-weight-light'>{htmlContent}</Block.Body>
+                  </div>
+                  
+                  {/* <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} /> */}
 
-                  <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
                 </Block>
+                </>
               ) : null
           )}
         </Carousel>
