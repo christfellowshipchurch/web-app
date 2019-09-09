@@ -980,6 +980,7 @@
   version "0.0.25"
   resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.25.tgz#ac2229c3d444b7948d037a08d1e6513dbdeb0713"
   integrity sha512-cBqwWnBb18HtZ19vExEABem7AvfSpW+mzgliPKIJS0ZVFIEVZSuCO0P6wLHiTbfjBWvWNHBBwSkMkZVjuiO8Qg==
+
   dependencies:
     "@babel/cli" "^7.4.3"
     "@fortawesome/fontawesome-pro-light" "^5.0.13"
