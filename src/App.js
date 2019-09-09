@@ -6,14 +6,17 @@ import Navbar, { NavbarWithOpacity } from './components/Navbar'
 
 const App = () => {
   const page = window.location.pathname
+
+  console.log({ page })
+
   window.scrollTo(0, 0)
 
   return (
     <div>
       <SEO />
 
-      {page === 'home-page'
-        ? <NavbarWithOpacity />
+      {page === 'home-page' || '/home-page'
+        ? <NavbarWithOpacity offset={250} />
         : <Navbar />
       }
 
