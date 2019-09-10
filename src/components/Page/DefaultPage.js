@@ -14,6 +14,8 @@ import PixelManager from '../PixelManager'
 import { Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ui/ContentBlock'
 import GroupBlock from '../ui/GroupBlock'
+import { Feature } from '../features'
+import { get } from 'lodash'
 
 
 const DefaultPage = ({ title, match: { params: { page } } }) => {
@@ -65,6 +67,12 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
             return (
               <div className={classenames} key={i}>
                 <GroupBlock {...item} />
+              </div>
+            )
+          case 'WebsiteFeature':
+            return (
+              <div key={i} className="w-100 px-5">
+                <Feature name={get(item, 'feature', '')} />
               </div>
             )
           default:
