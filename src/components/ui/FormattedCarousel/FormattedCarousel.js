@@ -1,11 +1,14 @@
 import React from 'react'
 import { get } from 'lodash'
-import { Carousel, Block } from '@christfellowshipchurch/web-ui-kit'
+import { Block } from '@christfellowshipchurch/web-ui-kit'
+import { Carousel } from 'react-bootstrap'
 import '../../../styles.css'
 
 
+//NOTE: Carousel indicator styles are done in the custom Boostrap library from the web-ui-kit
+
 const FormattedCarousel = ({ children }) => (
-  <div className="container pt-4">
+  <div className="container">
     <div className="row py-5">
       <div className="col">
         <Carousel>
@@ -22,7 +25,7 @@ const FormattedCarousel = ({ children }) => (
             secondaryCallToAction
           }, i) => __typename === 'WebsiteBlockItem'
               ? (
-                <div key={i} >
+                <div className='pb-5 pt-4' key={i} >
                 <h2 className='text-center text-dark pb-1'>{title}</h2>
                 <Block
                   layout={'default'}
