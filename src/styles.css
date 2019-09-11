@@ -26,3 +26,16 @@ body {
     width: 30px;
     height: 30px;
 }
+
+/* 
+* Content Block with Media in Background
+*/
+.bg-content{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.bg-body-text{
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    font-weight: 250;
+}

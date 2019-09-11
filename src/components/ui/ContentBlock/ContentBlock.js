@@ -2,6 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { lowerCase, get } from 'lodash'
 import { Block, Media, Button } from '@christfellowshipchurch/web-ui-kit'
+import '../../../styles.css'
 
 import ButtonRow from '../ButtonRow'
 
@@ -16,6 +17,7 @@ const bodyClasses = classnames(
   'pb-4',
   'px-3'
 )
+
 
 const ContentBlock = ({
   contentLayout,
@@ -36,21 +38,27 @@ const ContentBlock = ({
       videoUrl={get(videos, '[0].sources[0].uri', '')}
       ratio={imageRatio}
     >
-      <Block contentLayout="default" className="text-light">
-        <Block.Title className='display-4'>
-          {title}
-        </Block.Title>
+      <div className='bg-content'>
+        <Block contentLayout="default" className="text-white">
+          <Block.Title className='display-3'>
+            {title} 
+          </Block.Title>
 
-        <Block.Subtitle className=''>
-          {subtitle}
-        </Block.Subtitle>
+          <Block.Subtitle>
+            {subtitle}
+          </Block.Subtitle>
 
-        <Block.Body className={bodyClasses}>
-          {htmlContent}
-        </Block.Body>
+          <div className='bg-body-text'>
+            <Block.Body className={bodyClasses}>
+              {htmlContent}
+            </Block.Body>
+          </div>
+          
+          
+          <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction}/>
 
-        <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
-      </Block>
+        </Block>
+      </div>     
     </Media>
   )
   : (
