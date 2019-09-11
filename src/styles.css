@@ -38,3 +38,6 @@ body {
         width: 50% !important;
     }
 }
+.carousel-indicators li {
+    background-color:#353535 !important;
+}

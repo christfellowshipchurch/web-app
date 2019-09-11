@@ -5,8 +5,6 @@ import { Carousel } from 'react-bootstrap'
 import '../../../styles.css'
 
 
-//NOTE: Carousel indicator styles are done in the custom Boostrap library from the web-ui-kit
-
 const FormattedCarousel = ({ children }) => (
   <div className="container">
     <div className="row py-5">
