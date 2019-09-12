@@ -14,6 +14,9 @@ body {
 .bg-transparent { background-color: transparent !important; }
 .bg-black { background-color: black !important; }
 
+/* TODO : temporary fix until this gets moved to the main style sheet */
+.bg-light { background-color: #f6f6f6 !important; }
+
 /*
 * Nav
 */
@@ -32,6 +35,13 @@ body {
 .navbar-default img {
     width: 30px;
     height: 30px;
+}
+
+/*
+* Inputs
+*/
+input {
+    background-color: transparent;
 }
 
 /* 

@@ -10,7 +10,7 @@ const FormattedCarousel = ({ children }) => {
 
   return (
     <div className="container">
-      <div className="row py-5">
+      <div className="row py-6">
         <div className="col">
           <Carousel>
             {children.map(({

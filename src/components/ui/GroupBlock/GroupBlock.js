@@ -14,7 +14,7 @@ import { Accordion, Row, Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ContentBlock'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
-
+import { Feature } from '../../features'
 
 
 const GroupBlock = ({ id, groupLayout }) => {
@@ -39,19 +39,36 @@ const GroupBlock = ({ id, groupLayout }) => {
   switch (lowerCase(groupLayout)) {
     case 'row':
       return (
-        <Row>
+        <div className="row justify-content-center">
           {blockItems.map((n, i) => {
-            if (n.__typename === 'WebsiteBlockItem') {
-              if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
-                return <BackgroundContentBlock {...n} key={i} />
-              } else {
-                return <ContentBlock {...n} key={i} />
-              }
+            switch (get(n, '__typename', '')) {
+              case 'WebsiteBlockItem':
+                if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
+                  return (
+                    <BackgroundContentBlock
+                      {...n}
+                      className="col-md-6 d-flex align-items-center"
+                      key={i} />
+                  )
+                } else {
+                  return (
+                    <ContentBlock
+                      {...n}
+                      className="col-md-6"
+                      key={i} />
+                  )
+                }
+              case 'WebsiteFeature':
+                return (
+                  <div key={i} className="col col-md-6 w-100 py-6 px-4">
+                    <Feature name={get(n, 'feature', '')} />
+                  </div>
+                )
+              default:
+                return null
             }
-
-            return null
           })}
-        </Row>
+        </div>
       )
     case 'accordion':
       return null

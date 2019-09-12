@@ -16,6 +16,7 @@ import ContentContainer from '../ui/ContentContainer'
 import ContentBlock from '../ui/ContentBlock'
 import BackgroundContentBlock from '../ui/BackgroundContentBlock'
 import GroupBlock from '../ui/GroupBlock'
+import { Feature } from '../features'
 import { get, camelCase } from 'lodash'
 
 
@@ -76,6 +77,13 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
             break
           case 'WebsiteGroupItem':
             content = <div className="col"><GroupBlock {...item} /></div>
+            break
+          case 'WebsiteFeature':
+            content = (
+              <div className="col px-4">
+                <Feature name={get(item, 'feature', '')} />
+              </div>
+            )
             break
           default:
             content = <h1 className="text-center">{item.title}</h1>

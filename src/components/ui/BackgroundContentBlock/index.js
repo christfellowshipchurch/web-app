@@ -14,14 +14,15 @@ export default ({
   title,
   htmlContent,
   callToAction,
-  secondaryCallToAction
+  secondaryCallToAction,
+  className
 }) => {
   const lg = camelCase(contentLayout).includes('Large')
   const titleSize = lg ? 'display-3' : 'h2'
   const fontSize = lg ? 'bg-body-text' : ''
 
   return (
-    <div className="col py-5">
+    <div className={`col ${lg ? 'py-6' : ''} ${className}`}>
       <div
         className="p-absolute w-100 h-100"
         style={{ top: 0, left: 0, overflow: 'hidden' }}>
@@ -36,7 +37,7 @@ export default ({
 
       <Block
         contentLayout="default"
-        className="text-white max-width-800 py-5">
+        className="text-white max-width-800 py-6">
         <Block.Title className={`${titleSize}`}>
           {title}
         </Block.Title>
