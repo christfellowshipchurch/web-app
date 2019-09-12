@@ -1,4 +1,5 @@
 import React from 'react'
+import classnames from 'classnames'
 import { camelCase, get } from 'lodash'
 import { Block, Media } from '@christfellowshipchurch/web-ui-kit'
 
@@ -22,7 +23,14 @@ export default ({
   const fontSize = lg ? 'bg-body-text' : ''
 
   return (
-    <div className={`col ${lg ? 'py-6' : ''} ${className}`}>
+    <div className={classnames(
+      'col',
+      lg ? 'py-6' : '',
+      className,
+      lg ? 'min-height-75-vh' : '',
+      'd-flex',
+      'align-items-center'
+    )}>
       <div
         className="p-absolute w-100 h-100"
         style={{ top: 0, left: 0, overflow: 'hidden' }}>
@@ -33,6 +41,16 @@ export default ({
           ratio={imageRatio}
           className="h-100 w-100"
         />
+      </div>
+
+      <div
+        className="p-absolute w-100 h-100"
+        style={{
+          top: 0,
+          left: 0,
+          overflow: 'hidden',
+          background: 'rgba(0, 0, 0, 0.4)'
+        }}>
       </div>
 
       <Block

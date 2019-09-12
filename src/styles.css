@@ -11,11 +11,7 @@ body {
 /*
 * Additional Backgrounds
 */
-.bg-transparent { background-color: transparent !important; }
 .bg-black { background-color: black !important; }
-
-/* TODO : temporary fix until this gets moved to the main style sheet */
-.bg-light { background-color: #f6f6f6 !important; }
 
 /*
 * Nav
@@ -82,3 +78,5 @@ input {
 @media screen and (min-width: 1100px) {
     .max-width-1100 { max-width: 1100px; margin-right: auto; margin-left: auto; }
 }
+
+.min-height-75-vh { min-height: 75vh !important; }

@@ -41,7 +41,7 @@ const Footer = () => {
                                 ))}
                             </div>
                         </div>
-                        <hr className='bg-light w-75 my-3'></hr>
+                        <hr className='bg-light w-75 my-4'></hr>
                         <div className="row">
                             <div className="col px-3 max-width-800">
                                 <p className='text-center text-light'>

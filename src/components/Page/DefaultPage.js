@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import {
   useQuery
 } from 'react-apollo'
@@ -39,7 +40,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
 
   const bgColor = {
     'true': 'bg-white',
-    'false': 'bg-light'
+    'false': 'bg-transparent'
   }
   let bgFirst = true
   const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection)
@@ -62,6 +63,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
 
       {blockItems.map((item, i) => {
         const bg = bgColor[`${bgFirst}`]
+        const topPadding = i === 0 ? 'pt-5' : ''
         let content = null
 
         if (!camelCase(get(item, 'contentLayout', '')).includes('background'))
@@ -70,23 +72,23 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
         switch (item.__typename) {
           case 'WebsiteBlockItem':
             if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
-              content = <BackgroundContentBlock {...item} />
+              content = <BackgroundContentBlock {...item} className={topPadding} />
             } else {
-              content = <ContentBlock {...item} />
+              content = <ContentBlock {...item} className={topPadding} />
             }
             break
           case 'WebsiteGroupItem':
-            content = <div className="col"><GroupBlock {...item} /></div>
+            content = <div className={classnames("col", topPadding)}><GroupBlock {...item} /></div>
             break
           case 'WebsiteFeature':
             content = (
-              <div className="col px-4">
+              <div className={classnames("col", 'px-4', topPadding)}>
                 <Feature name={get(item, 'feature', '')} />
               </div>
             )
             break
           default:
-            content = <h1 className="text-center">{item.title}</h1>
+            content = <h1 className={classnames("text-center", topPadding)}>{item.title}</h1>
             break
         }
 
