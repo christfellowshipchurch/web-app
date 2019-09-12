@@ -12,10 +12,12 @@ import SEO from '../../seo'
 import PixelManager from '../PixelManager'
 
 import { Loader } from '@christfellowshipchurch/web-ui-kit'
+import ContentContainer from '../ui/ContentContainer'
 import ContentBlock from '../ui/ContentBlock'
+import BackgroundContentBlock from '../ui/BackgroundContentBlock'
 import GroupBlock from '../ui/GroupBlock'
 import { Feature } from '../features'
-import { get } from 'lodash'
+import { get, camelCase } from 'lodash'
 
 
 const DefaultPage = ({ title, match: { params: { page } } }) => {
@@ -35,6 +37,11 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
     return <h1 className="text-center">There was an error loading the page. Please try again.</h1>
   }
 
+  const bgColor = {
+    'true': 'bg-white',
+    'false': 'bg-light'
+  }
+  let bgFirst = true
   const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection)
   const {
     metaDescription,
@@ -44,7 +51,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
   } = blockItems
 
   return (
-    <>
+    <div className="container-fluid">
       <SEO
         title={`${page || title} - Christ Fellowship Church`}
         description={metaDescription}
@@ -54,32 +61,44 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
       />
 
       {blockItems.map((item, i) => {
-        const classenames = i % 2 === 0 ? 'bg-white' : 'bg-light'
+        const bg = bgColor[`${bgFirst}`]
+        let content = null
+
+        console.log({ item })
+
+        if (!camelCase(get(item, 'contentLayout', '')).includes('background'))
+          bgFirst = !bgFirst
+
         switch (item.__typename) {
           case 'WebsiteBlockItem':
-            console.log({ item })
-            return (
-              <div className={classenames} key={i}>
-                <ContentBlock {...item} />
-              </div>
-            )
+            if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
+              content = <BackgroundContentBlock {...item} />
+            } else {
+              content = <ContentBlock {...item} />
+            }
+            break
           case 'WebsiteGroupItem':
-            return (
-              <div className={classenames} key={i}>
-                <GroupBlock {...item} />
-              </div>
-            )
+            content = <div className="col"><GroupBlock {...item} /></div>
+            break
           case 'WebsiteFeature':
-            return (
-              <div key={i} className="w-100 px-5">
+            content = (
+              <div className="col px-4">
                 <Feature name={get(item, 'feature', '')} />
               </div>
             )
+            break
           default:
-            return <h1 className="text-center" key={i}>{item.title}</h1>
+            content = <h1 className="text-center">{item.title}</h1>
+            break
         }
+
+        return (
+          <div className={`row ${bg}`} key={i}>
+            {content}
+          </div>
+        )
       })}
-    </>
+    </div>
   )
 }
 

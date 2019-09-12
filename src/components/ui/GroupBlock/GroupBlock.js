@@ -3,7 +3,7 @@ import {
   useQuery
 } from 'react-apollo'
 import {
-  lowerCase, get
+  lowerCase, get, camelCase
 } from 'lodash'
 import {
   mapEdgesToNodes,
@@ -12,6 +12,7 @@ import getGroupContentItems from '../../../queries/getGroupContentItems'
 
 import { Accordion, Row, Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ContentBlock'
+import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
 import { Feature } from '../../features'
 
@@ -42,7 +43,11 @@ const GroupBlock = ({ id, groupLayout }) => {
           {blockItems.map((n, i) => {
             switch (get(n, '__typename', '')) {
               case 'WebsiteBlockItem':
-                return <ContentBlock {...n} key={i} />
+                 if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
+                    return <BackgroundContentBlock {...n} key={i} />
+                  } else {
+                    return <ContentBlock {...n} key={i} />
+                  }
               case 'WebsiteFeature':
                 return (
                   <div key={i} className="w-100 px-5">
