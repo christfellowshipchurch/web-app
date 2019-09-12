@@ -31,7 +31,7 @@ const Footer = () => {
                 data = data.getWebsiteNavigation
 
                 return (
-                    <div className="container-fluid py-5 bg-black">
+                    <div className="container-fluid py-6 bg-dark">
                         <div className="row justify-content-center">
                             <div className="col text-center">
                                 {data.socialMediaLinks.map(({ call, action }, i) => (

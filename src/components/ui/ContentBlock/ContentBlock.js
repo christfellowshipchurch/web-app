@@ -22,9 +22,10 @@ const ContentBlock = ({
   title,
   htmlContent,
   callToAction,
-  secondaryCallToAction
+  secondaryCallToAction,
+  className
 }) => (
-    <div className="col px-4 py-5">
+    <div className={`col px-4 py-6 ${className}`}>
       <Block
         layout={camelCase(contentLayout)}
         className="max-width-1100"

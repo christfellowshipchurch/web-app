@@ -39,18 +39,28 @@ const GroupBlock = ({ id, groupLayout }) => {
   switch (lowerCase(groupLayout)) {
     case 'row':
       return (
-        <Row>
+        <div className="row justify-content-center">
           {blockItems.map((n, i) => {
             switch (get(n, '__typename', '')) {
               case 'WebsiteBlockItem':
-                 if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
-                    return <BackgroundContentBlock {...n} key={i} />
-                  } else {
-                    return <ContentBlock {...n} key={i} />
-                  }
+                if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
+                  return (
+                    <BackgroundContentBlock
+                      {...n}
+                      className="col-md-6 d-flex align-items-center"
+                      key={i} />
+                  )
+                } else {
+                  return (
+                    <ContentBlock
+                      {...n}
+                      className="col-md-6"
+                      key={i} />
+                  )
+                }
               case 'WebsiteFeature':
                 return (
-                  <div key={i} className="w-100 px-5">
+                  <div key={i} className="col col-md-6 w-100 py-6 px-4">
                     <Feature name={get(n, 'feature', '')} />
                   </div>
                 )
@@ -58,7 +68,7 @@ const GroupBlock = ({ id, groupLayout }) => {
                 return null
             }
           })}
-        </Row>
+        </div>
       )
     case 'accordion':
       return null
