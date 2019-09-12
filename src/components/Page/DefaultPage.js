@@ -18,7 +18,7 @@ import ContentBlock from '../ui/ContentBlock'
 import BackgroundContentBlock from '../ui/BackgroundContentBlock'
 import GroupBlock from '../ui/GroupBlock'
 import { Feature } from '../features'
-import { get, camelCase } from 'lodash'
+import { get, camelCase, lowerCase } from 'lodash'
 
 
 const DefaultPage = ({ title, match: { params: { page } } }) => {
@@ -62,6 +62,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
       />
 
       {blockItems.map((item, i) => {
+        const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-')
         const bg = bgColor[`${bgFirst}`]
         const topPadding = i === 0 ? 'pt-5' : ''
         let content = null
@@ -93,7 +94,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
         }
 
         return (
-          <div className={`row ${bg}`} key={i}>
+          <div id={id} className={`row ${bg}`} key={i}>
             {content}
           </div>
         )
