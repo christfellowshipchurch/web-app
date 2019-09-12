@@ -35,6 +35,18 @@ body {
 }
 
 /* 
+* Carousel Styling
+*/
+.carousel-img {
+    width: 15% !important;  
+}
+@media (max-width: 768px) {
+    .carousel-img {
+        width: 50% !important;
+    }
+}
+.carousel-indicators li {
+    background-color:#353535 !important;
 * Content Block with Media in Background
 */
 .bg-content{

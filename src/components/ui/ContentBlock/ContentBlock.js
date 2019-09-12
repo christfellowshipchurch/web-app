@@ -2,7 +2,6 @@ import React from 'react'
 import classnames from 'classnames'
 import { camelCase, get } from 'lodash'
 import { Block } from '@christfellowshipchurch/web-ui-kit'
-import '../../../styles.css'
 
 import ButtonRow from '../ButtonRow'
 
