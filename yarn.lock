@@ -976,11 +976,10 @@
     pure-react-carousel "^1.20.0"
     react-image "^2.0.0"
 
-"@christfellowshipchurch/web-ui-kit@^0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.25.tgz#ac2229c3d444b7948d037a08d1e6513dbdeb0713"
-  integrity sha512-cBqwWnBb18HtZ19vExEABem7AvfSpW+mzgliPKIJS0ZVFIEVZSuCO0P6wLHiTbfjBWvWNHBBwSkMkZVjuiO8Qg==
-
+"@christfellowshipchurch/web-ui-kit@^0.0.29":
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.29.tgz#b62b7f5d37f462873098ebb90d175eb97d726fa1"
+  integrity sha512-077RrmbG6u0ZlnTXg3ou0GhpMXJATp2LAdASB1EEmoLpp9BNe2lw7xoSj9v8aN88rdPvpOnfsYjXa4E43q5wgQ==
   dependencies:
     "@babel/cli" "^7.4.3"
     "@fortawesome/fontawesome-pro-light" "^5.0.13"
