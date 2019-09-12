@@ -3,15 +3,16 @@ import {
   useQuery
 } from 'react-apollo'
 import {
-  lowerCase
+  lowerCase, get, camelCase
 } from 'lodash'
 import {
   mapEdgesToNodes,
 } from '../../../utils'
 import getGroupContentItems from '../../../queries/getGroupContentItems'
 
-import { Accordion, Row, Loader} from '@christfellowshipchurch/web-ui-kit'
+import { Accordion, Row, Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ContentBlock'
+import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
 
 
@@ -39,28 +40,37 @@ const GroupBlock = ({ id, groupLayout }) => {
     case 'row':
       return (
         <Row>
-          {blockItems.map((n, i) => n.__typename === 'WebsiteBlockItem'
-            ? <ContentBlock {...n} key={i} /> : null)}
+          {blockItems.map((n, i) => {
+            if (n.__typename === 'WebsiteBlockItem') {
+              if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
+                return <BackgroundContentBlock {...n} key={i} />
+              } else {
+                return <ContentBlock {...n} key={i} />
+              }
+            }
+
+            return null
+          })}
         </Row>
       )
     case 'accordion':
       return null
-      // return (
-      //   <Accordion
-      //     blockTitle={groupTitle}
-      //     blockBody={groupBody}
-      //   >
-      //     {blockItems.map((accordionItem, j) => {
-      //       return (
-      //         <div key={j} title={accordionItem.title}>
-      //           <h2>{accordionItem.title}</h2>
-      //           {accordionItem.htmlContent}
-      //         </div>
-      //       )
-      //     }
-      //     )}
-      //   </Accordion>
-      // )
+    // return (
+    //   <Accordion
+    //     blockTitle={groupTitle}
+    //     blockBody={groupBody}
+    //   >
+    //     {blockItems.map((accordionItem, j) => {
+    //       return (
+    //         <div key={j} title={accordionItem.title}>
+    //           <h2>{accordionItem.title}</h2>
+    //           {accordionItem.htmlContent}
+    //         </div>
+    //       )
+    //     }
+    //     )}
+    //   </Accordion>
+    // )
     case 'carousel':
       return (
         <FormattedCarousel>

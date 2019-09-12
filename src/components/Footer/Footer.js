@@ -8,9 +8,7 @@ import {
 
 import getWebsiteFooter from '../../queries/getWebsiteFooter'
 
-import { Container, Row, Col } from 'reactstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopyright } from '@fortawesome/pro-light-svg-icons'
 import { faFacebookSquare, faInstagram, faYoutube, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const SM_ICONS = {
@@ -33,43 +31,37 @@ const Footer = () => {
                 data = data.getWebsiteNavigation
 
                 return (
-                    <Container fluid className='header-footer-color py-5' style={{ backgroundColor: '#353535' }}>
-                        <Row className='d-flex justify-content-center'>
-                            <Col xs="12" md="11" className="pt-4 pb-3 footerPadding">
-                                <div className='d-flex justify-content-center mb-3'>
-                                    {data.socialMediaLinks.map(({ call, action }, i) => (
-                                        <button
-                                            key={i}
-                                            href="/#"
-                                            className='btn btn-link ml-4'
-                                            onClick={() => { }}>
-                                            <FontAwesomeIcon icon={SM_ICONS[toLower(call)]} size='2x' />
-                                        </button>
-                                    ))}
-                                </div>
-
-                                <hr className='bg-light w-75 my-3'></hr>
-
-                                <p className='d-flex justify-content-center align-items-center text-light'>
-                                    <FontAwesomeIcon icon={faCopyright} />
-                                    <span className="pl-1">
-                                        {`${new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved`}
-                                    </span>
+                    <div className="container-fluid py-5 bg-black">
+                        <div className="row justify-content-center">
+                            <div className="col text-center">
+                                {data.socialMediaLinks.map(({ call, action }, i) => (
+                                    <a href={action} key={i} className="text-white mx-3">
+                                        <FontAwesomeIcon icon={SM_ICONS[toLower(call)]} size='2x' />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                        <hr className='bg-light w-75 my-3'></hr>
+                        <div className="row">
+                            <div className="col px-3 max-width-800">
+                                <p className='text-center text-light'>
+                                    {`${new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved`}
                                 </p>
-
-                                <div className='d-flex justify-content-center'>
-                                    {data.footerLinks.map((link, i) => (
-                                        <a key={i}
-                                            href="/#"
-                                            className='text-light text-uppercase font-weight-bold ml-4'
-                                            onClick={() => { }}>
-                                            {link.call}
-                                        </a>
-                                    ))}
-                                </div>
-                            </Col>
-                        </Row>
-                    </Container>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col text-center max-width-800">
+                                {data.footerLinks.map((link, i) => (
+                                    <a key={i}
+                                        href="/#"
+                                        className='text-light text-uppercase font-weight-bold mx-3'
+                                        onClick={() => { }}>
+                                        {link.call}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                 )
             }}
         </Query>

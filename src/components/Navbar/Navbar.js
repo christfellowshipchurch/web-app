@@ -12,6 +12,7 @@ import GET_WEBSITE_HEADER from './getWebsiteHeader'
 import DefaultIcon from '../../images/default_icon.png'
 
 import { Button } from '@christfellowshipchurch/web-ui-kit'
+import { redirectTo } from '../../utils'
 
 // Takes a collection of images from
 //  the API's return data and formats
@@ -41,7 +42,7 @@ const DefaultNavbar = () =>
     </a>
   </nav>
 
-const NavbarConnected = ({ bg, variant, brandImageKey }) => {
+const NavbarConnected = ({ bg, variant, brandImageKey, onToggle }) => {
   const website = process.env.REACT_APP_WEBSITE_KEY
   const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
     variables: { website },
@@ -79,8 +80,11 @@ const NavbarConnected = ({ bg, variant, brandImageKey }) => {
             />
           </Navbar.Brand>
         }
-        <Navbar.Toggle aria-controls="basic-navbar-nav">
-          <FontAwesomeIcon icon={faBars} />
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={onToggle}
+          className="border-0">
+          <FontAwesomeIcon icon={faBars} size="1x" />
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
@@ -95,8 +99,8 @@ const NavbarConnected = ({ bg, variant, brandImageKey }) => {
             {quickAction.display &&
               <div className="mx-3">
                 <Button
-                  call={quickAction.call}
-                  action={quickAction.action}
+                  title={quickAction.call}
+                  onClick={() => redirectTo(quickAction.action)}
                 />
               </div>
             }

@@ -21,6 +21,7 @@ const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
             && secondaryCallToAction.action !== ''
             && <Button
                 type='link'
+                className='text-white'
                 title={secondaryCallToAction.call}
                 onClick={() => redirectTo(secondaryCallToAction.action)} />}
     </div>
