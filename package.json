@@ -5,7 +5,8 @@
   "dependencies": {
     "@babel/cli": "^7.4.3",
     "@christfellowshipchurch/web-fonts": "^1.0.0",
-    "@christfellowshipchurch/web-ui-kit": "^0.0.29",
+    "@fortawesome/fontawesome-pro-light": "^5.0.13",
+    "@christfellowshipchurch/web-ui-kit": "^0.0.30",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
@@ -14,6 +15,7 @@
     "apollo-boost": "^0.3.1",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "formik": "^1.5.8",
     "graphql": "^14.1.1",
     "html-to-react": "^1.3.4",
     "jest-coverage-badges": "^1.1.2",
@@ -32,7 +34,8 @@
     "react-meta-tags": "^0.7.4",
     "react-router-dom": "^4.3.1",
     "react-scripts": "^3.0.0",
-    "reactstrap": "^7.1.0"
+    "reactstrap": "^7.1.0",
+    "yup": "^0.27.0"
   },
   "scripts": {
     "start": "react-scripts start",

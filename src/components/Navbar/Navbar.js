@@ -70,7 +70,7 @@ const NavbarConnected = ({ bg, variant, brandImageKey, onToggle }) => {
     }
 
     return (
-      <Navbar bg={bg} variant={variant} sticky='top' expand='lg'>
+      <Navbar bg={bg} variant={variant} fixed='top' expand='lg'>
         {brandImage &&
           <Navbar.Brand href="/">
             <img
@@ -87,7 +87,7 @@ const NavbarConnected = ({ bg, variant, brandImageKey, onToggle }) => {
           <FontAwesomeIcon icon={faBars} size="1x" />
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
+          <Nav className="ml-auto align-items-center">
             {navigationData.navigationLinks.map((link, i) => (
               <Nav.Link
                 key={i}

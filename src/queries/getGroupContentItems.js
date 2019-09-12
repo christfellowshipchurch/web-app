@@ -52,6 +52,10 @@ query getGroupBlockItems($id: ID!) {
               imageAlt
               imageRatio
             }
+
+            ... on WebsiteFeature {
+              feature
+            }
           }
         }
       }
