@@ -63,8 +63,6 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
         const bg = bgColor[`${bgFirst}`]
         let content = null
 
-        console.log({ item })
-
         if (!camelCase(get(item, 'contentLayout', '')).includes('background'))
           bgFirst = !bgFirst
 

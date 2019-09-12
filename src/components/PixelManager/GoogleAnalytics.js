@@ -19,7 +19,6 @@ const pageView = (route) => {
 
 //Sends GoogleAnalytics ButtonClick event along with what button is being clicked
 const buttonClick = (event, { call }) => {
-  console.log({call, event})
   ReactGA.event({
     category: 'User',
     action: event,

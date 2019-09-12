@@ -7,8 +7,6 @@ import Navbar, { NavbarWithOpacity } from './components/Navbar'
 const App = () => {
   const page = window.location.pathname
 
-  console.log({ page })
-
   window.scrollTo(0, 0)
 
   return (
