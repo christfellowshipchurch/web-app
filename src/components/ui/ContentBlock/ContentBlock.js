@@ -25,9 +25,10 @@ const ContentBlock = ({
   callToAction,
   secondaryCallToAction
 }) => (
-    <div className="col px-4 py-5 max-width-1100">
+    <div className="col px-4 py-5">
       <Block
         layout={camelCase(contentLayout)}
+        className="max-width-1100"
         media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
           ? {
             imageUrl: get(images, '[0].sources[0].uri', ''),

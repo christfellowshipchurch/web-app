@@ -9,7 +9,6 @@ import {
 import getWebsiteFooter from '../../queries/getWebsiteFooter'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCopyright } from '@fortawesome/pro-light-svg-icons'
 import { faFacebookSquare, faInstagram, faYoutube, faTwitter } from '@fortawesome/free-brands-svg-icons'
 
 const SM_ICONS = {

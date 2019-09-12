@@ -80,8 +80,11 @@ const NavbarConnected = ({ bg, variant, brandImageKey, onToggle }) => {
             />
           </Navbar.Brand>
         }
-        <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={onToggle}>
-          <FontAwesomeIcon icon={faBars} />
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={onToggle}
+          className="border-0">
+          <FontAwesomeIcon icon={faBars} size="1x" />
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
