@@ -55,7 +55,7 @@ const Footer = () => {
                                 {data.footerLinks.map((link, i) => (
                                     <a key={i}
                                         href="/#"
-                                        className='text-light text-uppercase font-weight-bold ml-4'
+                                        className='text-light text-uppercase font-weight-bold mx-3'
                                         onClick={() => { }}>
                                         {link.call}
                                     </a>
