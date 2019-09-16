@@ -40,6 +40,16 @@ input {
     background-color: transparent;
 }
 
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+    select::after {
+        content: #9660;
+    }
+
 /* 
 * Carousel Styling
 */
