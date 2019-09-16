@@ -18,7 +18,8 @@ const NavbarWithOpacity = ({ offset }) => {
       bg={bgColor}
       variant={'dark'}
       brandImageKey={'brandImageAlt'}
-      onToggle={() => setIsOpen(!isOpen)} />
+      onToggle={() => setIsOpen(!isOpen)}
+      fixed />
   )
 
 }
