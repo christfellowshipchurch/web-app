@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo'
 import { get, find, sortBy } from 'lodash'
 import classnames from 'classnames'
@@ -52,7 +53,7 @@ const CampusTile = ({
     </div>
 
 const CampusSelect = ({
-
+    background
 }) => {
     const [disabled, setDisabled] = useState(false)
     const [activeCampus, setActiveCampus] = useState(null)
@@ -73,6 +74,7 @@ const CampusSelect = ({
     }
 
     const visibleCampus = activeCampus || campuses[0]
+    const inputBackground = background === 'bg-white' ? 'bg-light' : 'bg-white'
 
     return (
         <div className="container py-6">
@@ -99,7 +101,7 @@ const CampusSelect = ({
                             onChange={(e) => setActiveCampus(find(campuses, ['id', e.target.value]))}
                             className={classnames(
                                 "w-100",
-                                "bg-white",
+                                inputBackground,
                                 "border-0",
                                 "p-3"
                             )}>
@@ -116,7 +118,7 @@ const CampusSelect = ({
                         <input
                             className={classnames(
                                 "rounded",
-                                "bg-white",
+                                inputBackground,
                                 "border-0",
                                 "text-center",
                                 "p-3",
@@ -149,6 +151,17 @@ const CampusSelect = ({
             {visibleCampus && <CampusTile {...visibleCampus} />}
         </div>
     )
+}
+
+CampusSelect.defaultProps = {
+    background: 'bg-white'
+}
+
+CampusSelect.propTypes = {
+    background: PropTypes.oneOf([
+        'bg-white',
+        'bg-light'
+    ])
 }
 
 export default CampusSelect

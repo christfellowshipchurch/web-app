@@ -1,18 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { get } from 'lodash'
+
 import EmailCapture from './EmailCapture'
+import CampusSelect from './CampusSelect'
 
 const featureMap = {
-    emailCaptureForm: EmailCapture
+    emailCaptureForm: EmailCapture,
+    locationFinderWithRsvpForm: CampusSelect
 }
 
 export const Feature = ({
-    name
+    name,
+    ...featureProps
 }) => {
-    const Element = get(featureMap, name, null)
+    const Element = get(featureMap, name, React.Fragment)
 
-    return <Element />
+    return <Element {...featureProps} />
 }
 
 Feature.propTypes = {

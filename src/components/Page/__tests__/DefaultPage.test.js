@@ -8,7 +8,7 @@ import {
   Media,
   Button
 } from "@christfellowshipchurch/web-ui-kit"
-import {ContentBlock, GroupBlock} from '../DefaultPage'
+import { ContentBlock, GroupBlock } from '../DefaultPage'
 import renderer from "react-test-renderer"
 
 describe("DefaultPage", () => {
@@ -17,8 +17,8 @@ describe("DefaultPage", () => {
   it("renders ContentBlock with background layout with Media in background", () => {
     const tree = renderer.create(
       <Media
-      imageUrl=''
-      imageAlt=''
+        imageUrl=''
+        imageAlt=''
       >
         <Block>
         </Block>
@@ -29,9 +29,9 @@ describe("DefaultPage", () => {
   it("renders ContentBlock without background layout", () => {
     const tree = renderer.create(
       <Block>
-          <Block.Subtitle/>
-          <Block.Title/>
-          <Block.Body/>
+        <Block.Subtitle />
+        <Block.Title />
+        <Block.Body />
       </Block>
     );
     expect(tree).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe("DefaultPage", () => {
   it("renders single Block", () => {
     const tree = renderer.create(
       <div>
-        <ContentBlock/>
+        <ContentBlock />
       </div>
     );
     expect(tree).toMatchSnapshot();
@@ -50,7 +50,7 @@ describe("DefaultPage", () => {
   it("renders a groupItem", () => {
     const tree = renderer.create(
       <div>
-        <GroupBlock/>
+        <GroupBlock />
       </div>
     );
     expect(tree).toMatchSnapshot();
