@@ -42,7 +42,13 @@ const DefaultNavbar = () =>
     </a>
   </nav>
 
-const NavbarConnected = ({ bg, variant, brandImageKey, onToggle }) => {
+const NavbarConnected = ({
+  bg,
+  variant,
+  brandImageKey,
+  onToggle,
+  fixed
+}) => {
   const website = process.env.REACT_APP_WEBSITE_KEY
   const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
     variables: { website },
@@ -68,9 +74,19 @@ const NavbarConnected = ({ bg, variant, brandImageKey, onToggle }) => {
       call: get(navigationData, 'quickAction.call', ''),
       action: get(navigationData, 'quickAction.action', '')
     }
+    const navbarProps = {
+      bg,
+      variant,
+      expand: 'lg'
+    }
+
+    // We use sticky styling as the default so that padding is respected
+    //    with the option to override it to use a fixed styling if preferred
+    if (fixed) navbarProps.fixed = "top"
+    else navbarProps.sticky = "top"
 
     return (
-      <Navbar bg={bg} variant={variant} fixed='top' expand='lg'>
+      <Navbar {...navbarProps}>
         {brandImage &&
           <Navbar.Brand href="/">
             <img
@@ -119,12 +135,14 @@ NavbarConnected.propTypes = {
   bg: PropTypes.string,
   variant: PropTypes.string,
   brandImageKey: PropTypes.string,
+  fixed: PropTypes.bool
 }
 
 NavbarConnected.defaultProps = {
   bg: 'white',
   variant: 'light',
   brandImageKey: 'brandImage',
+  fixed: false
 }
 
 export default NavbarConnected
