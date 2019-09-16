@@ -65,9 +65,12 @@ query getWebsitePages($website:String!, $title:String!) {
 
           ... on WebsiteGroupItem {
             groupLayout
-            accordionType
-            
+            accordionType 
           }
+
+          ... on WebsiteFeature {
+            feature
+          } 
         }
       }
     }

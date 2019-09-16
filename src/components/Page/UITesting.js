@@ -1,10 +1,10 @@
 import React from 'react'
-import EmailForm from '../features/EmailCapture'
+import CampusSelect from '../features/CampusSelect'
 
 const DefaultPage = () => {
 
   return (
-    <EmailForm />
+    <CampusSelect />
   )
 }
 

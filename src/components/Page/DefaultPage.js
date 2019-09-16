@@ -84,7 +84,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
           case 'WebsiteFeature':
             content = (
               <div className={classnames("col", 'px-4', topPadding)}>
-                <Feature name={get(item, 'feature', '')} />
+                <Feature name={get(item, 'feature', '')} background={bg} />
               </div>
             )
             break
