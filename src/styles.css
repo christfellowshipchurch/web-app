@@ -8,10 +8,18 @@ body {
     min-width: none !important;
 }
 
+.p-fixed { position: fixed !important; }
+
 /*
 * Additional Backgrounds
 */
 .bg-black { background-color: black !important; }
+
+/*
+* Opacity
+*/
+.opacity-50 { opacity: 0.5; }
+.opacity-65 { opacity: 0.65; }
 
 /*
 * Nav
@@ -36,8 +44,11 @@ body {
 /*
 * Inputs
 */
-input {
+input,
+input:focus {
     background-color: transparent;
+    border: none !important;
+    border-width: 0 !important;
 }
 
 select {
