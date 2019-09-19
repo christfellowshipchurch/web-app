@@ -11,15 +11,20 @@ const FloatingCard = ({
 }) => (
         <div
             className={classnames(
-                "p-absolute",
-                "min-vw-100",
-                "min-vh-100",
+                "p-fixed",
+                "vw-100",
+                "vh-100",
                 'd-flex',
                 'justify-content-center',
-                'align-content-center'
+                'align-content-center',
+                'py-6',
+                'px-1',
+                'px-md-6'
             )}
             style={{
-                zIndex: 1000
+                zIndex: 1000,
+                top: 0,
+                left: 0
             }}
         >
             <div className={classnames(
@@ -31,9 +36,10 @@ const FloatingCard = ({
                 `bg-${overlay}`
             )}></div>
             <div
-                className="card m-6"
+                className="card mt-6"
                 style={{
-                    maxWidth: 600
+                    maxWidth: 600,
+                    overflowY: 'scroll'
                 }}
             >
                 <div
@@ -41,7 +47,8 @@ const FloatingCard = ({
                         "card-header",
                         "bg-white",
                         "text-right",
-                        'border-0'
+                        'border-0',
+                        "sticky-top"
                     )}
                 >
                     <button className="border-0" onClick={onPressExit}>

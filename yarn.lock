@@ -976,10 +976,10 @@
     pure-react-carousel "^1.20.0"
     react-image "^2.0.0"
 
-"@christfellowshipchurch/web-ui-kit@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.33.tgz#44af967f789c94d85cfac0c7344506f788c38b5b"
-  integrity sha512-tdO7LuHlek6gk6BiXftVtd+u5r/F5Kctfu/h/VVFS+mwQmeDn0MfM5J4n6LNLWkN4Gs7hJhoKTun0l6qC441SQ==
+"@christfellowshipchurch/web-ui-kit@^0.0.35":
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/@christfellowshipchurch/web-ui-kit/-/web-ui-kit-0.0.35.tgz#7227ca5022b381fa0855e948180bde41dbeb1f4e"
+  integrity sha512-Huae0y/sk1iWexI6nYaVF/ugcCNtevHuyhSSQSIyX6DLdK/G76gDeWDcntoZZdFg8XdylkLaPa/WTewY9UhwUA==
   dependencies:
     "@babel/cli" "^7.4.3"
     "@fortawesome/fontawesome-pro-light" "^5.0.13"
@@ -7341,6 +7341,11 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
   dependencies:
     minimist "0.0.8"
+
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 moo@^0.4.3:
   version "0.4.3"

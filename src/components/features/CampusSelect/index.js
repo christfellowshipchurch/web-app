@@ -1,13 +1,71 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo'
-import { get, find, sortBy } from 'lodash'
+import { get, find, sortBy, forEach } from 'lodash'
 import classnames from 'classnames'
 import zipcodes from 'zipcodes'
-import { Block, Button, Media, Loader } from '@christfellowshipchurch/web-ui-kit'
+import moment from 'moment'
+
+import { faAngleDown } from '@fortawesome/fontawesome-pro-light'
+import { Button, Media, Loader } from '@christfellowshipchurch/web-ui-kit'
+import InputIcon from '@christfellowshipchurch/web-ui-kit/lib/inputs/inputIcon'
+import FloatingCard from '../../ui/FloatingCard'
+import RsvpForm from '../RsvpForm'
+
 import { GET_CAMPUSES } from './queries'
 
-const imageUrl = "https://dev-rock.christfellowship.church/GetImage.ashx?guid=7b36b335-e086-4b09-86ee-27940a8fe405"
+const normalizeDate = (date) => {
+    if (!date || date === '') return ''
+
+    const m = moment(date)
+    const valuesToNormalize = ['hour', 'minute', 'second', 'millisecond']
+
+    forEach(valuesToNormalize, n => m.set(n, 0))
+
+    return m.toISOString()
+}
+
+const StyledCampusSelect = ({
+    value,
+    onChange,
+    background,
+    campuses,
+    disabled
+}) => (
+        <div
+            className={classnames(
+                'd-flex',
+                'justify-content-center',
+                'align-items-center',
+                "w-100",
+                background,
+                "border-0",
+                "p-3",
+                'w-100',
+                'p-3',
+                "rounded"
+            )}
+        >
+            <select
+                value={value}
+                disabled={disabled}
+                onChange={onChange}
+                className={classnames(
+                    "w-100",
+                    'h-100',
+                    "border-0",
+                )}>
+                {campuses.map((n, i) =>
+                    <option
+                        value={get(n, 'id', 'null')}
+                        key={i}>
+                        {get(n, 'name', '!! ERROR !!')}
+                    </option>
+                )}
+            </select>
+            <InputIcon icon={faAngleDown} />
+        </div>
+    )
 
 const CampusTile = ({
     name,
@@ -16,7 +74,8 @@ const CampusTile = ({
     state,
     postalCode,
     image,
-    serviceTimes
+    serviceTimes,
+    onClick
 }) => <div className="row max-width-1100">
         <div className="col-12 col-md px-3">
             <Media
@@ -47,6 +106,10 @@ const CampusTile = ({
                     title={`${n.day.substring(0, 3)} ${n.time}`}
                     className="m-1"
                     key={i}
+                    onClick={() => onClick({
+                        day: moment().add(1, 'week').isoWeekday(n.day),
+                        time: n.time
+                    })}
                 />
             ))}
         </div>
@@ -55,6 +118,7 @@ const CampusTile = ({
 const CampusSelect = ({
     background
 }) => {
+    const [rsvpForm, setRsvpForm] = useState(null)
     const [disabled, setDisabled] = useState(false)
     const [activeCampus, setActiveCampus] = useState(null)
     const { loading, error, data: campusesData } = useQuery(GET_CAMPUSES)
@@ -95,7 +159,14 @@ const CampusSelect = ({
                     "max-width-800"
                 )}>
                     <div className="col-12 col-md px-3 my-3">
-                        <select
+                        <StyledCampusSelect
+                            value={get(activeCampus, 'id')}
+                            disabled={disabled}
+                            onChange={(e) => setActiveCampus(find(campuses, ['id', e.target.value]))}
+                            background={inputBackground}
+                            campuses={campuses}
+                        />
+                        {/* <select
                             value={get(activeCampus, 'id')}
                             disabled={disabled}
                             onChange={(e) => setActiveCampus(find(campuses, ['id', e.target.value]))}
@@ -103,7 +174,7 @@ const CampusSelect = ({
                                 "w-100",
                                 inputBackground,
                                 "border-0",
-                                "p-3"
+                                "p-3",
                             )}>
                             {campuses.map((n, i) =>
                                 <option
@@ -112,7 +183,7 @@ const CampusSelect = ({
                                     {get(n, 'name', '!! ERROR !!')}
                                 </option>
                             )}
-                        </select>
+                        </select> */}
                     </div>
                     <div className="col px-3">
                         <input
@@ -148,7 +219,25 @@ const CampusSelect = ({
                     </div>
                 </div>
             )}
-            {visibleCampus && <CampusTile {...visibleCampus} />}
+
+            {visibleCampus &&
+                <CampusTile
+                    {...visibleCampus}
+                    onClick={({ day, time }) => {
+                        setRsvpForm({
+                            visitDate: normalizeDate(day),
+                            visitTime: time,
+                            campus: get(visibleCampus, 'name', ''),
+                        })
+                    }}
+                />
+            }
+
+            {rsvpForm &&
+                <FloatingCard onPressExit={() => setRsvpForm(null)}>
+                    <RsvpForm initialValues={rsvpForm} />
+                </FloatingCard>
+            }
         </div>
     )
 }
