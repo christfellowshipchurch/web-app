@@ -33,15 +33,6 @@ const normalizeDate = (date) => {
     return m.toISOString()
 }
 
-const noramlizeTime = (time) => {
-    const clean = toUpper(time).replace('PM', '').replace('AM', '')
-    const suffix = toUpper(time.includes('AM')) ? 'AM' : 'PM'
-
-    return clean.includes(':')
-        ? `${clean} ${suffix}`
-        : `${clean}:00 ${suffix}`
-}
-
 const NUMBER_OF_WEEKS = 12
 
 const VisitForm = ({
@@ -142,7 +133,7 @@ const VisitForm = ({
                         onChange={(e) => setFieldValue('visitTime', get(e, 'target.value', ''))}
                         options={times.map(n => ({
                             label: n.time,
-                            value: noramlizeTime(n.time)
+                            value: moment(n.time, 'h:mm a').format('H:mm:ss')
                         }))}
                     />
                 </div>
