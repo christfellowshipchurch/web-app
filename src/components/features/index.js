@@ -4,10 +4,12 @@ import { get } from 'lodash'
 
 import EmailCapture from './EmailCapture'
 import CampusSelect from './CampusSelect'
+import RsvpForm from './RsvpForm'
 
 const featureMap = {
     emailCaptureForm: EmailCapture,
-    locationFinderWithRsvpForm: CampusSelect
+    locationFinderWithRsvpForm: CampusSelect,
+    rsvpForm: RsvpForm
 }
 
 export const Feature = ({

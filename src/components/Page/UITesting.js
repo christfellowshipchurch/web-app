@@ -1,10 +1,13 @@
 import React from 'react'
-import CampusSelect from '../features/CampusSelect'
+import { Feature } from '../features'
+import FloatingCard from '../ui/FloatingCard'
 
 const DefaultPage = () => {
 
   return (
-    <CampusSelect />
+    <FloatingCard>
+      <Feature name="rsvpForm" />
+    </FloatingCard>
   )
 }
 
