@@ -9,6 +9,12 @@ body {
 }
 
 .p-fixed { position: fixed !important; }
+.focus-indicator-none:focus { 
+    outline-width: 0 !important;
+    border: none !important; 
+    border-width: 0 !important;
+    box-shadow: none !important;
+}
 
 /*
 * Additional Backgrounds

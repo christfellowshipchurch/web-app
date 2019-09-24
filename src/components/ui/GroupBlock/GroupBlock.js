@@ -10,10 +10,11 @@ import {
 } from '../../../utils'
 import getGroupContentItems from '../../../queries/getGroupContentItems'
 
-import { Accordion, Row, Loader } from '@christfellowshipchurch/web-ui-kit'
+import { Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ContentBlock'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
+import Accordion from '../Accordion'
 import { Feature } from '../../features'
 
 
@@ -30,8 +31,8 @@ const GroupBlock = ({ id, groupLayout }) => {
     return <h1 className="text-center">There was an error loading block. Please try again.</h1>
   }
 
-  const groupTitle = data.node.title
-  const groupBody = data.node.htmlContent
+  const groupTitle = get(data, 'node.title', '')
+  const groupBody = get(data, 'node.htmlContent', '')
   const blockItems = mapEdgesToNodes(data.node.childContentItemsConnection)
 
   if (!blockItems || !blockItems.length) return null
@@ -71,23 +72,50 @@ const GroupBlock = ({ id, groupLayout }) => {
         </div>
       )
     case 'accordion':
-      return null
-    // return (
-    //   <Accordion
-    //     blockTitle={groupTitle}
-    //     blockBody={groupBody}
-    //   >
-    //     {blockItems.map((accordionItem, j) => {
-    //       return (
-    //         <div key={j} title={accordionItem.title}>
-    //           <h2>{accordionItem.title}</h2>
-    //           {accordionItem.htmlContent}
-    //         </div>
-    //       )
-    //     }
-    //     )}
-    //   </Accordion>
-    // )
+      return (
+        <div className="row py-6">
+          <div className="col-12 max-width-800 text-center mb-2">
+            <h2>
+              {groupTitle}
+            </h2>
+            {groupBody}
+          </div>
+          <div className="col-12 max-width-1100">
+            <Accordion paginate={lowerCase(get(data, 'node.accordionType', 'default')) === 'paginate'}>
+              {blockItems.map((n, i) => {
+                switch (get(n, '__typename', '')) {
+                  case 'WebsiteBlockItem':
+                    if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
+                      return (
+                        <BackgroundContentBlock
+                          {...n}
+                          className="d-flex align-items-center"
+                          key={i}
+                        />
+                      )
+                    } else {
+                      return (
+                        <ContentBlock
+                          {...n}
+                          contentLayout="default"
+                          key={i}
+                        />
+                      )
+                    }
+                  case 'WebsiteFeature':
+                    return (
+                      <div key={i} className="w-100 py-6 px-4">
+                        <Feature name={get(n, 'feature', '')} />
+                      </div>
+                    )
+                  default:
+                    return null
+                }
+              })}
+            </Accordion>
+          </div>
+        </div>
+      )
     case 'carousel':
       return (
         <FormattedCarousel>
@@ -95,6 +123,7 @@ const GroupBlock = ({ id, groupLayout }) => {
         </FormattedCarousel>
       )
     default:
+
       return null
   }
 }
