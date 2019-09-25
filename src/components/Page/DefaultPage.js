@@ -79,7 +79,11 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
             }
             break
           case 'WebsiteGroupItem':
-            content = <div className={classnames("col", topPadding)}><GroupBlock {...item} /></div>
+            content = <div
+              className={classnames("col", topPadding)}
+            >
+              <GroupBlock {...item} />
+            </div>
             break
           case 'WebsiteFeature':
             content = (

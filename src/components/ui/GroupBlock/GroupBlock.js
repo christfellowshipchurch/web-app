@@ -2,6 +2,7 @@ import React from 'react'
 import {
   useQuery
 } from 'react-apollo'
+import PropTypes from 'prop-types'
 import {
   lowerCase, get, camelCase
 } from 'lodash'
@@ -18,7 +19,11 @@ import Accordion from '../Accordion'
 import { Feature } from '../../features'
 
 
-const GroupBlock = ({ id, groupLayout }) => {
+const GroupBlock = ({
+  id,
+  groupLayout,
+  accordionType
+}) => {
   const { loading, error, data } = useQuery(getGroupContentItems, { variables: { id } })
 
   if (loading) return (
@@ -72,6 +77,7 @@ const GroupBlock = ({ id, groupLayout }) => {
         </div>
       )
     case 'accordion':
+      const paginate = accordionType === 'paginate'
       return (
         <div className="row py-6">
           <div className="col-12 text-center mb-2">
@@ -83,7 +89,7 @@ const GroupBlock = ({ id, groupLayout }) => {
             </div>
           </div>
           <div className="col-12 max-width-1100">
-            <Accordion paginate={lowerCase(get(data, 'node.accordionType', 'default')) === 'paginate'}>
+            <Accordion paginate={paginate}>
               {blockItems.map((n, i) => {
                 switch (get(n, '__typename', '')) {
                   case 'WebsiteBlockItem':
@@ -128,6 +134,20 @@ const GroupBlock = ({ id, groupLayout }) => {
 
       return null
   }
+}
+
+GroupBlock.propTypes = {
+  groupLayout: PropTypes.oneOf([
+    'row', 'accordion', 'carousel',
+    'Row', 'Accordion', 'Carousel',
+    'none',
+  ]),
+  accordionType: PropTypes.oneOf(['default', 'paginate'])
+}
+
+GroupBlock.defaultProps = {
+  groupLayout: 'none',
+  accordionType: 'default'
 }
 
 export default GroupBlock
