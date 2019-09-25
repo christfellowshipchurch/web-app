@@ -15,31 +15,17 @@ const AccordionItems = ({
     children,
     offset
 }) => {
-    const [activeIndex, setActiveIndex] = useState('-1')
-
     return children.length
-        ? children.map((n, i) => {
-            const index = i + offset
-            const eventKey = index.toString()
-            const eventKeyIsActiveKey = activeIndex === eventKey
-            const accordionItemProps = {
-                title: get(n, 'props.title', "Check this out!"),
-                onClick: () => setActiveIndex(eventKeyIsActiveKey ? '-1' : eventKey),
-                eventKey,
-                isActive: eventKeyIsActiveKey
-            }
-
-            return (
-                <AccordionItem {...accordionItemProps} key={i}>
-                    {n}
-                </AccordionItem>
-            )
-        })
+        ? children.map((n, i) => (
+            <AccordionItem
+                title={get(n, 'props.title', "Check this out!")}
+                key={i}
+            >
+                {n}
+            </AccordionItem>
+        ))
         : <AccordionItem
             title={get(children, 'title', "Check this out!")}
-            eventKey={"1"}
-            isActive={activeIndex === '1'}
-            onClick={() => setActiveIndex(activeIndex === '1' ? '-1' : "1")}
         >
             {children}
         </AccordionItem>

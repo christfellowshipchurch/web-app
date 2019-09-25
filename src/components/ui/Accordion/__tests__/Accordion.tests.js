@@ -2,7 +2,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import Accordion from '../'
 
-describte("Accordion", () => {
+describe("Accordion", () => {
     // Rendering
     it("renders an Accordion without crashing", () => {
         const arr = [0, 1, 2, 3, 4]

@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
-    slice
+    slice,
+    uniqueId
 } from 'lodash'
 import { AccordionItems } from './'
 
@@ -31,10 +32,20 @@ const PaginationWrapper = ({
                 {firstHalf}
             </AccordionItems>
         </div>
-        <div className={classnames(
-            "row",
-            isActive ? '' : 'd-none'
-        )}>
+        <div
+            className={classnames(
+                "row",
+                "collapse",
+                "multi-collapse"
+            )}
+
+            id={uniqueId('accordion-pagination-')}
+        >
+            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+            </div>
             <AccordionItems offset={threshold}>
                 {secondHalf}
             </AccordionItems>

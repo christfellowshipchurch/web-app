@@ -2,7 +2,7 @@
 
 exports[`DefaultPage renders ContentBlock with background layout with Media in background 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1 "
+  className="embed-responsive embed-responsive-1by1  "
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -14,10 +14,10 @@ exports[`DefaultPage renders ContentBlock with background layout with Media in b
         className="row align-items-center"
       >
         <div
-          className="col-12 col-md-12 order-first"
+          className="col-12 col-md-12 order-first px-3"
         />
         <div
-          className="col-12 col-md text-center"
+          className="col-12 col-md text-center px-3"
         />
       </div>
     </div>
@@ -33,10 +33,10 @@ exports[`DefaultPage renders ContentBlock without background layout 1`] = `
     className="row align-items-center"
   >
     <div
-      className="col-12 col-md-12 order-first"
+      className="col-12 col-md-12 order-first px-3"
     />
     <div
-      className="col-12 col-md text-center"
+      className="col-12 col-md text-center px-3"
     >
       <h6 />
       <h2 />

@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
     Accordion as BootstrapAccordion,
     Card,
+    Collapse
 } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown } from "@fortawesome/pro-light-svg-icons"
@@ -12,13 +13,11 @@ import { faAngleDown } from "@fortawesome/pro-light-svg-icons"
 //  that the user interacts with
 const AccordionItem = ({
     children,
-    eventKey,
     title,
-    onClick,
-    isActive
 }) => {
+    const [isOpen, setIsOpen] = useState(false)
     const fontAwesomeProps = {}
-    if (isActive) fontAwesomeProps.rotation = 180
+    if (isOpen) fontAwesomeProps.rotation = 180
 
     return (
         <div
@@ -36,10 +35,9 @@ const AccordionItem = ({
                     'shadow-sm'
                 )}
             >
-                <BootstrapAccordion.Toggle
+                <button
                     variant="link"
-                    eventKey={eventKey}
-                    onClick={onClick}
+                    onClick={() => setIsOpen(!isOpen)}
                     className={classnames(
                         "p-3",
                         "w-100",
@@ -47,30 +45,27 @@ const AccordionItem = ({
                         "bg-transparent",
                         "border-light",
                         "rounded",
-                        "focus-indicator-none"
+                        "focus-indicator-none",
+                        "d-flex",
+                        "flex-row",
+                        "justify-content-between",
+                        "align-items-center"
                     )}
                 >
-                    <div
-                        className={classnames(
-                            "d-flex",
-                            "flex-row",
-                            "justify-content-between",
-                            "align-items-center"
-                        )}
-                    >
-                        <span>{title}</span>
-                        <span>
-                            <FontAwesomeIcon
-                                icon={faAngleDown}
-                                size="2x"
-                                {...fontAwesomeProps}
-                            />
-                        </span>
+                    <span>{title}</span>
+                    <span>
+                        <FontAwesomeIcon
+                            icon={faAngleDown}
+                            size="2x"
+                            {...fontAwesomeProps}
+                        />
+                    </span>
+                </button>
+                <Collapse in={isOpen}>
+                    <div className="m-3">
+                        {children}
                     </div>
-                </BootstrapAccordion.Toggle>
-                <BootstrapAccordion.Collapse eventKey={eventKey}>
-                    <Card.Body>{children}</Card.Body>
-                </BootstrapAccordion.Collapse>
+                </Collapse>
             </div>
         </div>
     )

@@ -19,7 +19,7 @@ const Accordion = ({
 }) => {
     return (
         <div className="conatiner-fluid">
-            <BootstrapAccordion className="row">
+            <div className="row">
                 {paginate
                     ? <PaginationWrapper threshold={threshold}>
                         {children}
@@ -28,7 +28,7 @@ const Accordion = ({
                         {children}
                     </AccordionItems>
                 }
-            </BootstrapAccordion>
+            </div>
         </div>
     )
 }

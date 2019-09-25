@@ -2,7 +2,7 @@
 
 exports[`ContentBlock Renderer Displays ContentBlock with Media displaying in the background 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1 "
+  className="embed-responsive embed-responsive-1by1  "
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -14,10 +14,10 @@ exports[`ContentBlock Renderer Displays ContentBlock with Media displaying in th
         className="row align-items-center"
       >
         <div
-          className="col-12 col-md-12 order-first"
+          className="col-12 col-md-12 order-first px-3"
         />
         <div
-          className="col-12 col-md text-center"
+          className="col-12 col-md text-center px-3"
         >
           <h2 />
           <h6 />
@@ -43,10 +43,10 @@ exports[`ContentBlock Renderer Displays ContentBlock with normal layout 1`] = `
         className="row align-items-center"
       >
         <div
-          className="col-12 col-md-12 order-first"
+          className="col-12 col-md-12 order-first px-3"
         />
         <div
-          className="col-12 col-md text-center"
+          className="col-12 col-md text-center px-3"
         >
           <h6 />
           <h2 />
