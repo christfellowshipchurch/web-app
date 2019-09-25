@@ -5,6 +5,9 @@ import {
     slice,
     uniqueId
 } from 'lodash'
+import {
+    Collapse
+} from 'react-bootstrap'
 import { AccordionItems } from './'
 
 // Component used to handle breaking the accordion into
@@ -18,8 +21,8 @@ const PaginationWrapper = ({
     children,
     threshold
 }) => {
+    const [isOpen, setIsOpen] = useState(false)
     const paginate = children.length > threshold
-    const [isActive, setIsActive] = useState(false)
 
     if (!paginate) return <AccordionItems>{children}</AccordionItems>
 
@@ -32,24 +35,17 @@ const PaginationWrapper = ({
                 {firstHalf}
             </AccordionItems>
         </div>
-        <div
-            className={classnames(
-                "row",
-                "collapse",
-                "multi-collapse"
-            )}
 
-            id={uniqueId('accordion-pagination-')}
+        <Collapse
+            in={isOpen}
         >
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
-                <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-      </div>
+            <div className="row">
+                <AccordionItems offset={threshold}>
+                    {secondHalf}
+                </AccordionItems>
             </div>
-            <AccordionItems offset={threshold}>
-                {secondHalf}
-            </AccordionItems>
-        </div>
+        </Collapse>
+
         <div
             className={classnames(
                 "col-12",
@@ -58,9 +54,9 @@ const PaginationWrapper = ({
         >
             <button
                 className="btn btn-link"
-                onClick={() => setIsActive(!isActive)}
+                onClick={() => setIsOpen(!isOpen)}
             >
-                {isActive ? `Show less` : `Show more`}
+                {isOpen ? `Show less` : `Show more`}
             </button>
         </div>
     </div>
