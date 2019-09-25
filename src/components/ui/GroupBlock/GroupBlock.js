@@ -74,11 +74,13 @@ const GroupBlock = ({ id, groupLayout }) => {
     case 'accordion':
       return (
         <div className="row py-6">
-          <div className="col-12 max-width-800 text-center mb-2">
-            <h2>
-              {groupTitle}
-            </h2>
-            {groupBody}
+          <div className="col-12 text-center mb-2">
+            <div className="max-width-800">
+              <h2>
+                {groupTitle}
+              </h2>
+              {groupBody}
+            </div>
           </div>
           <div className="col-12 max-width-1100">
             <Accordion paginate={lowerCase(get(data, 'node.accordionType', 'default')) === 'paginate'}>
