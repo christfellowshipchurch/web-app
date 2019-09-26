@@ -1,31 +1,32 @@
 import React from 'react'
 import { Feature } from '../features'
 import FloatingCard from '../ui/FloatingCard'
-import Accordion from '../ui/Accordion'
+import Tabs from '../ui/Tabs'
 
-const TEST_ARRAY = [0, 1, 2, 3, 4, 5]
+const TEST_ARRAY = [0, 1, 2, 3,]
+// const TEST_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
 const DefaultPage = () => {
 
   return (
-    <div className="container my-6">
+    <div className="container-fluid my-6">
       <div className="row">
         <div className="col">
-          <Accordion>
-            {TEST_ARRAY.map((n, i) =>
-              <p key={i}>Hello! I'm the body</p>
-            )}
-          </Accordion>
-        </div>
-      </div>
+          <Tabs>
+            <div title="Test">
+              This is a test
+              </div>
+          </Tabs>
 
-      <hr></hr>
+          <div className="my-5"></div>
 
-      <div className="row">
-        <div className="col">
-          <Accordion>
-            <p>Hello! I'm the body</p>
-          </Accordion>
+          <Tabs>
+            {TEST_ARRAY.map((n, i) => (
+              <div title={`Test ${i}`} key={i}>
+                This is a test {i}
+              </div>
+            ))}
+          </Tabs>
         </div>
       </div>
     </div>

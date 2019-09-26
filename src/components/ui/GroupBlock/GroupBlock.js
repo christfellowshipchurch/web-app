@@ -16,6 +16,7 @@ import ContentBlock from '../ContentBlock'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
 import Accordion from '../Accordion'
+import Tabs, { TabContent } from '../Tabs'
 import { Feature } from '../../features'
 
 
@@ -31,6 +32,7 @@ const GroupBlock = ({
       <Loader />
     </div>
   )
+
   if (error) {
     console.error("ERROR: ", error)
     return <h1 className="text-center">There was an error loading block. Please try again.</h1>
@@ -130,16 +132,26 @@ const GroupBlock = ({
           {blockItems}
         </FormattedCarousel>
       )
+    case 'tabs':
+      return (
+        <Tabs className="py-4">
+          {blockItems.map((n, i) => <TabContent
+            key={i}
+            id={n.id}
+            title={get(n, 'title', 'Click here')}
+            icon={get(n, 'icon', null)}
+          />)}
+        </Tabs>
+      )
     default:
-
       return null
   }
 }
 
 GroupBlock.propTypes = {
   groupLayout: PropTypes.oneOf([
-    'row', 'accordion', 'carousel',
-    'Row', 'Accordion', 'Carousel',
+    'row', 'accordion', 'carousel', 'tabs',
+    'Row', 'Accordion', 'Carousel', 'Tabs',
     'none',
   ]),
   accordionType: PropTypes.oneOf(['default', 'paginate'])

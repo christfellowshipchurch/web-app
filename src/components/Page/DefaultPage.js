@@ -36,7 +36,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
   )
 
   if (error) {
-    console.error("ERROR: ", error)
+    console.error("ERROR: ", { error })
     return <h1 className="text-center">There was an error loading the page. Please try again.</h1>
   }
 
