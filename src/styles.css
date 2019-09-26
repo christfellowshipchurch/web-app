@@ -120,3 +120,20 @@ select {
 .overflow-x-auto { overflow-x: auto; }
 .overflow-x-scroll { overflow-x: scroll; }
 .overflow-x-hidden { overflow-x: hidden; }
+
+/*
+* Tabs Component
+*/
+@keyframes slideInFromRight {
+    0% {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0px);
+      opacity: 1;
+    }
+  }
+.tab-icons ul {
+    animation: 1s ease-out 0s 1 slideInFromRight;
+}
