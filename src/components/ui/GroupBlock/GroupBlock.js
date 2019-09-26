@@ -16,6 +16,7 @@ import ContentBlock from '../ContentBlock'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
 import Accordion from '../Accordion'
+import Tabs from '../Tabs'
 import { Feature } from '../../features'
 
 
@@ -130,16 +131,50 @@ const GroupBlock = ({
           {blockItems}
         </FormattedCarousel>
       )
+    case 'tabs':
+      return (
+        <Tabs>
+          {blockItems.map((n, i) => {
+            switch (get(n, '__typename', '')) {
+              case 'WebsiteBlockItem':
+                if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
+                  return (
+                    <BackgroundContentBlock
+                      {...n}
+                      className="d-flex align-items-center"
+                      key={i}
+                    />
+                  )
+                } else {
+                  return (
+                    <ContentBlock
+                      {...n}
+                      contentLayout="default"
+                      key={i}
+                    />
+                  )
+                }
+              case 'WebsiteFeature':
+                return (
+                  <div key={i} className="w-100 py-6 px-4">
+                    <Feature name={get(n, 'feature', '')} />
+                  </div>
+                )
+              default:
+                return null
+            }
+          })}
+        </Tabs>
+      )
     default:
-
       return null
   }
 }
 
 GroupBlock.propTypes = {
   groupLayout: PropTypes.oneOf([
-    'row', 'accordion', 'carousel',
-    'Row', 'Accordion', 'Carousel',
+    'row', 'accordion', 'carousel', 'tabs',
+    'Row', 'Accordion', 'Carousel', 'Tabs',
     'none',
   ]),
   accordionType: PropTypes.oneOf(['default', 'paginate'])

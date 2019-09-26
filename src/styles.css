@@ -9,11 +9,17 @@ body {
 }
 
 .p-fixed { position: fixed !important; }
+
 .focus-indicator-none:focus { 
     outline-width: 0 !important;
     border: none !important; 
     border-width: 0 !important;
     box-shadow: none !important;
+}
+
+.no-decoration:hover,
+.no-decoration:focus {
+    text-decoration: none !important;
 }
 
 /*
@@ -107,3 +113,10 @@ select {
 }
 
 .min-height-75-vh { min-height: 75vh !important; }
+
+/*
+* Overflows
+*/
+.overflow-x-auto { overflow-x: auto; }
+.overflow-x-scroll { overflow-x: scroll; }
+.overflow-x-hidden { overflow-x: hidden; }
