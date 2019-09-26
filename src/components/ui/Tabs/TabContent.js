@@ -8,6 +8,10 @@ import {
     camelCase
 } from 'lodash'
 import { mapEdgesToNodes } from '../../../utils'
+
+import {
+    Loader
+} from '@christfellowshipchurch/web-ui-kit'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import ContentBlock from '../ContentBlock'
 import GroupBlock from '../GroupBlock'
@@ -20,7 +24,7 @@ const TabContent = ({
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_BY_ID, { variables: { id } })
 
-    if (loading) return null
+    if (loading) return <Loader />
 
     if (error) {
         console.log({ error })
