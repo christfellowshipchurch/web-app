@@ -14,7 +14,8 @@ const TabIcon = ({
     title,
     onClick,
     isActive,
-    eventKey
+    eventKey,
+    className
 }) => (
         <li style={{ fontSize: 12, width: 114 }}>
             <Accordion.Toggle
@@ -38,6 +39,7 @@ const TabIcon = ({
 
                     'border-0',
                     'focus-indicator-none',
+                    className
                 )}
             >
                 <i className={`fal fa-${icon} fa-3x`}></i>
@@ -79,7 +81,8 @@ const Tabs = ({
                 className={classnames(
                     "row",
                     "justify-content-center",
-                    'overflow-x-auto'
+                    'overflow-x-auto',
+                    "tab-icons"
                 )}
             >
                 <div
@@ -93,7 +96,8 @@ const Tabs = ({
                         className={classnames(
                             'nav',
                             'justify-content-center',
-                            'flex-nowrap'
+                            'flex-nowrap',
+                            'overflow-x-auto'
                         )}
                     >
                         {children.length
