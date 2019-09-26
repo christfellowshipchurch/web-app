@@ -249,7 +249,8 @@ CampusSelect.defaultProps = {
 CampusSelect.propTypes = {
     background: PropTypes.oneOf([
         'bg-white',
-        'bg-light'
+        'bg-light',
+        'bg-transparent'
     ])
 }
 
