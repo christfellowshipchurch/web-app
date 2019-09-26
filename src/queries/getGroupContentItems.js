@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export default gql`
 query getGroupBlockItems($id: ID!) {
@@ -56,10 +56,14 @@ query getGroupBlockItems($id: ID!) {
             ... on WebsiteFeature {
               feature
             }
+
+            ... on WebsitePagesContentItem {
+              icon
+            }
           }
         }
       }
     }
   }
 }
-`;
+`

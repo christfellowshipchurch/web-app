@@ -16,7 +16,7 @@ const TabIcon = ({
     isActive,
     eventKey
 }) => (
-        <div style={{ fontSize: 12, width: 114 }}>
+        <li style={{ fontSize: 12, width: 114 }}>
             <Accordion.Toggle
                 onClick={onClick}
                 eventKey={eventKey}
@@ -45,7 +45,7 @@ const TabIcon = ({
                     {title}
                 </span>
             </Accordion.Toggle>
-        </div>
+        </li>
     )
 
 TabIcon.propTypes = {
@@ -62,20 +62,22 @@ TabIcon.defaultProps = {
 }
 
 const Tabs = ({
-    children
+    children,
+    className
 }) => {
-    const [activeEventKey, setActiveEventKey] = useState("-1")
+    const [activeEventKey, setActiveEventKey] = useState("0")
 
     return (
         <Accordion
             className={classnames(
                 'container-fluid',
+                className
             )}
+            defaultActiveKey="0"
         >
             <div
                 className={classnames(
                     "row",
-                    // "flex-nowrap",
                     "justify-content-center",
                     'overflow-x-auto'
                 )}
@@ -87,14 +89,11 @@ const Tabs = ({
                         'overflow-x-hidden'
                     )}
                 >
-                    <div
+                    <ul
                         className={classnames(
-                            'd-flex',
-                            'flex-row',
-                            'flex-nowrap',
-                            'flex-fill',
-                            { 'justify-content-center': !children.length },
-                            'overflow-x-auto'
+                            'nav',
+                            'justify-content-center',
+                            'flex-nowrap'
                         )}
                     >
                         {children.length
@@ -117,31 +116,28 @@ const Tabs = ({
                                 isActive
                             />
                         }
-                    </div>
+                    </ul>
                 </div>
             </div>
 
-            <div className="border-top border-light my-4 mx-3"></div>
-
-            {
-                children.length
-                    ? children.map((n, i) => (
-                        <Accordion.Collapse
-                            eventKey={i.toString()}
-                            key={i}
-                        >
-                            <div className="row">
-                                <div className="col-12">
-                                    {n}
-                                </div>
+            {children.length
+                ? children.map((n, i) => (
+                    <Accordion.Collapse
+                        eventKey={i.toString()}
+                        key={i}
+                    >
+                        <div className="row">
+                            <div className="col-12">
+                                {n}
                             </div>
-                        </Accordion.Collapse>
-                    ))
-                    : <div className="row">
-                        <div className="col-12">
-                            {children}
                         </div>
+                    </Accordion.Collapse>
+                ))
+                : <div className="row">
+                    <div className="col-12">
+                        {children}
                     </div>
+                </div>
             }
 
         </Accordion >
@@ -149,11 +145,12 @@ const Tabs = ({
 }
 
 Tabs.propTypes = {
-
+    className: PropTypes.string
 }
 
 Tabs.defaultProps = {
-
+    className: ''
 }
 
 export default Tabs
+export { default as TabContent } from './TabContent'

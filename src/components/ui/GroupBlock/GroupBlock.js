@@ -16,7 +16,7 @@ import ContentBlock from '../ContentBlock'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
 import Accordion from '../Accordion'
-import Tabs from '../Tabs'
+import Tabs, { TabContent } from '../Tabs'
 import { Feature } from '../../features'
 
 
@@ -32,6 +32,7 @@ const GroupBlock = ({
       <Loader />
     </div>
   )
+
   if (error) {
     console.error("ERROR: ", error)
     return <h1 className="text-center">There was an error loading block. Please try again.</h1>
@@ -133,37 +134,13 @@ const GroupBlock = ({
       )
     case 'tabs':
       return (
-        <Tabs>
-          {blockItems.map((n, i) => {
-            switch (get(n, '__typename', '')) {
-              case 'WebsiteBlockItem':
-                if (camelCase(get(n, 'contentLayout', '')).includes('background')) {
-                  return (
-                    <BackgroundContentBlock
-                      {...n}
-                      className="d-flex align-items-center"
-                      key={i}
-                    />
-                  )
-                } else {
-                  return (
-                    <ContentBlock
-                      {...n}
-                      contentLayout="default"
-                      key={i}
-                    />
-                  )
-                }
-              case 'WebsiteFeature':
-                return (
-                  <div key={i} className="w-100 py-6 px-4">
-                    <Feature name={get(n, 'feature', '')} />
-                  </div>
-                )
-              default:
-                return null
-            }
-          })}
+        <Tabs className="py-4">
+          {blockItems.map((n, i) => <TabContent
+            key={i}
+            id={n.id}
+            title={get(n, 'title', 'Click here')}
+            icon={get(n, 'icon', null)}
+          />)}
         </Tabs>
       )
     default:
