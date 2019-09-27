@@ -28,8 +28,6 @@ const Rsvp = (props) => {
         submitting
     } = props
 
-    console.log({ errors }, errors.length)
-
     const [submitRsvp, { data, loading, error }] = useMutation(SUBMIT_RSVP)
     const filteredErrors = filter(errors, (n) => n !== DO_NOT_SHOW_ERROR)
     const emptyStrings = filter(values, n => n === '')
@@ -38,8 +36,6 @@ const Rsvp = (props) => {
         || emptyStrings.length > 0
         || submitting
         || loading
-
-    console.log(disabled)
 
     // Form submission successful
     if (get(data, 'submitRsvp', false)) {
