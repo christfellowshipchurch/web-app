@@ -16,7 +16,7 @@ exports[`Button renders a ButtonRow without a callToAction 1`] = `
 <div>
   <br />
   <button
-    className="btn btn-link font-weight-bold"
+    className="btn btn-link text-white"
     onClick={[Function]}
   >
     Title
@@ -27,14 +27,14 @@ exports[`Button renders a ButtonRow without a callToAction 1`] = `
 exports[`Button renders a ButtonRow without crashing 1`] = `
 <div>
   <button
-    className="btn btn-primary text-uppercase font-weight-bold"
+    className="btn btn-primary text-uppercase"
     onClick={[Function]}
   >
     Title
   </button>
   <br />
   <button
-    className="btn btn-link font-weight-bold"
+    className="btn btn-link text-white"
     onClick={[Function]}
   >
     Title
@@ -45,7 +45,7 @@ exports[`Button renders a ButtonRow without crashing 1`] = `
 exports[`Button renders a ButtonRow without secondaryCallToAction 1`] = `
 <div>
   <button
-    className="btn btn-primary text-uppercase font-weight-bold"
+    className="btn btn-primary text-uppercase"
     onClick={[Function]}
   >
     Title

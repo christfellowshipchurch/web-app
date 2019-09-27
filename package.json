@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-testing": "^3.1.1",
     "@babel/cli": "^7.4.3",
     "@christfellowshipchurch/web-fonts": "^1.0.0",
     "@christfellowshipchurch/web-ui-kit": "^0.0.35",
@@ -27,7 +28,7 @@
     "popper.js": "^1.14.7",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-apollo": "^3.0.0",
+    "react-apollo": "^3.1.1",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.8.6",
     "react-facebook-pixel": "^0.1.2",
@@ -35,8 +36,9 @@
     "react-image": "^2.0.0",
     "react-meta-tags": "^0.7.4",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^3.0.0",
+    "react-scripts": "^3.1.1",
     "reactstrap": "^7.1.0",
+    "waait": "^1.0.5",
     "yup": "^0.27.0",
     "zipcodes": "^8.0.0"
   },
