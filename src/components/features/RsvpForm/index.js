@@ -6,7 +6,8 @@ import AwesomePhoneNumber from 'awesome-phonenumber'
 import {
     get,
     filter,
-    has
+    has,
+    keys
 } from 'lodash'
 import { Button } from '@christfellowshipchurch/web-ui-kit'
 import { ContactForm, DemographicForm, VisitForm } from './fragments'
@@ -30,6 +31,11 @@ const Rsvp = (props) => {
     const [submitRsvp, { data, loading, error }] = useMutation(SUBMIT_RSVP)
     const filteredErrors = filter(errors, (n) => n !== DO_NOT_SHOW_ERROR)
     const emptyStrings = filter(values, n => n === '')
+
+    const disabled = keys(errors).length > 0
+        || emptyStrings.length > 0
+        || submitting
+        || loading
 
     // Form submission successful
     if (get(data, 'submitRsvp', false)) {
@@ -112,7 +118,7 @@ const Rsvp = (props) => {
                 <div className="col text-center">
                     <Button
                         title={`Submit`}
-                        disabled={errors.length > 0 || emptyStrings.length > 0 || submitting || loading}
+                        disabled={disabled}
                         loading={submitting || loading}
                         onClick={() => submitRsvp({ variables: values })}
                     />
@@ -170,7 +176,7 @@ const RsvpForm = ({ initialValues }) => <Formik
                 'Please make sure you entered a valid phone number',
                 (value) => {
                     if (value) {
-                        const phoneNumber = new AwesomePhoneNumber(value)
+                        const phoneNumber = new AwesomePhoneNumber(`+1 ${value}`)
 
                         return phoneNumber.isValid()
                     }
