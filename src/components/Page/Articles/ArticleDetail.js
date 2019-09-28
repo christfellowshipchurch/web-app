@@ -41,19 +41,19 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
 
   return (
     <Block className='my-6 max-width-800'>
-      {has(article, 'title') &&
+      {get(article, 'title', '') !== '' &&
         <Block.Title className='mb-1 text-dark'>
           {article.title}
         </Block.Title>
       }
 
-      {has(article, 'summary') &&
+      {get(article, 'summary', '') !== '' &&
         <Block.Subtitle className='mt-1 article-subtitle font-weight-light'>
           {article.summary}
         </Block.Subtitle>
       }
 
-      {has(article, 'images[0].sources[0].uri') &&
+      {get(article, 'images[0].sources[0].uri') !== '' &&
         <Media
           rounded
           ratio="16by9"
@@ -63,9 +63,9 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
         />
       }
 
-      {(has(article, 'author') || has(article, 'readTime')) &&
+      {(has(article, 'author') || get(article, 'readTime', '') !== '') &&
         <div className='py-4 d-flex align-items-center'>
-          {has(article, 'author.photo.uri') &&
+          {get(article, 'author.photo.uri', '') !== '' &&
             <Media
               circle
               ratio="1by1"
@@ -76,7 +76,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
           }
           <div className='text-left d-flex flex-column'>
             <p className='my-1 font-weight-bold text-dark'>
-              {`${article.author.firstName} ${article.author.lastName}`}
+              {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
             </p>
             <p className='my-1 mb-0 font-weight-light'>
               {`${get(article, 'date', moment().format(DATE_FORMAT))}  •  ${get(article, 'readTime', '2')} min`}
@@ -85,7 +85,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
         </div>
       }
 
-      {has(article, 'htmlContent') &&
+      {get(article, 'htmlContent', '') !== '' &&
         <Block.Body className="article-body my-3 font-weight-light pb-4 text-left">
           {article.htmlContent}
         </Block.Body>

@@ -2,19 +2,54 @@ import React from 'react'
 import { MockedProvider } from '@apollo/react-testing'
 import { act, render } from '@testing-library/react'
 import wait from 'waait'
-import renderer from "react-test-renderer"
-import { ARTICLE_LIST_MOCKS, ARTICLE_LIST_ERROR_MOCKS } from './mocks'
 
+import { GET_ALL_ARTICLES } from '../queries'
 import { ArticleList } from '../'
+
+const createArticle = (id) => ({
+    "id": `ArticleContentItem:${id}`,
+    "title": `Article ${id}`,
+    "summary": "READ THIS GUYS!",
+    "images": [
+        {
+            "sources": [
+                {
+                    "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
+                }
+            ]
+        }
+    ],
+})
+
+const ARTICLE_LIST_MOCKS = [
+    {
+        request: {
+            query: GET_ALL_ARTICLES,
+        },
+        result: {
+            data: {
+                getArticles: [
+                    createArticle(1),
+                    createArticle(2),
+                ]
+            },
+        },
+    },
+]
+
+const ARTICLE_LIST_ERROR_MOCKS = [
+    {
+        request: {
+            query: GET_ALL_ARTICLES,
+        },
+        error: new Error("Error loading article lists")
+    },
+]
 
 let component = null
 
 describe("ArticleList", () => {
-
     it("renders without crashing", () => {
-        console.log({ ARTICLE_LIST_MOCKS })
-
-
         act(() => {
             render(
                 <MockedProvider mocks={ARTICLE_LIST_MOCKS} addTypename={false}>
