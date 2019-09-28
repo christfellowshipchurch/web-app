@@ -7,17 +7,54 @@ import {
 } from 'lodash'
 import moment from 'moment'
 
-import { Media, Block, Loader } from '@christfellowshipchurch/web-ui-kit'
-import { GET_ARTICLE_BY_TITLE } from './queries'
+import {
+  Media,
+  Block,
+  Loader,
+  Button
+} from '@christfellowshipchurch/web-ui-kit'
+import RelatedArticles from './RelatedArticles'
+import {
+  GET_ARTICLE_BY_TITLE,
+  GET_ARTICLE_CATEGORIES,
+} from './queries'
 
 const DATE_FORMAT = 'MMMM D, YYYY'
+
+const ArticleCategories = ({ id }) => {
+  const { loading, error, data } = useQuery(GET_ARTICLE_CATEGORIES,
+    {
+      variables: { id },
+      fetchPolicy: "cache-and-network"
+    })
+
+  if (loading) return null
+
+  if (error) {
+    console.log({ error })
+    return null
+  }
+
+  return (
+    get(data, 'node.categories', []).map((n, i) =>
+      <Button
+        key={i}
+        title={n}
+        type="dark"
+        size="sm"
+        disabled
+      />
+    )
+  )
+}
 
 const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
   const { loading, error, data } = useQuery(GET_ARTICLE_BY_TITLE,
     {
       variables: {
         title: toLower(articleTitle)
-      }
+      },
+      fetchPolicy: "cache-and-network"
     })
 
   if (loading) return <Loader />
@@ -44,56 +81,78 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     : moment().format(DATE_FORMAT)
 
   return (
-    <Block className='my-6 max-width-800'>
-      {get(article, 'title', '') !== '' &&
-        <Block.Title className='mb-1 text-dark'>
-          {article.title}
-        </Block.Title>
-      }
+    <div>
+      <div className="container my-6 max-width-800">
+        <div className="row">
+          <div className="col">
+            <Block>
+              {get(article, 'title', '') !== '' &&
+                <Block.Title className='mb-1 text-dark'>
+                  {article.title}
+                </Block.Title>
+              }
 
-      {get(article, 'summary', '') !== '' &&
-        <Block.Subtitle className='mt-1 article-subtitle font-weight-light'>
-          {article.summary}
-        </Block.Subtitle>
-      }
+              {get(article, 'summary', '') !== '' &&
+                <Block.Subtitle className='mt-1 article-subtitle font-weight-light'>
+                  {article.summary}
+                </Block.Subtitle>
+              }
 
-      {get(article, 'images[0].sources[0].uri') !== '' &&
-        <Media
-          rounded
-          ratio="16by9"
-          imageUrl={article.images[0].sources[0].uri}
-          imageAlt={get(article, 'title', 'Christ Fellowship Church')}
-          className='my-4'
-        />
-      }
+              {get(article, 'images[0].sources[0].uri') !== '' &&
+                <Media
+                  rounded
+                  ratio="16by9"
+                  imageUrl={article.images[0].sources[0].uri}
+                  imageAlt={get(article, 'title', 'Christ Fellowship Church')}
+                  className='my-4'
+                />
+              }
 
-      {/* TODO : add some sort of default photo/icon */}
-      <div className='py-4 d-flex align-items-center'>
-        {get(article, 'author.photo.uri', '') !== '' &&
-          <Media
-            circle
-            ratio="1by1"
-            imageUrl={get(article, 'author.photo.uri', '')}
-            imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
-            className='author-image mr-3'
-          />
-        }
-        <div className='text-left d-flex flex-column'>
-          <p className='my-1 font-weight-bold text-dark'>
-            {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
-          </p>
-          <p className='my-1 mb-0 font-weight-light'>
-            {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
-          </p>
+              {/* TODO : add some sort of default photo/icon */}
+              <div className='py-4 d-flex align-items-center'>
+                {get(article, 'author.photo.uri', '') !== '' &&
+                  <Media
+                    circle
+                    ratio="1by1"
+                    imageUrl={get(article, 'author.photo.uri', '')}
+                    imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
+                    className='author-image mr-3'
+                  />
+                }
+                <div className='text-left d-flex flex-column'>
+                  <p className='my-1 font-weight-bold text-dark'>
+                    {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
+                  </p>
+                  <p className='my-1 mb-0 font-weight-light'>
+                    {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
+                  </p>
+                </div>
+              </div>
+
+              {get(article, 'htmlContent', '') !== '' &&
+                <Block.Body className="article-body my-3 font-weight-light pb-4 text-left">
+                  {article.htmlContent}
+                </Block.Body>
+              }
+            </Block>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 px-3">
+            <h4
+              className="text-uppercase text-muted"
+              style={{ fontWeight: 900, letterSpacing: 2 }}
+            >
+              categories
+            </h4>
+          </div>
+          <div className="col-12 px-3">
+            <ArticleCategories id={get(article, 'id', null)} />
+          </div>
         </div>
       </div>
-
-      {get(article, 'htmlContent', '') !== '' &&
-        <Block.Body className="article-body my-3 font-weight-light pb-4 text-left">
-          {article.htmlContent}
-        </Block.Body>
-      }
-    </Block>
+      <RelatedArticles id={get(article, 'id')} />
+    </div>
   )
 }
 

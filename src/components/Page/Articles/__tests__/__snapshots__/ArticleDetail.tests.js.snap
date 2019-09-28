@@ -12,89 +12,120 @@ exports[`ArticleDetail passes back a null article 1`] = `
 
 exports[`ArticleDetail renders an article 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h2
-          class="mb-1 text-dark"
-        >
-          Article 1
-        </h2>
-        <h6
-          class="mt-1 article-subtitle font-weight-light"
-        >
-          READ THIS GUYS!
-        </h6>
         <div
-          class="embed-responsive embed-responsive-16by9 rounded my-4"
+          class="col"
         >
           <div
-            class="fill d-flex justify-content-center align-items-center"
+            class="container-fluid "
           >
             <div
-              class="spinner-border text-primary"
-              role="status"
-            >
-              <span
-                class="sr-only"
-              >
-                Loading...
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="py-4 d-flex align-items-center"
-        >
-          <div
-            class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
-          >
-            <div
-              class="fill d-flex justify-content-center align-items-center"
+              class="row align-items-center"
             >
               <div
-                class="spinner-border text-primary"
-                role="status"
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                <span
-                  class="sr-only"
+                <h2
+                  class="mb-1 text-dark"
                 >
-                  Loading...
-                </span>
+                  Article 1
+                </h2>
+                <h6
+                  class="mt-1 article-subtitle font-weight-light"
+                >
+                  READ THIS GUYS!
+                </h6>
+                <div
+                  class="embed-responsive embed-responsive-16by9 rounded my-4"
+                >
+                  <div
+                    class="fill d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="spinner-border text-primary"
+                      role="status"
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Loading...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+                  >
+                    <div
+                      class="fill d-flex justify-content-center align-items-center"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 27, 2019  •  10 min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="text-left d-flex flex-column"
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 px-3"
+        >
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 27, 2019  •  10 min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
@@ -103,89 +134,120 @@ exports[`ArticleDetail renders an article 1`] = `
 
 exports[`ArticleDetail renders an article without a publish date 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h2
-          class="mb-1 text-dark"
-        >
-          Article 1
-        </h2>
-        <h6
-          class="mt-1 article-subtitle font-weight-light"
-        >
-          READ THIS GUYS!
-        </h6>
         <div
-          class="embed-responsive embed-responsive-16by9 rounded my-4"
+          class="col"
         >
           <div
-            class="fill d-flex justify-content-center align-items-center"
+            class="container-fluid "
           >
             <div
-              class="spinner-border text-primary"
-              role="status"
-            >
-              <span
-                class="sr-only"
-              >
-                Loading...
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="py-4 d-flex align-items-center"
-        >
-          <div
-            class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
-          >
-            <div
-              class="fill d-flex justify-content-center align-items-center"
+              class="row align-items-center"
             >
               <div
-                class="spinner-border text-primary"
-                role="status"
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                <span
-                  class="sr-only"
+                <h2
+                  class="mb-1 text-dark"
                 >
-                  Loading...
-                </span>
+                  Article 1
+                </h2>
+                <h6
+                  class="mt-1 article-subtitle font-weight-light"
+                >
+                  READ THIS GUYS!
+                </h6>
+                <div
+                  class="embed-responsive embed-responsive-16by9 rounded my-4"
+                >
+                  <div
+                    class="fill d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="spinner-border text-primary"
+                      role="status"
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Loading...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+                  >
+                    <div
+                      class="fill d-flex justify-content-center align-items-center"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 28, 2019  •  10 min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="text-left d-flex flex-column"
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 px-3"
+        >
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 28, 2019  •  10 min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
@@ -194,89 +256,120 @@ exports[`ArticleDetail renders an article without a publish date 1`] = `
 
 exports[`ArticleDetail renders an article without a read time 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h2
-          class="mb-1 text-dark"
-        >
-          Article 1
-        </h2>
-        <h6
-          class="mt-1 article-subtitle font-weight-light"
-        >
-          READ THIS GUYS!
-        </h6>
         <div
-          class="embed-responsive embed-responsive-16by9 rounded my-4"
+          class="col"
         >
           <div
-            class="fill d-flex justify-content-center align-items-center"
+            class="container-fluid "
           >
             <div
-              class="spinner-border text-primary"
-              role="status"
-            >
-              <span
-                class="sr-only"
-              >
-                Loading...
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="py-4 d-flex align-items-center"
-        >
-          <div
-            class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
-          >
-            <div
-              class="fill d-flex justify-content-center align-items-center"
+              class="row align-items-center"
             >
               <div
-                class="spinner-border text-primary"
-                role="status"
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                <span
-                  class="sr-only"
+                <h2
+                  class="mb-1 text-dark"
                 >
-                  Loading...
-                </span>
+                  Article 1
+                </h2>
+                <h6
+                  class="mt-1 article-subtitle font-weight-light"
+                >
+                  READ THIS GUYS!
+                </h6>
+                <div
+                  class="embed-responsive embed-responsive-16by9 rounded my-4"
+                >
+                  <div
+                    class="fill d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="spinner-border text-primary"
+                      role="status"
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Loading...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+                  >
+                    <div
+                      class="fill d-flex justify-content-center align-items-center"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 27, 2019  •   min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="text-left d-flex flex-column"
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 px-3"
+        >
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 27, 2019  •   min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
@@ -285,84 +378,115 @@ exports[`ArticleDetail renders an article without a read time 1`] = `
 
 exports[`ArticleDetail renders an article without a summary 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h2
-          class="mb-1 text-dark"
-        >
-          Article 1
-        </h2>
         <div
-          class="embed-responsive embed-responsive-16by9 rounded my-4"
+          class="col"
         >
           <div
-            class="fill d-flex justify-content-center align-items-center"
+            class="container-fluid "
           >
             <div
-              class="spinner-border text-primary"
-              role="status"
-            >
-              <span
-                class="sr-only"
-              >
-                Loading...
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="py-4 d-flex align-items-center"
-        >
-          <div
-            class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
-          >
-            <div
-              class="fill d-flex justify-content-center align-items-center"
+              class="row align-items-center"
             >
               <div
-                class="spinner-border text-primary"
-                role="status"
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                <span
-                  class="sr-only"
+                <h2
+                  class="mb-1 text-dark"
                 >
-                  Loading...
-                </span>
+                  Article 1
+                </h2>
+                <div
+                  class="embed-responsive embed-responsive-16by9 rounded my-4"
+                >
+                  <div
+                    class="fill d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="spinner-border text-primary"
+                      role="status"
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Loading...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+                  >
+                    <div
+                      class="fill d-flex justify-content-center align-items-center"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 27, 2019  •  10 min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="text-left d-flex flex-column"
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 px-3"
+        >
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 27, 2019  •  10 min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
@@ -371,84 +495,115 @@ exports[`ArticleDetail renders an article without a summary 1`] = `
 
 exports[`ArticleDetail renders an article without a title 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h6
-          class="mt-1 article-subtitle font-weight-light"
-        >
-          READ THIS GUYS!
-        </h6>
         <div
-          class="embed-responsive embed-responsive-16by9 rounded my-4"
+          class="col"
         >
           <div
-            class="fill d-flex justify-content-center align-items-center"
+            class="container-fluid "
           >
             <div
-              class="spinner-border text-primary"
-              role="status"
-            >
-              <span
-                class="sr-only"
-              >
-                Loading...
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="py-4 d-flex align-items-center"
-        >
-          <div
-            class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
-          >
-            <div
-              class="fill d-flex justify-content-center align-items-center"
+              class="row align-items-center"
             >
               <div
-                class="spinner-border text-primary"
-                role="status"
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                <span
-                  class="sr-only"
+                <h6
+                  class="mt-1 article-subtitle font-weight-light"
                 >
-                  Loading...
-                </span>
+                  READ THIS GUYS!
+                </h6>
+                <div
+                  class="embed-responsive embed-responsive-16by9 rounded my-4"
+                >
+                  <div
+                    class="fill d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="spinner-border text-primary"
+                      role="status"
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Loading...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+                  >
+                    <div
+                      class="fill d-flex justify-content-center align-items-center"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 27, 2019  •  10 min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="text-left d-flex flex-column"
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 px-3"
+        >
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 27, 2019  •  10 min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
@@ -457,71 +612,102 @@ exports[`ArticleDetail renders an article without a title 1`] = `
 
 exports[`ArticleDetail renders an article without an image 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h2
-          class="mb-1 text-dark"
-        >
-          Article 1
-        </h2>
-        <h6
-          class="mt-1 article-subtitle font-weight-light"
-        >
-          READ THIS GUYS!
-        </h6>
         <div
-          class="py-4 d-flex align-items-center"
+          class="col"
         >
           <div
-            class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+            class="container-fluid "
           >
             <div
-              class="fill d-flex justify-content-center align-items-center"
+              class="row align-items-center"
             >
               <div
-                class="spinner-border text-primary"
-                role="status"
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                <span
-                  class="sr-only"
+                <h2
+                  class="mb-1 text-dark"
                 >
-                  Loading...
-                </span>
+                  Article 1
+                </h2>
+                <h6
+                  class="mt-1 article-subtitle font-weight-light"
+                >
+                  READ THIS GUYS!
+                </h6>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="embed-responsive embed-responsive-1by1 rounded-circle author-image mr-3"
+                  >
+                    <div
+                      class="fill d-flex justify-content-center align-items-center"
+                    >
+                      <div
+                        class="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span
+                          class="sr-only"
+                        >
+                          Loading...
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 27, 2019  •  10 min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-          <div
-            class="text-left d-flex flex-column"
+        </div>
+      </div>
+      <div
+        class="row"
+      >
+        <div
+          class="col-12 px-3"
+        >
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 27, 2019  •  10 min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
@@ -530,71 +716,102 @@ exports[`ArticleDetail renders an article without an image 1`] = `
 
 exports[`ArticleDetail renders an article without author information 1`] = `
 <div>
-  <div
-    class="container-fluid my-6 max-width-800"
-  >
+  <div>
     <div
-      class="row align-items-center"
+      class="container my-6 max-width-800"
     >
       <div
-        class="col-12 col-md-12 order-first px-3"
-      />
-      <div
-        class="col-12 col-md text-center px-3"
+        class="row"
       >
-        <h2
-          class="mb-1 text-dark"
-        >
-          Article 1
-        </h2>
-        <h6
-          class="mt-1 article-subtitle font-weight-light"
-        >
-          READ THIS GUYS!
-        </h6>
         <div
-          class="embed-responsive embed-responsive-16by9 rounded my-4"
+          class="col"
         >
           <div
-            class="fill d-flex justify-content-center align-items-center"
+            class="container-fluid "
           >
             <div
-              class="spinner-border text-primary"
-              role="status"
+              class="row align-items-center"
             >
-              <span
-                class="sr-only"
+              <div
+                class="col-12 col-md-12 order-first px-3"
+              />
+              <div
+                class="col-12 col-md text-center px-3"
               >
-                Loading...
-              </span>
+                <h2
+                  class="mb-1 text-dark"
+                >
+                  Article 1
+                </h2>
+                <h6
+                  class="mt-1 article-subtitle font-weight-light"
+                >
+                  READ THIS GUYS!
+                </h6>
+                <div
+                  class="embed-responsive embed-responsive-16by9 rounded my-4"
+                >
+                  <div
+                    class="fill d-flex justify-content-center align-items-center"
+                  >
+                    <div
+                      class="spinner-border text-primary"
+                      role="status"
+                    >
+                      <span
+                        class="sr-only"
+                      >
+                        Loading...
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="py-4 d-flex align-items-center"
+                >
+                  <div
+                    class="text-left d-flex flex-column"
+                  >
+                    <p
+                      class="my-1 font-weight-bold text-dark"
+                    >
+                      Todd Mullins
+                    </p>
+                    <p
+                      class="my-1 mb-0 font-weight-light"
+                    >
+                      September 27, 2019  •  10 min
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="article-body my-3 font-weight-light pb-4 text-left"
+                >
+                  <p>
+                    This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div
+        class="row"
+      >
         <div
-          class="py-4 d-flex align-items-center"
+          class="col-12 px-3"
         >
-          <div
-            class="text-left d-flex flex-column"
+          <h4
+            class="text-uppercase text-muted"
+            style="font-weight: 900; letter-spacing: 2px;"
           >
-            <p
-              class="my-1 font-weight-bold text-dark"
-            >
-              Todd Mullins
-            </p>
-            <p
-              class="my-1 mb-0 font-weight-light"
-            >
-              September 27, 2019  •  10 min
-            </p>
-          </div>
+            categories
+          </h4>
         </div>
         <div
-          class="article-body my-3 font-weight-light pb-4 text-left"
-        >
-          <p>
-            This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.
-          </p>
-        </div>
+          class="col-12 px-3"
+        />
       </div>
     </div>
   </div>
