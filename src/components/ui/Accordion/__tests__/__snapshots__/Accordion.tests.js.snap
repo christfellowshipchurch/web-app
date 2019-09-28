@@ -1,0 +1,862 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Accordion renders an Accordion with pagination 1`] = `
+<div
+  className="conatiner-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-12"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        aria-expanded={null}
+        className="row collapse"
+      >
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-6 py-1 px-3"
+        >
+          <div
+            className="bg-white rounded shadow-sm"
+          >
+            <button
+              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              onClick={[Function]}
+              variant="link"
+            >
+              <span>
+                Some Title
+              </span>
+              <span>
+                <svg
+                  aria-hidden="true"
+                  className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+                  data-icon="angle-down"
+                  data-prefix="fal"
+                  focusable="false"
+                  role="img"
+                  style={Object {}}
+                  viewBox="0 0 256 512"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                    fill="currentColor"
+                    style={Object {}}
+                  />
+                </svg>
+              </span>
+            </button>
+            <div
+              aria-expanded={null}
+              className="m-3 collapse"
+            >
+              <div
+                title="Some Title"
+              >
+                <h1>
+                  This is an item
+                </h1>
+                <p>
+                  This is the text inside of that item.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-12 text-center"
+      >
+        <button
+          className="btn btn-link"
+          onClick={[Function]}
+        >
+          Show more
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Accordion renders an Accordion without crashing 1`] = `
+<div
+  className="conatiner-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-12 col-md-6 py-1 px-3"
+    >
+      <div
+        className="bg-white rounded shadow-sm"
+      >
+        <button
+          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          onClick={[Function]}
+          variant="link"
+        >
+          <span>
+            Some Title
+          </span>
+          <span>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+              data-icon="angle-down"
+              data-prefix="fal"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          aria-expanded={null}
+          className="m-3 collapse"
+        >
+          <div
+            title="Some Title"
+          >
+            <h1>
+              This is an item
+            </h1>
+            <p>
+              This is the text inside of that item.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-6 py-1 px-3"
+    >
+      <div
+        className="bg-white rounded shadow-sm"
+      >
+        <button
+          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          onClick={[Function]}
+          variant="link"
+        >
+          <span>
+            Some Title
+          </span>
+          <span>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+              data-icon="angle-down"
+              data-prefix="fal"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          aria-expanded={null}
+          className="m-3 collapse"
+        >
+          <div
+            title="Some Title"
+          >
+            <h1>
+              This is an item
+            </h1>
+            <p>
+              This is the text inside of that item.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-6 py-1 px-3"
+    >
+      <div
+        className="bg-white rounded shadow-sm"
+      >
+        <button
+          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          onClick={[Function]}
+          variant="link"
+        >
+          <span>
+            Some Title
+          </span>
+          <span>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+              data-icon="angle-down"
+              data-prefix="fal"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          aria-expanded={null}
+          className="m-3 collapse"
+        >
+          <div
+            title="Some Title"
+          >
+            <h1>
+              This is an item
+            </h1>
+            <p>
+              This is the text inside of that item.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-6 py-1 px-3"
+    >
+      <div
+        className="bg-white rounded shadow-sm"
+      >
+        <button
+          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          onClick={[Function]}
+          variant="link"
+        >
+          <span>
+            Some Title
+          </span>
+          <span>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+              data-icon="angle-down"
+              data-prefix="fal"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          aria-expanded={null}
+          className="m-3 collapse"
+        >
+          <div
+            title="Some Title"
+          >
+            <h1>
+              This is an item
+            </h1>
+            <p>
+              This is the text inside of that item.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md-6 py-1 px-3"
+    >
+      <div
+        className="bg-white rounded shadow-sm"
+      >
+        <button
+          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          onClick={[Function]}
+          variant="link"
+        >
+          <span>
+            Some Title
+          </span>
+          <span>
+            <svg
+              aria-hidden="true"
+              className="svg-inline--fa fa-angle-down fa-w-8 fa-2x "
+              data-icon="angle-down"
+              data-prefix="fal"
+              focusable="false"
+              role="img"
+              style={Object {}}
+              viewBox="0 0 256 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+                fill="currentColor"
+                style={Object {}}
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          aria-expanded={null}
+          className="m-3 collapse"
+        >
+          <div
+            title="Some Title"
+          >
+            <h1>
+              This is an item
+            </h1>
+            <p>
+              This is the text inside of that item.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

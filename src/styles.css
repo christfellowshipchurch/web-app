@@ -11,6 +11,18 @@ body {
 
 .p-fixed { position: fixed !important; }
 
+.focus-indicator-none:focus { 
+    outline-width: 0 !important;
+    border: none !important; 
+    border-width: 0 !important;
+    box-shadow: none !important;
+}
+
+.no-decoration:hover,
+.no-decoration:focus {
+    text-decoration: none !important;
+}
+
 /*
 * Additional Backgrounds
 */
@@ -103,7 +115,6 @@ select {
 
 .min-height-75-vh { min-height: 75vh !important; }
 
-
 /* ArticleDetail */
 .author-image {
     width: 80px;
@@ -115,4 +126,27 @@ select {
 }
 .article-body {
     line-height: 24px;
+
+/*
+* Overflows
+*/
+.overflow-x-auto { overflow-x: auto; }
+.overflow-x-scroll { overflow-x: scroll; }
+.overflow-x-hidden { overflow-x: hidden; }
+
+/*
+* Tabs Component
+*/
+@keyframes slideInFromRight {
+    0% {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0px);
+      opacity: 1;
+    }
+  }
+.tab-icons ul {
+    animation: 1s ease-out 0s 1 slideInFromRight;
 }

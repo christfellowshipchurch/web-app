@@ -166,24 +166,6 @@ const CampusSelect = ({
                             background={inputBackground}
                             campuses={campuses}
                         />
-                        {/* <select
-                            value={get(activeCampus, 'id')}
-                            disabled={disabled}
-                            onChange={(e) => setActiveCampus(find(campuses, ['id', e.target.value]))}
-                            className={classnames(
-                                "w-100",
-                                inputBackground,
-                                "border-0",
-                                "p-3",
-                            )}>
-                            {campuses.map((n, i) =>
-                                <option
-                                    value={get(n, 'id', 'null')}
-                                    key={i}>
-                                    {get(n, 'name', '!! ERROR !!')}
-                                </option>
-                            )}
-                        </select> */}
                     </div>
                     <div className="col px-3">
                         <input
@@ -197,7 +179,7 @@ const CampusSelect = ({
                             )}
                             type="number"
                             disabled={disabled}
-                            placeholder="Enter Your Zip Code"
+                            placeholder="Or Enter Your Zip Code"
                             maxLength="5"
                             onChange={e => {
                                 const value = e.target.value
@@ -249,7 +231,8 @@ CampusSelect.defaultProps = {
 CampusSelect.propTypes = {
     background: PropTypes.oneOf([
         'bg-white',
-        'bg-light'
+        'bg-light',
+        'bg-transparent'
     ])
 }
 

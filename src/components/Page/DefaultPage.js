@@ -25,7 +25,9 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
   PixelManager.initWithPageView(`/${page || ''}`)
 
   const website = process.env.REACT_APP_WEBSITE_KEY
-  const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: page || title } })
+  const pageTitle = page || title
+  const isHomePage = pageTitle === 'home' || pageTitle === '' || pageTitle === 'home-page'
+  const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: pageTitle } })
 
   if (loading) return (
     <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
@@ -34,13 +36,13 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
   )
 
   if (error) {
-    console.error("ERROR: ", error)
+    console.error("ERROR: ", { error })
     return <h1 className="text-center">There was an error loading the page. Please try again.</h1>
   }
 
   const bgColor = {
-    'true': 'bg-white',
-    'false': 'bg-transparent'
+    'true': isHomePage ? 'bg-white' : 'bg-transparent',
+    'false': isHomePage ? 'bg-transparent' : 'bg-white'
   }
   let bgFirst = true
   const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection)
@@ -79,7 +81,11 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
             }
             break
           case 'WebsiteGroupItem':
-            content = <div className={classnames("col", topPadding)}><GroupBlock {...item} /></div>
+            content = <div
+              className={classnames("col", topPadding)}
+            >
+              <GroupBlock {...item} />
+            </div>
             break
           case 'WebsiteFeature':
             content = (
