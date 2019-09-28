@@ -24,10 +24,10 @@ const createArticle = (id) => ({
     }
 })
 
-export const articleListMocks = [
+export const ARTICLE_LIST_MOCKS = [
     {
         request: {
-            GET_ALL_ARTICLES,
+            query: GET_ALL_ARTICLES,
         },
         result: {
             data: {
@@ -40,10 +40,19 @@ export const articleListMocks = [
     },
 ]
 
+export const ARTICLE_LIST_ERROR_MOCKS = [
+    {
+        request: {
+            query: GET_ALL_ARTICLES,
+        },
+        error: new Error("Error loading article lists")
+    },
+]
+
 export const articleDetailMock = [
     {
         request: {
-            GET_ARTICLE_BY_TITLE,
+            query: GET_ARTICLE_BY_TITLE,
             variables: {
                 title: 'Article 1'
             }
