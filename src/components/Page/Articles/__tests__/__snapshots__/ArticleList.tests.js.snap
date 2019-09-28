@@ -20,7 +20,7 @@ exports[`ArticleList renders a list of articles 1`] = `
       class="row"
     >
       <div
-        class="col-6 col-md-3 p-3"
+        class="col-6 col-md-4 p-3"
       >
         <div
           class="card h-100"
@@ -65,7 +65,7 @@ exports[`ArticleList renders a list of articles 1`] = `
         </div>
       </div>
       <div
-        class="col-6 col-md-3 p-3"
+        class="col-6 col-md-4 p-3"
       >
         <div
           class="card h-100"

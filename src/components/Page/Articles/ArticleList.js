@@ -34,7 +34,7 @@ const ArticleList = ({ }) => {
       </div>
       <div className="row">
         {articles.map((n, i) => (
-          <div className="col-6 col-md-3 p-3" key={i}>
+          <div className="col-6 col-md-4 p-3" key={i}>
             <div className="card h-100">
               <Media
                 className="card-img-top"
