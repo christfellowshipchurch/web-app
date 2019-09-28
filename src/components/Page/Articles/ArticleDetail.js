@@ -39,6 +39,10 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     </h3>
   }
 
+  const publishDate = get(article, 'publishDate', '') !== ''
+    ? moment(article.publishDate).format(DATE_FORMAT)
+    : moment().format(DATE_FORMAT)
+
   return (
     <Block className='my-6 max-width-800'>
       {get(article, 'title', '') !== '' &&
@@ -79,7 +83,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
             {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
           </p>
           <p className='my-1 mb-0 font-weight-light'>
-            {`${get(article, 'date', moment().format(DATE_FORMAT))}  •  ${get(article, 'readTime', '2')} min`}
+            {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
           </p>
         </div>
       </div>

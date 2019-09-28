@@ -42,6 +42,7 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "READ THIS GUYS!",
                 "readTime": "10",
+                "publishDate": "2019-09-27T04:00:00.000Z",
                 "images": [
                     {
                         "sources": [
@@ -77,6 +78,7 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "READ THIS GUYS!",
                 "readTime": "10",
+                "publishDate": "2019-09-27T04:00:00.000Z",
                 "images": [
                     {
                         "sources": [
@@ -162,6 +164,7 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "READ THIS GUYS!",
                 "readTime": "10",
+                "publishDate": "2019-09-27T04:00:00.000Z",
                 "images": [
                     {
                         "sources": [
@@ -201,6 +204,7 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "",
                 "readTime": "10",
+                "publishDate": "2019-09-27T04:00:00.000Z",
                 "images": [
                     {
                         "sources": [
@@ -240,6 +244,7 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "READ THIS GUYS!",
                 "readTime": "10",
+                "publishDate": "2019-09-27T04:00:00.000Z",
                 "images": [
                     {
                         "sources": [
@@ -279,6 +284,7 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "READ THIS GUYS!",
                 "readTime": "10",
+                "publishDate": "2019-09-27T04:00:00.000Z",
                 "images": [
                     {
                         "sources": [
@@ -318,6 +324,47 @@ describe("ArticleDetail", () => {
                 "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
                 "summary": "READ THIS GUYS!",
                 "readTime": "",
+                "publishDate": "2019-09-27T04:00:00.000Z",
+                "images": [
+                    {
+                        "sources": [
+                            {
+                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
+                            }
+                        ]
+                    }
+                ],
+                "author": {
+                    "firstName": "Todd",
+                    "lastName": "Mullins",
+                    "photo": {
+                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
+                    }
+                }
+            })
+
+            component = render(
+                <MockedProvider mocks={mocks} addTypename={false}>
+                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
+                </MockedProvider>
+            )
+        })
+
+        await wait(0) // waits for response
+
+        const { container } = component
+        expect(container).toMatchSnapshot()
+    })
+
+    it("renders an article without a publish date", async () => {
+        act(() => {
+            const mocks = generateMocks({
+                "id": `ArticleContentItem:1`,
+                "title": `Article 1`,
+                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
+                "summary": "READ THIS GUYS!",
+                "readTime": "10",
+                "publishDate": "",
                 "images": [
                     {
                         "sources": [

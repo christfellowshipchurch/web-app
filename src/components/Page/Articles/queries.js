@@ -42,6 +42,7 @@ query getArticleByTitle($title:String!) {
             }
         }
 
+        publishDate
     }
 }
 `
