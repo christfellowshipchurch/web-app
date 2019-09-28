@@ -63,27 +63,26 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
         />
       }
 
-      {(has(article, 'author') || get(article, 'readTime', '') !== '') &&
-        <div className='py-4 d-flex align-items-center'>
-          {get(article, 'author.photo.uri', '') !== '' &&
-            <Media
-              circle
-              ratio="1by1"
-              imageUrl={get(article, 'author.photo.uri', '')}
-              imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
-              className='author-image mr-3'
-            />
-          }
-          <div className='text-left d-flex flex-column'>
-            <p className='my-1 font-weight-bold text-dark'>
-              {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
-            </p>
-            <p className='my-1 mb-0 font-weight-light'>
-              {`${get(article, 'date', moment().format(DATE_FORMAT))}  •  ${get(article, 'readTime', '2')} min`}
-            </p>
-          </div>
+      {/* TODO : add some sort of default photo/icon */}
+      <div className='py-4 d-flex align-items-center'>
+        {get(article, 'author.photo.uri', '') !== '' &&
+          <Media
+            circle
+            ratio="1by1"
+            imageUrl={get(article, 'author.photo.uri', '')}
+            imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
+            className='author-image mr-3'
+          />
+        }
+        <div className='text-left d-flex flex-column'>
+          <p className='my-1 font-weight-bold text-dark'>
+            {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
+          </p>
+          <p className='my-1 mb-0 font-weight-light'>
+            {`${get(article, 'date', moment().format(DATE_FORMAT))}  •  ${get(article, 'readTime', '2')} min`}
+          </p>
         </div>
-      }
+      </div>
 
       {get(article, 'htmlContent', '') !== '' &&
         <Block.Body className="article-body my-3 font-weight-light pb-4 text-left">

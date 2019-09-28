@@ -271,7 +271,7 @@ describe("ArticleDetail", () => {
         expect(container).toMatchSnapshot()
     })
 
-    it("renders an article without an author", async () => {
+    it("renders an article without author information", async () => {
         act(() => {
             const mocks = generateMocks({
                 "id": `ArticleContentItem:1`,
@@ -288,6 +288,13 @@ describe("ArticleDetail", () => {
                         ]
                     }
                 ],
+                "author": {
+                    "firstName": "Todd",
+                    "lastName": "Mullins",
+                    "photo": {
+                        "uri": ""
+                    }
+                }
             })
 
             component = render(
