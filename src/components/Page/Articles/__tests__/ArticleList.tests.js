@@ -3,48 +3,15 @@ import { MockedProvider } from '@apollo/react-testing'
 import { act, render } from '@testing-library/react'
 import wait from 'waait'
 
-import { GET_ALL_ARTICLES } from '../queries'
+import {
+    Articles
+} from '../../../../data-mocks'
 import { ArticleList } from '../'
 
-const createArticle = (id) => ({
-    "id": `ArticleContentItem:${id}`,
-    "title": `Article ${id}`,
-    "summary": "READ THIS GUYS!",
-    "images": [
-        {
-            "sources": [
-                {
-                    "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                }
-            ]
-        }
-    ],
-})
-
-const ARTICLE_LIST_MOCKS = [
-    {
-        request: {
-            query: GET_ALL_ARTICLES,
-        },
-        result: {
-            data: {
-                getArticles: [
-                    createArticle(1),
-                    createArticle(2),
-                ]
-            },
-        },
-    },
-]
-
-const ARTICLE_LIST_ERROR_MOCKS = [
-    {
-        request: {
-            query: GET_ALL_ARTICLES,
-        },
-        error: new Error("Error loading article lists")
-    },
-]
+const {
+    ARTICLE_LIST_MOCKS,
+    ARTICLE_LIST_ERROR,
+} = Articles
 
 let component = null
 
@@ -52,7 +19,12 @@ describe("ArticleList", () => {
     it("renders without crashing", () => {
         act(() => {
             render(
-                <MockedProvider mocks={ARTICLE_LIST_MOCKS} addTypename={false}>
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_LIST_MOCKS
+                    ]}
+                    addTypename={false}
+                >
                     <ArticleList />
                 </MockedProvider>
             )
@@ -62,7 +34,12 @@ describe("ArticleList", () => {
     it("renders a list of articles", async () => {
         act(() => {
             component = render(
-                <MockedProvider mocks={ARTICLE_LIST_MOCKS} addTypename={false}>
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_LIST_MOCKS
+                    ]}
+                    addTypename={false}
+                >
                     <ArticleList />
                 </MockedProvider>
             )
@@ -90,7 +67,11 @@ describe("ArticleList", () => {
     it("renders the error state", async () => {
         act(() => {
             component = render(
-                <MockedProvider mocks={ARTICLE_LIST_ERROR_MOCKS}>
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_LIST_ERROR
+                    ]}
+                >
                     <ArticleList />
                 </MockedProvider>
             )

@@ -14,39 +14,13 @@ import {
   Button
 } from '@christfellowshipchurch/web-ui-kit'
 import RelatedArticles from './RelatedArticles'
+import ArticleCategories from './ArticleCategories'
 import {
   GET_ARTICLE_BY_TITLE,
-  GET_ARTICLE_CATEGORIES,
 } from './queries'
 
 const DATE_FORMAT = 'MMMM D, YYYY'
 
-const ArticleCategories = ({ id }) => {
-  const { loading, error, data } = useQuery(GET_ARTICLE_CATEGORIES,
-    {
-      variables: { id },
-      fetchPolicy: "cache-and-network"
-    })
-
-  if (loading) return null
-
-  if (error) {
-    console.log({ error })
-    return null
-  }
-
-  return (
-    get(data, 'node.categories', []).map((n, i) =>
-      <Button
-        key={i}
-        title={n}
-        type="dark"
-        size="sm"
-        disabled
-      />
-    )
-  )
-}
 
 const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
   const { loading, error, data } = useQuery(GET_ARTICLE_BY_TITLE,

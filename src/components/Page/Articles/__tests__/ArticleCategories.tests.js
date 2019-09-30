@@ -2,38 +2,41 @@ import React from 'react'
 import { MockedProvider } from '@apollo/react-testing'
 import { act, render } from '@testing-library/react'
 import wait from 'waait'
-import {
-    set
-} from 'lodash'
 
 import {
     Articles
 } from '../../../../data-mocks'
-import { TopThreeArticles } from '..'
+import { ArticleCategories } from '..'
 
 const {
-    TOP_THREE_ARTICLES_MOCKS,
-    TOP_THREE_ARTICLES_ERROR
+    ARTICLE_CATEGORIES_MOCK,
+    ARTICLE_CATEGORIES_ERROR,
 } = Articles
 
 let component = null
 
-describe("TopThreeArticles", () => {
+describe("ArticleCategories", () => {
     it("renders without crashing", () => {
         act(() => {
             render(
-                <MockedProvider mocks={[TOP_THREE_ARTICLES_MOCKS]} addTypename={false}>
-                    <TopThreeArticles />
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_CATEGORIES_MOCK
+                    ]}
+                    addTypename={false}
+                >
+                    <ArticleCategories id="MainArticle" />
                 </MockedProvider>
             )
         })
     })
 
+    // Loading States
     it("renders the loading state", () => {
         act(() => {
             component = render(
                 <MockedProvider mocks={[]}>
-                    <TopThreeArticles />
+                    <ArticleCategories id="MainArticle" />
                 </MockedProvider>
             )
         })
@@ -45,8 +48,12 @@ describe("TopThreeArticles", () => {
     it("renders the error state", async () => {
         act(() => {
             component = render(
-                <MockedProvider mocks={[TOP_THREE_ARTICLES_ERROR]}>
-                    <TopThreeArticles />
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_CATEGORIES_ERROR
+                    ]}
+                >
+                    <ArticleCategories id="MainArticle" />
                 </MockedProvider>
             )
         })
@@ -57,30 +64,20 @@ describe("TopThreeArticles", () => {
         expect(container).toMatchSnapshot()
     })
 
-    it("renders first three related articles", async () => {
+    it("receives a null value from the server", async () => {
         act(() => {
-            component = render(
-                <MockedProvider mocks={[TOP_THREE_ARTICLES_MOCKS]} addTypename={false}>
-                    <TopThreeArticles />
-                </MockedProvider>
-            )
-        })
+            const mocks = ARTICLE_CATEGORIES_MOCK
 
-        await wait(0) // waits for response
+            mocks.result.data.node.categories = null
 
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-
-    it("renders first three related articles", async () => {
-        act(() => {
-            const mocks = TOP_THREE_ARTICLES_MOCKS
-
-            set(mocks, 'result.data.getArticles', [])
-
-            component = render(
-                <MockedProvider mocks={[mocks]} addTypename={false}>
-                    <TopThreeArticles />
+            render(
+                <MockedProvider
+                    mocks={[
+                        mocks
+                    ]}
+                    addTypename={false}
+                >
+                    <ArticleCategories id="MainArticle" />
                 </MockedProvider>
             )
         })

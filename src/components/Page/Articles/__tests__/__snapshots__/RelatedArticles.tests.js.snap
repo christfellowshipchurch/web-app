@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TopThreeArticles renders first three related articles 1`] = `
+exports[`RelatedArticles renders first three related articles 1`] = `
 <div>
   <div
     class="container-fluid max-width-1100 my-6 px-3"
@@ -159,11 +159,11 @@ exports[`TopThreeArticles renders first three related articles 1`] = `
 </div>
 `;
 
-exports[`TopThreeArticles renders first three related articles 2`] = `<div />`;
+exports[`RelatedArticles renders the error state 1`] = `<div />`;
 
-exports[`TopThreeArticles renders the error state 1`] = `<div />`;
+exports[`RelatedArticles renders the first three articles when no related articles are found 1`] = `<div />`;
 
-exports[`TopThreeArticles renders the loading state 1`] = `
+exports[`RelatedArticles renders the loading state 1`] = `
 <div>
   <div
     class="fill d-flex justify-content-center align-items-center"

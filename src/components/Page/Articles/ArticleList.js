@@ -5,7 +5,6 @@ import {
 import {
   get, has, toLower, kebabCase
 } from 'lodash'
-import moment from 'moment'
 
 import { Loader, Media } from '@christfellowshipchurch/web-ui-kit'
 import { GET_ALL_ARTICLES } from './queries'
@@ -51,7 +50,7 @@ const ArticleList = ({ }) => {
                   {`${get(n, 'summary', '').substring(0, 100)}...`}
                 </p>
                 {has(n, 'title') &&
-                  <a href={`articles/${kebabCase(toLower(get(n, 'title', '')))}/`}>
+                  <a href={`${kebabCase(toLower(get(n, 'title', '')))}/`}>
                     Read article
                   </a>
                 }

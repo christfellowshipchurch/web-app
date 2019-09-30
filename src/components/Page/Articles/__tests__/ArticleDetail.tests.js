@@ -2,67 +2,42 @@ import React from 'react'
 import { MockedProvider } from '@apollo/react-testing'
 import { act, render } from '@testing-library/react'
 import wait from 'waait'
+import { set } from 'lodash'
 
-import { GET_ARTICLE_BY_TITLE } from '../queries'
+import {
+    Articles
+} from '../../../../data-mocks'
 import { ArticleDetail } from '..'
 
-const generateMocks = (article) => [
-    {
-        request: {
-            query: GET_ARTICLE_BY_TITLE,
-            variables: {
-                title: 'article-1'
-            }
-        },
-        result: {
-            data: {
-                getArticleByTitle: article
-            },
-        },
-    },
-]
-
-const ARTICLE_DETAIL_ERROR_MOCKS = [
-    {
-        request: {
-            query: GET_ARTICLE_BY_TITLE,
-        },
-        error: new Error("Error loading article lists")
-    },
-]
+const {
+    ARTICLE_DETAIL_MOCK,
+    ARTICLE_DETAIL_ERROR,
+    ARTICLE_CATEGORIES_MOCK,
+    ARTICLE_CATEGORIES_ERROR
+} = Articles
 
 let component = null
+
+const conditionalFields = [
+    { key: 'title', value: 'title' },
+    { key: 'summary', value: 'summary' },
+    { key: 'image', value: 'images[0].sources[0].uri' },
+    { key: 'author image', value: 'author.photo.uri' },
+    { key: 'readTime', value: 'readTime' },
+    { key: 'publishDate', value: 'publishDate' },
+]
 
 describe("ArticleDetail", () => {
     it("renders without crashing", () => {
         act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "10",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
-            })
-
             render(
-                <MockedProvider mocks={mocks} addTypename={false}>
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_DETAIL_MOCK,
+                        ARTICLE_CATEGORIES_MOCK
+                    ]}
+                    addTypename={false}
+                >
                     <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
                 </MockedProvider>
             )
@@ -72,33 +47,14 @@ describe("ArticleDetail", () => {
     // Loading States
     it("renders an article", async () => {
         act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "10",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
-            })
-
             component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_DETAIL_MOCK,
+                        ARTICLE_CATEGORIES_MOCK
+                    ]}
+                    addTypename={false}
+                >
                     <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
                 </MockedProvider>
             )
@@ -126,7 +82,12 @@ describe("ArticleDetail", () => {
     it("renders the error state", async () => {
         act(() => {
             component = render(
-                <MockedProvider mocks={ARTICLE_DETAIL_ERROR_MOCKS}>
+                <MockedProvider
+                    mocks={[
+                        ARTICLE_DETAIL_ERROR,
+                        ARTICLE_CATEGORIES_ERROR
+                    ]}
+                >
                     <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
                 </MockedProvider>
             )
@@ -141,10 +102,12 @@ describe("ArticleDetail", () => {
     // Conditional Renders
     it("passes back a null article", async () => {
         act(() => {
-            const mocks = generateMocks(null)
+            const mocks = ARTICLE_DETAIL_MOCK
+
+            mocks.result.data.getArticleByTitle = null
 
             component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
+                <MockedProvider mocks={[mocks]} addTypename={false}>
                     <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
                 </MockedProvider>
             )
@@ -156,243 +119,27 @@ describe("ArticleDetail", () => {
         expect(container).toMatchSnapshot()
     })
 
-    it("renders an article without a title", async () => {
-        act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": ``,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "10",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
+    conditionalFields.forEach(n => {
+        it(`renders an article without ${n.key}`, async () => {
+            act(() => {
+                const mocks = ARTICLE_DETAIL_MOCK
+
+                set(mocks, `result.data.getArticleByTitle.${n.value}`, '')
+
+                component = render(
+                    <MockedProvider
+                        mocks={[mocks, ARTICLE_CATEGORIES_MOCK]}
+                        addTypename={false}
+                    >
+                        <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
+                    </MockedProvider>
+                )
             })
 
-            component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
-                </MockedProvider>
-            )
+            await wait(0) // waits for response
+
+            const { container } = component
+            expect(container).toMatchSnapshot()
         })
-
-        await wait(0) // waits for response
-
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-
-    it("renders an article without a summary", async () => {
-        act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "",
-                "readTime": "10",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
-            })
-
-            component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
-                </MockedProvider>
-            )
-        })
-
-        await wait(0) // waits for response
-
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-
-    it("renders an article without an image", async () => {
-        act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "10",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": ""
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
-            })
-
-            component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
-                </MockedProvider>
-            )
-        })
-
-        await wait(0) // waits for response
-
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-
-    it("renders an article without author information", async () => {
-        act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "10",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": ""
-                    }
-                }
-            })
-
-            component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
-                </MockedProvider>
-            )
-        })
-
-        await wait(0) // waits for response
-
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-
-    it("renders an article without a read time", async () => {
-        act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "",
-                "publishDate": "2019-09-27T04:00:00.000Z",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
-            })
-
-            component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
-                </MockedProvider>
-            )
-        })
-
-        await wait(0) // waits for response
-
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-
-    it("renders an article without a publish date", async () => {
-        act(() => {
-            const mocks = generateMocks({
-                "id": `ArticleContentItem:1`,
-                "title": `Article 1`,
-                "htmlContent": "<p>This is my really good article on how to be such a Godly man. Your life will be changed if you keep reading.</p>",
-                "summary": "READ THIS GUYS!",
-                "readTime": "10",
-                "publishDate": "",
-                "images": [
-                    {
-                        "sources": [
-                            {
-                                "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=54ef1562-4e7b-4012-9630-115e056554e5"
-                            }
-                        ]
-                    }
-                ],
-                "author": {
-                    "firstName": "Todd",
-                    "lastName": "Mullins",
-                    "photo": {
-                        "uri": "https://dev-rock.christfellowship.church/GetImage.ashx?guid=36fe5474-a72a-4d0e-8cc0-f92793ea6f73"
-                    }
-                }
-            })
-
-            component = render(
-                <MockedProvider mocks={mocks} addTypename={false}>
-                    <ArticleDetail match={{ params: { articleTitle: 'article-1' } }} />
-                </MockedProvider>
-            )
-        })
-
-        await wait(0) // waits for response
-
-        const { container } = component
-        expect(container).toMatchSnapshot()
     })
 })
