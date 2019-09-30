@@ -7,7 +7,7 @@
     "@babel/cli": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@christfellowshipchurch/web-fonts": "^1.0.0",
-    "@christfellowshipchurch/web-ui-kit": "^0.0.35",
+    "@christfellowshipchurch/web-ui-kit": "^0.0.36",
     "@fortawesome/fontawesome-pro-light": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-brands-svg-icons": "^5.9.0",

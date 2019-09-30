@@ -1,3 +1,4 @@
+// Articles
 import * as ArticleCategories from './article-categories'
 import * as ArticleDetails from './article-details'
 import * as RelatedArticles from './related-articles'
@@ -10,4 +11,11 @@ export const Articles = {
     ...RelatedArticles,
     ...TopThreeArticles,
     ...ArticleList,
+}
+
+// Features
+import * as EmailCapture from './email-capture'
+
+export const Features = {
+    ...EmailCapture,
 }

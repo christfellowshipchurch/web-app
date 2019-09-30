@@ -1,43 +1,17 @@
 import React, { useState } from 'react'
+import { useMutation } from 'react-apollo'
+import classnames from 'classnames'
 import { withFormik } from 'formik'
 import * as Yup from 'yup'
 import { get, has } from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import { faEnvelope } from '@fortawesome/fontawesome-pro-light'
-import { faJedi } from '@fortawesome/free-solid-svg-icons'
-import { TextInput, Button } from '@christfellowshipchurch/web-ui-kit'
-import classnames from 'classnames'
+import {
+    TextInput,
+    Button
+} from '@christfellowshipchurch/web-ui-kit'
 
-const Overlay = ({ onClick }) => (
-    <div
-        className={classnames(
-            "w-100",
-            "h-100",
-            "d-flex",
-            "justify-content-center",
-            "align-items-center",
-            'p-5'
-        )}
-        style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.25)',
-            position: 'absolute',
-            top: 0,
-            left: 0
-        }}>
-        <div className="card text-success border-success text-center">
-            <div className="card-body">
-                <FontAwesomeIcon icon={faJedi} color='light-gray' size="3x" />
-                <h1 className="card-title">
-                    For my ally is the Force, and a powerful ally it is.
-                </h1>
-            </div>
-            <div className="card-footer text-right">
-                <Button type="link" onClick={onClick} title="Close" />
-            </div>
-        </div>
-
-    </div>
-)
+import { SUBMIT_EMAIL_CAPTURE } from './mutations'
 
 const checkEmptyString = (obj, key) => get(obj, key, '') === ''
 
@@ -45,15 +19,39 @@ const EmailCapture = ({
     errors,
     setFieldValue,
     values,
-    onSubmit
+    onSubmit,
+    setSubmitting,
+    isSubmitting
 }) => {
-    const [showOverlow, setShowOverlay] = useState(false)
+    const [submitEmailCapture, {
+        data,
+        loading: mutationLoading,
+        error: mutationError
+    }] = useMutation(SUBMIT_EMAIL_CAPTURE)
+    const isLoading = mutationLoading
     const hasError = has(errors, 'firstName')
         || has(errors, 'lastName')
         || has(errors, 'email')
         || checkEmptyString(values, 'firstName')
         || checkEmptyString(values, 'lastName')
         || checkEmptyString(values, 'email')
+
+    if (get(data, 'submitEmailCapture') == "Completed") {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col py-3 text-center text-success">
+                        <h1>
+                            <i className="fal fa-check-circle"></i>
+                        </h1>
+                        <h3>
+                            You're all set! Check your email soon.
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="container">
@@ -62,6 +60,7 @@ const EmailCapture = ({
                     <TextInput
                         label="First Name"
                         onChange={(e) => setFieldValue('firstName', get(e, 'target.value', ''))}
+                        disabled={isLoading}
                     />
                 </div>
             </div>
@@ -70,6 +69,7 @@ const EmailCapture = ({
                     <TextInput
                         label="Last Name"
                         onChange={(e) => setFieldValue('lastName', get(e, 'target.value', ''))}
+                        disabled={isLoading}
                     />
                 </div>
             </div>
@@ -80,6 +80,7 @@ const EmailCapture = ({
                         icon={faEnvelope}
                         onChange={(e) => setFieldValue('email', get(e, 'target.value', ''))}
                         error={has(values, 'email') && has(errors, 'email') ? get(errors, 'email', null) : null}
+                        disabled={isLoading}
                     />
                 </div>
             </div>
@@ -87,11 +88,24 @@ const EmailCapture = ({
                 <div className="col py-3">
                     <Button
                         title={`Send this to me`}
-                        disabled={hasError}
-                        onClick={() => setShowOverlay(true)} />
+                        disabled={hasError || isSubmitting}
+                        loading={isLoading}
+                        onClick={() => {
+                            submitEmailCapture({ variables: values })
+                            setSubmitting(true)
+                        }}
+                    />
                 </div>
             </div>
-            {showOverlow && <Overlay onClick={() => setShowOverlay(false)} />}
+            {mutationError || get(data, 'submitEmailCapture', 'Completed') !== 'Completed' &&
+                <div className="row">
+                    <div className="col py-3">
+                        <i className="text-danger">
+                            There was an error submitting your form. Please try again.
+                        </i>
+                    </div>
+                </div>
+            }
         </div>
     )
 }
