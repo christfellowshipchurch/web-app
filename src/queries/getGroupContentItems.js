@@ -41,6 +41,8 @@ query getGroupBlockItems($id: ID!) {
                 call
                 action
               }
+              
+
               target
       
               coverImage {
@@ -51,6 +53,8 @@ query getGroupBlockItems($id: ID!) {
               }
               imageAlt
               imageRatio
+
+              openLinksInNewTab
             }
 
             ... on WebsiteFeature {
