@@ -57,7 +57,7 @@ exports[`ArticleList renders a list of articles 1`] = `
               READ THIS GUYS!...
             </p>
             <a
-              href="articles/article-1/"
+              href="/articles/article-1/"
             >
               Read article
             </a>
@@ -102,7 +102,7 @@ exports[`ArticleList renders a list of articles 1`] = `
               READ THIS GUYS!...
             </p>
             <a
-              href="articles/article-1/"
+              href="/articles/article-1/"
             >
               Read article
             </a>
@@ -147,7 +147,7 @@ exports[`ArticleList renders a list of articles 1`] = `
               READ THIS GUYS!...
             </p>
             <a
-              href="articles/article-1/"
+              href="/articles/article-1/"
             >
               Read article
             </a>
