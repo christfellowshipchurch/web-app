@@ -23,6 +23,7 @@ const ContentBlock = ({
   htmlContent,
   callToAction,
   secondaryCallToAction,
+  openLinksInNewTab,
   className
 }) => (
     <div className={`col px-4 py-6 ${className}`}>
@@ -51,8 +52,11 @@ const ContentBlock = ({
           <Block.Body className="pb-4">
             {htmlContent}
           </Block.Body>
-
-          <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
+          <ButtonRow 
+            callToAction={callToAction} 
+            secondaryCallToAction={secondaryCallToAction} 
+            openLinksInNewTab={openLinksInNewTab}   
+          />
         </div>
       </Block>
     </div>
