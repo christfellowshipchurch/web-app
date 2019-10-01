@@ -38,7 +38,7 @@ const Rsvp = (props) => {
         || loading
 
     // Form submission successful
-    if (get(data, 'submitRsvp', false)) {
+    if (get(data, 'submitRsvp', '') === "Completed") {
         return (
             <div className="text-success text-center">
                 <h3>
@@ -53,7 +53,7 @@ const Rsvp = (props) => {
     }
 
     // Form submission unsuccessful
-    if ((has(data, 'submitRsvp') && !data.submitRsvp) || error) {
+    if ((has(data, 'submitRsvp') && data.submitRsvp !== "Completed") || error) {
         return (
             <div className="text-danger text-center">
                 <h3>
