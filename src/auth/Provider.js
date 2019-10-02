@@ -22,7 +22,6 @@ function AuthProvider(props) {
     const [token, setToken] = useReducer(reducer, localState || initialState)
     const [isLoggedIn, setIsLoggedIn] = useState(token && token !== '')
     const logout = () => {
-        console.log('handling logout')
         setToken(null)
     }
 

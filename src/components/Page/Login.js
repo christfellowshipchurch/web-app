@@ -1,7 +1,12 @@
 import React, { useState, useContext } from 'react'
+import gql from 'graphql-tag'
+import {
+  useLazyQuery
+} from 'react-apollo'
 import classnames from 'classnames'
 import {
-  TextInput
+  TextInput,
+  Button
 } from '@christfellowshipchurch/web-ui-kit'
 
 import {
@@ -12,6 +17,48 @@ import {
   useLogin,
   useAuth
 } from '../../auth/hooks'
+
+const GET_CURRENT_PERSON = gql`
+  query {
+    currentUser {
+      profile {
+        firstName
+        lastName
+      }
+    }
+  }
+`
+
+const CurrentPerson = () => {
+  const { isLoggedIn } = useContext(AuthContext)
+  const [currentUser, setCurrentUser] = useState(null)
+  const [getCurrentUser, { loading, data }] = useLazyQuery(GET_CURRENT_PERSON)
+
+  if (data && data.getCurrentUser) {
+    setCurrentUser(data.getCurrentUser.profile)
+  }
+
+  return (
+    <div className="row">
+      {currentUser && !loading &&
+        <div className="col-12">
+          <h2>
+            Current User: {`${currentUser.firstName} ${currentUser.lastName}`}
+          </h2>
+        </div>
+      }
+      <div className="col-12">
+        <Button
+          loading={loading}
+          disabled={loading && isLoggedIn}
+          title="Get Current User"
+          onClick={() => getCurrentUser()}
+        />
+      </div>
+    </div>
+  )
+
+}
 
 const LoginStatus = () => {
   const { isLoggedIn } = useContext(AuthContext)
