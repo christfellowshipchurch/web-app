@@ -4,7 +4,7 @@ import { Button } from '@christfellowshipchurch/web-ui-kit'
 
 import { redirectTo } from '../../../utils'
 
-const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
+const ButtonRow = ({ callToAction, secondaryCallToAction, openLinksInNewTab }) => (
     <div>
         {callToAction
             && callToAction.call !== ''
@@ -12,7 +12,8 @@ const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
             && <Button
                 type='primary'
                 title={callToAction.call}
-                onClick={() => redirectTo(callToAction.action)} />}
+                onClick={() => redirectTo(callToAction.action, openLinksInNewTab)} />}
+
 
         <br></br>
 
@@ -23,7 +24,8 @@ const ButtonRow = ({ callToAction, secondaryCallToAction }) => (
                 type='link'
                 className='text-white'
                 title={secondaryCallToAction.call}
-                onClick={() => redirectTo(secondaryCallToAction.action)} />}
+                onClick={() => redirectTo(secondaryCallToAction.action, openLinksInNewTab)} />}
+
     </div>
 )
 

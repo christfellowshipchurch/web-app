@@ -57,11 +57,13 @@ query getWebsitePages($website:String!, $title:String!) {
               call
               action
             }
-            target
     
             imageAlt
             imageRatio
+
+            openLinksInNewTab
           }
+          
 
           ... on WebsiteGroupItem {
             groupLayout
