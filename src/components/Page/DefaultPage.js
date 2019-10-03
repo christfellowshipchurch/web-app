@@ -26,7 +26,13 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
 
   const website = process.env.REACT_APP_WEBSITE_KEY
   const pageTitle = page || title
-  const isHomePage = pageTitle === 'home' || pageTitle === '' || pageTitle === 'home-page'
+  const isHomePage = pageTitle === ''
+    || pageTitle === 'home'
+    || pageTitle === 'home-page'
+    || pageTitle === '/'
+    || pageTitle === 'home/'
+    || pageTitle === 'home-page/'
+
   const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: pageTitle } })
 
   if (loading) return (
