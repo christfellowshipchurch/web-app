@@ -120,6 +120,9 @@ select {
     width: 80px;
     height: auto;
 }
+.article-title {
+    font-size: 36px;
+}
 .article-subtitle {
     font-size: 22px;
     letter-spacing: 0.8px;
