@@ -19,6 +19,7 @@ const GET_CURRENT_PERSON = gql`
 const useCurrentUser = (fields) => {
     const { token, isLoggedIn, logout } = useAuth()
     const [doRefetch, setRefetch] = useState(false)
+    const [didRefetch, setDidRefetch] = useState(false)
     const [getCurrentUser, {
         data,
         loading,
@@ -29,18 +30,25 @@ const useCurrentUser = (fields) => {
     let currentUser = get(data, 'currentUser.profile', null)
 
     useEffect(() => {
+        console.log({ token })
         if (isLoggedIn) setRefetch(true)
     }, [token])
 
     try {
-        if (doRefetch) {
+        if (doRefetch && called) {
             // If the state of doRefetch is true,
             //  attempt to refetch the data, then set the
             //  state to false to avoid an infinite loop
-            refetch().catch(e => console.log({ e }))
+            console.log("REFETCHING")
+            refetch().catch(e => {
+                console.log({ e })
+                logout()
+            })
             setRefetch(false)
+            setDidRefetch(true)
             currentUser = null // data does not automatically update, so this needs to be set manually
-        } else if (error && !doRefetch && !loading) {
+        } else if (error && !loading && !didRefetch) {
+            console.log("ERROR")
             // Log error and log out if there is an error found
             //  Ignore the error if doRefetch is set to true because
             //  the error is left over from a previous request and
