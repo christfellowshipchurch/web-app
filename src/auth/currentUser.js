@@ -26,6 +26,7 @@ const useCurrentUser = (fields) => {
         called,
         refetch
     }] = useLazyQuery(GET_CURRENT_PERSON)
+    let currentUser = get(data, 'currentUser.profile', null)
 
     useEffect(() => {
         if (isLoggedIn) setRefetch(true)
@@ -36,8 +37,9 @@ const useCurrentUser = (fields) => {
             // If the state of doRefetch is true,
             //  attempt to refetch the data, then set the
             //  state to false to avoid an infinite loop
-            refetch()
+            refetch().catch(e => console.log({ e }))
             setRefetch(false)
+            currentUser = null // data does not automatically update, so this needs to be set manually
         } else if (error && !doRefetch && !loading) {
             // Log error and log out if there is an error found
             //  Ignore the error if doRefetch is set to true because
@@ -45,6 +47,7 @@ const useCurrentUser = (fields) => {
             //  ignore errors if the request is still loading
             console.error("Authentication error: logging out")
             logout()
+            currentUser = null // data does not automatically update, so this needs to be set manually
         }
 
         // Request data on initial load:
@@ -55,12 +58,11 @@ const useCurrentUser = (fields) => {
         }
     } catch (e) {
         console.error('GQL error:', { e })
+        currentUser = null // data does not automatically update, so this needs to be set manually
     }
 
-    console.log({ isLoggedIn, token })
-    console.log({ data, loading, error, called })
     return {
-        currentUser: get(data, 'currentUser.profile', null),
+        currentUser,
         loading,
         error
     }
