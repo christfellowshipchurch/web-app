@@ -1,8 +1,6 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import gql from 'graphql-tag'
-import {
-  useLazyQuery
-} from 'react-apollo'
+import { get } from 'lodash'
 import classnames from 'classnames'
 import {
   TextInput,
@@ -11,11 +9,25 @@ import {
 
 import {
   useAuth,
-  useCurrentUser,
+  useAuthQuery,
 } from '../../auth'
 
+
+const GET_CURRENT_PERSON = gql`
+    query {
+        currentUser {
+            profile {
+                firstName
+                lastName 
+            }
+        }
+    }
+`
+
 const CurrentPerson = () => {
-  const { currentUser, loading } = useCurrentUser()
+  const { data, loading, error } = useAuthQuery(GET_CURRENT_PERSON)
+
+  const currentUser = get(data, 'currentUser.profile', null)
 
   return (
     <div className="row my-6">
@@ -26,11 +38,11 @@ const CurrentPerson = () => {
           </h2>
         }
 
-        {/* {error &&
+        {error &&
           <h2>
             !! Error !!
           </h2>
-        } */}
+        }
 
         {currentUser &&
           <h2>

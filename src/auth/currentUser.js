@@ -1,81 +1,46 @@
-import { useState, useEffect } from 'react'
-import { useLazyQuery } from 'react-apollo'
-import { get } from 'lodash'
+import { useEffect } from 'react'
+import { useQuery } from 'react-apollo'
 import { useAuth } from './'
-import gql from 'graphql-tag'
-import moment from 'moment'
 
-const GET_CURRENT_PERSON = gql`
-    query {
-        currentUser {
-            profile {
-                firstName
-                lastName 
-            }
-        }
-    }
-`
-
-const useCurrentUser = (fields) => {
+const useAuthQuery = (query) => {
     const { token, isLoggedIn, logout } = useAuth()
-    const [doRefetch, setRefetch] = useState(false)
-    const [didRefetch, setDidRefetch] = useState(false)
-    const [getCurrentUser, {
+    const {
+        data,
+        error,
+        loading,
+        refetch,
+    } = useQuery(query, {
+        // if the user is not logged in, 
+        //  we want to skip the query all together 
+        //  and wait for refetch after the token changes
+        skip: !isLoggedIn,
+        // Required to ensure we always get fresh
+        //  data from every request
+        fetchPolicy: 'network-only',
+        onError: () => {
+            console.error("Authentication error: logging out")
+            logout()
+        }
+    })
+
+    useEffect(() => {
+        // Catch statement is required if you want
+        //  to manually handle the error callback 
+        //  specifically in regards to the refetch.
+        // In this case, there's no need to make that
+        //  error visible, so we're overwriting it with
+        //  out own.
+        if (isLoggedIn) refetch().catch(() => console.error("Authentication error"))
+    }, [token])
+
+    return {
         data,
         loading,
         error,
-        called,
-        refetch
-    }] = useLazyQuery(GET_CURRENT_PERSON)
-    let currentUser = get(data, 'currentUser.profile', null)
-
-    useEffect(() => {
-        console.log({ token })
-        if (isLoggedIn) setRefetch(true)
-    }, [token])
-
-    try {
-        if (doRefetch && called) {
-            // If the state of doRefetch is true,
-            //  attempt to refetch the data, then set the
-            //  state to false to avoid an infinite loop
-            console.log("REFETCHING")
-            refetch().catch(e => {
-                console.log({ e })
-                logout()
-            })
-            setRefetch(false)
-            setDidRefetch(true)
-            currentUser = null // data does not automatically update, so this needs to be set manually
-        } else if (error && !loading && !didRefetch) {
-            console.log("ERROR")
-            // Log error and log out if there is an error found
-            //  Ignore the error if doRefetch is set to true because
-            //  the error is left over from a previous request and
-            //  ignore errors if the request is still loading
-            console.error("Authentication error: logging out")
-            logout()
-            currentUser = null // data does not automatically update, so this needs to be set manually
-        }
-
-        // Request data on initial load:
-        //  if the request has not already been called,
-        //  check to see if the use is logged in before calling
-        if (!called && isLoggedIn) {
-            getCurrentUser()
-        }
-    } catch (e) {
-        console.error('GQL error:', { e })
-        currentUser = null // data does not automatically update, so this needs to be set manually
-    }
-
-    return {
-        currentUser,
-        loading,
-        error
+        isLoggedIn
     }
 }
 
 export {
-    useCurrentUser
+    useAuthQuery
 }
