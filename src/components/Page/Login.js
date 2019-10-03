@@ -10,58 +10,40 @@ import {
 } from '@christfellowshipchurch/web-ui-kit'
 
 import {
-  AuthProvider,
-  AuthContext
+  useAuth,
+  useCurrentUser,
 } from '../../auth'
-import {
-  useLogin,
-  useAuth
-} from '../../auth/hooks'
-
-const GET_CURRENT_PERSON = gql`
-  query {
-    currentUser {
-      profile {
-        firstName
-        lastName
-      }
-    }
-  }
-`
 
 const CurrentPerson = () => {
-  const { isLoggedIn } = useContext(AuthContext)
-  const [currentUser, setCurrentUser] = useState(null)
-  const [getCurrentUser, { loading, data }] = useLazyQuery(GET_CURRENT_PERSON)
-
-  if (data && data.getCurrentUser) {
-    setCurrentUser(data.getCurrentUser.profile)
-  }
+  const { currentUser, loading } = useCurrentUser()
 
   return (
-    <div className="row">
-      {currentUser && !loading &&
-        <div className="col-12">
+    <div className="row my-6">
+      <div className="col-12">
+        {loading &&
+          <h2>
+            Loading...
+          </h2>
+        }
+
+        {/* {error &&
+          <h2>
+            !! Error !!
+          </h2>
+        } */}
+
+        {currentUser &&
           <h2>
             Current User: {`${currentUser.firstName} ${currentUser.lastName}`}
           </h2>
-        </div>
-      }
-      <div className="col-12">
-        <Button
-          loading={loading}
-          disabled={loading && isLoggedIn}
-          title="Get Current User"
-          onClick={() => getCurrentUser()}
-        />
+        }
       </div>
     </div>
   )
-
 }
 
 const LoginStatus = () => {
-  const { isLoggedIn } = useContext(AuthContext)
+  const { isLoggedIn } = useAuth()
 
   return (
     <span
@@ -79,9 +61,8 @@ const LoginStatus = () => {
 }
 
 const LogoutButton = () => {
-  const { isLoggedIn, logout } = useContext(AuthContext)
+  const { isLoggedIn, logout } = useAuth()
   const onClick = () => {
-    console.log("logout clicked")
     logout()
   }
 
@@ -90,7 +71,8 @@ const LogoutButton = () => {
       className={classnames(
         'btn',
         'btn-outline-secondary',
-        'btn-sm'
+        'btn-sm',
+        'mx-3'
       )}
       disabled={!isLoggedIn}
       onClick={onClick}
@@ -101,10 +83,12 @@ const LogoutButton = () => {
 }
 
 const DefaultPage = () => {
-  const { token, setToken } = useContext(AuthContext)
+  const { token, setToken } = useAuth()
   const [value, setValue] = useState(token)
+  const newToken = value
 
-  const onClick = () => setToken(value)
+  const onClick = () => setToken(newToken)
+  // const onClick = () => true
 
   return (
     <div className="container my-6">
@@ -141,6 +125,7 @@ const DefaultPage = () => {
           <LogoutButton />
         </div>
       </div>
+      <CurrentPerson />
     </div>
   )
 }

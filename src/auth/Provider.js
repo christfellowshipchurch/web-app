@@ -2,6 +2,7 @@ import React, {
     useReducer,
     useEffect,
     useState,
+    useContext,
     createContext
 } from 'react'
 
@@ -9,6 +10,7 @@ export const AUTH_TOKEN_KEY = 'auth-token'
 const initialState = ''
 const localState = localStorage.getItem(AUTH_TOKEN_KEY)
 const AuthContext = createContext()
+const useAuth = () => useContext(AuthContext)
 
 let reducer = (token, newToken) => {
     if (newToken === null) {
@@ -18,16 +20,16 @@ let reducer = (token, newToken) => {
     return newToken || token
 }
 
-function AuthProvider(props) {
+const AuthProvider = (props) => {
     const [token, setToken] = useReducer(reducer, localState || initialState)
-    const [isLoggedIn, setIsLoggedIn] = useState(token && token !== '')
+    const [isLoggedIn, setIsLoggedIn] = useState(!!token)
     const logout = () => {
         setToken(null)
     }
 
     useEffect(() => {
         localStorage.setItem(AUTH_TOKEN_KEY, token)
-        setIsLoggedIn(token && token !== '')
+        setIsLoggedIn(!!token)
     }, [token])
 
     return (
@@ -44,4 +46,8 @@ function AuthProvider(props) {
     )
 }
 
-export { AuthContext, AuthProvider }
+export {
+    AuthContext,
+    AuthProvider,
+    useAuth
+}
