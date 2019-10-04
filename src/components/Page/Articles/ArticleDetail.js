@@ -61,7 +61,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
           <div className="col">
             <Block>
               {get(article, 'title', '') !== '' &&
-                <Block.Title className='mb-2 text-dark article-title'>
+                <Block.Title className='mb-1 text-dark'>
                   {article.title}
                 </Block.Title>
               }

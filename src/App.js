@@ -10,7 +10,7 @@ const App = () => {
   window.scrollTo(0, 0)
 
   return (
-    <div className='bg-white'>
+    <div>
       <SEO />
 
       {page === 'home-page' || page === '/home-page'
