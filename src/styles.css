@@ -23,6 +23,11 @@ body {
     text-decoration: none !important;
 }
 
+input[type="checkbox"] {
+    height: 24px;
+    width: 24px;
+}
+
 /*
 * Additional Backgrounds
 */
