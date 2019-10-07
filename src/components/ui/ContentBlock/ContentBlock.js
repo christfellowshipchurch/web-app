@@ -23,8 +23,11 @@ const ContentBlock = ({
   htmlContent,
   callToAction,
   secondaryCallToAction,
+  openLinksInNewTab,
   className
-}) => (
+}) => {
+  if (openLinksInNewTab) console.log({ openLinksInNewTab })
+  return (
     <div className={`col px-4 py-6 ${className}`}>
       <Block
         layout={camelCase(contentLayout)}
@@ -51,11 +54,15 @@ const ContentBlock = ({
           <Block.Body className="pb-4">
             {htmlContent}
           </Block.Body>
-
-          <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
+          <ButtonRow
+            callToAction={callToAction}
+            secondaryCallToAction={secondaryCallToAction}
+            openLinksInNewTab={openLinksInNewTab}
+          />
         </div>
       </Block>
     </div>
   )
+}
 
 export default ContentBlock

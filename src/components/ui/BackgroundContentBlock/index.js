@@ -16,6 +16,7 @@ export default ({
   htmlContent,
   callToAction,
   secondaryCallToAction,
+  openLinksInNewTab,
   className
 }) => {
   const lg = camelCase(contentLayout).includes('Large')
@@ -70,7 +71,9 @@ export default ({
 
         <ButtonRow
           callToAction={callToAction}
-          secondaryCallToAction={secondaryCallToAction} />
+          secondaryCallToAction={secondaryCallToAction}
+          openLinksInNewTab={openLinksInNewTab}
+        />
       </Block>
     </div>
   )

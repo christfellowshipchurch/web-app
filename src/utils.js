@@ -1,7 +1,10 @@
 import PixelManager from './components/PixelManager'
 
 export const mapEdgesToNodes = (data) => data.edges.map(n => n.node)
-export const redirectTo = (uri) => window.location.href = uri
+export const redirectTo = (uri, newTab) =>
+    newTab
+        ? window.open(uri, '_blank')
+        : window.location.href = uri
 
 export const hexToRGB = (hex) => {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
