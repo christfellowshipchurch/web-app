@@ -8,7 +8,7 @@ import moment from 'moment'
 
 import { faAngleDown } from '@fortawesome/fontawesome-pro-light'
 import { Button, Media, Loader } from '@christfellowshipchurch/web-ui-kit'
-import InputIcon from '@christfellowshipchurch/web-ui-kit/lib/inputs/inputIcon'
+import InputIcon from '../../ui/inputs/TextInput'
 import FloatingCard from '../../ui/FloatingCard'
 import RsvpForm from '../RsvpForm'
 
