@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@christfellowshipchurch/web-ui-kit'
+import  Button  from '../Button'
 
 import { redirectTo } from '../../../utils'
 
