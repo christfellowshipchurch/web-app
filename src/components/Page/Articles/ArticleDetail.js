@@ -112,7 +112,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
             </Block>
           </div>
         </div>
-        <div className="row pb-3">
+        <div className="row pb-6">
           <div className="col-12 px-3">
             <h4
               className="text-uppercase text-muted"
