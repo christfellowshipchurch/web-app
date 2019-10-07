@@ -12,18 +12,16 @@ import {
   useAuthQuery,
 } from '../../auth'
 
-// import {
-//   LoginForm
-// } from '../../login'
+import LoginForm from '../../login'
 
-import IdentityForm from '../../login/Identity'
+// import IdentityForm from '../../login/Identity'
 
 const DefaultPage = () => {
   return (
     <div className="container my-6">
       <div className="row">
         <div className="col">
-          <IdentityForm />
+          <LoginForm />
         </div>
       </div>
     </div>

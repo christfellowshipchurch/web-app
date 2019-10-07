@@ -17,3 +17,27 @@ export const IS_VALID_IDENTITY = gql`
     }
   }
 `
+
+export const AUTHENTICATE_CREDENTIALS = gql`
+  mutation authenticateCredentials($identity: String!, $passcode: String!) {
+    authenticateCredentials(identity: $identity, passcode: $passcode) {
+      token
+    }
+  }
+`
+
+export const CREATE_NEW_LOGIN = gql`
+  mutation createNewUserAccount($identity: String!, $passcode: String!) {
+    createNewUserLogin(identity: $identity, passcode: $passcode) {
+      token
+    }
+  }
+`
+
+export const HANDLE_NEW_LOGIN = gql`
+  mutation handleNewUserAccount($identity: String!, $passcode: String!) {
+    createNewUserAccount(identity: $identity, passcode: $passcode) {
+      token
+    }
+  }
+`
