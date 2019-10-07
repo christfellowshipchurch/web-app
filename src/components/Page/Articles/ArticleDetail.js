@@ -55,13 +55,14 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     : moment().format(DATE_FORMAT)
 
   return (
-    <div>
-      <div className="container my-6 max-width-800">
+    <>
+    <div className='pt-6 bg-white'>
+      <div className="container max-width-800">
         <div className="row">
           <div className="col">
             <Block>
               {get(article, 'title', '') !== '' &&
-                <Block.Title className='mb-2 text-dark article-title'>
+                <Block.Title className='mb-1 article-title text-dark'>
                   {article.title}
                 </Block.Title>
               }
@@ -111,7 +112,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
             </Block>
           </div>
         </div>
-        <div className="row">
+        <div className="row pb-6">
           <div className="col-12 px-3">
             <h4
               className="text-uppercase text-muted"
@@ -125,8 +126,11 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
           </div>
         </div>
       </div>
+    </div>
+    <div className='container-fluid py-4'>
       <RelatedArticles id={get(article, 'id')} />
     </div>
+</>
   )
 }
 

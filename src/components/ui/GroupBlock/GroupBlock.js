@@ -28,7 +28,7 @@ const GroupBlock = ({
   const { loading, error, data } = useQuery(getGroupContentItems, { variables: { id } })
 
   if (loading) return (
-    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center">
+    <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
       <Loader />
     </div>
   )
