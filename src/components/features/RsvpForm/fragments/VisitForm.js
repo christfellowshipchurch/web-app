@@ -15,10 +15,8 @@ import {
     faCalendarAlt,
     faClock
 } from '@fortawesome/fontawesome-pro-light'
-import {
-    Loader,
-    Dropdown,
-} from '@christfellowshipchurch/web-ui-kit'
+import Loader from '../../../../ui/Loader'
+import Dropdown from '../../../../ui/inputs/Dropdown'
 
 import { GET_CAMPUSES } from '../queries'
 

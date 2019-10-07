@@ -6,7 +6,8 @@ import {
   get, has, toLower, kebabCase
 } from 'lodash'
 
-import { Loader, Media } from '@christfellowshipchurch/web-ui-kit'
+import Loader from '../../../ui/Loader'
+import Media from '../../../ui/Media'
 import { GET_ALL_ARTICLES } from './queries'
 
 const ArticleList = ({ }) => {

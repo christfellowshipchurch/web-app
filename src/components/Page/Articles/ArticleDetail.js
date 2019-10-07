@@ -8,11 +8,10 @@ import {
 import moment from 'moment'
 
 import {
-  Media,
   Block,
-  Loader,
-  Button
 } from '@christfellowshipchurch/web-ui-kit'
+import Loader from '../../../ui/Loader'
+import Media from '../../../ui/Media'
 import RelatedArticles from './RelatedArticles'
 import ArticleCategories from './ArticleCategories'
 import {

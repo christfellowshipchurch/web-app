@@ -1,9 +1,8 @@
 import React from 'react'
 import renderer from "react-test-renderer"
-import {Block, Media, Row} from '@christfellowshipchurch/web-ui-kit'
+import { Row } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../../ContentBlock'
 import FormattedCarousel from '../../FormattedCarousel'
-import GroupBlock from '../../GroupBlock'
 
 
 describe("GroupBlock Renderer", () => {

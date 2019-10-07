@@ -12,7 +12,8 @@ import getWebPageBlockItems from '../../queries/getWebPageBlockItems'
 import SEO from '../../seo'
 import PixelManager from '../PixelManager'
 
-import { Loader } from '@christfellowshipchurch/web-ui-kit'
+import Loader from '../../ui/Loader'
+
 import ContentContainer from '../ui/ContentContainer'
 import ContentBlock from '../ui/ContentBlock'
 import BackgroundContentBlock from '../ui/BackgroundContentBlock'

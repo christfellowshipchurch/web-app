@@ -3,11 +3,11 @@ import {
   Accordion,
   Carousel,
   Row,
-  Loader,
+  ,
   Block,
-  Media,
   Button
 } from "@christfellowshipchurch/web-ui-kit"
+import Media from '../../../ui/Media'
 import { ContentBlock, GroupBlock } from '../DefaultPage'
 import renderer from "react-test-renderer"
 

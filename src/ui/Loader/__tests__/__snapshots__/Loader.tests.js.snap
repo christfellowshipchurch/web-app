@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader renders a content styled loader 1`] = `
+<div>
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+  <div />
+</div>
+`;
+
+exports[`Loader renders an accordion styled loader 1`] = `
+<div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+  <div>
+    <div />
+  </div>
+</div>
+`;
+
+exports[`Loader renders the ring loader as the default loader 1`] = `
+<div
+  className="fill d-flex justify-content-center align-items-center"
+>
+  <div
+    className="spinner-border text-primary"
+    role="status"
+  >
+    <span
+      className="sr-only"
+    >
+      Loading...
+    </span>
+  </div>
+</div>
+`;

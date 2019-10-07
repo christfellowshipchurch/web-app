@@ -11,7 +11,7 @@ import {
 } from '../../utils'
 import getGroupContentItems from '../../queries/getGroupContentItems'
 
-import { Loader } from '@christfellowshipchurch/web-ui-kit'
+import Loader from '../Loader'
 import ContentBlock from '../ContentBlock'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
