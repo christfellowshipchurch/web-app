@@ -8,7 +8,7 @@ import {
 import {
     Collapse
 } from 'react-bootstrap'
-import { AccordionItems } from './'
+import { AccordionItems } from '.'
 
 // Component used to handle breaking the accordion into
 //  2 sections based on the threshold given.

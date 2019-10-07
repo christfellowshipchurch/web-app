@@ -8,8 +8,8 @@ import {
 } from 'lodash'
 import {
   mapEdgesToNodes,
-} from '../../../utils'
-import getGroupContentItems from '../../../queries/getGroupContentItems'
+} from '../../utils'
+import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import { Loader } from '@christfellowshipchurch/web-ui-kit'
 import ContentBlock from '../ContentBlock'
@@ -17,7 +17,7 @@ import BackgroundContentBlock from '../BackgroundContentBlock'
 import FormattedCarousel from '../FormattedCarousel'
 import Accordion from '../Accordion'
 import Tabs, { TabContent } from '../Tabs'
-import { Feature } from '../../features'
+import { Feature } from '../../components/features'
 
 
 const GroupBlock = ({

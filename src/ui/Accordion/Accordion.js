@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
     Accordion as BootstrapAccordion,
 } from 'react-bootstrap'
-import { PaginationWrapper, AccordionItems } from './'
+import { PaginationWrapper, AccordionItems } from '.'
 
 // Main container for all Bootstrap accordion classes,
 //  and it also distinguished whether the paginated

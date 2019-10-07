@@ -7,7 +7,7 @@ import {
     lowerCase,
     camelCase
 } from 'lodash'
-import { mapEdgesToNodes } from '../../../utils'
+import { mapEdgesToNodes } from '../../utils'
 
 import {
     Loader
@@ -15,7 +15,7 @@ import {
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import ContentBlock from '../ContentBlock'
 import GroupBlock from '../GroupBlock'
-import { Feature } from '../../features'
+import { Feature } from '../../components/features'
 
 import { GET_CONTENT_BY_ID } from './queries'
 

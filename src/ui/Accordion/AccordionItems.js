@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {
     get,
 } from 'lodash'
-import { AccordionItem } from './'
+import { AccordionItem } from '.'
 
 // Wrapper component to map the children to the AccordionItem
 //  and handle state for which item is currently active

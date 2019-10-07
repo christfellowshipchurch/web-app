@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import  Button  from '../Button'
 
-import { redirectTo } from '../../../utils'
+import { redirectTo } from '../../utils'
 
 const ButtonRow = ({ callToAction, secondaryCallToAction, openLinksInNewTab }) => (
     <div>

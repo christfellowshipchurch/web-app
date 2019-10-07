@@ -8,8 +8,8 @@ import moment from 'moment'
 
 import { faAngleDown } from '@fortawesome/fontawesome-pro-light'
 import { Button, Media, Loader } from '@christfellowshipchurch/web-ui-kit'
-import InputIcon from '../../ui/inputs/TextInput'
-import FloatingCard from '../../ui/FloatingCard'
+import InputIcon from '../../../ui/inputs/TextInput'
+import FloatingCard from '../../../ui/FloatingCard'
 import RsvpForm from '../RsvpForm'
 
 import { GET_CAMPUSES } from './queries'
