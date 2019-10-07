@@ -12,9 +12,9 @@ import {
 import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import Loader from '../Loader'
-import ContentBlock from '../ContentBlock'
+import ContentBlock from '../BlockLayout'
 import BackgroundContentBlock from '../BackgroundContentBlock'
-import FormattedCarousel from '../FormattedCarousel'
+import Carousel from '../Carousel'
 import Accordion from '../Accordion'
 import Tabs, { TabContent } from '../Tabs'
 import { Feature } from '../../components/features'
@@ -128,9 +128,9 @@ const GroupBlock = ({
       )
     case 'carousel':
       return (
-        <FormattedCarousel>
+        <Carousel>
           {blockItems}
-        </FormattedCarousel>
+        </Carousel>
       )
     case 'tabs':
       return (
