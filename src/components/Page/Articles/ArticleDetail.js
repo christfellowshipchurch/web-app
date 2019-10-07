@@ -6,10 +6,7 @@ import {
   get, has, toLower
 } from 'lodash'
 import moment from 'moment'
-
-import {
-  Block,
-} from '@christfellowshipchurch/web-ui-kit'
+import { htmlToReactParser } from '../../../utils'
 import Loader from '../../../ui/Loader'
 import Media from '../../../ui/Media'
 import RelatedArticles from './RelatedArticles'
@@ -19,6 +16,7 @@ import {
 } from './queries'
 
 const DATE_FORMAT = 'MMMM D, YYYY'
+
 
 
 const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
@@ -57,18 +55,17 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     <div>
       <div className="container my-6 max-width-800">
         <div className="row">
-          <div className="col">
-            <Block>
+          <div className="col text-center">
               {get(article, 'title', '') !== '' &&
-                <Block.Title className='mb-2 text-dark article-title'>
+                <h1 className='mb-2 text-dark article-title'>
                   {article.title}
-                </Block.Title>
+                </h1>
               }
 
               {get(article, 'summary', '') !== '' &&
-                <Block.Subtitle className='mt-1 article-subtitle font-weight-light'>
+                <h2 className='mt-1 article-subtitle font-weight-light'>
                   {article.summary}
-                </Block.Subtitle>
+                </h2>
               }
 
               {get(article, 'images[0].sources[0].uri') !== '' &&
@@ -103,11 +100,10 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
               </div>
 
               {get(article, 'htmlContent', '') !== '' &&
-                <Block.Body className="article-body my-3 font-weight-light pb-4 text-left">
-                  {article.htmlContent}
-                </Block.Body>
+                <div className="article-body my-3 font-weight-light pb-4 text-left">
+                  {htmlToReactParser.parse(article.htmlContent)}
+                </div>
               }
-            </Block>
           </div>
         </div>
         <div className="row">

@@ -3,10 +3,9 @@ import { get } from 'lodash'
 import { Carousel } from 'react-bootstrap'
 import ButtonRow from '../ButtonRow'
 import Media from '../Media'
-import { Parser } from 'html-to-react'
+import { htmlToReactParser } from '../../utils'
 
 
-const htmlToReactParser = new Parser()
 
 const FormattedCarousel = ({ children }) => {
   const [minHeight, setMinHeight] = useState(0)
