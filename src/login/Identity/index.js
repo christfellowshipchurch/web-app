@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { useMutation } from 'react-apollo'
-import { get, has } from 'lodash'
+import { get, has, keys } from 'lodash'
 import * as Yup from 'yup'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
 import { Formik } from 'formik'
+import { useForm } from '../../hooks'
 import { parseUsername } from '../utils'
 
 import { IS_VALID_IDENTITY, REQUEST_PIN } from '../mutations'
@@ -18,18 +19,40 @@ import {
     Button
 } from '@christfellowshipchurch/web-ui-kit'
 
+const validation = {
+    identity: async (value) => {
+        const schema = Yup.string()
+        const isValid = await schema.isValid(value)
+
+        if (isValid && value !== '') {
+            const { email, phoneNumber } = await parseUsername(value)
+
+            if (email || phoneNumber) return false
+        }
+
+        return 'Please enter a valid phone number or email'
+    }
+}
+
 const IdentityForm = ({
-    errors,
-    setFieldValue,
     promptText,
     buttonText,
     dislaimerText,
-    setSubmitting,
-    submitting,
-    values,
     inputLabel,
-    update
+    update,
 }) => {
+    const {
+        values,
+        errors,
+        submitting,
+        setValue,
+        setSubmitting,
+    } = useForm({
+        validation,
+        defaultValues: {
+            privacyPolicyAgreement: false
+        }
+    })
     const [validateIdentity] = useMutation(IS_VALID_IDENTITY)
     const [requestPin] = useMutation(REQUEST_PIN)
 
@@ -78,8 +101,7 @@ const IdentityForm = ({
         }
     }
 
-    const disabled = has(errors, 'identity')
-        || get(values, 'identity', '') === ''
+    const disabled = !!get(errors, 'identity', true)
         || !get(values, 'privacyPolicyAgreement', false)
         || submitting
 
@@ -97,9 +119,10 @@ const IdentityForm = ({
                 <div className="col-8">
                     <TextInput
                         label={inputLabel}
-                        error={has(errors, 'identity') && get(errors, 'identity', '')}
-                        onChange={(e) => setFieldValue('identity', get(e, 'target.value', ''))}
+                        error={get(errors, 'identity', '')}
+                        onChange={(e) => setValue('identity', get(e, 'target.value', ''))}
                         value={get(values, 'identity', '')}
+                        disabled={submitting}
                     />
                 </div>
             </div>
@@ -109,11 +132,12 @@ const IdentityForm = ({
                     <Checkbox
                         error={has(errors, 'privacyPolicyAgreement') && get(errors, 'privacyPolicyAgreement', '')}
                         label={dislaimerText}
-                        onClick={() => setFieldValue(
+                        onClick={() => setValue(
                             'privacyPolicyAgreement',
                             !get(values, 'privacyPolicyAgreement', true)
                         )}
                         checked={get(values, 'privacyPolicyAgreement', false)}
+                        disabled={submitting}
                     />
                 </div>
             </div>
@@ -130,45 +154,23 @@ const IdentityForm = ({
     )
 }
 
-IdentityForm.defaultProps = {
-    titleText: 'Welcome Home!',
-    inputLabel: "Mobile Number or Email Address",
-    promptText:
-        "Get started by entering in either you phone number or email address. We'll never share your information or contact you (unless you ask!).",
-    buttonText: 'Agree and Continue',
-    dislaimerText: 'I understand and agree to the following policies as laid out by Christ Fellowship Church:'
-}
-
-const WithFormik = ({ update }) => <Formik
-    initialValues={{
-        identity: '',
-        privacyPolicyAgreement: false,
-    }}
-    validationSchema={Yup.object().shape({
-        identity: Yup.string()
-            .test(
-                'identity',
-                'Please enter a valid phone number or email address',
-                async (value) => {
-                    if (value) {
-                        const { email, phoneNumber } = await parseUsername(value)
-                        return email || phoneNumber
-                    }
-                    return false
-                }
-            ),
-        privacyPolicyAgreement: Yup.boolean()
-    })}
-    render={props => <IdentityForm {...props} update={update} />}
-
-/>
-
-WithFormik.defaultProps = {
-    update: () => true
-}
-
-WithFormik.propTypes = {
+IdentityForm.propTypes = {
+    titleText: PropTypes.string,
+    inputLabel: PropTypes.string,
+    promptText: PropTypes.string,
+    buttonText: PropTypes.string,
+    dislaimerText: PropTypes.string,
     update: PropTypes.func
 }
 
-export default WithFormik
+IdentityForm.defaultProps = {
+    titleText: 'Welcome Home!',
+    inputLabel: "Mobile Number or Email",
+    promptText:
+        "Get started by entering in either you phone number or email address. We'll never share your information or contact you (unless you ask!).",
+    buttonText: 'Agree and Continue',
+    dislaimerText: 'I understand and agree to the following policies as laid out by Christ Fellowship Church:',
+    update: () => true
+}
+
+export default IdentityForm

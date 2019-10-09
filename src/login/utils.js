@@ -4,7 +4,7 @@ import PhoneNumber from 'awesome-phonenumber'
 export const parseUsername = async (username) => {
   // remove all non-integer characters
   const digits = username.replace(/[^0-9]/gi, '')
-  const phoneNumber = new PhoneNumber(`+1 ${digits}`)
+  const phoneNumber = new PhoneNumber(`+1${digits}`)
 
   return {
     // Yup for email validation

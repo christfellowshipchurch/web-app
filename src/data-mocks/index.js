@@ -19,3 +19,10 @@ import * as EmailCapture from './email-capture'
 export const Features = {
     ...EmailCapture,
 }
+
+// Login
+import * as LoginMocks from './login'
+
+export const Login = {
+    ...LoginMocks,
+}

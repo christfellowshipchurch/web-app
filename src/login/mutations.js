@@ -41,3 +41,26 @@ export const HANDLE_NEW_LOGIN = gql`
     }
   }
 `
+export const UPDATE_PROFILE = gql`
+    mutation relateUserLoginToPerson(
+        $identity:String!, 
+        $passcode:String!, 
+        $firstName:String!, 
+        $lastName:String!, 
+        $birthDate: String!, 
+        $gender: String!) {
+        
+        relateUserLoginToPerson(
+            identity:$identity,
+            passcode:$passcode,
+            input: [
+                { field: FirstName, value: $firstName }
+                { field: LastName, value: $lastName }
+                { field: BirthDate, value: $birthDate }
+                { field: Gender, value: $gender }
+            ]
+        ) {
+            token
+        }
+    }
+`

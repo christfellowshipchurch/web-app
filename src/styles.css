@@ -17,7 +17,17 @@ body {
     border-radius: 3px !important;
 }
 
-.btn-checkbox + label {
+.btn-radio {
+    min-width: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+}
+
+.btn-radio i { padding-left: 2px !important; }
+
+.btn-checkbox + label,
+.btn-radio + label {
     margin-top: 6px;
     font-size: 12px;
 }
@@ -168,4 +178,14 @@ select {
   }
 .tab-icons ul {
     animation: 1s ease-out 0s 1 slideInFromRight;
+}
+
+/*
+* Positioning
+*/
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

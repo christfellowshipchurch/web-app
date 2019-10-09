@@ -8,6 +8,7 @@ import { Formik } from 'formik'
 import { faLockAlt } from '@fortawesome/fontawesome-pro-light'
 
 import { useAuth } from '../../auth'
+import { useForm } from '../../hooks'
 
 import { AUTHENTICATE_CREDENTIALS, CREATE_NEW_LOGIN } from '../mutations'
 
@@ -17,27 +18,29 @@ import {
 } from '@christfellowshipchurch/web-ui-kit'
 
 const PasscodeForm = ({
-    errors,
-    setFieldValue,
+    identity,
+    isExistingIdentity,
     promptText,
     buttonText,
-    dislaimerText,
-    setSubmitting,
-    isSubmitting,
-    submitting,
-    values,
     inputLabel,
-    onUpdate,
     type,
-    setErrors
+    update,
 }) => {
+    const {
+        values,
+        errors,
+        submitting,
+        setValue,
+        setSubmitting,
+        setError
+    } = useForm()
     const { setToken } = useAuth()
     const [authenticateCredentials] = useMutation(AUTHENTICATE_CREDENTIALS)
     const [createNewLogin] = useMutation(CREATE_NEW_LOGIN)
 
     const onClick = () => {
         setSubmitting(true)
-        const { identity, passcode, isExistingIdentity } = values
+        const { passcode } = values
 
         // isExisitingIdentity checks for an existing Sms login
         // password logins aren't known to be existing or not until the authentication is run
@@ -47,6 +50,11 @@ const PasscodeForm = ({
                 update: (cache, { data: { authenticateCredentials: { token } } }) => {
                     setToken(token)
                     setSubmitting(false)
+                    update({
+                        identity,
+                        passcode: get(values, 'passcode', ''),
+                        isExistingIdentity
+                    })
                 },
                 onError: () => {
                     // the code or password entered was for an existing user login and was incorrect
@@ -55,9 +63,7 @@ const PasscodeForm = ({
                         password: 'password'
                     }
 
-                    setErrors({
-                        password: `The ${errorLanguage[type]} you entered is incorrect`
-                    })
+                    setError('passcode', `The ${errorLanguage[type]} you entered is incorrect`)
 
                     setSubmitting(false)
                 }
@@ -66,13 +72,15 @@ const PasscodeForm = ({
             createNewLogin({
                 variables: { identity, passcode },
                 update: (cache, { data: { createNewUserLogin: { token } } }) => {
-                    setToken(token)
                     setSubmitting(false)
+                    update({
+                        identity,
+                        passcode: get(values, 'passcode', ''),
+                        isExistingIdentity
+                    })
                 },
                 onError: () => {
-                    setErrors({
-                        password: "Sorry! We are unable to log you in at this time"
-                    })
+                    setError('passcode', 'Sorry! We are unable to log you in at this time')
 
                     setSubmitting(false)
                 }
@@ -80,47 +88,51 @@ const PasscodeForm = ({
         }
     }
 
-    const disabled = isSubmitting ||
-        (has(errors, 'password') || get(values, 'password', '') === '')
     const inputType = type === 'sms' ? 'numeric' : 'password'
+    const disabled = submitting
+        || !!get(errors, 'passcode', false)
+        || get(values, 'passcode', '') === ''
+        || identity === ''
+
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col my-4 justify-content-center">
-                    <h1>
-                        {get(values, 'username', 'No Username')}
-                    </h1>
                     <p>
                         {promptText[type]}
                     </p>
                 </div>
             </div>
+
             <div className="row my-4 justify-content-center">
                 <div className="col-8">
                     <TextInput
                         icon={faLockAlt}
                         type={inputType}
-                        error={has(errors, 'passcode') && get(values, 'passcode', '')}
+                        error={has(errors, 'passcode') && get(errors, 'passcode', '')}
                         label={inputLabel[type]}
-                        onChange={(e) => setFieldValue('password', get(e, 'target.value', ''))}
+                        onChange={(e) => setValue('passcode', get(e, 'target.value', ''))}
+                        disabled={submitting}
                     />
                 </div>
             </div>
-            <div className="row my-4 justify-content-center">
-                <div className="col text-center">
-                    <Button
-                        title={buttonText}
-                        disabled={disabled}
-                        onClick={onClick}
-                    />
-                </div>
+
+            <div className="text-center">
+                <Button
+                    title={buttonText}
+                    disabled={disabled}
+                    onClick={onClick}
+                    loading={submitting}
+                />
             </div>
         </div>
     )
 }
 
 PasscodeForm.defaultProps = {
+    identity: '',
+    isExistingIdentity: false,
     titleText: {
         sms: 'Confirmation Code',
         password: 'Password'
@@ -135,10 +147,13 @@ PasscodeForm.defaultProps = {
         sms: "Confirmation Code",
         password: "Password"
     },
-    type: 'sms'
+    type: 'sms',
+    update: () => true,
 }
 
 PasscodeForm.propTypes = {
+    identity: PropTypes.string,
+    isExistingIdentity: PropTypes.bool,
     titleText: PropTypes.shape({
         sms: PropTypes.string,
         password: PropTypes.string,
@@ -152,25 +167,8 @@ PasscodeForm.propTypes = {
         password: PropTypes.string,
     }),
     type: PropTypes.oneOf(['sms', 'password']),
-    buttonText: PropTypes.string
+    buttonText: PropTypes.string,
+    update: PropTypes.func,
 }
 
-const WithFormik = ({
-    update,
-    identity,
-    isExistingIdentity
-}) => <Formik
-        initialValues={{
-            identity,
-            isExistingIdentity,
-        }}
-        validationSchema={Yup.object().shape({
-            identity: Yup.string().required(),
-            passcode: Yup.string().required(),
-            passcode: Yup.boolean(),
-        })}
-        render={props => <PasscodeForm {...props} update={update} />}
-
-    />
-
-export default WithFormik
+export default PasscodeForm
