@@ -14,12 +14,7 @@ const FloatingCard = ({
                 "p-fixed",
                 "vw-100",
                 "vh-100",
-                'd-flex',
-                'justify-content-center',
-                'align-content-center',
-                'py-6',
-                'px-1',
-                'px-md-6'
+                'overflow-y-scroll'
             )}
             style={{
                 zIndex: 1000,
@@ -28,7 +23,7 @@ const FloatingCard = ({
             }}
         >
             <div className={classnames(
-                "p-absolute",
+                "p-fixed",
                 "w-100",
                 "h-100",
                 "bg-dark",
@@ -36,10 +31,12 @@ const FloatingCard = ({
                 `bg-${overlay}`
             )}></div>
             <div
-                className="card mt-6"
+                className={classnames(
+                    "card",
+                    'floating-card',
+                )}
                 style={{
                     maxWidth: 600,
-                    overflowY: 'scroll'
                 }}
             >
                 <div
@@ -68,7 +65,9 @@ FloatingCard.defaultProps = {
 
 FloatingCard.propTypes = {
     overlay: PropTypes.oneOf([
-        'dark'
+        'dark',
+        'light',
+        'white'
     ])
 }
 
