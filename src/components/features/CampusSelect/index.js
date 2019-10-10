@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo'
-import { get, find, sortBy, forEach } from 'lodash'
+import { get, find, sortBy, forEach, uniqBy } from 'lodash'
 import classnames from 'classnames'
 import zipcodes from 'zipcodes'
 import moment from 'moment'
@@ -58,7 +58,8 @@ const StyledCampusSelect = ({
                 {campuses.map((n, i) =>
                     <option
                         value={get(n, 'id', 'null')}
-                        key={i}>
+                        key={i}
+                    >
                         {get(n, 'name', '!! ERROR !!')}
                     </option>
                 )}
@@ -101,17 +102,24 @@ const CampusTile = ({
             <h3 className="mt-6">
                 Select a service time to RSVP for:
             </h3>
-            {serviceTimes.map((n, i) => (
-                <Button
-                    title={`${n.day.substring(0, 3)} ${n.time}`}
-                    className="m-1"
-                    key={i}
-                    onClick={() => onClick({
-                        day: moment().add(1, 'week').isoWeekday(n.day),
-                        time: n.time
-                    })}
-                />
-            ))}
+            {uniqBy(serviceTimes, 'time').map((n, i) => {
+                const isDate = moment(`${n.day} ${n.time}`).isValid()
+                const title = isDate
+                    ? n.time
+                    : `${n.day.substring(0, 3)} ${n.time}`
+
+                return (
+                    <Button
+                        title={title}
+                        className="m-1"
+                        key={i}
+                        onClick={() => onClick({
+                            day: moment().add(1, 'week').isoWeekday(n.day),
+                            time: n.time
+                        })}
+                    />
+                )
+            })}
         </div>
     </div>
 
@@ -186,8 +194,6 @@ const CampusSelect = ({
 
                                 if (value.length === 5) {
                                     setDisabled(true)
-
-                                    let closest = { id: '', distance: 0 }
 
                                     const sortedCampuses = sortBy(campuses, [n => zipcodes.distance(
                                         parseInt(value),
