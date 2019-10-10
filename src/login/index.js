@@ -11,7 +11,7 @@ import Identity from './Identity'
 import Passcode from './Passcode'
 import ProfileInformation from './ProfileInformation'
 
-import { useAuthQuery } from '../auth'
+import { useAuth, useAuthQuery } from '../auth'
 
 const GET_CURRENT_PERSON = gql`
     query {
@@ -25,7 +25,7 @@ const GET_CURRENT_PERSON = gql`
 `
 
 const LoginCard = () => {
-    const { data } = useAuthQuery(GET_CURRENT_PERSON)
+    const { hideLogIn } = useAuth()
     const [payload, setPayload] = useState(null)
     const [index, setIndex] = useState(0)
 
@@ -34,7 +34,9 @@ const LoginCard = () => {
     }
 
     return (
-        <FloatingCard>
+        <FloatingCard
+            onPressExit={() => hideLogIn()}
+        >
             <h2
                 className={classnames(
                     "text-center",
@@ -43,9 +45,6 @@ const LoginCard = () => {
             >
                 Login
             </h2>
-            <h4 className="text-center">
-                {`${get(data, 'currentUser.profile.firstName', 'NOPE')} ${get(data, 'currentUser.profile.lastName', 'NA UH')}`}
-            </h4>
 
             <Carousel
                 activeIndex={index}
@@ -71,7 +70,12 @@ const LoginCard = () => {
                         update={({ identity, passcode, isExistingIdentity }) => {
                             console.log("Passcode Update")
                             setPayload({ identity, passcode })
-                            setIndex(isExistingIdentity ? 3 : 2)
+
+                            if (isExistingIdentity) {
+                                hideLogIn()
+                            } else {
+                                setIndex(2)
+                            }
                         }}
                     />
                 </Carousel.Item>
@@ -80,7 +84,7 @@ const LoginCard = () => {
                     <ProfileInformation
                         identity={get(payload, 'identity', null)}
                         passcode={get(payload, 'passcode', null)}
-                        update={() => setIndex(3)}
+                        update={() => hideLogIn()}
                     />
                 </Carousel.Item>
 

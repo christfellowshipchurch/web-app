@@ -23,6 +23,7 @@ let reducer = (token, newToken) => {
 const AuthProvider = (props) => {
     const [token, setToken] = useReducer(reducer, localState || initialState)
     const [isLoggedIn, setIsLoggedIn] = useState(!!token)
+    const [triggerLogIn, setTriggerLogIn] = useState(false)
     const logout = () => {
         setToken(null)
     }
@@ -38,7 +39,12 @@ const AuthProvider = (props) => {
                 token,
                 setToken,
                 isLoggedIn,
-                logout
+                logout,
+                triggerLogIn,
+                logIn: () => {
+                    if (!isLoggedIn) setTriggerLogIn(true)
+                },
+                hideLogIn: () => setTriggerLogIn(false)
             }}
         >
             {props.children}

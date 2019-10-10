@@ -41,7 +41,6 @@ query getGroupBlockItems($id: ID!) {
                 call
                 action
               }
-              target
       
               coverImage {
                 name

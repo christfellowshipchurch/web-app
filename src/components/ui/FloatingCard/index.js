@@ -14,6 +14,7 @@ const FloatingCard = ({
                 "p-fixed",
                 "vw-100",
                 "vh-100",
+                'overflow-y-scroll'
             )}
             style={{
                 zIndex: 1000,
@@ -22,7 +23,7 @@ const FloatingCard = ({
             }}
         >
             <div className={classnames(
-                "p-absolute",
+                "p-fixed",
                 "w-100",
                 "h-100",
                 "bg-dark",
@@ -32,7 +33,7 @@ const FloatingCard = ({
             <div
                 className={classnames(
                     "card",
-                    'absolute-center'
+                    'floating-card',
                 )}
                 style={{
                     maxWidth: 600,
