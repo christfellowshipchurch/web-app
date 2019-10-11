@@ -1,0 +1,93 @@
+// Color Overrides
+$gray-100: #e6e6e6 !default;
+$gray-200: #cdcdcd !default;
+$gray-300: #b4b4b4 !default;
+$gray-400: #9b9b9b !default;
+$gray-500: #828282 !default;
+$gray-600: #696969 !default;
+$gray-700: #525252 !default;
+$gray-800: #353535 !default;
+$gray-900: #1a1a1a !default;
+$black: #000 !default;
+
+$cyan: #00aeef !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
+
+$primary: $cyan !default;
+
+$body-bg: #f6f6f6 !default;
+
+// spacers
+$spacer: 1rem !default;
+$spacers: (
+    6: ($spacer * 4.6875)
+) !default;
+
+// grid
+$grid-gutter-width: 0px !default;
+
+// border
+$border-width: 2px !default;
+
+$border-radius: .5rem !default;
+$border-radius-lg: .55rem !default;
+$border-radius-sm: .45rem !default;
+
+// fonts
+$font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg: $font-size-base * 1.25 !default;
+$font-size-sm: $font-size-base * .75 !default;
+
+$line-height-base: 1 !default;
+$line-height-lg: 1 !default;
+$line-height-sm: 0.75 !default;
+
+$letter-spacing-base: 1px;
+$letter-spacing-lg: 2px;
+$letter-spacing-sm: 0.75px;
+
+$h1-font-size: $font-size-base * 2.25 !default;
+$h2-font-size: $font-size-base * 1.875 !default;
+$h3-font-size: $font-size-base * 1.5 !default;
+$h4-font-size: $font-size-base * 1.125 !default;
+$h5-font-size: $font-size-base * 0.875 !default;
+$h6-font-size: $font-size-base * 0.75 !default;
+
+$headings-font-weight: 700 !default;
+
+$display1-size: 5.5rem !default;
+$display2-size: 5rem !default;
+$display3-size: 4.125rem !default;
+$display4-size: 3.185rem !default;
+
+$display1-weight: 700 !default;
+$display2-weight: 700 !default;
+$display3-weight: 700 !default;
+$display4-weight: 700 !default;
+
+// Button overrides
+$btn-font-weight: 900;
+
+$btn-border-radius: 50rem;
+$btn-border-radius-lg: 50rem;
+$btn-border-radius-sm: 50rem;
+
+$btn-box-shadow: 0 15px 12px -4px rgba($black, 0.07);
+
+$btn-disabled-opacity: .5 !default;
+
+$input-btn-padding-y: 1.125rem !default;
+$input-btn-padding-x: 2.125rem !default;
+$input-btn-line-height: 1 !default;
+
+$input-btn-padding-y-sm: 1rem !default;
+$input-btn-padding-x-sm: 1rem !default;
+$input-btn-line-height-sm: $line-height-sm !default;
+
+$input-btn-padding-y-lg: .5rem !default;
+$input-btn-padding-x-lg: 6rem !default;
+
+//Carousel overrides
+$carousel-control-opacity: 0;
+$carousel-control-hover-opacity: 0;
