@@ -1,6 +1,7 @@
 import React from 'react'
-import {Block, Carousel} from '@christfellowshipchurch/web-ui-kit'
 import renderer from "react-test-renderer"
+import Carousel from '../Carousel'
+import Media from '../../Media'
 
 describe("ContentBlock Renderer", () => {
   it("Displays carousel", () => {
@@ -9,16 +10,10 @@ describe("ContentBlock Renderer", () => {
       <div className="row ">
         <div className="col">
           <Carousel>
-              <Block
-                  layout='default'
-                  media={{
-                    imageUrl: '',
-                    imageAlt: ''
-                  }} >
-                  <Block.Title/>
-                  <Block.Subtitle/>
-                  <Block.Body/>
-              </Block>
+            <Media
+              imageAlt=''
+              imageUrl=''
+            />
           </Carousel>
         </div>
       </div>
