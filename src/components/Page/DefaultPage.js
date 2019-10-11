@@ -14,10 +14,12 @@ import PixelManager from '../PixelManager'
 
 import Loader from '../../ui/Loader'
 
-import ContentContainer from '../ui/ContentContainer'
-import ContentBlock from '../ui/ContentBlock'
-import BackgroundContentBlock from '../ui/BackgroundContentBlock'
-import GroupBlock from '../ui/GroupBlock'
+// import ContentContainer from ''
+import {  
+  Block,
+  BackgroundContentBlock,
+  GroupBlock,
+} from '../../ui'
 import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
 
@@ -84,7 +86,9 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
             if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
               content = <BackgroundContentBlock {...item} className={topPadding} />
             } else {
-              content = <ContentBlock {...item} className={topPadding} />
+              content = (
+                          <Block {...item} className={topPadding} />
+                        )
             }
             break
           case 'WebsiteGroupItem':
