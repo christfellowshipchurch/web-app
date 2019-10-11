@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import { configure, mount, shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import { Button } from '@christfellowshipchurch/web-ui-kit'
+import { Button } from '../../../ui'
 
 configure({ adapter: new Adapter() })
 

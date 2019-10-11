@@ -12,7 +12,7 @@ import {
 import getGroupContentItems from '../../queries/getGroupContentItems'
 
 import Loader from '../Loader'
-import ContentBlock from '../BlockLayout'
+import Block from '../Block'
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import Carousel from '../Carousel'
 import Accordion from '../Accordion'
@@ -60,7 +60,7 @@ const GroupBlock = ({
                   )
                 } else {
                   return (
-                    <ContentBlock
+                    <Block
                       {...n}
                       className="col-md-6"
                       key={i} />
@@ -105,7 +105,7 @@ const GroupBlock = ({
                       )
                     } else {
                       return (
-                        <ContentBlock
+                        <Block
                           {...n}
                           contentLayout="default"
                           key={i}

@@ -8,7 +8,7 @@ import {
 
 import {
   Button
-} from '@christfellowshipchurch/web-ui-kit'
+} from '../../../ui'
 import {
   GET_ARTICLE_CATEGORIES,
 } from './queries'

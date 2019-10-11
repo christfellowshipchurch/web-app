@@ -1,5 +1,5 @@
 import React from 'react'
-import {Block, Media} from '@christfellowshipchurch/web-ui-kit'
+import {Block, Media} from '../../../ui'
 import renderer from "react-test-renderer"
 
 describe("ContentBlock Renderer", () => {

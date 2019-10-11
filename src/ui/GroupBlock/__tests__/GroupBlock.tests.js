@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from "react-test-renderer"
-import { Row } from '@christfellowshipchurch/web-ui-kit'
+import { Row } from '../../../ui'
 import ContentBlock from '../../ContentBlock'
 import FormattedCarousel from '../../FormattedCarousel'
 

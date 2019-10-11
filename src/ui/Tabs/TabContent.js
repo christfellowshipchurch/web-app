@@ -11,9 +11,9 @@ import { mapEdgesToNodes } from '../../utils'
 
 import {
     Loader
-} from '@christfellowshipchurch/web-ui-kit'
+} from '../../ui'
 import BackgroundContentBlock from '../BackgroundContentBlock'
-import ContentBlock from '../ContentBlock'
+import Block from '../Block'
 import GroupBlock from '../GroupBlock'
 import { Feature } from '../../components/features'
 
@@ -46,7 +46,7 @@ const TabContent = ({
                         if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
                             content = <BackgroundContentBlock {...item} className={topPadding} />
                         } else {
-                            content = <ContentBlock {...item} className={topPadding} />
+                            content = <Block {...item} className={topPadding} />
                         }
                         break
                     case 'WebsiteGroupItem':
