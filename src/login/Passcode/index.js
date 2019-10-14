@@ -17,6 +17,8 @@ import {
     Button
 } from '@christfellowshipchurch/web-ui-kit'
 
+import ResendSMS from '../ResendSMS'
+
 const PasscodeForm = ({
     identity,
     isExistingIdentity,
@@ -118,15 +120,22 @@ const PasscodeForm = ({
                 </div>
             </div>
 
-            <div className="text-center">
-                <Button
-                    title={buttonText}
-                    disabled={disabled}
-                    onClick={onClick}
-                    loading={submitting}
-                />
+            <div className="row">
+                <div className="col-12 text-center">
+                    <Button
+                        title={buttonText}
+                        disabled={disabled}
+                        onClick={onClick}
+                        loading={submitting}
+                    />
+                </div>
+                {type === 'sms' && identity && identity !== '' &&
+                    <div className="col-12 text-center my-4">
+                        <ResendSMS phoneNumber={identity}>Didn't get a code? Request a new one.</ResendSMS>
+                    </div>
+                }
             </div>
-        </div>
+        </div >
     )
 }
 
