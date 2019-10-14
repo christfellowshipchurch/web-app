@@ -45,7 +45,7 @@
     "zipcodes": "^8.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "yarn build-css && react-scripts start",
     "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
@@ -54,7 +54,9 @@
     "test:coverage": "npm test -- --coverage",
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "make-badges": "node_modules/.bin/jest-badges-readme",
-    "make-readme": "npm run test:coverage && npm run make-badges"
+    "make-readme": "npm run test:coverage && npm run make-badges",
+    "build-css": "node-sass --include-path scss ./src/styles/scss/christ-fellowship-bootstrap.scss ./src/styles/css/christ-fellowship-bootstrap.css",
+    "minify-css": "node-sass --include-path scss ./src/styles/scss/christ-fellowship-bootstrap.scss ./src/styles/css/christ-fellowship-bootstrap.css --output-style compressed"
   },
   "eslintConfig": {
     "extends": "react-app"
