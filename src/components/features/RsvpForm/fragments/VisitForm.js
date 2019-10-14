@@ -8,7 +8,8 @@ import {
     forEach,
     sortBy,
     filter,
-    toUpper
+    toUpper,
+    uniq
 } from 'lodash'
 import {
     faChurch,
@@ -34,7 +35,6 @@ const normalizeDate = (date) => {
 const NUMBER_OF_WEEKS = 12
 
 const VisitForm = ({
-    errors,
     setFieldValue,
     values
 }) => {
@@ -70,13 +70,27 @@ const VisitForm = ({
     const days = uniqBy(serviceTimes, 'day').map(n => n.day)
     let availableServices = []
 
-    // Loop from 0 through the number of weeks that we want to allow people to select
-    for (var i = 0; i < NUMBER_OF_WEEKS; i++) {
-        // Loop through each of the service days and append the day
-        //  for `i` weeks in the future to availableServices array
-        forEach(days, n =>
-            availableServices.push(moment().add(i, 'weeks').isoWeekday(n))
-        )
+    // Check the first value of days to see if it
+    //  contains a digit (which implies a date)
+    if (days[0].match(/\d/g)) {
+        // If valid, there is a manual schedule attached to the campus
+        //  and we only want to show the dates passed in
+        forEach(days, n => {
+            const m = moment(n)
+
+            if (m.diff(moment()) > 0) {
+                availableServices.push(moment(n).toISOString())
+            }
+        })
+    } else {
+        // Loop from 0 through the number of weeks that we want to allow people to select
+        for (var i = 0; i < NUMBER_OF_WEEKS; i++) {
+            // Loop through each of the service days and append the day
+            //  for `i` weeks in the future to availableServices array
+            forEach(days, n =>
+                availableServices.push(moment().add(i, 'weeks').isoWeekday(n))
+            )
+        }
     }
 
     /***  Service Times ***/
@@ -94,6 +108,8 @@ const VisitForm = ({
             //                  and then gets the day from that date
             return moment().day(n.day).day() === moment(visitDateValue).day()
         })
+
+        times = uniqBy(times, 'time')
     }
 
     return (
@@ -136,7 +152,7 @@ const VisitForm = ({
                     />
                 </div>
             </div>
-        </React.Fragment >
+        </React.Fragment>
     )
 }
 

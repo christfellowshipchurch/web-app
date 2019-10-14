@@ -29,7 +29,4 @@ export {
     Media,
     Row
 }
-
-export {
-    TextInput, Dropdown
-} from './inputs'
+export * from './inputs'

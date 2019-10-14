@@ -6,7 +6,30 @@ body {
 /* TEMPORARY FIX */
 .btn:not(.btn-primary) {
     box-shadow: none !important;
-    min-width: none !important;
+    min-width: 0px !important;
+}
+
+.btn-checkbox {
+    min-width: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    border-radius: 3px !important;
+}
+
+.btn-radio {
+    min-width: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+}
+
+.btn-radio i { padding-left: 2px !important; }
+
+.btn-checkbox + label,
+.btn-radio + label {
+    margin-top: 6px;
+    font-size: 12px;
 }
 
 .p-fixed { position: fixed !important; }
@@ -21,6 +44,11 @@ body {
 .no-decoration:hover,
 .no-decoration:focus {
     text-decoration: none !important;
+}
+
+input[type="checkbox"] {
+    height: 24px;
+    width: 24px;
 }
 
 /*
@@ -137,6 +165,9 @@ select {
 .overflow-x-auto { overflow-x: auto; }
 .overflow-x-scroll { overflow-x: scroll; }
 .overflow-x-hidden { overflow-x: hidden; }
+.overflow-y-auto { overflow-y: auto; }
+.overflow-y-scroll { overflow-y: scroll; }
+.overflow-y-hidden { overflow-y: hidden; }
 
 /*
 * Tabs Component
@@ -150,7 +181,43 @@ select {
       transform: translateX(0px);
       opacity: 1;
     }
-  }
+}
 .tab-icons ul {
     animation: 1s ease-out 0s 1 slideInFromRight;
+}
+
+/*
+* Positioning
+*/
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/*
+* Floating Card
+*/
+@keyframes fullOpacityFade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+.floating-card {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+
+    transform: translateX(-50%);
+    animation: .5s ease-in 0s 1 fullOpacityFade;
+}
+
+.floating-card + div {
+    animation: .3s ease-in 0s 1 fullOpacityFade;
 }

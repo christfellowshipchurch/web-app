@@ -3,9 +3,9 @@ import {
     Switch, Route
 } from 'react-router-dom'
 
-import DefaultPage, { UIPage, Login } from '../Page'
-import { ArticleList, ArticleDetail } from '../Page/Articles'
-import { HomePage } from '../../pages'
+import DefaultPage, { UIPage, Login } from '../components/Page'
+import { ArticleList, ArticleDetail } from '../components/Page/Articles'
+import HomePage from './Home'
 
 const Router = () => (
     <Switch>
@@ -17,7 +17,7 @@ const Router = () => (
 
         <Route exact path="/:page" component={DefaultPage} />
 
-        <Route path="*" component={DefaultPage} />
+        <Route path="*" component={HomePage} />
     </Switch>
 )
 

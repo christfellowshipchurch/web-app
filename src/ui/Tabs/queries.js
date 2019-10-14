@@ -45,7 +45,6 @@ export const GET_CONTENT_BY_ID = gql`
       call
       action
     }
-    target
 
     coverImage {
       name
