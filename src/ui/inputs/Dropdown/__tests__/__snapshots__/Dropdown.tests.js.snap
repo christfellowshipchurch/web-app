@@ -1,0 +1,643 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown renders a Dropdown with a placeholder 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#525252"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#525252"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Description
+  </small>
+</div>
+`;
+
+exports[`Dropdown renders a Dropdown with a prefix 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#525252"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        prefix={
+          <div
+            style={
+              Object {
+                "background": "red",
+                "height": 20,
+                "width": 20,
+              }
+            }
+          />
+        }
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#525252"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Description
+  </small>
+</div>
+`;
+
+exports[`Dropdown renders a Dropdown with a suffix 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#525252"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        suffix={
+          <div
+            style={
+              Object {
+                "background": "red",
+                "height": 20,
+                "width": 20,
+              }
+            }
+          />
+        }
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#525252"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Description
+  </small>
+</div>
+`;
+
+exports[`Dropdown renders a Dropdown with an error 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#525252"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#525252"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Here's an error
+  </small>
+</div>
+`;
+
+exports[`Dropdown renders a Dropdown with using success 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#525252"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#525252"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Description
+  </small>
+</div>
+`;
+
+exports[`Dropdown renders a Dropdown without crashing 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#525252"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#525252"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Description
+  </small>
+</div>
+`;
+
+exports[`Dropdown renders a disabled Dropdown 1`] = `
+<div>
+  <div
+    className="d-flex flex-row align-items-end border-bottom border-light pb-2 px-1"
+  >
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-user fa-w-14 fa-1x "
+        color="#e6e6e6"
+        data-icon="user"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 448 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M313.6 288c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zM416 464c0 8.8-7.2 16-16 16H48c-8.8 0-16-7.2-16-16v-41.6C32 365.9 77.9 320 134.4 320c19.6 0 39.1 16 89.6 16 50.4 0 70-16 89.6-16 56.5 0 102.4 45.9 102.4 102.4V464zM224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm0-224c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+    <div
+      className="w-100 form-group mb-0 pt-3 px-2 p-relative"
+    >
+      <label
+        className="m-0 input-label-sm"
+      >
+        Label
+      </label>
+      <select
+        className="w-100 py-0"
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+    <div
+      className="d-flex align-items-end justify-content-center"
+      style={
+        Object {
+          "fontSize": 24,
+          "minWidth": 30,
+        }
+      }
+    >
+      <svg
+        aria-hidden="true"
+        className="svg-inline--fa fa-angle-down fa-w-8 fa-1x "
+        color="#e6e6e6"
+        data-icon="angle-down"
+        data-prefix="fal"
+        focusable="false"
+        role="img"
+        style={Object {}}
+        viewBox="0 0 256 512"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"
+          fill="currentColor"
+          style={Object {}}
+        />
+      </svg>
+    </div>
+  </div>
+  <small
+    className="form-text text-muted"
+  >
+    Description
+  </small>
+</div>
+`;
+
+exports[`Dropdown simulates the click of a Dropdown 1`] = `ReactWrapper {}`;
+
+exports[`Dropdown simulates the click of a Dropdown 2`] = `ReactWrapper {}`;
+
+exports[`Dropdown simulates the mouse enter and leave of a Dropdown 1`] = `ReactWrapper {}`;
+
+exports[`Dropdown simulates the mouse enter and leave of a Dropdown 2`] = `ReactWrapper {}`;
+
+exports[`Dropdown simulates the mouse enter and leave of a Dropdown 3`] = `ReactWrapper {}`;

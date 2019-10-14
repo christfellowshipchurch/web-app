@@ -11,7 +11,7 @@ import { Navbar, Nav } from 'react-bootstrap'
 import GET_WEBSITE_HEADER from './getWebsiteHeader'
 import DefaultIcon from '../../images/default_icon.png'
 
-import { Button } from '@christfellowshipchurch/web-ui-kit'
+import { Button } from '../../ui'
 import { redirectTo } from '../../utils'
 import { useAuth } from '../../auth'
 import { AuthNavbar } from './'

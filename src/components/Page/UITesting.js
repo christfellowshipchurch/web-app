@@ -1,7 +1,7 @@
 import React from 'react'
 import { Feature } from '../features'
-import FloatingCard from '../ui/FloatingCard'
-import Tabs from '../ui/Tabs'
+import FloatingCard from '../../ui/FloatingCard'
+import Tabs from '../../ui/Tabs'
 
 import { AuthNavbar } from '../Navbar'
 

@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MediaItem renders a circular media item 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1 rounded-circle "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MediaItem renders a media item with manual video controls 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1  "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MediaItem renders a rounded media item 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1 rounded "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MediaItem renders a video with a background image 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1  "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+  <video
+    autoPlay={true}
+    className="embed-responsive-item"
+    loop={true}
+    muted={true}
+    playsInline={true}
+  >
+    <source
+      src="https://video.url.com"
+      type="video/mp4"
+    />
+  </video>
+</div>
+`;
+
+exports[`MediaItem renders an image with no video 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1  "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`MediaItem renders content overtop of an image 1`] = `
+<div
+  className="embed-responsive embed-responsive-1by1  "
+>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <div
+      className="spinner-border text-primary"
+      role="status"
+    >
+      <span
+        className="sr-only"
+      >
+        Loading...
+      </span>
+    </div>
+  </div>
+  <div
+    className="fill d-flex justify-content-center align-items-center"
+  >
+    <h1>
+      This is content overtop of an image
+    </h1>
+  </div>
+</div>
+`;

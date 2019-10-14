@@ -7,7 +7,7 @@ import {
     faEnvelope,
     faPhone
 } from '@fortawesome/fontawesome-pro-light'
-import { TextInput } from '@christfellowshipchurch/web-ui-kit'
+import { TextInput } from '../../../../ui'
 
 const ContactForm = ({
     errors,
