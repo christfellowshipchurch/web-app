@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import { camelCase, get } from 'lodash'
 import { htmlToReactParser } from '../../utils'
-import { Media, Layout } from '..'
+import { Layout } from '..'
 
 import ButtonRow from '../ButtonRow'
 

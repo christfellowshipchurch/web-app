@@ -1,10 +1,8 @@
 import React from 'react'
 import classnames from 'classnames'
 import { camelCase, get } from 'lodash'
-import { Block } from '../../ui'
-import Media from '../Media'
-
-import ButtonRow from '../ButtonRow'
+import { htmlToReactParser } from '../../utils'
+import { ButtonRow, Layout, Media } from '../../ui'
 
 export default ({
   contentLayout,
@@ -21,7 +19,7 @@ export default ({
   className
 }) => {
   const lg = camelCase(contentLayout).includes('Large')
-  const titleSize = lg ? 'display-3' : 'h2'
+  const titleSize = lg ? 'display-3' : 'h1'
   const fontSize = lg ? 'bg-body-text' : ''
 
   return (
@@ -55,27 +53,27 @@ export default ({
         }}>
       </div>
 
-      <Block
+      <Layout
         contentLayout="default"
         className="text-white max-width-800 py-6">
-        <Block.Title className={`${titleSize}`}>
+        <div className={`${titleSize}`}>
           {title}
-        </Block.Title>
+        </div>
 
-        <Block.Subtitle>
+        <div>
           {subtitle}
-        </Block.Subtitle>
+        </div>
 
-        <Block.Body className={`pb-4 ${fontSize}`}>
-          {htmlContent}
-        </Block.Body>
+        <p className={`pb-4 ${fontSize}`}>
+          {htmlToReactParser.parse(htmlContent)}
+        </p>
 
         <ButtonRow
           callToAction={callToAction}
           secondaryCallToAction={secondaryCallToAction}
           openLinksInNewTab={openLinksInNewTab}
         />
-      </Block>
+      </Layout>
     </div>
   )
 }

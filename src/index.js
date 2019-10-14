@@ -15,7 +15,7 @@ import {
     BrowserRouter
 } from 'react-router-dom'
 
-import '../src/ui/styles/css/christ-fellowship-bootstrap.css'
+import '../src/styles/css/christ-fellowship-bootstrap.css'
 import './styles.css'
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
