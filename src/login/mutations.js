@@ -41,6 +41,7 @@ export const HANDLE_NEW_LOGIN = gql`
     }
   }
 `
+
 export const UPDATE_PROFILE = gql`
     mutation relateUserLoginToPerson(
         $identity:String!, 
@@ -63,4 +64,28 @@ export const UPDATE_PROFILE = gql`
             token
         }
     }
+`
+
+export const REQUEST_PASSWORD_CHANGE = gql`
+  mutation requestPasswordChange(
+    $identity:String!, 
+    $passcode:String!, 
+    $newPasscode:String!
+  ) {
+    requestPasswordChange(
+      identity:$identity, 
+      passcode:$passcode, 
+      newPasscode:$newPasscode
+    ) {
+      token
+    }
+  }
+`
+
+export const REQUEST_EMAIL_PIN = gql`
+  mutation requestEmailLoginPin($email:String!) {
+    requestEmailLoginPin(email:$email) {
+      success
+    }
+  }
 `

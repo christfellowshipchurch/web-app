@@ -17,6 +17,8 @@ import {
     Button
 } from '@christfellowshipchurch/web-ui-kit'
 
+import { RequestEmailPin } from '../Reset'
+
 const PasscodeForm = ({
     identity,
     isExistingIdentity,
@@ -118,13 +120,23 @@ const PasscodeForm = ({
                 </div>
             </div>
 
-            <div className="text-center">
-                <Button
-                    title={buttonText}
-                    disabled={disabled}
-                    onClick={onClick}
-                    loading={submitting}
-                />
+            <div className="row">
+                <div className="col-12 text-center">
+                    <Button
+                        title={buttonText}
+                        disabled={disabled}
+                        onClick={onClick}
+                        loading={submitting}
+                    />
+                </div>
+                {type === 'email'
+                    && identity
+                    && identity !== ''
+                    && isExistingIdentity &&
+                    <div className="col-12 text-center my-4">
+                        <RequestEmailPin email={identity}>Forget your password? We can help with that!</RequestEmailPin>
+                    </div>
+                }
             </div>
         </div>
     )
