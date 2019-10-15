@@ -30,7 +30,7 @@ export const useForm = (props) => {
         const validate = get(validation, key, null)
 
         if (validate) {
-            const validationResponse = await validate(value)
+            const validationResponse = await validate(value, values)
 
             if (validationResponse) {
                 error = validationResponse
