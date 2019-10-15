@@ -84,8 +84,6 @@ export const REQUEST_PASSWORD_CHANGE = gql`
 
 export const REQUEST_EMAIL_PIN = gql`
   mutation requestEmailLoginPin($email:String!) {
-    requestEmailLoginPin(email:$email) {
-      success
-    }
+    requestEmailLoginPin(email:$email)
   }
 `

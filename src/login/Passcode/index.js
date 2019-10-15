@@ -96,6 +96,7 @@ const PasscodeForm = ({
         || get(values, 'passcode', '') === ''
         || identity === ''
 
+    console.log({ identity, type, isExistingIdentity })
 
     return (
         <div className="container">
@@ -129,12 +130,18 @@ const PasscodeForm = ({
                         loading={submitting}
                     />
                 </div>
-                {type === 'email'
+                {type === 'password'
                     && identity
                     && identity !== ''
                     && isExistingIdentity &&
                     <div className="col-12 text-center my-4">
-                        <RequestEmailPin email={identity}>Forget your password? We can help with that!</RequestEmailPin>
+                        <RequestEmailPin
+                            email={identity}
+                            update={() => update({ requestedEmailPin: true })}
+                            onClick={() => setSubmitting(true)}
+                        >
+                            Forgot your password? We can help with that!
+                        </RequestEmailPin>
                     </div>
                 }
             </div>

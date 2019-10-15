@@ -3,7 +3,7 @@ import {
     Switch, Route, Redirect
 } from 'react-router-dom'
 
-import { PasswordResetForm } from '../../login/Reset/PasswordResetForm'
+import { PasswordResetForm } from '../../login/Reset'
 
 const Router = () => (
     <Switch>

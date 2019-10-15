@@ -7,7 +7,8 @@ import { REQUEST_EMAIL_PIN } from '../mutations'
 const RequestEmailPin = ({
     children,
     email,
-    update
+    update,
+    onClick
 }) => {
     const [requestPin] = useMutation(REQUEST_EMAIL_PIN)
     const [disabled, setDisabled] = useState(false)
@@ -18,6 +19,7 @@ const RequestEmailPin = ({
             href="#"
             onClick={(e) => {
                 e.preventDefault()
+                onClick()
                 setDisabled(true)
                 requestPin({
                     variables: { email },
@@ -34,10 +36,14 @@ const RequestEmailPin = ({
 }
 
 RequestEmailPin.propTypes = {
-    email: PropTypes.string.isRequired
+    email: PropTypes.string.isRequired,
+    update: PropTypes.func,
+    onClick: PropTypes.func,
 }
 
 RequestEmailPin.defaultProps = {
+    update: () => true,
+    onClick: () => true,
 }
 
 export default RequestEmailPin

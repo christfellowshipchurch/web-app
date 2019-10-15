@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMutation } from 'react-apollo'
+import { useMutation, useLazyQuery } from 'react-apollo'
 import { get, has, keys } from 'lodash'
 import * as Yup from 'yup'
 import classnames from 'classnames'
@@ -62,21 +62,27 @@ const IdentityForm = ({
         const { email, phoneNumber } = await parseUsername(identity)
 
         if (email) {
+            console.log("Validate")
+
             validateIdentity({
                 variables: {
                     identity: identity,
                 },
                 update: (cache, { data: { isValidIdentity: { success, isExistingIdentity } } }) => {
+
                     if (success) {
                         // navigate to Passcode validation
-                        update({ identity, type: 'password', isExistingIdentity })
+                        update({ type: 'password', success, isExistingIdentity, identity })
                     } else {
                         // show some error on the screen
                     }
 
                     setSubmitting(false)
                 },
-                onError: () => setSubmitting(false)
+                onError: () => {
+                    console.log("Error")
+                    setSubmitting(false)
+                }
             })
         } else if (phoneNumber) {
             requestPin({

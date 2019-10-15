@@ -67,14 +67,24 @@ const LoginCard = () => {
                         identity={get(payload, 'identity', null)}
                         isExistingIdentity={get(payload, 'isExistingIdentity', false)}
                         type={get(payload, 'type', 'sms')}
-                        update={({ identity, passcode, isExistingIdentity }) => {
-                            console.log("Passcode Update")
-                            setPayload({ identity, passcode })
+                        update={(props) => {
+                            const requestedEmailPin = get(props, 'requestedEmailPin', false)
 
-                            if (isExistingIdentity) {
-                                hideLogIn()
+                            if (requestedEmailPin) {
+                                setIndex(4)
                             } else {
-                                setIndex(2)
+                                const {
+                                    identity,
+                                    passcode,
+                                    isExistingIdentity
+                                } = props
+                                setPayload({ identity, passcode })
+
+                                if (isExistingIdentity) {
+                                    hideLogIn()
+                                } else {
+                                    setIndex(2)
+                                }
                             }
                         }}
                     />
@@ -92,6 +102,16 @@ const LoginCard = () => {
                     <h2 className="text-center text-success">
                         You're now logged in!
                     </h2>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <h1 className="text-center text-primary">
+                        <i className="fal fa-envelope fa-3x"></i>
+                    </h1>
+
+                    <h3 className="text-center text-primary">
+                        You should get an email with instructions on how to reset your password.
+                    </h3>
                 </Carousel.Item>
             </Carousel>
         </FloatingCard>
