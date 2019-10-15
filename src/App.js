@@ -17,7 +17,7 @@ const App = () => {
     <div>
       <SEO />
 
-      {page === 'home-page' || page === '/home-page'
+      {page === '' || page === '/'
         ? <NavbarWithOpacity offset={250} />
         : <Navbar />
       }
