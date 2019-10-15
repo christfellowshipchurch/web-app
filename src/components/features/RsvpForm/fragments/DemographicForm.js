@@ -9,7 +9,7 @@ import {
 import {
     faBabyCarriage
 } from '@fortawesome/free-solid-svg-icons'
-import { TextInput } from '@christfellowshipchurch/web-ui-kit'
+import { TextInput } from '../../../../ui'
 
 const DemographicForm = ({
     errors,

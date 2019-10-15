@@ -9,7 +9,7 @@ import { faEnvelope } from '@fortawesome/fontawesome-pro-light'
 import {
     TextInput,
     Button
-} from '@christfellowshipchurch/web-ui-kit'
+} from '../../../ui'
 
 import { SUBMIT_EMAIL_CAPTURE } from './mutations'
 

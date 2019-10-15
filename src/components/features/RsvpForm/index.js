@@ -9,7 +9,7 @@ import {
     has,
     keys
 } from 'lodash'
-import { Button } from '@christfellowshipchurch/web-ui-kit'
+import { Button } from '../../../ui'
 import { ContactForm, DemographicForm, VisitForm } from './fragments'
 
 import { SUBMIT_RSVP } from './mutations'

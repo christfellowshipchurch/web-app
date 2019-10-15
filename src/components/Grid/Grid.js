@@ -3,8 +3,10 @@ import {
     Query
 } from 'react-apollo'
 import {
-    Content, Loader, Media
+    Content
 } from '@christfellowshipchurch/flat-ui-web'
+import Loader from '../../../ui/Loader'
+import Media from '../../../ui/Media'
 
 import {
     mapEdgesToNodes, renderButtons

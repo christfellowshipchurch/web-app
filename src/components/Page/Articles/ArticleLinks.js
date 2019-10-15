@@ -7,9 +7,7 @@ import {
   kebabCase
 } from 'lodash'
 
-import {
-  Media,
-} from '@christfellowshipchurch/web-ui-kit'
+import Media from '../../../ui/Media'
 
 const ArticleLinks = ({ articles }) => (
   <div className="container-fluid max-width-1100 my-6 px-3">

@@ -35,7 +35,7 @@ exports[`ArticleDetail renders an article 1`] = `
                 class="col-12 col-md text-center px-3"
               >
                 <h2
-                  class="mb-1 text-dark"
+                  class="mb-2 text-dark article-title"
                 >
                   Article 1
                 </h2>

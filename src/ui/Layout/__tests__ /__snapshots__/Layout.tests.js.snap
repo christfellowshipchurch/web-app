@@ -1,0 +1,427 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BlockContainer renders Block in default layout without media 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-first px-3"
+    />
+    <div
+      className="col-12 col-md text-center px-3"
+    >
+      <h2>
+        Title
+      </h2>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders a content Block with the inverted layout 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-last px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+          <video
+            autoPlay={true}
+            className="embed-responsive-item"
+            loop={true}
+            muted={true}
+            playsInline={true}
+          >
+            <source
+              src="https://video.url.com"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-center px-3"
+    >
+      <h1>
+        Title
+      </h1>
+      <h5>
+        Subtitle
+      </h5>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders a content Block with the left layout 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-6 order-first order-md-last px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+          <video
+            autoPlay={true}
+            className="embed-responsive-item"
+            loop={true}
+            muted={true}
+            playsInline={true}
+          >
+            <source
+              src="https://video.url.com"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-left px-3"
+    >
+      <h1>
+        Title
+      </h1>
+      <h5>
+        Subtitle
+      </h5>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders a content Block with the right layout 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-6 order-first px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+          <video
+            autoPlay={true}
+            className="embed-responsive-item"
+            loop={true}
+            muted={true}
+            playsInline={true}
+          >
+            <source
+              src="https://video.url.com"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-left px-3"
+    >
+      <h1>
+        Title
+      </h1>
+      <h5>
+        Subtitle
+      </h5>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders a larger title and subtitle 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-first px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+          <video
+            autoPlay={true}
+            className="embed-responsive-item"
+            loop={true}
+            muted={true}
+            playsInline={true}
+          >
+            <source
+              src="https://video.url.com"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-center px-3"
+    >
+      <h1>
+        Title
+      </h1>
+      <h5>
+        Subtitle
+      </h5>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders a subtitle in the Block in the default size 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-first px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+          <video
+            autoPlay={true}
+            className="embed-responsive-item"
+            loop={true}
+            muted={true}
+            playsInline={true}
+          >
+            <source
+              src="https://video.url.com"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-center px-3"
+    >
+      <h2>
+        Title
+      </h2>
+      <h6>
+        Subtitle
+      </h6>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders a video with background image and Block in default layout 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-first px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+          <video
+            autoPlay={true}
+            className="embed-responsive-item"
+            loop={true}
+            muted={true}
+            playsInline={true}
+          >
+            <source
+              src="https://video.url.com"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-center px-3"
+    >
+      <h2>
+        Title
+      </h2>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`BlockContainer renders an image and Block in default layout 1`] = `
+<div
+  className="container-fluid "
+>
+  <div
+    className="row align-items-center"
+  >
+    <div
+      className="col-12 col-md-12 order-first px-3"
+    >
+      <div>
+        <div
+          className="embed-responsive embed-responsive-21by9 rounded "
+        >
+          <div
+            className="fill d-flex justify-content-center align-items-center"
+          >
+            <div
+              className="spinner-border text-primary"
+              role="status"
+            >
+              <span
+                className="sr-only"
+              >
+                Loading...
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="col-12 col-md text-center px-3"
+    >
+      <h2>
+        Title
+      </h2>
+      <div>
+        Block body.
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,4 +1,8 @@
 import PixelManager from './components/PixelManager'
+import { Parser } from 'html-to-react'
+
+
+export const htmlToReactParser = new Parser()
 
 export const mapEdgesToNodes = (data) => data.edges.map(n => n.node)
 export const redirectTo = (uri, newTab) =>

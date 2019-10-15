@@ -18,6 +18,7 @@ import {
 } from '@christfellowshipchurch/web-ui-kit'
 
 import { RequestEmailPin } from '../Reset'
+import ResendSMS from '../ResendSMS'
 
 const PasscodeForm = ({
     identity,
@@ -130,6 +131,7 @@ const PasscodeForm = ({
                         loading={submitting}
                     />
                 </div>
+
                 {type === 'password'
                     && identity
                     && identity !== ''
@@ -142,10 +144,14 @@ const PasscodeForm = ({
                         >
                             Forgot your password? We can help with that!
                         </RequestEmailPin>
+                            
+                {type === 'sms' && identity && identity !== '' &&
+                    <div className="col-12 text-center my-4">
+                        <ResendSMS phoneNumber={identity}>Didn't get a code? Request a new one.</ResendSMS>
                     </div>
                 }
             </div>
-        </div>
+        </div >
     )
 }
 

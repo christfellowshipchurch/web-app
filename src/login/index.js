@@ -6,7 +6,7 @@ import { get } from 'lodash'
 import {
     Carousel
 } from 'react-bootstrap'
-import FloatingCard from '../components/ui/FloatingCard'
+import { FloatingCard } from '../ui'
 import Identity from './Identity'
 import Passcode from './Passcode'
 import ProfileInformation from './ProfileInformation'

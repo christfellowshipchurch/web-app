@@ -7,9 +7,12 @@ import zipcodes from 'zipcodes'
 import moment from 'moment'
 
 import { faAngleDown } from '@fortawesome/fontawesome-pro-light'
-import { Button, Media, Loader } from '@christfellowshipchurch/web-ui-kit'
-import InputIcon from '@christfellowshipchurch/web-ui-kit/lib/inputs/inputIcon'
-import FloatingCard from '../../ui/FloatingCard'
+import Button from '../../../ui/Button'
+import Loader from '../../../ui/Loader'
+import Media from '../../../ui/Media'
+
+import InputIcon from '../../../ui/inputs/TextInput'
+import FloatingCard from '../../../ui/FloatingCard'
 import RsvpForm from '../RsvpForm'
 
 import { GET_CAMPUSES } from './queries'

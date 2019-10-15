@@ -6,10 +6,7 @@ import {
 import {
   get,
 } from 'lodash'
-
-import {
-  Loader,
-} from '@christfellowshipchurch/web-ui-kit'
+import Loader from '../../../ui/Loader'
 import {
   ArticleLinks,
   TopThreeArticles
