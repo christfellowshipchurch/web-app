@@ -97,8 +97,6 @@ const PasscodeForm = ({
         || get(values, 'passcode', '') === ''
         || identity === ''
 
-    console.log({ identity, type, isExistingIdentity })
-
     return (
         <div className="container">
             <div className="row">
@@ -144,14 +142,15 @@ const PasscodeForm = ({
                         >
                             Forgot your password? We can help with that!
                         </RequestEmailPin>
-                            
+                    </div>
+                }
                 {type === 'sms' && identity && identity !== '' &&
                     <div className="col-12 text-center my-4">
                         <ResendSMS phoneNumber={identity}>Didn't get a code? Request a new one.</ResendSMS>
                     </div>
                 }
             </div>
-        </div >
+        </div>
     )
 }
 

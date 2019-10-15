@@ -47,7 +47,7 @@ const Block = ({
             rounded: true
           } : null}
       >
-          <div className="max-width-800">
+        <div className="max-width-800">
           <h5 className={subtitleClasses}>
             {subtitle}
           </h5>
@@ -56,9 +56,10 @@ const Block = ({
             {title}
           </h1>
 
-          <p className={htmlClasses}>
+          <div className={htmlClasses}>
             {htmlToReactParser.parse(htmlContent)}
-          </p>
+          </div>
+
           <ButtonRow
             callToAction={callToAction}
             secondaryCallToAction={secondaryCallToAction}

@@ -62,14 +62,11 @@ const IdentityForm = ({
         const { email, phoneNumber } = await parseUsername(identity)
 
         if (email) {
-            console.log("Validate")
-
             validateIdentity({
                 variables: {
                     identity: identity,
                 },
                 update: (cache, { data: { isValidIdentity: { success, isExistingIdentity } } }) => {
-
                     if (success) {
                         // navigate to Passcode validation
                         update({ type: 'password', success, isExistingIdentity, identity })
@@ -79,10 +76,7 @@ const IdentityForm = ({
 
                     setSubmitting(false)
                 },
-                onError: () => {
-                    console.log("Error")
-                    setSubmitting(false)
-                }
+                onError: () => setSubmitting(false)
             })
         } else if (phoneNumber) {
             requestPin({
