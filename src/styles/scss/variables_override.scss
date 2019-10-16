@@ -18,6 +18,9 @@ $primary: $cyan !default;
 
 $body-bg: #f6f6f6 !default;
 
+//enable gradients
+$enable-gradients: true !default;
+
 // spacers
 $spacer: 1rem !default;
 $spacers: (
@@ -69,9 +72,9 @@ $display4-weight: 700 !default;
 // Button overrides
 $btn-font-weight: 900;
 
-$btn-border-radius: 50rem;
-$btn-border-radius-lg: 50rem;
-$btn-border-radius-sm: 50rem;
+$btn-border-radius: 0.5rem;
+$btn-border-radius-lg: 0.5rem;
+$btn-border-radius-sm: 0.5rem;
 
 $btn-box-shadow: 0 15px 12px -4px rgba($black, 0.07);
 

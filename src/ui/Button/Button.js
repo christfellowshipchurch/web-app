@@ -14,6 +14,8 @@ const LOADER_COLORS = {
 const Button = ({
   size,
   type,
+  color,
+  gradient,
   title,
   className,
   loading,
@@ -29,6 +31,7 @@ const Button = ({
     'btn',
     size !== '' ? `btn-${size}` : '',
     `btn-${btnType}`,
+    gradient ? `bg-gradient-${color ? color : btnType} border-${color ? color : btnType}` : '',  
     type !== 'link' ? 'text-uppercase' : '',
     className
   )
@@ -43,7 +46,7 @@ const Button = ({
           <div
             className={classnames(
               "spinner-border",
-              `text-${get(LOADER_COLORS, type, 'primary')}`
+              `text-${get(LOADER_COLORS, type, 'primary')}`             
             )}
             role="status"
             style={{

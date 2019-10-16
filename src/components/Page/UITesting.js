@@ -1,7 +1,7 @@
 import React from 'react'
 import { Feature } from '../features'
 import FloatingCard from '../../ui/FloatingCard'
-import Tabs from '../../ui/Tabs'
+import { Tabs, ButtonRow, Button} from '../../ui'
 
 import { AuthNavbar } from '../Navbar'
 
@@ -11,7 +11,16 @@ const TEST_ARRAY = [0, 1, 2, 3,]
 const DefaultPage = () => {
 
   return (
-    <AuthNavbar />
+    <div className='container p-5 text-center'>
+      <div className='row'>
+        <div className='col'>
+          <ButtonRow callToAction/>
+          <br/>
+          <Button gradient color='warning'/>
+        </div>
+      </div>
+    </div>
+
   )
 }
 
