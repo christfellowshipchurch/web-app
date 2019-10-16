@@ -40,9 +40,7 @@ export const buttonClick = ({ call, action, title, openLinksInNewTab }) => {
     if (openLinksInNewTab) {
         const win = window.open(action, '_blank')
         win.focus()
-    }
-    else {
+    } else {
         redirectTo(action)
     }
-
 }

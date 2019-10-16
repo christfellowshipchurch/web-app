@@ -38,21 +38,21 @@ const FormattedCarousel = ({ children }) => {
                         setMinHeight(height)
                     }}>
                     <h2 className='text-center text-dark pb-1'>{title}</h2>
-                    <Media 
+                    <Media
                       imageUrl={get(images, '[0].sources[0].uri', '')}
-                      imageAlt
+                      imageAlt={get(images, '[0].sources[0].name', '')}
                       videoUrl={get(videos, '[0].sources[0].uri', '')}
                       ratio='1by1'
                       circle
                       className='carousel-img m-0 m-auto'
                     />
-                    
-                      <div className='d-flex justify-content-center'>
-                        <h2 className={subtitle}></h2>
-                        <div className='col-10 pt-4 font-weight-light text-center'>{htmlToReactParser.parse(htmlContent)}</div>
-                      </div>
 
-                      <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
+                    <div className='d-flex justify-content-center'>
+                      <h2 className={subtitle}></h2>
+                      <div className='col-10 pt-4 font-weight-light text-center'>{htmlToReactParser.parse(htmlContent)}</div>
+                    </div>
+
+                    <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
 
                   </div>
                 ) : null

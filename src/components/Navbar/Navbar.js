@@ -13,6 +13,8 @@ import DefaultIcon from '../../images/default_icon.png'
 
 import { Button } from '../../ui'
 import { redirectTo } from '../../utils'
+import { useAuth } from '../../auth'
+import { AuthNavbar } from './'
 
 // Takes a collection of images from
 //  the API's return data and formats
@@ -49,11 +51,14 @@ const NavbarConnected = ({
   onToggle,
   fixed
 }) => {
+  const { isLoggedIn, logIn } = useAuth()
   const website = process.env.REACT_APP_WEBSITE_KEY
   const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
     variables: { website },
     fetchPolicy: "cache-and-network"
   })
+
+  if (isLoggedIn) return <AuthNavbar />
 
   // If Query state is loading or there's an error,
   //  return a defaulted header with the CF Icon centered
@@ -102,16 +107,27 @@ const NavbarConnected = ({
           className="border-0">
           <FontAwesomeIcon icon={faBars} size="1x" />
         </Navbar.Toggle>
-        <Navbar.Collapse id="basic-navbar-nav">
+
+        <Navbar.Collapse>
           <Nav className="ml-auto align-items-center">
             {navigationData.navigationLinks.map((link, i) => (
               <Nav.Link
                 key={i}
                 href={link.action}
-                className='mx-3'>
+                className='mx-3'
+              >
                 {link.call}
               </Nav.Link>
             ))}
+
+            <Nav.Link
+              href='#'
+              onClick={() => logIn()}
+              className='mx-3'
+            >
+              Log In
+            </Nav.Link>
+
             {quickAction.display &&
               <div className="mx-3">
                 <Button

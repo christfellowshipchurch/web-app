@@ -1,10 +1,14 @@
 import React from 'react'
-import Router from './components/Router/index'
+import Router from './router'
 import Footer from './components/Footer'
 import SEO from './seo'
 import Navbar, { NavbarWithOpacity } from './components/Navbar'
+import LogIn from './login'
+
+import { useAuth } from './auth'
 
 const App = () => {
+  const { triggerLogIn } = useAuth()
   const page = window.location.pathname
 
   window.scrollTo(0, 0)
@@ -13,7 +17,7 @@ const App = () => {
     <div>
       <SEO />
 
-      {page === 'home-page' || page === '/home-page'
+      {page === '' || page === '/'
         ? <NavbarWithOpacity offset={250} />
         : <Navbar />
       }
@@ -21,6 +25,8 @@ const App = () => {
       <div className="mt-0">
         <Router />
       </div>
+
+      {triggerLogIn && <LogIn />}
 
       <Footer />
     </div>
