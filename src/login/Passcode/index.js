@@ -41,36 +41,35 @@ const PasscodeForm = ({
     const [authenticateCredentials] = useMutation(AUTHENTICATE_CREDENTIALS)
     const [createNewLogin] = useMutation(CREATE_NEW_LOGIN)
 
-    const onClick = () => {
+    const onClick = async () => {
         setSubmitting(true)
         const { passcode } = values
 
         // isExisitingIdentity checks for an existing Sms login
         // password logins aren't known to be existing or not until the authentication is run
         if (isExistingIdentity) {
-            authenticateCredentials({
-                variables: { identity, passcode },
-                update: (cache, { data: { authenticateCredentials: { token } } }) => {
-                    setToken(token)
-                    setSubmitting(false)
-                    update({
-                        identity,
-                        passcode: get(values, 'passcode', ''),
-                        isExistingIdentity
-                    })
-                },
-                onError: () => {
-                    // the code or password entered was for an existing user login and was incorrect
-                    const errorLanguage = {
-                        sms: 'confirmation code',
-                        password: 'password'
+            try {
+                await authenticateCredentials({
+                    variables: { identity, passcode },
+                    update: (cache, { data: { authenticateCredentials: { token } } }) => {
+                        setToken(token)
+                        setSubmitting(false)
+                        update({
+                            identity,
+                            passcode: get(values, 'passcode', ''),
+                            isExistingIdentity
+                        })
+                    },
+                    onError: (e) => {
+                        // the code or password entered was for an existing user login and was incorrect
+                        setError('passcode', `The ${inputLabel[type]} you entered is incorrect`)
+                        setSubmitting(false)
                     }
-
-                    setError('passcode', `The ${errorLanguage[type]} you entered is incorrect`)
-
-                    setSubmitting(false)
-                }
-            })
+                })
+            } catch (e) {
+                setError('passcode', `The ${inputLabel[type]} you entered is incorrect`)
+                setSubmitting(false)
+            }
         } else {
             createNewLogin({
                 variables: { identity, passcode },
