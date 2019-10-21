@@ -219,5 +219,5 @@ select {
 }
 
 .floating-card + div {
-    animation: .3s ease-in 0s 1 fullOpacityFade;
+    animation: .25s ease-in 0s 1 fullOpacityFade;
 }

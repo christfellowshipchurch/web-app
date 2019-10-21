@@ -33,6 +33,11 @@ const LoginCard = () => {
         setIndex(selectedIndex)
     }
 
+    const columnSizes = [
+        'col-12',
+        'col-lg-8'
+    ]
+
     return (
         <FloatingCard
             onPressExit={() => hideLogIn()}
@@ -59,6 +64,7 @@ const LoginCard = () => {
                             setPayload({ identity, isExistingIdentity, type })
                             setIndex(1)
                         }}
+                        columns={columnSizes}
                     />
                 </Carousel.Item>
 
@@ -87,6 +93,7 @@ const LoginCard = () => {
                                 }
                             }
                         }}
+                        columns={columnSizes}
                     />
                 </Carousel.Item>
 
@@ -95,6 +102,7 @@ const LoginCard = () => {
                         identity={get(payload, 'identity', null)}
                         passcode={get(payload, 'passcode', null)}
                         update={() => hideLogIn()}
+                        columns={columnSizes}
                     />
                 </Carousel.Item>
 

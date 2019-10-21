@@ -5,7 +5,7 @@ import Navbar from './index'
 
 const NavbarWithOpacity = ({ offset }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [bgColor, setBgColor] = useState(isOpen ? 'dark' : 'transparent')
+  const [bgColor, setBgColor] = useState('transparent')
 
   useScrollPosition(({ currPos }) => {
     const opaque = currPos.y > (-1 * offset)
@@ -15,11 +15,14 @@ const NavbarWithOpacity = ({ offset }) => {
 
   return (
     <Navbar
-      bg={bgColor}
+      bg={isOpen ? 'dark' : bgColor}
       variant={'dark'}
       brandImageKey={'brandImageAlt'}
-      onToggle={() => setIsOpen(!isOpen)}
-      fixed />
+      onToggle={() => {
+        setIsOpen(!isOpen)
+      }}
+      fixed
+    />
   )
 
 }

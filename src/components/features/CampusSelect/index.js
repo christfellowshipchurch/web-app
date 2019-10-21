@@ -12,7 +12,7 @@ import Loader from '../../../ui/Loader'
 import Media from '../../../ui/Media'
 
 import InputIcon from '../../../ui/inputs/TextInput'
-import FloatingCard from '../../../ui/FloatingCard'
+import { FloatingCard } from '../../../ui'
 import RsvpForm from '../RsvpForm'
 
 import { GET_CAMPUSES } from './queries'
