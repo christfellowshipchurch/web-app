@@ -1,0 +1,16 @@
+$border-color-transition-speed: 0.5s;
+$border-color-transitions: border-color $border-color-transition-speed;
+
+@mixin border-color-transition {
+    transition: $border-color-transitions;
+    -webkit-transition: $border-color-transitions;
+    -moz-transition: $border-color-transitions;
+    -o-transition: $border-color-transitions;
+}
+
+@each $color, $value in $theme-colors {
+    .border-#{$color} {
+      border-color: $value !important;
+      @include border-color-transition;
+    }
+}

@@ -11,6 +11,7 @@ const titleClasses = classnames(
 )
 const subtitleClasses = classnames(
   'pt-1',
+  'subtitle'
 )
 const htmlClasses = classnames(
   'pb-4',
@@ -47,7 +48,7 @@ const Block = ({
             rounded: true
           } : null}
       >
-        <div className="max-width-800">
+        <div className="max-width-800 mx-auto">
           <h5 className={subtitleClasses}>
             {subtitle}
           </h5>

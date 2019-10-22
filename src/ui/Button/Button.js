@@ -27,11 +27,12 @@ const Button = ({
     link: 'link'
   }, type, 'primary')
 
+  // TODO : clean up
   const classes = classnames(
     'btn',
     size !== '' ? `btn-${size}` : '',
     `btn-${btnType}`,
-    gradient ? `bg-gradient-${color ? color : btnType} border-${color ? color : btnType}` : '',  
+    gradient ? `bg-gradient-${color ? color : btnType} border-${color ? color : btnType}` : '',
     type !== 'link' ? 'text-uppercase' : '',
     className
   )
@@ -46,7 +47,7 @@ const Button = ({
           <div
             className={classnames(
               "spinner-border",
-              `text-${get(LOADER_COLORS, type, 'primary')}`             
+              `text-${get(LOADER_COLORS, type, 'primary')}`
             )}
             role="status"
             style={{

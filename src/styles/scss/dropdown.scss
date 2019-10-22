@@ -1,0 +1,13 @@
+.dropdown-item {
+    &:active {
+        color: rgba(0, 0, 0, 0);
+    }
+
+    &:hover {
+        .checkbox {
+            color: #737374;
+        }
+
+        cursor: pointer;
+    }
+}

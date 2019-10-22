@@ -21,6 +21,7 @@ const NavbarWithOpacity = ({ offset }) => {
       onToggle={() => {
         setIsOpen(!isOpen)
       }}
+      onSelect={() => setIsOpen(false)}
       fixed
     />
   )

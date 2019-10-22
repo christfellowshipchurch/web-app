@@ -31,7 +31,7 @@ const Footer = () => {
                 data = data.getWebsiteNavigation
 
                 return (
-                    <div className="container-fluid py-6 bg-dark">
+                    <div className="container-fluid py-6 bg-dark footer">
                         <div className="row justify-content-center">
                             <div className="col text-center">
                                 {data.socialMediaLinks.map(({ call, action }, i) => (
@@ -43,14 +43,14 @@ const Footer = () => {
                         </div>
                         <hr className='bg-light w-75 my-4'></hr>
                         <div className="row">
-                            <div className="col px-3 max-width-800">
+                            <div className="col px-3 max-width-800 mx-auto">
                                 <p className='text-center text-light'>
                                     {`${new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved`}
                                 </p>
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col text-center max-width-800">
+                            <div className="col text-center max-width-800 mx-auto">
                                 {data.footerLinks.map((link, i) => (
                                     <a key={i}
                                         href="/#"

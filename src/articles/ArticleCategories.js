@@ -1,15 +1,15 @@
 import React from 'react'
+import classnames from 'classnames'
 import {
   useQuery
 } from 'react-apollo'
-import classnames from 'classnames'
 import {
   get
 } from 'lodash'
 
 import {
   Button
-} from '../../../ui'
+} from '../ui'
 import {
   GET_ARTICLE_CATEGORIES,
 } from './queries'
@@ -29,10 +29,8 @@ const ArticleCategories = ({ id }) => {
     return null
   }
 
-  const categories = get(data, 'node.categories', [])
-
   return (
-    categories.map((n, i) =>
+    get(data, 'node.categories', []).map((n, i) =>
       <Button
         key={i}
         title={n}

@@ -17,6 +17,7 @@ $dark: $gray-800 !default;
 $primary: $cyan !default;
 
 $body-bg: #f6f6f6 !default;
+$body-color: $gray-700 !default;
 
 //enable gradients
 $enable-gradients: true !default;
@@ -38,16 +39,21 @@ $border-radius-lg: .55rem !default;
 $border-radius-sm: .45rem !default;
 
 // fonts
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-theme:           "Gotham A", "Gotham B";
+$font-family-base:            $font-family-theme, $font-family-sans-serif !default;
+
 $font-size-base: 1rem !default; // Assumes the browser default, typically `16px`
 $font-size-lg: $font-size-base * 1.25 !default;
 $font-size-sm: $font-size-base * .75 !default;
 
-$line-height-base: 1 !default;
-$line-height-lg: 1 !default;
-$line-height-sm: 0.75 !default;
+$line-height-base: 1.5 !default;
+$line-height-lg: 2 !default;
+$line-height-sm: 1 !default;
 
 $letter-spacing-base: 1px;
-$letter-spacing-lg: 2px;
+$letter-spacing-lg: 3px;
 $letter-spacing-sm: 0.75px;
 
 $h1-font-size: $font-size-base * 2.25 !default;
@@ -58,6 +64,8 @@ $h5-font-size: $font-size-base * 0.875 !default;
 $h6-font-size: $font-size-base * 0.75 !default;
 
 $headings-font-weight: 700 !default;
+$headings-line-height: 1 !default;
+$headings-color: $dark !default;
 
 $display1-size: 5.5rem !default;
 $display2-size: 5rem !default;

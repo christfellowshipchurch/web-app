@@ -15,8 +15,6 @@ import {
     AuthProvider,
 } from './auth'
 
-import './styles.css'
-
 
 ReactDOM.render(
     <ClientProvider>

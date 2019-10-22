@@ -50,6 +50,7 @@ const NavbarConnected = ({
   variant,
   brandImageKey,
   onToggle,
+  onSelect,
   fixed
 }) => {
   const { isLoggedIn, logIn } = useAuth()
@@ -123,6 +124,7 @@ const NavbarConnected = ({
                 key={i}
                 href={link.action}
                 className='mx-3 my-2'
+                onSelect={onSelect}
               >
                 {link.call}
               </Nav.Link>
@@ -132,7 +134,7 @@ const NavbarConnected = ({
               href='#'
               className='mx-3 my-2'
               onSelect={() => {
-                onToggle()
+                onSelect()
                 logIn()
               }}
             >
@@ -162,14 +164,18 @@ NavbarConnected.propTypes = {
   bg: PropTypes.string,
   variant: PropTypes.string,
   brandImageKey: PropTypes.string,
-  fixed: PropTypes.bool
+  fixed: PropTypes.bool,
+  onToggle: PropTypes.func,
+  onSelect: PropTypes.func,
 }
 
 NavbarConnected.defaultProps = {
   bg: 'white',
   variant: 'light',
   brandImageKey: 'brandImage',
-  fixed: false
+  fixed: false,
+  onToggle: () => true,
+  onSelect: () => true,
 }
 
 export default NavbarConnected

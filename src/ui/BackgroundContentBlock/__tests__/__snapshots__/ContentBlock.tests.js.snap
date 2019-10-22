@@ -8,20 +8,37 @@ exports[`ContentBlock Renderer Displays ContentBlock with Media displaying in th
     className="fill d-flex justify-content-center align-items-center"
   >
     <div
-      className="container-fluid "
+      className="col px-4 py-6 undefined"
     >
       <div
-        className="row align-items-center"
+        className="container-fluid max-width-1100"
       >
         <div
-          className="col-12 col-md-12 order-first px-3"
-        />
-        <div
-          className="col-12 col-md text-center px-3"
+          className="row align-items-center"
         >
-          <h2 />
-          <h6 />
-          <div />
+          <div
+            className="col-12 col-md-6 order-first order-md-last px-3"
+          />
+          <div
+            className="col-12 col-md text-left px-3"
+          >
+            <div
+              className="max-width-800 mx-auto"
+            >
+              <h5
+                className="pt-1 subtitle"
+              />
+              <h1
+                className="font-weight-bold"
+              />
+              <div
+                className="pb-4"
+              />
+              <div>
+                <br />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -37,20 +54,37 @@ exports[`ContentBlock Renderer Displays ContentBlock with normal layout 1`] = `
     className="row"
   >
     <div
-      className="container-fluid "
+      className="col px-4 py-6 undefined"
     >
       <div
-        className="row align-items-center"
+        className="container-fluid max-width-1100"
       >
         <div
-          className="col-12 col-md-12 order-first px-3"
-        />
-        <div
-          className="col-12 col-md text-center px-3"
+          className="row align-items-center"
         >
-          <h6 />
-          <h2 />
-          <div />
+          <div
+            className="col-12 col-md-6 order-first order-md-last px-3"
+          />
+          <div
+            className="col-12 col-md text-left px-3"
+          >
+            <div
+              className="max-width-800 mx-auto"
+            >
+              <h5
+                className="pt-1 subtitle"
+              />
+              <h1
+                className="font-weight-bold"
+              />
+              <div
+                className="pb-4"
+              />
+              <div>
+                <br />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,28 +1,42 @@
 @import "../../../node_modules/bootstrap/scss/functions";
 
-@import 'variables_override.scss';
+@import 'variables.scss';
 @import "../../../node_modules/bootstrap/scss/variables";
 
 @import "../../../node_modules/bootstrap/scss/mixins";
-@import 'mixins_override.scss';
+@import 'mixins.scss';
 
 @import "../../../node_modules/bootstrap/scss/root";
 @import "../../../node_modules/bootstrap/scss/reboot";
+
 @import "../../../node_modules/bootstrap/scss/type";
+@import 'type.scss';
+
 @import "../../../node_modules/bootstrap/scss/images";
 @import "../../../node_modules/bootstrap/scss/code";
 @import "../../../node_modules/bootstrap/scss/grid";
 @import "../../../node_modules/bootstrap/scss/tables";
+
 @import "../../../node_modules/bootstrap/scss/forms";
+@import 'forms.scss';
+
 @import "../../../node_modules/bootstrap/scss/buttons";
+@import 'buttons.scss';
+
 @import "../../../node_modules/bootstrap/scss/transitions";
+
 @import "../../../node_modules/bootstrap/scss/dropdown";
+@import 'dropdown.scss';
+
 @import "../../../node_modules/bootstrap/scss/button-group";
 @import "../../../node_modules/bootstrap/scss/input-group";
 @import "../../../node_modules/bootstrap/scss/custom-forms";
 @import "../../../node_modules/bootstrap/scss/nav";
 @import "../../../node_modules/bootstrap/scss/navbar";
+
 @import "../../../node_modules/bootstrap/scss/card";
+@import 'card.scss';
+
 @import "../../../node_modules/bootstrap/scss/breadcrumb";
 @import "../../../node_modules/bootstrap/scss/pagination";
 @import "../../../node_modules/bootstrap/scss/badge";
@@ -36,177 +50,31 @@
 @import "../../../node_modules/bootstrap/scss/modal";
 @import "../../../node_modules/bootstrap/scss/tooltip";
 @import "../../../node_modules/bootstrap/scss/popover";
+
 @import "../../../node_modules/bootstrap/scss/carousel";
+@import 'carousel.scss';
+
 @import "../../../node_modules/bootstrap/scss/spinners";
 @import "../../../node_modules/bootstrap/scss/utilities";
 @import "../../../node_modules/bootstrap/scss/print";
 
-// Text Styles
-// Type display classes
+
+@import 'borders.scss';
+@import 'sizing.scss';
+@import 'overflows.scss';
+@import 'opacity.scss';
+
 html {
     font-size: 16px;
 }
 
-.display-1, 
-.display-2, 
-.display-3, 
-.display-4 {
-    display: block;
-}
-
-// Image Styling
-.embed-responsive-item {
-    // forces media items to not stretch
-    object-fit: cover;
-}
-
-// Borders
-$border-color-transition-speed: 0.5s;
-$border-color-transitions: border-color $border-color-transition-speed;
-@mixin border-color-transition {
-    transition: $border-color-transitions;
-    -webkit-transition: $border-color-transitions;
-    -moz-transition: $border-color-transitions;
-    -o-transition: $border-color-transitions;
-}
-@each $color, $value in $theme-colors {
-    .border-#{$color} {
-      border-color: $value !important;
-      @include border-color-transition;
-    }
-}
-
-// Buttons
-.btn {
-    min-width: 250px;
-    letter-spacing: $letter-spacing-lg;
-
-    &:not([class*='outline']):not(:disabled):not(.disabled) {
-        box-shadow: $btn-box-shadow;
-    }
-}
-
-.btn-sm {
-    min-width: 120px;
-    letter-spacing: 1.5px;
-}
-
-// Forms
-$input-label-transition-speed: 0.5s;
-$input-label-transitions: top $input-label-transition-speed, font-size $input-label-transition-speed;
-@mixin input-label-transition {
-    transition: $input-label-transitions;
-    -webkit-transition: $input-label-transitions;
-    -moz-transition: $input-label-transitions;
-    -o-transition: $input-label-transitions;
-}
-.input-label {
-    pointer-events: none;
-    position: absolute;
-    font-size: $font-size-base;
-    top: auto;
-
-    @include input-label-transition;
-}
-
-.input-label-lower {
-    position: absolute;
-    bottom: 0;
-}
-
-.input-label-sm {
-    pointer-events: none;
-    position: absolute;
-    font-size: $font-size-sm;
-    top: 0;
-    @include input-label-transition;
-}
-
-input {
-    background: transparent;
-    border-width: 0;
-    outline: none;
-
-    &:focus {
-        border-width: 0;
-        outline: none;
-    }
-
-    &:placeholder {
-        color: $dark;
-    }
-}
-
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    
-    background: transparent;
-    border-width: 0;
-    outline: none;
-}
-
-textarea {
-    width: 325px;
-    height: 100px;
-    border-color: #ededed;
-    border-radius: .12rem;
-    resize: none;
-
-    &:focus {
-        border-color: #aeaeaf;
-        outline: none;
-    }
-}
-
-.btn:focus,
-.btn:active {
-    outline: none !important;
-    box-shadow: none;
-}
-
-.dropdown,
-.dropdown-menu,
-.dropdown-item {
-    min-width: 325px;
-    max-width: 325px;
-}
-
-.dropdown-item {
-    &:active {
-        color: rgba(0, 0, 0, 0);
-    }
-
-    &:hover {
-        .checkbox {
-            color: #737374;
-        }
-
-        cursor: pointer;
-    }
-}
-
+// Misc
 .disable {
     color: #e2e2e2;
     cursor: default;
 
-    &::placeholder {
+    &:placeholder {
         color: #e2e2e2;
-    }
-}
-
-.checkbox {
-    color: transparent;
-}
-
-//Carousel Styles
-.carousel-indicators {
-    li {
-        width: 0.9em;
-        height: 0.9rem;
-        margin: 0rem 0.3rem;
-        border-radius: 100%;
     }
 }
 
@@ -217,9 +85,124 @@ textarea {
     align-self: center;
 }
 
-/* Position Styling */
+.focus-indicator-none:focus { 
+    outline-width: 0 !important;
+    border: none !important; 
+    border-width: 0 !important;
+    box-shadow: none !important;
+}
+
+.no-decoration:hover,
+.no-decoration:focus {
+    text-decoration: none !important;
+}
+//
+
+
+// Additional Backgrounds
+.bg-black { background-color: black !important; }
+//
+
+
+// Image Styling
+.embed-responsive-item {
+    // forces media items to not stretch
+    object-fit: cover;
+}
+//
+
+
+// Position Styling
 .p-absolute { position: absolute !important; }
 .p-relative { position: relative !important; }
+.p-fixed { position: fixed !important; }
+.absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+//
 
-/* Layout Helpers */
+
+// Layout Helpers
 .fill { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+//
+
+
+// Nav
+.nav-link { font-weight: bold; }
+//
+
+
+// Navbar
+.navbar-default {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 50px;
+}
+
+.navbar-default img {
+    width: 30px;
+    height: 30px;
+}
+//
+
+
+// Content Block
+.bg-content{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.bg-body-text{
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    font-weight: 250;
+}
+
+.subtitle {
+    color: $gray-500;
+    letter-spacing: $letter-spacing-lg;
+    font-weight: 800;
+}
+//
+
+
+// ArticleDetail
+.author-image {
+    width: 80px;
+    height: auto;
+}
+.article-title {
+    font-size: 36px;
+}
+.article-subtitle {
+    font-size: 22px;
+    letter-spacing: 0.8px;
+}
+.article-body {
+    line-height: 24px;
+}
+//
+
+
+// Tabs Component
+@keyframes slideInFromRight {
+    0% {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0px);
+      opacity: 1;
+    }
+}
+.tab-icons ul {
+    animation: 1s ease-out 0s 1 slideInFromRight;
+}
+//
+
+// Footer
+.footer { font-size: 14px; }
