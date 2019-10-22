@@ -51,6 +51,12 @@ input[type="checkbox"] {
     width: 24px;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 /*
 * Additional Backgrounds
 */

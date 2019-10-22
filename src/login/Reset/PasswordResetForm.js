@@ -79,7 +79,7 @@ const ResetPassword = ({
         }
     })
 
-    const onClick = () => {
+    const onClick = async () => {
         const variables = {
             identity: get(values, 'email', ''),
             passcode: get(values, 'confirmationCode', ''),
@@ -88,23 +88,28 @@ const ResetPassword = ({
 
         setSubmitting(true)
 
-        requestPasswordChange({
-            variables,
-            update: (_, { data: { requestPasswordChange } }) => {
-                const token = get(requestPasswordChange, 'token', null)
+        try {
+            await requestPasswordChange({
+                variables,
+                update: (_, { data: { requestPasswordChange } }) => {
+                    const token = get(requestPasswordChange, 'token', null)
 
-                if (token) {
-                    setToken(token)
-                    redirectTo("/")
-                } else {
+                    if (token) {
+                        setToken(token)
+                        redirectTo("/")
+                    } else {
+                        setError('password', 'We were unable to update your password. Please try again.')
+                        setSubmitting(false)
+                    }
+                },
+                onError: () => {
                     setError('password', 'We were unable to update your password. Please try again.')
-                    setSubmitting(false)
                 }
-            },
-            onError: () => {
-                setError('password', 'We were unable to update your password. Please try again.')
-            }
-        })
+            })
+        } catch (e) {
+            setError('confirmationCode', 'Make sure you entered in the right Confirmation Code')
+            setSubmitting(false)
+        }
     }
 
     const disabled = !!get(errors, 'email', false)
