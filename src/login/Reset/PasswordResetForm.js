@@ -174,6 +174,7 @@ const ResetPassword = ({
                                             icon={faLock}
                                             type="password"
                                             onChange={(e) => setValue('password', get(e, 'target.value', ''))}
+                                            autoComplete="off"
                                         />
                                     </div>
                                 </div>
@@ -187,6 +188,7 @@ const ResetPassword = ({
                                             disabled={!has(values, 'password')}
                                             onChange={(e) => setValue('confirmPassword', get(e, 'target.value', ''))}
                                             error={get(errors, 'confirmPassword', '')}
+                                            autoComplete="off"
                                         />
                                     </div>
                                 </div>
