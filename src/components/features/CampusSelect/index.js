@@ -11,7 +11,7 @@ import Button from '../../../ui/Button'
 import Loader from '../../../ui/Loader'
 import Media from '../../../ui/Media'
 
-import InputIcon from '../../../ui/inputs/TextInput'
+import InputIcon from '../../../ui/inputs/inputIcon'
 import { FloatingCard } from '../../../ui'
 import RsvpForm from '../RsvpForm'
 

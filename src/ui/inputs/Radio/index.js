@@ -42,29 +42,34 @@ const Checkbox = ({
                 return (
                     <div
                         key={i}
-                        className="text-left"
+                        className="text-left my-1"
                     >
-                        <button
-                            onClick={() => onClick(radioValue)}
+                        <a
+                            href="#"
+                            onClick={(e) => {
+                                e.preventDefault()
+                                onClick(radioValue)
+                            }}
                             className={classnames(
-                                'btn',
                                 'btn-radio',
                                 'my-1',
                                 {
-                                    [`btn-outline-${types.default}`]: !checked,
-                                    [`btn-outline-${types.checked}`]: checked,
+                                    [`text-${types.default}`]: !checked,
+                                    [`text-${types.checked}`]: checked,
                                 }
                             )}
                             {...buttonProps}
                         >
-                            {checked &&
-                                <i className="fas fa-circle pl-1"></i>
+                            {checked
+                                ? <i className="far fa-dot-circle pl-1"></i>
+                                : <i className="fal fa-circle pl-1"></i>
                             }
-                        </button>
+                        </a>
+
                         {radioLabel &&
                             <label
                                 className={classnames(
-                                    'ml-3',
+                                    'ml-2',
                                     'input-label'
                                 )}
                             >
@@ -79,7 +84,7 @@ const Checkbox = ({
                 <div>
                     <label
                         className={classnames(
-                            'ml-3',
+                            'ml-2',
                             'input-label-sm',
                             'text-danger'
                         )}
