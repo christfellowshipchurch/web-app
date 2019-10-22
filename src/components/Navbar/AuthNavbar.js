@@ -81,30 +81,12 @@ const ProfileConnected = () => {
     <div
       className={classnames(
         'd-flex',
-        'align-items-center'
+        'align-items-center',
+        'flex-row',
+        'flex-lg-row-reverse',
+        'mx-3'
       )}
     >
-      <div className="text-right">
-        <Dropdown>
-          <Dropdown.Toggle
-            variant="link"
-          >
-            {get(data, 'currentUser.profile.firstName')}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu
-            className="text-right"
-          >
-            <Dropdown.Item
-              href="#"
-              onClick={() => logout()}
-            >
-              Log Out
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </div>
-
       {get(data, 'currentUser.profile.photo.uri', '') !== ''
         ? (
           <div style={{ width: 48, height: 48 }}>
@@ -118,6 +100,43 @@ const ProfileConnected = () => {
         )
         : <i className="fal fa-user-circle fa-2x"></i>
       }
+
+      <div
+        className={classnames(
+          "text-left",
+          "text-lg-right",
+        )}
+      >
+        <Dropdown
+          style={{ minWidth: 0 }}
+        >
+          <Dropdown.Toggle
+            variant="link"
+            className={classnames(
+              "px-2",
+              "px-lg-3",
+            )}
+          >
+            {get(data, 'currentUser.profile.firstName')}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu
+            className={classnames(
+              "text-left",
+              'text-lg-right',
+            )}
+            style={{ minWidth: 0 }}
+          >
+            <Dropdown.Item
+              href="#"
+              onClick={() => logout()}
+              style={{ minWidth: 0 }}
+            >
+              Log Out
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     </div>
   )
 
@@ -177,9 +196,13 @@ const NavbarConnected = ({
         <div
           className={classnames(
             'd-flex',
-            'flex-row',
-            'justify-content-between',
-            "align-items-center",
+            'flex-column',
+            "align-items-start",
+
+            'flex-lg-row',
+            'justify-content-lg-between',
+            "align-items-lg-center",
+
             'w-100',
             "px-lg-3"
           )}
@@ -197,7 +220,8 @@ const NavbarConnected = ({
           <Nav
             style={{ flex: 1 }}
             className={classnames(
-              "align-items-center",
+              "align-items-start",
+              "align-items-lg-center",
               'justify-content-center'
             )}
           >
@@ -207,6 +231,7 @@ const NavbarConnected = ({
                 href={link.action}
                 className={classnames(
                   'mx-3',
+                  'my-2',
                   'font-weight-normal'
                 )}
               >
@@ -215,11 +240,19 @@ const NavbarConnected = ({
             ))}
           </Nav>
 
+          <hr
+            className={classnames(
+              "w-75",
+              'd-lg-none'
+            )}
+          ></hr>
+
           <div
             style={{ flex: 1 }}
             className={classnames(
               "d-flex",
-              "justify-content-end"
+              "justify-content-start",
+              "justify-content-lg-end",
             )}
           >
             <ProfileConnected />

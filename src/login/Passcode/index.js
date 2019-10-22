@@ -28,6 +28,7 @@ const PasscodeForm = ({
     inputLabel,
     type,
     update,
+    columns,
 }) => {
     const {
         values,
@@ -107,7 +108,7 @@ const PasscodeForm = ({
             </div>
 
             <div className="row my-4 justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <TextInput
                         icon={faLockAlt}
                         type={inputType}
@@ -172,6 +173,7 @@ PasscodeForm.defaultProps = {
     },
     type: 'sms',
     update: () => true,
+    columns: 'col'
 }
 
 PasscodeForm.propTypes = {
@@ -192,6 +194,10 @@ PasscodeForm.propTypes = {
     type: PropTypes.oneOf(['sms', 'password']),
     buttonText: PropTypes.string,
     update: PropTypes.func,
+    columns: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ])
 }
 
 export default PasscodeForm

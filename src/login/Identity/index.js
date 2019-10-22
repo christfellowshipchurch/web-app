@@ -40,6 +40,7 @@ const IdentityForm = ({
     dislaimerText,
     inputLabel,
     update,
+    columns
 }) => {
     const {
         values,
@@ -116,7 +117,7 @@ const IdentityForm = ({
             </div>
 
             <div className="row my-4 justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <TextInput
                         label={inputLabel}
                         error={get(errors, 'identity', '')}
@@ -128,7 +129,7 @@ const IdentityForm = ({
             </div>
 
             <div className="row my-5 text-center justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <Checkbox
                         error={has(errors, 'privacyPolicyAgreement') && get(errors, 'privacyPolicyAgreement', '')}
                         label={dislaimerText}
@@ -160,7 +161,11 @@ IdentityForm.propTypes = {
     promptText: PropTypes.string,
     buttonText: PropTypes.string,
     dislaimerText: PropTypes.string,
-    update: PropTypes.func
+    update: PropTypes.func,
+    columns: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ])
 }
 
 IdentityForm.defaultProps = {
@@ -170,7 +175,8 @@ IdentityForm.defaultProps = {
         "Get started by entering in either you phone number or email address. We'll never share your information or contact you (unless you ask!).",
     buttonText: 'Agree and Continue',
     dislaimerText: 'I understand and agree to the following policies as laid out by Christ Fellowship Church:',
-    update: () => true
+    update: () => true,
+    columns: 'col'
 }
 
 export default IdentityForm

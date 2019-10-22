@@ -11,8 +11,8 @@ import Button from '../../../ui/Button'
 import Loader from '../../../ui/Loader'
 import Media from '../../../ui/Media'
 
-import InputIcon from '../../../ui/inputs/TextInput'
-import FloatingCard from '../../../ui/FloatingCard'
+import InputIcon from '../../../ui/inputs/inputIcon'
+import { FloatingCard } from '../../../ui'
 import RsvpForm from '../RsvpForm'
 
 import { GET_CAMPUSES } from './queries'

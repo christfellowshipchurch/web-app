@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Query, useQuery } from 'react-apollo'
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import { toLower, get, has, find, camelCase } from 'lodash'
 import { useScrollPosition } from '../../hooks'
@@ -82,7 +83,8 @@ const NavbarConnected = ({
     const navbarProps = {
       bg,
       variant,
-      expand: 'lg'
+      expand: 'lg',
+      collapseOnSelect: true
     }
 
     // We use sticky styling as the default so that padding is respected
@@ -109,12 +111,18 @@ const NavbarConnected = ({
         </Navbar.Toggle>
 
         <Navbar.Collapse>
-          <Nav className="ml-auto align-items-center">
+          <Nav
+            className={classnames(
+              "ml-auto",
+              "align-items-start",
+              "align-items-lg-center",
+            )}
+          >
             {navigationData.navigationLinks.map((link, i) => (
               <Nav.Link
                 key={i}
                 href={link.action}
-                className='mx-3'
+                className='mx-3 my-2'
               >
                 {link.call}
               </Nav.Link>
@@ -122,14 +130,17 @@ const NavbarConnected = ({
 
             <Nav.Link
               href='#'
-              onClick={() => logIn()}
-              className='mx-3'
+              className='mx-3 my-2'
+              onSelect={() => {
+                onToggle()
+                logIn()
+              }}
             >
               Log In
             </Nav.Link>
 
             {quickAction.display &&
-              <div className="mx-3">
+              <div className="mx-3 my-2">
                 <Button
                   title={quickAction.call}
                   onClick={() => redirectTo(quickAction.action)}

@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/fontawesome-pro-light'
 
 const Checkbox = ({
     checked,
@@ -18,26 +16,30 @@ const Checkbox = ({
 
     return (
         <div className="text-left">
-            <button
-                onClick={onClick}
+            <a
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault()
+                    onClick()
+                }}
                 className={classnames(
-                    'btn',
                     'btn-checkbox',
                     {
-                        [`btn-outline-${types.default}`]: !checked,
-                        [`btn-outline-${types.checked}`]: checked,
+                        [`text-${types.default}`]: !checked,
+                        [`text-${types.checked}`]: checked,
                     }
                 )}
                 {...buttonProps}
             >
-                {checked &&
-                    <i className="fal fa-check pl-1"></i>
+                {checked
+                    ? <i className="fal fa-check-square pl-1"></i>
+                    : <i className="fal fa-square pl-1"></i>
                 }
-            </button>
+            </a>
             {error &&
                 <label
                     className={classnames(
-                        'ml-3',
+                        'ml-2',
                         'input-label-sm',
                         'text-danger'
                     )}
@@ -48,7 +50,7 @@ const Checkbox = ({
             {label &&
                 <label
                     className={classnames(
-                        'ml-3',
+                        'ml-2',
                         'input-label'
                     )}
                 >

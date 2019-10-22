@@ -9,22 +9,10 @@ body {
     min-width: 0px !important;
 }
 
-.btn-checkbox {
-    min-width: 0 !important;
-    width: 24px !important;
-    height: 24px !important;
-    padding: 0 !important;
-    border-radius: 3px !important;
-}
-
+.btn-checkbox,
 .btn-radio {
-    min-width: 0 !important;
-    width: 24px !important;
-    height: 24px !important;
-    padding: 0 !important;
+    font-size: 24px;
 }
-
-.btn-radio i { padding-left: 2px !important; }
 
 .btn-checkbox + label,
 .btn-radio + label {
@@ -49,6 +37,12 @@ body {
 input[type="checkbox"] {
     height: 24px;
     width: 24px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 /*
@@ -219,5 +213,5 @@ select {
 }
 
 .floating-card + div {
-    animation: .3s ease-in 0s 1 fullOpacityFade;
+    animation: .25s ease-in 0s 1 fullOpacityFade;
 }

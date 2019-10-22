@@ -40,7 +40,8 @@ const ProfileInformationForm = ({
     buttonText,
     defaultDate,
     genderList,
-    update
+    update,
+    columns,
 }) => {
     const {
         values,
@@ -107,7 +108,7 @@ const ProfileInformationForm = ({
             </div>
 
             <div className="row my-4 justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <TextInput
                         error={has(errors, 'firstName') && get(errors, 'firstName', '')}
                         label='First Name*'
@@ -118,7 +119,7 @@ const ProfileInformationForm = ({
             </div>
 
             <div className="row my-4 justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <TextInput
                         error={has(errors, 'lastName') && get(errors, 'lastName', '')}
                         label='Last Name*'
@@ -129,7 +130,7 @@ const ProfileInformationForm = ({
             </div>
 
             <div className="row my-4 justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <TextInput
                         type="date"
                         error={has(errors, 'birthDate') && get(errors, 'birthDate', '')}
@@ -142,7 +143,7 @@ const ProfileInformationForm = ({
             </div>
 
             <div className="row my-4 justify-content-center">
-                <div className="col-8">
+                <div className={classnames(columns)}>
                     <Radio
                         options={genderList}
                         error={has(errors, 'gender') && get(errors, 'gender', '')}
@@ -173,6 +174,7 @@ ProfileInformationForm.defaultProps = {
     promptText: "In order for us to get you the blah blah blah. So let's go ahead and bleedidy doopody dee",
     buttonText: 'Finish',
     update: () => true,
+    columns: 'col'
 }
 
 ProfileInformationForm.propTypes = {
@@ -182,6 +184,10 @@ ProfileInformationForm.propTypes = {
     propmtText: PropTypes.string,
     buttonText: PropTypes.string,
     update: PropTypes.func,
+    columns: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ])
 }
 
 export default ProfileInformationForm
