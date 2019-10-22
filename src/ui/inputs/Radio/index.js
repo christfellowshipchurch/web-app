@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/fontawesome-pro-light'
 
 const parseValue = (n) => typeof (n) === 'string'
     ? { label: n, value: n }
