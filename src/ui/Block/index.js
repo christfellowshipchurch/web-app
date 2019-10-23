@@ -34,7 +34,7 @@ const Block = ({
 }) => {
 
   return (
-    <div className={`col px-4 py-6 ${className}`}>
+    <div className={`col py-6 ${className}`}>
       <Layout
         layout={camelCase(contentLayout)}
         className="max-width-1100"
