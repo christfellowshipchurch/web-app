@@ -1,0 +1,35 @@
+.btn {
+  min-width: 250px;
+  letter-spacing: $letter-spacing-lg;
+
+  &:not([class*='outline']):not(:disabled):not(.disabled) {
+      box-shadow: $btn-box-shadow;
+  }
+}
+
+.btn:focus,
+.btn:active {
+    outline: none !important;
+    box-shadow: none;
+}
+
+.btn-sm {
+  min-width: 120px;
+  letter-spacing: 1.5px;
+}
+
+.btn:not(.btn-primary) {
+  box-shadow: none !important;
+  min-width: 0px !important;
+}
+
+.btn-checkbox,
+.btn-radio {
+  font-size: 24px;
+}
+
+.btn-checkbox + label,
+.btn-radio + label {
+  margin-top: 6px;
+  font-size: 12px;
+}

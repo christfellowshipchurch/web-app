@@ -1,0 +1,23 @@
+$md-breakpoint: map-get($grid-breakpoints, md);
+
+.carousel-indicators {
+    li {
+        background-color:$gray-800 !important;
+        width: 0.9em;
+        height: 0.9rem;
+        margin: 0rem 0.3rem;
+        border-radius: 100%;
+    }
+}
+
+// default carousel image sizing
+.carousel-img {
+    width: 50% !important;
+}
+
+// carousel image sizing for md and up
+@media (min-width: $md-breakpoint) {
+    .carousel-img {
+        width: 15% !important;
+    }
+}

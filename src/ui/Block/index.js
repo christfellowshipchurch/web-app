@@ -10,7 +10,9 @@ const titleClasses = classnames(
   'font-weight-bold',
 )
 const subtitleClasses = classnames(
-  'pt-1',
+  'mt-3',
+  'subtitle',
+  'text-secondary'
 )
 const htmlClasses = classnames(
   'pb-4',
@@ -33,7 +35,7 @@ const Block = ({
 }) => {
 
   return (
-    <div className={`col px-4 py-6 ${className}`}>
+    <div className={`col py-6 ${className}`}>
       <Layout
         layout={camelCase(contentLayout)}
         className="max-width-1100"
@@ -47,7 +49,7 @@ const Block = ({
             rounded: true
           } : null}
       >
-        <div className="max-width-800">
+        <div className="max-width-800 mx-auto">
           <h5 className={subtitleClasses}>
             {subtitle}
           </h5>

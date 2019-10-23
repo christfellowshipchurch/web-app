@@ -1,0 +1,84 @@
+$input-label-transition-speed: 0.5s;
+$input-label-transitions: top $input-label-transition-speed, font-size $input-label-transition-speed;
+@mixin input-label-transition {
+    transition: $input-label-transitions;
+    -webkit-transition: $input-label-transitions;
+    -moz-transition: $input-label-transitions;
+    -o-transition: $input-label-transitions;
+}
+.input-label {
+    pointer-events: none;
+    position: absolute;
+    font-size: $font-size-base;
+    top: auto;
+
+    @include input-label-transition;
+}
+
+.input-label-lower {
+    position: absolute;
+    bottom: 0;
+}
+
+.input-label-sm {
+    pointer-events: none;
+    position: absolute;
+    font-size: $font-size-sm;
+    top: 0;
+    @include input-label-transition;
+}
+
+input {
+    background: transparent !important;
+    border-width: 0 !important;
+    border: none !important;
+    outline: none !important;
+
+    &:focus {
+        outline: none;
+        background-color: transparent;
+        border: none;
+        border-width: 0;
+    }
+
+    &:placeholder {
+        color: $dark;
+    }
+
+    // Remove number input indicators
+    &[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+    &[type=number]::-webkit-outer-spin-button { 
+      -webkit-appearance: none; 
+      margin: 0; 
+    }
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    
+    background: transparent;
+    border-width: 0;
+    outline: none;
+
+    &:after {
+      content: #9660;
+  }
+}
+
+textarea {
+    width: 325px;
+    height: 100px;
+    border-color: #ededed;
+    border-radius: .12rem;
+    resize: none;
+
+    &:focus {
+        border-color: #aeaeaf;
+        outline: none;
+    }
+}

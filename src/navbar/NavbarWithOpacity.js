@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useScrollPosition } from '../../hooks'
+import { useScrollPosition } from '../hooks'
 import Navbar from './index'
 
 const NavbarWithOpacity = ({ offset }) => {

@@ -18,9 +18,7 @@ const FormattedCarousel = ({ children }) => {
             {children.map(({
               __typename,
               images,
-              imageAlt,
               videos,
-              videoUrl,
               subtitle,
               title,
               htmlContent,
@@ -49,7 +47,7 @@ const FormattedCarousel = ({ children }) => {
 
                     <div className='d-flex justify-content-center'>
                       <h2 className={subtitle}></h2>
-                      <div className='col-10 pt-4 font-weight-light text-center'>{htmlToReactParser.parse(htmlContent)}</div>
+                      <div className='col-10 pt-4 text-center'>{htmlToReactParser.parse(htmlContent)}</div>
                     </div>
 
                     <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
