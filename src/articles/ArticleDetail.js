@@ -53,7 +53,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
 
   return (
     <>
-      <div className='pt-6 bg-white'>
+      <div className='pt-6 bg-white px-3'>
         <div className="container max-width-800">
           <div className="row">
             <div className="col">
@@ -107,8 +107,9 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
               }
             </div>
           </div>
+
           <div className="row pb-6">
-            <div className="col-12 px-3">
+            <div className="col-12">
               <h4
                 className="text-uppercase text-muted"
                 style={{ fontWeight: 900, letterSpacing: 2 }}
@@ -116,7 +117,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
                 categories
             </h4>
             </div>
-            <div className="col-12 px-3">
+            <div className="col-12">
               <ArticleCategories id={get(article, 'id', null)} />
             </div>
           </div>
