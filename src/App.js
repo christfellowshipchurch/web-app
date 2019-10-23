@@ -2,7 +2,7 @@ import React from 'react'
 import Router from './router'
 import Footer from './footer'
 import SEO from './seo'
-import Navbar, { NavbarWithOpacity } from './components/Navbar'
+import Navbar, { NavbarWithOpacity } from './navbar'
 import LogIn from './login'
 
 import { useAuth } from './auth'

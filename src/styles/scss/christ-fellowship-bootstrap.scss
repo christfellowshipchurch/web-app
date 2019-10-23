@@ -78,13 +78,6 @@ html {
     }
 }
 
-.img-circle {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 100%;
-    align-self: center;
-}
-
 .focus-indicator-none:focus { 
     outline-width: 0 !important;
     border: none !important; 
@@ -105,6 +98,13 @@ html {
 
 
 // Image Styling
+.img-circle {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 100%;
+    align-self: center;
+}
+
 .embed-responsive-item {
     // forces media items to not stretch
     object-fit: cover;
@@ -163,7 +163,6 @@ html {
 }
 
 .subtitle {
-    color: $gray-500;
     letter-spacing: $letter-spacing-lg;
     font-weight: 800;
 }
@@ -175,15 +174,9 @@ html {
     width: 80px;
     height: auto;
 }
-.article-title {
-    font-size: 36px;
-}
 .article-subtitle {
     font-size: 22px;
     letter-spacing: 0.8px;
-}
-.article-body {
-    line-height: 24px;
 }
 //
 

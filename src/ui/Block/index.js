@@ -10,8 +10,9 @@ const titleClasses = classnames(
   'font-weight-bold',
 )
 const subtitleClasses = classnames(
-  'pt-1',
-  'subtitle'
+  'mt-3',
+  'subtitle',
+  'text-secondary'
 )
 const htmlClasses = classnames(
   'pb-4',
