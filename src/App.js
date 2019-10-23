@@ -1,6 +1,6 @@
 import React from 'react'
 import Router from './router'
-import Footer from './components/Footer'
+import Footer from './footer'
 import SEO from './seo'
 import Navbar, { NavbarWithOpacity } from './components/Navbar'
 import LogIn from './login'
