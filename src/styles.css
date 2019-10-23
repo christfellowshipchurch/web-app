@@ -215,3 +215,9 @@ select {
 .floating-card + div {
     animation: .25s ease-in 0s 1 fullOpacityFade;
 }
+
+.banner {
+    object-fit: cover;
+    width: auto;
+    height: 450px;
+}

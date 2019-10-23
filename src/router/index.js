@@ -4,18 +4,18 @@ import {
 } from 'react-router-dom'
 
 import DefaultPage, { UIPage } from '../components/Page'
-import { ArticleList, ArticleDetail } from '../components/Page/Articles'
 import HomePage from './Home'
 import Login from './Login'
+import Events from './Events'
+import Articles from './Articles'
 
 const Router = () => (
     <Switch>
         <Route exact path="/ui" component={UIPage} />
 
-        <Route exact path="/articles/" component={ArticleList} />
-        <Route exact path="/articles/:articleTitle" component={ArticleDetail} />
-
         <Route path="/login" component={Login} />
+        <Route path="/events" component={Events} />
+        <Route path="/articles" component={Articles} />
 
         <Route exact path="/:page" component={DefaultPage} />
 

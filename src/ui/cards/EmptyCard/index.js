@@ -12,7 +12,8 @@ const EmptyCard = ({
                 'card',
                 'border-0',
                 'shadow-sm',
-                'm-4',
+                'mx-2',
+                'my-3',
                 className
             )}
             style={style}
