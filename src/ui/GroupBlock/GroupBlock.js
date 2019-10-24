@@ -83,14 +83,14 @@ const GroupBlock = ({
       return (
         <div className="row py-6">
           <div className="col-12 text-center mb-2">
-            <div className="max-width-800">
+            <div className="max-width-800 mx-auto">
               <h2>
                 {groupTitle}
               </h2>
               {groupBody}
             </div>
           </div>
-          <div className="col-12 max-width-1100">
+          <div className="col-12 max-width-1100 mx-auto">
             <Accordion paginate={paginate}>
               {blockItems.map((n, i) => {
                 switch (get(n, '__typename', '')) {
