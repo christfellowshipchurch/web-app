@@ -1,4 +1,5 @@
 import Accordion from './Accordion'
+import AddToCalendar from './AddToCalendar'
 import BackgroundContentBlock from './BackgroundContentBlock'
 import Block from './Block'
 import Button from './Button'
@@ -14,6 +15,7 @@ import Row from './Row'
 
 export {
     Accordion,
+    AddToCalendar,
     BackgroundContentBlock,
     Block,
     Button,

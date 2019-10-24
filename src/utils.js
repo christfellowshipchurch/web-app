@@ -44,3 +44,6 @@ export const buttonClick = ({ call, action, title, openLinksInNewTab }) => {
         redirectTo(action)
     }
 }
+
+export const getDirectionsUrl = (address) =>
+    `https://www.google.com/maps/search/?api=1&query=${address.replace(' ', '+')}`
