@@ -7,7 +7,7 @@ import {
     BrowserRouter
 } from 'react-router-dom'
 
-import './styles/css/christ-fellowship-bootstrap.css'
+import './styles/css/styles.css'
 import {
     ClientProvider
 } from './client'
