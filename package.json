@@ -49,7 +49,7 @@
   },
   "scripts": {
     "start": "yarn build-css && react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn minify-css && react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
     "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
@@ -58,8 +58,8 @@
     "test:badges": "npm run test:coverage  && jest-coverage-badges",
     "make-badges": "node_modules/.bin/jest-badges-readme",
     "make-readme": "npm run test:coverage && npm run make-badges",
-    "build-css": "node-sass --include-path scss ./src/styles/scss/christ-fellowship-bootstrap.scss ./src/styles/css/christ-fellowship-bootstrap.css",
-    "minify-css": "node-sass --include-path scss ./src/styles/scss/christ-fellowship-bootstrap.scss ./src/styles/css/christ-fellowship-bootstrap.css --output-style compressed"
+    "build-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css",
+    "minify-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css --output-style compressed"
   },
   "eslintConfig": {
     "extends": "react-app"
