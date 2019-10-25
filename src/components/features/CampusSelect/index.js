@@ -167,7 +167,8 @@ const CampusSelect = ({
                     "align-items-center",
                     "my-4",
                     "px-3",
-                    "max-width-800"
+                    "max-width-800",
+                    "mx-auto"
                 )}>
                     <div className="col-12 col-md px-3 my-3">
                         <StyledCampusSelect

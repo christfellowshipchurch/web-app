@@ -3,7 +3,7 @@ import {
     Switch, Route, Redirect
 } from 'react-router-dom'
 
-import { ArticleList, ArticleDetail } from '../../components/Page/Articles'
+import { ArticleList, ArticleDetail } from '../../articles'
 
 const Router = () => (
     <Switch>

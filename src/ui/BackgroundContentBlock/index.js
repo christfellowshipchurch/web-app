@@ -1,10 +1,11 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { camelCase, get } from 'lodash'
 import { htmlToReactParser } from '../../utils'
 import { ButtonRow, Layout, Media } from '../../ui'
 
-export default ({
+const BackgroundContentBlock = ({
   contentLayout,
   images,
   videos,
@@ -56,7 +57,11 @@ export default ({
       <Layout
         contentLayout="default"
         className="text-white max-width-800 py-6">
-        <div className={`${titleSize}`}>
+        <div className={classnames(
+          titleSize,
+          'text-white',
+          { 'mb-4': lg }
+        )}>
           {title}
         </div>
 
@@ -77,3 +82,13 @@ export default ({
     </div>
   )
 }
+
+BackgroundContentBlock.propTypes = {
+
+}
+
+BackgroundContentBlock.defaultProps = {
+
+}
+
+export default BackgroundContentBlock

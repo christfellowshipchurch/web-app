@@ -1,0 +1,22 @@
+// Floating Card
+@keyframes fullOpacityFade {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+.floating-card {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+
+    transform: translateX(-50%);
+    animation: .5s ease-in 0s 1 fullOpacityFade;
+}
+
+.floating-card + div {
+    animation: .25s ease-in 0s 1 fullOpacityFade;
+}

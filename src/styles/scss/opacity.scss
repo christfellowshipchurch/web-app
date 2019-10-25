@@ -1,0 +1,8 @@
+$opacities: (
+    50: 0.5,
+    65: 0.65
+);
+
+@each $opacity, $value in $opacities {
+    .opacity-#{$opacity} { opacity: $value; }
+}

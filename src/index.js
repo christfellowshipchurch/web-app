@@ -7,15 +7,13 @@ import {
     BrowserRouter
 } from 'react-router-dom'
 
-import '../src/styles/css/styles.css'
+import './styles/css/styles.css'
 import {
     ClientProvider
 } from './client'
 import {
     AuthProvider,
 } from './auth'
-
-import './styles.css'
 
 
 ReactDOM.render(

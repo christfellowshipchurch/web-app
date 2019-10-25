@@ -1,0 +1,20 @@
+// This variable affects the `.max-width-*` classes.
+$max-widths: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$max-widths: map-merge(
+  (
+    0: 0px,
+    200: 200px,
+    800: 800px,
+    1100: 1100px
+  ),
+  $max-widths
+);
+
+@each $label, $width in $max-widths {
+    @media screen and (min-width: $width) {
+        .max-width-#{$label} { max-width: $width; }
+    }    
+}
+
+.min-height-75-vh { min-height: 75vh !important; }

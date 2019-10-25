@@ -1,20 +1,19 @@
-import React, { useState } from 'react'
-import { Query, useQuery } from 'react-apollo'
+import React from 'react'
+import { useQuery } from 'react-apollo'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import { toLower, get, has, find, camelCase } from 'lodash'
-import { useScrollPosition } from '../../hooks'
+import { get, has, camelCase } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/fontawesome-pro-light'
 
 import { Navbar, Nav } from 'react-bootstrap'
 
-import GET_WEBSITE_HEADER from './getWebsiteHeader'
-import DefaultIcon from '../../images/default_icon.png'
+import { GET_WEBSITE_HEADER } from './queries'
+import DefaultIcon from '../images/default_icon.png'
 
-import { Button } from '../../ui'
-import { redirectTo } from '../../utils'
-import { useAuth } from '../../auth'
+import { Button } from '../ui'
+import { redirectTo } from '../utils'
+import { useAuth } from '../auth'
 import { AuthNavbar } from './'
 
 // Takes a collection of images from
