@@ -47,8 +47,8 @@
     "zipcodes": "^8.0.0"
   },
   "scripts": {
-    "start": "yarn minify-css && react-scripts start",
-    "build": "react-scripts build",
+    "start": "yarn build-css && react-scripts start",
+    "build": "yarn minify-css && react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
     "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
