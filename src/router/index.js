@@ -8,6 +8,7 @@ import HomePage from './Home'
 import Login from './Login'
 import Events from './Events'
 import Articles from './Articles'
+import Browse from './Browse'
 
 const Router = () => (
     <Switch>
@@ -16,6 +17,7 @@ const Router = () => (
         <Route path="/login" component={Login} />
         <Route path="/events" component={Events} />
         <Route path="/articles" component={Articles} />
+        <Route path="/browse" component={Browse} />
 
         <Route exact path="/:page" component={DefaultPage} />
 

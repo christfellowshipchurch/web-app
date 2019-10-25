@@ -3,13 +3,15 @@ import {
     Switch, Route, Redirect
 } from 'react-router-dom'
 
-import { ArticleList, ArticleDetail } from '../../articles'
+import { Article } from '../../articles'
 
 const Router = () => (
     <Switch>
-        <Route exact path="/articles/:articleTitle" component={ArticleDetail} />
+        <Route exact path="/articles/:articleTitle" component={Article} />
 
-        <Route path="*" component={ArticleList} />
+        <Route path="*">
+            <Redirect to="/browse/articles" />
+        </Route>
     </Switch>
 )
 
