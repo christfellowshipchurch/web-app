@@ -6,6 +6,7 @@ import {
 import DefaultPage, { UIPage } from '../components/Page'
 import HomePage from './Home'
 import Login from './Login'
+import Events from './Events'
 import Articles from './Articles'
 
 const Router = () => (
@@ -13,6 +14,7 @@ const Router = () => (
         <Route exact path="/ui" component={UIPage} />
 
         <Route path="/login" component={Login} />
+        <Route path="/events" component={Events} />
         <Route path="/articles" component={Articles} />
 
         <Route exact path="/:page" component={DefaultPage} />

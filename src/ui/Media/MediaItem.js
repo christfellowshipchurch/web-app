@@ -1,5 +1,6 @@
 import React, { createRef, useState } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import { faPlayCircle } from '@fortawesome/fontawesome-pro-light'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -16,7 +17,9 @@ const MediaItem = ({
   rounded,
   circle,
   showControls,
-  playIcon
+  playIcon,
+  overlay,
+  gradient,
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -55,7 +58,24 @@ const MediaItem = ({
           ref={videoRef} />
       }
 
-      {(children || (showPlayButton && videoUrl)) &&
+      {/* TODO : add gradient abilities */}
+      {(gradient || overlay) &&
+        <div
+          className={classnames(
+            'w-100',
+            'h-100',
+            'absolute-center',
+            'opacity-65',
+            {
+              [`bg-${overlay}`]: !!overlay,
+              [`bg-gradient-${gradient}`]: !!gradient
+            }
+          )}
+        ></div>
+      }
+
+      {
+        (children || (showPlayButton && videoUrl)) &&
         <div className='fill d-flex justify-content-center align-items-center'>
           {(showVideoControls && videoRef)
             ? (
@@ -66,9 +86,10 @@ const MediaItem = ({
               </button>
             )
             : children}
-        </div>}
+        </div>
+      }
 
-    </div>
+    </div >
   )
 };
 
@@ -81,7 +102,9 @@ const defaultProps = {
     as: null,
     color: 'white',
     size: '3x',
-  }
+  },
+  overlay: null,
+  gradient: null,
 }
 
 const propTypes = {
@@ -98,7 +121,27 @@ const propTypes = {
       PropTypes.string,
       PropTypes.number
     ]),
-  })
+  }),
+  overlay: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "success",
+    "info",
+    "warning",
+    "danger",
+    "light",
+    "dark"
+  ]),
+  gradient: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "success",
+    "info",
+    "warning",
+    "danger",
+    "light",
+    "dark"
+  ])
 }
 
 MediaItem.defaultProps = defaultProps;
