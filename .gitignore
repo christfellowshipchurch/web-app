@@ -80,3 +80,4 @@ storyLoader.js
 # compiled code
 
 **/lib
+src/styles/css/
