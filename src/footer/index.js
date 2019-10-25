@@ -39,7 +39,6 @@ const Footer = () => {
     const footer = get(data, 'getWebsiteNavigation', {})
     const verticalMargin = classnames(
         'my-2',
-        'my-lg-4'
     )
 
     return (
@@ -49,7 +48,6 @@ const Footer = () => {
                 "bg-dark",
                 "footer",
                 "py-5",
-                "py-lg-6",
             )}
         >
             <div
