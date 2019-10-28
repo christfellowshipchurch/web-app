@@ -4,6 +4,8 @@ import { forEach } from 'lodash'
 
 import { Button } from '../ui'
 
+import BrowseFilters from './BrowseFilters'
+
 const generatePath = (arr) => {
     let path = '/browse'
 
@@ -37,6 +39,9 @@ const Browse = ({
                     {`Welcome to Browse`}
                 </h3>
             </div>
+
+            <BrowseFilters/>
+
 
             {filter
                 ? <div className="row">

@@ -1,56 +1,70 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
+import {
+    toLower,
+    get
+} from 'lodash'
 
-const Browse = ({
-    filter,
-    category,
-    title
-}) => {
+import {
+    Button,
+    Loader,
+    ContentContainer
+} from '../ui'
+import {mapEdgesToNodes} from '../utils'
+import {GET_BROWSE_FILTERS} from './queries'
+import BrowseCategories from './BrowseCategories'
+
+
+const BrowseFilters = ({ children }) => {
+
+    const [filterId, setFilterId] = useState('')
+
+
+    const { loading, error, data } = useQuery(GET_BROWSE_FILTERS)
+    
+      if (loading) return (
+          <ContentContainer>
+              <Loader/>
+          </ContentContainer>
+      )
+    
+      if (error) {
+        console.log({ error })
+        return null
+      }
+        
+    const filters = mapEdgesToNodes(get(data, 'contentChannels[0].childContentItemsConnection', null))
+    
     return (
-        <div className="container my-6">
-            <div className="row">
-                <h3>
-                    {`Welcome to Browse`}
-                </h3>
+        <>
+            <div>
+                {filters.map(n => (
+                    <Button 
+                        key={n.id}
+                        title={n.title}
+                        type='link'
+                        onClick={() => setFilterId(n.id)}
+                    />
+                ))}
+            </div> 
+            <div>
+                <BrowseCategories
+                    filterId={filterId}
+                />
             </div>
-
-            {filter &&
-                <div className="row">
-                    <h3>
-                        {`Filter: ${filter}`}
-                    </h3>
-                </div>
-            }
-
-            {category &&
-                <div className="row">
-                    <h3>
-                        {`Category: ${category}`}
-                    </h3>
-                </div>
-            }
-
-            {title &&
-                <div className="row">
-                    <h3>
-                        {`Title: ${title}`}
-                    </h3>
-                </div>
-            }
-        </div>
-    )
+        </>   
+        )
 }
 
-Browse.propTypes = {
+BrowseFilters.propTypes = {
     filter: PropTypes.string,
-    category: PropTypes.string,
     title: PropTypes.string,
 }
 
-Browse.defaultProps = {
+BrowseFilters.defaultProps = {
     filter: null,
-    category: null,
     title: null,
 }
 
-export default Browse
+export default BrowseFilters

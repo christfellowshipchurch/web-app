@@ -1,4 +1,4 @@
-import gql from 'gql-tag'
+import gql from 'graphql-tag'
 
 export const GET_BROWSE_FILTERS = gql`
     query getBrowseFilters {

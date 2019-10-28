@@ -38,6 +38,8 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     </h3>
   }
 
+  console.log('data: ', {data})
+
   const article = get(data, 'getArticleByTitle', null)
 
   if (!article) {
