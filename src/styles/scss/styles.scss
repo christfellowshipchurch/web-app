@@ -63,6 +63,7 @@
 @import 'sizing.scss';
 @import 'overflows.scss';
 @import 'opacity.scss';
+@import 'animations.scss';
 
 html {
     font-size: 16px;
@@ -94,6 +95,7 @@ html {
 
 // Additional Backgrounds
 .bg-black { background-color: black !important; }
+.bg-body { background-color: $body-bg !important; }
 //
 
 

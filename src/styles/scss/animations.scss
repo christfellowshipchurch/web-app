@@ -1,0 +1,82 @@
+$animate-prefix: animate;
+
+// Opacity Variables
+$opacity-prefix: opacity;
+$opacity-duration: 1s;
+$opacity-easing: ease-out;
+$opacity-delay: 0s;
+
+// Slide Variables
+$slide-prefix: slide;
+$slide-duration: 1s;
+$slide-easing: ease-out;
+$slide-delay: 0s;
+$slide-distance: 50px;
+
+[class*='#{$opacity-prefix}'] {
+  transition: opacity;
+  transition-duration: $opacity-duration;
+  transition-timing-function: $opacity-easing;
+}
+
+.#{$animate-prefix}-#{$opacity-prefix}-0-1 {
+  animation-name: opacityIn;
+  animation-duration: $opacity-duration;
+  animation-iteration-count: 1;
+  animation-timing-function: $opacity-easing;
+}
+
+.#{$animate-prefix}-#{$opacity-prefix}-1-0 {
+  animation-name: opacityOut;
+  animation-duration: $opacity-duration;
+  animation-iteration-count: 1;
+  animation-timing-function: $opacity-easing;
+}
+
+.#{$animate-prefix}-#{$slide-prefix}-right-left {
+  animation-name: slideRightToLeft;
+  animation-duration: $slide-duration;
+  animation-iteration-count: 1;
+  animation-timing-function: $slide-easing;
+}
+
+.#{$animate-prefix}-#{$slide-prefix}-left-right {
+  animation-name: slideLeftToRight;
+  animation-duration: $slide-duration;
+  animation-iteration-count: 1;
+  animation-timing-function: $slide-easing;
+}
+
+@keyframes opacityIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes opacityOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX($slide-distance);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(-$slide-distance);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}

@@ -8,9 +8,12 @@ import HomePage from './Home'
 import Login from './Login'
 import Events from './Events'
 import Articles from './Articles'
+import Animations from './Animations'
 
 const Router = () => (
     <Switch>
+        <Route exact path="/animations" component={Animations} />
+
         <Route exact path="/ui" component={UIPage} />
 
         <Route path="/login" component={Login} />

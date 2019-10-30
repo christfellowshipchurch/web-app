@@ -15,7 +15,7 @@ import PixelManager from '../PixelManager'
 import Loader from '../../ui/Loader'
 
 // import ContentContainer from ''
-import {  
+import {
   Block,
   BackgroundContentBlock,
   GroupBlock,
@@ -24,17 +24,18 @@ import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
 
 
+const bgColor = {
+  'true': 'bg-transparent',
+  'false': 'bg-white',
+  'accordion': 'bg-transparent',
+}
+
+
 const DefaultPage = ({ title, match: { params: { page } } }) => {
   PixelManager.initWithPageView(`/${page || ''}`)
 
   const website = process.env.REACT_APP_WEBSITE_KEY
   const pageTitle = page || title
-  const isHomePage = pageTitle === ''
-    || pageTitle === 'home'
-    || pageTitle === 'home-page'
-    || pageTitle === '/'
-    || pageTitle === 'home/'
-    || pageTitle === 'home-page/'
 
   const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: pageTitle } })
 
@@ -49,11 +50,8 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
     return <h1 className="text-center">There was an error loading the page. Please try again.</h1>
   }
 
-  const bgColor = {
-    'true': isHomePage ? 'bg-white' : 'bg-transparent',
-    'false': isHomePage ? 'bg-transparent' : 'bg-white'
-  }
-  let bgFirst = true
+  let bgIndex = true
+
   const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection)
   const {
     metaDescription,
@@ -74,39 +72,36 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
 
       {blockItems.map((item, i) => {
         const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-')
-        const bg = bgColor[`${bgFirst}`]
-        const topPadding = i === 0 ? 'pt-5' : ''
+        const bg = bgColor[`${bgIndex}`]
         let content = null
 
         if (!camelCase(get(item, 'contentLayout', '')).includes('background'))
-          bgFirst = !bgFirst
+          bgIndex = !bgIndex
 
         switch (item.__typename) {
           case 'WebsiteBlockItem':
             if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
-              content = <BackgroundContentBlock {...item} className={topPadding} />
+              content = <BackgroundContentBlock {...item} />
             } else {
-              content = (
-                          <Block {...item} className={topPadding} />
-                        )
+              content = <Block {...item} />
             }
             break
           case 'WebsiteGroupItem':
             content = <div
-              className={classnames("col", topPadding)}
+              className={classnames("col")}
             >
               <GroupBlock {...item} />
             </div>
             break
           case 'WebsiteFeature':
             content = (
-              <div className={classnames("col", 'px-4', topPadding)}>
+              <div className={classnames("col", 'px-4')}>
                 <Feature name={get(item, 'feature', '')} background={bg} />
               </div>
             )
             break
           default:
-            content = <h1 className={classnames("text-center", topPadding)}>{item.title}</h1>
+            content = <h1 className={classnames("text-center")}>{item.title}</h1>
             break
         }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Auth from './Auth'
-import { default as Default } from '../../components/Page'
+import Default from './Default'
 
 import { useAuth } from '../../auth'
 
