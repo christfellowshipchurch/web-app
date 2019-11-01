@@ -64,12 +64,23 @@
 @import 'overflows.scss';
 @import 'opacity.scss';
 @import 'animations.scss';
+@import 'hero.scss';
 
 html {
     font-size: 16px;
 }
 
 // Misc
+$md-breakpoint: map-get($grid-breakpoints, md);
+
+// large background swoop sizing for md and up
+@media (min-width: $md-breakpoint) {
+    img.large-background-swoop {
+        object-fit: cover;
+        object-position: center bottom;
+    }
+}
+
 .disable {
     color: #e2e2e2;
     cursor: default;

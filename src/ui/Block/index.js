@@ -37,7 +37,12 @@ const Block = ({
   withAnimation
 }) => {
   return (
-    <VisibilitySensor active={withAnimation}>
+    <VisibilitySensor
+      active={withAnimation}
+      partialVisibility="bottom"
+      minTopValue={200}
+      offset={{ bottom: -100 }}
+    >
       {({ isVisible }) => {
         return (
           <div
@@ -67,6 +72,7 @@ const Block = ({
                   className: classnames({
                     "animate-slide-left-right": isVisible && contentLayout === 'right',
                     "animate-slide-right-left": isVisible && contentLayout === 'left',
+                    "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
                   })
                 } : null}
             >
@@ -78,6 +84,7 @@ const Block = ({
                   {
                     "animate-slide-left-right": isVisible && contentLayout === 'left',
                     "animate-slide-right-left": isVisible && contentLayout === 'right',
+                    "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
                   }
                 )}
               >

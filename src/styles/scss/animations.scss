@@ -1,82 +1,65 @@
 $animate-prefix: animate;
 
-// Opacity Variables
+// Opacity
 $opacity-prefix: opacity;
-$opacity-duration: 1s;
+$opacity-duration: 0.5s;
 $opacity-easing: ease-out;
-$opacity-delay: 0s;
-
-// Slide Variables
-$slide-prefix: slide;
-$slide-duration: 1s;
-$slide-easing: ease-out;
-$slide-delay: 0s;
-$slide-distance: 50px;
 
 [class*='#{$opacity-prefix}'] {
   transition: opacity;
   transition-duration: $opacity-duration;
   transition-timing-function: $opacity-easing;
 }
+//
 
-.#{$animate-prefix}-#{$opacity-prefix}-0-1 {
-  animation-name: opacityIn;
-  animation-duration: $opacity-duration;
-  animation-iteration-count: 1;
-  animation-timing-function: $opacity-easing;
-}
+// Slide
+$slide-prefix: slide;
+$slide-duration: 0.5s;
+$slide-easing: ease-out;
+$slide-delay: 0s;
+$slide-x-distance: 50px;
+$slide-y-distance: 50px;
+$slide-animations: (
+    right-left: slideRightToLeft,
+    left-right: slideLeftToRight,
+    bottom-top: slideBottomToTop
+);
 
-.#{$animate-prefix}-#{$opacity-prefix}-1-0 {
-  animation-name: opacityOut;
-  animation-duration: $opacity-duration;
-  animation-iteration-count: 1;
-  animation-timing-function: $opacity-easing;
-}
-
-.#{$animate-prefix}-#{$slide-prefix}-right-left {
-  animation-name: slideRightToLeft;
+@mixin slideAnimation($animation) {
+  animation-name: $animation;
   animation-duration: $slide-duration;
   animation-iteration-count: 1;
-  animation-timing-function: $slide-easing;
+  animation-timing-function: $slide-easing;  
 }
 
-.#{$animate-prefix}-#{$slide-prefix}-left-right {
-  animation-name: slideLeftToRight;
-  animation-duration: $slide-duration;
-  animation-iteration-count: 1;
-  animation-timing-function: $slide-easing;
-}
-
-@keyframes opacityIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes opacityOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
+@each $animation, $value in $slide-animations {
+  .#{$animate-prefix}-#{$slide-prefix}-#{$animation} { 
+    @include slideAnimation($value);
   }
 }
 
 @keyframes slideRightToLeft {
   0% {
-    transform: translateX($slide-distance);
+    transform: translateX($slide-x-distance);
   }
   100% {
-    transform: translateX(0px);
+    transform: translateX(0);
   }
 }
 @keyframes slideLeftToRight {
   0% {
-    transform: translateX(-$slide-distance);
+    transform: translateX(-$slide-x-distance);
   }
   100% {
-    transform: translateX(0px);
+    transform: translate(0);
   }
 }
+@keyframes slideBottomToTop {
+  0% {
+    transform: translateY($slide-y-distance);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+//

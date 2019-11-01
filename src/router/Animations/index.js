@@ -1,68 +1,65 @@
 import React, { useState } from 'react'
 import classnames from 'classnames'
+import VisibilitySensor from 'react-visibility-sensor'
+import { get } from 'lodash'
 
 import {
     Block,
-    Button
+    Button,
+    Media,
+    HeroSection,
 } from '../../ui'
+import {
+    htmlToReactParser
+} from '../../utils'
 
-const data = {
-    callToAction: { call: "PLAN YOUR VISIT", action: "https://beta.christfellowship.church/plan-your-visit-page", __typename: "CallToAction" },
-    contentLayout: "right",
-    coverImage: { name: "Image", sources: Array(1), __typename: "ImageMedia" },
-    htmlContent: "We know that going anywhere for the first time can be intimidating so here’s what you can expect when you visit any of our locations.",
-    id: "WebsiteBlockItem:fa154cec75a349d44267b268a1f18189",
-    imageAlt: "",
-    imageRatio: "1by1",
-    images: [{
-        sources: [{
-            uri: "https://cloudfront.christfellowship.church/GetImage.ashx?guid=16594ff1-0c0d-471c-a356-f6ef0ccbba4f"
-        }]
-    }],
-    openLinksInNewTab: false,
-    secondaryCallToAction: null,
-    subtitle: "",
-    title: "Here’s what you can expect when you visit Christ Fellowship",
+const item = {
+    "id": "WebsiteBlockItem:82aac5b9d12501f09b34f5fe56930655",
+    "title": "Welcome to Christ Fellowship Church",
+    "htmlContent": "We are a church in South Florida with a passion to help you know God, grow in your relationships, discover your purpose, and impact your world.",
+    "videos": [
+        {
+            "sources": [
+                {
+                    "uri": "https://cloudfront.christfellowship.church/GetFile.ashx?guid=0a65948a-c120-4a77-bc50-bc5721ba55b8"
+                }
+            ]
+        }
+    ],
+    "images": [
+        {
+            "sources": []
+        }
+    ],
+    "coverImage": null,
+    "subtitle": "",
+    "contentLayout": "Background Large",
+    "callToAction": {
+        "call": "PLAN YOUR VISIT",
+        "action": "https://beta.christfellowship.church/plan-your-visit-page"
+    },
+    "secondaryCallToAction": {
+        "call": "What to Expect",
+        "action": "#heres-what-you-can-expect-when-you-visit-christ-fellowship"
+    },
+    "imageAlt": "",
+    "imageRatio": "16by9",
+    "openLinksInNewTab": false
 }
 
 const Router = () => {
-    const [animate, setAnimate] = useState(false)
-    const [preClass, setPreClass] = useState('opacity-0')
-
     return (
-        <div className="container my-5">
-            <div className="row">
-                <div className="col text-center">
-                    <Button
-                        title="Animate"
-                        disabled={animate}
-                        onClick={() => {
-                            setAnimate(true)
-                            setPreClass(null)
-                        }}
-                    />
-                </div>
-                <div className="col text-center">
-                    <Button
-                        title="Reset"
-                        disabled={!animate}
-                        onClick={() => {
-                            setAnimate(false)
-                            setPreClass('opacity-0')
-                        }}
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <Block
-                        animate={animate}
-                        className={preClass}
-                        {...data}
-                    />
-                </div>
-            </div>
-        </div>
+        <HeroSection
+            title={get(item, 'title', '')}
+            htmlContent={get(item, 'htmlContent', '')}
+            image={{
+                uri: get(item, 'images[0].sources[0].uri', ''),
+                alt: `Christ Fellowship Church - ${get(item, 'title', '')}`,
+            }}
+            video={{ uri: get(item, 'videos[0].sources[0].uri', '') }}
+            callToAction={get(item, 'callToAction', null)}
+            secondaryCallToAction={get(item, 'callToAction', null)}
+        />
     )
 }
 

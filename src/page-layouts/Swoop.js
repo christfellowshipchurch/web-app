@@ -18,6 +18,8 @@ import {
     Block,
     BackgroundContentBlock,
     GroupBlock,
+    HeroSection,
+    Media,
 } from '../ui'
 import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
@@ -67,13 +69,50 @@ const Swoop = ({ title }) => {
                 switch (item.__typename) {
                     case 'WebsiteBlockItem':
                         item.contentLayout = camelCase(item.contentLayout)
-                        if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
-                            content = <BackgroundContentBlock {...item} />
-                        } else {
-                            content = <Block
-                                withAnimation
-                                {...item}
-                            />
+                        switch (get(item, 'contentLayout', '')) {
+                            case 'backgroundLarge':
+                                content = <HeroSection
+                                    title={get(item, 'title', '')}
+                                    htmlContent={get(item, 'htmlContent', '')}
+                                    image={{
+                                        uri: get(item, 'images[0].sources[0].uri', ''),
+                                        alt: `Christ Fellowship Church - ${get(item, 'title', '')}`,
+                                    }}
+                                    video={{ uri: get(item, 'videos[0].sources[0].uri', '') }}
+                                    callToAction={get(item, 'callToAction', null)}
+                                    secondaryCallToAction={get(item, 'callToAction', null)}
+                                />
+                                break
+                            case 'backgroundSmall':
+                                // content = <BackgroundContentBlock {...item} />
+                                console.log({ item })
+                                content = (
+                                    <div className="col bg-primary p-6">
+                                        <Media
+                                            fill="container"
+                                            videoUrl={get(item, 'videos[0].sources[0].uri', '')}
+                                            imageUrl={get(item, 'images[0].sources[0].uri', '')}
+                                            imageAlt={`Christ Fellowship Church - ${get(item, 'title', '')}`}
+                                            className="text-white"
+                                        >
+                                            <Block
+                                                withAnimation
+                                                contentLayout="default"
+                                                title={get(item, 'title', '')}
+                                                htmlContent={get(item, 'htmlContent', '')}
+                                                callToAction={get(item, 'callToAction', null)}
+                                                secondaryCallToAction={get(item, 'callToAction', null)}
+                                            />
+                                        </Media>
+                                    </div>
+                                )
+                                break
+                            default:
+                                content = <Block
+                                    withAnimation
+                                    {...item}
+                                />
+                                break
                         }
                         break
                     case 'WebsiteGroupItem':

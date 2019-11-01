@@ -20,6 +20,8 @@ const MediaItem = ({
   playIcon,
   overlay,
   gradient,
+  style,
+  fill
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -33,70 +35,93 @@ const MediaItem = ({
     }
     : {}
   let videoRef = createRef()
+
   const playButtonClick = () => {
     videoRef.current.play()
     setShowPlayButton(false)
   }
 
-  let rounding = rounded ? 'rounded' : ''
-  if (circle) {
-    ratio = '1by1'
-    rounded = false
-    rounding = 'rounded-circle'
+  const imgRatio = `embed-responsive-${ratio}`
+
+  const classNames = {
+    container: classnames(
+      className,
+      {
+        'vw-100': fill === 'screen',
+        'vh-100': fill === 'screen',
+      }
+    ),
+    mediaContainer: classnames(
+      'embed-responsive',
+      imgRatio,
+      {
+        'embed-responsive-1by1': circle,
+        'rounded-circle': circle,
+        'rounded': rounded,
+        'absolute-center': !!fill,
+        'w-100': !!fill,
+        'h-100': !!fill,
+      }),
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
 
   return (
-    <div className={`embed-responsive embed-responsive-${ratio} ${rounding} ${className}`}>
-      <Image source={imageUrl} alt={imageAlt} className='embed-responsive-item' />
-      {videoUrl &&
-        <Video
-          className='embed-responsive-item'
-          source={videoUrl}
-          {...videoProps}
-          ref={videoRef} />
-      }
+    <div
+      className={classNames.container}
+      style={style}
+    >
+      <div className={classNames.mediaContainer}>
+        <Image source={imageUrl} alt={imageAlt} className='embed-responsive-item' />
+        {videoUrl &&
+          <Video
+            className='embed-responsive-item'
+            source={videoUrl}
+            {...videoProps}
+            ref={videoRef} />
+        }
 
-      {/* TODO : add gradient abilities */}
-      {(gradient || overlay) &&
-        <div
-          className={classnames(
-            'w-100',
-            'h-100',
-            'absolute-center',
-            'opacity-65',
-            {
-              [`bg-${overlay}`]: !!overlay,
-              [`bg-gradient-${gradient}`]: !!gradient
-            }
-          )}
-        ></div>
-      }
+        {/* TODO : add gradient abilities */}
+        {(gradient || overlay) &&
+          <div
+            className={classnames(
+              'w-100',
+              'h-100',
+              'absolute-center',
+              'opacity-65',
+              {
+                [`bg-${overlay}`]: !!overlay,
+                [`bg-gradient-${gradient}`]: !!gradient
+              }
+            )}
+          ></div>
+        }
 
-      {
-        (children || (showPlayButton && videoUrl)) &&
-        <div className='fill d-flex justify-content-center align-items-center'>
-          {(showVideoControls && videoRef)
-            ? (
-              <button
-                className="btn btn-icon"
-                onClick={playButtonClick} >
-                <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
-              </button>
-            )
-            : children}
-        </div>
-      }
+        {
+          (children || (showPlayButton && videoUrl)) &&
+          <div className='fill d-flex justify-content-center align-items-center'>
+            {(showVideoControls && videoRef)
+              ? (
+                <button
+                  className="btn btn-icon"
+                  onClick={playButtonClick} >
+                  <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
+                </button>
+              )
+              : children}
+          </div>
+        }
 
-    </div >
+      </div >
+    </div>
   )
-};
+}
 
-const defaultProps = {
+MediaItem.defaultProps = {
   ratio: '1by1',
   videoUrl: null,
   className: '',
+  style: {},
   showControls: false,
   playIcon: {
     as: null,
@@ -105,14 +130,17 @@ const defaultProps = {
   },
   overlay: null,
   gradient: null,
+  fill: null,
+  circle: false
 }
 
-const propTypes = {
+MediaItem.propTypes = {
   ratio: PropTypes.oneOf(['1by1', '4by3', '16by9', '21by9']),
   imageUrl: PropTypes.string.isRequired,
   imageAlt: PropTypes.string.isRequired,
   videoUrl: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.object,
   showControls: PropTypes.bool,
   playIcon: PropTypes.shape({
     as: PropTypes.element, // TODO : add support
@@ -141,10 +169,8 @@ const propTypes = {
     "danger",
     "light",
     "dark"
-  ])
+  ]),
+  fill: PropTypes.oneOf(['container', 'screen']),
 }
 
-MediaItem.defaultProps = defaultProps;
-MediaItem.propTypes = propTypes;
-
-export default MediaItem;
+export default MediaItem

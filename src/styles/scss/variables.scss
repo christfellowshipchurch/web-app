@@ -1,4 +1,5 @@
 // Color Overrides
+$white:    #fff !default;
 $gray-100: #e6e6e6 !default;
 $gray-200: #cdcdcd !default;
 $gray-300: #b4b4b4 !default;
@@ -19,6 +20,10 @@ $secondary: $gray-500 !default;
 
 $body-bg: #f6f6f6 !default;
 $body-color: $gray-500 !default;
+
+$theme-colors: (
+    "white": $white,
+);
 
 //enable gradients
 $enable-gradients: true !default;

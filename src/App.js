@@ -7,6 +7,8 @@ import LogIn from './login'
 
 import { useAuth } from './auth'
 
+const opaqueNavbarPages = ['', '/', '/animations']
+
 const App = () => {
   const { triggerLogIn } = useAuth()
   const page = window.location.pathname
@@ -17,7 +19,7 @@ const App = () => {
     <div>
       <SEO />
 
-      {page === '' || page === '/'
+      {opaqueNavbarPages.includes(page)
         ? <NavbarWithOpacity offset={250} />
         : <Navbar />
       }
