@@ -35,6 +35,7 @@ const ArticleLinks = ({ articles }) => (
             'col-12',
             'col-md-4',
             'py-1',
+            'scale-up-on-hover',
             {
               'pr-1': i < articles.length - 1 && articles.length !== 1,
               'pl-1': i === articles.length - 1 && articles.length !== 1,
