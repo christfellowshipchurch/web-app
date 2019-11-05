@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { forEach } from 'lodash'
-
-import { Button } from '../ui'
+import classnames from 'classnames'
+import { useQuery } from 'react-apollo'
+import { forEach, get, find, kebabCase } from 'lodash'
 
 import BrowseFilters from './BrowseFilters'
+import BrowseCategories from './BrowseCategories'
+import SeeAllCategory from './SeeAllCategory'
+import { GET_BROWSE_FILTERS } from './queries'
+
+import {
+    Carousel
+} from 'react-bootstrap'
 
 const generatePath = (arr) => {
     let path = '/browse'
 
     forEach(arr, (n) => {
-        if (n && n !== '') path = `${path}/${n}`
+        if (n && n !== '') path = `${path}/${kebabCase(n)}`
         else return false
     })
 
@@ -22,68 +29,101 @@ const Browse = ({
     category: defaultCategory,
     title: defaultTitle
 }) => {
-    const [filter, setFilter] = useState(defaultFilter)
-    const [category, setCategory] = useState(defaultCategory)
-    const [title, setTitle] = useState(defaultTitle)
+    
+    const [activeFilterId, setActiveFilterId] = useState(null)
+    const [activeCategory, setActiveCategory] = useState(null)
+    const [index, setIndex] = useState(0)
+
+    const { loading, error, data } = useQuery(GET_BROWSE_FILTERS,
+        {
+            fetchPolicy: 'cache-and-network',
+            onCompleted: data => {
+                const filters = get(data, 'contentChannels[0].childContentItemsConnection.edges', [])
+                const firstFilter = get(filters, '[0].node.id', '')
+                const filterId = !!defaultFilter
+                    ? get(
+                        find(filters, n => kebabCase(defaultFilter) === kebabCase(n.node.title)),
+                        'node.id', 
+                        firstFilter
+                    )
+                    : firstFilter
+                
+                setActiveFilterId(filterId)
+            }
+        } 
+     )
+    
+    const filters = get(data, 'contentChannels[0].childContentItemsConnection.edges', [])
+        .map(edge => edge.node)
+
 
     useEffect(() => {
-        const path = generatePath([filter, category, title])
+        const filters = get(data, 'contentChannels[0].childContentItemsConnection.edges', [])
+        const filter = get(
+            find(filters, n => activeFilterId === n.node.id),
+            'node.title', 
+            ''
+        )
+
+        const path = generatePath([filter, get(activeCategory, 'title')])
 
         window.history.pushState(path, 'Browse Christ Fellowship Content', path)
-    }, [filter, category, title])
+    }, [activeFilterId, activeCategory])
+
+    const handleSelect = (selectedIndex, e) => {
+        setIndex(selectedIndex)
+    }
 
     return (
-        <div className="container my-6">
+        <div className={classnames(
+            'container-fluid',
+            'max-width-1100',
+            'my-6',
+            'px-2'
+        )}>
             <div className="row">
-                <h3>
-                    {`Welcome to Browse`}
-                </h3>
+                <h1>
+                    Browse
+                </h1>
             </div>
 
-            <BrowseFilters/>
+            <Carousel
+                activeIndex={index}
+                onSelect={handleSelect}
+                controls={false}
+                indicators={false}
+                interval={null}
+                touch={false}
+            >
+                <Carousel.Item>
+                        <div className="">
+                            <BrowseFilters
+                                filters={filters}
+                                selected={activeFilterId}
+                                onChange={({ id }) => setActiveFilterId(id)}
+                            />
+                        </div>
 
-
-            {filter
-                ? <div className="row">
-                    <h3>
-                        {`Filter: ${filter}`}
-                    </h3>
-                </div>
-                : <div className="row">
-                    <Button
-                        title="Simulate Filter"
-                        onClick={() => setFilter('filter')}
-                    />
-                </div>
-            }
-
-            {category
-                ? <div className="row">
-                    <h3>
-                        {`Category: ${category}`}
-                    </h3>
-                </div>
-                : <div className="row">
-                    <Button
-                        title="Simulate Category"
-                        onClick={() => setCategory('category')}
-                    />
-                </div>
-            }
-
-            {title
-                ? <div className="row">
-                    <h3>
-                        {`Title: ${title}`}
-                    </h3>
-                </div>
-                : <div className="row">
-                    <Button
-                        title="Simulate Title"
-                        onClick={() => setTitle('title')}
-                    />
-                </div>
-            }
+                        {!!activeFilterId &&
+                            <BrowseCategories 
+                                filterId={activeFilterId}
+                                onChange={({ id, title }) => {
+                                    setActiveCategory({ id, title })
+                                    handleSelect(1)
+                                }}
+                            />}
+                </Carousel.Item>
+                <Carousel.Item>
+                        {!!activeCategory && 
+                            <SeeAllCategory
+                                categoryId={activeCategory.id}
+                                onBack={() => {
+                                    handleSelect(0)
+                                }}
+                            />}
+                </Carousel.Item>
+                <Carousel.Item/>
+            </Carousel>
         </div>
     )
 }

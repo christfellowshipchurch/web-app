@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import classnames from 'classnames'
 import { useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
 import {
-    toLower,
-    get
+    findIndex,
+    get,
+    forEach,
+    kebabCase,
+    toUpper
 } from 'lodash'
 
 import {
@@ -15,51 +19,60 @@ import {mapEdgesToNodes} from '../utils'
 import {GET_BROWSE_FILTERS} from './queries'
 import BrowseCategories from './BrowseCategories'
 
+const generatePath = (arr) => {
+    let path = '/browse'
 
-const BrowseFilters = ({ children }) => {
+    forEach(arr, (n) => {
+        if (n && n !== '') path = `${path}/${kebabCase(n)}`
+        else return false
+    })
 
-    const [filterId, setFilterId] = useState('')
+    return path
+}
 
+const BrowseFilters = ({
+    selected,
+    onChange,
+    filters
+}) => {
 
-    const { loading, error, data } = useQuery(GET_BROWSE_FILTERS)
-    
-      if (loading) return (
-          <ContentContainer>
-              <Loader/>
-          </ContentContainer>
-      )
-    
-      if (error) {
-        console.log({ error })
-        return null
-      }
-        
-    const filters = mapEdgesToNodes(get(data, 'contentChannels[0].childContentItemsConnection', null))
-    
     return (
-        <>
-            <div>
-                {filters.map(n => (
-                    <Button 
-                        key={n.id}
-                        title={n.title}
-                        type='link'
-                        onClick={() => setFilterId(n.id)}
-                    />
-                ))}
-            </div> 
-            <div>
-                <BrowseCategories
-                    filterId={filterId}
-                />
-            </div>
-        </>   
+        <ul 
+        className="list-inline text-nowrap overflow-x-scroll"
+        >
+            {filters.map((n, i) => (
+                <li 
+                    key={i}
+                    className="list-inline-item"
+                >
+                    <a
+                        href="#"
+                        className={classnames(
+                            'h4',
+                            'my-2',
+                            'mr-4',
+                            {
+                                'font-weight-bold': selected === n.id,
+                                'font-weight-normal': selected !== n.id,
+                            }
+                        )}
+                        
+                        onClick= {
+                            () => onChange({ id: n.id })
+                        }
+                        >
+                        {n.title}
+                    </a>
+                </li>
+            ))}
+        </ul> 
         )
 }
 
 BrowseFilters.propTypes = {
-    filter: PropTypes.string,
-    title: PropTypes.string,
+    selected: PropTypes.number,
+    onChange: PropTypes.func,
+    filters: PropTypes.array
 }
 
 BrowseFilters.defaultProps = {

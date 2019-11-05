@@ -27,10 +27,16 @@ export const GET_CATEGORIES_FROM_FILTER = gql`
                             id
                             title
 
-                            childContentItemsConnection(first: 3) {
+                            childContentItemsConnection(first: 4) {
                                 edges {
                                     node {
                                         title
+                                        summary
+                                        images{
+                                            sources{
+                                              uri
+                                            }
+                                          }
                                     }
                                 }
                             }
@@ -49,10 +55,16 @@ export const GET_ALL_CONTENT_FROM_CATEGORY = gql`
         node(id: $categoryId) {
         ...on ContentItem {
                 title
+                id
                 childContentItemsConnection {
                     edges {
                         node {
                             title
+                            images{
+                                sources{
+                                  uri
+                                }
+                              }
                         }
                     }
                 }

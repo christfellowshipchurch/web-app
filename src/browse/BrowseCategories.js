@@ -1,68 +1,89 @@
 import React, { useState, Children } from 'react'
 import { useQuery } from 'react-apollo'
+import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {
-    toLower,
     get
 } from 'lodash'
 
 import {
     Button,
+    Card,
     Loader,
-    ContentContainer
+    ContentContainer,
+    Media
 } from '../ui'
-import {mapEdgesToNodes} from '../utils'
-import {GET_CATEGORIES_FROM_FILTER} from './queries'
+import { mapEdgesToNodes } from '../utils'
+import { GET_CATEGORIES_FROM_FILTER } from './queries'
+import ContentCard from './ContentCard'
 
 
-const BrowseCategories = ({ filterId }) => {
+const BrowseCategories = ({
+    filterId,
+    onChange,
+}) => {
 
-    const { loading, error, data } = useQuery(GET_CATEGORIES_FROM_FILTER,{
-        variables: {filterId}
+    const [index, setIndex] = useState(0)
+    const [categoryId, setCategoryId] = useState('')
+
+    const { loading, error, data } = useQuery(GET_CATEGORIES_FROM_FILTER, {
+        variables: { filterId }
     })
-    
-      if (loading) return (
+
+    if (loading) return (
         <ContentContainer>
-            <Loader/>
+            <Loader />
         </ContentContainer>
     )
-    
-      if (error) {
+
+    if (error) {
         console.log({ error })
         return null
-      }
-
-    console.log({data})
+    }
 
     const categories = mapEdgesToNodes(get(data, 'node.childContentItemsConnection', null))
-
-    console.log({categories})
 
     return (
         <div className="container my-6">
             {categories.map((category, i) => {
-            
-            const content = mapEdgesToNodes(category.childContentItemsConnection)
+                const content = mapEdgesToNodes(get(category, 'childContentItemsConnection', null))
 
-                return (
+                return [
                     <div
                         key={i}
-                        className="row flex-column"
+                        className="row mt-6"
                     >
-                        <h3>
-                            {category.title}
-                        </h3>
-                        <div className='col'>
-                            {content.map((n, i) => {
-                                return(
-                                    <p key={i}>
-                                        {n.title}
-                                    </p>
-                                )
-                            })}
+                        <div className="col-9">
+                            <h3>
+                                {category.title}
+                            </h3>
                         </div>
+                        {content.length > 3 &&
+                            <div className="col-3 text-right">
+                                <a
+                                    href="#"
+                                    className="h5"
+                                    onClick={(e) => {
+                                        e.preventDefault()
+                                        onChange({ id: category.id, title: category.title })
+                                    }}
+                                >
+                                    See More
+                                </a>
+                            </div>}
+
+                    </div>,
+                    <div className="row px-n2">
+                        {content.slice(0, 3).map((n, i) => (
+                            <ContentCard
+                                key={i}
+                                imageUrl={get(n, 'images[0].sources[0].uri', '')}
+                                title={get(n, 'title', 'Title')}
+                                summary={get(n, 'summary', '')}
+                            />
+                        ))}
                     </div>
-                )
+                ]
             })}
         </div>
     )

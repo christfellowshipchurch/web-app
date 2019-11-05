@@ -33,6 +33,12 @@ export const GET_ARTICLE_BY_TITLE = gql`
                 }
             }
 
+            videos{
+                sources {
+                  uri
+                }
+              }
+
             author {
                 firstName
                 lastName
