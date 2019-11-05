@@ -87,9 +87,9 @@ const Swoop = ({ title }) => {
                                 // content = <BackgroundContentBlock {...item} />
                                 console.log({ item })
                                 content = (
-                                    <div className="col bg-primary p-6">
+                                    <div className="col bg-primary">
                                         <Media
-                                            fill="container"
+                                            // fill="container"
                                             videoUrl={get(item, 'videos[0].sources[0].uri', '')}
                                             imageUrl={get(item, 'images[0].sources[0].uri', '')}
                                             imageAlt={`Christ Fellowship Church - ${get(item, 'title', '')}`}

@@ -96,23 +96,22 @@ const MediaItem = ({
             )}
           ></div>
         }
+      </div>
 
-        {
-          (children || (showPlayButton && videoUrl)) &&
-          <div className='fill d-flex justify-content-center align-items-center'>
-            {(showVideoControls && videoRef)
-              ? (
-                <button
-                  className="btn btn-icon"
-                  onClick={playButtonClick} >
-                  <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
-                </button>
-              )
-              : children}
-          </div>
-        }
-
-      </div >
+      {
+        (children || (showPlayButton && videoUrl)) &&
+        <div className='fill d-flex justify-content-center align-items-center'>
+          {(showVideoControls && videoRef)
+            ? (
+              <button
+                className="btn btn-icon"
+                onClick={playButtonClick} >
+                <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
+              </button>
+            )
+            : children}
+        </div>
+      }
     </div>
   )
 }
