@@ -1,34 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import classnames from 'classnames'
-import { useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
-import {
-    findIndex,
-    get,
-    forEach,
-    kebabCase,
-    toUpper
-} from 'lodash'
-
-import {
-    Button,
-    Loader,
-    ContentContainer
-} from '../ui'
-import {mapEdgesToNodes} from '../utils'
-import {GET_BROWSE_FILTERS} from './queries'
-import BrowseCategories from './BrowseCategories'
-
-const generatePath = (arr) => {
-    let path = '/browse'
-
-    forEach(arr, (n) => {
-        if (n && n !== '') path = `${path}/${kebabCase(n)}`
-        else return false
-    })
-
-    return path
-}
 
 const BrowseFilters = ({
     selected,
@@ -38,7 +10,7 @@ const BrowseFilters = ({
 
     return (
         <ul 
-        className="list-inline text-nowrap overflow-x-scroll"
+            className="list-inline text-nowrap overflow-x-scroll"
         >
             {filters.map((n, i) => (
                 <li 
@@ -70,7 +42,7 @@ const BrowseFilters = ({
 }
 
 BrowseFilters.propTypes = {
-    selected: PropTypes.number,
+    selected: PropTypes.string,
     onChange: PropTypes.func,
     filters: PropTypes.array
 }

@@ -4,10 +4,10 @@ import classnames from 'classnames'
 import { useQuery } from 'react-apollo'
 import { forEach, get, find, kebabCase } from 'lodash'
 
-import BrowseFilters from './BrowseFilters'
-import BrowseCategories from './BrowseCategories'
+import FilterRow from './FilterRow'
+import CategoryList from './CategoryList'
 import SeeAllCategory from './SeeAllCategory'
-import { GET_BROWSE_FILTERS } from './queries'
+import { GET_FILTERS } from './queries'
 
 import {
     Carousel
@@ -34,11 +34,11 @@ const Browse = ({
     const [activeCategory, setActiveCategory] = useState(null)
     const [index, setIndex] = useState(0)
 
-    const { loading, error, data } = useQuery(GET_BROWSE_FILTERS,
+    const { loading, error, data } = useQuery(GET_FILTERS,
         {
             fetchPolicy: 'cache-and-network',
             onCompleted: data => {
-                const filters = get(data, 'contentChannels[0].childContentItemsConnection.edges', [])
+                const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
                 const firstFilter = get(filters, '[0].node.id', '')
                 const filterId = !!defaultFilter
                     ? get(
@@ -53,12 +53,12 @@ const Browse = ({
         } 
      )
     
-    const filters = get(data, 'contentChannels[0].childContentItemsConnection.edges', [])
+    const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
         .map(edge => edge.node)
 
 
     useEffect(() => {
-        const filters = get(data, 'contentChannels[0].childContentItemsConnection.edges', [])
+        const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
         const filter = get(
             find(filters, n => activeFilterId === n.node.id),
             'node.title', 
@@ -97,7 +97,7 @@ const Browse = ({
             >
                 <Carousel.Item>
                         <div className="">
-                            <BrowseFilters
+                            <FilterRow
                                 filters={filters}
                                 selected={activeFilterId}
                                 onChange={({ id }) => setActiveFilterId(id)}
@@ -105,9 +105,9 @@ const Browse = ({
                         </div>
 
                         {!!activeFilterId &&
-                            <BrowseCategories 
+                            <CategoryList 
                                 filterId={activeFilterId}
-                                onChange={({ id, title }) => {
+                                onClick={({ id, title }) => {
                                     setActiveCategory({ id, title })
                                     handleSelect(1)
                                 }}
@@ -117,6 +117,7 @@ const Browse = ({
                         {!!activeCategory && 
                             <SeeAllCategory
                                 categoryId={activeCategory.id}
+                                title={activeCategory.title}
                                 onBack={() => {
                                     handleSelect(0)
                                 }}

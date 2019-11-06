@@ -2,41 +2,50 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {
-    kebabCase
+    get
 } from 'lodash'
 
 import {
     Card,
     Media
-} from '../ui'
-import { redirectTo } from '../utils'
+} from '../../'
 
 
-const ContentCard = ({title, imageUrl, summary}) => (
+const ContentCard = ({
+    title, 
+    coverImage,
+    summary,
+    onClick
+}) => (
     <div
         className={classnames(
             'col-12',
             'col-md-6',
             'col-lg-4',
             'p-2',
+            'mb-5',
             'scale-up-on-hover'
        )}
-       style={{cursor: 'pointer'}}
-       onClick={() => redirectTo(`/articles/${kebabCase(title)}`)}
     >   
-        <a>
+        <a
+            href="#"
+            onClick={(e) => {
+                e.preventDefault()
+                onClick()
+            }}
+        >
             <Card
                 fill
                 className='h-100'
             >
                 <Media
-                    imageAlt='thumbnail'
-                    imageUrl={imageUrl}
+                    imageAlt={title}
+                    imageUrl={get(coverImage, '[0].uri', '')}
                     ratio='16by9'
                     className='rounded-top bg-light'
                 />
                 <div
-                    className='m-3'
+                    className='m-4'
                 >
                     <h4
                         className='mb-1'
@@ -45,7 +54,7 @@ const ContentCard = ({title, imageUrl, summary}) => (
                     </h4>
                     <p
                        className='font-weight-light'
-                       style={{fontSize:'.8rem'}} 
+                       style={{fontSize:'.8rem', color: 'grey'}} 
                     >
                         {summary}
                     </p>
@@ -58,11 +67,14 @@ const ContentCard = ({title, imageUrl, summary}) => (
 ContentCard.propTypes = {
     imageUrl: PropTypes.string,
     title: PropTypes.string,
+    summary: PropTypes.string,
+    onClick: PropTypes.func
 }
 
 ContentCard.defaultProps = {
     imageUrl: null,
     title: null,
+    onClick: () => true
 }
 
 export default ContentCard

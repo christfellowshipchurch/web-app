@@ -1,8 +1,9 @@
 import gql from 'graphql-tag'
 
-export const GET_BROWSE_FILTERS = gql`
+export const GET_FILTERS = gql`
     query getBrowseFilters {
-        contentChannels {
+        getBrowseFilters {
+            id
             childContentItemsConnection {
                 edges {
                     node {
@@ -16,55 +17,37 @@ export const GET_BROWSE_FILTERS = gql`
 `
 
 export const GET_CATEGORIES_FROM_FILTER = gql`
-    query getCategoriesFromFilter($filterId: ID!) {
-        node(id: $filterId) {
-        ...on ContentItem {
+    query getFilterCategories($id:ID!) {
+        node(id:$id) {
+            id
+            ... on ContentItem {
                 title
-
+                
                 childContentItemsConnection {
                     edges {
                         node {
                             id
                             title
-
-                            childContentItemsConnection(first: 4) {
-                                edges {
-                                    node {
-                                        title
-                                        summary
-                                        images{
-                                            sources{
-                                              uri
-                                            }
-                                          }
-                                    }
-                                }
-                            }
-
                         }
                     }
                 }
-
             }
         }
     }
 `
 
-export const GET_ALL_CONTENT_FROM_CATEGORY = gql`
-    query getAllContentFromCategoryId($categoryId: ID!) {
-        node(id: $categoryId) {
-        ...on ContentItem {
+export const GET_CATEGORY_PREVIEW = gql`
+    query getFilterCategories($id:ID!) {
+        node(id:$id) {
+            id
+            ... on ContentItem {
                 title
-                id
-                childContentItemsConnection {
+                
+                childContentItemsConnection(first:6) {
                     edges {
                         node {
+                            id
                             title
-                            images{
-                                sources{
-                                  uri
-                                }
-                              }
                         }
                     }
                 }
@@ -72,3 +55,4 @@ export const GET_ALL_CONTENT_FROM_CATEGORY = gql`
         }
     }
 `
+
