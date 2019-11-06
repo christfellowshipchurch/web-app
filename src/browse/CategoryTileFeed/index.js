@@ -40,7 +40,7 @@ const CategoryTileFeed = ({
 
     return [
         <div
-            className="row mt-6"
+            className="row mt-4"
         >
             <div className="col-9">
                 <h3>
@@ -63,7 +63,7 @@ const CategoryTileFeed = ({
 
         </div>,
         <div 
-            className="row px-n2"
+            className="row mx-n2"
         >
             {content.slice(0, 3).map((n, i) => (
                 <ContentCardConnected

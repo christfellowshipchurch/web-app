@@ -82,7 +82,7 @@ const Browse = ({
             'px-2'
         )}>
             <div className="row">
-                <h1>
+                <h1 className='mb-3'>
                     Browse
                 </h1>
             </div>

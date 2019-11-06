@@ -35,7 +35,7 @@ const SeeAllCategory = ({
                 </a>
             </div>
             <div className="row">
-                    <CardFeed id={categoryId} />
+                <CardFeed id={categoryId} />
             </div>
         </div>
     )
