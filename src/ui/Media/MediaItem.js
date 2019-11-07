@@ -73,7 +73,9 @@ const MediaItem = ({
           )}
           source={videoUrl}
           {...videoProps}
-          ref={videoRef} />
+          ref={videoRef}
+          poster={imageUrl}
+        />
       }
 
       {/* TODO : add gradient abilities */}
