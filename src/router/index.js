@@ -8,19 +8,25 @@ import HomePage from './Home'
 import Login from './Login'
 import Events from './Events'
 import Articles from './Articles'
+import Browse from './Browse'
+import Content from './Content'
 
-const Router = () => (
-    <Switch>
-        <Route exact path="/ui" component={UIPage} />
+const Router = () => {
+    return (
+        <Switch>
+            <Route exact path="/ui" component={UIPage} />
 
-        <Route path="/login" component={Login} />
-        <Route path="/events" component={Events} />
-        <Route path="/articles" component={Articles} />
+            <Route path="/login" component={Login} />
+            <Route path="/events" component={Events} />
+            <Route path="/content" component={Content} />
+            <Route path="/articles" component={Articles} />
+            <Route path="/browse" component={Browse} />
 
-        <Route exact path="/:page" component={DefaultPage} />
+            <Route exact path="/:page" component={DefaultPage} />
 
-        <Route path="*" component={HomePage} />
-    </Switch>
-)
+            <Route path="*" component={HomePage} />
+        </Switch>
+    )
+}
 
 export default Router

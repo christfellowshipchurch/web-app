@@ -19,27 +19,22 @@ const ArticleLinks = ({ articles }) => (
       </div>
       <div className="col text-right">
         <a
-          href="/articles"
+          href="/browse"
           className="text-dark align-self-end"
         >
           See More
         </a>
       </div>
     </div>
-    <div className="row">
+    <div className="row mx-n1">
       {articles.map((n, i) => (
         <a
           key={i}
-          href={`/articles/${kebabCase(toLower(get(n, 'title', '')))}`}
+          href={`/content/${kebabCase(toLower(get(n, 'title', '')))}`}
           className={classnames(
             'col-12',
             'col-md-4',
-            'py-1',
-            'scale-up-on-hover',
-            {
-              'pr-1': i < articles.length - 1 && articles.length !== 1,
-              'pl-1': i === articles.length - 1 && articles.length !== 1,
-            },
+            'p-1',
             'text-white'
           )}
         >
@@ -48,6 +43,7 @@ const ArticleLinks = ({ articles }) => (
             imageUrl={get(n, 'images[0].sources[0].uri')}
             imageAlt={get(n, 'title', 'Christ Fellowship Church')}
             rounded
+            withHover
           >
             <div
               className={classnames(

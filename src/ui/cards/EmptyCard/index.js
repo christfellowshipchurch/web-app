@@ -6,14 +6,13 @@ const EmptyCard = ({
     children,
     className,
     style,
-    shadow
+    shadow,
+    fill
 }) => (
         <div
             className={classnames(
                 'card',
                 'border-0',
-                'mx-2',
-                'my-3',
                 {
                     [`shadow-${shadow}`]: shadow !== '',
                     [`shadow`]: shadow === ''
@@ -22,7 +21,7 @@ const EmptyCard = ({
             )}
             style={style}
         >
-            <div className='card-body'>
+            <div className={`${fill ? '' : 'card-body'}`}>
                 {children}
             </div>
         </div>

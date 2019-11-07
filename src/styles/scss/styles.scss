@@ -199,3 +199,24 @@ html {
 
 // Footer
 .footer { font-size: 14px; }
+//
+
+//Card scale
+.scale-media-up-on-hover {
+    & img, video {
+        transform: scale(1);
+        transition: 0.2s ease-out;
+    }
+    
+    &:hover {
+        & img, video {
+            transform: scale(1.05);
+            transition: 0.2s ease-out;
+        }
+    }
+}
+.scale-up-on-hover:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease-out;
+}
+//

@@ -11,15 +11,17 @@ import {
   Loader,
   Media
 } from '../ui'
-import RelatedArticles from './RelatedArticles'
-import ArticleCategories from './ArticleCategories'
+import RelatedArticles from './RelatedContent'
+import ArticleCategories from './ContentCategories'
 import {
   GET_ARTICLE_BY_TITLE,
 } from './queries'
 
 const DATE_FORMAT = 'MMMM D, YYYY'
 
-const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
+const ArticleDetail = ({
+  contentTitle: articleTitle
+}) => {
   const { loading, error, data } = useQuery(GET_ARTICLE_BY_TITLE,
     {
       variables: {
@@ -38,9 +40,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     </h3>
   }
 
-  console.log('data: ', {data})
-
-  const article = get(data, 'getArticleByTitle', null)
+  const article = get(data, 'getContentItemByTitle', null)
 
   if (!article) {
     console.error('Articles: Null was returned from the server')
@@ -100,7 +100,6 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
                   </p>
                   <p className='my-1'>
                     {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
-                    {console.log({article})}
                   </p>
                 </div>
               </div>
@@ -123,7 +122,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
             </h4>
             </div>
             <div className="col-12">
-              <ArticleCategories id={get(article, 'id', null)} />
+              <ArticleCategories categories={get(article, 'tags', [])} />
             </div>
           </div>
         </div>

@@ -20,6 +20,7 @@ const MediaItem = ({
   playIcon,
   overlay,
   gradient,
+  withHover,
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -38,21 +39,38 @@ const MediaItem = ({
     setShowPlayButton(false)
   }
 
-  let rounding = rounded ? 'rounded' : ''
   if (circle) {
     ratio = '1by1'
-    rounded = false
-    rounding = 'rounded-circle'
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
 
   return (
-    <div className={`embed-responsive embed-responsive-${ratio} ${rounding} ${className}`}>
-      <Image source={imageUrl} alt={imageAlt} className='embed-responsive-item' />
+    <div
+      className={classnames(
+        className,
+        'embed-responsive',
+        {
+          [`embed-responsive-${ratio}`]: true,
+          'rounded': rounded && !circle,
+          'rounded-circle': circle,
+          'scale-media-up-on-hover': withHover
+        }
+      )}
+    >
+      <Image
+        source={imageUrl}
+        alt={imageAlt}
+        className={classnames(
+          'embed-responsive-item',
+        )}
+      />
+
       {videoUrl &&
         <Video
-          className='embed-responsive-item'
+          className={classnames(
+            'embed-responsive-item',
+          )}
           source={videoUrl}
           {...videoProps}
           ref={videoRef} />
@@ -105,6 +123,7 @@ const defaultProps = {
   },
   overlay: null,
   gradient: null,
+  withHover: false,
 }
 
 const propTypes = {
@@ -114,6 +133,7 @@ const propTypes = {
   videoUrl: PropTypes.string,
   className: PropTypes.string,
   showControls: PropTypes.bool,
+  withHover: PropTypes.bool,
   playIcon: PropTypes.shape({
     as: PropTypes.element, // TODO : add support
     color: PropTypes.string,
