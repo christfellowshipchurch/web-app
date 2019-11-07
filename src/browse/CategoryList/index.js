@@ -23,8 +23,8 @@ const CategoryList = ({
     })
 
     if (loading) return (
-        <ContentContainer style={{height:'200px'}} >
-            <Loader/>
+        <ContentContainer style={{ height: '200px' }} >
+            <Loader />
         </ContentContainer>
     )
 

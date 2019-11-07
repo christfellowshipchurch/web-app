@@ -6,7 +6,7 @@ import { get } from 'lodash'
 import { ContentCard } from '../ui'
 import GET_CONTENT_CARD from './queries'
 
-export { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries' 
+export { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries'
 
 const ContentCardConnectedWithQuery = ({
     contentId,
@@ -14,17 +14,13 @@ const ContentCardConnectedWithQuery = ({
     card,
     ...otherProps
 }) => {
-    console.log("CONNECTED", { contentId })
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
         { variables: { contentId, tile } }
     )
 
-    console.log({ data })
-
     if (error) return null
 
     const node = get(data, 'node', {})
-    const contentDecorations = get(data, 'contentDecorations', {})
     const metrics = [
         {
             icon: node.isLiked ? 'like-solid' : 'like',
@@ -38,7 +34,6 @@ const ContentCardConnectedWithQuery = ({
         {
             ...node,
             ...otherProps,
-            ...contentDecorations,
             coverImage,
             metrics,
             tile,
@@ -48,11 +43,11 @@ const ContentCardConnectedWithQuery = ({
 }
 
 const ContentCardConnected = ({
-  contentId,
-  isLoading,
-  tile,
-  card = ContentCard,
-  ...otherProps
+    contentId,
+    isLoading,
+    tile,
+    card = ContentCard,
+    ...otherProps
 }) => {
     if (!contentId || isLoading)
         return React.createElement(
@@ -64,24 +59,24 @@ const ContentCardConnected = ({
             }
         )
 
-  return <ContentCardConnectedWithQuery 
-      contentId={contentId}
-      tile={tile}
-      card={card}
-      {...otherProps}
-  />
+    return <ContentCardConnectedWithQuery
+        contentId={contentId}
+        tile={tile}
+        card={card}
+        {...otherProps}
+    />
 }
 
 ContentCardConnected.propTypes = {
-  isLoading: PropTypes.bool,
-  contentId: PropTypes.string,
-  tile: PropTypes.bool,
-  card: PropTypes.func
+    isLoading: PropTypes.bool,
+    contentId: PropTypes.string,
+    tile: PropTypes.bool,
+    card: PropTypes.func
 }
 
 ContentCardConnected.defaultProps = {
-  card: ContentCard,
-  tile: false
+    card: ContentCard,
+    tile: false
 }
 
 export default ContentCardConnected

@@ -24,8 +24,8 @@ const CategoryTileFeed = ({
     })
 
     if (loading) return (
-        <ContentContainer style={{height:'200px'}} >
-            <Loader/>
+        <ContentContainer style={{ height: '200px' }} >
+            <Loader />
         </ContentContainer>
     )
 
@@ -62,10 +62,10 @@ const CategoryTileFeed = ({
                 </div>}
 
         </div>,
-        <div 
+        <div
             className="row mx-n2"
         >
-            {content.slice(0, 3).map((n, i) => (
+            {take(content, 3).map((n, i) => (
                 <ContentCardConnected
                     key={i}
                     contentId={get(n, 'id', '')}
