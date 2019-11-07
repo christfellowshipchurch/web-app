@@ -75,27 +75,30 @@ const ContentCard = ({
                     )}
                 >
                     {tag !== '' &&
-                        <h5
+                        <h6
                             style={{
                                 position: 'absolute',
-                                bottom: 0,
+                                bottom: -10,
                                 left: 0,
-                                letterSpacing: 1.75
+                                letterSpacing: 4
                             }}
                             className={classnames(
-                                'p-3',
+                                'px-3',
+                                'py-2',
                                 'bg-dark',
                                 'text-uppercase',
                                 'text-white',
-                                'mb-n1'
+                                'font-weight-bold'
                             )}
                         >
-                            {tag}
-                        </h5>
+                            <small>
+                                {tag}
+                            </small>
+                        </h6>
                     }
                 </Media>
                 <div
-                    className='my-4 mx-3 row'
+                    className='mt-4 mx-3 row'
                 >
                     <div className="col pr-1">
                         <h4
