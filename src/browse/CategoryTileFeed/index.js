@@ -3,7 +3,8 @@ import { useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
 import {
     get,
-    take
+    take,
+    kebabCase
 } from 'lodash'
 
 import {
@@ -11,8 +12,9 @@ import {
     ContentContainer,
 } from '../../ui'
 import ContentCardConnected from '../../content-card-connected'
-import { GET_CATEGORY_PREVIEW } from '../queries'
 
+import { GET_CATEGORY_PREVIEW } from '../queries'
+import { redirectTo } from '../../utils'
 
 const CategoryTileFeed = ({
     contentId,

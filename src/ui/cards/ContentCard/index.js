@@ -2,7 +2,8 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {
-    get
+    get,
+    kebabCase
 } from 'lodash'
 
 import {
@@ -10,6 +11,24 @@ import {
     Media
 } from '../../'
 
+const ContentCardWrapper = ({
+    element,
+    children,
+}) => {
+    return React.createElement(
+        element,
+        {
+            className: classnames(
+                'col-12',
+                'col-md-6',
+                'col-lg-4',
+                'p-2',
+                'mb-2',
+            ),
+        },
+        children
+    )
+}
 
 const ContentCard = ({
     title,
@@ -17,60 +36,68 @@ const ContentCard = ({
     summary,
     tags,
     icon,
-    onClick
+    onClick,
+    as,
 }) => {
     const tag = get(tags, '[0]', '')
+    const style = !!onClick
+        ? { cursor: 'pointer' }
+        : {}
+
     return (
-        <div
+        <a
             className={classnames(
                 'col-12',
                 'col-md-6',
                 'col-lg-4',
                 'p-2',
                 'mb-2',
-                'scale-up-on-hover'
+                'scale-media-up-on-hover',
+                'no-decoration',
             )}
+            href={`/content/${kebabCase(title)}`}
         >
-            <a
-                href="#"
-                onClick={(e) => {
-                    e.preventDefault()
-                    onClick()
-                }}
+            <Card
+                fill
+                className={classnames(
+                    'h-100',
+                    'overflow-hidden',
+                )}
+                style={style}
             >
-                <Card
-                    fill
-                    className='h-100'
+                <Media
+                    imageAlt={get(coverImage, '[0].name', 'Christ Fellowship Church')}
+                    imageUrl={get(coverImage, '[0].uri', '')}
+                    ratio='16by9'
+                    className={classnames(
+                        'rounded-top',
+                        'bg-light',
+                    )}
                 >
-                    <Media
-                        imageAlt={get(coverImage, '[0].name', 'Christ Fellowship Church')}
-                        imageUrl={get(coverImage, '[0].uri', '')}
-                        ratio='16by9'
-                        className='rounded-top bg-light'
-                    >
-                        {tag !== '' &&
-                            <h5
-                                style={{
-                                    position: 'absolute',
-                                    bottom: 0,
-                                    left: 0,
-                                    letterSpacing: 1.75
-                                }}
-                                className={classnames(
-                                    'p-3',
-                                    'bg-dark',
-                                    'text-uppercase',
-                                    'text-white',
-                                    'mb-n1'
-                                )}
-                            >
-                                {tag}
-                            </h5>
-                        }
-                    </Media>
-                    <div
-                        className='m-4'
-                    >
+                    {tag !== '' &&
+                        <h5
+                            style={{
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                letterSpacing: 1.75
+                            }}
+                            className={classnames(
+                                'p-3',
+                                'bg-dark',
+                                'text-uppercase',
+                                'text-white',
+                                'mb-n1'
+                            )}
+                        >
+                            {tag}
+                        </h5>
+                    }
+                </Media>
+                <div
+                    className='my-4 mx-3 row'
+                >
+                    <div className="col pr-1">
                         <h4
                             className='mb-1'
                         >
@@ -83,9 +110,16 @@ const ContentCard = ({
                             {summary}
                         </p>
                     </div>
-                </Card>
-            </a>
-        </div>
+                    {!!icon && icon !== '' &&
+                        <div className="col-1 text-right text-secondary">
+                            <span className="h4">
+                                <i className={`fal fa-${icon}`}></i>
+                            </span>
+                        </div>
+                    }
+                </div>
+            </Card>
+        </a>
     )
 }
 
@@ -96,14 +130,18 @@ ContentCard.propTypes = {
     onClick: PropTypes.func,
     tags: PropTypes.arrayOf(
         PropTypes.string
-    )
+    ),
+    as: PropTypes.string,
+    icon: PropTypes.string,
 }
 
 ContentCard.defaultProps = {
     imageUrl: null,
     title: null,
-    onClick: () => true,
-    tags: []
+    onClick: null,
+    tags: [],
+    as: 'div',
+    icon: null
 }
 
 export default ContentCard
