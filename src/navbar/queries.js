@@ -23,3 +23,29 @@ export const GET_WEBSITE_HEADER = gql`
     }
   }
 `;
+
+export const GET_WEBSITE_HEADER_LOGGED_IN = gql`
+query websiteNavigation($website:String!) {
+  getWebsiteNavigation(website:$website) {
+    images {
+      sources {
+        uri
+      }
+      name
+    }
+  }
+}
+`
+
+export const GET_PROFILE_IMAGE = gql`
+query {
+  currentUser {
+    profile {
+      firstName
+      photo {
+        uri
+      }
+    }
+  }
+}
+`
