@@ -17,7 +17,7 @@ const EventListConnected = () => {
     const events = get(data, 'allEvents', [])
 
     return (
-        <div className="container max-width-1100 my-6">
+        <div className="container max-width-1100 my-6 px-2">
             <div className="row">
                 <div className="col">
                     <h3>
