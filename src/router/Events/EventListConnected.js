@@ -26,7 +26,7 @@ const EventListConnected = () => {
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row mx-n2">
                 {events.map((n, i) =>
                     <ContentCardConnected
                         key={i}
