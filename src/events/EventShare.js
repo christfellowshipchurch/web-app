@@ -29,7 +29,7 @@ const EventShare = ({
 }) => {
   return (
     <div>
-      <Card>
+      <Card className="p-3">
         <div className='d-flex align-items-center'>
           <EventIcon
             icon={faCalendarPlus}

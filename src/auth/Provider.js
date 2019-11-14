@@ -5,8 +5,8 @@ import React, {
     useContext,
     createContext
 } from 'react'
+import { AUTH_TOKEN_KEY } from '../keys'
 
-export const AUTH_TOKEN_KEY = 'auth-token'
 const initialState = ''
 const localState = localStorage.getItem(AUTH_TOKEN_KEY)
 const AuthContext = createContext()
