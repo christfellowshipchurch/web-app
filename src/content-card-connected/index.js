@@ -12,6 +12,7 @@ const ContentCardConnectedWithQuery = ({
     contentId,
     tile,
     card,
+    label,
     ...otherProps
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
@@ -28,6 +29,9 @@ const ContentCardConnectedWithQuery = ({
         },
     ]
     const coverImage = get(node, 'coverImage.sources', undefined)
+    const labelValue = typeof label.field === 'string'
+        ? get(node, label.field, '')
+        : label.field(node)
 
     return React.createElement(
         card,
@@ -37,7 +41,11 @@ const ContentCardConnectedWithQuery = ({
             coverImage,
             metrics,
             tile,
-            isLoading: loading
+            isLoading: loading,
+            label: {
+                value: labelValue,
+                ...label
+            }
         }
     )
 }
@@ -71,12 +79,25 @@ ContentCardConnected.propTypes = {
     isLoading: PropTypes.bool,
     contentId: PropTypes.string,
     tile: PropTypes.bool,
-    card: PropTypes.func
+    card: PropTypes.func,
+    label: PropTypes.shape({
+        field: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.func,
+        ]),
+        bg: PropTypes.string,
+        textColor: PropTypes.string,
+    })
 }
 
 ContentCardConnected.defaultProps = {
     card: ContentCard,
-    tile: false
+    tile: false,
+    label: {
+        field: 'tags[0]',
+        bg: 'dark',
+        textColor: 'white',
+    }
 }
 
 export default ContentCardConnected

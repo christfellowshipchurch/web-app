@@ -29,7 +29,7 @@ const Browse = ({
     category: defaultCategory,
     title: defaultTitle
 }) => {
-    
+
     const [activeFilterId, setActiveFilterId] = useState(null)
     const [activeCategory, setActiveCategory] = useState(null)
     const [index, setIndex] = useState(0)
@@ -43,16 +43,16 @@ const Browse = ({
                 const filterId = !!defaultFilter
                     ? get(
                         find(filters, n => kebabCase(defaultFilter) === kebabCase(n.node.title)),
-                        'node.id', 
+                        'node.id',
                         firstFilter
                     )
                     : firstFilter
-                
+
                 setActiveFilterId(filterId)
             }
-        } 
-     )
-    
+        }
+    )
+
     const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
         .map(edge => edge.node)
 
@@ -61,7 +61,7 @@ const Browse = ({
         const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
         const filter = get(
             find(filters, n => activeFilterId === n.node.id),
-            'node.title', 
+            'node.title',
             ''
         )
 
@@ -79,7 +79,7 @@ const Browse = ({
             'container-fluid',
             'max-width-1100',
             'my-6',
-            'px-2'
+            'px-4'
         )}>
             <div className="row">
                 <h1 className='mb-3'>
@@ -96,34 +96,34 @@ const Browse = ({
                 touch={false}
             >
                 <Carousel.Item>
-                        <div className="">
-                            <FilterRow
-                                filters={filters}
-                                selected={activeFilterId}
-                                onChange={({ id }) => setActiveFilterId(id)}
-                            />
-                        </div>
+                    <div className="">
+                        <FilterRow
+                            filters={filters}
+                            selected={activeFilterId}
+                            onChange={({ id }) => setActiveFilterId(id)}
+                        />
+                    </div>
 
-                        {!!activeFilterId &&
-                            <CategoryList 
-                                filterId={activeFilterId}
-                                onClick={({ id, title }) => {
-                                    setActiveCategory({ id, title })
-                                    handleSelect(1)
-                                }}
-                            />}
+                    {!!activeFilterId &&
+                        <CategoryList
+                            filterId={activeFilterId}
+                            onClick={({ id, title }) => {
+                                setActiveCategory({ id, title })
+                                handleSelect(1)
+                            }}
+                        />}
                 </Carousel.Item>
                 <Carousel.Item>
-                        {!!activeCategory && 
-                            <SeeAllCategory
-                                categoryId={activeCategory.id}
-                                title={activeCategory.title}
-                                onBack={() => {
-                                    handleSelect(0)
-                                }}
-                            />}
+                    {!!activeCategory &&
+                        <SeeAllCategory
+                            categoryId={activeCategory.id}
+                            title={activeCategory.title}
+                            onBack={() => {
+                                handleSelect(0)
+                            }}
+                        />}
                 </Carousel.Item>
-                <Carousel.Item/>
+                <Carousel.Item />
             </Carousel>
         </div>
     )
