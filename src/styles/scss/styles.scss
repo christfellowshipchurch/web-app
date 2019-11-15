@@ -69,6 +69,8 @@ html {
     font-size: 16px;
 }
 
+$lg-breakpoint: map-get($grid-breakpoints, lg);
+
 // Misc
 .disable {
     color: #e2e2e2;
@@ -86,9 +88,22 @@ html {
     box-shadow: none !important;
 }
 
+.no-decoration,
 .no-decoration:hover,
 .no-decoration:focus {
     text-decoration: none !important;
+}
+
+// Sets the sizing of the navbar for small devices only
+// This fixes a bug where a user has to scroll to the bottom
+//      of their screen to scroll down on the navbar
+@media (max-width: $lg-breakpoint) {
+    #user-profile-navbar-connected {
+        & .navbar-collapse {
+            max-height: 90vh;
+            overflow-y: scroll;
+        }
+    }
 }
 //
 
@@ -132,7 +147,9 @@ html {
 
 
 // Nav
-.nav-link { font-weight: bold; }
+.nav-link { 
+    font-weight: bold; 
+}
 //
 
 
@@ -221,3 +238,4 @@ html {
     transition: 0.2s ease-out;
 }
 //
+

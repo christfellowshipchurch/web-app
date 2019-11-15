@@ -14,7 +14,7 @@ import DefaultIcon from '../images/default_icon.png'
 import { Button } from '../ui'
 import { redirectTo } from '../utils'
 import { useAuth } from '../auth'
-import { AuthNavbar } from './'
+import AuthNavbar from './AuthNavbar'
 
 // Takes a collection of images from
 //  the API's return data and formats
