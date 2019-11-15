@@ -85,6 +85,7 @@ html {
     box-shadow: none !important;
 }
 
+.no-decoration,
 .no-decoration:hover,
 .no-decoration:focus {
     text-decoration: none !important;
@@ -131,7 +132,10 @@ html {
 
 
 // Nav
-.nav-link { font-weight: bold; }
+.nav-link { 
+    font-weight: bold; 
+    color: #525252 !important;
+}
 //
 
 

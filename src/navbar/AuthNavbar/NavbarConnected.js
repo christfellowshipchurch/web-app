@@ -19,9 +19,12 @@ import {
 import { faBell } from '@fortawesome/pro-regular-svg-icons'
 import { Media } from '@christfellowshipchurch/web-ui-kit'
 
-import { useAuth, useAuthQuery } from '../auth'
-import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from './queries'
+import { useAuth } from '../../auth'
+import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from '../queries'
 import ProfileConnected from './ProfileConnected'
+
+
+
 // Takes a collection of images from the API's return data and formats
 //  it to be an array of the following object structure: { imageKey: { uri, alt } }
 const imageArrayToObject = (images) => {
@@ -71,9 +74,13 @@ const NavbarConnected = ({
   brandImageKey,
   onToggle,
   fixed,
-  links,
+  navLinks,
+  learnMoreLinks
 }) => {
 
+  const { logout } = useAuth()
+
+  const [ menuIcon, setMenuIcon ] = useState(false)
   const website = process.env.REACT_APP_WEBSITE_KEY
   const { data } = useQuery(GET_WEBSITE_HEADER_LOGGED_IN, {
     variables: { website },
@@ -113,8 +120,9 @@ const NavbarConnected = ({
         className="border-0"
       >
         <FontAwesomeIcon
-          icon={faBars}
-          size="1x"
+          icon={menuIcon ? faTimes : faBars}
+          color="#525252"
+          onClick={()=> setMenuIcon(!menuIcon)}
         />
       </Navbar.Toggle>
       
@@ -163,19 +171,19 @@ const NavbarConnected = ({
                 </div>
               </div>
             
-            <hr className='d-lg-none w-75'/>
+            <hr className='d-lg-none w-100'/>
 
             <Nav>
               {/* Desktop NavLinks */}             
-              {links.map((link, i) => (
+              {navLinks.map((link, i) => (
               <Nav.Link
                   key={i}
                   href={link.action}
                   className={classnames(
                     'mx-3',
                     'my-2',
-                    'font-weight-normal',
                     'd-none d-lg-block',
+                    'nav-link'
                   )}
                 >
                   {link.call}
@@ -186,12 +194,11 @@ const NavbarConnected = ({
               <p className={classnames(
                 'font-weight-light',
                 'd-lg-none',
-                'mb-0'
               )}  
               >
                    Get Involved
               </p>
-              {links.map((link, i) => (
+              {navLinks.map((link, i) => (
                 <div
                   key={i}
                   className={classnames(
@@ -204,13 +211,12 @@ const NavbarConnected = ({
                 <FontAwesomeIcon
                   icon={navIcons[i]}
                   color='black'
+                  style={{minWidth: '20px'}}
                 />
                   <Nav.Link
                     href={link.action}
                     className={classnames(
                       'pl-2',
-                      'font-weight-bold',
-                      'text-dark',
                     )}
                   >
                     {link.call}
@@ -219,7 +225,7 @@ const NavbarConnected = ({
               ))}
             </Nav>
 
-            <hr className='d-lg-none w-75'/>
+            <hr className='d-lg-none w-100'/>
 
             {/* Desktop Profile */}
             <div className='d-none d-lg-block'>
@@ -231,12 +237,14 @@ const NavbarConnected = ({
                   "justify-content-lg-end",
                 )}
               >
-                <ProfileConnected />
+                <ProfileConnected
+                  dropDownLinks={learnMoreLinks}
+                />
               </div>
             </div>
 
             {/* Mobile Learn More */}
-            <div>
+            <div className='d-lg-none'>
               <p className='font-weight-light'>
                 Learn More
               </p>
@@ -245,19 +253,36 @@ const NavbarConnected = ({
                   'd-flex',
                   'flex-column',
                   'ml-3',
-                  'mb-5',
-                  'font-weight-bold',
-                  'text-dark'
                 )}
               >
-                <a className='p-1'>About Christ Fellowship</a>
-                <a className='p-1'>Church Locations</a>
-                <a className='p-1'>Request Prayer</a>
-                <a className='p-1'>Contact</a>
-                <hr className='w-75'/>
-                <a className='p-1'>Logout</a>
+                { learnMoreLinks.map((link, i) => (
+                  <a
+                    key={i}
+                    href={link.action} 
+                    className={classnames(
+                      'p-2',
+                      'nav-link',
+                      'no-decoration'
+                    )}
+                  >
+                    {link.call}
+                  </a>
+                ))}
               </div>
             </div>
+            <hr className='d-lg-none w-100'/>
+            <a
+              className={classnames(
+                'p-1',
+                'nav-link',
+                'd-lg-none',
+                'ml-3',
+                'mb-5'
+              )}
+              onClick={() => logout()}
+            >
+              Logout
+            </a>
 
           </div>      
       </Navbar.Collapse>
@@ -271,11 +296,16 @@ NavbarConnected.propTypes = {
   variant: PropTypes.string,
   brandImageKey: PropTypes.string,
   fixed: PropTypes.bool,
-  links: PropTypes.arrayOf(
+  navLinks: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
-    }))
+    })),
+  learnMoreLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      call: PropTypes.string,
+      action: PropTypes.string,
+    })) 
 }
 
 NavbarConnected.defaultProps = {
@@ -283,12 +313,18 @@ NavbarConnected.defaultProps = {
   variant: 'light',
   brandImageKey: 'brandImage',
   fixed: false,
-  links: [
+  navLinks: [
     { call: 'Groups', action: '/groups' },
     { call: 'Serve', action: '/serve' },
     { call: 'Events', action: 'https://deploy-preview-35--eloquent-hodgkin-806a2b.netlify.com/events' },
     { call: 'Give', action: '/give' },
     { call: 'Browse', action: '/articles' },
+  ],
+  learnMoreLinks: [
+    { call: 'About Christ Fellowship', action: '' },
+    { call: 'Church Locations', action: '' },
+    { call: 'Request Prayer', action: '' },
+    { call: 'Contact', action: '' }
   ]
 }
 
