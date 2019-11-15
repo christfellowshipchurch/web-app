@@ -85,6 +85,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
                       'pl-3',
                       'pr-4',
                       'nav-link',
+                      'text-secondary',
                       'no-decoration',
                     )}
                   >
@@ -101,6 +102,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
                     'pl-3',
                     'pr-4',
                     'nav-link',
+                    'text-secondary',
                     'no-decoration',
                   )}
                   onClick={() => logout()}
@@ -132,7 +134,8 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 'mb-0',
                 'ml-4',
                 'p-1',
-                'nav-link'
+                'nav-link',
+                'text-secondary'
               )}
             >
               {get(data, 'currentUser.profile.firstName')}
@@ -146,15 +149,15 @@ const ProfileConnected = ({ dropDownLinks }) => {
         <div
           className={classnames(
             'd-lg-none',
-            'ml-3',
-            'mt-5'
+            'mt-5',
+            'pl-3'
           )}
         >
           <div
             className={classnames(
               'd-flex',
               'align-items-center',
-              'pb-3'
+              'pb-3',
             )}
           >
             {get(data, 'currentUser.profile.photo.uri', '') !== ''
@@ -176,7 +179,9 @@ const ProfileConnected = ({ dropDownLinks }) => {
             <p
               className={classnames(
                 'nav-link',
-                'mb-0'
+                'text-secondary',
+                'mb-0',
+                'pl-0'
               )}
             >{get(data, 'currentUser.profile.firstName')}</p>
           </div>
@@ -186,8 +191,9 @@ const ProfileConnected = ({ dropDownLinks }) => {
               'd-flex',
               'flex-column',
               'nav-link',
-              'ml-2',
-              'pt-1'
+              'text-secondary',
+              'pt-1',
+              'pl-2'
             )}
           >
             <a className='pb-1'>

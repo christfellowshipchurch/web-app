@@ -103,6 +103,7 @@ const NavbarConnected = ({
   return (
     <Navbar
       {...navbarProps}
+      id="user-profile-navbar-connected"
     >
 
     {/* Mobile Brand Image */}
@@ -183,7 +184,8 @@ const NavbarConnected = ({
                     'mx-3',
                     'my-2',
                     'd-none d-lg-block',
-                    'nav-link'
+                    'nav-link',
+                    'text-secondary'
                   )}
                 >
                   {link.call}
@@ -217,6 +219,7 @@ const NavbarConnected = ({
                     href={link.action}
                     className={classnames(
                       'pl-2',
+                      'text-secondary'
                     )}
                   >
                     {link.call}
@@ -262,6 +265,7 @@ const NavbarConnected = ({
                     className={classnames(
                       'p-2',
                       'nav-link',
+                      'text-secondary',
                       'no-decoration'
                     )}
                   >
@@ -275,6 +279,7 @@ const NavbarConnected = ({
               className={classnames(
                 'p-1',
                 'nav-link',
+                'text-secondary',
                 'd-lg-none',
                 'ml-3',
                 'mb-5'
