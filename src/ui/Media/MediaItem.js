@@ -20,6 +20,7 @@ const MediaItem = ({
   playIcon,
   overlay,
   gradient,
+  gradientDirection,
   withHover,
 }) => {
   const showVideoControls = showControls && !children
@@ -88,7 +89,7 @@ const MediaItem = ({
             'opacity-65',
             {
               [`bg-${overlay}`]: !!overlay,
-              [`bg-gradient-${gradient}`]: !!gradient
+              [`gradient-${gradient}-${gradientDirection}`]: !!gradient
             }
           )}
         ></div>
@@ -125,6 +126,7 @@ const defaultProps = {
   },
   overlay: null,
   gradient: null,
+  gradientDirection: 'bottom-top',
   withHover: false,
 }
 
@@ -152,7 +154,8 @@ const propTypes = {
     "warning",
     "danger",
     "light",
-    "dark"
+    "dark",
+    "black",
   ]),
   gradient: PropTypes.oneOf([
     "primary",
@@ -162,7 +165,11 @@ const propTypes = {
     "warning",
     "danger",
     "light",
-    "dark"
+    "dark",
+    "black",
+  ]),
+  gradientDirection: PropTypes.oneOf([
+    'bottom-top'
   ])
 }
 

@@ -3,6 +3,7 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import {
     get,
+    has,
     kebabCase
 } from 'lodash'
 
@@ -37,9 +38,9 @@ const ContentCard = ({
     tags,
     icon,
     onClick,
-    as,
+    urlBase,
+    label
 }) => {
-    const tag = get(tags, '[0]', '')
     const style = !!onClick
         ? { cursor: 'pointer' }
         : {}
@@ -51,11 +52,11 @@ const ContentCard = ({
                 'col-md-6',
                 'col-lg-4',
                 'p-2',
-                'mb-2',
+                // 'mb-2',
                 'scale-media-up-on-hover',
                 'no-decoration',
             )}
-            href={`/content/${kebabCase(title)}`}
+            href={`/${urlBase}/${kebabCase(title)}`}
         >
             <Card
                 fill
@@ -74,7 +75,7 @@ const ContentCard = ({
                         'bg-light',
                     )}
                 >
-                    {tag !== '' &&
+                    {label.value !== '' &&
                         <h6
                             style={{
                                 position: 'absolute',
@@ -85,20 +86,19 @@ const ContentCard = ({
                             className={classnames(
                                 'px-3',
                                 'py-2',
-                                'bg-dark',
+                                [`bg-${label.bg}`],
+                                [`text-${label.textColor}`],
                                 'text-uppercase',
-                                'text-white',
-                                'font-weight-bold'
                             )}
                         >
-                            <small>
-                                {tag}
+                            <small className='font-weight-bold'>
+                                {label.value}
                             </small>
                         </h6>
                     }
                 </Media>
                 <div
-                    className='mt-4 mx-3 row'
+                    className='mt-3 mx-3 row'
                 >
                     <div className="col pr-1">
                         <h4
@@ -131,20 +131,28 @@ ContentCard.propTypes = {
     title: PropTypes.string,
     summary: PropTypes.string,
     onClick: PropTypes.func,
-    tags: PropTypes.arrayOf(
-        PropTypes.string
-    ),
     as: PropTypes.string,
     icon: PropTypes.string,
+    urlBase: PropTypes.string,
+    label: PropTypes.shape({
+        value: PropTypes.string,
+        bg: PropTypes.string,
+        textColor: PropTypes.string,
+    })
 }
 
 ContentCard.defaultProps = {
     imageUrl: null,
     title: null,
     onClick: null,
-    tags: [],
     as: 'div',
-    icon: null
+    icon: null,
+    urlBase: 'content',
+    label: {
+        value: 'tags[0]',
+        bg: 'dark',
+        textColor: 'white'
+    }
 }
 
 export default ContentCard

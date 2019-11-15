@@ -1,0 +1,13 @@
+@each $color, $value in $theme-colors {
+  .gradient-#{$color}-bottom-top {
+    @include gradient-y(rgba($value, 0), rgba($value, 1), 0%, 80%);
+  }
+}
+
+.gradient-black-bottom-top {
+  @include gradient-y(rgba($black, 0), rgba($black, 1), 0%, 80%);
+}
+
+.gradient-white-bottom-top {
+  @include gradient-y(rgba($white, 0), rgba($white, 1), 0%, 80%);
+}

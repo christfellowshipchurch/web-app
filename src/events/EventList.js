@@ -7,6 +7,7 @@ const events = [
   "Caleb's Event",
   "Danny's Event",
   "Rob's Event",
+  "Winter Movie Night",
 ]
 
 const EventList = ({ }) => {
@@ -19,7 +20,10 @@ const EventList = ({ }) => {
       </div>
       <div className="row">
         {events.map((n, i) => (
-          <div className="col-6 col-md-4 p-3" key={i}>
+          <div
+            key={i}
+            className="col-6 col-md-4 p-3"
+          >
             <div className="card h-100">
               <div className="card-body">
                 <h5 className="card-title">
@@ -28,7 +32,7 @@ const EventList = ({ }) => {
 
                 <a href={`/events/${kebabCase(toLower(n))}/`}>
                   View event
-                  </a>
+                </a>
               </div>
             </div>
           </div>

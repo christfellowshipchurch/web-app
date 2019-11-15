@@ -283,7 +283,7 @@ NavbarConnected.defaultProps = {
   links: [
     { call: 'Groups', action: '/groups' },
     { call: 'Serve', action: '/serve' },
-    { call: 'Events', action: 'https://deploy-preview-35--eloquent-hodgkin-806a2b.netlify.com/events' },
+    { call: 'Events', action: '/events' },
     { call: 'Give', action: '/give' },
     { call: 'Browse', action: '/articles' },
   ]

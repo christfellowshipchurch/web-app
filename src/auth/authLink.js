@@ -1,7 +1,7 @@
 import { setContext } from 'apollo-link-context'
 import {
     AUTH_TOKEN_KEY
-} from './'
+} from '../keys'
 
 export default setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
