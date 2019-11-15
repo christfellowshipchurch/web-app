@@ -7,8 +7,8 @@ import { toLower, get, has, find, camelCase } from 'lodash'
 
 import { Navbar, Nav, Dropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { 
-  faBars, 
+import {
+  faBars,
   faTimes,
   faUsers,
   faHandshake,
@@ -41,7 +41,7 @@ const imageArrayToObject = (images) => {
   return imagesObj
 }
 
-const navIcons = [ 
+const navIcons = [
   faUsers,
   faHandshake,
   faCalendarAlt,
@@ -80,7 +80,7 @@ const NavbarConnected = ({
 
   const { logout } = useAuth()
 
-  const [ menuIcon, setMenuIcon ] = useState(false)
+  const [menuIcon, setMenuIcon] = useState(false)
   const website = process.env.REACT_APP_WEBSITE_KEY
   const { data } = useQuery(GET_WEBSITE_HEADER_LOGGED_IN, {
     variables: { website },
@@ -106,7 +106,7 @@ const NavbarConnected = ({
       id="user-profile-navbar-connected"
     >
 
-    {/* Mobile Brand Image */}
+      {/* Mobile Brand Image */}
       {brandImage &&
         <BrandImg
           uri={brandImage.uri}
@@ -123,175 +123,175 @@ const NavbarConnected = ({
         <FontAwesomeIcon
           icon={menuIcon ? faTimes : faBars}
           color="#525252"
-          onClick={()=> setMenuIcon(!menuIcon)}
+          onClick={() => setMenuIcon(!menuIcon)}
         />
       </Navbar.Toggle>
-      
+
 
       <Navbar.Collapse>
-          <div
-            className={classnames(
-              'd-flex',
-              'flex-column',
+        <div
+          className={classnames(
+            'd-flex',
+            'flex-column',
 
-              'flex-lg-row',
-              'justify-content-lg-between',
-              "align-items-lg-center",
+            'flex-lg-row',
+            'justify-content-lg-between',
+            "align-items-lg-center",
 
-              'w-100',
-              "px-lg-3",
-            )}
-          >
+            'w-100',
+            "px-lg-3",
+          )}
+        >
 
-            {/* Desktop Brand Image */}
-            <div>
-              {brandImage &&
-                <BrandImg
-                  uri={brandImage.uri}
-                  alt={brandImage.alt}
-                  className={classnames(
-                    'd-none',
-                    'd-lg-block',
-                    'pl-4'
-                  )}
-                />
-              }
+          {/* Desktop Brand Image */}
+          <div>
+            {brandImage &&
+              <BrandImg
+                uri={brandImage.uri}
+                alt={brandImage.alt}
+                className={classnames(
+                  'd-none',
+                  'd-lg-block',
+                  'pl-4'
+                )}
+              />
+            }
+          </div>
+
+          {/* Mobile Profile */}
+          <div className='d-lg-none'>
+            <div
+              style={{ flex: 1 }}
+              className={classnames(
+                "d-flex",
+                "justify-content-start",
+                "justify-content-lg-end",
+              )}
+            >
+              <ProfileConnected />
             </div>
+          </div>
 
-            {/* Mobile Profile */}
-            <div className='d-lg-none'>
-                <div
-                  style={{ flex: 1 }}
-                  className={classnames(
-                    "d-flex",
-                    "justify-content-start",
-                    "justify-content-lg-end",
-                  )}
-                >
-                  <ProfileConnected />
-                </div>
-              </div>
-            
-            <hr className='d-lg-none w-100'/>
+          <hr className='d-lg-none w-100' />
 
-            <Nav>
-              {/* Desktop NavLinks */}             
-              {navLinks.map((link, i) => (
+          <Nav>
+            {/* Desktop NavLinks */}
+            {navLinks.map((link, i) => (
               <Nav.Link
-                  key={i}
+                key={i}
+                href={link.action}
+                className={classnames(
+                  'mx-3',
+                  'my-2',
+                  'd-none d-lg-block',
+                  'nav-link',
+                  'text-dark'
+                )}
+              >
+                {link.call}
+              </Nav.Link>
+            ))}
+
+            {/* Mobile NavLinks */}
+            <p className={classnames(
+              'font-weight-light',
+              'd-lg-none',
+            )}
+            >
+              Get Involved
+              </p>
+            {navLinks.map((link, i) => (
+              <div
+                key={i}
+                className={classnames(
+                  'd-flex',
+                  'align-items-center',
+                  'd-lg-none',
+                  'pl-4'
+                )}
+              >
+                <FontAwesomeIcon
+                  icon={navIcons[i]}
+                  color='black'
+                  style={{ minWidth: '20px' }}
+                />
+                <Nav.Link
                   href={link.action}
                   className={classnames(
-                    'mx-3',
-                    'my-2',
-                    'd-none d-lg-block',
-                    'nav-link',
-                    'text-secondary'
+                    'pl-2',
+                    'text-dark'
                   )}
                 >
                   {link.call}
                 </Nav.Link>
-              ))}
+              </div>
+            ))}
+          </Nav>
 
-              {/* Mobile NavLinks */}
-              <p className={classnames(
-                'font-weight-light',
-                'd-lg-none',
-              )}  
-              >
-                   Get Involved
+          <hr className='d-lg-none w-100' />
+
+          {/* Desktop Profile */}
+          <div className='d-none d-lg-block'>
+            <div
+              style={{ flex: 1 }}
+              className={classnames(
+                "d-flex",
+                "justify-content-start",
+                "justify-content-lg-end",
+              )}
+            >
+              <ProfileConnected
+                dropDownLinks={learnMoreLinks}
+              />
+            </div>
+          </div>
+
+          {/* Mobile Learn More */}
+          <div className='d-lg-none'>
+            <p className='font-weight-light'>
+              Learn More
               </p>
-              {navLinks.map((link, i) => (
-                <div
+            <div
+              className={classnames(
+                'd-flex',
+                'flex-column',
+                'ml-3',
+              )}
+            >
+              {learnMoreLinks.map((link, i) => (
+                <a
                   key={i}
+                  href={link.action}
                   className={classnames(
-                    'd-flex',
-                    'align-items-center',
-                    'd-lg-none',
-                    'pl-4'
+                    'p-2',
+                    'nav-link',
+                    'text-dark',
+                    'no-decoration'
                   )}
                 >
-                <FontAwesomeIcon
-                  icon={navIcons[i]}
-                  color='black'
-                  style={{minWidth: '20px'}}
-                />
-                  <Nav.Link
-                    href={link.action}
-                    className={classnames(
-                      'pl-2',
-                      'text-secondary'
-                    )}
-                  >
-                    {link.call}
-                  </Nav.Link>
-                </div>
+                  {link.call}
+                </a>
               ))}
-            </Nav>
-
-            <hr className='d-lg-none w-100'/>
-
-            {/* Desktop Profile */}
-            <div className='d-none d-lg-block'>
-              <div
-                style={{ flex: 1 }}
-                className={classnames(
-                  "d-flex",
-                  "justify-content-start",
-                  "justify-content-lg-end",
-                )}
-              >
-                <ProfileConnected
-                  dropDownLinks={learnMoreLinks}
-                />
-              </div>
             </div>
-
-            {/* Mobile Learn More */}
-            <div className='d-lg-none'>
-              <p className='font-weight-light'>
-                Learn More
-              </p>
-              <div
-                className={classnames(
-                  'd-flex',
-                  'flex-column',
-                  'ml-3',
-                )}
-              >
-                { learnMoreLinks.map((link, i) => (
-                  <a
-                    key={i}
-                    href={link.action} 
-                    className={classnames(
-                      'p-2',
-                      'nav-link',
-                      'text-secondary',
-                      'no-decoration'
-                    )}
-                  >
-                    {link.call}
-                  </a>
-                ))}
-              </div>
-            </div>
-            <hr className='d-lg-none w-100'/>
-            <a
-              className={classnames(
-                'p-1',
-                'nav-link',
-                'text-secondary',
-                'd-lg-none',
-                'ml-3',
-                'mb-5'
-              )}
-              onClick={() => logout()}
-            >
-              Logout
+          </div>
+          <hr className='d-lg-none w-100' />
+          <a
+            className={classnames(
+              'p-1',
+              'nav-link',
+              'text-dark',
+              'd-lg-none',
+              'ml-3',
+              'mb-5'
+            )}
+            onClick={() => logout()}
+          >
+            Logout
             </a>
 
-          </div>      
+        </div>
       </Navbar.Collapse>
-            
+
     </Navbar>
   )
 }
@@ -310,7 +310,7 @@ NavbarConnected.propTypes = {
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
-    })) 
+    }))
 }
 
 NavbarConnected.defaultProps = {
@@ -321,9 +321,9 @@ NavbarConnected.defaultProps = {
   navLinks: [
     { call: 'Groups', action: '/groups' },
     { call: 'Serve', action: '/serve' },
-    { call: 'Events', action: 'https://deploy-preview-35--eloquent-hodgkin-806a2b.netlify.com/events' },
+    { call: 'Events', action: '/events' },
     { call: 'Give', action: '/give' },
-    { call: 'Browse', action: '/articles' },
+    { call: 'Browse', action: '/browse' },
   ],
   learnMoreLinks: [
     { call: 'About Christ Fellowship', action: '' },

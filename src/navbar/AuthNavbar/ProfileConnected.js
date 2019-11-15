@@ -15,30 +15,30 @@ const ProfileConnected = ({ dropDownLinks }) => {
   const { logout } = useAuth()
   const { loading, error, data } = useAuthQuery(GET_PROFILE_IMAGE)
 
-  const [ menuIcon, setMenuIcon ] = useState(false)
+  const [menuIcon, setMenuIcon] = useState(false)
 
   if (has(data, 'currentUser.profile')) return (
-      <>
-                                {/* ------------------- Desktop Profile ------------------- */}
+    <>
+      {/* ------------------- Desktop Profile ------------------- */}
+      <div
+        className={classnames(
+          'd-none',
+          'd-lg-block'
+        )}
+      >
         <div
           className={classnames(
-            'd-none',
-            'd-lg-block'
+            'd-flex',
+            'align-items-center',
+            'flex-row',
+            'flex-lg-row-reverse',
+            'mx-3'
           )}
         >
-          <div
-            className={classnames(
-              'd-flex',
-              'align-items-center',
-              'flex-row',
-              'flex-lg-row-reverse',
-              'mx-3'
-            )}
+          <Dropdown
+            alignRight
+            style={{ minWidth: 0 }}
           >
-            <Dropdown
-              alignRight
-              style={{ minWidth: 0 }}
-            >
 
             <div
               onClick={
@@ -60,152 +60,154 @@ const ProfileConnected = ({ dropDownLinks }) => {
                       : faBars
                   }
                   color="#525252"
-                  style={{minWidth: '32px'}}
+                  style={{ minWidth: '32px' }}
                 />
               </Dropdown.Toggle>
             </div>
-             
 
-              <Dropdown.Menu
-                className={classnames(
-                  'border-0',
-                  'shadow',
-                  'rounded',
-                  'py-4',
-                  'my-2',
-                  'px-3'
-                )}
-              >
-                { dropDownLinks.map((link, i) => (
-                  <Dropdown.Item
-                    key={i}
-                    href={link.action} 
-                    className={classnames(
-                      'py-2',
-                      'pl-3',
-                      'pr-4',
-                      'nav-link',
-                      'text-secondary',
-                      'no-decoration',
-                    )}
-                  >
-                    {link.call}
-                  </Dropdown.Item>
-                ))}
-                <Dropdown.Divider
-                  className='w-100'
-                  style={{ color: 'grey'}}
-                />
+
+            <Dropdown.Menu
+              className={classnames(
+                'border-0',
+                'shadow',
+                'rounded',
+                'py-4',
+                'my-2',
+                'px-3'
+              )}
+            >
+              {dropDownLinks.map((link, i) => (
                 <Dropdown.Item
+                  key={i}
+                  href={link.action}
                   className={classnames(
                     'py-2',
                     'pl-3',
                     'pr-4',
                     'nav-link',
-                    'text-secondary',
+                    'text-dark',
                     'no-decoration',
                   )}
-                  onClick={() => logout()}
                 >
-                  Logout
+                  {link.call}
+                </Dropdown.Item>
+              ))}
+              <Dropdown.Divider
+                className='w-100'
+                style={{ color: 'grey' }}
+              />
+              <Dropdown.Item
+                className={classnames(
+                  'py-2',
+                  'pl-3',
+                  'pr-4',
+                  'nav-link',
+                  'text-dark',
+                  'no-decoration',
+                )}
+                onClick={() => logout()}
+              >
+                Logout
                   </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown.Menu>
+          </Dropdown>
 
-            {get(data, 'currentUser.profile.photo.uri', '') !== ''
-              ? (
-                <div
-                  style={{ width: 48, height: 48 }}
-                  className='mx-2'
-                >
-                  <Media
-                    imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
-                    imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
-                    ratio="1by1"
-                    circle
-                  />
-                </div>
-              )
-              : <i className="fal fa-user-circle fa-2x"></i>
-            }
+          {get(data, 'currentUser.profile.photo.uri', '') !== ''
+            ? (
+              <div
+                style={{ width: 48, height: 48 }}
+                className='mx-2'
+              >
+                <Media
+                  imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
+                  imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
+                  ratio="1by1"
+                  circle
+                />
+              </div>
+            )
+            : <i className="fal fa-user-circle fa-2x"></i>
+          }
 
-            <p
-              className={classnames(
-                'mb-0',
-                'ml-4',
-                'p-1',
-                'nav-link',
-                'text-secondary'
-              )}
-            >
-              {get(data, 'currentUser.profile.firstName')}
-            </p>
+          <p
+            className={classnames(
+              'mb-0',
+              'ml-4',
+              'p-1',
+              'nav-link',
+              'text-dark'
+            )}
+          >
+            {get(data, 'currentUser.profile.firstName')}
+          </p>
 
-          </div>
         </div>
+      </div>
 
-                                {/* ------------------- Mobile Profile ------------------- */}
+      {/* ------------------- Mobile Profile ------------------- */}
+
+      <div
+        className={classnames(
+          'd-lg-none',
+          'mt-5',
+          'pl-3'
+        )}
+      >
+        <div
+          className={classnames(
+            'd-flex',
+            'align-items-center',
+            'pb-3',
+          )}
+        >
+          {get(data, 'currentUser.profile.photo.uri', '') !== ''
+            ? (
+              <div
+                style={{ width: 48, height: 48 }}
+                className='mx-2'
+              >
+                <Media
+                  imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
+                  imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
+                  ratio="1by1"
+                  circle
+                />
+              </div>
+            )
+            : <i className="fal fa-user-circle fa-2x"></i>
+          }
+          <p
+            className={classnames(
+              'nav-link',
+              'text-dark',
+              'mb-0',
+              'pl-0'
+            )}
+          >
+            {get(data, 'currentUser.profile.firstName')}
+          </p>
+        </div>
 
         <div
           className={classnames(
-            'd-lg-none',
-            'mt-5',
-            'pl-3'
+            'd-flex',
+            'flex-column',
+            'nav-link',
+            'text-dark',
+            'pt-1',
+            'pl-2'
           )}
         >
-          <div
-            className={classnames(
-              'd-flex',
-              'align-items-center',
-              'pb-3',
-            )}
-          >
-            {get(data, 'currentUser.profile.photo.uri', '') !== ''
-              ? (
-                <div
-                  style={{ width: 48, height: 48 }}
-                  className='mx-2'
-                >
-                  <Media
-                    imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
-                    imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
-                    ratio="1by1"
-                    circle
-                  />
-                </div>
-              )
-              : <i className="fal fa-user-circle fa-2x"></i>
-            }
-            <p
-              className={classnames(
-                'nav-link',
-                'text-secondary',
-                'mb-0',
-                'pl-0'
-              )}
-            >{get(data, 'currentUser.profile.firstName')}</p>
-          </div>
-        
-          <div
-            className={classnames(
-              'd-flex',
-              'flex-column',
-              'nav-link',
-              'text-secondary',
-              'pt-1',
-              'pl-2'
-            )}
-          >
-            <a className='pb-1'>
-                My Profile
+          <a className='pb-1'>
+            My Profile
             </a>
-            <a className='pb-2'>
-                Preferences
-            </a>
-          </div>   
+          <a className='pb-2'>
+            Preferences
+          </a>
         </div>
-      </>
-      )
+      </div>
+    </>
+  )
 
   // log out on error
 
@@ -217,28 +219,28 @@ ProfileConnected.propTypes = {
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
-    })) 
+    }))
 }
 
 ProfileConnected.defaultProps = {
   dropDownLinks: [
     {
-        call: 'About Christ Fellowship',
-        action: ''
+      call: 'About Christ Fellowship',
+      action: ''
     },
     {
-        call: 'Church Locations',
-        action: ''
+      call: 'Church Locations',
+      action: ''
     },
     {
-        call: 'Request Prayer',
-        action: ''
+      call: 'Request Prayer',
+      action: ''
     },
     {
-        call: 'Contact',
-        action: ''
+      call: 'Contact',
+      action: ''
     }
-]
+  ]
 }
 
 export default ProfileConnected
