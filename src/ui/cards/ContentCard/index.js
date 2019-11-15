@@ -52,7 +52,7 @@ const ContentCard = ({
                 'col-md-6',
                 'col-lg-4',
                 'p-2',
-                'mb-2',
+                // 'mb-2',
                 'scale-media-up-on-hover',
                 'no-decoration',
             )}
@@ -98,7 +98,7 @@ const ContentCard = ({
                     }
                 </Media>
                 <div
-                    className='mt-4 mx-3 row'
+                    className='mt-3 mx-3 row'
                 >
                     <div className="col pr-1">
                         <h4

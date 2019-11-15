@@ -183,9 +183,10 @@ const EventSchedule = ({
 
       <hr></hr>
 
-      <div className="row my-4">
+      <div className="row mt-4">
         <div className="col">
           <a
+            className="text-dark"
             href={getDirectionsUrl(get(payload, 'location', ''))}
             target="_blank"
           >

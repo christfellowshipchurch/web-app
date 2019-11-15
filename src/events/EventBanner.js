@@ -15,7 +15,7 @@ const EventBanner = ({
 }) => {
 
   return (
-    <div className='container-fluid banner'>
+    <div className='container-fluid'>
       <div className='row'>
         <div className={classnames(
           'col-12',
