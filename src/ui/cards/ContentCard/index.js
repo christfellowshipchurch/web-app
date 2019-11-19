@@ -107,8 +107,8 @@ const ContentCard = ({
                             {title}
                         </h4>
                         <p
-                            className='font-weight-light'
-                            style={{ fontSize: '.8rem', color: 'grey' }}
+                            className="text-secondary"
+                            style={{ fontSize: '.8rem' }}
                         >
                             {summary}
                         </p>

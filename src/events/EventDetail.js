@@ -60,7 +60,7 @@ const EventDetail = ({
             <h3 className='text-dark'>
               Event Details
             </h3>
-            <div className='font-weight-light mb-5'>
+            <div className='mb-5'>
               {htmlToReactParser.parse(htmlContent)}
             </div>
 
@@ -71,7 +71,7 @@ const EventDetail = ({
                   className={classnames(
                     "badge",
                     "badge-light",
-                    "font-weight-light",
+                    "font-weight-normal",
                     "py-2",
                     "px-3",
                     "mx-1",

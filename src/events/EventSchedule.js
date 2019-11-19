@@ -56,7 +56,7 @@ const ScheduleList = ({ dates }) =>
           key={i}
         >
           <h4
-            className='font-weight-light'
+            className='font-weight-normal'
           >
             <Icon
               icon={faClock}
