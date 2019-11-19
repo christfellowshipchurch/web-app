@@ -123,8 +123,11 @@ const EventSchedule = ({
         const schedules = get(data, 'node.childContentItemsConnection.edges', [])
           .map(edge => edge.node)
         const schedulesByCampus = parseSchedulesByCampus(schedules)
+        const selectedCampus = schedulesByCampus.length == 1
+          ? schedulesByCampus[0]
+          : find(schedulesByCampus, (n) => n.campus.name === defaultCampus)
 
-        setPayload(find(schedulesByCampus, (n) => n.campus.name === defaultCampus))
+        setPayload(selectedCampus)
       }
     }
   )
@@ -161,8 +164,8 @@ const EventSchedule = ({
               as={CampusSelectToggle}
             >
               {get(payload, 'campus.name', '') === ''
-                ? 'Select Location'
-                : 'Change Location'}
+                ? 'Select Campus'
+                : 'Change Campus'}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
