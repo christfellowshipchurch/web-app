@@ -18,6 +18,7 @@ import {
 import moment from 'moment'
 
 import {
+  Button,
   Card,
 } from '../ui'
 import Icon from './eventIcon'
@@ -111,7 +112,8 @@ const parseSchedulesByCampus = (schedules = []) => {
 
 const EventSchedule = ({
   id,
-  defaultCampus
+  defaultCampus,
+  callsToAction,
 }) => {
   const [payload, setPayload] = useState({})
   const { isLoggedIn } = useAuth()
@@ -197,6 +199,23 @@ const EventSchedule = ({
           </a>
         </div>
       </div>
+
+      {callsToAction.map((n, i) => (
+        <div className="row my-4" key={i}>
+          <div className="col">
+            <a
+              className={classnames(
+                'btn',
+                'btn-primary',
+                'btn-block',
+              )}
+              href={n.action}
+            >
+              {n.call}
+            </a>
+          </div>
+        </div>
+      ))}
     </div>
   </Card>
 }
@@ -204,10 +223,17 @@ const EventSchedule = ({
 EventSchedule.propTypes = {
   id: PropTypes.string.isRequired,
   defaultCampus: PropTypes.string,
+  callsToAction: PropTypes.arrayOf(
+    PropTypes.shape({
+      call: PropTypes.string,
+      action: PropTypes.string,
+    })
+  )
 }
 
 EventSchedule.defaultProps = {
-  defaultCampus: ''
+  defaultCampus: '',
+  callsToAction: []
 }
 
 export default EventSchedule

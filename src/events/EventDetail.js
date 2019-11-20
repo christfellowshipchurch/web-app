@@ -37,7 +37,8 @@ const ConnectedEventSchedule = (props) => {
 const EventDetail = ({
   id,
   htmlContent,
-  tags
+  tags,
+  callsToAction
 }) => {
   return (
     <div className={classnames(
@@ -50,6 +51,7 @@ const EventDetail = ({
         <div className="col-12 col-lg-4 p-2">
           <ConnectedEventSchedule
             id={id}
+            callsToAction={callsToAction}
           />
         </div>
 
@@ -98,12 +100,19 @@ EventDetail.propTypes = {
   htmlContent: PropTypes.string,
   tags: PropTypes.arrayOf(
     PropTypes.string
+  ),
+  callsToAction: PropTypes.arrayOf(
+    PropTypes.shape({
+      call: PropTypes.string,
+      action: PropTypes.string,
+    })
   )
 }
 
 EventDetail.defaultProps = {
   htmlContent: '',
-  tags: []
+  tags: [],
+  callsToAction: []
 }
 
 export default EventDetail

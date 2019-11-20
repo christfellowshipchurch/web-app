@@ -16,6 +16,13 @@ export const GET_EVENT = gql`
             }
             
             tags
+
+            ... on EventContentItem {
+                callsToAction {
+                    call
+                    action
+                }
+            }
         }
     }
 `
