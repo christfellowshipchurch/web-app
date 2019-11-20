@@ -22,6 +22,7 @@ import { Media } from '@christfellowshipchurch/web-ui-kit'
 import { useAuth } from '../../auth'
 import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from '../queries'
 import ProfileConnected from './ProfileConnected'
+import ContactUsButton from './ContactUsButton'
 
 
 
@@ -77,7 +78,6 @@ const NavbarConnected = ({
   navLinks,
   learnMoreLinks
 }) => {
-
   const { logout } = useAuth()
 
   const [menuIcon, setMenuIcon] = useState(false)
@@ -272,6 +272,17 @@ const NavbarConnected = ({
                   {link.call}
                 </a>
               ))}
+              {/* Contact Us Button */}
+              <ContactUsButton
+                className={classnames(
+                  'p-2',
+                  'nav-link',
+                  'text-dark',
+                  'no-decoration'
+                )}
+              >
+                Contact Us
+                </ContactUsButton>
             </div>
           </div>
           <hr className='d-lg-none w-100' />
@@ -326,10 +337,9 @@ NavbarConnected.defaultProps = {
     { call: 'Browse', action: '/browse' },
   ],
   learnMoreLinks: [
-    { call: 'About Christ Fellowship', action: '' },
-    { call: 'Church Locations', action: '' },
-    { call: 'Request Prayer', action: '' },
-    { call: 'Contact', action: '' }
+    { call: 'About Christ Fellowship', action: '/about-page' },
+    { call: 'Church Locations', action: '/locations' },
+    { call: 'Request Prayer', action: 'https://gochristfellowship.com/new-here/contact-us/' },
   ]
 }
 

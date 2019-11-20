@@ -1,32 +1,21 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import NavbarConnected from './NavbarConnected'
 
-const AuthNavbar = () => {
+const AuthNavbar = ({ learnMoreLinks }) => {
 
-    const learnMoreLinks = [
-        {
-            call: 'About Christ Fellowship',
-            action: ''
-        },
-        {
-            call: 'Church Locations',
-            action: ''
-        },
-        {
-            call: 'Request Prayer',
-            action: ''
-        },
-        {
-            call: 'Contact',
-            action: ''
-        }
-    ]
+    return (
+        <NavbarConnected />
+    )
+}
 
-return(
-    <NavbarConnected
-        learnMore={learnMoreLinks}
-    />
-)}
+AuthNavbar.propTypes = {
+    learnMoreLinks: PropTypes.array
+}
+
+AuthNavbar.defaultProps = {
+
+}
 
 export default AuthNavbar

@@ -10,11 +10,11 @@ import { Media } from '@christfellowshipchurch/web-ui-kit'
 
 import { useAuth, useAuthQuery } from '../../auth'
 import { GET_PROFILE_IMAGE } from '../queries'
+import ContactUsButton from './ContactUsButton'
 
 const ProfileConnected = ({ dropDownLinks }) => {
   const { logout } = useAuth()
   const { loading, error, data } = useAuthQuery(GET_PROFILE_IMAGE)
-
   const [menuIcon, setMenuIcon] = useState(false)
 
   if (has(data, 'currentUser.profile')) return (
@@ -86,6 +86,20 @@ const ProfileConnected = ({ dropDownLinks }) => {
                   {link.call}
                 </Dropdown.Item>
               ))}
+              <ContactUsButton
+                className={classnames(
+                  'dropdown-item',
+                  'py-2',
+                  'pl-3',
+                  'pr-4',
+                  'nav-link',
+                  'text-dark',
+                  'no-decoration',
+                )}
+              >
+                Contact Us
+              </ContactUsButton>
+
               <Dropdown.Divider
                 className='w-100'
                 style={{ color: 'grey' }}
@@ -102,7 +116,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 onClick={() => logout()}
               >
                 Logout
-                  </Dropdown.Item>
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
