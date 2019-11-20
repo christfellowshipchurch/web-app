@@ -38,32 +38,26 @@ const ProfileConnected = ({ dropDownLinks }) => {
           <Dropdown
             alignRight
             style={{ minWidth: 0 }}
+            onToggle={(isOpen) => setMenuIcon(isOpen)}
           >
-
-            <div
-              onClick={
-                () => setMenuIcon(!menuIcon)
-              }
+            <Dropdown.Toggle
+              variant='none'
+              style={{ fontSize: '35px' }}
+              className={classnames(
+                "px-2",
+                "px-lg-3",
+              )}
             >
-              <Dropdown.Toggle
-                variant='none'
-                style={{ fontSize: '35px' }}
-                className={classnames(
-                  "px-2",
-                  "px-lg-3",
-                )}
-              >
-                <FontAwesomeIcon
-                  icon={
-                    menuIcon
-                      ? faTimes
-                      : faBars
-                  }
-                  color="#525252"
-                  style={{ minWidth: '32px' }}
-                />
-              </Dropdown.Toggle>
-            </div>
+              <FontAwesomeIcon
+                icon={
+                  menuIcon
+                    ? faTimes
+                    : faBars
+                }
+                color="#525252"
+                style={{ minWidth: '32px' }}
+              />
+            </Dropdown.Toggle>
 
 
             <Dropdown.Menu

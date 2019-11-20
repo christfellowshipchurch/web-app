@@ -199,7 +199,7 @@ const NavbarConnected = ({
             )}
             >
               Get Involved
-              </p>
+            </p>
             {navLinks.map((link, i) => (
               <div
                 key={i}
@@ -287,7 +287,7 @@ const NavbarConnected = ({
             onClick={() => logout()}
           >
             Logout
-            </a>
+          </a>
 
         </div>
       </Navbar.Collapse>
