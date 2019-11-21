@@ -47,7 +47,7 @@ const EventConnected = ({ title }) => {
             title="Related Events"
             urlBase='events'
             connection='sibling'
-            top={3}
+            first={3}
         />
     ]
 }

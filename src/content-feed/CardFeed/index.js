@@ -18,12 +18,12 @@ const CardFeed = ({
     title,
     connection,
     urlBase,
-    top
+    first
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_FEED, {
         variables: {
             itemId: id,
-            top,
+            first,
             child: connection === "child",
             sibling: connection === "sibling",
         }
