@@ -18,6 +18,7 @@ import {
 import moment from 'moment'
 
 import {
+  Button,
   Card,
 } from '../ui'
 import Icon from './eventIcon'
@@ -56,7 +57,7 @@ const ScheduleList = ({ dates }) =>
           key={i}
         >
           <h4
-            className='font-weight-light'
+            className='font-weight-normal'
           >
             <Icon
               icon={faClock}
@@ -111,7 +112,8 @@ const parseSchedulesByCampus = (schedules = []) => {
 
 const EventSchedule = ({
   id,
-  defaultCampus
+  defaultCampus,
+  callsToAction,
 }) => {
   const [payload, setPayload] = useState({})
   const { isLoggedIn } = useAuth()
@@ -123,8 +125,11 @@ const EventSchedule = ({
         const schedules = get(data, 'node.childContentItemsConnection.edges', [])
           .map(edge => edge.node)
         const schedulesByCampus = parseSchedulesByCampus(schedules)
+        const selectedCampus = schedulesByCampus.length == 1
+          ? schedulesByCampus[0]
+          : find(schedulesByCampus, (n) => n.campus.name === defaultCampus)
 
-        setPayload(find(schedulesByCampus, (n) => n.campus.name === defaultCampus))
+        setPayload(selectedCampus)
       }
     }
   )
@@ -161,8 +166,8 @@ const EventSchedule = ({
               as={CampusSelectToggle}
             >
               {get(payload, 'campus.name', '') === ''
-                ? 'Select Location'
-                : 'Change Location'}
+                ? 'Select Campus'
+                : 'Change Campus'}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -194,6 +199,23 @@ const EventSchedule = ({
           </a>
         </div>
       </div>
+
+      {callsToAction.map((n, i) => (
+        <div className="row my-4" key={i}>
+          <div className="col">
+            <a
+              className={classnames(
+                'btn',
+                'btn-primary',
+                'btn-block',
+              )}
+              href={n.action}
+            >
+              {n.call}
+            </a>
+          </div>
+        </div>
+      ))}
     </div>
   </Card>
 }
@@ -201,10 +223,17 @@ const EventSchedule = ({
 EventSchedule.propTypes = {
   id: PropTypes.string.isRequired,
   defaultCampus: PropTypes.string,
+  callsToAction: PropTypes.arrayOf(
+    PropTypes.shape({
+      call: PropTypes.string,
+      action: PropTypes.string,
+    })
+  )
 }
 
 EventSchedule.defaultProps = {
-  defaultCampus: ''
+  defaultCampus: '',
+  callsToAction: []
 }
 
 export default EventSchedule

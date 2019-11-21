@@ -24,8 +24,8 @@ const EventBanner = ({
           <Media
             imageUrl={get(coverImage, 'sources[0].uri', '')}
             imageAlt={get(coverImage, 'name', 'Event at Christ Fellowship Church')}
-            className='banner'
-            ratio="21by9"
+            className='max-height-45-vh'
+            ratio="1by1"
             gradient="black"
           >
             <div
