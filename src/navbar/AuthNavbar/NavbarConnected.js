@@ -282,7 +282,7 @@ const NavbarConnected = ({
                 )}
               >
                 Contact Us
-                </ContactUsButton>
+              </ContactUsButton>
             </div>
           </div>
           <hr className='d-lg-none w-100' />
@@ -330,10 +330,10 @@ NavbarConnected.defaultProps = {
   brandImageKey: 'brandImage',
   fixed: false,
   navLinks: [
-    { call: 'Groups', action: '/groups' },
-    { call: 'Serve', action: '/serve' },
+    { call: 'Groups', action: 'https://rock.gocf.org/groups' },
+    { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
     { call: 'Events', action: '/events' },
-    { call: 'Give', action: '/give' },
+    { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
     { call: 'Browse', action: '/browse' },
   ],
   learnMoreLinks: [
