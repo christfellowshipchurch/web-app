@@ -1,6 +1,7 @@
 import React, { createRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { keys } from 'lodash'
 import { faPlayCircle } from '@fortawesome/fontawesome-pro-light'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -39,9 +40,12 @@ const MediaItem = ({
     videoRef.current.play()
     setShowPlayButton(false)
   }
+  const ratioClass = typeof ratio === 'string'
+    ? `embed-responsive-${ratio}`
+    : keys(ratio).map(n => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''))
 
   if (circle) {
-    ratio = '1by1'
+    ratioClass = '1by1'
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
@@ -51,8 +55,8 @@ const MediaItem = ({
       className={classnames(
         className,
         'embed-responsive',
+        ratioClass,
         {
-          [`embed-responsive-${ratio}`]: true,
           'rounded': rounded && !circle,
           'rounded-circle': circle,
           'scale-media-up-on-hover': withHover
@@ -130,8 +134,18 @@ const defaultProps = {
   withHover: false,
 }
 
+const RATIOS = ['1by1', '4by3', '16by9', '21by9']
 const propTypes = {
-  ratio: PropTypes.oneOf(['1by1', '4by3', '16by9', '21by9']),
+  ratio: PropTypes.oneOfType([
+    PropTypes.oneOf(RATIOS),
+    PropTypes.shape({
+      xs: PropTypes.oneOf(RATIOS),
+      sm: PropTypes.oneOf(RATIOS),
+      md: PropTypes.oneOf(RATIOS),
+      lg: PropTypes.oneOf(RATIOS),
+      xl: PropTypes.oneOf(RATIOS)
+    })
+  ]),
   imageUrl: PropTypes.string.isRequired,
   imageAlt: PropTypes.string.isRequired,
   videoUrl: PropTypes.string,

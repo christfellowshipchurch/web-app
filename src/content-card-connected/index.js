@@ -16,7 +16,7 @@ const ContentCardConnectedWithQuery = ({
     ...otherProps
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
-        { variables: { contentId, tile } }
+        { variables: { contentId, tile: false } }
     )
 
     if (error) return null

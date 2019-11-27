@@ -1,0 +1,21 @@
+// Responsive headers: h1-sm, h3-lg
+@mixin headingsBaseStyles() {
+  margin-bottom: $headings-margin-bottom;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
+  line-height: $headings-line-height;
+  color: $headings-color;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+      .h1#{$infix} { @include font-size($h1-font-size); @include headingsBaseStyles(); }
+      .h2#{$infix} { @include font-size($h2-font-size); @include headingsBaseStyles(); }
+      .h3#{$infix} { @include font-size($h3-font-size); @include headingsBaseStyles(); }
+      .h4#{$infix} { @include font-size($h4-font-size); @include headingsBaseStyles(); }
+      .h5#{$infix} { @include font-size($h5-font-size); @include headingsBaseStyles(); }
+      .h6#{$infix} { @include font-size($h6-font-size); @include headingsBaseStyles(); }
+    }
+}
