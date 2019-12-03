@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { uniq } from 'lodash'
+import { uniq, take, kebabCase } from 'lodash'
 
+import { CardFeed } from '../content-feed'
 import ContentCardConnected from '../content-card-connected'
-import { AnnouncementFeed } from './Features'
+import { AnnouncementFeed, TileRowCardFeed, CardRow, ChildrenFeed } from './Features'
 import { ContentCard } from '../ui'
+import classnames from 'classnames'
+import { CARD_PADDING } from './'
 
 const ACTION_TYPES = {
     event: 'READ_EVENT',
@@ -23,27 +26,21 @@ const ActionMapper = ({
 }) => {
     const actionTypes = uniq(actions.map(({ action }) => action))
 
-    // if (actionTypes.length === 1 && actionTypes.includes(ACTION_TYPES.event)) {
-    //     // When the only action is to view Events
-    //     return <ActionWrapper>
-    //         <TileRowCardFeed
-    //             title={title}
-    //             titleColor={titleColor}
-    //             isLoading={isLoading}
-    //             actions={actions}
-    //         />
-    //     </ActionWrapper>
-    // } else if (actionTypes.length === 1 && actionTypes.includes(ACTION_TYPES.content)) {
-    //     // When the only action is to view Content
-    //     return <ActionWrapper>
-    //         <TinyCardFeed
-    //             title={title}
-    //             actions={actions}
-    //             isLoading={isLoading}
-    //             titleColor={titleColor}
-    //         />
-    //     </ActionWrapper>
-    // }
+    if (actionTypes.length === 1 && actionTypes.includes(ACTION_TYPES.event)) {
+        // When the only action is to view Events
+        return <TileRowCardFeed
+            title={title}
+            isLoading={isLoading}
+            actions={take(actions, 4)}
+        />
+    } else if (actionTypes.length === 1 && actionTypes.includes(ACTION_TYPES.content)) {
+        // When the only action is to view Content
+        return <CardRow
+            title={title}
+            actions={take(actions, 3)}
+            isLoading={isLoading}
+        />
+    }
 
     return actions.map(({ title: actionTitle, action, relatedNode }, i) => {
         const key = `ActionMapper:${i}`
@@ -57,25 +54,39 @@ const ActionMapper = ({
                     itemId={relatedNode.id}
                 />
             case ACTION_TYPES.children:
-            // return <ActionWrapper key={key}>
-            //     <ChildrenFeed
-            //         itemId={relatedNode.id}
-            //         title={actionTitle}
-            //     />
-            // </ActionWrapper>
+                return <div
+                    key={`CardFeed:${relatedNode.id}`}
+                    className="container-fluid max-width-1100 my-n6"
+                >
+                    <div className="row">
+                        <div className="col">
+                            <ChildrenFeed
+                                id={relatedNode.id}
+                                first={3}
+                            />
+                        </div>
+                    </div>
+                </div>
             default:
                 CardType = ContentCard
                 break
         }
 
-        return !!CardType &&
-            <ContentCardConnected
-                key={key}
-                card={CardType}
-                contentId={relatedNode.id}
-                isLoading={isLoading}
-                coverImage={image}
-            />
+        return !!CardType && <div
+            key={`HomeFeedCard:${key}`}
+            className="container-fluid max-width-1100"
+        >
+            <div className="row">
+                <div className={classnames('col', CARD_PADDING)}>
+                    <ContentCardConnected
+                        card={CardType}
+                        contentId={relatedNode.id}
+                        isLoading={isLoading}
+                        coverImage={image}
+                    />
+                </div>
+            </div>
+        </div>
     })
 }
 

@@ -38,7 +38,7 @@ const HighlightCard = ({
                 imageUrl={get(coverImage, '[0].uri', '')}
                 rounded
                 withHover
-                gradient='black'
+                overlay='black'
             >
                 <div
                     className={classnames(

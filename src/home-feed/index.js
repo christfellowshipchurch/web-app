@@ -11,21 +11,6 @@ import ActionMapper from './ActionMapper'
 import { useAuthQuery } from '../auth'
 import { GET_FEED_FEATURES } from './queries'
 
-const GET_CURRENT_PERSON = gql`
-    query {
-        currentUser {
-            profile {
-                firstName
-                lastName
-                
-                photo {
-                    uri
-                }
-            }
-        }
-    }
-`
-
 const HomeFeed = () => {
     const { loading, error, data } = useAuthQuery(GET_FEED_FEATURES)
 
@@ -52,3 +37,6 @@ HomeFeed.defaultProps = {
 
 
 export default HomeFeed
+export const CARD_PADDING = 'p-2'
+export const MARGIN_Y = 'my-6'
+export const PADDING_X = 'px-3'

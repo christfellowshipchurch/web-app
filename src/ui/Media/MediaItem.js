@@ -23,6 +23,7 @@ const MediaItem = ({
   gradient,
   gradientDirection,
   withHover,
+  style
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -40,7 +41,7 @@ const MediaItem = ({
     videoRef.current.play()
     setShowPlayButton(false)
   }
-  const ratioClass = typeof ratio === 'string'
+  let ratioClass = typeof ratio === 'string'
     ? `embed-responsive-${ratio}`
     : keys(ratio).map(n => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''))
 
@@ -62,6 +63,7 @@ const MediaItem = ({
           'scale-media-up-on-hover': withHover
         }
       )}
+      style={style}
     >
       <Image
         source={imageUrl}
