@@ -9,7 +9,8 @@ import {
 
 import {
     Card,
-    Media
+    Media,
+    Loader
 } from '../..'
 
 const HighlightCard = ({
@@ -23,6 +24,7 @@ const HighlightCard = ({
     label,
     ratio,
     tile,
+    isLoading
 }) => {
     return (
         <a
@@ -51,24 +53,26 @@ const HighlightCard = ({
                     )}
                     style={{ zIndex: 2 }}
                 >
-                    <div>
-                        <span
-                            className={classnames(
-                                "text-white",
-                                {
-                                    'h5': tile,
-                                    'h4-md': tile,
-                                    'h3-lg': tile,
-                                    'h3': !tile
-                                }
-                            )}
-                        >
-                            {title}
-                        </span>
-                        <p className="text-white">
-                            {summary}
-                        </p>
-                    </div>
+                    {isLoading
+                        ? <Loader />
+                        : <div>
+                            <span
+                                className={classnames(
+                                    "text-white",
+                                    {
+                                        'h5': tile,
+                                        'h4-md': tile,
+                                        'h3-lg': tile,
+                                        'h3': !tile
+                                    }
+                                )}
+                            >
+                                {title}
+                            </span>
+                            <p className="text-white">
+                                {summary}
+                            </p>
+                        </div>}
                 </div>
             </Media>
         </a>
@@ -90,6 +94,7 @@ HighlightCard.propTypes = {
     }),
     ratio: PropTypes.any,
     tile: PropTypes.bool,
+    isLoading: PropTypes.bool,
 }
 
 HighlightCard.defaultProps = {
@@ -106,6 +111,7 @@ HighlightCard.defaultProps = {
     },
     ratio: '1by1',
     tile: false,
+    isLoading: false
 }
 
 export default HighlightCard
