@@ -5,6 +5,7 @@ import { get } from 'lodash'
 
 import { ContentCard } from '../ui'
 import GET_CONTENT_CARD from './queries'
+import { formatDate } from '../utils'
 
 export { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries'
 
@@ -16,12 +17,13 @@ const ContentCardConnectedWithQuery = ({
     ...otherProps
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
-        { variables: { contentId, tile } }
+        { variables: { contentId, tile: false } }
     )
 
     if (error) return null
 
     const node = get(data, 'node', {})
+    const typename = get(node, '__typename', '')
     const metrics = [
         {
             icon: node.isLiked ? 'like-solid' : 'like',
@@ -43,9 +45,14 @@ const ContentCardConnectedWithQuery = ({
             tile,
             isLoading: loading,
             label: {
-                value: labelValue,
+                value: typename === 'EventContentItem'
+                    ? formatDate(node)
+                    : labelValue,
                 ...label
-            }
+            },
+            urlBase: typename === 'EventContentItem'
+                ? 'events'
+                : get(otherProps, 'baseUrl', 'content')
         }
     )
 }

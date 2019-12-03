@@ -12,25 +12,6 @@ import {
     Media
 } from '../../'
 
-const ContentCardWrapper = ({
-    element,
-    children,
-}) => {
-    return React.createElement(
-        element,
-        {
-            className: classnames(
-                'col-12',
-                'col-md-6',
-                'col-lg-4',
-                'p-2',
-                'mb-2',
-            ),
-        },
-        children
-    )
-}
-
 const TileRowCard = ({
     title,
     coverImage,
@@ -75,11 +56,18 @@ const TileRowCard = ({
                     'px-2'
                 )}
             >
-                <h4>
+                {label.value !== '' &&
+                    <h6
+                        className='text-secondary'
+                    >
+                        {label.value}
+                    </h6>
+                }
+                <h4 className="mb-0">
                     {title}
                 </h4>
                 <p
-                    className="text-secondary"
+                    className="text-secondary mb-0"
                     style={{ fontSize: '.8rem' }}
                 >
                     {summary}

@@ -57,20 +57,21 @@ const Browse = ({
         .map(edge => edge.node)
 
 
-    useEffect(() => {
-        const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
-        const filter = get(
-            find(filters, n => activeFilterId === n.node.id),
-            'node.title',
-            ''
-        )
+    // useEffect(() => {
+    //     const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
+    //     const filter = get(
+    //         find(filters, n => activeFilterId === n.node.id),
+    //         'node.title',
+    //         ''
+    //     )
 
-        const path = generatePath([filter, get(activeCategory, 'title')])
+    //     const path = generatePath([filter, get(activeCategory, 'title')])
 
-        window.history.pushState(path, 'Browse Christ Fellowship Content', path)
-    }, [activeFilterId, activeCategory])
+    //     window.history.pushState(path, 'Browse Christ Fellowship Content', path)
+    // }, [activeFilterId, activeCategory])
 
     const handleSelect = (selectedIndex, e) => {
+        e.preventDefault()
         setIndex(selectedIndex)
     }
 
@@ -83,7 +84,7 @@ const Browse = ({
         )}>
             <div className="row">
                 <h1 className='mb-3'>
-                    Browse
+                    Content
                 </h1>
             </div>
 

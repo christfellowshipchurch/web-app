@@ -330,11 +330,11 @@ NavbarConnected.defaultProps = {
   brandImageKey: 'brandImage',
   fixed: false,
   navLinks: [
-    { call: 'Groups', action: 'https://rock.gocf.org/groups' },
-    { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
+    { call: 'Content', action: '/browse' },
     { call: 'Events', action: '/events' },
+    { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
+    { call: 'Groups', action: 'https://rock.gocf.org/groups' },
     { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
-    { call: 'Browse', action: '/browse' },
   ],
   learnMoreLinks: [
     { call: 'About Christ Fellowship', action: '/about-page' },
