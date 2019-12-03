@@ -49,7 +49,10 @@ const ContentCardConnectedWithQuery = ({
                     ? formatDate(node)
                     : labelValue,
                 ...label
-            }
+            },
+            urlBase: typename === 'EventContentItem'
+                ? 'events'
+                : get(otherProps, 'baseUrl', 'content')
         }
     )
 }
