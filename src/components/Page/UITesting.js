@@ -1,41 +1,51 @@
 import React, { useState } from 'react'
-import { Feature } from '../features'
-import { Tabs, ButtonRow, Button, Checkbox, Radio } from '../../ui'
-
-// import { AuthNavbar } from '../Navbar'
-
-const TEST_ARRAY = [0, 1, 2, 3,]
-// const TEST_ARRAY = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+import { Carousel } from 'react-bootstrap'
+import ProfileBanner from '../../profile/ProfileBanner'
+import EditProfile from '../../profile/EditProfile'
+import { ValuesOfCorrectType } from 'graphql/validation/rules/ValuesOfCorrectType'
 
 
 
 const DefaultPage = () => {
-  const [enabled, setEnabled] = useState(false)
-  const [gender, setGender] = useState('Male')
+  const [index, setIndex] = useState(0)
 
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex)
+    }
 
   return (
-    <div className='container p-5 text-left'>
-      <div className='row'>
-        <div className='col'>
-          <Checkbox
-            label="Checkbox"
-            onClick={() => setEnabled(!enabled)}
-            checked={enabled}
-          />
-
-          <br />
-
-          <Radio
-            options={['Male', 'Female']}
-            label='Gender'
-            onClick={(value) => setGender(value)}
-            value={gender}
-          />
-        </div>
-      </div>
-    </div>
-
+    <>
+      <ProfileBanner
+        onEdit={() => {
+          handleSelect(1)
+        }}
+        onSave={() => {
+          handleSelect(0)
+        }}
+        onCancel={() => {
+          handleSelect(0)
+        }}
+      />
+     
+      <Carousel
+        activeIndex={index}
+        onSelect={handleSelect}
+        controls={false}
+        indicators={false}
+        interval={null}
+        touch={false}
+      >
+        <Carousel.Item>
+          <h1>Slide 1</h1> 
+          <EditProfile />  
+        </Carousel.Item>
+        <Carousel.Item>
+          <h1> Slide 2</h1>
+        </Carousel.Item>
+        <Carousel.Item />
+      </Carousel>
+    </>
   )
 }
 
