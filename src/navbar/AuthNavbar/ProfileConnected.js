@@ -11,6 +11,7 @@ import { Media } from '@christfellowshipchurch/web-ui-kit'
 import { useAuth, useAuthQuery } from '../../auth'
 import { GET_PROFILE_IMAGE } from '../queries'
 import ContactUsButton from './ContactUsButton'
+import { redirectTo } from '../../utils'
 
 const ProfileConnected = ({ dropDownLinks }) => {
   const { logout } = useAuth()
@@ -123,8 +124,9 @@ const ProfileConnected = ({ dropDownLinks }) => {
           {get(data, 'currentUser.profile.photo.uri', '') !== ''
             ? (
               <div
+                onClick={()=>redirectTo('/profile')}
                 style={{ width: 48, height: 48 }}
-                className='mx-2'
+                className='mx-2 cursor-hover'
               >
                 <Media
                   imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
@@ -206,7 +208,10 @@ const ProfileConnected = ({ dropDownLinks }) => {
             'pl-2'
           )}
         >
-          <a className='pb-1'>
+          <a 
+            className='pb-1'
+            onClick={()=>redirectTo('/profile')} 
+          >
             My Profile
             </a>
           <a className='pb-2'>

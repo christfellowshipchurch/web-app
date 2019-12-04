@@ -22,6 +22,8 @@ const TextInput = ({
   withSuccess,
   value,
   icon,
+  hideIcon,
+  readOnly,
   ...inputProps
 }) => {
   const [focused, setFocused] = useState(false)
@@ -47,9 +49,9 @@ const TextInput = ({
       label={label}
       placeholder={placeholder}
       description={error && !disabled ? error : description}
-      focused={focused || !!inputValue}
+      focused={readOnly ? false : focused || !!inputValue}
       hasValue={!!inputValue && inputValue !== ''}
-      prefix={<InputIcon icon={icon} color={prefixColor} />}
+      prefix={!!icon && <InputIcon icon={icon} color={hideIcon ? 'transparent' : prefixColor} />}
       suffix={suffix && <InputIcon icon={suffix.icon} color={suffix.color} />}
     >
       <input
@@ -59,10 +61,10 @@ const TextInput = ({
         className="w-100 py-0"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
+        onMouseEnter={readOnly ? false : () => setHovering(true)}
+        onMouseLeave={readOnly ? false : () => setHovering(false)}
         onChange={(e) => { setInputValue(e.target.value); onChange(e) }}
-        disabled={disabled}
+        disabled={disabled || readOnly}
         {...inputProps} />
     </InputContainer>
   )
@@ -70,12 +72,16 @@ const TextInput = ({
 
 TextInput.defaultProps = {
   onChange: () => { },
-  icon: faUser
+  icon: faUser,
+  hideIcon: false,
+  readOnly: false
 }
 
 TextInput.propTypes = {
   onChange: PropTypes.func,
-  icon: PropTypes.object
+  icon: PropTypes.object,
+  hideIcon: PropTypes.bool,
+  readOnly: PropTypes.bool
 }
 
 export default TextInput

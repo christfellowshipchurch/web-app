@@ -81,6 +81,12 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
     }
 }
 
+.cursor-hover {
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .focus-indicator-none:focus { 
     outline-width: 0 !important;
     border: none !important; 
@@ -239,3 +245,16 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
 }
 //
 
+// Profile
+.profile-banner {
+    max-height: 45vh !important;
+    @media (min-width: 768px) {
+        max-height: 35vh !important;
+    }
+}
+.profile-bar {
+    @media (min-width: 768px) {
+        border-right: 1px solid lightgrey;
+    }
+}
+//
