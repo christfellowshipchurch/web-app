@@ -8,22 +8,31 @@ const Checkbox = ({
     type,
     label,
     error,
+    disabled,
     ...buttonProps
 }) => {
     const types = typeof (type) === 'string'
         ? { default: type, hover: type, checked: type }
         : type
 
+    if(disabled){
+        types.checked = 'dark'
+        types.hover = 'dark'
+    }
+
     return (
         <div className="text-left">
-            <a
-                href="#"
+            <a  
+                href='#'
                 onClick={(e) => {
                     e.preventDefault()
                     onClick()
                 }}
-                className={classnames(
+                className={classnames(            
                     'btn-checkbox',
+                    {
+                        'disable' : disabled
+                    },
                     {
                         [`text-${types.default}`]: !checked,
                         [`text-${types.checked}`]: checked,
@@ -73,6 +82,7 @@ Checkbox.propTypes = {
         })
     ]),
     label: PropTypes.string,
+    disabled: PropTypes.bool
 }
 
 Checkbox.defaultProps = {
@@ -83,7 +93,8 @@ Checkbox.defaultProps = {
         hover: 'primary',
         checked: 'primary',
     },
-    label: null
+    label: null,
+    disabled: false
 }
 
 export default Checkbox

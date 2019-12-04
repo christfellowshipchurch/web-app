@@ -48,6 +48,12 @@ export const GET_CURRENT_PERSON = gql`
                 ethnicity
                 birthDate
 
+                communicationPreferences {
+                  allowPushNotification
+                  allowSMS
+                  allowEmail
+                }
+
                 campus {
                     featuredImage {
                         uri

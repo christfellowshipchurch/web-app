@@ -43,7 +43,7 @@ const ProfileBanner = ({
                 imageUrl={profileImage}
                 imageAlt='profile-photo'
                 circle
-                className='w-75 m-auto'
+                className='w-75 m-auto shadow-lg'
               />
               <h1 className={classnames(
                 'text-white', 

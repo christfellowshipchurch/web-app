@@ -120,36 +120,43 @@ const ProfileConnected = ({ dropDownLinks }) => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-
-          {get(data, 'currentUser.profile.photo.uri', '') !== ''
-            ? (
-              <div
-                onClick={()=>redirectTo('/profile')}
-                style={{ width: 48, height: 48 }}
-                className='mx-2 cursor-hover'
-              >
-                <Media
-                  imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
-                  imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
-                  ratio="1by1"
-                  circle
-                />
-              </div>
-            )
-            : <i className="fal fa-user-circle fa-2x"></i>
-          }
-
-          <p
+          <div
+            onClick={()=>redirectTo('/profile')}
             className={classnames(
-              'mb-0',
-              'ml-4',
-              'p-1',
-              'nav-link',
-              'text-dark'
+              'd-flex',
+              'align-items-center',
+              'cursor-hover'
             )}
           >
-            {get(data, 'currentUser.profile.firstName')}
-          </p>
+            <p
+              className={classnames(
+                'mb-0',
+                'ml-4',
+                'p-1',
+                'nav-link',
+                'text-dark'
+              )}
+            >
+              {get(data, 'currentUser.profile.firstName')}
+            </p>
+            {get(data, 'currentUser.profile.photo.uri', '') !== ''
+              ? (
+                <div
+                  style={{ width: 48, height: 48 }}
+                  className='mx-2'
+                >
+                  <Media
+                    imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
+                    imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
+                    ratio="1by1"
+                    circle
+                  />
+                </div>
+              )
+              : <i className="fal fa-user-circle fa-2x"></i>
+            }          
+          </div>
+          
 
         </div>
       </div>
@@ -164,6 +171,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
         )}
       >
         <div
+          onClick={()=>redirectTo('/profile')}
           className={classnames(
             'd-flex',
             'align-items-center',
@@ -210,10 +218,10 @@ const ProfileConnected = ({ dropDownLinks }) => {
         >
           <a 
             className='pb-1'
-            onClick={()=>redirectTo('/profile')} 
+            onClick={()=>redirectTo('/profile')}
           >
             My Profile
-            </a>
+          </a>
           <a className='pb-2'>
             Preferences
           </a>

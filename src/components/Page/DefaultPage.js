@@ -13,6 +13,7 @@ import SEO from '../../seo'
 import PixelManager from '../PixelManager'
 
 import Loader from '../../ui/Loader'
+import { useAuth } from '../../auth'
 
 // import ContentContainer from ''
 import {  
@@ -24,7 +25,7 @@ import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
 
 
-const DefaultPage = ({ title, match: { params: { page } } }) => {
+const DefaultPage = ({ title, match: { params: { page } }, showLogIn }) => {
   PixelManager.initWithPageView(`/${page || ''}`)
 
   const website = process.env.REACT_APP_WEBSITE_KEY
@@ -35,6 +36,8 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
     || pageTitle === '/'
     || pageTitle === 'home/'
     || pageTitle === 'home-page/'
+
+  const { logIn } = useAuth()
 
   const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: pageTitle } })
 
@@ -61,6 +64,11 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
     openGraphProtocols,
     twitterProtocols,
   } = blockItems
+
+  // if showLogIn logIn()  <--- import from useAuth
+  if(showLogIn){
+    logIn()
+  }
 
   return (
     <div className="container-fluid">
@@ -122,6 +130,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
 
 DefaultPage.defaultProps = {
   title: 'home',
+  showLogIn: false
 }
 
 DefaultPage.propTypes = {

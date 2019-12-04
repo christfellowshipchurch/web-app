@@ -11,7 +11,11 @@ const Router = () => {
 
     return isLoggedIn
         ? <Route exact path="/profile" component={ProfilePage} />
-        : <Default title="home-page" match={{ params: { page: null } }} />
+        : <Default 
+            title="home-page" 
+            showLogIn
+            match={{ params: { page: null } }} 
+        />
 }
 
 export default Router

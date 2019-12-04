@@ -32,6 +32,8 @@ const Profile = () => {
         </div>
     ) 
 
+    console.log({data})
+
     return (
         <>         
             <div className="container mt-4 mb-6 max-width-800">
@@ -74,12 +76,6 @@ const Profile = () => {
                         <h4 className='font-weight-light mb-5'>
                             {get(data, 'currentUser.profile.gender', '')}
                         </h4>
-                        <h4 className={headerClass}>
-                            Ethnicity:
-                        </h4>
-                        <h4 className='font-weight-light'>
-                            {get(data, 'currentUser.profile.ethnicity', '')}
-                        </h4>
                     </div>
                     <div
                         className={classnames(
@@ -100,8 +96,13 @@ const Profile = () => {
                                 readOnly
                             />
 
-                            <div className='d-flex align-items-center my-4 ml-1'>
-                                <Checkbox/>
+                            <div className='d-flex align-items-center mb-5 mt-2 ml-1'>
+                                <Checkbox
+                                    checked={
+                                        get(data, 'currentUser.profile.communicationPreferences.allowEmail', false)
+                                        }
+                                    disabled
+                                />
                                 <p className='mb-0 ml-2'>Allow Email Notifications</p>
                             </div>
                             
@@ -112,8 +113,13 @@ const Profile = () => {
                                 readOnly
                             />
 
-                            <div className='d-flex align-items-center my-4 ml-1'>
-                                <Checkbox/>
+                            <div className='d-flex align-items-center mb-4 mt-2 ml-1'>
+                                <Checkbox
+                                    checked={
+                                        get(data, 'currentUser.profile.communicationPreferences.allowSMS', false)
+                                    }
+                                    disabled
+                                />
                                 <p className='mb-0 ml-2'>Allow Text Notifications</p>
                             </div>
                     </div>

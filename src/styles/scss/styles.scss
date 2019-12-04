@@ -74,7 +74,10 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
 // Misc
 .disable {
     color: #e2e2e2;
-    cursor: default;
+    cursor: default !important;
+    &:hover {
+        color: #e2e2e2;
+    }
 
     &:placeholder {
         color: #e2e2e2;
