@@ -71,6 +71,7 @@ const Browse = ({
     // }, [activeFilterId, activeCategory])
 
     const handleSelect = (selectedIndex, e) => {
+        e.preventDefault()
         setIndex(selectedIndex)
     }
 

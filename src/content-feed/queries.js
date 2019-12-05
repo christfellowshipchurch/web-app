@@ -26,6 +26,7 @@ export const GET_CONTENT_FEED = gql`
 
       ... on ContentItem {
         id
+        title
 
         childContentItemsConnection(after: $after, first: $first) @include(if: $child) {
           pageInfo {

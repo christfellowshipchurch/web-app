@@ -9,11 +9,11 @@ const BrowseFilters = ({
 }) => {
 
     return (
-        <ul 
+        <ul
             className="list-inline text-nowrap overflow-x-scroll"
         >
             {filters.map((n, i) => (
-                <li 
+                <li
                     key={i}
                     className="list-inline-item"
                 >
@@ -28,17 +28,18 @@ const BrowseFilters = ({
                                 'font-weight-normal': selected !== n.id,
                             }
                         )}
-                        
-                        onClick= {
-                            () => onChange({ id: n.id })
-                        }
-                        >
+
+                        onClick={(e) => {
+                            e.preventDefault()
+                            onChange({ id: n.id })
+                        }}
+                    >
                         {n.title}
                     </a>
                 </li>
             ))}
-        </ul> 
-        )
+        </ul>
+    )
 }
 
 BrowseFilters.propTypes = {

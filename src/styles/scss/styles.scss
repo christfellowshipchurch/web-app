@@ -64,6 +64,8 @@
 @import 'overflows.scss';
 @import 'opacity.scss';
 @import 'gradients.scss';
+@import 'embed.scss';
+@import 'typography.scss';
 
 html {
     font-size: 16px;
@@ -128,11 +130,6 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
     height: 10rem;
     border-radius: 100%;
     align-self: center;
-}
-
-.embed-responsive-item {
-    // forces media items to not stretch
-    object-fit: cover;
 }
 //
 
