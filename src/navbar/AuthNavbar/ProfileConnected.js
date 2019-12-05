@@ -119,35 +119,43 @@ const ProfileConnected = ({ dropDownLinks }) => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-
-          {get(data, 'currentUser.profile.photo.uri', '') !== ''
-            ? (
-              <div
-                style={{ width: 48, height: 48 }}
-                className='mx-2'
-              >
-                <Media
-                  imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
-                  imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
-                  ratio="1by1"
-                  circle
-                />
-              </div>
-            )
-            : <i className="fal fa-user-circle fa-2x"></i>
-          }
-
-          <p
+          <a
+            href='/profile'
             className={classnames(
-              'mb-0',
-              'ml-4',
-              'p-1',
-              'nav-link',
-              'text-dark'
+              'd-flex',
+              'align-items-center',
+              'cursor-hover',
+              'text-dark',
             )}
           >
-            {get(data, 'currentUser.profile.firstName')}
-          </p>
+            <p
+              className={classnames(
+                'mb-0',
+                'ml-4',
+                'p-1',
+                'nav-link',
+              )}
+            >
+              {get(data, 'currentUser.profile.firstName')}
+            </p>
+            {get(data, 'currentUser.profile.photo.uri', '') !== ''
+              ? (
+                <div
+                  style={{ width: 48, height: 48 }}
+                  className='mx-2'
+                >
+                  <Media
+                    imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
+                    imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
+                    ratio="1by1"
+                    circle
+                  />
+                </div>
+              )
+              : <i className="fal fa-user-circle fa-2x"></i>
+            }
+          </a>
+
 
         </div>
       </div>
@@ -158,21 +166,25 @@ const ProfileConnected = ({ dropDownLinks }) => {
         className={classnames(
           'd-lg-none',
           'mt-5',
-          'pl-3'
+          'pl-4'
         )}
       >
-        <div
+        <a
+          href='/profile'
           className={classnames(
             'd-flex',
             'align-items-center',
             'pb-3',
+            'nav-link',
+            'text-dark',
+            'px-0'
           )}
         >
           {get(data, 'currentUser.profile.photo.uri', '') !== ''
             ? (
               <div
                 style={{ width: 48, height: 48 }}
-                className='mx-2'
+                className='mr-2'
               >
                 <Media
                   imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
@@ -184,17 +196,8 @@ const ProfileConnected = ({ dropDownLinks }) => {
             )
             : <i className="fal fa-user-circle fa-2x"></i>
           }
-          <p
-            className={classnames(
-              'nav-link',
-              'text-dark',
-              'mb-0',
-              'pl-0'
-            )}
-          >
-            {get(data, 'currentUser.profile.firstName')}
-          </p>
-        </div>
+          {get(data, 'currentUser.profile.firstName')}
+        </a>
 
         <div
           className={classnames(
@@ -202,14 +205,19 @@ const ProfileConnected = ({ dropDownLinks }) => {
             'flex-column',
             'nav-link',
             'text-dark',
-            'pt-1',
-            'pl-2'
+            'px-0'
           )}
         >
-          <a className='pb-1'>
+          <a
+            href='/profile'
+            className='my-1 text-dark'
+          >
             My Profile
-            </a>
-          <a className='pb-2'>
+          </a>
+          <a
+            href='/profile'
+            className='my-1 text-dark'
+          >
             Preferences
           </a>
         </div>

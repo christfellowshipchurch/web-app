@@ -13,9 +13,10 @@ import SEO from '../../seo'
 import PixelManager from '../PixelManager'
 
 import Loader from '../../ui/Loader'
+import { useAuth } from '../../auth'
 
 // import ContentContainer from ''
-import {  
+import {
   Block,
   BackgroundContentBlock,
   GroupBlock,
@@ -24,7 +25,7 @@ import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
 
 
-const DefaultPage = ({ title, match: { params: { page } } }) => {
+const DefaultPage = ({ title, match: { params: { page } }, showLogIn }) => {
   PixelManager.initWithPageView(`/${page || ''}`)
 
   const website = process.env.REACT_APP_WEBSITE_KEY
@@ -87,8 +88,8 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
               content = <BackgroundContentBlock {...item} className={topPadding} />
             } else {
               content = (
-                          <Block {...item} className={topPadding} />
-                        )
+                <Block {...item} className={topPadding} />
+              )
             }
             break
           case 'WebsiteGroupItem':
@@ -122,6 +123,7 @@ const DefaultPage = ({ title, match: { params: { page } } }) => {
 
 DefaultPage.defaultProps = {
   title: 'home',
+  showLogIn: false
 }
 
 DefaultPage.propTypes = {

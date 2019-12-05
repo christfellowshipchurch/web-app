@@ -116,6 +116,7 @@ const PasscodeForm = ({
                         label={inputLabel[type]}
                         onChange={(e) => setValue('passcode', get(e, 'target.value', ''))}
                         disabled={submitting}
+                        value={get(values, 'passcode', '')}
                     />
                 </div>
             </div>

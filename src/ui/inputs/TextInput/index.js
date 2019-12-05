@@ -22,11 +22,12 @@ const TextInput = ({
   withSuccess,
   value,
   icon,
+  hideIcon,
+  readOnly,
   ...inputProps
 }) => {
   const [focused, setFocused] = useState(false)
   const [hovering, setHovering] = useState(false)
-  const [inputValue, setInputValue] = useState(value)
   const prefixColor = (focused || hovering) && !disabled
     ? '#00aeef'
     : disabled ? '#e6e6e6' : '#525252'
@@ -47,9 +48,9 @@ const TextInput = ({
       label={label}
       placeholder={placeholder}
       description={error && !disabled ? error : description}
-      focused={focused || !!inputValue}
-      hasValue={!!inputValue && inputValue !== ''}
-      prefix={<InputIcon icon={icon} color={prefixColor} />}
+      focused={readOnly ? false : focused || !!value}
+      hasValue={!!value && value !== ''}
+      prefix={!!icon && <InputIcon icon={icon} color={hideIcon ? 'transparent' : prefixColor} />}
       suffix={suffix && <InputIcon icon={suffix.icon} color={suffix.color} />}
     >
       <input
@@ -59,10 +60,10 @@ const TextInput = ({
         className="w-100 py-0"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-        onChange={(e) => { setInputValue(e.target.value); onChange(e) }}
-        disabled={disabled}
+        onMouseEnter={() => { !readOnly && setHovering(true) }}
+        onMouseLeave={() => { !readOnly && setHovering(false) }}
+        onChange={(e) => onChange(e)}
+        disabled={disabled || readOnly}
         {...inputProps} />
     </InputContainer>
   )
@@ -70,12 +71,16 @@ const TextInput = ({
 
 TextInput.defaultProps = {
   onChange: () => { },
-  icon: faUser
+  icon: faUser,
+  hideIcon: false,
+  readOnly: false
 }
 
 TextInput.propTypes = {
   onChange: PropTypes.func,
-  icon: PropTypes.object
+  icon: PropTypes.object,
+  hideIcon: PropTypes.bool,
+  readOnly: PropTypes.bool
 }
 
 export default TextInput

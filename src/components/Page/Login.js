@@ -1,17 +1,4 @@
-import React, { useState } from 'react'
-import gql from 'graphql-tag'
-import { get } from 'lodash'
-import classnames from 'classnames'
-import {
-  TextInput,
-  Button
-} from '@christfellowshipchurch/web-ui-kit'
-
-import {
-  useAuth,
-  useAuthQuery,
-} from '../../auth'
-
+import React from 'react'
 import LoginForm from '../../login'
 
 // import IdentityForm from '../../login/Identity'

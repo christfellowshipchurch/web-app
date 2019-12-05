@@ -114,6 +114,7 @@ const ProfileInformationForm = ({
                         label='First Name*'
                         onChange={(e) => setValue('firstName', get(e, 'target.value', ''))}
                         disabled={submitting}
+                        value={get(values, 'firstName', '')}
                     />
                 </div>
             </div>
@@ -125,6 +126,7 @@ const ProfileInformationForm = ({
                         label='Last Name*'
                         onChange={(e) => setValue('lastName', get(e, 'target.value', ''))}
                         disabled={submitting}
+                        value={get(values, 'lastName', '')}
                     />
                 </div>
             </div>
