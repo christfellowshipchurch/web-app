@@ -287,6 +287,7 @@ const NavbarConnected = ({
           </div>
           <hr className='d-lg-none w-100' />
           <a
+            href="#"
             className={classnames(
               'p-1',
               'nav-link',
@@ -295,7 +296,10 @@ const NavbarConnected = ({
               'ml-3',
               'mb-5'
             )}
-            onClick={() => logout()}
+            onClick={(e) => {
+              e.preventDefault()
+              logout()
+            }}
           >
             Logout
           </a>

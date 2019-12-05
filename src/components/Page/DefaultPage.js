@@ -16,7 +16,7 @@ import Loader from '../../ui/Loader'
 import { useAuth } from '../../auth'
 
 // import ContentContainer from ''
-import {  
+import {
   Block,
   BackgroundContentBlock,
   GroupBlock,
@@ -36,8 +36,6 @@ const DefaultPage = ({ title, match: { params: { page } }, showLogIn }) => {
     || pageTitle === '/'
     || pageTitle === 'home/'
     || pageTitle === 'home-page/'
-
-  const { logIn } = useAuth()
 
   const { loading, error, data } = useQuery(getWebPageBlockItems, { variables: { website, title: pageTitle } })
 
@@ -65,11 +63,6 @@ const DefaultPage = ({ title, match: { params: { page } }, showLogIn }) => {
     twitterProtocols,
   } = blockItems
 
-  // if showLogIn logIn()  <--- import from useAuth
-  if(showLogIn){
-    logIn()
-  }
-
   return (
     <div className="container-fluid">
       <SEO
@@ -95,8 +88,8 @@ const DefaultPage = ({ title, match: { params: { page } }, showLogIn }) => {
               content = <BackgroundContentBlock {...item} className={topPadding} />
             } else {
               content = (
-                          <Block {...item} className={topPadding} />
-                        )
+                <Block {...item} className={topPadding} />
+              )
             }
             break
           case 'WebsiteGroupItem':
