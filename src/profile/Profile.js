@@ -48,13 +48,13 @@ const Profile = () => {
                 >
                     <h4 className={headerClass}>
                         My Campus:
-                        </h4>
+                    </h4>
                     <h4 className='font-weight-light mb-5'>
                         {get(profile, 'campus.name', '')}
                     </h4>
                     <h4 className={headerClass}>
                         Home Address:
-                        </h4>
+                    </h4>
                     <h4 className='font-weight-light'>
                         {get(profile, 'address.street1', '')}
                     </h4>

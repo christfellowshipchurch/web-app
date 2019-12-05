@@ -46,7 +46,7 @@ const MediaItem = ({
     : keys(ratio).map(n => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''))
 
   if (circle) {
-    ratioClass = '1by1'
+    ratioClass = 'embed-responsive-1by1'
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
