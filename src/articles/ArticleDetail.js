@@ -38,8 +38,6 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     </h3>
   }
 
-  console.log('data: ', {data})
-
   const article = get(data, 'getArticleByTitle', null)
 
   if (!article) {
@@ -100,7 +98,6 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
                   </p>
                   <p className='my-1'>
                     {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
-                    {console.log({article})}
                   </p>
                 </div>
               </div>

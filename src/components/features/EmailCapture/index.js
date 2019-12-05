@@ -61,6 +61,7 @@ const EmailCapture = ({
                         label="First Name"
                         onChange={(e) => setFieldValue('firstName', get(e, 'target.value', ''))}
                         disabled={isLoading}
+                        value={get(values, 'firstName', '')}
                     />
                 </div>
             </div>
@@ -70,6 +71,7 @@ const EmailCapture = ({
                         label="Last Name"
                         onChange={(e) => setFieldValue('lastName', get(e, 'target.value', ''))}
                         disabled={isLoading}
+                        value={get(values, 'lastName', '')}
                     />
                 </div>
             </div>
@@ -81,6 +83,7 @@ const EmailCapture = ({
                         onChange={(e) => setFieldValue('email', get(e, 'target.value', ''))}
                         error={has(values, 'email') && has(errors, 'email') ? get(errors, 'email', null) : null}
                         disabled={isLoading}
+                        value={get(values, 'email', '')}
                     />
                 </div>
             </div>

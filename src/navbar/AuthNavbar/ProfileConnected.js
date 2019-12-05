@@ -11,7 +11,6 @@ import { Media } from '@christfellowshipchurch/web-ui-kit'
 import { useAuth, useAuthQuery } from '../../auth'
 import { GET_PROFILE_IMAGE } from '../queries'
 import ContactUsButton from './ContactUsButton'
-import { redirectTo } from '../../utils'
 
 const ProfileConnected = ({ dropDownLinks }) => {
   const { logout } = useAuth()
@@ -120,12 +119,13 @@ const ProfileConnected = ({ dropDownLinks }) => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <div
-            onClick={()=>redirectTo('/profile')}
+          <a
+            href='/profile'
             className={classnames(
               'd-flex',
               'align-items-center',
-              'cursor-hover'
+              'cursor-hover',
+              'text-dark',
             )}
           >
             <p
@@ -134,7 +134,6 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 'ml-4',
                 'p-1',
                 'nav-link',
-                'text-dark'
               )}
             >
               {get(data, 'currentUser.profile.firstName')}
@@ -154,9 +153,9 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 </div>
               )
               : <i className="fal fa-user-circle fa-2x"></i>
-            }          
-          </div>
-          
+            }
+          </a>
+
 
         </div>
       </div>
@@ -167,22 +166,25 @@ const ProfileConnected = ({ dropDownLinks }) => {
         className={classnames(
           'd-lg-none',
           'mt-5',
-          'pl-3'
+          'pl-4'
         )}
       >
-        <div
-          onClick={()=>redirectTo('/profile')}
+        <a
+          href='/profile'
           className={classnames(
             'd-flex',
             'align-items-center',
             'pb-3',
+            'nav-link',
+            'text-dark',
+            'px-0'
           )}
         >
           {get(data, 'currentUser.profile.photo.uri', '') !== ''
             ? (
               <div
                 style={{ width: 48, height: 48 }}
-                className='mx-2'
+                className='mr-2'
               >
                 <Media
                   imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
@@ -194,17 +196,8 @@ const ProfileConnected = ({ dropDownLinks }) => {
             )
             : <i className="fal fa-user-circle fa-2x"></i>
           }
-          <p
-            className={classnames(
-              'nav-link',
-              'text-dark',
-              'mb-0',
-              'pl-0'
-            )}
-          >
-            {get(data, 'currentUser.profile.firstName')}
-          </p>
-        </div>
+          {get(data, 'currentUser.profile.firstName')}
+        </a>
 
         <div
           className={classnames(
@@ -212,17 +205,19 @@ const ProfileConnected = ({ dropDownLinks }) => {
             'flex-column',
             'nav-link',
             'text-dark',
-            'pt-1',
-            'pl-2'
+            'px-0'
           )}
         >
-          <a 
-            className='pb-1'
-            onClick={()=>redirectTo('/profile')}
+          <a
+            href='/profile'
+            className='my-1 text-dark'
           >
             My Profile
           </a>
-          <a className='pb-2'>
+          <a
+            href='/profile'
+            className='my-1 text-dark'
+          >
             Preferences
           </a>
         </div>

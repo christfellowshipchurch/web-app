@@ -25,8 +25,8 @@ const ProfilePage = () => {
     }
 
     return (
-    <>
-        <ProfileBanner
+        <>
+            <ProfileBanner
                 coverImage={
                     get(data, 'currentUser.profile.campus.featuredImage.uri', '')
                 }
@@ -38,35 +38,34 @@ const ProfilePage = () => {
                 onEdit={() => {
                     //Edit Profile not completed
                     // handleSelect(1)
-                  }}
+                }}
                 onSave={() => {
                     handleSelect(0)
-                  }}
+                }}
                 onCancel={() => {
                     handleSelect(0)
-                  }}
-         />
+                }}
+            />
 
-        <Carousel
+            <Carousel
                 activeIndex={index}
                 onSelect={handleSelect}
                 controls={false}
                 indicators={false}
                 interval={null}
                 touch={false}
-        >
+            >
                 <Carousel.Item>
                     <Profile />
                 </Carousel.Item>
                 <Carousel.Item>
-                    <EditProfile 
-                        
-                    />
+                    <EditProfile />
                 </Carousel.Item>
                 <Carousel.Item />
-        </Carousel>
-    </>
-)}
+            </Carousel>
+        </>
+    )
+}
 
 
 export default ProfilePage

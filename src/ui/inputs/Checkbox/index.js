@@ -15,23 +15,23 @@ const Checkbox = ({
         ? { default: type, hover: type, checked: type }
         : type
 
-    if(disabled){
+    if (disabled) {
         types.checked = 'dark'
         types.hover = 'dark'
     }
 
     return (
         <div className="text-left">
-            <a  
+            <a
                 href='#'
                 onClick={(e) => {
                     e.preventDefault()
                     onClick()
                 }}
-                className={classnames(            
+                className={classnames(
                     'btn-checkbox',
                     {
-                        'disable' : disabled
+                        'disable': disabled
                     },
                     {
                         [`text-${types.default}`]: !checked,
@@ -40,10 +40,14 @@ const Checkbox = ({
                 )}
                 {...buttonProps}
             >
-                {checked
-                    ? <i className="fal fa-check-square pl-1"></i>
-                    : <i className="fal fa-square pl-1"></i>
-                }
+                <i className={classnames(
+                    "fal",
+                    "pl-1",
+                    {
+                        "fa-check-square": checked,
+                        "fa-square": !checked,
+                    },
+                )}></i>
             </a>
             {error &&
                 <label

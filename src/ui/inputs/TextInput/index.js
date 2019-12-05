@@ -28,7 +28,6 @@ const TextInput = ({
 }) => {
   const [focused, setFocused] = useState(false)
   const [hovering, setHovering] = useState(false)
-  const [inputValue, setInputValue] = useState(value)
   const prefixColor = (focused || hovering) && !disabled
     ? '#00aeef'
     : disabled ? '#e6e6e6' : '#525252'
@@ -49,8 +48,8 @@ const TextInput = ({
       label={label}
       placeholder={placeholder}
       description={error && !disabled ? error : description}
-      focused={readOnly ? false : focused || !!inputValue}
-      hasValue={!!inputValue && inputValue !== ''}
+      focused={readOnly ? false : focused || !!value}
+      hasValue={!!value && value !== ''}
       prefix={!!icon && <InputIcon icon={icon} color={hideIcon ? 'transparent' : prefixColor} />}
       suffix={suffix && <InputIcon icon={suffix.icon} color={suffix.color} />}
     >
@@ -61,9 +60,9 @@ const TextInput = ({
         className="w-100 py-0"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onMouseEnter={readOnly ? false : () => setHovering(true)}
-        onMouseLeave={readOnly ? false : () => setHovering(false)}
-        onChange={(e) => { setInputValue(e.target.value); onChange(e) }}
+        onMouseEnter={() => { !readOnly && setHovering(true) }}
+        onMouseLeave={() => { !readOnly && setHovering(false) }}
+        onChange={(e) => onChange(e)}
         disabled={disabled || readOnly}
         {...inputProps} />
     </InputContainer>

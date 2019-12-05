@@ -14,10 +14,10 @@ const ProfileBanner = ({
   onCancel
 }) => {
 
-  const [ edit, setEdit ] = useState()
+  const [edit, setEdit] = useState()
 
   return (
-    <div 
+    <div
       className='container-fluid'
     >
       <div className='row'>
@@ -32,7 +32,7 @@ const ProfileBanner = ({
             ratio="1by1"
             gradient="black"
           >
-            <div 
+            <div
               className={classnames(
                 'd-flex',
                 'flex-column',
@@ -46,10 +46,10 @@ const ProfileBanner = ({
                 className='w-75 m-auto shadow-lg'
               />
               <h1 className={classnames(
-                'text-white', 
+                'text-white',
                 'text-center',
                 'mt-3',
-                'mb-0'  
+                'mb-0'
               )}>
                 {name}
               </h1>
@@ -64,9 +64,10 @@ const ProfileBanner = ({
                 {campus}
               </p>
               {edit
-              ?               
+                ?
                 <>
-                  <Button 
+                  <Button
+                    style={{ borderRadius: 3 }}
                     title='Save'
                     size='sm'
                     onClick={
@@ -76,7 +77,7 @@ const ProfileBanner = ({
                         setEdit(false)
                       }}
                   />
-                  <Button 
+                  <Button
                     title='cancel'
                     type='link'
                     size='sm'
@@ -87,24 +88,24 @@ const ProfileBanner = ({
                         setEdit(false)
                       }}
                   />
-                </>     
-              :
-                <Button 
-                    className='p-2 w-75'
-                    title='Edit Profile'
-                    //Edit Profile not completed
-                    // onClick={
-                    //   (e) => {
-                    //     e.preventDefault()
-                    //     onEdit()
-                    //     setEdit(true)
-                    //   }}
-                    type='light'
-                    size='sm'
-                />        
+                </>
+                :
+                <Button
+                  className='p-2 w-75'
+                  title='Edit Profile'
+                  //Edit Profile not completed
+                  // onClick={
+                  //   (e) => {
+                  //     e.preventDefault()
+                  //     onEdit()
+                  //     setEdit(true)
+                  //   }}
+                  type='light'
+                  size='sm'
+                />
               }
             </div>
-            
+
 
           </Media>
         </div>
