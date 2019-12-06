@@ -32,7 +32,9 @@ const AccordionItem = ({
                 className={classnames(
                     'bg-white',
                     'rounded',
-                    'shadow-sm'
+                    'shadow-sm',
+                    'border',
+                    'border-light',
                 )}
             >
                 <button
@@ -43,13 +45,13 @@ const AccordionItem = ({
                         "w-100",
                         "text-left",
                         "bg-transparent",
-                        "border-light",
                         "rounded",
                         "focus-indicator-none",
                         "d-flex",
                         "flex-row",
                         "justify-content-between",
-                        "align-items-center"
+                        "align-items-center",
+                        'border-0'
                     )}
                 >
                     <span>{title}</span>
