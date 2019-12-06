@@ -28,8 +28,7 @@ const ProfileBanner = ({
           <Media
             imageUrl={coverImage}
             imageAlt='cover-photo'
-            className='profile-banner'
-            ratio="1by1"
+            ratio={{ xs: "1by1", md: '16by9', lg: '21by9' }}
             gradient="black"
           >
             <div
