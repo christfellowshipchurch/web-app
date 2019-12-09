@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GET_LIVE_STREAM } from './queries'
 import { redirectTo } from '../../utils'
 
-  const LiveBanner = () => {
+  const LiveBanner = ( ) => {
     const [closed, isClosed] = useState(false)
 
     const { loading, error, data } = useQuery(GET_LIVE_STREAM, {
@@ -20,8 +20,8 @@ import { redirectTo } from '../../utils'
     if (loading || error) return null
 
     const isLive = get(data, 'liveStream.isLive', false)
-    const startTime = moment(get(data, 'liveStream.eventStartTime', null)).format('hh')
-    const currentTime = moment().format('hh mm').split(' ').map(Number)
+    const startTime = moment(get(data, 'liveStream.eventStartTime', null)).format('HH')
+    const currentTime = moment().format('HH mm').split(' ').map(Number)
 
     let almostLive = false
 
@@ -37,16 +37,18 @@ import { redirectTo } from '../../utils'
     console.log({ startTime }, { currentTime }, { almostLive })
 
     return isLive || almostLive ? (
-      <div className={classnames(
-        'bg-primary',
-        `d-${
-        closed
-          ? 'none'
-          : 'flex'
-        }`,
-        'justify-content-between',
-        'align-items-center',
-        'px-4'
+      <div 
+        className={classnames(
+          'w-100',
+          'bg-primary',
+          `d-${
+            closed
+              ? 'none'
+              : 'flex'
+            }`,
+          'justify-content-between',
+          'align-items-center',
+          'px-4'
       )}>
         <div
           className='d-none d-lg-block'

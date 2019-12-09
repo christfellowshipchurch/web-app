@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { LiveBanner } from '../../ui'
-
+import LiveBanner from '../../navbar/LiveBanner'
 const DefaultPage = () => {
   return (
     <LiveBanner />

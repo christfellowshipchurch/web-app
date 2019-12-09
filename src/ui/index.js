@@ -8,7 +8,6 @@ import Carousel from './Carousel'
 import ContentContainer from './ContentContainer'
 import GroupBlock from './GroupBlock'
 import Layout from './Layout'
-import LiveBanner from './LiveBanner'
 import Loader from './Loader'
 import Media from './Media'
 import Row from './Row'
@@ -25,7 +24,6 @@ export {
     ContentContainer,
     GroupBlock,
     Layout,
-    LiveBanner,
     Loader,
     Media,
     Row

@@ -23,7 +23,7 @@ import { useAuth } from '../../auth'
 import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from '../queries'
 import ProfileConnected from './ProfileConnected'
 import ContactUsButton from './ContactUsButton'
-
+import LiveBanner from '../LiveBanner'
 
 
 // Takes a collection of images from the API's return data and formats
@@ -104,9 +104,24 @@ const NavbarConnected = ({
     <Navbar
       {...navbarProps}
       id="user-profile-navbar-connected"
+      className={classnames(
+        'container-fluid',
+        'd-flex',
+        'flex-column',
+        'p-0'
+      )}
     >
 
-      {/* Mobile Brand Image */}
+      <div
+        className={classnames(
+          'row',
+          'w-100',
+          'p-2',
+          'd-flex',
+          'justify-content-between'
+        )}
+      >
+         {/* Mobile Brand Image */}
       {brandImage &&
         <BrandImg
           uri={brandImage.uri}
@@ -306,7 +321,10 @@ const NavbarConnected = ({
 
         </div>
       </Navbar.Collapse>
-
+      </div>
+      <div className='row w-100'>
+          <LiveBanner/>
+      </div>
     </Navbar>
   )
 }
