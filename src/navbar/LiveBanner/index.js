@@ -8,11 +8,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { GET_LIVE_STREAM } from './queries'
 import { redirectTo } from '../../utils'
+import { useAuth } from '../../auth'
 
 const liveBadge = <p className='badge badge-danger'>LIVE</p>
 
   const LiveBanner = () => {
     const [closed, isClosed] = useState(false)
+    const { isLoggedIn } = useAuth()
 
     const { loading, error, data } = useQuery(GET_LIVE_STREAM, {
       fetchPolicy: "cache-and-network",
@@ -39,9 +41,11 @@ const liveBadge = <p className='badge badge-danger'>LIVE</p>
 
     const page = window.location.pathname
     let homepage
-    if(page === '' || page === '/'){
-      homepage = true
-    }
+    if(!isLoggedIn){
+      if(page === '' || page === '/'){
+        homepage = true
+      }
+    } 
 
     console.log({ startTime }, { currentTime }, { almostLive })
 
