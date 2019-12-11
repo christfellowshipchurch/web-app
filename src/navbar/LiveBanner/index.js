@@ -38,7 +38,7 @@ const liveBadge = <p className='badge badge-danger'>LIVE</p>
       }
     }
 
-
+    //checks if the user is on home page AND logged out in order to display Light Banner
     const page = window.location.pathname
     let homepage
     if(!isLoggedIn){
