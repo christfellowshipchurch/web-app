@@ -10,8 +10,6 @@ import { GET_LIVE_STREAM } from './queries'
 import { redirectTo } from '../../utils'
 import { useAuth } from '../../auth'
 
-const liveBadge = <p className='badge badge-danger'>LIVE</p>
-
   const LiveBanner = () => {
     const [closed, isClosed] = useState(false)
     const { isLoggedIn } = useAuth()
@@ -24,37 +22,36 @@ const liveBadge = <p className='badge badge-danger'>LIVE</p>
     if (loading || error) return null
 
     const isLive = get(data, 'liveStream.isLive', false)
-    const startTime = moment(get(data, 'liveStream.eventStartTime', null)).format('HH')
-    const currentTime = moment().format('HH mm').split(' ').map(Number)
+    const startTime = moment(get(data, 'liveStream.eventStartTime', Date())).format('HHmm')
+    const halfHourBefore = moment(get(data, 'liveStream.eventStartTime', Date())).subtract(30, 'minutes').format('HHmm')
+    const currentTime = moment().format('HHmm')
 
     let almostLive = false
 
     //checks if service starts in the next 30 min
     if (!isLive) {
-      if (startTime - currentTime[0] == 1) {
-        if (currentTime[1] > 29){
-          almostLive = true
-        }
+      if ( halfHourBefore < currentTime < startTime) {
+        almostLive = true
       }
     }
 
     //checks if the user is on home page AND logged out in order to display Light Banner
     const page = window.location.pathname
-    let homepage
+    let lightBanner
     if(!isLoggedIn){
       if(page === '' || page === '/'){
-        homepage = true
+        lightBanner = true
       }
     } 
 
-    console.log({ startTime }, { currentTime }, { almostLive })
+    console.log({ halfHourBefore }, { currentTime }, { startTime })
 
     return isLive || almostLive ? (
       <div 
         className={classnames(
           'w-100',
           `bg-${
-            homepage
+            lightBanner
               ? 'white'
               : 'primary'
             }`,
@@ -80,7 +77,7 @@ const liveBadge = <p className='badge badge-danger'>LIVE</p>
         >
           <h4 className={classnames(
             `text-${
-              homepage
+              lightBanner
                 ? 'dark'
                 : 'white'
             }`,
@@ -112,7 +109,7 @@ const liveBadge = <p className='badge badge-danger'>LIVE</p>
               'my-2',
             )}
             color={
-              homepage
+              lightBanner
               ? 'grey'
               : 'white'}
             icon={faTimes}
