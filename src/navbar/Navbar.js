@@ -103,6 +103,9 @@ const NavbarConnected = ({
             'p-0'
           )}
         >
+        <div className='row w-100'>
+          <LiveBanner/>
+        </div>
         <div className={classnames(
           'row',
           'w-100',
@@ -167,9 +170,6 @@ const NavbarConnected = ({
             </Nav>
 
           </Navbar.Collapse>
-        </div>
-        <div className='row w-100'>
-          <LiveBanner/>
         </div>
       </Navbar>
     )

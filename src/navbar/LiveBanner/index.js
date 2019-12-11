@@ -9,7 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GET_LIVE_STREAM } from './queries'
 import { redirectTo } from '../../utils'
 
-  const LiveBanner = ( ) => {
+const liveBadge = <p className='badge badge-danger'>LIVE</p>
+
+  const LiveBanner = () => {
     const [closed, isClosed] = useState(false)
 
     const { loading, error, data } = useQuery(GET_LIVE_STREAM, {
@@ -34,13 +36,24 @@ import { redirectTo } from '../../utils'
       }
     }
 
+
+    const page = window.location.pathname
+    let homepage
+    if(page === '' || page === '/'){
+      homepage = true
+    }
+
     console.log({ startTime }, { currentTime }, { almostLive })
 
     return isLive || almostLive ? (
       <div 
         className={classnames(
           'w-100',
-          'bg-primary',
+          `bg-${
+            homepage
+              ? 'white'
+              : 'primary'
+            }`,
           `d-${
             closed
               ? 'none'
@@ -48,7 +61,7 @@ import { redirectTo } from '../../utils'
             }`,
           'justify-content-between',
           'align-items-center',
-          'px-4'
+          'px-4',
       )}>
         <div
           className='d-none d-lg-block'
@@ -56,12 +69,36 @@ import { redirectTo } from '../../utils'
         <a
           href='#'
           onClick={() => redirectTo('https://live.gochristfellowship.com/', true)}
+          className={classnames(
+            'd-flex',
+            'align-items-center'
+          )}
         >
-          <h4 className='text-white mb-0'>
+          <h4 className={classnames(
+            `text-${
+              homepage
+                ? 'dark'
+                : 'white'
+            }`,
+            'mb-0'
+          )}>
             {almostLive
               ? 'We’re almost live! Join here!'
               : 'We’re live! Join now!'}
           </h4>
+          {!almostLive
+            ? <p 
+                className={classnames(
+                  'badge',
+                  'badge-danger',
+                  'mb-0',
+                  'mx-3'
+                )}
+              >
+                LIVE
+              </p>
+            : null
+          }
         </a>
         <div>
           <FontAwesomeIcon
@@ -70,7 +107,10 @@ import { redirectTo } from '../../utils'
               'cursor-hover',
               'my-2',
             )}
-            color='white'
+            color={
+              homepage
+              ? 'grey'
+              : 'white'}
             icon={faTimes}
             onClick={() => isClosed(true)}
           />

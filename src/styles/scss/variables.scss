@@ -11,11 +11,13 @@ $gray-900: #1a1a1a !default;
 $black: #000 !default;
 
 $cyan: #00aeef !default;
+$crimson: #d61b57;
 $light: $gray-100 !default;
 $dark: $gray-800 !default;
 
 $primary: $cyan !default;
 $secondary: $gray-500 !default;
+$danger: $crimson !default;
 
 $body-bg: #f6f6f6 !default;
 $body-color: $gray-500 !default;
@@ -108,3 +110,10 @@ $input-btn-padding-x-lg: 6rem !default;
 //Carousel overrides
 $carousel-control-opacity: 0;
 $carousel-control-hover-opacity: 0;
+
+//badges
+$badge-border-radius: 0.1rem !default;
+$badge-font-size: 85% !default;
+$badge-padding-x: 0.6rem !default;
+$badge-padding-y: 0.3rem !default;
+
