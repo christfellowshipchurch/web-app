@@ -1,0 +1,21 @@
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  
+      @each $embed-responsive-aspect-ratio in $embed-responsive-aspect-ratios {
+        $embed-responsive-aspect-ratio-x: nth($embed-responsive-aspect-ratio, 1);
+        $embed-responsive-aspect-ratio-y: nth($embed-responsive-aspect-ratio, 2);
+      
+        .embed-responsive#{$infix}-#{$embed-responsive-aspect-ratio-x}by#{$embed-responsive-aspect-ratio-y} {
+          &::before {
+            padding-top: percentage($embed-responsive-aspect-ratio-y / $embed-responsive-aspect-ratio-x);
+          }
+        }
+      }
+    }
+}
+
+.embed-responsive-item {
+    // forces media items to not stretch
+    object-fit: cover;
+}

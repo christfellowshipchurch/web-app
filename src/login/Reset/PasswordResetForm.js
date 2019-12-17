@@ -159,6 +159,7 @@ const ResetPassword = ({
                                             type="number"
                                             onChange={(e) => setValue('confirmationCode', get(e, 'target.value', ''))}
                                             error={get(errors, 'confirmationCode', '')}
+                                            value={get(values, 'confirmationCode', '')}
                                         />
                                     </div>
                                 </div>
@@ -175,6 +176,7 @@ const ResetPassword = ({
                                             type="password"
                                             onChange={(e) => setValue('password', get(e, 'target.value', ''))}
                                             autoComplete="off"
+                                            value={get(values, 'password', '')}
                                         />
                                     </div>
                                 </div>
@@ -189,6 +191,7 @@ const ResetPassword = ({
                                             onChange={(e) => setValue('confirmPassword', get(e, 'target.value', ''))}
                                             error={get(errors, 'confirmPassword', '')}
                                             autoComplete="off"
+                                            value={get(values, 'confirmPassword', '')}
                                         />
                                     </div>
                                 </div>

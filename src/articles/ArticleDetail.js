@@ -72,8 +72,10 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
               {get(article, 'images[0].sources[0].uri') !== '' &&
                 <Media
                   rounded
+                  showControls
                   ratio="16by9"
-                  imageUrl={article.images[0].sources[0].uri}
+                  imageUrl={get(article, 'images[0].sources[0].uri', '')}
+                  videoUrl={get(article, 'videos[0].sources[0].uri', '')}
                   imageAlt={get(article, 'title', 'Christ Fellowship Church')}
                   className='my-4'
                 />

@@ -1,49 +1,51 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { startCase } from 'lodash'
+import {
+  get,
+  startCase
+} from 'lodash'
 
 import { Media } from '../ui'
 
 const EventBanner = ({
-  image,
-  eventName,
-  subtitle
+  coverImage,
+  title,
+  summary
 }) => {
 
   return (
-    <div className='container-fluid banner'>
+    <div className='container-fluid'>
       <div className='row'>
         <div className={classnames(
           'col-12',
         )}
         >
           <Media
-            imageUrl='https://picsum.photos/1920/1080'
-            imageAlt='demo'
-            className='banner'
-            ratio="21by9"
-            gradient="dark"
+            imageUrl={get(coverImage, 'sources[0].uri', '')}
+            imageAlt={get(coverImage, 'name', 'Event at Christ Fellowship Church')}
+            className='max-height-45-vh'
+            ratio="1by1"
+            gradient="black"
           >
             <div
               className={classnames(
-                'py-5',
-                'px-4',
+                'p-4',
                 'w-100',
                 'h-100',
                 'max-width-1100',
                 'd-flex',
                 'align-items-end',
                 'justify-content-start',
-                'text-white',
               )}
             >
               <div>
-                <h1 className='mb-0'>
-                  {startCase(eventName)}
+                <h1 className='text-white'>
+                  {startCase(title)}
                 </h1>
-                <h3 className='mb-0 font-weight-light'>
-                  Event Details
-                </h3>
+                <h4 className='mb-0 font-weight-light text-white'>
+                  {summary}
+                </h4>
               </div>
             </div>
           </Media>
@@ -51,6 +53,12 @@ const EventBanner = ({
       </div>
     </div>
   )
+}
+
+EventBanner.propTypes = {
+  title: PropTypes.string,
+  summary: PropTypes.string,
+  coverImage: PropTypes.any, // eslint-disable-line
 }
 
 export default EventBanner

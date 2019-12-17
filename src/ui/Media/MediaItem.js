@@ -1,6 +1,7 @@
 import React, { createRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { keys } from 'lodash'
 import { faPlayCircle } from '@fortawesome/fontawesome-pro-light'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -20,8 +21,9 @@ const MediaItem = ({
   playIcon,
   overlay,
   gradient,
-  style,
-  fill
+  gradientDirection,
+  withHover,
+  style
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -40,63 +42,65 @@ const MediaItem = ({
     videoRef.current.play()
     setShowPlayButton(false)
   }
+  let ratioClass = typeof ratio === 'string'
+    ? `embed-responsive-${ratio}`
+    : keys(ratio).map(n => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''))
 
-  const imgRatio = `embed-responsive-${ratio}`
-
-  const classNames = {
-    container: classnames(
-      className,
-      {
-        'vw-100': fill === 'screen',
-        'vh-100': fill === 'screen',
-      }
-    ),
-    mediaContainer: classnames(
-      'embed-responsive',
-      imgRatio,
-      {
-        'embed-responsive-1by1': circle,
-        'rounded-circle': circle,
-        'rounded': rounded,
-        'absolute-center': !!fill,
-        'w-100': !!fill,
-        'h-100': !!fill,
-      }),
+  if (circle) {
+    ratioClass = 'embed-responsive-1by1'
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
 
   return (
     <div
-      className={classNames.container}
+      className={classnames(
+        className,
+        'embed-responsive',
+        ratioClass,
+        {
+          'rounded': rounded && !circle,
+          'rounded-circle': circle,
+          'scale-media-up-on-hover': withHover
+        }
+      )}
       style={style}
     >
-      <div className={classNames.mediaContainer}>
-        <Image source={imageUrl} alt={imageAlt} className='embed-responsive-item' />
-        {videoUrl &&
-          <Video
-            className='embed-responsive-item'
-            source={videoUrl}
-            {...videoProps}
-            ref={videoRef} />
-        }
+      <Image
+        source={imageUrl}
+        alt={imageAlt}
+        className={classnames(
+          'embed-responsive-item',
+        )}
+      />
 
-        {/* TODO : add gradient abilities */}
-        {(gradient || overlay) &&
-          <div
-            className={classnames(
-              'w-100',
-              'h-100',
-              'absolute-center',
-              'opacity-65',
-              {
-                [`bg-${overlay}`]: !!overlay,
-                [`bg-gradient-${gradient}`]: !!gradient
-              }
-            )}
-          ></div>
-        }
-      </div>
+      {videoUrl &&
+        <Video
+          className={classnames(
+            'embed-responsive-item',
+          )}
+          source={videoUrl}
+          {...videoProps}
+          ref={videoRef}
+          poster={imageUrl}
+        />
+      }
+
+      {/* TODO : add gradient abilities */}
+      {(gradient || overlay) &&
+        <div
+          className={classnames(
+            'w-100',
+            'h-100',
+            'absolute-center',
+            'opacity-65',
+            {
+              [`bg-${overlay}`]: !!overlay,
+              [`gradient-${gradient}-${gradientDirection}`]: !!gradient
+            }
+          )}
+        ></div>
+      }
 
       {
         (children || (showPlayButton && videoUrl)) &&
@@ -129,18 +133,29 @@ MediaItem.defaultProps = {
   },
   overlay: null,
   gradient: null,
-  fill: null,
-  circle: false
+  gradientDirection: 'bottom-top',
+  withHover: false,
 }
 
-MediaItem.propTypes = {
-  ratio: PropTypes.oneOf(['1by1', '4by3', '16by9', '21by9']),
+const RATIOS = ['1by1', '4by3', '16by9', '21by9']
+const propTypes = {
+  ratio: PropTypes.oneOfType([
+    PropTypes.oneOf(RATIOS),
+    PropTypes.shape({
+      xs: PropTypes.oneOf(RATIOS),
+      sm: PropTypes.oneOf(RATIOS),
+      md: PropTypes.oneOf(RATIOS),
+      lg: PropTypes.oneOf(RATIOS),
+      xl: PropTypes.oneOf(RATIOS)
+    })
+  ]),
   imageUrl: PropTypes.string.isRequired,
   imageAlt: PropTypes.string.isRequired,
   videoUrl: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
   showControls: PropTypes.bool,
+  withHover: PropTypes.bool,
   playIcon: PropTypes.shape({
     as: PropTypes.element, // TODO : add support
     color: PropTypes.string,
@@ -157,7 +172,8 @@ MediaItem.propTypes = {
     "warning",
     "danger",
     "light",
-    "dark"
+    "dark",
+    "black",
   ]),
   gradient: PropTypes.oneOf([
     "primary",
@@ -167,9 +183,12 @@ MediaItem.propTypes = {
     "warning",
     "danger",
     "light",
-    "dark"
+    "dark",
+    "black",
   ]),
-  fill: PropTypes.oneOf(['container', 'screen']),
+  gradientDirection: PropTypes.oneOf([
+    'bottom-top'
+  ])
 }
 
 export default MediaItem

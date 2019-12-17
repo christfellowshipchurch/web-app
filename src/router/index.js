@@ -10,20 +10,24 @@ import Events from './Events'
 import Articles from './Articles'
 import Animations from './Animations'
 
-const Router = () => (
-    <Switch>
-        <Route exact path="/animations" component={Animations} />
+const Router = () => {
+    return (
+        <Switch>
+            <Route exact path="/ui" component={UIPage} />
+            <Route exact path="/animations" component={Animations} />
 
-        <Route exact path="/ui" component={UIPage} />
+            <Route path="/login" component={Login} />
+            <Route path="/events" component={Events} />
+            <Route path="/content" component={Content} />
+            <Route path="/articles" component={Articles} />
+            <Route path="/browse" component={Browse} />
+            <Route path="/profile" component={Profile} />
 
-        <Route path="/login" component={Login} />
-        <Route path="/events" component={Events} />
-        <Route path="/articles" component={Articles} />
+            <Route exact path="/:page" component={DefaultPage} />
 
-        <Route exact path="/:page" component={DefaultPage} />
-
-        <Route path="*" component={HomePage} />
-    </Switch>
-)
+            <Route path="*" component={HomePage} />
+        </Switch>
+    )
+}
 
 export default Router

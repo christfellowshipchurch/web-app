@@ -57,6 +57,7 @@ const LoginCard = () => {
                 controls={false}
                 indicators={false}
                 interval={null}
+                touch={false}
             >
                 <Carousel.Item>
                     <Identity

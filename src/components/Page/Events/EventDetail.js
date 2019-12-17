@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from '../../../ui'
-import EventRsvp from './EventRsvp'
+import EventSchedule from './EventRsvp'
 import EventShare from './EventShare'
 import classnames from 'classnames'
 
@@ -8,28 +8,28 @@ const eventsMulti = [
   {
     campus: 'Royal Palm',
     address: '9905 Southern Blvd Royal Palm Beach, FL 33411',
-    schedule: 
+    schedule:
       [{
         date: 'Sat Sep 27',
-        time: [ '9AM', '11AM']
+        time: ['9AM', '11AM']
       },
       {
         date: 'Sun Sep 28',
-        time: [ '8AM', '10AM']
+        time: ['8AM', '10AM']
       }
-    ]
+      ]
   },
   {
     campus: 'Gardens',
     address: '9905 Southern Blvd Royal Palm Beach, FL 33411',
-    schedule: 
+    schedule:
       [{
         date: 'Sat Sep 20',
-        time: [ '9AM', '11AM']
+        time: ['9AM', '11AM']
       },
       {
         date: 'Sun Sep 21',
-        time: [ '8AM', '10AM']
+        time: ['8AM', '10AM']
       }]
   },
 ]
@@ -38,12 +38,12 @@ const eventsSingle = [
   {
     campus: 'Royal Palm',
     address: '9905 Southern Blvd Royal Palm Beach, FL 33411',
-    schedule: 
+    schedule:
       [{
         date: 'Sat Sep 27',
-        time: [ '9AM' ]
+        time: ['9AM']
       }
-    ]
+      ]
   }
 ]
 
@@ -59,8 +59,8 @@ const EventDetail = ({ htmlContent }) => {
       'justify-content-center'
     )}>
       <div>
-        <EventRsvp events={eventsMulti}/>
-        <EventShare/>
+        <EventSchedule events={eventsMulti} />
+        <EventShare />
       </div>
       <Card className={classnames(
         'max-width-800'
@@ -75,7 +75,7 @@ const EventDetail = ({ htmlContent }) => {
         </p>
       </Card>
     </div>
-            
+
   )
 }
 

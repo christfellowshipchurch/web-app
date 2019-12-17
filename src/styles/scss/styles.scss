@@ -65,10 +65,15 @@
 @import 'opacity.scss';
 @import 'animations.scss';
 @import 'hero.scss';
+@import 'gradients.scss';
+@import 'embed.scss';
+@import 'typography.scss';
 
 html {
     font-size: 16px;
 }
+
+$lg-breakpoint: map-get($grid-breakpoints, lg);
 
 // Misc
 $md-breakpoint: map-get($grid-breakpoints, md);
@@ -83,10 +88,19 @@ $md-breakpoint: map-get($grid-breakpoints, md);
 
 .disable {
     color: #e2e2e2;
-    cursor: default;
+    cursor: default !important;
+    &:hover {
+        color: #e2e2e2;
+    }
 
     &:placeholder {
         color: #e2e2e2;
+    }
+}
+
+.cursor-hover {
+    &:hover {
+        cursor: pointer;
     }
 }
 
@@ -97,9 +111,22 @@ $md-breakpoint: map-get($grid-breakpoints, md);
     box-shadow: none !important;
 }
 
+.no-decoration,
 .no-decoration:hover,
 .no-decoration:focus {
     text-decoration: none !important;
+}
+
+// Sets the sizing of the navbar for small devices only
+// This fixes a bug where a user has to scroll to the bottom
+//      of their screen to scroll down on the navbar
+@media (max-width: $lg-breakpoint) {
+    #user-profile-navbar-connected {
+        & .navbar-collapse {
+            max-height: 90vh;
+            overflow-y: scroll;
+        }
+    }
 }
 //
 
@@ -116,11 +143,6 @@ $md-breakpoint: map-get($grid-breakpoints, md);
     height: 10rem;
     border-radius: 100%;
     align-self: center;
-}
-
-.embed-responsive-item {
-    // forces media items to not stretch
-    object-fit: cover;
 }
 //
 
@@ -144,7 +166,9 @@ $md-breakpoint: map-get($grid-breakpoints, md);
 
 
 // Nav
-.nav-link { font-weight: bold; }
+.nav-link { 
+    font-weight: bold; 
+}
 //
 
 
@@ -212,3 +236,38 @@ $md-breakpoint: map-get($grid-breakpoints, md);
 
 // Footer
 .footer { font-size: 14px; }
+//
+
+//Card scale
+.scale-media-up-on-hover {
+    & img, video {
+        transform: scale(1);
+        transition: 0.2s ease-out;
+    }
+    
+    &:hover {
+        & img, video {
+            transform: scale(1.05);
+            transition: 0.2s ease-out;
+        }
+    }
+}
+.scale-up-on-hover:hover {
+    transform: scale(1.05);
+    transition: 0.2s ease-out;
+}
+//
+
+// Profile
+.profile-banner {
+    max-height: 45vh !important;
+    @media (min-width: 768px) {
+        max-height: 35vh !important;
+    }
+}
+.profile-bar {
+    @media (min-width: 768px) {
+        border-right: 1px solid lightgrey;
+    }
+}
+//

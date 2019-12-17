@@ -12,9 +12,10 @@ import { GET_WEBSITE_HEADER } from './queries'
 import DefaultIcon from '../images/default_icon.png'
 
 import { Button } from '../ui'
+import LiveBanner from './LiveBanner'
 import { redirectTo } from '../utils'
 import { useAuth } from '../auth'
-import { AuthNavbar } from './'
+import AuthNavbar from './AuthNavbar'
 
 // Takes a collection of images from
 //  the API's return data and formats
@@ -93,63 +94,83 @@ const NavbarConnected = ({
     else navbarProps.sticky = "top"
 
     return (
-      <Navbar {...navbarProps}>
-        {brandImage &&
-          <Navbar.Brand href="/">
-            <img
-              src={brandImage.uri}
-              style={{ height: '80px', width: 'auto' }}
-              alt={brandImage.alt}
-            />
-          </Navbar.Brand>
-        }
-        <Navbar.Toggle
-          aria-controls="basic-navbar-nav"
-          onClick={onToggle}
-          className="border-0">
-          <FontAwesomeIcon icon={faBars} size="1x" />
-        </Navbar.Toggle>
+        <Navbar 
+          {...navbarProps}
+          className={classnames(
+            'container-fluid',
+            'd-flex',
+            'flex-column',
+            'p-0'
+          )}
+        >
+        <div className='row w-100'>
+          <LiveBanner/>
+        </div>
+        <div className={classnames(
+          'row',
+          'w-100',
+          'p-2',
+          'd-flex',
+          'justify-content-between'
+        )}>
+          {brandImage &&
+            <Navbar.Brand href="/">
+              <img
+                src={brandImage.uri}
+                style={{ height: '80px', width: 'auto' }}
+                alt={brandImage.alt}
+              />
+            </Navbar.Brand>
+          }
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={onToggle}
+            className="border-0">
+            <FontAwesomeIcon icon={faBars} size="1x" />
+          </Navbar.Toggle>
 
-        <Navbar.Collapse>
-          <Nav
-            className={classnames(
-              "ml-auto",
-              "align-items-start",
-              "align-items-lg-center",
-            )}
-          >
-            {navigationData.navigationLinks.map((link, i) => (
-              <Nav.Link
-                key={i}
-                href={link.action}
-                className='mx-3 my-2'
-                onSelect={onSelect}
-              >
-                {link.call}
-              </Nav.Link>
-            ))}
-
-            <Nav.Link
-              href='#'
-              className='mx-3 my-2'
-              onSelect={() => {
-                onSelect()
-                logIn()
-              }}
+          <Navbar.Collapse>
+            <Nav
+              className={classnames(
+                "ml-auto",
+                "align-items-start",
+                "align-items-lg-center",
+              )}
             >
-              Log In
-            </Nav.Link>
+              {navigationData.navigationLinks.map((link, i) => (
+                <Nav.Link
+                  key={i}
+                  href={link.action}
+                  className='mx-3 my-2'
+                  onSelect={onSelect}
+                >
+                  {link.call}
+                </Nav.Link>
+              ))}
 
-            {quickAction.display &&
-              <div className="mx-3 my-2">
-                <Button
-                  title={quickAction.call}
-                  onClick={() => redirectTo(quickAction.action)}
-                />
-              </div>
-            }
-          </Nav>
-        </Navbar.Collapse>
+              <Nav.Link
+                href='#'
+                className='mx-3 my-2'
+                onSelect={() => {
+                  onSelect()
+                  logIn()
+                }}
+              >
+                Log In
+              </Nav.Link>
+
+              {quickAction.display &&
+                <div className="mx-3 my-2">
+                  <Button
+                    title={quickAction.call}
+                    onClick={() => redirectTo(quickAction.action)}
+                  />
+                </div>
+              }
+            </Nav>
+
+          </Navbar.Collapse>
+        </div>
       </Navbar>
     )
   }

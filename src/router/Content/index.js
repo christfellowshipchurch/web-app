@@ -1,0 +1,58 @@
+import React from 'react'
+import {
+    Switch, Route, Redirect
+} from 'react-router-dom'
+import { useQuery } from 'react-apollo'
+import { get } from 'lodash'
+
+import { GET_CATEGORY_BY_TITLE } from './queries'
+import { ContentSingle } from '../../content-single'
+import { CardFeed } from '../../content-feed'
+import { Loader } from '../../ui'
+
+const ContentSingleWithRouter = ({ match: { params } }) => {
+    return <ContentSingle
+        {...params}
+    />
+}
+
+const CategoryUrlMapper = ({ match: { params: { category } } }) => {
+    const { loading, error, data } = useQuery(
+        GET_CATEGORY_BY_TITLE,
+        { variables: { title: category } }
+    )
+
+    if (loading) return <Loader />
+    if (error) return null
+
+    const categoryData = get(data, 'getCategoryByTitle', {})
+
+    return <div
+        className="container my-6"
+        style={{ minHeight: '100%' }}
+    >
+        <div className='row align-content-center'>
+            <h3>
+                {get(categoryData, 'title', '')}
+            </h3>
+        </div>
+        <div className="row">
+            <CardFeed id={get(categoryData, 'id', '')} />
+        </div>
+    </div>
+}
+
+const Router = () => {
+    return (
+        <Switch>
+            <Route exact path="/content/categories/:category" component={CategoryUrlMapper} />
+            <Route exact path="/content/:contentTitle" component={ContentSingleWithRouter} />
+
+            <Route path="*">
+                <Redirect to="/browse" />
+            </Route>
+        </Switch>
+    )
+}
+
+export default Router
