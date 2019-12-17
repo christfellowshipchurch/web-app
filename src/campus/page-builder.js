@@ -104,7 +104,7 @@ const CampusPageBuilder = ({ name: campusName }) => {
                 serviceTimes={serviceTimes}
             />}
 
-            <div className="row">
+            <div className="row bg-white">
                 <div className="col">
                     <CampusBlockItems campus={campusName} />
                 </div>

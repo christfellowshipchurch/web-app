@@ -28,11 +28,10 @@ const CampusBlockItems = ({
 
     const item = head(campusContentItems)
 
-    console.log({ campusContentItems })
-
     return <Block
         contentLayout='left'
         {...item}
+        imageRatio={{ xs: '1by1', md: '4by3' }}
     />
 }
 

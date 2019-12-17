@@ -62,7 +62,7 @@ const FocusedCard = ({
                     className={classnames(
                         'col-12',
                         'col-md-7',
-
+                        'pr-md-2',
                     )}
                 >
                     <Title>
@@ -73,6 +73,7 @@ const FocusedCard = ({
                 <div
                     className={classnames(
                         'col',
+                        'pl-md-2',
                     )}
                 >
                     <Title>
