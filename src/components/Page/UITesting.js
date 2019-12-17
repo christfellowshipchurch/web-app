@@ -1,7 +1,10 @@
 import React from 'react'
 
+import LiveBanner from '../../navbar/LiveBanner'
 const DefaultPage = () => {
-  return <h1>Hello World</h1>
+  return (
+    <LiveBanner />
+  )
   
 }
 

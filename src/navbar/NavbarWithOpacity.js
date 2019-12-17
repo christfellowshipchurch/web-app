@@ -14,16 +14,16 @@ const NavbarWithOpacity = ({ offset }) => {
   })
 
   return (
-    <Navbar
-      bg={isOpen ? 'dark' : bgColor}
-      variant={'dark'}
-      brandImageKey={'brandImageAlt'}
-      onToggle={() => {
-        setIsOpen(!isOpen)
-      }}
-      onSelect={() => setIsOpen(false)}
-      fixed
-    />
+      <Navbar
+        bg={isOpen ? 'dark' : bgColor}
+        variant={'dark'}
+        brandImageKey={'brandImageAlt'}
+        onToggle={() => {
+          setIsOpen(!isOpen)
+        }}
+        onSelect={() => setIsOpen(false)}
+        fixed
+      />
   )
 
 }
