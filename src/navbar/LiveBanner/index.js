@@ -10,114 +10,111 @@ import { GET_LIVE_STREAM } from './queries'
 import { redirectTo } from '../../utils'
 import { useAuth } from '../../auth'
 
-  const LiveBanner = () => {
-    const [closed, isClosed] = useState(false)
-    const { isLoggedIn } = useAuth()
+const LiveBanner = () => {
+  const [closed, isClosed] = useState(false)
+  const { isLoggedIn } = useAuth()
 
-    const { loading, error, data } = useQuery(GET_LIVE_STREAM, {
-      fetchPolicy: "cache-and-network",
-      pollInterval: 60000
-    })
+  const { loading, error, data } = useQuery(GET_LIVE_STREAM, {
+    fetchPolicy: "network-only",
+    pollInterval: 60000,
+  })
 
-    if (loading || error) return null
+  if (loading || error) return null
 
-    const isLive = get(data, 'liveStream.isLive', false)
-    const startTime = moment(get(data, 'liveStream.eventStartTime', Date())).format('HHmm')
-    const halfHourBefore = moment(get(data, 'liveStream.eventStartTime', Date())).subtract(30, 'minutes').format('HHmm')
-    const currentTime = moment().format('HHmm')
+  const isLive = get(data, 'liveStream.isLive', false)
+  const startTime = moment(get(data, 'liveStream.eventStartTime', Date()))
+  const halfHourBefore = moment(get(data, 'liveStream.eventStartTime', Date()))
+    .subtract(30, 'minutes')
+  const currentTime = moment()
 
-    let almostLive = false
+  let almostLive = false
 
-    //checks if service starts in the next 30 min
-    if (!isLive) {
-      if ( halfHourBefore < currentTime < startTime) {
-        almostLive = true
-      }
+  //checks if service starts in the next 30 min
+  if (!isLive) {
+    if (currentTime.isBetween(halfHourBefore, startTime)) {
+      almostLive = true
     }
+  }
 
-    //checks if the user is on home page AND logged out in order to display Light Banner
-    const page = window.location.pathname
-    let lightBanner
-    if(!isLoggedIn){
-      if(page === '' || page === '/'){
-        lightBanner = true
-      }
-    } 
+  //checks if the user is on home page AND logged out in order to display Light Banner
+  const page = window.location.pathname
+  let lightBanner
+  if (!isLoggedIn) {
+    if (page === '' || page === '/') {
+      lightBanner = true
+    }
+  }
 
-    console.log({ halfHourBefore }, { currentTime }, { startTime })
-
-    return isLive || almostLive ? (
-      <div 
+  return isLive || almostLive ? (
+    <div
+      className={classnames(
+        'w-100',
+        'justify-content-start',
+        'justify-content-md-center',
+        'align-items-center',
+        'p-2',
+        {
+          'bg-white': lightBanner,
+          'bg-primary': !lightBanner,
+          'd-none': closed,
+          'd-flex': !closed
+        }
+      )}
+    >
+      <a
         className={classnames(
-          'w-100',
-          `bg-${
-            lightBanner
-              ? 'white'
-              : 'primary'
-            }`,
-          `d-${
-            closed
-              ? 'none'
-              : 'flex'
-            }`,
-          'justify-content-between',
-          'align-items-center',
-          'px-4',
-      )}>
-        <div
-          className='d-none d-lg-block'
-        />
-        <a
-          href='#'
-          onClick={() => redirectTo('https://live.gochristfellowship.com/', true)}
-          className={classnames(
-            'd-flex',
-            'align-items-center'
-          )}
-        >
-          <h4 className={classnames(
-            `text-${
-              lightBanner
-                ? 'dark'
-                : 'white'
-            }`,
-            'mb-0'
-          )}>
-            {almostLive
-              ? 'We’re almost live! Join here!'
-              : 'We’re live! Join now!'}
-          </h4>
-          {!almostLive
-            ? <p 
-                className={classnames(
-                  'badge',
-                  'badge-danger',
-                  'mb-0',
-                  'mx-3'
-                )}
-              >
-                LIVE
-              </p>
-            : null
+          'h4',
+          'mb-0',
+          {
+            'text-dark': lightBanner,
+            'text-white': !lightBanner,
           }
-        </a>
-        <div>
-          <FontAwesomeIcon
-            style={{fontSize:'20px'}}
+        )}
+        href='https://live.gochristfellowship.com/'
+        target="_blank"
+      >
+        {almostLive
+          ? 'We’re almost live! Join here!'
+          : 'Join us for Church Online!'}
+        {!almostLive &&
+          <span
             className={classnames(
-              'cursor-hover',
-              'my-2',
+              'badge',
+              'badge-danger',
+              'mx-2',
+              'py-1',
+              'px-2',
             )}
-            color={
-              lightBanner
+            style={{
+              fontSize: '85%',
+              borderRadius: 3
+            }}
+          >
+            LIVE
+          </span>
+        }
+      </a>
+      <div
+        style={{
+          fontSize: '20px',
+          position: 'absolute',
+          right: 10
+        }}
+      >
+        <FontAwesomeIcon
+          className={classnames(
+            'cursor-hover',
+          )}
+          color={
+            lightBanner
               ? 'grey'
               : 'white'}
-            icon={faTimes}
-            onClick={() => isClosed(true)}
-          />
-        </div>
+          icon={faTimes}
+          onClick={() => isClosed(true)}
+        />
       </div>
-    ) : null
-  }
+    </div>
+  ) : null
+}
 
 export default LiveBanner
