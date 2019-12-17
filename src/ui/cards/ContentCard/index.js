@@ -52,7 +52,9 @@ const ContentCard = ({
                 'col-12',
                 'col-md-6',
                 'col-lg-4',
-                'p-2',
+                'px-2',
+                'pb-5',
+                'pt-2',
                 'scale-media-up-on-hover',
                 'no-decoration',
             )}
