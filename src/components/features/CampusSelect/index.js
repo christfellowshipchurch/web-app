@@ -71,7 +71,7 @@ const StyledCampusSelect = ({
         </div>
     )
 
-const CampusTile = ({
+export const CampusTile = ({
     name,
     street1,
     city,
@@ -79,8 +79,15 @@ const CampusTile = ({
     postalCode,
     image,
     serviceTimes,
-    onClick
-}) => <div className="row max-width-1100">
+    onClick,
+    className,
+}) => <div
+    className={classnames(
+        "row",
+        "max-width-1100",
+        className
+    )}
+>
         <div className="col-12 col-md px-3">
             <Media
                 ratio="1by1"
@@ -125,6 +132,11 @@ const CampusTile = ({
             })}
         </div>
     </div>
+
+CampusTile.defaultProps = {
+    className: '',
+    postalCode: ''
+}
 
 const CampusSelect = ({
     background
