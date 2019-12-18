@@ -87,6 +87,7 @@ const ContentCard = ({
                             'bg-light',
                         )}
                         style={{ ...(row && { flex: 1 }) }}
+                        forceRatio
                     >
                         {label.value !== '' &&
                             <h6

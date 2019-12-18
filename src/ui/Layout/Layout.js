@@ -12,7 +12,15 @@ const MEDIA_COL_FIRST = ['default', 'right']
 const TEXT_CENTER = ['default', 'inverted']
 
 const Layout = ({
-  layout, imageUrl, imageAlt, videoUrl, ratio, children, className, rounded, media
+  layout,
+  imageUrl,
+  imageAlt,
+  videoUrl,
+  ratio,
+  children,
+  className,
+  rounded,
+  media
 }) => {
   layout = lowerCase(layout)
   const mediaColSize = includes(MEDIA_COL_12, layout) ? 'col-md-12' : 'col-md-6'
@@ -44,10 +52,10 @@ const Layout = ({
   return (
     <div className={`container-fluid ${className}`}>
       <div className="row align-items-center">
-        <div className={`col-12 ${mediaColSize} ${mediaColOrder} px-3`}>
+        <div className={`col-12 ${mediaColSize} ${mediaColOrder} px-3 my-2`}>
           {mediaItem}
         </div>
-        <div className={`col-12 col-md ${textAlignment} px-3`}>
+        <div className={`col-12 col-md ${textAlignment} px-3 my-2`}>
           {children}
         </div>
       </div>
@@ -174,19 +182,19 @@ export default Layout
 //               case 'inverted':
 //                 return (
 //                   <div>
-                    
+
 //                   </div>
 //                 )
 //               case 'left':
 //                 return (
 //                   <div>
-                    
+
 //                   </div>
 //                 )
 //               case 'right':
 //                 return (
 //                   <div>
-                    
+
 //                   </div>
 //                 )
 //             }

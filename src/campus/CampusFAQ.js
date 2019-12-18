@@ -22,16 +22,22 @@ const CampusFAQ = ({
 
     if (loading) return <Loader />
 
-    return <Accordion paginate>
-        {campusFAQ.map(({ id, title, htmlContent }, i) =>
-            <div
-                key={`${id}:${i}`}
-                title={title}
-            >
-                {htmlToReactParser.parse(htmlContent)}
-            </div>
-        )}
-    </Accordion>
+    return <div>
+        <h1 className="my-4 text-center">
+            FAQ's
+        </h1>
+
+        <Accordion paginate>
+            {campusFAQ.map(({ id, title, htmlContent }, i) =>
+                <div
+                    key={`${id}:${i}`}
+                    title={title}
+                >
+                    {htmlToReactParser.parse(htmlContent)}
+                </div>
+            )}
+        </Accordion>
+    </div>
 }
 
 CampusFAQ.propTypes = {

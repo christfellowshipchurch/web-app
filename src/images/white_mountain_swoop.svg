@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1440px" height="440px" viewBox="0 0 1440 440" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="transparent" stroke="none" stroke-width="1" fill="#00AEEF" fill-rule="evenodd">
+        <g id="white-mountain-overlay" transform="translate(0.000000, -2185.000000)" fill="#FFFFFF">
+            <path d="M0,2185 C182.78125,2393.91667 405.816406,2527.58333 669.105469,2586 C932.394531,2644.41667 1189.35938,2624.21281 1440,2525.38844 L1440,2625 L0,2625 L0,2185 Z" id="Top-Swoop" transform="translate(720.000000, 2405.000000) scale(1, -1) translate(-720.000000, -2405.000000) "></path>
+        </g>
+    </g>
+</svg>

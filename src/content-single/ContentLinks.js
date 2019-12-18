@@ -44,6 +44,7 @@ const ArticleLinks = ({ articles }) => (
             imageAlt={get(n, 'title', 'Christ Fellowship Church')}
             rounded
             withHover
+            forceRatio
           >
             <div
               className={classnames(

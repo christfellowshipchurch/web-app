@@ -41,6 +41,7 @@ const HighlightCard = ({
                 rounded
                 withHover
                 overlay='black'
+                forceRatio
             >
                 <div
                     className={classnames(

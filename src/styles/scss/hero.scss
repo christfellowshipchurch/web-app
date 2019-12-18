@@ -1,0 +1,20 @@
+$md-breakpoint: map-get($grid-breakpoints, md);
+$title-multiplier: 1.8333;
+
+@media (min-width: $md-breakpoint) {
+  .hero {
+    font-size: $font-size-base * 1.375;
+
+    & h1, .h1 { @include font-size($h1-font-size * $title-multiplier); }
+    & h2, .h2 { @include font-size($h2-font-size * $title-multiplier); }
+    & h3, .h3 { @include font-size($h3-font-size * $title-multiplier); }
+    & h4, .h4 { @include font-size($h4-font-size * $title-multiplier); }
+    & h5, .h5 { @include font-size($h5-font-size * $title-multiplier); }
+    & h6, .h6 { @include font-size($h6-font-size * $title-multiplier); }
+  }
+}
+
+img.large-background-swoop {
+  object-fit: cover;
+  object-position: right bottom;
+}

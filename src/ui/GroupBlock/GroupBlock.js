@@ -23,7 +23,8 @@ import { Feature } from '../../components/features'
 const GroupBlock = ({
   id,
   groupLayout,
-  accordionType
+  accordionType,
+  withAnimation,
 }) => {
   const { loading, error, data } = useQuery(getGroupContentItems, { variables: { id } })
 
@@ -55,20 +56,24 @@ const GroupBlock = ({
                   return (
                     <BackgroundContentBlock
                       {...n}
-                      className="col-md-6 d-flex align-items-center"
-                      key={i} />
+                      className="col-12 col-md-6 d-flex align-items-center"
+                      key={i}
+                      withAnimation={withAnimation}
+                    />
                   )
                 } else {
                   return (
                     <Block
                       {...n}
-                      className="col-md-6"
-                      key={i} />
+                      className="col-12 col-md-6"
+                      key={i}
+                      withAnimation={withAnimation}
+                    />
                   )
                 }
               case 'WebsiteFeature':
                 return (
-                  <div key={i} className="col col-md-6 w-100 py-6 px-4">
+                  <div key={i} className="col-12 col-md-6 w-100 py-6 px-4">
                     <Feature name={get(n, 'feature', '')} />
                   </div>
                 )
@@ -154,12 +159,14 @@ GroupBlock.propTypes = {
     'Row', 'Accordion', 'Carousel', 'Tabs',
     'none',
   ]),
-  accordionType: PropTypes.oneOf(['default', 'paginate'])
+  accordionType: PropTypes.oneOf(['default', 'paginate']),
+  withAnimation: PropTypes.bool,
 }
 
 GroupBlock.defaultProps = {
   groupLayout: 'none',
-  accordionType: 'default'
+  accordionType: 'default',
+  withAnimation: false,
 }
 
 export default GroupBlock

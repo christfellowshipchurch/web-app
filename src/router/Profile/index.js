@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { Route } from 'react-router-dom'
 
 import ProfilePage from '../../profile'
-import { default as Default } from '../../components/Page'
+import PageBuilder from '../../page-builder'
 
 import { useAuth } from '../../auth'
 
@@ -18,9 +17,9 @@ const Router = () => {
 
     return isLoggedIn
         ? <ProfilePage />
-        : <Default
+        : <PageBuilder
             title="home-page"
-            match={{ params: { page: null } }}
+            theme="swoop"
         />
 }
 

@@ -1,5 +1,4 @@
 .btn {
-  min-width: 250px;
   letter-spacing: $letter-spacing-lg;
 
   &:not([class*='outline']):not(:disabled):not(.disabled) {
