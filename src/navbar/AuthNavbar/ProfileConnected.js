@@ -61,12 +61,12 @@ const ProfileConnected = ({ dropDownLinks }) => {
 
 
             <Dropdown.Menu
+              style={{border:'1px solid rgba(0,0,0,.05)'}}
               className={classnames(
-                'border-0',
                 'shadow',
                 'rounded',
                 'py-4',
-                'my-2',
+                'my-1',
                 'px-3'
               )}
             >
