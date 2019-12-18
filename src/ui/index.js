@@ -13,7 +13,6 @@ import Loader from './Loader'
 import Media from './Media'
 import Row from './Row'
 
-
 export {
     Accordion,
     AddToCalendar,
@@ -28,7 +27,8 @@ export {
     Layout,
     Loader,
     Media,
-    Row
+    Row,
 }
+export * from './CardGrid'
 export * from './inputs'
 export * from './cards'

@@ -13,6 +13,7 @@ import Browse from './Browse'
 import Content from './Content'
 import Profile from './Profile'
 import Animations from './Animations'
+import Campuses from './Campuses'
 
 const Router = () => {
     return (
@@ -26,6 +27,7 @@ const Router = () => {
             <Route path="/articles" component={Articles} />
             <Route path="/browse" component={Browse} />
             <Route path="/profile" component={Profile} />
+            <Route path="/locations" component={Campuses} />
 
             <Route exact path="/:page" component={PageBuilder} />
 
