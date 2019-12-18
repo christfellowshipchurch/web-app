@@ -25,8 +25,9 @@ const EventBanner = ({
             imageUrl={get(coverImage, 'sources[0].uri', '')}
             imageAlt={get(coverImage, 'name', 'Event at Christ Fellowship Church')}
             className='max-height-45-vh'
-            ratio="1by1"
+            ratio={{ xs: "1by1", md: '21by9' }}
             gradient="black"
+            forceRatio
           >
             <div
               className={classnames(
