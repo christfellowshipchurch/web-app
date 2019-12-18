@@ -17,10 +17,12 @@ const GridContainer = ({
 
     return (
         <div
-            className={classnames({
-                'container-fluid': fill,
-                'container': !fill,
-            })}
+            className={classnames(
+                'p-relative',
+                {
+                    'container-fluid': fill,
+                    'container': !fill,
+                })}
         >
             <div
                 style={{
