@@ -14,7 +14,7 @@ import Media from '../../../ui/Media'
 import InputIcon from '../../../ui/inputs/inputIcon'
 import { FloatingCard } from '../../../ui'
 import RsvpForm from '../RsvpForm'
-
+import { CardGrid } from '../../../ui'
 import { GET_CAMPUSES } from './queries'
 
 const normalizeDate = (date) => {
@@ -224,17 +224,38 @@ const CampusSelect = ({
                 </div>
             )}
 
+            {console.log({visibleCampus})}
+
             {visibleCampus &&
-                <CampusTile
-                    {...visibleCampus}
-                    onClick={({ day, time }) => {
-                        setRsvpForm({
-                            visitDate: normalizeDate(day),
-                            visitTime: time,
-                            campus: get(visibleCampus, 'name', ''),
-                        })
-                    }}
-                />
+                <>
+                    <CampusTile
+                        {...visibleCampus}
+                        onClick={({ day, time }) => {
+                            setRsvpForm({
+                                visitDate: normalizeDate(day),
+                                visitTime: time,
+                                campus: get(visibleCampus, 'name', ''),
+                            })
+                        }}
+                    />
+                    {visibleCampus.campusFeatures.length ?
+                        <>
+                            <h1
+                                className={classnames(
+                                    'py-5',
+                                    'mb-0',
+                                    'text-center'
+                                )}
+                            >
+                                What's Available at this Location
+                            </h1>
+                            <CardGrid
+                                data={visibleCampus.campusFeatures}
+                            />
+                        </>
+                        : null
+                    }
+                </>
             }
 
             {rsvpForm &&
