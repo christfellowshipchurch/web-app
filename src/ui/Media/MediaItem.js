@@ -23,7 +23,7 @@ const MediaItem = ({
   gradient,
   gradientDirection,
   withHover,
-  style
+  style,
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -102,20 +102,17 @@ const MediaItem = ({
       }
 
       {
-        ((showPlayButton && videoUrl)) &&
-        <div className='fill d-flex justify-content-center align-items-center' style={{ zindex: 1000 }}>
-          {(showVideoControls && videoRef) &&
-            <button
-              className="btn btn-icon"
-              onClick={playButtonClick}
-            >
-              <FontAwesomeIcon
-                icon={faPlayCircle}
-                size={playIcon.size}
-                color={playIcon.color}
-              />
-            </button>
-          }
+        (children || (showPlayButton && videoUrl)) &&
+        <div className='fill d-flex justify-content-center align-items-center' style={{ zIndex: 1000 }}>
+          {(showVideoControls && videoRef)
+            ? (
+              <button
+                className="btn btn-icon"
+                onClick={playButtonClick} >
+                <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
+              </button>
+            )
+            : children}
         </div>
       }
     </div>

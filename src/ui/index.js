@@ -12,6 +12,7 @@ import Layout from './Layout'
 import Loader from './Loader'
 import Media from './Media'
 import Row from './Row'
+import Swoop from './Swoop'
 
 export {
     Accordion,
@@ -28,6 +29,7 @@ export {
     Loader,
     Media,
     Row,
+    Swoop,
 }
 export * from './CardGrid'
 export * from './inputs'

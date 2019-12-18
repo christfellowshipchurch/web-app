@@ -85,6 +85,14 @@ $md-breakpoint: map-get($grid-breakpoints, md);
         object-fit: cover;
         object-position: center bottom;
     }
+
+    .location-banner {
+        height: 300px !important;
+    }
+}
+
+.location-banner {
+    height: 100vw;
 }
 
 .disable {

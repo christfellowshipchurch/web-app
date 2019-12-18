@@ -21,7 +21,10 @@ const FocusedCard = ({
     ...props,
 }) => {
     return (
-        <Card className="w-100 max-width-800 m-2">
+        <Card
+            className="w-100 max-width-800 m-2"
+            style={{ zIndex: 1000 }}
+        >
             <div className='d-flex justify-content-between'>
                 <h4>
                     <span

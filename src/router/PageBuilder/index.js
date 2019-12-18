@@ -6,6 +6,7 @@ const PageBuilderRouter = ({ match: { params: { page } } }) => {
         title={page}
         theme="swoop"
         backgroundColors={['bg-transparent', 'bg-white']}
+        swoopTypes={['bottom', null]}
     />
 }
 

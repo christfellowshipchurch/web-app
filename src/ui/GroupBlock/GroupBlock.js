@@ -86,7 +86,7 @@ const GroupBlock = ({
     case 'accordion':
       const paginate = accordionType === 'paginate'
       return (
-        <div className="row py-6 bg-body">
+        <div className="row py-6">
           <div className="col-12 text-center mb-2">
             <div className="max-width-800 mx-auto">
               <h2>

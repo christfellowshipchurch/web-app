@@ -68,7 +68,7 @@ const StyledCampusSelect = ({
         </div>
     )
 
-const CampusTile = ({
+export const CampusTile = ({
     name,
     street1,
     city,
@@ -76,8 +76,15 @@ const CampusTile = ({
     postalCode,
     image,
     serviceTimes,
-    onClick
-}) => <div className="row max-width-1100">
+    onClick,
+    className,
+}) => <div
+    className={classnames(
+        "row",
+        "max-width-1100",
+        className
+    )}
+>
         <div className="col-12 col-md px-3">
             <Media
                 ratio="1by1"
@@ -111,7 +118,7 @@ const CampusTile = ({
                 return (
                     <Button
                         title={title}
-                        className="m-1"
+                        className="m-1 min-width-250"
                         key={i}
                         onClick={() => onClick({
                             day: moment().add(1, 'week').isoWeekday(n.day),
@@ -122,6 +129,11 @@ const CampusTile = ({
             })}
         </div>
     </div>
+
+CampusTile.defaultProps = {
+    className: '',
+    postalCode: ''
+}
 
 const CampusSelect = ({
     background

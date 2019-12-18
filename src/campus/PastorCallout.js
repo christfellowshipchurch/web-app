@@ -20,7 +20,8 @@ const PastorCallout = ({
                 "col-lg-10",
                 "my-6",
                 "px-2",
-                'bg-white'
+                'bg-white',
+                'max-width-1100'
             )}
         >
             <div

@@ -19,9 +19,25 @@ $max-widths: map-merge(
     }    
 }
 
+// This variable affects the `.max-width-*` classes.
+$min-widths: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$min-widths: map-merge(
+  (
+    0: 0px,
+    250: 250px,
+  ),
+  $max-widths
+);
+
+@each $label, $width in $min-widths {
+  @media screen and (min-width: $width) {
+      .min-width-#{$label} { min-width: $width; }
+  }    
+}
+
 .min-height-75-vh { min-height: 75vh !important; }
 .max-height-45-vh { max-height: 45vh !important; }
-
 
 // Scale
 @for $i from 0 through 10 {

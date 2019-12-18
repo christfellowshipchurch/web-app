@@ -15,15 +15,13 @@ import Loader from '../ui/Loader'
 
 import {
     Block,
-    BackgroundContentBlock,
     GroupBlock,
     HeroSection,
     Media,
+    Swoop as SwoopElement,
 } from '../ui'
 import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
-import BottomSwoopSVG from '../images/bottom_swoop.svg'
-import TopSwoopSVG from '../images/top_swoop.svg'
 
 const mapItemToVisual = (item, bg) => {
     switch (item.__typename) {
@@ -83,26 +81,11 @@ const mapItemToVisual = (item, bg) => {
     }
 }
 
-const BottomSwoop = () => <img
-    src={BottomSwoopSVG}
-    className={classnames(
-        'swoop',
-        'swoop-bottom'
-    )}
-/>
-
-const TopSwoop = () => <img
-    src={TopSwoopSVG}
-    className={classnames(
-        'swoop',
-        'swoop-top'
-    )}
-/>
-
 const Swoop = ({
     title,
     backgroundColors,
     backgroundImages,
+    swoopTypes,
 }) => {
     const website = process.env.REACT_APP_WEBSITE_KEY
     const { loading, error, data } = useQuery(
@@ -137,8 +120,9 @@ const Swoop = ({
 
         return (
             <div id={id} className={`${bg} p-relative overflow-hidden`} key={i}>
-                {!!get(backgroundImages, `[${index}]`, false) && !ignoreSwoop &&
-                    React.createElement(backgroundImages[index])}
+                {!!get(swoopTypes, `[${index}]`, false) && !ignoreSwoop &&
+                    <SwoopElement type={swoopTypes[index]} />
+                }
                 {mapItemToVisual(item, bg)}
             </div>
         )
@@ -148,7 +132,7 @@ const Swoop = ({
 Swoop.defaultProps = {
     title: 'home',
     backgroundColors: ['bg-transparent', 'bg-white', 'bg-primary'],
-    backgroundImages: [BottomSwoop, null, TopSwoop],
+    swoopTypes: ['bottom', null, 'top'],
 }
 
 Swoop.propTypes = {

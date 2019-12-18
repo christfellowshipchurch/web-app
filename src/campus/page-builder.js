@@ -7,14 +7,14 @@ import {
 } from 'react-apollo'
 
 
-import { Media, Card } from '../ui'
+import { Media, Swoop } from '../ui'
 import { GET_CAMPUS } from './queries'
 
 import PastorCallout from './PastorCallout'
 import AtThisLocation from './AtThisLocation'
 import CampusFAQ from './CampusFAQ'
 import CampusBlockItems from './CampusBlockItems'
-import { CampusTile } from '../components/features/CampusSelect'
+import { CampusTile } from '../features/CampusSelect'
 
 const CampusPageBuilder = ({ name: campusName }) => {
     const {
@@ -56,12 +56,22 @@ const CampusPageBuilder = ({ name: campusName }) => {
                         imageUrl={get(featuredImage, 'uri', '')}
                         imageAlt={`Christ Fellowship Church - ${name}`}
                         overlay='black'
+                        mediaItemStyles={{ zIndex: -100 }}
                     >
-                        <h1 className="text-white text-center">
-                            {loading
-                                ? 'Christ Fellowship Church'
-                                : `Christ Fellowship Church in ${name}`}
-                        </h1>
+                        <div
+                            className={classnames(
+                                "location-banner",
+                                'd-flex',
+                                'justify-content-center',
+                                'align-items-center',
+                            )}
+                        >
+                            <h1 className="text-white text-center">
+                                {loading
+                                    ? 'Christ Fellowship Church'
+                                    : `Christ Fellowship Church in ${name}`}
+                            </h1>
+                        </div>
                     </Media>
                 </div>
             </div>
@@ -90,19 +100,22 @@ const CampusPageBuilder = ({ name: campusName }) => {
                 </div>
             </div>
 
-            {!loading && <CampusTile
-                className={classnames(
-                    'mx-auto',
-                    'my-6'
-                )}
-                name={name}
-                image={image}
-                street1={street1}
-                city={city}
-                state={state}
-                postalCode={postalCode}
-                serviceTimes={serviceTimes}
-            />}
+            {!loading && <div className="w-100 h-100 p-relative overflow-hidden">
+                <Swoop type='bottom' />
+                <CampusTile
+                    className={classnames(
+                        'mx-auto',
+                        'py-6'
+                    )}
+                    name={name}
+                    image={image}
+                    street1={street1}
+                    city={city}
+                    state={state}
+                    postalCode={postalCode}
+                    serviceTimes={serviceTimes}
+                />
+            </div>}
 
             <div className="row bg-white">
                 <div className="col">
@@ -113,10 +126,13 @@ const CampusPageBuilder = ({ name: campusName }) => {
             <div
                 className={classnames(
                     'row',
-                    'my-4'
+                    'py-4',
+                    'p-relative',
+                    'overflow-hidden',
                 )}
             >
-                <div className="col-12 text-center my-4">
+                <Swoop type='top' />
+                <div className="col-12 text-center py-4">
                     <h1>
                         Available at this location
                     </h1>

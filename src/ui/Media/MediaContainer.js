@@ -11,12 +11,15 @@ const MediaContainer = ({
   children,
   style,
   className,
+  mediaItemStyles,
+  forceRatio,
   ...mediaItemProps
 }) => {
-  if (!children || children.length === 0) return <MediaItem
+  if (!children || children.length === 0 || forceRatio) return <MediaItem
     {...mediaItemProps}
     className={className}
-    style={style}
+    style={{ ...style, ...mediaItemStyles }}
+    children={forceRatio ? children : null}
   />
 
   return <div
@@ -30,7 +33,7 @@ const MediaContainer = ({
     <MediaItem
       {...mediaItemProps}
       className="fill"
-      style={{ zIndex: -100, }}
+      style={{ zIndex: 0, ...mediaItemStyles }}
     />
     {children}
   </div>
@@ -38,12 +41,16 @@ const MediaContainer = ({
 
 MediaContainer.defaultProps = {
   style: {},
+  mediaItemStyles: {},
   className: '',
+  forceRatio: false,
 }
 
 MediaContainer.propTypes = {
   style: PropTypes.object,
+  mediaItemStyles: PropTypes.object,
   className: PropTypes.string,
+  forceRatio: PropTypes.bool,
 }
 
 export default MediaContainer
