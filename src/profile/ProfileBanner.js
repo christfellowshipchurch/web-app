@@ -30,6 +30,8 @@ const ProfileBanner = ({
             imageAlt='cover-photo'
             ratio={{ xs: "1by1", md: '16by9', lg: '21by9' }}
             gradient="black"
+            style={{ maxHeight: 350 }}
+            forceRatio
           >
             <div
               className={classnames(
