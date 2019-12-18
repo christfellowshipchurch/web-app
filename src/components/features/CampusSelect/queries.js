@@ -19,6 +19,14 @@ export const GET_CAMPUSES = gql`
                 day
                 time
             }
+
+            campusFeatures {
+                title
+                summary
+                icon
+                options
+                htmlContent
+            }
         }
     }
 `
