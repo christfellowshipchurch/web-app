@@ -87,29 +87,34 @@ const HeroSection = ({
                   {title}
                 </h1>
 
-                <p className="my-4 text-white">
+                <p className="my-2 text-white">
                   {htmlToReactParser.parse(htmlContent)}
                 </p>
 
-                {callToAction &&
-                  <div>
-                    <Button
-                      className="my-2 min-width-250"
-                      type="white"
-                      title={get(callToAction, 'call', '')}
-                      onClick={() => redirectTo(get(callToAction, 'action', ''))}
-                    />
-                  </div>}
+                <div className="my-4">
+                  {callToAction && <a
+                    href={get(callToAction, 'action', '#')}
+                    className={classnames(
+                      "btn",
+                      "btn-white",
+                      "min-width-250",
+                    )}
+                  >
+                    {get(callToAction, 'call', '')}
+                  </a>}
+                </div>
 
-                {secondaryCallToAction &&
-                  <div>
-                    <Button
-                      className="my-2 pl-0 text-white min-width-250"
-                      type="link"
-                      title={get(secondaryCallToAction, 'call', '')}
-                      onClick={() => redirectTo(get(secondaryCallToAction, 'action', ''))}
-                    />
-                  </div>}
+                <div className="my-4">
+                  {secondaryCallToAction && <a
+                    href={get(secondaryCallToAction, 'action', '#')}
+                    className={classnames(
+                      "text-white",
+                    )}
+                    style={{ fontSize: 16 }}
+                  >
+                    {get(secondaryCallToAction, 'call', '')}
+                  </a>}
+                </div>
               </div>
             </div>
           </Media>

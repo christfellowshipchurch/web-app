@@ -110,7 +110,7 @@ const Block = ({
                 {htmlToReactParser.parse(htmlContent)}
               </div>
 
-              <div className='d-flex flex-column'>
+              <div className=''>
                 {callToAction
                   && callToAction.call !== ''
                   && callToAction.action !== ''
@@ -124,11 +124,12 @@ const Block = ({
                     )}
                     href={callToAction.action}
                     target={openLinksInNewTab ? '_blank' : ''}
-
                   >
                     {callToAction.call}
                   </a>}
+              </div>
 
+              <div className=''>
                 {secondaryCallToAction
                   && secondaryCallToAction.call !== ''
                   && secondaryCallToAction.action !== ''

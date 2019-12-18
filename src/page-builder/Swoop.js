@@ -40,7 +40,7 @@ const mapItemToVisual = (item, bg) => {
                         }}
                         video={{ uri: get(item, 'videos[0].sources[0].uri', '') }}
                         callToAction={get(item, 'callToAction', null)}
-                        secondaryCallToAction={get(item, 'callToAction', null)}
+                        secondaryCallToAction={get(item, 'secondaryCallToAction', null)}
                     />
                 case 'backgroundSmall':
                     return (
@@ -57,7 +57,7 @@ const mapItemToVisual = (item, bg) => {
                                 title={get(item, 'title', '')}
                                 htmlContent={get(item, 'htmlContent', '')}
                                 callToAction={get(item, 'callToAction', null)}
-                                secondaryCallToAction={get(item, 'callToAction', null)}
+                                secondaryCallToAction={get(item, 'secondaryCallToAction', null)}
                                 variant="dark"
                             />
                         </Media>
