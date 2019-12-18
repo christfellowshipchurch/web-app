@@ -2,7 +2,7 @@ $animate-prefix: animate;
 
 // Opacity
 $opacity-prefix: opacity;
-$opacity-duration: 0.5s;
+$opacity-duration: 0.35s;
 $opacity-easing: ease-out;
 
 [class*='#{$opacity-prefix}'] {
@@ -12,13 +12,25 @@ $opacity-easing: ease-out;
 }
 //
 
+// Scale
+$scale-prefix: scale;
+$scale-duration: 0.35s;
+$scale-easing: ease-out;
+
+[class*='#{$scale-prefix}'] {
+  transition: all;
+  transition-duration: $scale-duration;
+  transition-timing-function: $scale-easing;
+}
+//
+
 // Slide
 $slide-prefix: slide;
-$slide-duration: 0.5s;
+$slide-duration: 0.35s;
 $slide-easing: ease-out;
 $slide-delay: 0s;
-$slide-x-distance: 50px;
-$slide-y-distance: 50px;
+$slide-x-distance: 40px;
+$slide-y-distance: 40px;
 $slide-animations: (
     right-left: slideRightToLeft,
     left-right: slideLeftToRight,

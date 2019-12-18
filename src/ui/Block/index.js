@@ -9,18 +9,6 @@ import { Layout } from '..'
 
 import ButtonRow from '../ButtonRow'
 
-const titleClasses = classnames(
-  'font-weight-bold',
-)
-const subtitleClasses = classnames(
-  'mt-3',
-  'subtitle',
-  'text-secondary'
-)
-const htmlClasses = classnames(
-  'pb-4',
-)
-
 const Block = ({
   contentLayout,
   images,
@@ -34,80 +22,133 @@ const Block = ({
   secondaryCallToAction,
   openLinksInNewTab,
   className,
-  withAnimation
+  withAnimation,
+  textColor,
+  variant,
 }) => {
+  const textColorClass = classnames({
+    'text-white': variant === 'dark',
+    'text-dark': variant === 'light',
+  })
+
   return (
     <VisibilitySensor
       active={withAnimation}
-      partialVisibility="bottom"
-      minTopValue={200}
-      offset={{ bottom: -100 }}
+      partialVisibility
+      minTopValue={250}
     >
       {({ isVisible }) => {
         return (
-          <div
+          <Layout
+            layout={camelCase(contentLayout)}
             className={classnames(
-              'col',
+              "max-width-1100",
               'py-6',
               {
                 "opacity-0": !isVisible,
-                "opacity-100": isVisible,
+                "opacity-100": isVisible || !withAnimation,
+                // "scale-95": !isVisible,
+                // "scale-100": isVisible,
               },
               className,
             )}
+            media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
+              ? {
+                imageUrl: get(images, '[0].sources[0].uri', ''),
+                imageAlt,
+                videoUrl: get(videos, '[0].sources[0].uri', ''),
+                ratio: imageRatio,
+                showControls: true,
+                rounded: true,
+                className: classnames({
+                  "max-width-800": contentLayout === 'default' || contentLayout === 'inverted',
+                  "mx-auto": contentLayout === 'default' || contentLayout === 'inverted',
+                  "animate-slide-left-right": isVisible && contentLayout === 'right',
+                  "animate-slide-right-left": isVisible && contentLayout === 'left',
+                  "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
+                })
+              } : null}
           >
-            <Layout
-              layout={camelCase(contentLayout)}
+            <div
+              className="max-width-800 mx-auto"
               className={classnames(
-                "max-width-1100",
+                "max-width-800",
+                "mx-auto",
+                {
+                  "animate-slide-left-right": isVisible && contentLayout === 'left',
+                  "animate-slide-right-left": isVisible && contentLayout === 'right',
+                  "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
+                }
               )}
-              media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
-                ? {
-                  imageUrl: get(images, '[0].sources[0].uri', ''),
-                  imageAlt,
-                  videoUrl: get(videos, '[0].sources[0].uri', ''),
-                  ratio: imageRatio,
-                  showControls: true,
-                  rounded: true,
-                  className: classnames({
-                    "animate-slide-left-right": isVisible && contentLayout === 'right',
-                    "animate-slide-right-left": isVisible && contentLayout === 'left',
-                    "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
-                  })
-                } : null}
             >
-              <div
-                className="max-width-800 mx-auto"
+              <h5
                 className={classnames(
-                  "max-width-800",
-                  "mx-auto",
-                  {
-                    "animate-slide-left-right": isVisible && contentLayout === 'left',
-                    "animate-slide-right-left": isVisible && contentLayout === 'right',
-                    "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
-                  }
+                  'mt-3',
+                  'subtitle',
+                  'text-secondary',
+                  textColorClass
                 )}
               >
-                <h5 className={subtitleClasses}>
-                  {subtitle}
-                </h5>
+                {subtitle}
+              </h5>
 
-                <h1 className={titleClasses}>
-                  {title}
-                </h1>
+              <h2
+                className={classnames(
+                  'font-weight-bold',
+                  textColorClass
+                )}
+              >
+                {title}
+              </h2>
 
-                <div className={htmlClasses}>
-                  {htmlToReactParser.parse(htmlContent)}
-                </div>
-
-                <ButtonRow
-                  callToAction={callToAction}
-                  secondaryCallToAction={secondaryCallToAction}
-                  openLinksInNewTab={openLinksInNewTab}
-                />
+              <div
+                className={classnames(
+                  'pb-4',
+                  textColorClass
+                )}
+              >
+                {htmlToReactParser.parse(htmlContent)}
               </div>
-            </Layout>
-          </div>
+
+              <div className='d-flex flex-column'>
+                {callToAction
+                  && callToAction.call !== ''
+                  && callToAction.action !== ''
+                  && <a
+                    className={classnames(
+                      'btn',
+                      {
+                        'btn-primary': variant === 'light',
+                        'btn-white': variant === 'dark',
+                      }
+                    )}
+                    href={callToAction.action}
+                    target={openLinksInNewTab ? '_blank' : ''}
+
+                  >
+                    {callToAction.call}
+                  </a>}
+
+                {secondaryCallToAction
+                  && secondaryCallToAction.call !== ''
+                  && secondaryCallToAction.action !== ''
+                  && <a
+                    className={classnames(
+                      'btn',
+                      'btn-link',
+                      {
+                        'text-primary': variant === 'light',
+                        'text-white': variant === 'dark',
+                      }
+                    )}
+                    href={secondaryCallToAction.action}
+                    target={openLinksInNewTab ? '_blank' : ''}
+                  >
+                    {secondaryCallToAction.call}
+                  </a>}
+              </div>
+            </div>
+          </Layout>
         )
       }}
     </VisibilitySensor>
@@ -121,12 +162,19 @@ Block.propTypes = {
     'inverted',
     'left',
     'right'
+  ]),
+  textColor: PropTypes.string,
+  variant: PropTypes.oneOf([
+    'light',
+    'dark'
   ])
 }
 
 Block.defaultProps = {
   withAnimation: false,
-  contentLayout: 'default'
+  contentLayout: 'default',
+  textColor: 'dark',
+  variant: 'light'
 }
 
 export default Block

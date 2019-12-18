@@ -1,20 +1,19 @@
 import React from 'react'
 
-import PageLayout from '../../page-layouts'
+import PageBuilder from '../../page-builder'
 
 const DefaultHome = (props) =>
-    <PageLayout
+    <PageBuilder
         title='home'
         theme="swoop"
+        backgroundColors={['transparent', 'white', 'primary']}
         {...props}
     />
 
 DefaultHome.propTypes = {
-
 }
 
 DefaultHome.defaultProps = {
-
 }
 
 export default DefaultHome

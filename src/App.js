@@ -20,7 +20,7 @@ const App = () => {
       <SEO />
 
       {opaqueNavbarPages.includes(page)
-        ? <NavbarWithOpacity offset={250} />
+        ? <NavbarWithOpacity offset={50} />
         : <Navbar />
       }
 

@@ -73,6 +73,7 @@ const DefaultPage = ({ title, match: { params: { page } }, showLogIn }) => {
       {blockItems.map((item, i) => {
         const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-')
         const bg = bgColor[`${bgIndex}`]
+        const topPadding = i === 0 ? 'pt-5' : ''
         let content = null
 
         if (!camelCase(get(item, 'contentLayout', '')).includes('background'))

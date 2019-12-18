@@ -6,8 +6,8 @@ import {
 } from 'lodash'
 import {
     Accordion,
-    Button
 } from 'react-bootstrap'
+import VisibilitySensor from 'react-visibility-sensor'
 
 const TabIcon = ({
     icon,
@@ -68,36 +68,46 @@ const Tabs = ({
     className
 }) => {
     const [activeEventKey, setActiveEventKey] = useState("0")
+    const [iconsVisible, setIconsVisible] = useState(false)
 
-    return (
-        <Accordion
+    return <Accordion
+        className={classnames(
+            'container-fluid',
+            className
+        )}
+        defaultActiveKey="0"
+    >
+        <div
             className={classnames(
-                'container-fluid',
-                className
+                "row",
+                "justify-content-center",
+                'overflow-x-auto',
             )}
-            defaultActiveKey="0"
         >
             <div
                 className={classnames(
-                    "row",
-                    "justify-content-center",
-                    'overflow-x-auto',
-                    "tab-icons"
+                    'col-12',
+                    'col-md-6',
+                    'overflow-x-hidden'
                 )}
             >
-                <div
-                    className={classnames(
-                        'col-12',
-                        'col-md-6',
-                        'overflow-x-hidden'
-                    )}
+                <VisibilitySensor
+                    onChange={(isVisible) => {
+                        //  Conditional statement so that we don't set state unecessarily
+                        if (isVisible && !iconsVisible) setIconsVisible(true)
+                    }}
                 >
                     <ul
                         className={classnames(
                             'nav',
                             'justify-content-center',
                             'flex-nowrap',
-                            'overflow-x-auto'
+                            'overflow-x-auto',
+                            {
+                                'animate-slide-right-left': iconsVisible,
+                                'opacity-100': iconsVisible,
+                                'opacity-0': !iconsVisible,
+                            }
                         )}
                     >
                         {children.length
@@ -121,31 +131,32 @@ const Tabs = ({
                             />
                         }
                     </ul>
+                </VisibilitySensor>
+            </div>
+        </div>
+
+        {children.length
+            ? children.map((n, i) => (
+                <Accordion.Collapse
+                    eventKey={i.toString()}
+                    key={i}
+                    className="bg-white"
+                >
+                    <div className="row">
+                        <div className="col-12">
+                            {n}
+                        </div>
+                    </div>
+                </Accordion.Collapse>
+            ))
+            : <div className="row">
+                <div className="col-12">
+                    {children}
                 </div>
             </div>
+        }
 
-            {children.length
-                ? children.map((n, i) => (
-                    <Accordion.Collapse
-                        eventKey={i.toString()}
-                        key={i}
-                    >
-                        <div className="row">
-                            <div className="col-12">
-                                {n}
-                            </div>
-                        </div>
-                    </Accordion.Collapse>
-                ))
-                : <div className="row">
-                    <div className="col-12">
-                        {children}
-                    </div>
-                </div>
-            }
-
-        </Accordion >
-    )
+    </Accordion>
 }
 
 Tabs.propTypes = {

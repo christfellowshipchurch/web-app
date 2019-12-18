@@ -61,7 +61,7 @@ const MediaItem = ({
         {
           'rounded': rounded && !circle,
           'rounded-circle': circle,
-          'scale-media-up-on-hover': withHover
+          'scale-media-up-on-hover': withHover,
         }
       )}
       style={style}
@@ -86,7 +86,6 @@ const MediaItem = ({
         />
       }
 
-      {/* TODO : add gradient abilities */}
       {(gradient || overlay) &&
         <div
           className={classnames(
@@ -103,17 +102,20 @@ const MediaItem = ({
       }
 
       {
-        (children || (showPlayButton && videoUrl)) &&
-        <div className='fill d-flex justify-content-center align-items-center'>
-          {(showVideoControls && videoRef)
-            ? (
-              <button
-                className="btn btn-icon"
-                onClick={playButtonClick} >
-                <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
-              </button>
-            )
-            : children}
+        ((showPlayButton && videoUrl)) &&
+        <div className='fill d-flex justify-content-center align-items-center' style={{ zindex: 1000 }}>
+          {(showVideoControls && videoRef) &&
+            <button
+              className="btn btn-icon"
+              onClick={playButtonClick}
+            >
+              <FontAwesomeIcon
+                icon={faPlayCircle}
+                size={playIcon.size}
+                color={playIcon.color}
+              />
+            </button>
+          }
         </div>
       }
     </div>
@@ -138,7 +140,7 @@ MediaItem.defaultProps = {
 }
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9']
-const propTypes = {
+MediaItem.propTypes = {
   ratio: PropTypes.oneOfType([
     PropTypes.oneOf(RATIOS),
     PropTypes.shape({

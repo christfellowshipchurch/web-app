@@ -21,3 +21,16 @@ $max-widths: map-merge(
 
 .min-height-75-vh { min-height: 75vh !important; }
 .max-height-45-vh { max-height: 45vh !important; }
+
+
+// Scale
+@for $i from 0 through 10 {
+  .scale-#{$i * 10} { 
+    transform: scale($i / 10);
+  }
+
+  .scale-#{($i * 10) + 5} { 
+    transform: scale(($i / 10) + 0.05);
+  }
+}
+//
