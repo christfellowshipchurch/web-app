@@ -25,7 +25,6 @@ const TileRowCardFeed = ({
         <div
             className={classnames(
                 "container-fluid",
-                "max-width-1100",
                 MARGIN_Y,
                 PADDING_X,
             )}

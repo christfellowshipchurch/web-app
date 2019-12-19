@@ -34,7 +34,7 @@ const Profile = () => {
     return [
         <div
             key={`Profile:Fields`}
-            className="container mt-4 mb-6 max-width-800"
+            className="container mt-4 mb-6"
         >
             <div className="row">
                 <div

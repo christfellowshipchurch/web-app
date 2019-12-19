@@ -12,7 +12,7 @@ const events = [
 
 const EventList = ({ }) => {
   return (
-    <div className="container py-6">
+    <div className="container-fluid py-6">
       <div className="row">
         <div className="col text-center">
           <h3>Click on an event below to view details</h3>

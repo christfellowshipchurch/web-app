@@ -137,7 +137,7 @@ const Swoop = ({ title }) => {
     })
 
     return (
-        <div className="container-fluid">
+        <div className="w-100">
             {blockItems.map((item, i) => {
                 const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-')
                 const bg = bgColor[`${bgIndex}`]
