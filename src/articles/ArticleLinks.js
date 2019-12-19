@@ -10,7 +10,7 @@ import {
 import { Media } from '../ui'
 
 const ArticleLinks = ({ articles }) => (
-  <div className="container-fluid max-width-1100 my-6 px-3">
+  <div className="container-fluid my-6 px-3">
     <div className="row">
       <div className="col">
         <h3 className="text-dark align-self-start">

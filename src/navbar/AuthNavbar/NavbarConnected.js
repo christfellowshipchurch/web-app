@@ -105,7 +105,6 @@ const NavbarConnected = ({
       {...navbarProps}
       id="user-profile-navbar-connected"
       className={classnames(
-        'container-fluid',
         'd-flex',
         'flex-column',
         'p-0'

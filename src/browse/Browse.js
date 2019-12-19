@@ -78,7 +78,6 @@ const Browse = ({
     return (
         <div className={classnames(
             'container-fluid',
-            'max-width-1100',
             'my-6',
             'px-4'
         )}>

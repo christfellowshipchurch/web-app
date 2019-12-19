@@ -97,7 +97,6 @@ const NavbarConnected = ({
         <Navbar 
           {...navbarProps}
           className={classnames(
-            'container-fluid',
             'd-flex',
             'flex-column',
             'p-0'

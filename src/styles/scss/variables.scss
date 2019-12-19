@@ -33,12 +33,12 @@ $enable-gradients: true !default;
 // spacers
 $spacer: 0.625rem !default; //1rem is 16px, default spacer is 10px
 $spacers: (
-    1: ($spacer * 0.25),//5px    
-    2: ($spacer * 0.5), //10px
-    3: $spacer,         //20px
-    4: ($spacer * 2),   //40px
-    5: ($spacer * 3),   //60px
-    6: ($spacer * 3.75) //75px
+    1: ($spacer * 0.25),// 5px    
+    2: ($spacer * 0.5), // 10px
+    3: $spacer,         // 20px
+    4: ($spacer * 2),   // 40px
+    5: ($spacer * 3),   // 60px
+    6: ($spacer * 3.75) // 75px
 ) !default;
 
 // grid
@@ -121,3 +121,15 @@ $input-btn-padding-x-lg: 6rem !default;
 $carousel-control-opacity: 0;
 $carousel-control-hover-opacity: 0;
 
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+// NOTE: `.container` CANNOT exceed 800px
+// for containers larger than 800px use `.container-fluid` (which max-width is 1100px)
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 800px,
+  xl: 800px
+) !default;

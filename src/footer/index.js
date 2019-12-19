@@ -44,7 +44,6 @@ const Footer = () => {
     return (
         <div
             className={classnames(
-                "container-fluid",
                 "bg-dark",
                 "footer",
                 "py-5",
