@@ -1,4 +1,3 @@
-import PixelManager from './components/PixelManager'
 import { Parser } from 'html-to-react'
 import moment from 'moment'
 import { get } from 'lodash'
@@ -35,16 +34,17 @@ export const getTextColorClass = (backgroundColor) => {
     return (o > 175) ? 'text-dark' : 'text-light'
 }
 
-export const buttonClick = ({ call, action, title, openLinksInNewTab }) => {
-    PixelManager.reportButtonClick({ call: `${title} - ${call}`, action })
+// Old button click from Pixel Manager
+// export const buttonClick = ({ call, action, title, openLinksInNewTab }) => {
+//     PixelManager.reportButtonClick({ call: `${title} - ${call}`, action })
 
-    if (openLinksInNewTab) {
-        const win = window.open(action, '_blank')
-        win.focus()
-    } else {
-        redirectTo(action)
-    }
-}
+//     if (openLinksInNewTab) {
+//         const win = window.open(action, '_blank')
+//         win.focus()
+//     } else {
+//         redirectTo(action)
+//     }
+// }
 
 export const getDirectionsUrl = (address) =>
     `https://www.google.com/maps/search/?api=1&query=${address.replace(' ', '+')}`

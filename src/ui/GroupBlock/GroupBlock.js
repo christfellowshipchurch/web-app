@@ -17,7 +17,7 @@ import BackgroundContentBlock from '../BackgroundContentBlock'
 import Carousel from '../Carousel'
 import Accordion from '../Accordion'
 import Tabs, { TabContent } from '../Tabs'
-import { Feature } from '../../components/features'
+import { Feature } from '../../features'
 
 
 const GroupBlock = ({

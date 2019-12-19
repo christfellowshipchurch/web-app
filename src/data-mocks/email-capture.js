@@ -1,4 +1,4 @@
-import { SUBMIT_EMAIL_CAPTURE } from '../components/features/EmailCapture/mutations'
+import { SUBMIT_EMAIL_CAPTURE } from '../features/EmailCapture/mutations'
 
 export const EMAIL_CAPTURE_MOCKS = {
     request: {
