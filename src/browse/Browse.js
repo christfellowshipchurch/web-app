@@ -70,8 +70,7 @@ const Browse = ({
     //     window.history.pushState(path, 'Browse Christ Fellowship Content', path)
     // }, [activeFilterId, activeCategory])
 
-    const handleSelect = (selectedIndex, e) => {
-        e.preventDefault()
+    const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex)
     }
 
