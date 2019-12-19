@@ -56,22 +56,7 @@ const Browse = ({
     const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
         .map(edge => edge.node)
 
-
-    // useEffect(() => {
-    //     const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
-    //     const filter = get(
-    //         find(filters, n => activeFilterId === n.node.id),
-    //         'node.title',
-    //         ''
-    //     )
-
-    //     const path = generatePath([filter, get(activeCategory, 'title')])
-
-    //     window.history.pushState(path, 'Browse Christ Fellowship Content', path)
-    // }, [activeFilterId, activeCategory])
-
-    const handleSelect = (selectedIndex, e) => {
-        e.preventDefault()
+    const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex)
     }
 
