@@ -237,7 +237,8 @@ const CampusSelect = ({
                         <>
                             <h1
                                 className={classnames(
-                                    'py-5',
+                                    'pt-6',
+                                    'pb-5',
                                     'mb-0',
                                     'text-center'
                                 )}

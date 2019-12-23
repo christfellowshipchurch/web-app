@@ -17,7 +17,6 @@ const FocusedCard = ({
     icon,
     callToAction,
     onCancel,
-    onOpen,
     htmlContent,
     options,
     onResize, // calls this function when this card changes size
@@ -105,7 +104,7 @@ const FocusedCard = ({
 
 FocusedCard.defaultProps = {
     onCancel: () => true,
-    onOpen: () => true
+    onResize: () => true
 }
 
 FocusedCard.propTypes = {
@@ -115,7 +114,7 @@ FocusedCard.propTypes = {
     callToAction: PropTypes.string,
     htmlContent: PropTypes.string,
     onCancel: PropTypes.func,
-    onOpen: PropTypes.func,
+    onResize: PropTypes.func,
 }
 
 export default FocusedCard

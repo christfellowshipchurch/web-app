@@ -16,11 +16,6 @@ const GridContainer = ({
     const [activeCard, setActiveCard] = useState(-1)
     const [cardHeight, setCardHeight] = useState()
 
-    const onFocusCardResize = ( n ) => {
-        // set the state of minHeight to be the height of the card
-        setCardHeight(n)
-    }
-
     return (
         <div
             style={{ minHeight: cardHeight }}
@@ -87,7 +82,6 @@ const GridContainer = ({
                         onResize: (n) => setCardHeight(n)
                     },
                 )}
-                {console.log({cardHeight})}
             </div>
         </div>
     )
