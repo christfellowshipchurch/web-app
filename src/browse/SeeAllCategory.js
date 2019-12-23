@@ -14,7 +14,7 @@ const SeeAllCategory = ({
 }) => {
     return (
         <div 
-            className="container my-6"
+            className="container-fluid my-6"
             style={{minHeight:'100%'}}
         >
             <div className='row align-content-center'>

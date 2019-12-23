@@ -54,7 +54,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
   return (
     <>
       <div className='pt-6 bg-white px-3'>
-        <div className="container max-width-800">
+        <div className="container">
           <div className="row">
             <div className="col">
               {get(article, 'title', '') !== '' &&

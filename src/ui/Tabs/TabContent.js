@@ -15,7 +15,7 @@ import {
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import Block from '../Block'
 import GroupBlock from '../GroupBlock'
-import { Feature } from '../../components/features'
+import { Feature } from '../../features'
 
 import { GET_CONTENT_BY_ID } from './queries'
 

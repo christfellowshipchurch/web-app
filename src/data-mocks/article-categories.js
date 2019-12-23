@@ -1,4 +1,4 @@
-import { GET_ARTICLE_CATEGORIES } from '../components/Page/Articles/queries'
+import { GET_ARTICLE_CATEGORIES } from '../articles/queries'
 
 export const ARTICLE_CATEGORIES_MOCK = {
     request: {

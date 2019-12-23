@@ -1,4 +1,4 @@
-import { GET_TOP_THREE_ARTICLES } from '../components/Page/Articles/queries'
+import { GET_TOP_THREE_ARTICLES } from '../article/queries'
 import { ARTICLE_TEMPLATE } from './article-details'
 
 export const TOP_THREE_ARTICLES_MOCKS = {
