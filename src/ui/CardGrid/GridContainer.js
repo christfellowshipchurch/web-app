@@ -14,9 +14,16 @@ const GridContainer = ({
     ActiveComponent,
 }) => {
     const [activeCard, setActiveCard] = useState(-1)
+    const [cardHeight, setCardHeight] = useState()
+
+    const onFocusCardResize = ( n ) => {
+        // set the state of minHeight to be the height of the card
+        setCardHeight(n)
+    }
 
     return (
         <div
+            style={{ minHeight: cardHeight }}
             className={classnames(
                 'p-relative',
                 {
@@ -76,9 +83,11 @@ const GridContainer = ({
                     ActiveComponent,
                     {
                         ...data[activeCard],
-                        onCancel: () => setActiveCard(-1)
+                        onCancel: () => setActiveCard(-1),
+                        onResize: (n) => setCardHeight(n)
                     },
                 )}
+                {console.log({cardHeight})}
             </div>
         </div>
     )
