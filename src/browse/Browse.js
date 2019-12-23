@@ -56,15 +56,13 @@ const Browse = ({
     const filters = get(data, 'getBrowseFilters[0].childContentItemsConnection.edges', [])
         .map(edge => edge.node)
 
-    const handleSelect = (selectedIndex, e) => {
-        e.preventDefault()
+    const handleSelect = (selectedIndex) => {
         setIndex(selectedIndex)
     }
 
     return (
         <div className={classnames(
             'container-fluid',
-            'max-width-1100',
             'my-6',
             'px-4'
         )}>

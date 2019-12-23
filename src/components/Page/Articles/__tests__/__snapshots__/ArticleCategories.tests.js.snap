@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ArticleCategories receives a null value from the server 1`] = `<div />`;
-
-exports[`ArticleCategories renders the error state 1`] = `<div />`;
-
-exports[`ArticleCategories renders the loading state 1`] = `<div />`;

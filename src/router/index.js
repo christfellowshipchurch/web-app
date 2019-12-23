@@ -3,7 +3,6 @@ import {
     Switch, Route
 } from 'react-router-dom'
 
-import DefaultPage, { UIPage } from '../components/Page'
 import PageBuilder from './PageBuilder'
 import HomePage from './Home'
 import Login from './Login'
@@ -18,7 +17,6 @@ import Campuses from './Campuses'
 const Router = () => {
     return (
         <Switch>
-            <Route exact path="/ui" component={UIPage} />
             <Route exact path="/animations" component={Animations} />
 
             <Route path="/login" component={Login} />

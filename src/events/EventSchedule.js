@@ -145,7 +145,7 @@ const EventSchedule = ({
     loading={loading}
     error={get(error, 'message', null)}
   >
-    <div className="container-fluid">
+    <div>
       <div className="row">
         <div className="col">
           <h3 className="text-dark mb-0">
