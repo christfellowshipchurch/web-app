@@ -21,7 +21,7 @@ export const GET_ETHNICITY_LIST = gql`
   }
 `
 
-export const GET_STATES_LIST = gql`
+export const GET_STATES = gql`
   query {
     getStatesList {
       id

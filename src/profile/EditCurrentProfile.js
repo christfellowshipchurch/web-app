@@ -14,7 +14,7 @@ import { CampusSelect, StateSelect, EthnicitySelect } from './profileSelectors'
 import { GET_CURRENT_PERSON } from './queries'
 import { UPDATE_PROFILE } from './mutations'
 
-const EditProfile = (
+const EditCurrentProfile = (
     identity,
     update
 ) => {
@@ -97,16 +97,6 @@ const EditProfile = (
                         disabled={submitting}
                         value={get(values, 'gender', '')}
                     />
-                    <br />
-                    <br />
-                    <h4>
-                        Ethnicity
-                        </h4>
-
-                    <Button
-                        title='save'
-                        onClick={onClick}
-                    />
                 </div>
                 <div
                     className={classnames(
@@ -118,19 +108,19 @@ const EditProfile = (
                 >
                     <h4 className='mt-6'>
                         Communication Preferences
-                            </h4>
+                    </h4>
                 </div>
             </div>
         </div>
     )
 }
 
-EditProfile.defaultProps = {
+EditCurrentProfile.defaultProps = {
     update: () => true,
 }
 
-EditProfile.propTypes = {
+EditCurrentProfile.propTypes = {
     update: PropTypes.func,
 }
 
-export default EditProfile
+export default EditCurrentProfile

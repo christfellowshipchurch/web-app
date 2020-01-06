@@ -93,12 +93,12 @@ const ProfileBanner = ({
                   className='p-2 w-75'
                   title='Edit Profile'
                   //Edit Profile not completed
-                  // onClick={
-                  //   (e) => {
-                  //     e.preventDefault()
-                  //     onEdit()
-                  //     setEdit(true)
-                  //   }}
+                  onClick={
+                    (e) => {
+                      e.preventDefault()
+                      onEdit()
+                      setEdit(true)
+                    }}
                   type='light'
                   size='sm'
                 />
