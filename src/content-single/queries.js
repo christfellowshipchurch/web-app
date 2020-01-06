@@ -117,9 +117,10 @@ export const GET_RELATED_ARTICLES = gql`
     query getRelatedArticles($id:ID!) {
         node(id:$id) {
             ... on ContentItem {
-                siblingContentItemsConnection(first:3) {
+                siblingContentItemsConnection(first:4) {
                     edges {
                       node {
+                        id
                         title
     
                         images {
@@ -148,7 +149,7 @@ export const GET_TOP_THREE_ARTICLES = gql`
                                 node {
                                     id
                                 
-                                    childContentItemsConnection(first:3) {
+                                    childContentItemsConnection(first:4) {
                                         edges {
                                             node {
                                                 id

@@ -20,10 +20,16 @@ const CardFeed = ({
     urlBase,
     first
 }) => {
+    // we want to query at least one additional item just in case we get back the
+    //  original item as a part of the child/sibling collection. Later on, we'll filter
+    //  results to remove the original item from the list
+    const calculatedFirst = first
+        ? first + 1
+        : null
     const { loading, error, data } = useQuery(GET_CONTENT_FEED, {
         variables: {
             itemId: id,
-            first,
+            first: calculatedFirst,
             child: connection === "child",
             sibling: connection === "sibling",
         }
@@ -40,9 +46,11 @@ const CardFeed = ({
         return null
     }
 
-    const content = get(data, `node.${connection}ContentItemsConnection.edges`, []).map(
+    let content = get(data, `node.${connection}ContentItemsConnection.edges`, []).map(
         edge => edge.node
-    )
+    ).filter(n => n.id !== id)
+
+    if (first) content = take(content, first)
 
     return (
         <div className="container-fluid max-width-1100 my-6 px-4">
@@ -83,12 +91,13 @@ CardFeed.propTypes = {
         'sibling'
     ]),
     title: PropTypes.string,
-    top: PropTypes.number,
+    first: PropTypes.number,
 }
 
 CardFeed.defaultProps = {
     id: null,
-    connection: 'child'
+    connection: 'child',
+    first: null
 }
 
 export default CardFeed
