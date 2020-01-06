@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo'
-import { get } from 'lodash'
+import { get, take } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/fontawesome-pro-regular'
 
