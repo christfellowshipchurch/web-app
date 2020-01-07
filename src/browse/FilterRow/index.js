@@ -22,7 +22,7 @@ const BrowseFilters = ({
                         className={classnames(
                             'h4',
                             'my-2',
-                            'mr-4',
+                            'mr-3',
                             {
                                 'font-weight-bold': selected === n.id,
                                 'font-weight-normal': selected !== n.id,

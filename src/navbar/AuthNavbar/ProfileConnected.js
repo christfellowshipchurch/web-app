@@ -165,7 +165,8 @@ const ProfileConnected = ({ dropDownLinks }) => {
       <div
         className={classnames(
           'd-lg-none',
-          'mt-5',
+          'mt-3',
+          'pt-1',
           'pl-4'
         )}
       >
@@ -174,10 +175,11 @@ const ProfileConnected = ({ dropDownLinks }) => {
           className={classnames(
             'd-flex',
             'align-items-center',
-            'pb-3',
+            'pb-0',
             'nav-link',
             'text-dark',
-            'px-0'
+            'px-0',
+            'pt-2'
           )}
         >
           {get(data, 'currentUser.profile.photo.uri', '') !== ''
@@ -205,18 +207,20 @@ const ProfileConnected = ({ dropDownLinks }) => {
             'flex-column',
             'nav-link',
             'text-dark',
-            'px-0'
+            'px-0',
+            'py-0',
+            'mt-3'
           )}
         >
           <a
             href='/profile'
-            className='my-1 text-dark'
+            className='mb-1 text-dark'
           >
             My Profile
           </a>
           <a
             href='/profile'
-            className='my-1 text-dark'
+            className='mt-1 text-dark'
           >
             Preferences
           </a>
