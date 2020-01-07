@@ -65,9 +65,9 @@ const ProfileConnected = ({ dropDownLinks }) => {
               className={classnames(
                 'shadow',
                 'rounded',
-                'py-4',
-                'my-1',
-                'px-3'
+                'py-3',
+                'px-2',
+                'mt-1'
               )}
             >
               {dropDownLinks.map((link, i) => (
@@ -75,9 +75,8 @@ const ProfileConnected = ({ dropDownLinks }) => {
                   key={i}
                   href={link.action}
                   className={classnames(
-                    'py-2',
-                    'pl-3',
-                    'pr-4',
+                    'mb-1',
+                    'mr-3',
                     'nav-link',
                     'text-dark',
                     'no-decoration',
@@ -89,9 +88,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
               <ContactUsButton
                 className={classnames(
                   'dropdown-item',
-                  'py-2',
-                  'pl-3',
-                  'pr-4',
+                  'mb-2',
                   'nav-link',
                   'text-dark',
                   'no-decoration',
@@ -101,12 +98,12 @@ const ProfileConnected = ({ dropDownLinks }) => {
               </ContactUsButton>
 
               <Dropdown.Divider
-                className='w-100'
+                className='w-100 my-0 mx-2'
                 style={{ color: 'grey' }}
               />
               <Dropdown.Item
                 className={classnames(
-                  'py-2',
+                  'mt-1',
                   'pl-3',
                   'pr-4',
                   'nav-link',

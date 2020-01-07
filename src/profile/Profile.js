@@ -22,8 +22,12 @@ const Profile = () => {
     } = useAuthQuery(GET_CURRENT_PERSON)
 
     const headerClass = classnames(
-        'mb-3',
-        'mt-5'
+        'pb-1',
+        'mb-2',
+    )
+    const bodyClass = classnames(
+        'font-weight-light',
+        'mb-4'
     )
 
     if (error) return <h1 className="text-danger">...oops</h1>
@@ -46,10 +50,10 @@ const Profile = () => {
                         'profile-bar'
                     )}
                 >
-                    <h4 className={headerClass}>
+                    <h4 className={`${headerClass} mt-4`}>
                         My Campus:
                     </h4>
-                    <h4 className='font-weight-light mb-5'>
+                    <h4 className={bodyClass}>
                         {get(profile, 'campus.name', '')}
                     </h4>
                     <h4 className={headerClass}>
@@ -58,19 +62,19 @@ const Profile = () => {
                     <h4 className='font-weight-light'>
                         {get(profile, 'address.street1', '')}
                     </h4>
-                    <h4 className='font-weight-light mb-5'>
+                    <h4 className={bodyClass}>
                         {`${get(address, 'city', '')}, ${get(address, 'state', '')} ${get(address, 'postalCode', '').substring(0, 5)}`}
                     </h4>
                     <h4 className={headerClass}>
                         Date of Birth:
                         </h4>
-                    <h4 className='font-weight-light mb-5'>
+                    <h4 className={bodyClass}>
                         {moment(birthDate).isValid() && moment(birthDate).format('MMM DD, YYYY')}
                     </h4>
                     <h4 className={headerClass}>
                         Gender:
                     </h4>
-                    <h4 className='font-weight-light mb-5'>
+                    <h4 className={bodyClass}>
                         {get(profile, 'gender', '')}
                     </h4>
                 </div>
@@ -83,7 +87,7 @@ const Profile = () => {
                         'pr-3'
                     )}
                 >
-                    <h4 className='mt-5 mb-3'>
+                    <h4 className='mt-4 mb-2 pb-1'>
                         Communication Preferences
                         </h4>
                     <TextInput

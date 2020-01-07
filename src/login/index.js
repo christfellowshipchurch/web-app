@@ -45,7 +45,8 @@ const LoginCard = () => {
             <h2
                 className={classnames(
                     "text-center",
-                    'mb-4'
+                    'mt-2',
+                    'mb-3'
                 )}
             >
                 Login
@@ -57,7 +58,7 @@ const LoginCard = () => {
                 controls={false}
                 indicators={false}
                 interval={null}
-                touch={false}
+                touch={true}
             >
                 <Carousel.Item>
                     <Identity
