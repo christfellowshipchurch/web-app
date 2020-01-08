@@ -23,7 +23,7 @@ const MediaItem = ({
   gradient,
   gradientDirection,
   withHover,
-  style
+  style,
 }) => {
   const showVideoControls = showControls && !children
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls)
@@ -37,6 +37,7 @@ const MediaItem = ({
     }
     : {}
   let videoRef = createRef()
+
   const playButtonClick = () => {
     videoRef.current.play()
     setShowPlayButton(false)
@@ -60,7 +61,7 @@ const MediaItem = ({
         {
           'rounded': rounded && !circle,
           'rounded-circle': circle,
-          'scale-media-up-on-hover': withHover
+          'scale-media-up-on-hover': withHover,
         }
       )}
       style={style}
@@ -85,7 +86,6 @@ const MediaItem = ({
         />
       }
 
-      {/* TODO : add gradient abilities */}
       {(gradient || overlay) &&
         <div
           className={classnames(
@@ -103,7 +103,7 @@ const MediaItem = ({
 
       {
         (children || (showPlayButton && videoUrl)) &&
-        <div className='fill d-flex justify-content-center align-items-center'>
+        <div className='fill d-flex justify-content-center align-items-center' style={{ zIndex: 1000 }}>
           {(showVideoControls && videoRef)
             ? (
               <button
@@ -115,15 +115,15 @@ const MediaItem = ({
             : children}
         </div>
       }
-
-    </div >
+    </div>
   )
-};
+}
 
-const defaultProps = {
+MediaItem.defaultProps = {
   ratio: '1by1',
   videoUrl: null,
   className: '',
+  style: {},
   showControls: false,
   playIcon: {
     as: null,
@@ -137,7 +137,7 @@ const defaultProps = {
 }
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9']
-const propTypes = {
+MediaItem.propTypes = {
   ratio: PropTypes.oneOfType([
     PropTypes.oneOf(RATIOS),
     PropTypes.shape({
@@ -152,6 +152,7 @@ const propTypes = {
   imageAlt: PropTypes.string.isRequired,
   videoUrl: PropTypes.string,
   className: PropTypes.string,
+  style: PropTypes.object,
   showControls: PropTypes.bool,
   withHover: PropTypes.bool,
   playIcon: PropTypes.shape({
@@ -189,7 +190,4 @@ const propTypes = {
   ])
 }
 
-MediaItem.defaultProps = defaultProps;
-MediaItem.propTypes = propTypes;
-
-export default MediaItem;
+export default MediaItem

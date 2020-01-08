@@ -1,23 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { camelCase, get } from 'lodash'
+import VisibilitySensor from 'react-visibility-sensor'
+
 import { htmlToReactParser } from '../../utils'
 import { Layout } from '..'
 
 import ButtonRow from '../ButtonRow'
-
-const titleClasses = classnames(
-  'font-weight-bold',
-)
-const subtitleClasses = classnames(
-  'mt-3',
-  'subtitle',
-  'text-secondary'
-)
-const htmlClasses = classnames(
-  'pb-4',
-)
-
 
 const Block = ({
   contentLayout,
@@ -31,46 +21,161 @@ const Block = ({
   callToAction,
   secondaryCallToAction,
   openLinksInNewTab,
-  className
+  className,
+  withAnimation,
+  textColor,
+  variant,
 }) => {
+  const textColorClass = classnames({
+    'text-white': variant === 'dark',
+    'text-dark': variant === 'light',
+  })
 
   return (
-    <div className={`col py-6 ${className}`}>
-      <Layout
-        layout={camelCase(contentLayout)}
-        className="max-width-1100"
-        media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
-          ? {
-            imageUrl: get(images, '[0].sources[0].uri', ''),
-            imageAlt,
-            videoUrl: get(videos, '[0].sources[0].uri', ''),
-            ratio: imageRatio,
-            showControls: true,
-            rounded: true
-          } : null}
-      >
-        <div className="max-width-800 mx-auto">
-          <h5 className={subtitleClasses}>
-            {subtitle}
-          </h5>
+    <VisibilitySensor
+      active={withAnimation}
+      partialVisibility
+      minTopValue={250}
+    >
+      {({ isVisible }) => {
+        return (
+          <Layout
+            layout={camelCase(contentLayout)}
+            className={classnames(
+              "max-width-1100",
+              'py-6',
+              {
+                "opacity-0": !isVisible,
+                "opacity-100": isVisible || !withAnimation,
+                // "scale-95": !isVisible,
+                // "scale-100": isVisible,
+              },
+              className,
+            )}
+            media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
+              ? {
+                imageUrl: get(images, '[0].sources[0].uri', ''),
+                imageAlt,
+                videoUrl: get(videos, '[0].sources[0].uri', ''),
+                ratio: imageRatio,
+                showControls: true,
+                rounded: true,
+                className: classnames({
+                  "max-width-800": contentLayout === 'default' || contentLayout === 'inverted',
+                  "mx-auto": contentLayout === 'default' || contentLayout === 'inverted',
+                  "animate-slide-left-right": isVisible && contentLayout === 'right',
+                  "animate-slide-right-left": isVisible && contentLayout === 'left',
+                  "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
+                })
+              } : null}
+          >
+            <div
+              className="max-width-800 mx-auto"
+              className={classnames(
+                "max-width-800",
+                "mx-auto",
+                {
+                  "animate-slide-left-right": isVisible && contentLayout === 'left',
+                  "animate-slide-right-left": isVisible && contentLayout === 'right',
+                  "animate-slide-bottom-top": isVisible && (contentLayout === 'default' || contentLayout === 'inverted'),
+                }
+              )}
+            >
+              <h5
+                className={classnames(
+                  'mt-3',
+                  'subtitle',
+                  'text-secondary',
+                  textColorClass
+                )}
+              >
+                {subtitle}
+              </h5>
 
-          <h1 className={titleClasses}>
-            {title}
-          </h1>
+              <h2
+                className={classnames(
+                  'font-weight-bold',
+                  textColorClass
+                )}
+              >
+                {title}
+              </h2>
 
-          <div className={htmlClasses}>
-            {htmlToReactParser.parse(htmlContent)}
-          </div>
+              <div
+                className={classnames(
+                  'pb-4',
+                  textColorClass
+                )}
+              >
+                {htmlToReactParser.parse(htmlContent)}
+              </div>
 
-          <ButtonRow
-            callToAction={callToAction}
-            secondaryCallToAction={secondaryCallToAction}
-            openLinksInNewTab={openLinksInNewTab}
-          />
-        </div>
-      </Layout>
-    </div>
+              <div className=''>
+                {callToAction
+                  && callToAction.call !== ''
+                  && callToAction.action !== ''
+                  && <a
+                    className={classnames(
+                      'btn',
+                      {
+                        'btn-primary': variant === 'light',
+                        'btn-white': variant === 'dark',
+                      }
+                    )}
+                    href={callToAction.action}
+                    target={openLinksInNewTab ? '_blank' : ''}
+                  >
+                    {callToAction.call}
+                  </a>}
+              </div>
+
+              <div className=''>
+                {secondaryCallToAction
+                  && secondaryCallToAction.call !== ''
+                  && secondaryCallToAction.action !== ''
+                  && <a
+                    className={classnames(
+                      'btn',
+                      'btn-link',
+                      {
+                        'text-primary': variant === 'light',
+                        'text-white': variant === 'dark',
+                      }
+                    )}
+                    href={secondaryCallToAction.action}
+                    target={openLinksInNewTab ? '_blank' : ''}
+                  >
+                    {secondaryCallToAction.call}
+                  </a>}
+              </div>
+            </div>
+          </Layout>
+        )
+      }}
+    </VisibilitySensor>
   )
+}
+
+Block.propTypes = {
+  withAnimation: PropTypes.bool,
+  contentLayout: PropTypes.oneOf([
+    'default',
+    'inverted',
+    'left',
+    'right'
+  ]),
+  textColor: PropTypes.string,
+  variant: PropTypes.oneOf([
+    'light',
+    'dark'
+  ])
+}
+
+Block.defaultProps = {
+  withAnimation: false,
+  contentLayout: 'default',
+  textColor: 'dark',
+  variant: 'light'
 }
 
 export default Block

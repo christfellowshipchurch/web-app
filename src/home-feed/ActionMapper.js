@@ -56,7 +56,7 @@ const ActionMapper = ({
             case ACTION_TYPES.children:
                 return <div
                     key={`CardFeed:${relatedNode.id}`}
-                    className="container-fluid max-width-1100 my-n6"
+                    className="container-fluid my-n6"
                 >
                     <div className="row">
                         <div className="col">
@@ -74,7 +74,7 @@ const ActionMapper = ({
 
         return !!CardType && <div
             key={`HomeFeedCard:${key}`}
-            className="container-fluid max-width-1100"
+            className="container-fluid"
         >
             <div className="row">
                 <div className={classnames('col', CARD_PADDING)}>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import classnames from 'classnames'
 import { get } from 'lodash'
 import { Carousel } from 'react-bootstrap'
 import ButtonRow from '../ButtonRow'
@@ -47,7 +48,16 @@ const FormattedCarousel = ({ children }) => {
 
                     <div className='d-flex justify-content-center'>
                       <h2 className={subtitle}></h2>
-                      <div className='col-10 pt-4 text-center'>{htmlToReactParser.parse(htmlContent)}</div>
+                      <div
+                        className={classnames(
+                          'col-10',
+                          'pt-4',
+                          'text-center',
+                          'max-width-600'
+                        )}
+                      >
+                        {htmlToReactParser.parse(htmlContent)}
+                      </div>
                     </div>
 
                     <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />

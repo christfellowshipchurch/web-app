@@ -28,7 +28,7 @@ const BackgroundContentBlock = ({
       'col',
       lg ? 'py-6' : '',
       className,
-      lg ? 'min-height-75-vh' : '',
+      lg ? 'min-vh-100' : '',
       'd-flex',
       'align-items-center'
     )}>

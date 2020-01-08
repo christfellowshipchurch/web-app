@@ -1,4 +1,4 @@
-import { GET_RELATED_ARTICLES } from '../components/Page/Articles/queries'
+import { GET_RELATED_ARTICLES } from '../article/queries'
 import { ARTICLE_TEMPLATE } from './article-details'
 
 export const RELATED_ARTICLES_MOCKS = {

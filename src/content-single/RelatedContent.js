@@ -5,6 +5,7 @@ import {
 } from 'react-apollo'
 import {
   get,
+  take
 } from 'lodash'
 import { Loader } from '../ui'
 import {
@@ -29,8 +30,10 @@ const RelatedArticles = ({ id }) => {
     return <TopThreeContent />
   }
 
-  const articles = get(data, 'node.siblingContentItemsConnection.edges', [])
-    .map(({ node }) => node)
+  const articles = take(
+    get(data, 'node.siblingContentItemsConnection.edges', [])
+      .map(({ node }) => node).filter(n => n.id !== id),
+    3)
 
   return articles.length
     ? <ContentLinks articles={articles} />

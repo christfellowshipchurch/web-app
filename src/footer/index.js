@@ -44,7 +44,6 @@ const Footer = () => {
     return (
         <div
             className={classnames(
-                "container-fluid",
                 "bg-dark",
                 "footer",
                 "py-5",
@@ -95,7 +94,7 @@ const Footer = () => {
                 <div className="col text-center max-width-800 mx-auto">
                     {get(footer, 'footerLinks', []).map((link, i) => (
                         <a key={i}
-                            href="/#"
+                            href={link.action}
                             className='text-light text-uppercase font-weight-bold mx-3'
                             onClick={() => { }}>
                             {link.call}

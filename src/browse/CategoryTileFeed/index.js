@@ -67,7 +67,7 @@ const CategoryTileFeed = ({
         </div>,
         <div
             key={`CategoryTileFeed:2`}
-            className="row mx-n2"
+            className="row mx-n2 mb-5"
         >
             {take(content, 3).map((n, i) => (
                 <ContentCardConnected

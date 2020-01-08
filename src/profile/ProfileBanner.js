@@ -17,9 +17,7 @@ const ProfileBanner = ({
   const [edit, setEdit] = useState()
 
   return (
-    <div
-      className='container-fluid'
-    >
+    <div>
       <div className='row'>
         <div className={classnames(
           'col-12',
@@ -28,8 +26,11 @@ const ProfileBanner = ({
           <Media
             imageUrl={coverImage}
             imageAlt='cover-photo'
-            ratio={{ xs: "1by1", md: '16by9', lg: '21by9' }}
+            ratio={{ xs: "1by1", sm:"16by9", md: '16by9', lg: '21by9' }}
             gradient="black"
+            style={{ maxHeight: 350 }}
+            className='w-100'
+            forceRatio
           >
             <div
               className={classnames(

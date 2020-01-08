@@ -1,4 +1,4 @@
-import { GET_ALL_ARTICLES } from '../components/Page/Articles/queries'
+import { GET_ALL_ARTICLES } from '../article/queries'
 import { ARTICLE_TEMPLATE } from './article-details'
 
 export const ARTICLE_LIST_MOCKS = {

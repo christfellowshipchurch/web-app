@@ -15,7 +15,7 @@ import {
 import BackgroundContentBlock from '../BackgroundContentBlock'
 import Block from '../Block'
 import GroupBlock from '../GroupBlock'
-import { Feature } from '../../components/features'
+import { Feature } from '../../features'
 
 import { GET_CONTENT_BY_ID } from './queries'
 
@@ -39,14 +39,20 @@ const TabContent = ({
             {blockItems.map((item, i) => {
                 const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-')
                 const topPadding = i === 0 ? 'pt-5' : ''
+                const contentLayout = camelCase(get(item, 'contentLayout', ''))
                 let content = null
 
                 switch (item.__typename) {
                     case 'WebsiteBlockItem':
-                        if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
+                        if (contentLayout.includes('background')) {
                             content = <BackgroundContentBlock {...item} className={topPadding} />
                         } else {
-                            content = <Block {...item} className={topPadding} />
+                            content = <Block
+                                {...item}
+                                className={topPadding}
+                                contentLayout={contentLayout}
+                                withAnimation
+                            />
                         }
                         break
                     case 'WebsiteGroupItem':

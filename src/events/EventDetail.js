@@ -45,7 +45,6 @@ const EventDetail = ({
       'container-fluid',
       'my-4',
       'px-3',
-      'max-width-1100',
     )}>
       <div className="row">
         <div className="col-12 col-lg-4 p-2">

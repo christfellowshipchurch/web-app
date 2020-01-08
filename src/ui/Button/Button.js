@@ -22,6 +22,7 @@ const Button = ({
   ...buttonProps
 }) => {
   const btnType = get({
+    white: 'white',
     dark: 'outline-dark',
     light: 'outline-light',
     link: 'link'

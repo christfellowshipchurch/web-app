@@ -1,4 +1,4 @@
-import Item from './MediaItem'
+import Item from './MediaContainer'
 import Image from './Image'
 import Video from './Video'
 

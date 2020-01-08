@@ -63,9 +63,12 @@
 @import 'sizing.scss';
 @import 'overflows.scss';
 @import 'opacity.scss';
+@import 'animations.scss';
+@import 'hero.scss';
 @import 'gradients.scss';
 @import 'embed.scss';
 @import 'typography.scss';
+@import 'swoops.scss';
 
 html {
     font-size: 16px;
@@ -74,6 +77,24 @@ html {
 $lg-breakpoint: map-get($grid-breakpoints, lg);
 
 // Misc
+$md-breakpoint: map-get($grid-breakpoints, md);
+
+// large background swoop sizing for md and up
+@media (min-width: $md-breakpoint) {
+    img.large-background-swoop {
+        object-fit: cover;
+        object-position: center bottom;
+    }
+
+    .location-banner {
+        height: 300px !important;
+    }
+}
+
+.location-banner {
+    height: 100vw;
+}
+
 .disable {
     color: #e2e2e2;
     cursor: default !important;
@@ -121,6 +142,7 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
 
 // Additional Backgrounds
 .bg-black { background-color: black !important; }
+.bg-body { background-color: $body-bg !important; }
 //
 
 
@@ -170,6 +192,12 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
 .navbar-default img {
     width: 30px;
     height: 30px;
+}
+
+.navbar .navbar-expand {
+    .container-fluid{
+        max-width: 100%;
+    }
 }
 //
 
@@ -256,5 +284,11 @@ $lg-breakpoint: map-get($grid-breakpoints, lg);
     @media (min-width: 768px) {
         border-right: 1px solid lightgrey;
     }
+}
+//
+
+//Containers
+.container-fluid{ 
+    max-width: 1100px,
 }
 //
