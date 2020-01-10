@@ -38,7 +38,8 @@ const EventDetail = ({
   id,
   htmlContent,
   tags,
-  callsToAction
+  callsToAction,
+  events,
 }) => {
   return (
     <div className={classnames(
@@ -51,6 +52,7 @@ const EventDetail = ({
           <ConnectedEventSchedule
             id={id}
             callsToAction={callsToAction}
+            events={events}
           />
         </div>
 
