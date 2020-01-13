@@ -5,7 +5,7 @@ import { get } from 'lodash'
 
 import { ContentCard } from '../ui'
 import GET_CONTENT_CARD from './queries'
-import { formatDate } from '../utils'
+import { formatDate, getStartDateFromEvents } from '../utils'
 
 export { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries'
 
@@ -46,7 +46,7 @@ const ContentCardConnectedWithQuery = ({
             isLoading: loading,
             label: {
                 value: typename === 'EventContentItem'
-                    ? formatDate(node)
+                    ? getStartDateFromEvents(node)
                     : labelValue,
                 ...label
             },

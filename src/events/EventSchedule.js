@@ -117,7 +117,10 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   const id = 'event-campus-selection'
   const selectLocation = 'Select Location'
   const options = [selectLocation, ...campuses]
-  const [selected, setSelected] = useState(defaultCampus || options[0])
+  const [selected, setSelected] = useState(options.includes(defaultCampus)
+    ? defaultCampus
+    : options[0]
+  )
 
   // when the selection changes, call the onChange method
   useEffect(() => onChange(selected), [selected])
@@ -217,13 +220,15 @@ const EventSchedule = ({
               />
             ))}
 
-            <a
-              className="text-dark"
-              href={getDirectionsUrl(location)}
-              target="_blank"
-            >
-              {location}
-            </a>
+            <div className="my-4">
+              <a
+                className="text-dark"
+                href={getDirectionsUrl(location)}
+                target="_blank"
+              >
+                {location}
+              </a>
+            </div>
           </div>
         })}
 

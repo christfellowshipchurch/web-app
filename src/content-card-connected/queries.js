@@ -52,6 +52,9 @@ export const ACCESSORY_FRAGMENT = gql`
     ... on EventContentItem {
       startDate
       endDate
+      events {
+        start
+      }
     }
   }
 `

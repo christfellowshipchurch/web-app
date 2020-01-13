@@ -41,6 +41,11 @@ export const GET_EVENTS = gql`
             title
             startDate
             endDate
+
+            events {
+                start
+                end
+            }
         }
     }
 `
