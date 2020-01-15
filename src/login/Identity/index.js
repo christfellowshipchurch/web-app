@@ -110,7 +110,7 @@ const IdentityForm = ({
         <div className="container">
             <div className="row text-center">
                 <div className="col-12">
-                    <p>
+                    <p className='mb-0 pb-3'>
                         {promptText}
                     </p>
                 </div>
@@ -129,7 +129,7 @@ const IdentityForm = ({
                 </div>
             </div>
 
-            <div className="row my-5 text-center justify-content-center">
+            <div className="row my-4 text-center justify-content-center">
                 <div className={classnames(columns)}>
                     <Checkbox
                         error={has(errors, 'privacyPolicyAgreement') && get(errors, 'privacyPolicyAgreement', '')}
@@ -144,7 +144,7 @@ const IdentityForm = ({
                 </div>
             </div>
 
-            <div className="text-center">
+            <div className="my-4 text-center">
                 <Button
                     onClick={onClick}
                     disabled={disabled}

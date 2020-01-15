@@ -184,6 +184,7 @@ const NavbarConnected = ({
                 "d-flex",
                 "justify-content-start",
                 "justify-content-lg-end",
+                'py-0'
               )}
             >
               <ProfileConnected />
@@ -214,6 +215,8 @@ const NavbarConnected = ({
             <p className={classnames(
               'font-weight-light',
               'd-lg-none',
+              'ml-2',
+              'mb-2'
             )}
             >
               Get Involved
@@ -225,7 +228,8 @@ const NavbarConnected = ({
                   'd-flex',
                   'align-items-center',
                   'd-lg-none',
-                  'pl-4'
+                  'pl-2',
+                  'ml-3',
                 )}
               >
                 <FontAwesomeIcon
@@ -266,7 +270,11 @@ const NavbarConnected = ({
 
           {/* Mobile Learn More */}
           <div className='d-lg-none'>
-            <p className='font-weight-light'>
+            <p className={classnames(
+              'font-weight-light',
+              'ml-2',
+              'my-1'
+            )}>
               Learn More
               </p>
             <div
