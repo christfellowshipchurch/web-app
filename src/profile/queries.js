@@ -45,10 +45,11 @@ export const GET_CURRENT_PERSON = gql`
                 }
 
                 campus {
-                    featuredImage {
-                        uri
-                    }
-                    name
+                  id
+                  featuredImage {
+                      uri
+                  }
+                  name
                 }
 
                 photo {

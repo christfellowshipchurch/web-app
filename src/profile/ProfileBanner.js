@@ -12,14 +12,11 @@ const ProfileBanner = ({
   profileImage,
   name,
   campus,
-  editMode,
+  editMode: edit,
   onEdit,
   onSave,
   onCancel
 }) => {
-
-  const [edit, setEdit] = useState(editMode)
-
   const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON)
 
   return (
@@ -31,17 +28,17 @@ const ProfileBanner = ({
         >
           {loading
             ? <div
-                className={
-                  'w-100'
-                }
-                style={{
-                  height: '300px',
-                }}
-              >
-                <Loader />
-              </div>
+              className={
+                'w-100'
+              }
+              style={{
+                height: '300px',
+              }}
+            >
+              <Loader />
+            </div>
             :
-            < Media
+            <Media
               imageUrl={get(data, 'currentUser.profile.campus.featuredImage.uri', '')}
               imageAlt='cover-photo'
               ratio={{ xs: "1by1", sm: "16by9", md: '16by9', lg: '21by9' }}
@@ -70,22 +67,10 @@ const ProfileBanner = ({
                   'text-white',
                   'text-center',
                   'mt-3',
-                  'mb-0'
                 )}>
                   {/* Profile Name */}
                   {`${get(data, 'currentUser.profile.firstName')} ${get(data, 'currentUser.profile.lastName')}`}
                 </h1>
-                <p
-                  className={classnames(
-                    'text-white',
-                    'text-center',
-                    'font-weight-light',
-                    'mb-2'
-                  )}
-                >
-                  {/* Campus Name */}
-                  {get(data, 'currentUser.profile.campus.name', 'Campus Name')}
-                </p>
                 {edit
                   ?
                   <>
@@ -97,7 +82,6 @@ const ProfileBanner = ({
                         (e) => {
                           e.preventDefault()
                           onSave()
-                          setEdit(false)
                         }}
                     />
                     <Button
@@ -109,7 +93,6 @@ const ProfileBanner = ({
                         (e) => {
                           e.preventDefault()
                           onCancel()
-                          setEdit(false)
                         }}
                     />
                   </>
@@ -121,7 +104,6 @@ const ProfileBanner = ({
                       (e) => {
                         e.preventDefault()
                         onEdit()
-                        setEdit(true)
                       }}
                     type='light'
                     size='sm'
@@ -130,7 +112,7 @@ const ProfileBanner = ({
               </div>
             </Media>}
         </div>
-    </div>
+      </div>
     </div >
   )
 }

@@ -36,13 +36,13 @@ const CurrentProfile = ({
     const address = get(profile, 'address', {})
 
     return [
-        <>
-        <ProfileBanner 
+        <ProfileBanner
+            key={`UserProfile:ProfileBanner`}
             onEdit={() => onChange(true)}
-        />
+        />,
         <div
-            key={`Profile:Fields`}
-            className="container mt-4 mb-6"
+            key={`UserProfile:ProfileFields`}
+            className="container my-4"
         >
             <div className="row">
                 <div
@@ -55,13 +55,13 @@ const CurrentProfile = ({
                     )}
                 >
                     <h4 className={headerClass}>
-                        My Campus:
+                        My Campus
                     </h4>
                     <h4 className='font-weight-light mb-5'>
                         {get(profile, 'campus.name', '')}
                     </h4>
                     <h4 className={headerClass}>
-                        Home Address:
+                        Home Address
                     </h4>
                     <h4 className='font-weight-light'>
                         {get(profile, 'address.street1', '')}
@@ -70,13 +70,13 @@ const CurrentProfile = ({
                         {`${get(address, 'city', '')}, ${get(address, 'state', '')} ${get(address, 'postalCode', '').substring(0, 5)}`}
                     </h4>
                     <h4 className={headerClass}>
-                        Date of Birth:
+                        Date of Birth
                     </h4>
                     <h4 className='font-weight-light mb-5'>
                         {moment(birthDate).isValid() && moment(birthDate).format('MMM DD, YYYY')}
                     </h4>
                     <h4 className={headerClass}>
-                        Gender:
+                        Gender
                     </h4>
                     <h4 className='font-weight-light mb-5'>
                         {get(profile, 'gender', '')}
@@ -131,10 +131,9 @@ const CurrentProfile = ({
                     </div>
                 </div>
             </div>
-        </div>
-        </>,
+        </div>,
         loading && <div
-            key={`Profile:Loader`}
+            key={`UserProfile:Loader`}
             className="absolute-center w-100 h-100"
         >
             <Loader />

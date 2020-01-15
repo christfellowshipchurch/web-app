@@ -3,7 +3,9 @@ import gql from 'graphql-tag'
 export const UPDATE_CURRENT_USER = gql`
   mutation updateCurrentUserProfile(
     $profileFields: [UpdateProfileInput]!,
-    $address: AddressInput!
+    $address: AddressInput!,
+    $campusId: String!,
+    $communicationPreferences: [UpdateCommunicationPreferenceInput]!
     ) {
 
     updateProfileFields(input: $profileFields) {
@@ -20,6 +22,24 @@ export const UPDATE_CURRENT_USER = gql`
       city
       state
       postalCode
+    }
+
+    updateUserCampus(campusId: $campusId) {
+      id
+      campus {
+        id
+        featuredImage {
+            uri
+        }
+        name
+      }
+    }
+
+    updateCommunicationPreferences(input: $communicationPreferences) {
+      communicationPreferences {
+        allowSMS
+        allowEmail
+      }
     }
   }
   `

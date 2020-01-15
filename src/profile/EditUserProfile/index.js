@@ -5,6 +5,8 @@ import classnames from 'classnames'
 import { get, keys, upperFirst, indexOf } from 'lodash'
 import { faEnvelope, faMobile } from '@fortawesome/fontawesome-pro-light'
 import { faHomeLg } from '@fortawesome/pro-light-svg-icons'
+import AwesomePhoneNumber from 'awesome-phonenumber'
+import { string } from 'yup'
 
 import { useForm } from '../../hooks'
 import { TextInput, Checkbox, Radio, Dropdown, Loader } from '../../ui'
@@ -14,28 +16,60 @@ import ProfileBanner from '../ProfileBanner'
 import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES, GET_CURRENT_CAMPUS } from '../queries'
 import { UPDATE_CURRENT_USER, UPDATE_CAMPUS } from '../mutations'
 
+const CampusSelection = ({ onChange, value }) => {
+    const { data, loading, error } = useQuery(GET_CAMPUSES, { fetchPolicy: "cache-and-network" })
+    const disabled = loading || error
+
+    return <Dropdown
+        options={get(data, 'campuses', [])
+            .map(({ id, name }) => ({ value: id, label: name }))}
+        onChange={(e) => onChange(e)}
+        disabled={disabled}
+        value={disabled ? '' : value}
+    />
+}
+
+const StateSelection = ({ onChange, value }) => {
+    const { data, loading, error } = useQuery(GET_STATES, { fetchPolicy: "cache-and-network" })
+    const disabled = loading || error
+
+    return <Dropdown
+        options={get(data, 'getStatesList.values', [])
+            .map(({ value }) => value)}
+        onChange={(e) => onChange(e)}
+        disabled={disabled}
+        value={disabled ? '' : value}
+    />
+}
 
 const EditUserProfile = ({
     campus: {
-        id,
+        id: campusId,
         name
-    },
-    address: { 
-        street1, 
-        street2, 
-        city, 
-        state, 
-        postalCode 
     } = {},
+    address: {
+        street1,
+        street2,
+        city,
+        state,
+        postalCode
+    } = {},
+    communicationPreferences: {
+        allowSMS,
+        allowEmail,
+    } = {},
+    email,
+    phoneNumber,
     gender,
     genderList,
     onChange,
 }) => {
-
-    //Form for address and profile fields
+    // Form for address and profile fields
     const {
         values,
         setValue,
+        errors,
+        setError
     } = useForm({
         defaultValues: {
             street1,
@@ -43,27 +77,20 @@ const EditUserProfile = ({
             city,
             state,
             postalCode,
-            gender
-        }
-    })
-
-    //separate Form for Campus mutation
-    const {
-        values: campusValues,
-        setValue: setCampus,
-    } = useForm({
-        defaultValues: {
-            id,
-            name
+            gender,
+            campus: campusId,
+            allowSMS,
+            allowEmail,
+            email,
+            phoneNumber,
         }
     })
 
     const [updateProfile, { loading, error }] = useMutation(
         UPDATE_CURRENT_USER,
         {
-            update: async (cache, { data: { updateProfileFields, updateAddress } }) => {
+            update: async (cache, { data: { updateProfileFields, updateAddress, updateUserCampus } }) => {
                 // read the GET_CURRENT_PERSON query
-                console.log({ updateAddress })
                 const { currentUser } = cache.readQuery({ query: GET_CURRENT_PERSON })
                 const { gender } = updateProfileFields
                 // write to the cache the results of the current cache
@@ -76,82 +103,80 @@ const EditUserProfile = ({
                             profile: {
                                 ...currentUser.profile,
                                 gender,
-                                address: updateAddress
+                                address: updateAddress,
+                                campus: updateUserCampus.campus
                             }
                         }
                     },
                 })
+
+                onChange()
             }
         }
     )
 
-    const [updateCampus] = useMutation(UPDATE_CAMPUS)
+    if (loading) return <Loader />
 
-    //Query to prefill profile textboxes
-    const { data } = useAuthQuery(GET_CURRENT_PERSON)
-    const person = get(data, 'currentUser.profile', '')
-    //Queries for dropdown selectors
-    const { data: stateSelection } = useQuery(GET_STATES, { fetchPolicy: "cache-and-network" })
-    const { data: campusSelection } = useQuery(GET_CAMPUSES, { fetchPolicy: "cache-and-network" })
-    
-    if (loading) return <Loader/>
-
-    return (
-        <>
-        <ProfileBanner 
+    return [
+        <ProfileBanner
+            key={`EditUserProfile:ProfileHeader`}
             editMode
-            onCancel={() => onChange(false)}
-            onSave={() => {
-                //Update address and profile fields
-                const address = {
-                    street1: String(get(values, 'street1', '')),
-                    street2: get(values, 'street2', ''),
-                    city: get(values, 'city', ''),
-                    state: get(values, 'state', ''),
-                    postalCode: get(values, 'postalCode', ''),
-                }
-                const valueKeys = keys(values).filter(
-                    (n) => !keys(address).includes(n)
-                )
-                const profileFields = valueKeys.map((n) => ({
-                    field: upperFirst(n),
-                    value: values[n],
-                }))
-                updateProfile({ variables: { address, profileFields } })
+            onCancel={onChange}
+            onSave={async () => {
+                const phoneNumberInput = get(values, 'phoneNumber', '')
+                const phoneNumber = new AwesomePhoneNumber(phoneNumberInput, 'US')
+                const email = get(values, 'email', '')
 
-                //Update campus
-                const campusId = get(campusValues, 'id', '')
-                updateCampus({ variables: { campusId } })
-                setTimeout( function() {onChange(false)}, 1000)
+                if (phoneNumber.isValid() && await string().email().isValid(email)) {
+                    updateProfile({
+                        variables: {
+                            address: {
+                                street1: get(values, 'street1', ''),
+                                street2: get(values, 'street2', ''),
+                                city: get(values, 'city', ''),
+                                state: get(values, 'state', ''),
+                                postalCode: get(values, 'postalCode', ''),
+                            },
+                            profileFields: [
+                                { field: 'Gender', value: get(values, 'gender', '') },
+                                { field: 'PhoneNumber', value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, '') },
+                                { field: 'Email', value: email },
+                            ],
+                            campusId: get(values, 'campus', ''),
+                            communicationPreferences: [
+                                { type: 'SMS', allow: get(values, 'allowSMS', '') },
+                                { type: 'Email', allow: get(values, 'allowEmail', '') },
+                            ]
+                        }
+                    })
+                }
+
+                if (!phoneNumber.isValid()) setError('phoneNumber', 'Please enter a valid phone number')
+                if (!await string().email().isValid(email)) setError('email', 'Please enter a valid email address')
             }}
-        />
-        <div 
-            className="container my-4 w-50"    
+        />,
+        <div
+            key={`EditUserProfile:ProfileFields`}
+            className="container my-4"
         >
             <div className="row">
                 <div
                     className={classnames(
-                        'col-6',
+                        'col-md-6',
+                        'col-12',
                         'text-left',
-                        'pr-4'
+                        'px-4',
+                        'profile-bar'
                     )}
                 >
-                    <h4 className='mt-6 mb-3'>
+                    <h4 className='mt-4 mb-3'>
                         My Campus
                     </h4>
-                    <div>
-                        <Dropdown
-                            options={get(campusSelection, 'campuses', [])
-                                    .map(({id}) => id)}
-                            onChange={(e) => {
-                                //setting the id of the campus to be the same as campus name being selected from the dropdown
-                                setCampus('id', e.target.value)
-                                const n = indexOf(get(campusSelection, 'campuses', []), e.target.value)
-                                console.log(n, e.target.value)
-                            }}
-                        />
-                    </div>
-                   
+                    <CampusSelection
+                        value={get(values, 'campus', '')}
+                        onChange={(e) => setValue('campus', e.target.value)}
+                    />
+
                     <h4 className='mt-4 mb-2'>
                         Home Address
                     </h4>
@@ -159,42 +184,34 @@ const EditUserProfile = ({
                         <TextInput
                             icon={faHomeLg}
                             label="Street Address"
-                            value={get(person, 'address.street1', '')}
+                            value={get(values, 'street1', '')}
                             onChange={(e) => setValue('street1', e.target.value)}
                         />
                     </div>
                     <div className='mb-3'>
                         <TextInput
-                            label='Apt #'
-                            hideIcon
-                        />
-                    </div>
-                    <div className='mb-3'>
-                        <TextInput
                             label="City"
-                            value={get(person, 'address.city', '')}
+                            value={get(values, 'city', '')}
                             onChange={(e) => setValue('city', e.target.value)}
                             hideIcon
                         />
                     </div>
                     <div className='mb-3'>
-                        <Dropdown
-                                options={get(stateSelection, 'getStatesList.values', [])
-                                        .map(({value}) => value)}
-                                onChange={(e) => {
-                                    setValue('state', e.target.value)
-                                }}
+                        <StateSelection
+                            label="State"
+                            value={get(values, 'state', '')}
+                            onChange={(e) => setValue('state', e.target.value)}
                         />
                     </div>
                     <div className='mb-3'>
                         <TextInput
                             label="Zip Code"
-                            value={get(person, 'address.postalCode', '').substring(0, 5)}
+                            value={get(values, 'postalCode', '').substring(0, 5)}
                             onChange={(e) => setValue('postalCode', e.target.value)}
                             hideIcon
                         />
                     </div>
-                    
+
                     <h4>
                         Gender
                     </h4>
@@ -206,54 +223,52 @@ const EditUserProfile = ({
                 </div>
                 <div
                     className={classnames(
-                        'col-6',
+                        'col-md-6',
+                        'col-12',
                         'text-left',
-                        'border-left',
-                        'pl-4'
+                        'px-4',
                     )}
                 >
-                    <h4 className='mt-6'>
+                    <h4 className='mt-4'>
                         Communication Preferences
                     </h4>
                     <TextInput
                         icon={faEnvelope}
-                        value={get(person, 'email', '')}
-                        readOnly
+                        value={get(values, 'email', '')}
                         label='Email'
+                        error={get(errors, 'email', null)}
+                        onChange={(e) => setValue('email', e.target.value)}
                     />
 
                     <div className='d-flex align-items-center mb-5 mt-2 ml-1'>
                         <Checkbox
-                            checked={
-                                get(person, 'communicationPreferences.allowEmail', false)
-                            }
+                            onClick={() => setValue('allowEmail', !get(values, 'allowEmail', true))}
+                            checked={get(values, 'allowEmail', false)}
                         />
                         <p className='mb-0 ml-2'>Allow Email Notifications</p>
                     </div>
 
                     <TextInput
                         icon={faMobile}
-                        value={get(person, 'phoneNumber', '')}
-                        readOnly
+                        value={get(values, 'phoneNumber', '')}
                         label='Mobile Phone'
+                        error={get(errors, 'phoneNumber', null)}
+                        onChange={(e) => setValue('phoneNumber', e.target.value)}
                     />
 
                     <div className='d-flex align-items-center mb-4 mt-2 ml-1'>
                         <Checkbox
-                            checked={
-                                get(person, 'communicationPreferences.allowSMS', false)
-                            }
+                            onClick={() => setValue('allowSMS', !get(values, 'allowSMS', true))}
+                            checked={get(values, 'allowSMS', false)}
                         />
                         <p className='mb-0 ml-2'>
                             Allow Text Notifications
                         </p>
                     </div>
-
                 </div>
             </div>
         </div>
-        </>
-    )
+    ]
 }
 
 EditUserProfile.defaultProps = {
@@ -267,7 +282,9 @@ EditUserProfile.defaultProps = {
     postalCode: '',
     birthDate: '',
     gender: '',
-    campus: '',
+    campus: {
+        id: ''
+    },
 }
 
 EditUserProfile.propTypes = {
@@ -281,7 +298,19 @@ EditUserProfile.propTypes = {
     postalCode: PropTypes.string,
     birthDate: PropTypes.string,
     gender: PropTypes.string,
-    campus: PropTypes.string,
+    campus: PropTypes.shape({
+        id: PropTypes.string
+    }),
 }
 
-export default EditUserProfile
+export default ({ onChange }) => {
+    const { data, loading } = useAuthQuery(GET_CURRENT_PERSON, { fetchPolicy: "cache-and-network" })
+    const person = get(data, 'currentUser.profile', {})
+
+    return loading
+        ? <Loader />
+        : <EditUserProfile
+            {...person}
+            onChange={onChange}
+        />
+}

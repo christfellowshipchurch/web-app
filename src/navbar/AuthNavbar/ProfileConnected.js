@@ -17,7 +17,9 @@ const ProfileConnected = ({ dropDownLinks }) => {
   const { loading, error, data } = useAuthQuery(GET_PROFILE_IMAGE)
   const [menuIcon, setMenuIcon] = useState(false)
 
-  if (has(data, 'currentUser.profile')) return (
+  if (loading) return <i className="fal fa-user-circle fa-2x"></i>
+
+  return (
     <>
       {/* ------------------- Desktop Profile ------------------- */}
       <div
@@ -61,7 +63,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
 
 
             <Dropdown.Menu
-              style={{border:'1px solid rgba(0,0,0,.05)'}}
+              style={{ border: '1px solid rgba(0,0,0,.05)' }}
               className={classnames(
                 'shadow',
                 'rounded',
@@ -225,10 +227,6 @@ const ProfileConnected = ({ dropDownLinks }) => {
       </div>
     </>
   )
-
-  // log out on error
-
-  if (loading) return <i className="fal fa-user-circle fa-2x"></i>
 }
 
 ProfileConnected.propTypes = {
