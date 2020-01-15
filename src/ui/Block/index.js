@@ -103,7 +103,7 @@ const Block = ({
 
               <div
                 className={classnames(
-                  'pb-4',
+                  'pb-3',
                   textColorClass
                 )}
               >

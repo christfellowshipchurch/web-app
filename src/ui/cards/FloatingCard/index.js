@@ -33,11 +33,11 @@ const FloatingCard = ({
             <div
                 className={classnames(
                     'card',
-                    'floating-card',
-                    'w-100'
+                    'floating-card'
                 )}
                 style={{
                     maxWidth: 600,
+                    width: '90%'
                 }}
             >
                 <div

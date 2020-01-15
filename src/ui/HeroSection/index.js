@@ -87,11 +87,11 @@ const HeroSection = ({
                   {title}
                 </h1>
 
-                <p className="my-2 text-white">
+                <p className="my-2 pl-0 text-white">
                   {htmlToReactParser.parse(htmlContent)}
                 </p>
 
-                <div className="my-4">
+                <div className="my-2">
                   {callToAction && <a
                     href={get(callToAction, 'action', '#')}
                     className={classnames(
@@ -104,7 +104,7 @@ const HeroSection = ({
                   </a>}
                 </div>
 
-                <div className="my-4">
+                <div className="my-3">
                   {secondaryCallToAction && <a
                     href={get(secondaryCallToAction, 'action', '#')}
                     className={classnames(

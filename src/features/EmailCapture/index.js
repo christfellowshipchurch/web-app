@@ -54,9 +54,9 @@ const EmailCapture = ({
     }
 
     return (
-        <div className="container">
+        <div className="container my-n3">
             <div className="row">
-                <div className="col py-3">
+                <div className="col py-1">
                     <TextInput
                         label="First Name"
                         onChange={(e) => setFieldValue('firstName', get(e, 'target.value', ''))}
@@ -65,7 +65,7 @@ const EmailCapture = ({
                 </div>
             </div>
             <div className="row">
-                <div className="col py-3">
+                <div className="col py-1">
                     <TextInput
                         label="Last Name"
                         onChange={(e) => setFieldValue('lastName', get(e, 'target.value', ''))}
@@ -74,7 +74,7 @@ const EmailCapture = ({
                 </div>
             </div>
             <div className="row">
-                <div className="col py-3">
+                <div className="col py-1">
                     <TextInput
                         label="Email Address"
                         icon={faEnvelope}
