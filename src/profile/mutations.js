@@ -1,50 +1,50 @@
 import gql from 'graphql-tag'
 
-export const UDPATE_GENDER = gql`
-  mutation updateGender($gender: String!) {
-    updateProfileFields(
-      input: [
-        { field: Gender, value: $gender }
-      ]
+export const UPDATE_CURRENT_USER = gql`
+  mutation updateCurrentUserProfile(
+    $profileFields: [UpdateProfileInput]!,
+    $address: AddressInput!
     ) {
-      gender
-    }
-  }
-`
 
-export const UPDATE_BIRTHDATE = gql`
-  mutation updateBirthDate($birthDate: String!) {
-    updateProfileFields(
-      input: [
-        { field: BirthDate, value: $birthDate }
-      ]
-    ) {
+    updateProfileFields(input: $profileFields) {
+      id
+      firstName
+      lastName
+      gender
       birthDate
     }
+
+    updateAddress(address:$address) {
+      street1
+      street2
+      city
+      state
+      postalCode
+    }
+  }
+  `
+
+export const UPDATE_CAMPUS = gql`
+  mutation campusChange($campusId: String!) {
+    updateUserCampus(campusId: $campusId) {
+      id
+      campus {
+        ...CampusParts
+      }
+    }
   }
 `
 
-export const UPDATE_ETHNICITY = gql`
-  mutation updateEthnicity($ethnicity: String!) {
-    updateProfileFields(
-      input: [
-        { field: Ethnicity, value: $ethnicity }
-      ]
-    ) {
-      ethnicity
+
+export const UPDATE_COMMUNCATION_PREFERENCE = gql`
+mutation updateCommunciationPreference(
+  $type: UPDATEABLE_COMMUNICATION_PREFERENCES!, 
+  $allow: Boolean!) {
+    updateCommunicationPreference(type:$type, allow:$allow) {
+      communicationPreferences {
+        allowEmail
+        allowSMS
+      }
     }
-  }
-`
-export const UPDATE_PROFILE = gql`
-    mutation updateProfileFields(
-        $gender: String!) {
-        
-          updateProfileFields(
-            input: [
-                { field: Gender, value: $gender }
-            ]
-        ) {
-            token
-        }
-    }
+}
 `

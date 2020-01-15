@@ -1,16 +1,20 @@
 import React from 'react'
 import classnames from 'classnames'
+import propTypes from 'prop-types'
 import moment from 'moment'
-import { get, trim } from 'lodash'
+import { get } from 'lodash'
 import { Loader } from '@christfellowshipchurch/web-ui-kit'
 import { faEnvelope, faMobile } from '@fortawesome/fontawesome-pro-light'
 
-import { TextInput, Checkbox } from '../ui'
-import { useAuthQuery } from '../auth'
+import { TextInput, Checkbox } from '../../ui'
+import { useAuthQuery } from '../../auth'
 
-import { GET_CURRENT_PERSON } from './queries'
+import { GET_CURRENT_PERSON } from '../queries'
+import ProfileBanner from '../ProfileBanner'
 
-const CurrentProfile = () => {
+const CurrentProfile = ({
+    onChange
+}) => {
     const {
         loading,
         error,
@@ -32,6 +36,10 @@ const CurrentProfile = () => {
     const address = get(profile, 'address', {})
 
     return [
+        <>
+        <ProfileBanner 
+            onEdit={() => onChange(true)}
+        />
         <div
             key={`Profile:Fields`}
             className="container mt-4 mb-6"
@@ -85,7 +93,7 @@ const CurrentProfile = () => {
                 >
                     <h4 className='mt-5 mb-3'>
                         Communication Preferences
-                        </h4>
+                    </h4>
                     <TextInput
                         icon={faEnvelope}
                         value={get(profile, 'email', '')}
@@ -123,7 +131,8 @@ const CurrentProfile = () => {
                     </div>
                 </div>
             </div>
-        </div>,
+        </div>
+        </>,
         loading && <div
             key={`Profile:Loader`}
             className="absolute-center w-100 h-100"
@@ -131,6 +140,14 @@ const CurrentProfile = () => {
             <Loader />
         </div>
     ]
+}
+
+CurrentProfile.defaultProps = {
+    onChange: () => true,
+}
+
+CurrentProfile.propTypes = {
+    onChange: propTypes.func
 }
 
 export default CurrentProfile
