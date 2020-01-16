@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { useMutation, useQuery } from 'react-apollo'
 import classnames from 'classnames'
 import { get, has, upperFirst, indexOf } from 'lodash'
-import { faEnvelope, faMobile, faCalendarAlt } from '@fortawesome/fontawesome-pro-light'
+import { faEnvelope, faMobile, faCalendarAlt, faChurch } from '@fortawesome/fontawesome-pro-light'
 import { faHomeLg } from '@fortawesome/pro-light-svg-icons'
 import AwesomePhoneNumber from 'awesome-phonenumber'
 import { string } from 'yup'
@@ -27,6 +27,7 @@ const CampusSelection = ({ onChange, value }) => {
         onChange={(e) => onChange(e)}
         disabled={disabled}
         value={disabled ? '' : value}
+        icon={faChurch}
     />
 }
 
@@ -40,6 +41,7 @@ const StateSelection = ({ onChange, value }) => {
         onChange={(e) => onChange(e)}
         disabled={disabled}
         value={disabled ? '' : value}
+        hideIcon
     />
 }
 
