@@ -29,9 +29,15 @@ const ContentCardConnectedWithQuery = ({
         },
     ]
     const coverImage = get(node, 'coverImage.sources', undefined)
-    const labelValue = typeof label.field === 'string'
+    let labelValue = typeof label.field === 'string'
         ? get(node, label.field, '')
         : label.field(node)
+
+    if (typename === 'EventContentItem') {
+        labelValue = node.events.length
+            ? moment(get(node, 'nextOccurrence', new Date)).format('MMM D')
+            : 'Dates Coming Soon'
+    }
 
     return React.createElement(
         card,
@@ -43,9 +49,7 @@ const ContentCardConnectedWithQuery = ({
             tile,
             isLoading: loading,
             label: {
-                value: typename === 'EventContentItem'
-                    ? moment(get(node, 'nextOccurrence', new Date)).format('MMM D')
-                    : labelValue,
+                value: labelValue,
                 ...label
             },
             urlBase: typename === 'EventContentItem'

@@ -29,7 +29,7 @@ const EventListConnected = () => {
 
             <div className="row mx-n2">
                 {events
-                    .sort((a, b) => moment(getStartDateFromEvents(a.events)).diff(getStartDateFromEvents(b.events)))
+                    .sort((a, b) => moment(a.nextOccurrence).diff(b.nextOccurrence))
                     .map((n, i) =>
                         <ContentCardConnected
                             key={i}
