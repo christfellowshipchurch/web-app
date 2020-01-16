@@ -100,14 +100,14 @@ const PasscodeForm = ({
     return (
         <div className="container">
             <div className="row">
-                <div className="col my-4 justify-content-center">
-                    <p>
+                <div className="col my-2 justify-content-center">
+                    <p className='mb-0'>
                         {promptText[type]}
                     </p>
                 </div>
             </div>
 
-            <div className="row my-4 justify-content-center">
+            <div className="row my-2 justify-content-center">
                 <div className={classnames(columns)}>
                     <TextInput
                         icon={faLockAlt}
@@ -121,7 +121,7 @@ const PasscodeForm = ({
                 </div>
             </div>
 
-            <div className="row">
+            <div className="row py-2">
                 <div className="col-12 text-center">
                     <Button
                         title={buttonText}
@@ -146,7 +146,7 @@ const PasscodeForm = ({
                     </div>
                 }
                 {type === 'sms' && identity && identity !== '' &&
-                    <div className="col-12 text-center my-4">
+                    <div className="col-12 text-center my-3">
                         <ResendSMS phoneNumber={identity}>Didn't get a code? Request a new one.</ResendSMS>
                     </div>
                 }

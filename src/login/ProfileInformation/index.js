@@ -95,8 +95,8 @@ const ProfileInformationForm = ({
     return (
         <div className="container">
             <div className="row">
-                <div className="col my-4 justify-content-center text-center">
-                    <p>
+                <div className="col my-2 justify-content-center text-center">
+                    <p className='text-center p-0 mb-0'>
                         {promptText}
                     </p>
                     {has(errors, 'general') &&
@@ -107,7 +107,7 @@ const ProfileInformationForm = ({
                 </div>
             </div>
 
-            <div className="row my-4 justify-content-center">
+            <div className="row my-3 justify-content-center">
                 <div className={classnames(columns)}>
                     <TextInput
                         error={has(errors, 'firstName') && get(errors, 'firstName', '')}
@@ -119,7 +119,7 @@ const ProfileInformationForm = ({
                 </div>
             </div>
 
-            <div className="row my-4 justify-content-center">
+            <div className="row my-3 justify-content-center">
                 <div className={classnames(columns)}>
                     <TextInput
                         error={has(errors, 'lastName') && get(errors, 'lastName', '')}
@@ -131,7 +131,7 @@ const ProfileInformationForm = ({
                 </div>
             </div>
 
-            <div className="row my-4 justify-content-center">
+            <div className="row my-3 justify-content-center">
                 <div className={classnames(columns)}>
                     <TextInput
                         type="date"
@@ -144,7 +144,7 @@ const ProfileInformationForm = ({
                 </div>
             </div>
 
-            <div className="row my-4 justify-content-center">
+            <div className="row my-3 justify-content-center">
                 <div className={classnames(columns)}>
                     <Radio
                         options={genderList}
@@ -157,7 +157,7 @@ const ProfileInformationForm = ({
                 </div>
             </div>
 
-            <div className="text-center">
+            <div className="my-3 text-center">
                 <Button
                     title={buttonText}
                     disabled={disabled}

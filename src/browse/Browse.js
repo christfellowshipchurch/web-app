@@ -63,7 +63,8 @@ const Browse = ({
     return (
         <div className={classnames(
             'container-fluid',
-            'my-6',
+            'mt-6',
+            'mb-0',
             'px-4'
         )}>
             <div className="row">

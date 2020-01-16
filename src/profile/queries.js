@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 
+//Queries for dropdown selectors
 export const GET_CAMPUSES = gql`
   query {
     campuses {
@@ -9,19 +10,7 @@ export const GET_CAMPUSES = gql`
   }
 `
 
-export const GET_ETHNICITY_LIST = gql`
-  query {
-    getEthnicityList {
-      id
-      values {
-        id
-        value
-      }
-    }
-  }
-`
-
-export const GET_STATES_LIST = gql`
+export const GET_STATES = gql`
   query {
     getStatesList {
       id
@@ -33,6 +22,7 @@ export const GET_STATES_LIST = gql`
   }
 `
 
+//Queries for current person attributes
 export const GET_CURRENT_PERSON = gql`
     query {
         currentUser {
@@ -55,10 +45,11 @@ export const GET_CURRENT_PERSON = gql`
                 }
 
                 campus {
-                    featuredImage {
-                        uri
-                    }
-                    name
+                  id
+                  featuredImage {
+                      uri
+                  }
+                  name
                 }
 
                 photo {
@@ -75,3 +66,19 @@ export const GET_CURRENT_PERSON = gql`
         }
     }
 `
+
+export const GET_CURRENT_CAMPUS = gql`
+  query getAllCampuses($latitude: Float!, $longitude: Float!) {
+    campuses(location: { latitude: $latitude, longitude: $longitude }) {
+      ...CampusParts
+    }
+    currentUser {
+      id
+      profile {
+        id
+        campus {
+          ...CampusParts
+        }
+      }
+    }
+  }`

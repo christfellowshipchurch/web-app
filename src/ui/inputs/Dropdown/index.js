@@ -25,6 +25,7 @@ const Dropdown = ({
   withSuccess,
   value,
   icon,
+  hideIcon,
   options,
   ...selectProps
 }) => {
@@ -44,7 +45,7 @@ const Dropdown = ({
       description={error && !disabled ? error : description}
       focused={focused || !!inputValue}
       hasValue={true}
-      prefix={<InputIcon icon={icon} color={color} />}
+      prefix={<InputIcon icon={icon} color={hideIcon ? 'transparent' : color} />}
       suffix={suffix && <InputIcon icon={suffix} color={color} />}
     >
       <select
