@@ -16,12 +16,19 @@ export const GET_EVENT = gql`
             }
             
             tags
+            
+            callsToAction {
+                call
+                action
+            }
 
-            ... on EventContentItem {
-                callsToAction {
-                    call
-                    action
+            events {
+                start
+                end
+                campuses {
+                    name
                 }
+                location
             }
         }
     }
@@ -32,8 +39,12 @@ export const GET_EVENTS = gql`
         allEvents {
             id
             title
-            startDate
-            endDate
+            nextOccurrence
+
+            events {
+                start
+                end
+            }
         }
     }
 `
