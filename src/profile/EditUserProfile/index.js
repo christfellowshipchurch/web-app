@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useMutation, useQuery } from 'react-apollo'
 import classnames from 'classnames'
-import { get, keys, upperFirst, indexOf } from 'lodash'
-import { faEnvelope, faMobile } from '@fortawesome/fontawesome-pro-light'
+import { get, has, upperFirst, indexOf } from 'lodash'
+import { faEnvelope, faMobile, faCalendarAlt } from '@fortawesome/fontawesome-pro-light'
 import { faHomeLg } from '@fortawesome/pro-light-svg-icons'
 import AwesomePhoneNumber from 'awesome-phonenumber'
 import { string } from 'yup'
+import moment from 'moment'
 
 import { useForm } from '../../hooks'
 import { TextInput, Checkbox, Radio, Dropdown, Loader } from '../../ui'
@@ -42,6 +43,12 @@ const StateSelection = ({ onChange, value }) => {
     />
 }
 
+const validation = {
+    birthDate: (value) => value && moment().diff(moment(value), 'years') >= 13
+        ? false
+        : 'You must be at least 13 years old to create an account'
+}
+
 const EditUserProfile = ({
     campus: {
         id: campusId,
@@ -61,6 +68,7 @@ const EditUserProfile = ({
     email,
     phoneNumber,
     gender,
+    birthDate,
     genderList,
     onChange,
 }) => {
@@ -71,12 +79,14 @@ const EditUserProfile = ({
         errors,
         setError
     } = useForm({
+        validation,
         defaultValues: {
             street1,
             street2,
             city,
             state,
             postalCode,
+            birthDate,
             gender,
             campus: campusId,
             allowSMS,
@@ -103,6 +113,7 @@ const EditUserProfile = ({
                             profile: {
                                 ...currentUser.profile,
                                 gender,
+                                birthDate,
                                 address: updateAddress,
                                 campus: updateUserCampus.campus
                             }
@@ -139,6 +150,7 @@ const EditUserProfile = ({
                             },
                             profileFields: [
                                 { field: 'Gender', value: get(values, 'gender', '') },
+                                { field: 'BirthDate', value: get(values, 'birthDate', '') },
                                 { field: 'PhoneNumber', value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, '') },
                                 { field: 'Email', value: email },
                             ],
@@ -177,7 +189,7 @@ const EditUserProfile = ({
                         onChange={(e) => setValue('campus', e.target.value)}
                     />
 
-                    <h4 className='mt-4 mb-2'>
+                    <h4 className='mt-6 mb-2'>
                         Home Address
                     </h4>
                     <div className='mb-3'>
@@ -211,8 +223,24 @@ const EditUserProfile = ({
                             hideIcon
                         />
                     </div>
+                    
+                    <h4 className='mt-6'>
+                        Birthday
+                    </h4>
+                    <div>
+                            <TextInput
+                                type="date"
+                                error={has(errors, 'birthDate') && get(errors, 'birthDate', '')}
+                                onChange={(e) => {
+                                    setValue('birthDate', moment(get(e, 'target.value', '')).toISOString())
+                                }}
+                                label='Select Date'
+                                value={moment(get(values, 'birthDate', '')).format('YYYY-MM-DD')}
+                                icon={faCalendarAlt}
+                            />
+                    </div>
 
-                    <h4>
+                    <h4 className='mt-6'>
                         Gender
                     </h4>
                     <Radio
