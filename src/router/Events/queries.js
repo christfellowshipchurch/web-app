@@ -39,8 +39,7 @@ export const GET_EVENTS = gql`
         allEvents {
             id
             title
-            startDate
-            endDate
+            nextOccurrence
 
             events {
                 start

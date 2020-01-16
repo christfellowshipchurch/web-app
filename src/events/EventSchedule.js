@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
-  get,
-  find,
   flatMapDepth,
   identity,
   uniq,
+  uniqBy,
   groupBy,
   keys,
 } from 'lodash'
@@ -19,25 +17,14 @@ import {
 } from "@fortawesome/fontawesome-pro-regular"
 import {
   Dropdown,
-  DropdownButton,
 } from 'react-bootstrap'
 import moment from 'moment'
 
 import {
-  Button,
   Card,
 } from '../ui'
 import Icon from './eventIcon'
-
-import { useAuth } from '../auth'
-import { CAMPUS_KEY } from '../keys'
 import { getDirectionsUrl } from '../utils'
-import { GET_EVENT_SCHEDULES } from './queries'
-
-const row = classnames(
-  'row',
-  'my-4'
-)
 
 const EventTimes = ({ date, times, className }) => {
   const mDate = moment(date)
@@ -51,7 +38,7 @@ const EventTimes = ({ date, times, className }) => {
         className,
       )}
     >
-      <div className="">
+      <div>
         <h3>
           <Icon
             icon={faCalendarAlt}
@@ -60,19 +47,14 @@ const EventTimes = ({ date, times, className }) => {
           {mDate.format('ddd MMM D')}
         </h3>
       </div>
-      {times
+      {uniqBy(times, 'start')
         .sort((a, b) => moment(a.start).diff(moment(b.start)))
         .map(t => {
           const utc = moment.utc(t.start)
           const local = moment(utc).utcOffset(currentUtcOffset)
 
-          return <div
-            key={`${date}:${t}`}
-            className=''
-          >
-            <h4
-              className='font-weight-normal'
-            >
+          return <div key={`${date}:${t.start}`}>
+            <h4 className='font-weight-normal'>
               <Icon
                 icon={faClock}
                 className="mr-2"
@@ -158,7 +140,6 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
 }
 
 const EventSchedule = ({
-  id,
   defaultCampus,
   callsToAction,
   events,

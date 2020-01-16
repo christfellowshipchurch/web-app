@@ -17,8 +17,6 @@ const EventListConnected = () => {
 
     const events = get(data, 'allEvents', [])
 
-    console.log({ events })
-
     return (
         <div className="container-fluid my-6 px-4">
             <div className="row">

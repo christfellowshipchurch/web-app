@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo'
 import { get } from 'lodash'
+import moment from 'moment'
 
 import { ContentCard } from '../ui'
-import GET_CONTENT_CARD from './queries'
-import { formatDate, getStartDateFromEvents } from '../utils'
-
-export { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries'
+import GET_CONTENT_CARD, { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries'
 
 const ContentCardConnectedWithQuery = ({
     contentId,
@@ -46,7 +44,7 @@ const ContentCardConnectedWithQuery = ({
             isLoading: loading,
             label: {
                 value: typename === 'EventContentItem'
-                    ? getStartDateFromEvents(node)
+                    ? moment(get(node, 'nextOccurrence', new Date)).format('MMM D')
                     : labelValue,
                 ...label
             },
