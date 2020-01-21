@@ -101,7 +101,7 @@ const ArticleDetail = ({
                     {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
                   </p>
                   <p className='my-1'>
-                    {`${publishDate}  •  ${readTime(bodyText)} min`}
+                    {`${publishDate}  •  ${readTime(bodyText)} min read`}
                   </p>
                 </div>
               </div>
