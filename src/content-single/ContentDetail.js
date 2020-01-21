@@ -42,7 +42,7 @@ const ArticleDetail = ({
   }
 
   const article = get(data, 'getContentItemByTitle', null)
-  const bodyText = htmlToReactParser.parse(get(article, 'htmlContent', null))
+  const bodyText = get(article, 'htmlContent', null)
 
   if (!article) {
     console.error('Articles: Null was returned from the server')
@@ -108,7 +108,7 @@ const ArticleDetail = ({
 
               {get(article, 'htmlContent', '') !== '' &&
                 <div className="article-body my-3 pb-4 text-left">
-                  {bodyText}
+                  {htmlToReactParser.parse(bodyText)}
                 </div>
               }
             </div>
