@@ -119,7 +119,6 @@ const NavbarConnected = ({
         className={classnames(
           'row',
           'w-100',
-          'p-2',
           'd-flex',
           'justify-content-between'
         )}
