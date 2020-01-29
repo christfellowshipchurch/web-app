@@ -192,7 +192,7 @@ const NavbarConnected = ({
           </div>
 
           <hr className='d-lg-none w-100' />
-
+         <div className='d-flex align-items-center'>
           <Nav>
             {/* Desktop NavLinks */}
             {navLinks.map((link, i) => (
@@ -267,7 +267,7 @@ const NavbarConnected = ({
               />
             </div>
           </div>
-
+          </div>       
           {/* Mobile Learn More */}
           <div className='d-lg-none'>
             <p className={classnames(
