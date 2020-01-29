@@ -56,7 +56,7 @@ const ActionMapper = ({
             case ACTION_TYPES.children:
                 return <div
                     key={`CardFeed:${relatedNode.id}`}
-                    className="container-fluid my-n6"
+                    className="container-fluid"
                 >
                     <div className="row">
                         <div className="col">
