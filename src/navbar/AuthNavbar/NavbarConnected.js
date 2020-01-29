@@ -192,81 +192,82 @@ const NavbarConnected = ({
           </div>
 
           <hr className='d-lg-none w-100' />
+            <div className='d-flex align-items-center'>
+              <Nav>
+                {/* Desktop NavLinks */}
+                {navLinks.map((link, i) => (
+                  <Nav.Link
+                    key={i}
+                    href={link.action}
+                    className={classnames(
+                      'mx-2',
+                      'my-2',
+                      'd-none d-lg-block',
+                      'nav-link',
+                      'text-dark'
+                    )}
+                  >
+                    {link.call}
+                  </Nav.Link>
+                ))}
 
-          <Nav>
-            {/* Desktop NavLinks */}
-            {navLinks.map((link, i) => (
-              <Nav.Link
-                key={i}
-                href={link.action}
-                className={classnames(
-                  'mx-3',
-                  'my-2',
-                  'd-none d-lg-block',
-                  'nav-link',
-                  'text-dark'
-                )}
-              >
-                {link.call}
-              </Nav.Link>
-            ))}
-
-            {/* Mobile NavLinks */}
-            <p className={classnames(
-              'font-weight-light',
-              'd-lg-none',
-              'ml-2',
-              'mb-2'
-            )}
-            >
-              Get Involved
-            </p>
-            {navLinks.map((link, i) => (
-              <div
-                key={i}
-                className={classnames(
-                  'd-flex',
-                  'align-items-center',
+                {/* Mobile NavLinks */}
+                <p className={classnames(
+                  'font-weight-light',
                   'd-lg-none',
-                  'pl-2',
-                  'ml-3',
+                  'ml-2',
+                  'mb-2'
                 )}
-              >
-                <FontAwesomeIcon
-                  icon={navIcons[i]}
-                  color='black'
-                  style={{ minWidth: '20px' }}
-                />
-                <Nav.Link
-                  href={link.action}
+                >
+                  Get Involved
+            </p>
+                {navLinks.map((link, i) => (
+                  <div
+                    key={i}
+                    className={classnames(
+                      'd-flex',
+                      'align-items-center',
+                      'd-lg-none',
+                      'pl-2',
+                      'ml-3',
+                    )}
+                  >
+                    <FontAwesomeIcon
+                      icon={navIcons[i]}
+                      color='black'
+                      style={{ minWidth: '20px' }}
+                    />
+                    <Nav.Link
+                      href={link.action}
+                      className={classnames(
+                        'pl-2',
+                        'text-dark'
+                      )}
+                    >
+                      {link.call}
+                    </Nav.Link>
+                  </div>
+                ))}
+              </Nav>
+
+              <hr className='d-lg-none w-100' />
+
+              {/* Desktop Profile */}
+              <div className='d-none d-lg-block'>
+                <div
+                  style={{ flex: 1 }}
                   className={classnames(
-                    'pl-2',
-                    'text-dark'
+                    "d-flex",
+                    "justify-content-start",
+                    "justify-content-lg-end",
                   )}
                 >
-                  {link.call}
-                </Nav.Link>
+                  <ProfileConnected
+                    dropDownLinks={learnMoreLinks}
+                  />
+                </div>
               </div>
-            ))}
-          </Nav>
-
-          <hr className='d-lg-none w-100' />
-
-          {/* Desktop Profile */}
-          <div className='d-none d-lg-block'>
-            <div
-              style={{ flex: 1 }}
-              className={classnames(
-                "d-flex",
-                "justify-content-start",
-                "justify-content-lg-end",
-              )}
-            >
-              <ProfileConnected
-                dropDownLinks={learnMoreLinks}
-              />
             </div>
-          </div>
 
           {/* Mobile Learn More */}
           <div className='d-lg-none'>
