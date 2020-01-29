@@ -11,7 +11,7 @@ const PreviewCard = ({
     icon,
     callToAction,
     onClick,
-    ...props
+    ...props,
 }) => {
 
     return (

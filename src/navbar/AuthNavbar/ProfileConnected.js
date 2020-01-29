@@ -130,6 +130,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
             <p
               className={classnames(
                 'mb-0',
+                'ml-4',
                 'p-1',
                 'nav-link',
               )}

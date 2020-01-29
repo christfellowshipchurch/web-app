@@ -76,10 +76,6 @@ const AnnouncementFeed = ({
                             ratio={RATIO_MAP[placement]}
                             tile={placement === -1}
                             row={placement === 1}
-                            stylestyle={{
-                                maxHeight:'450px',
-                                width:'auto'
-                            }}
                         />
                     </div>
                 })}
