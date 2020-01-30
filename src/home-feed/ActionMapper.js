@@ -7,7 +7,7 @@ import ContentCardConnected from '../content-card-connected'
 import { AnnouncementFeed, TileRowCardFeed, CardRow, ChildrenFeed } from './Features'
 import { ContentCard } from '../ui'
 import classnames from 'classnames'
-import { CARD_PADDING } from './'
+import { CARD_PADDING, MARGIN_Y } from './'
 
 const ACTION_TYPES = {
     event: 'READ_EVENT',
@@ -56,7 +56,10 @@ const ActionMapper = ({
             case ACTION_TYPES.children:
                 return <div
                     key={`CardFeed:${relatedNode.id}`}
-                    className="container-fluid"
+                    className={classnames(
+                        'container-fluid',
+                        MARGIN_Y
+                    )}
                 >
                     <div className="row">
                         <div className="col">
