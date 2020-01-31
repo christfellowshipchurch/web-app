@@ -56,6 +56,7 @@ const ContentCard = ({
                 'pt-2',
                 'scale-media-up-on-hover',
                 'no-decoration',
+                'my-3'
             )}
             href={`/${urlBase}/${kebabCase(title)}`}
         >

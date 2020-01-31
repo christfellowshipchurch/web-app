@@ -66,7 +66,7 @@ const CardFeed = ({
                     </div>
                 }
             </div>
-            <div className="row mx-n1">
+            <div className="row mx-n1 my-n3">
                 {content.map((n, i) => (
                     <ContentCardConnected
                         key={i}

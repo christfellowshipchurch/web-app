@@ -44,7 +44,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
           >
             <Dropdown.Toggle
               variant='none'
-              style={{ fontSize: '35px' }}
+              style={{ fontSize: '32px' }}
               className={classnames(
                 "px-2",
                 "px-lg-3",
@@ -147,6 +147,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
                     imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
                     ratio="1by1"
                     circle
+                    className='opacity-hover'
                   />
                 </div>
               )
