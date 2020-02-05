@@ -50,8 +50,8 @@ const Footer = ({
                     'ml-md-5',
                     'pr-4',
                     'd-flex',
-                    'justify-content-xl-end',
-                    'justify-content-lg-start'
+                    'justify-content-lg-end',
+                    'justify-content-md-start'
                 )}>
                     <div className={classnames(
                         'd-flex',
