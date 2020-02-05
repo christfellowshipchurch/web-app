@@ -65,16 +65,23 @@ const Footer = ({
                             style={{ height: 60, width: 'auto' }}
                         />
                     </div>
-                    <a className={classnames(
+                    <a 
+                        href={`tel:${phone}`}
+                        className={classnames(
                             'text-light',
                             'font-weight-light'
-                    )}>
+                        )}
+                    >
                         {phone}
                     </a>
-                    <a className={classnames(
+                    <a 
+                        href={`mailto:${email}`}
+                        target='_blank'
+                        className={classnames(
                             'text-light',
                             'font-weight-light'
-                    )}>
+                        )}
+                    >
                         {email}
                     </a>
                         {!isLoggedIn &&
@@ -188,7 +195,12 @@ const Footer = ({
                         'text-center'
                     )}>
                         {socialMediaLinks.map(({ call, action }, i) => (
-                            <a href={action} key={i} className="text-primary mx-3">
+                            <a 
+                                href={action} 
+                                target='_blank'
+                                key={i} 
+                                className="text-primary mx-3"
+                            >
                                 <FontAwesomeIcon
                                     icon={SM_ICONS[toLower(call)]}
                                     size='2x'
