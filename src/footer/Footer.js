@@ -29,7 +29,7 @@ const Footer = ({
     socialMediaLinks
 }) => {
     
-    // const { isLoggedIn, logIn } = useAuth()
+    const { isLoggedIn, logIn } = useAuth()
 
     return (
         <div>
@@ -77,7 +77,7 @@ const Footer = ({
                     )}>
                         {email}
                     </a>
-                        {/* {!isLoggedIn &&
+                        {!isLoggedIn &&
                             <a
                                 className={classnames(
                                     'text-light',
@@ -90,7 +90,7 @@ const Footer = ({
                             >
                                 Login
                             </a>
-                        } */}
+                        }
                     </div>
                 </div>
                 {/* Locations Section*/}
@@ -111,13 +111,16 @@ const Footer = ({
                     </h4>
                     <div className='row'>
                     {chunk(locations, 6).map((n, i) => (
-                        <div className={classnames(
-                            'col-xs-12',
-                            'flex-column',
-                            'd-flex',
-                            'mr-6',
-                            'pr-4'
-                        )}>
+                        <div 
+                            key={i}
+                            className={classnames(
+                                'col-xs-12',
+                                'flex-column',
+                                'd-flex',
+                                'mr-6',
+                                'pr-4'
+                            )}
+                        >
                             {n.map((link, i) => (
                                 <a key={i}
                                     href={link.action}
@@ -230,7 +233,13 @@ Footer.propTypes = {
             call: PropTypes.string,
             action: PropTypes.string,
         })
-    )
+    ),
+    socialMediaLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+            call: PropTypes.string,
+            action: PropTypes.string,
+        })
+    ),
 }
 
 Footer.defaultProps = {
@@ -257,5 +266,6 @@ Footer.defaultProps = {
         { call: 'Belle Glade', action: '/belle-glade-page' },
         { call: 'CF En Espanol', action: '/cf-en-espanol-page' },
         { call: 'Church Online', action: '/church-online-page' }
-    ]
+    ],
+    socialMediaLinks: []
 }
