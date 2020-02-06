@@ -1,4 +1,4 @@
-import { GET_ARTICLE_BY_TITLE } from '../article/queries'
+import { GET_ARTICLE_BY_TITLE } from '../articles/queries'
 
 export const ARTICLE_TEMPLATE = {
     "id": `ArticleContentItem:1`,
