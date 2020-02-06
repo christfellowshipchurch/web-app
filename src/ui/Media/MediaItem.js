@@ -136,7 +136,7 @@ MediaItem.defaultProps = {
   withHover: false,
 }
 
-const RATIOS = ['1by1', '4by3', '16by9', '21by9']
+const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4']
 MediaItem.propTypes = {
   ratio: PropTypes.oneOfType([
     PropTypes.oneOf(RATIOS),

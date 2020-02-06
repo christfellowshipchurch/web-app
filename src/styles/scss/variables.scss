@@ -133,3 +133,13 @@ $container-max-widths: (
   lg: 800px,
   xl: 800px
 ) !default;
+
+//Ratios for embed-responsive classes
+$embed-responsive-aspect-ratios:
+  (
+    (21 9),
+    (16 9),
+    (3 4), //new ratio
+    (4 3),
+    (1 1),
+  );
