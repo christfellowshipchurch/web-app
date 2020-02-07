@@ -40,6 +40,8 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
 
   const article = get(data, 'getArticleByTitle', null)
 
+  console.log({article})
+
   if (!article) {
     console.error('Articles: Null was returned from the server')
     return <h3 className="text-center text-danger">
