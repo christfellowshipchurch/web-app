@@ -35,48 +35,50 @@ describe("EmailCaptureForm", () => {
         })
     })
 
-    // it("triggers mutation with a status of Completed", async () => {
-    //     act(() => {
-    //         component = render(
-    //             <MockedProvider
-    //                 mocks={[
-    //                     EMAIL_CAPTURE_MOCKS
-    //                 ]}
-    //                 addTypename={false}
-    //             >
-    //                 <EmailCaptureForm />
-    //             </MockedProvider>
-    //         )
+    it("triggers mutation with a status of Completed", async () => {
+        act(() => {
+            component = render(
+                <MockedProvider
+                    mocks={[
+                        EMAIL_CAPTURE_MOCKS
+                    ]}
+                    addTypename={false}
+                >
+                    <EmailCaptureForm />
+                </MockedProvider>
+            )
 
-    //         const {
-    //             getByLabelText,
-    //             getByText
-    //         } = component
+            const {
+                getByLabelText,
+                getByText
+            } = component
 
-    //         const firstNameInput = getByLabelText('First Name')
-    //         fireEvent.change(firstNameInput, { target: { value: 'John' } })
-    //         expect(firstNameInput.value).toBe('John')
+            console.log('1st container', {component})
 
-    //         const lastNameInput = getByLabelText('Last Name')
-    //         fireEvent.change(lastNameInput, { target: { value: 'Smith' } })
-    //         expect(lastNameInput.value).toBe('Smith')
+            const firstNameInput = getByLabelText('First Name')
+            fireEvent.change(firstNameInput, { target: { value: 'John' } })
+            expect(firstNameInput.value).toBe('John')
 
-    //         const emailInput = getByLabelText('Email Address')
-    //         fireEvent.change(emailInput, { target: { value: 'john.smith@email.com' } })
-    //         expect(emailInput.value).toBe('john.smith@email.com')
+            const lastNameInput = getByLabelText('Last Name')
+            fireEvent.change(lastNameInput, { target: { value: 'Smith' } })
+            expect(lastNameInput.value).toBe('Smith')
 
-    //         const submitButton = getByText('Get Free Resource')
-    //         fireEvent.click(submitButton)
-    //     })
+            const emailInput = getByLabelText('Email Address')
+            fireEvent.change(emailInput, { target: { value: 'john.smith@email.com' } })
+            expect(emailInput.value).toBe('john.smith@email.com')
 
-    //     await wait(0) // wait for response
+            const submitButton = getByText('Get Free Resource')
+            fireEvent.click(submitButton)
+        })
 
-    //     const {
-    //         container,
-    //         getByText
-    //     } = component
+        await wait(0) // wait for response
 
-    //     expect(getByText("You're all set! Check your email soon.")).toBeInTheDocument()
-    //     expect(container).toMatchSnapshot()
-    // })
+        const {
+            container,
+            getByText
+        } = component
+
+        // expect(getByText("You're all set! Check your email soon.")).toBeInTheDocument()
+        expect(container).toMatchSnapshot()
+    })
 })

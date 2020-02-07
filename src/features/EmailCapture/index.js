@@ -60,13 +60,18 @@ const EmailCapture = ({
     const image = get(content, 'images[0].sources[0].uri', null)
     const subtitle = get(content, 'subtitle', null)
 
-    console.log({content})
-
     return (
        <div className={`container${image ? '-fluid' : ''} py-3`}>
             <div className='row my-6'>
                 {image &&
-                    <div className='col-md-6 col-xs-12 px-md-5 px-xs-0'>
+                    <div className={classnames(
+                        'col-md-6', 
+                        'col-xs-12', 
+                        'px-xs-0',
+                        'px-sm-2',
+                        'px-md-4',
+                        'px-xl-5'
+                    )}>
                         <Media 
                             imageUrl={image}
                             rounded
