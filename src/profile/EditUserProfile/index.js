@@ -2,19 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useMutation, useQuery } from 'react-apollo'
 import classnames from 'classnames'
-import { get, keys, upperFirst, indexOf } from 'lodash'
-import { faEnvelope, faMobile } from '@fortawesome/fontawesome-pro-light'
+import { get, has } from 'lodash'
+import { faEnvelope, faMobile, faCalendarAlt, faChurch } from '@fortawesome/fontawesome-pro-light'
 import { faHomeLg } from '@fortawesome/pro-light-svg-icons'
 import AwesomePhoneNumber from 'awesome-phonenumber'
 import { string } from 'yup'
+import moment from 'moment'
 
 import { useForm } from '../../hooks'
 import { TextInput, Checkbox, Radio, Dropdown, Loader } from '../../ui'
 import { useAuthQuery } from '../../auth'
 
 import ProfileBanner from '../ProfileBanner'
-import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES, GET_CURRENT_CAMPUS } from '../queries'
-import { UPDATE_CURRENT_USER, UPDATE_CAMPUS } from '../mutations'
+import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES } from '../queries'
+import { UPDATE_CURRENT_USER } from '../mutations'
 
 const CampusSelection = ({ onChange, value }) => {
     const { data, loading, error } = useQuery(GET_CAMPUSES, { fetchPolicy: "cache-and-network" })
@@ -26,6 +27,7 @@ const CampusSelection = ({ onChange, value }) => {
         onChange={(e) => onChange(e)}
         disabled={disabled}
         value={disabled ? '' : value}
+        icon={faChurch}
     />
 }
 
@@ -39,8 +41,19 @@ const StateSelection = ({ onChange, value }) => {
         onChange={(e) => onChange(e)}
         disabled={disabled}
         value={disabled ? '' : value}
+        hideIcon
     />
 }
+
+const validateBirthDate = (birthDate) => 
+    !!birthDate && moment().diff(moment(birthDate), 'years') >= 13
+
+const validation = {
+    birthDate: (value) => value && validateBirthDate(value)
+        ? false
+        : 'You must be at least 13 years old to create an account'
+}
+
 
 const EditUserProfile = ({
     campus: {
@@ -61,6 +74,7 @@ const EditUserProfile = ({
     email,
     phoneNumber,
     gender,
+    birthDate,
     genderList,
     onChange,
 }) => {
@@ -71,12 +85,14 @@ const EditUserProfile = ({
         errors,
         setError
     } = useForm({
+        validation,
         defaultValues: {
             street1,
             street2,
             city,
             state,
             postalCode,
+            birthDate,
             gender,
             campus: campusId,
             allowSMS,
@@ -103,6 +119,7 @@ const EditUserProfile = ({
                             profile: {
                                 ...currentUser.profile,
                                 gender,
+                                birthDate,
                                 address: updateAddress,
                                 campus: updateUserCampus.campus
                             }
@@ -125,9 +142,11 @@ const EditUserProfile = ({
             onSave={async () => {
                 const phoneNumberInput = get(values, 'phoneNumber', '')
                 const phoneNumber = new AwesomePhoneNumber(phoneNumberInput, 'US')
+                const birthDate = get(values, 'birthDate', '')
                 const email = get(values, 'email', '')
+                const birthDateIsValid = validateBirthDate(birthDate)
 
-                if (phoneNumber.isValid() && await string().email().isValid(email)) {
+                if (phoneNumber.isValid() && birthDateIsValid && await string().email().isValid(email)) {
                     updateProfile({
                         variables: {
                             address: {
@@ -139,6 +158,7 @@ const EditUserProfile = ({
                             },
                             profileFields: [
                                 { field: 'Gender', value: get(values, 'gender', '') },
+                                { field: 'BirthDate', value: get(values, 'birthDate', '') },
                                 { field: 'PhoneNumber', value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, '') },
                                 { field: 'Email', value: email },
                             ],
@@ -152,6 +172,7 @@ const EditUserProfile = ({
                 }
 
                 if (!phoneNumber.isValid()) setError('phoneNumber', 'Please enter a valid phone number')
+                if (!birthDateIsValid) setError('birthDate', 'Please enter a valid birth date, must be older than 13 years old.')
                 if (!await string().email().isValid(email)) setError('email', 'Please enter a valid email address')
             }}
         />,
@@ -177,7 +198,7 @@ const EditUserProfile = ({
                         onChange={(e) => setValue('campus', e.target.value)}
                     />
 
-                    <h4 className='mt-4 mb-2'>
+                    <h4 className='mt-5 mb-2'>
                         Home Address
                     </h4>
                     <div className='mb-3'>
@@ -211,8 +232,24 @@ const EditUserProfile = ({
                             hideIcon
                         />
                     </div>
+                    
+                    <h4 className='mt-5'>
+                        Birthday
+                    </h4>
+                    <div>
+                            <TextInput
+                                type="date"
+                                error={get(errors, 'birthDate', null)}
+                                onChange={(e) => {
+                                    setValue('birthDate', moment(get(e, 'target.value', '')).toISOString())
+                                }}
+                                label='Select Date'
+                                value={moment(get(values, 'birthDate', '')).format('YYYY-MM-DD')}
+                                icon={faCalendarAlt}
+                            />
+                    </div>
 
-                    <h4>
+                    <h4 className='mt-5'>
                         Gender
                     </h4>
                     <Radio
