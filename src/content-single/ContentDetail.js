@@ -3,7 +3,7 @@ import {
   useQuery
 } from 'react-apollo'
 import {
-  get, has, toLower
+  get, toLower
 } from 'lodash'
 import moment from 'moment'
 import { htmlToReactParser } from '../utils'
@@ -11,6 +11,7 @@ import {
   Loader,
   Media
 } from '../ui'
+import { readTime } from '../utils'
 import RelatedArticles from './RelatedContent'
 import ArticleCategories from './ContentCategories'
 import {
@@ -41,6 +42,7 @@ const ArticleDetail = ({
   }
 
   const article = get(data, 'getContentItemByTitle', null)
+  const bodyText = get(article, 'htmlContent', null)
 
   if (!article) {
     console.error('Articles: Null was returned from the server')
@@ -99,14 +101,14 @@ const ArticleDetail = ({
                     {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
                   </p>
                   <p className='my-1'>
-                    {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
+                    {`${publishDate}  •  ${readTime(bodyText)} min read`}
                   </p>
                 </div>
               </div>
 
               {get(article, 'htmlContent', '') !== '' &&
                 <div className="article-body my-3 pb-4 text-left">
-                  {htmlToReactParser.parse(article.htmlContent)}
+                  {htmlToReactParser.parse(bodyText)}
                 </div>
               }
             </div>
