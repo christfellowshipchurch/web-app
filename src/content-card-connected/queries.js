@@ -50,8 +50,10 @@ export const ACCESSORY_FRAGMENT = gql`
       icon
     }
     ... on EventContentItem {
-      startDate
-      endDate
+      nextOccurrence
+      events {
+        start
+      }
     }
   }
 `

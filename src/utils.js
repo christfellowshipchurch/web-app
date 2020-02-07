@@ -1,6 +1,6 @@
 import { Parser } from 'html-to-react'
 import moment from 'moment'
-import { get } from 'lodash'
+import { get, first } from 'lodash'
 
 export const htmlToReactParser = new Parser()
 
@@ -64,4 +64,15 @@ export const formatDate = (props) => {
     }
 
     return mStart.format('MMM D')
+}
+
+export const getStartDateFromEvents = (props) => {
+    const events = get(props, 'events', [])
+    const start = get(props, 'startDate', new Date())
+    const mStart = moment(start).isValid()
+        ? start
+        : new Date()
+    const sorted = events.sort((a, b) => moment(a.start).diff(moment(b.start)))
+
+    return moment(get(sorted, '[0].start', mStart)).format('MMM D')
 }

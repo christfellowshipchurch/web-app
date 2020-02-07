@@ -22,7 +22,10 @@ const EventConnected = ({ title }) => {
     )
 
     if (loading) return <Loader />
-    if (error) return null
+    if (error) {
+        console.log({ error })
+        return null
+    }
 
     const content = get(data, 'getEventContentByTitle', null)
 
