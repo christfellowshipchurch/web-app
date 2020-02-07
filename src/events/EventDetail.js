@@ -39,6 +39,7 @@ const EventDetail = ({
   htmlContent,
   tags,
   callsToAction,
+  openLinksInNewTab,
   events,
 }) => {
   return (
@@ -52,6 +53,7 @@ const EventDetail = ({
           <ConnectedEventSchedule
             id={id}
             callsToAction={callsToAction}
+            openLinksInNewTab={openLinksInNewTab}
             events={events}
           />
         </div>
