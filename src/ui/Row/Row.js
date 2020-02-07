@@ -17,7 +17,7 @@ const Row = ({ children }) => {
                         'col-12',
                         {
                             'col-md': i === children.length - 1,
-                            'col-md-6': i !== children.length - 1
+                            'col-md-4': i !== children.length - 1
                         }
                     )
                     return <div className={classes} key={i}>{n}</div>
