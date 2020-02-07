@@ -20,7 +20,7 @@ const FocusedCard = ({
     htmlContent,
     options,
     onResize, // calls this function when this card changes size
-    ...props,
+    ...props
 }) => {
     const ref = useRef(null)
 
