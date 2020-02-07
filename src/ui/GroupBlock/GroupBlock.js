@@ -22,6 +22,7 @@ import { Feature } from '../../features'
 
 const GroupBlock = ({
   id,
+  title,
   groupLayout,
   accordionType,
   withAnimation,
@@ -45,10 +46,18 @@ const GroupBlock = ({
 
   if (!blockItems || !blockItems.length) return null
 
+  const multipleBlocks = blockItems.length > 2
+
   switch (lowerCase(groupLayout)) {
     case 'row':
       return (
-        <div className="row justify-content-center">
+        <div className='container-fluid py-4'>
+          <div className='row py-4'>
+            <div className='col'>
+              <h2 className='text-center mb-0'>{multipleBlocks ? title : null}</h2>
+            </div>
+          </div>
+          <div className='row'>
           {blockItems.map((n, i) => {
             switch (get(n, '__typename', '')) {
               case 'WebsiteBlockItem':
@@ -56,7 +65,7 @@ const GroupBlock = ({
                   return (
                     <BackgroundContentBlock
                       {...n}
-                      className="col-12 col-md-6 d-flex align-items-center"
+                      className={`col-12 col-md-${multipleBlocks ? '6' : '4'} d-flex align-items-center`}
                       key={i}
                       withAnimation={withAnimation}
                     />
@@ -65,7 +74,8 @@ const GroupBlock = ({
                   return (
                     <Block
                       {...n}
-                      className="col-12 col-md-6"
+                      grouped={multipleBlocks}
+                      className={`col-12 col-md-${multipleBlocks? '4' : '6'} py-0`}
                       key={i}
                       withAnimation={withAnimation}
                     />
@@ -81,6 +91,7 @@ const GroupBlock = ({
                 return null
             }
           })}
+          </div>
         </div>
       )
     case 'accordion':

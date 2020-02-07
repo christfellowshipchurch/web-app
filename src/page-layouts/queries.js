@@ -56,6 +56,7 @@ export const GET_BLOCK_ITEMS = gql`
             ... on WebsiteGroupItem {
               groupLayout
               accordionType 
+              title
             }
 
             ... on WebsiteFeature {

@@ -25,11 +25,17 @@ const Block = ({
   withAnimation,
   textColor,
   variant,
+  grouped
 }) => {
   const textColorClass = classnames({
     'text-white': variant === 'dark',
     'text-dark': variant === 'light',
   })
+
+  //If Block is being grouped with 3 or more Blocks, it will remove title and padding
+  const groupPadding = grouped
+    ? 'py-0'
+    : 'py-6'
 
   return (
     <VisibilitySensor
@@ -41,16 +47,17 @@ const Block = ({
         return (
           <Layout
             layout={camelCase(contentLayout)}
+            grouped={grouped}
             className={classnames(
               "max-width-1100",
-              'py-6',
+              groupPadding,
               {
                 "opacity-0": !isVisible,
                 "opacity-100": isVisible || !withAnimation,
                 // "scale-95": !isVisible,
                 // "scale-100": isVisible,
               },
-              className,
+              className
             )}
             media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
               ? {
@@ -60,6 +67,7 @@ const Block = ({
                 ratio: imageRatio,
                 showControls: true,
                 rounded: true,
+                circle: grouped,
                 className: classnames({
                   "max-width-800": contentLayout === 'default' || contentLayout === 'inverted',
                   "mx-auto": contentLayout === 'default' || contentLayout === 'inverted',
@@ -98,7 +106,7 @@ const Block = ({
                   textColorClass
                 )}
               >
-                {title}
+                {!grouped && title}
               </h2>
 
               <div
@@ -110,7 +118,7 @@ const Block = ({
                 {htmlToReactParser.parse(htmlContent)}
               </div>
 
-              <div className=''>
+              <div className={`${grouped ? 'pt-3' : ''}`}>
                 {callToAction
                   && callToAction.call !== ''
                   && callToAction.action !== ''
