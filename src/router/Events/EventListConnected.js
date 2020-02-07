@@ -19,15 +19,15 @@ const EventListConnected = () => {
 
     return (
         <div className="container-fluid my-6 px-4">
-            <div className="row">
+            <div className="row py-2">
                 <div className="col">
-                    <h3>
+                    <h3 className='mb-3'>
                         Upcoming Events
                     </h3>
                 </div>
             </div>
 
-            <div className="row mx-n2">
+            <div className="row mx-n2 my-n4">
                 {events
                     .sort((a, b) => moment(a.nextOccurrence).diff(b.nextOccurrence))
                     .map((n, i) =>
@@ -35,6 +35,7 @@ const EventListConnected = () => {
                             key={i}
                             contentId={n.id}
                             urlBase='events'
+                            className='my-4'
                             label={{
                                 field: (node) => {
                                     const mStart = moment(get(node, 'startDate', new Date()))

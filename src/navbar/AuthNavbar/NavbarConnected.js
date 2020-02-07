@@ -112,7 +112,6 @@ const NavbarConnected = ({
         className={classnames(
           'row',
           'w-100',
-          'p-2',
           'd-flex',
           'justify-content-between'
         )}
@@ -122,7 +121,7 @@ const NavbarConnected = ({
         <BrandImg
           uri={brandImage.uri}
           alt={brandImage.alt}
-          className="d-lg-none"
+          className="d-lg-none p-2"
         />
       }
 
@@ -135,6 +134,8 @@ const NavbarConnected = ({
           icon={menuIcon ? faTimes : faBars}
           color="#525252"
           onClick={() => setMenuIcon(!menuIcon)}
+          size='lg'
+          className='mr-2'
         />
       </Navbar.Toggle>
 
@@ -184,8 +185,8 @@ const NavbarConnected = ({
             </div>
           </div>
 
-          <hr className='d-lg-none w-100' />
-
+          <hr className='d-lg-none w-75' />
+         <div className='d-flex align-items-center'>
           <Nav>
             {/* Desktop NavLinks */}
             {navLinks.map((link, i) => (
@@ -243,7 +244,6 @@ const NavbarConnected = ({
             ))}
           </Nav>
 
-          <hr className='d-lg-none w-100' />
 
           {/* Desktop Profile */}
           <div className='d-none d-lg-block'>
@@ -260,7 +260,8 @@ const NavbarConnected = ({
               />
             </div>
           </div>
-
+          </div>  
+          <hr className='d-lg-none w-75' />     
           {/* Mobile Learn More */}
           <div className='d-lg-none'>
             <p className={classnames(
@@ -304,7 +305,7 @@ const NavbarConnected = ({
               </ContactUsButton>
             </div>
           </div>
-          <hr className='d-lg-none w-100' />
+          <hr className='d-lg-none w-75' />
           <a
             href="#"
             className={classnames(

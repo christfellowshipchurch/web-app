@@ -22,6 +22,8 @@ const RATIO_MAP = {
     '1': '21by9'
 }
 
+const StyledHighlightCard = ({style, ...props}) => <HighlightCard {...props} style={{maxHeight:450, ...style}} />
+
 const AnnouncementFeed = ({
     itemId,
 }) => {
@@ -58,6 +60,7 @@ const AnnouncementFeed = ({
                     const placement = i === 0
                         ? 0
                         : i === content.length - 1 ? 1 : -1
+                    
 
                     return <div
                         key={`AnnouncementFeed:${i}`}
@@ -76,6 +79,7 @@ const AnnouncementFeed = ({
                             ratio={RATIO_MAP[placement]}
                             tile={placement === -1}
                             row={placement === 1}
+                            style={placement === 0 ? { maxHeight: 450} : {}}
                         />
                     </div>
                 })}

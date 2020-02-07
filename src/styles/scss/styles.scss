@@ -113,6 +113,12 @@ $md-breakpoint: map-get($grid-breakpoints, md);
     }
 }
 
+.opacity-hover {
+    &:hover {
+        opacity: 0.75;
+    }
+}
+
 .focus-indicator-none:focus { 
     outline-width: 0 !important;
     border: none !important; 
