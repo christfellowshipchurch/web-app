@@ -44,6 +44,10 @@ const ArticleDetail = ({
   const article = get(data, 'getContentItemByTitle', null)
   const bodyText = get(article, 'htmlContent', null)
 
+  const categoryTags = get(article, 'tags', [])
+
+  console.log({categoryTags})
+
   if (!article) {
     console.error('Articles: Null was returned from the server')
     return <h3 className="text-center text-danger">
@@ -113,20 +117,22 @@ const ArticleDetail = ({
               }
             </div>
           </div>
-
-          <div className="row pb-6">
-            <div className="col-12">
-              <h4
-                className="text-uppercase text-muted"
-                style={{ fontWeight: 900, letterSpacing: 2 }}
-              >
-                categories
-            </h4>
+          {/* Category tags */}
+          {categoryTags[0] !== '' &&
+            <div className="row pb-6">
+                <div className="col-12">
+                  <h4
+                    className="text-uppercase text-muted"
+                    style={{ fontWeight: 900, letterSpacing: 2 }}
+                  >
+                    categories
+                  </h4>
+                </div>
+                <div className="col-12">
+                  <ArticleCategories categories={categoryTags} />
+                </div>
             </div>
-            <div className="col-12">
-              <ArticleCategories categories={get(article, 'tags', [])} />
-            </div>
-          </div>
+          }
         </div>
       </div>
       <div className='container-fluid py-4'>
