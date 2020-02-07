@@ -42,14 +42,6 @@ const imageArrayToObject = (images) => {
   return imagesObj
 }
 
-const navIcons = [
-  faUsers,
-  faHandshake,
-  faCalendarAlt,
-  faEnvelopeOpenDollar,
-  faSearch
-]
-
 const BrandImg = ({
   className,
   uri,
@@ -76,6 +68,7 @@ const NavbarConnected = ({
   onToggle,
   fixed,
   navLinks,
+  navIcons,
   learnMoreLinks
 }) => {
   const { logout } = useAuth()
@@ -348,6 +341,7 @@ NavbarConnected.propTypes = {
       call: PropTypes.string,
       action: PropTypes.string,
     })),
+  navIcons: PropTypes.array,
   learnMoreLinks: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
@@ -364,8 +358,15 @@ NavbarConnected.defaultProps = {
     { call: 'Content', action: '/browse' },
     { call: 'Events', action: '/events' },
     { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
-    { call: 'Groups', action: 'https://rock.gocf.org/groups' },
+    { call: 'Community', action: '/community-finder' },
     { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
+  ],
+  navIcons: [
+    faSearch,
+    faCalendarAlt,
+    faHandshake,
+    faUsers,
+    faEnvelopeOpenDollar,
   ],
   learnMoreLinks: [
     { call: 'About Christ Fellowship', action: '/about-page' },
