@@ -142,6 +142,7 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
 const EventSchedule = ({
   defaultCampus,
   callsToAction,
+  openLinksInNewTab,
   events,
 }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([])
@@ -187,7 +188,7 @@ const EventSchedule = ({
             className={classnames({
               'border-bottom': i < groupByLocationDate.length - 1,
               'border-light': i < groupByLocationDate.length - 1,
-              'pb-3': i < groupByLocationDate.length - 1,
+              'mb-3': i < groupByLocationDate.length - 1,
             })}
           >
             {keys(dateTimes).map(date => (
@@ -201,7 +202,12 @@ const EventSchedule = ({
               />
             ))}
 
-            <div className="my-4">
+            <div className="my-3">
+              <h4
+                className='mb-2'
+              >
+                Address
+              </h4>
               <a
                 className="text-dark"
                 href={getDirectionsUrl(location)}
@@ -224,6 +230,7 @@ const EventSchedule = ({
                 "my-3"
               )}
               href={n.action}
+              target={openLinksInNewTab ? '_blank' : ''}
             >
               {n.call}
             </a>

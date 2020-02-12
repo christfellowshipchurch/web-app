@@ -42,14 +42,6 @@ const imageArrayToObject = (images) => {
   return imagesObj
 }
 
-const navIcons = [
-  faUsers,
-  faHandshake,
-  faCalendarAlt,
-  faEnvelopeOpenDollar,
-  faSearch
-]
-
 const BrandImg = ({
   className,
   uri,
@@ -76,6 +68,7 @@ const NavbarConnected = ({
   onToggle,
   fixed,
   navLinks,
+  navIcons,
   learnMoreLinks
 }) => {
   const { logout } = useAuth()
@@ -119,7 +112,6 @@ const NavbarConnected = ({
         className={classnames(
           'row',
           'w-100',
-          'p-2',
           'd-flex',
           'justify-content-between'
         )}
@@ -129,7 +121,7 @@ const NavbarConnected = ({
         <BrandImg
           uri={brandImage.uri}
           alt={brandImage.alt}
-          className="d-lg-none"
+          className="d-lg-none p-2"
         />
       }
 
@@ -142,6 +134,8 @@ const NavbarConnected = ({
           icon={menuIcon ? faTimes : faBars}
           color="#525252"
           onClick={() => setMenuIcon(!menuIcon)}
+          size='lg'
+          className='mr-2'
         />
       </Navbar.Toggle>
 
@@ -191,8 +185,8 @@ const NavbarConnected = ({
             </div>
           </div>
 
-          <hr className='d-lg-none w-100' />
-
+          <hr className='d-lg-none w-75' />
+         <div className='d-flex align-items-center'>
           <Nav>
             {/* Desktop NavLinks */}
             {navLinks.map((link, i) => (
@@ -250,7 +244,6 @@ const NavbarConnected = ({
             ))}
           </Nav>
 
-          <hr className='d-lg-none w-100' />
 
           {/* Desktop Profile */}
           <div className='d-none d-lg-block'>
@@ -267,7 +260,8 @@ const NavbarConnected = ({
               />
             </div>
           </div>
-
+          </div>  
+          <hr className='d-lg-none w-75' />     
           {/* Mobile Learn More */}
           <div className='d-lg-none'>
             <p className={classnames(
@@ -311,7 +305,7 @@ const NavbarConnected = ({
               </ContactUsButton>
             </div>
           </div>
-          <hr className='d-lg-none w-100' />
+          <hr className='d-lg-none w-75' />
           <a
             href="#"
             className={classnames(
@@ -347,6 +341,7 @@ NavbarConnected.propTypes = {
       call: PropTypes.string,
       action: PropTypes.string,
     })),
+  navIcons: PropTypes.array,
   learnMoreLinks: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
@@ -363,8 +358,15 @@ NavbarConnected.defaultProps = {
     { call: 'Content', action: '/browse' },
     { call: 'Events', action: '/events' },
     { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
-    { call: 'Groups', action: 'https://rock.gocf.org/groups' },
+    { call: 'Community', action: '/community-finder' },
     { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
+  ],
+  navIcons: [
+    faSearch,
+    faCalendarAlt,
+    faHandshake,
+    faUsers,
+    faEnvelopeOpenDollar,
   ],
   learnMoreLinks: [
     { call: 'About Christ Fellowship', action: '/about-page' },

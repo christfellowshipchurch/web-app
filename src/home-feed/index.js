@@ -37,6 +37,6 @@ HomeFeed.defaultProps = {
 
 
 export default HomeFeed
-export const CARD_PADDING = 'p-2'
-export const MARGIN_Y = 'my-6'
+export const CARD_PADDING = 'p-0'
+export const MARGIN_Y = 'my-4'
 export const PADDING_X = 'px-3'

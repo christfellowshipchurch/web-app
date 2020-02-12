@@ -24,7 +24,8 @@ const HighlightCard = ({
     label,
     ratio,
     tile,
-    isLoading
+    isLoading,
+    style
 }) => {
     return (
         <a
@@ -42,6 +43,7 @@ const HighlightCard = ({
                 withHover
                 overlay='black'
                 forceRatio
+                style={style}
             >
                 <div
                     className={classnames(

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useQuery } from 'react-apollo'
 import { get, kebabCase } from 'lodash'
+import classnames from 'classnames'
 
 import {
     ContentContainer,
@@ -9,6 +10,7 @@ import {
 } from '../../ui'
 import ContentCardConnected from '../../content-card-connected'
 import { GET_CONTENT_FEED } from '../../content-feed'
+import { CARD_PADDING, MARGIN_Y, PADDING_X } from '../'
 
 const CardFeed = ({
     id,
@@ -41,7 +43,12 @@ const CardFeed = ({
     const title = get(data, 'node.title', '')
 
     return (
-        <div className="container-fluid my-6 px-4">
+        <div
+        className={classnames(
+            "container-fluid",
+            'px-4',
+        )}
+    >
             <div className="row">
                 <div className="col">
                     <h3 className="text-dark align-self-start">
@@ -59,7 +66,7 @@ const CardFeed = ({
                     </div>
                 }
             </div>
-            <div className="row mx-n1">
+            <div className="row mx-n1 my-n3">
                 {content.map((n, i) => (
                     <ContentCardConnected
                         key={i}
