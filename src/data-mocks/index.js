@@ -26,3 +26,12 @@ import * as LoginMocks from './login'
 export const Login = {
     ...LoginMocks,
 }
+
+//Website Blocks
+import * as WebsiteBlocks from './website-block'
+import * as WebsiteGroupBlocks from './website-group-block'
+
+export const WebBlocks ={
+    ...WebsiteBlocks,
+    ...WebsiteGroupBlocks
+}

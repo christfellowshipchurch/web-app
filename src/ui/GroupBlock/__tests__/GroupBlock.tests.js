@@ -1,34 +1,72 @@
 import React from 'react'
-import renderer from "react-test-renderer"
-import { Row } from '../../../ui'
-import ContentBlock from '../../ContentBlock'
-import FormattedCarousel from '../../FormattedCarousel'
+// import renderer, { act } from "react-test-renderer"
+import { MockedProvider } from '@apollo/react-testing'
+import { act, render } from '@testing-library/react'
 
+import GroupBlock from '../GroupBlock'
+import { WebBlocks } from '../../../data-mocks'
+
+const {
+  GET_GROUP_ITEM_MOCK
+} = WebBlocks
+
+let component = null
 
 describe("GroupBlock Renderer", () => {
-  it("Displays a Row GroupBlock", () => {
-    // const groupLayout = 'row'
-    // expect(GroupBlock(groupLayout)).toBe('row')
-    const tree = renderer.create(
-      <Row>
-        <ContentBlock/>
-      </Row>  
-    )
-    expect(tree).toMatchSnapshot()
+  it("Displays a Row GroupBlock", async () => {
+    act(() => {
+      component = render(
+        <MockedProvider
+          mocks={[
+            GET_GROUP_ITEM_MOCK
+          ]}
+          addTypename={false}
+        >
+          <GroupBlock
+            groupLayout='row'
+          />
+        </MockedProvider>
+      )
+    })
+    const { container } = component
+    expect(container).toMatchSnapshot()
   })
 
-  it("Displays a Carousel GroupBlock", () => {
-    // const groupLayout = 'carousel'
-    // expect(GroupBlock(groupLayout)).toBe('carousel')
+  it("Displays a Accordion GroupBlock", async () => {
+    act(() => {
+      component = render(
+        <MockedProvider
+          mocks={[
+            GET_GROUP_ITEM_MOCK
+          ]}
+          addTypename={false}
+        >
+          <GroupBlock
+            groupLayout='accordion'
+          />
+        </MockedProvider>
+      )
+    })
+    const { container } = component
+    expect(container).toMatchSnapshot()
+  })
 
-    const children = [{
-            images: '',
-            imageAlt: '',
-    }]
-
-    const tree = renderer.create(
-      <FormattedCarousel children={children} />
-    )
-    expect(tree).toMatchSnapshot()
+  it("Displays a Carousel GroupBlock", async () => {
+    act(() => {
+      component = render(
+        <MockedProvider
+          mocks={[
+            GET_GROUP_ITEM_MOCK
+          ]}
+          addTypename={false}
+        >
+          <GroupBlock
+            groupLayout='carousel'
+          />
+        </MockedProvider>
+      )
+    })
+    const { container } = component
+    expect(container).toMatchSnapshot()
   })
 })

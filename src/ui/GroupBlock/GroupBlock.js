@@ -9,7 +9,7 @@ import {
 import {
   mapEdgesToNodes,
 } from '../../utils'
-import getGroupContentItems from '../../queries/getGroupContentItems'
+import GET_GROUP_BLOCK from './queries'
 
 import Loader from '../Loader'
 import Block from '../Block'
@@ -27,7 +27,7 @@ const GroupBlock = ({
   accordionType,
   withAnimation,
 }) => {
-  const { loading, error, data } = useQuery(getGroupContentItems, { variables: { id } })
+  const { loading, error, data } = useQuery(GET_GROUP_BLOCK, { variables: { id } })
 
   if (loading) return (
     <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
