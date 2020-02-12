@@ -96,7 +96,7 @@
       "src/**/*.{js,jsx}"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|less|scss)$": "babel-jest"
+      "^.+\\.(css|less|scss|svg)$": "babel-jest"
     },
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
