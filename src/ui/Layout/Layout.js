@@ -56,7 +56,7 @@ const Layout = ({
         <div className={`col-12 ${mediaColSize} ${mediaColOrder} ${grouped ? 'px-4' : 'px-3'} my-2`}>
           {mediaItem}
         </div>
-        <div className={`col-12 col-md ${textAlignment} px-3 my-2`}>
+        <div className={`col-12 col-md ${textAlignment} px-4 my-2`}>
           {children}
         </div>
       </div>

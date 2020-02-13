@@ -8,6 +8,7 @@ import { htmlToReactParser } from '../../utils'
 import { Layout } from '..'
 
 import ButtonRow from '../ButtonRow'
+import { propTypes } from 'react-image'
 
 const Block = ({
   contentLayout,
@@ -25,7 +26,9 @@ const Block = ({
   withAnimation,
   textColor,
   variant,
-  grouped
+  grouped,
+  hideTitle,
+  textAlignment
 }) => {
   const textColorClass = classnames({
     'text-white': variant === 'dark',
@@ -78,10 +81,10 @@ const Block = ({
               } : null}
           >
             <div
-              className="max-width-800 mx-auto"
               className={classnames(
                 "max-width-800",
                 "mx-auto",
+                `text-${textAlignment}`,
                 {
                   "animate-slide-left-right": isVisible && contentLayout === 'left',
                   "animate-slide-right-left": isVisible && contentLayout === 'right',
@@ -106,7 +109,7 @@ const Block = ({
                   textColorClass
                 )}
               >
-                {!grouped && title}
+                {!hideTitle && title}
               </h2>
 
               <div
@@ -183,7 +186,7 @@ Block.defaultProps = {
   withAnimation: false,
   contentLayout: 'default',
   textColor: 'dark',
-  variant: 'light'
+  variant: 'light',
 }
 
 export default Block

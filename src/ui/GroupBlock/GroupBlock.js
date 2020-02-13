@@ -52,11 +52,13 @@ const GroupBlock = ({
     case 'row':
       return (
         <div className='container-fluid py-4'>
-          <div className='row py-4'>
-            <div className='col'>
-              <h2 className='text-center mb-0'>{multipleBlocks ? title : null}</h2>
+          {multipleBlocks &&
+            <div className='row py-4'>
+              <div className='col'>
+                <h2 className='text-center mb-0'>{title}</h2>
+              </div>
             </div>
-          </div>
+          }
           <div className='row'>
           {blockItems.map((n, i) => {
             switch (get(n, '__typename', '')) {
@@ -75,6 +77,8 @@ const GroupBlock = ({
                     <Block
                       {...n}
                       grouped={multipleBlocks}
+                      hideTitle
+                      textAlignment={multipleBlocks ? 'center' : 'left'}
                       className={`col-12 col-md-${multipleBlocks? '4' : '6'} py-0`}
                       key={i}
                       withAnimation={withAnimation}
