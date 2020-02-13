@@ -20,7 +20,7 @@ const ArticleCategories = ({
   categories
 }) => {
   return (
-    categories.map((n, i) => get(n, 'title', '') !== '' &&
+    categories.map((n, i) => n !== '' &&
       <Button
         key={i}
         title={n}

@@ -3,7 +3,7 @@ import {
   useQuery
 } from 'react-apollo'
 import {
-  get, has, toLower
+  get, toLower
 } from 'lodash'
 import moment from 'moment'
 import { htmlToReactParser } from '../utils'
@@ -11,6 +11,7 @@ import {
   Loader,
   Media
 } from '../ui'
+import { readTime } from '../utils'
 import RelatedArticles from './RelatedContent'
 import ArticleCategories from './ContentCategories'
 import {
@@ -41,6 +42,11 @@ const ArticleDetail = ({
   }
 
   const article = get(data, 'getContentItemByTitle', null)
+  const bodyText = get(article, 'htmlContent', null)
+
+  const categoryTags = get(article, 'tags', [])
+
+  console.log({categoryTags})
 
   if (!article) {
     console.error('Articles: Null was returned from the server')
@@ -99,32 +105,34 @@ const ArticleDetail = ({
                     {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
                   </p>
                   <p className='my-1'>
-                    {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
+                    {`${publishDate}  •  ${readTime(bodyText)} min read`}
                   </p>
                 </div>
               </div>
 
               {get(article, 'htmlContent', '') !== '' &&
                 <div className="article-body my-3 pb-4 text-left">
-                  {htmlToReactParser.parse(article.htmlContent)}
+                  {htmlToReactParser.parse(bodyText)}
                 </div>
               }
             </div>
           </div>
-
-          <div className="row pb-6">
-            <div className="col-12">
-              <h4
-                className="text-uppercase text-muted"
-                style={{ fontWeight: 900, letterSpacing: 2 }}
-              >
-                categories
-            </h4>
+          {/* Category tags */}
+          {categoryTags[0] !== '' &&
+            <div className="row pb-6">
+                <div className="col-12">
+                  <h4
+                    className="text-uppercase text-muted"
+                    style={{ fontWeight: 900, letterSpacing: 2 }}
+                  >
+                    categories
+                  </h4>
+                </div>
+                <div className="col-12">
+                  <ArticleCategories categories={categoryTags} />
+                </div>
             </div>
-            <div className="col-12">
-              <ArticleCategories categories={get(article, 'tags', [])} />
-            </div>
-          </div>
+          }
         </div>
       </div>
       <div className='container-fluid py-4'>

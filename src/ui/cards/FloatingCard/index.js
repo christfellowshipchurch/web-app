@@ -53,7 +53,7 @@ const FloatingCard = ({
                         <FontAwesomeIcon icon={faTimes} size='2x' />
                     </button>
                 </div>
-                <div className="card-body px-4 pt-0">
+                <div className="card-body px-4 pt-0 pb-4">
                     {children}
                 </div>
             </div>

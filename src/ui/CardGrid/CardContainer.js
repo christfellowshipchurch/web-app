@@ -7,7 +7,7 @@ const CardContainer = ({
     children,
     className,
     size,
-    ...props,
+    ...props
 }) => {
 
     return (

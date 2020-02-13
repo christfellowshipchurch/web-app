@@ -27,6 +27,7 @@ const FormattedCarousel = ({ children }) => {
               secondaryCallToAction
             }, i) => __typename === 'WebsiteBlockItem'
                 ? (
+                  <Carousel.Item>
                   <div
                     key={i}
                     className='pb-5 pt-4'
@@ -63,6 +64,7 @@ const FormattedCarousel = ({ children }) => {
                     <ButtonRow callToAction={callToAction} secondaryCallToAction={secondaryCallToAction} />
 
                   </div>
+                  </Carousel.Item>
                 ) : null
             )}
           </Carousel>

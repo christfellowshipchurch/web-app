@@ -22,6 +22,8 @@ export const GET_EVENT = gql`
                 action
             }
 
+            openLinksInNewTab
+
             events {
                 start
                 end
