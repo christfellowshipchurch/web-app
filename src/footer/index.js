@@ -1,27 +1,12 @@
 import React from 'react'
-import classnames from 'classnames'
 import { useQuery } from 'react-apollo'
 import {
-    get,
-    toLower
+    get
 } from 'lodash'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-    faFacebookSquare,
-    faInstagram,
-    faYoutube,
-    faTwitter
-} from '@fortawesome/free-brands-svg-icons'
-
+import FooterBar from './Footer'
 import { GET_WEBSITE_FOOTER } from './queries'
 
-const SM_ICONS = {
-    facebook: faFacebookSquare,
-    instagram: faInstagram,
-    youtube: faYoutube,
-    twitter: faTwitter
-}
 
 const Footer = () => {
     const website = process.env.REACT_APP_WEBSITE_KEY
@@ -33,76 +18,19 @@ const Footer = () => {
         variables: { website },
         fetchPolicy: "cache-and-network"
     })
+    const footer = get(data, 'getWebsiteNavigation', {})
+    const brandImage = get(footer, 'images[0].sources[0].uri', '')
+    const socialMediaLinks = get(footer, 'socialMediaLinks', [])
+    const footerLinks = get(footer, 'footerLinks', [])
 
     if (loading || error) return <nav className="navbar navbar-expand-lg navbar-light bg-light"></nav>
 
-    const footer = get(data, 'getWebsiteNavigation', {})
-    const verticalMargin = classnames(
-        'my-2',
-    )
-
-    return (
-        <div
-            className={classnames(
-                "bg-dark",
-                "footer",
-                "py-5",
-            )}
-        >
-            <div
-                className={classnames(
-                    "row",
-                    verticalMargin
-                )}
-            >
-                <div className="col text-center">
-                    {get(footer, 'socialMediaLinks', []).map(({ call, action }, i) => (
-                        <a href={action} key={i} className="text-white mx-3">
-                            <FontAwesomeIcon icon={SM_ICONS[toLower(call)]} size='2x' />
-                        </a>
-                    ))}
-                </div>
-            </div>
-
-            <hr
-                className={classnames(
-                    'bg-light',
-                    'w-75',
-                    verticalMargin
-                )}
-            ></hr>
-
-            <div
-                className={classnames(
-                    "row",
-                    verticalMargin
-                )}
-            >
-                <div className="col px-3 max-width-800 mx-auto">
-                    <p className='text-center text-light m-0'>
-                        {`${new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved`}
-                    </p>
-                </div>
-            </div>
-
-            <div
-                className={classnames(
-                    "row",
-                    verticalMargin
-                )}
-            >
-                <div className="col text-center max-width-800 mx-auto">
-                    {get(footer, 'footerLinks', []).map((link, i) => (
-                        <a key={i}
-                            href={link.action}
-                            className='text-light text-uppercase font-weight-bold mx-3'
-                            onClick={() => { }}>
-                            {link.call}
-                        </a>
-                    ))}
-                </div>
-            </div>
-        </div>
+    return(
+        <FooterBar
+            imgUrl={brandImage}
+            // footerLinks={footerLinks}
+            socialMediaLinks={socialMediaLinks}
+        />
     )
 }
 

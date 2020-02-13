@@ -1,6 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import { toLower, camelCase } from 'lodash'
 
 const InputContainer = ({
     prefix,
@@ -14,6 +15,7 @@ const InputContainer = ({
     hasValue
 }) => {
     const smallLabel = focused || placeholder || hasValue
+    const forLabel = toLower(camelCase(label))
     return (
         <div>
             <div className={classnames(
@@ -35,10 +37,13 @@ const InputContainer = ({
                     'p-relative'
                 )} >
                     {label &&
-                        <label className={classnames(
-                            "m-0",
-                            smallLabel ? 'input-label-sm' : 'input-label'
-                        )}>
+                        <label 
+                            htmlFor={forLabel}
+                            className={classnames(
+                                "m-0",
+                                smallLabel ? 'input-label-sm' : 'input-label'
+                            )}
+                        >
                             {label}
                         </label>}
                     {children}

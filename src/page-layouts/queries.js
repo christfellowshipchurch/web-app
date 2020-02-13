@@ -61,6 +61,8 @@ export const GET_BLOCK_ITEMS = gql`
 
             ... on WebsiteFeature {
               feature
+              title
+              subtitle
             } 
           }
         }

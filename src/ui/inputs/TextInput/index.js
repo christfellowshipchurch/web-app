@@ -6,6 +6,7 @@ import {
   faBan,
   faUser,
 } from "@fortawesome/pro-light-svg-icons"
+import { toLower, camelCase } from 'lodash'
 
 import InputContainer from '../inputContainer'
 import InputIcon from '../inputIcon'
@@ -42,6 +43,7 @@ const TextInput = ({
   if (disabled) {
     suffix = { icon: faBan, color: '#e6e6e6' }
   }
+  const forLabel = toLower(camelCase(label))
 
   return (
     <InputContainer
@@ -54,6 +56,7 @@ const TextInput = ({
       suffix={suffix && <InputIcon icon={suffix.icon} color={suffix.color} />}
     >
       <input
+        id={forLabel}
         type="text"
         defaultValue={value}
         placeholder={placeholder}
