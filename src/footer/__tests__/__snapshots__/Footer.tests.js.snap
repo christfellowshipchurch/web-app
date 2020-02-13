@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders without crashing 1`] = `
+<Context.Provider
+  value={
+    Object {
+      "hideLogIn": [Function],
+      "isLoggedIn": false,
+      "logIn": [Function],
+      "logout": [Function],
+      "setToken": [Function],
+      "token": "",
+      "triggerLogIn": false,
+    }
+  }
+>
+  <Footer
+    email="hello@cftoday.org"
+    footerLinks={
+      Array [
+        Object {
+          "action": "/about-page",
+          "call": "Leadership",
+        },
+        Object {
+          "action": "/about-page",
+          "call": "History",
+        },
+        Object {
+          "action": "/about-page",
+          "call": "Core Values",
+        },
+        Object {
+          "action": "/about-page",
+          "call": "Beliefs",
+        },
+        Object {
+          "action": "/privacy-policy",
+          "call": "Privacy Policy",
+        },
+        Object {
+          "action": "/terms-of-use",
+          "call": "Terms of Use",
+        },
+      ]
+    }
+    imgUrl=""
+    locations={
+      Array [
+        Object {
+          "action": "/palm-beach-gardens-page",
+          "call": "Palm Beach Gardens",
+        },
+        Object {
+          "action": "/royal-palm-beach-page",
+          "call": "Royal Palm Beach",
+        },
+        Object {
+          "action": "/stuart-page",
+          "call": "Stuart",
+        },
+        Object {
+          "action": "/port-st-lucie-page",
+          "call": "Port St. Lucie",
+        },
+        Object {
+          "action": "/jupiter-page",
+          "call": "Jupiter",
+        },
+        Object {
+          "action": "/downtown-wpb-page",
+          "call": "Downtown WPB",
+        },
+        Object {
+          "action": "/boyton-beach-page",
+          "call": "Boyton Beach",
+        },
+        Object {
+          "action": "/okeechobee-page",
+          "call": "Okeechobee",
+        },
+        Object {
+          "action": "/belle-glade-page",
+          "call": "Belle Glade",
+        },
+        Object {
+          "action": "/cf-en-espanol-page",
+          "call": "CF En Espanol",
+        },
+        Object {
+          "action": "/church-online-page",
+          "call": "Church Online",
+        },
+      ]
+    }
+    phone="(561)799-7600"
+    socialMediaLinks={Array []}
+  />
+</Context.Provider>
+`;
