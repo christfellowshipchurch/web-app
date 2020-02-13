@@ -33,13 +33,13 @@ const Layout = ({
 
   const mediaItem = media
     ? (
-      <div className={`${grouped ? 'px-lg-6 px-md-3 px-sm-6 px-xs-3' : ''}`}>
+      <div className={`${grouped ? 'mx-xl-3 mx-lg-3 mx-md-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6 px-4 mx-4' : ''}`}>
         <Media {...media} />
       </div>
     )
     : imageUrl || videoUrl
       ? (
-        <div className={`${grouped ? 'px-lg-6 px-md-3 px-sm-6 px-xs-3' : ''}`}>
+        <div className={`${grouped ? 'mx-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6' : ''}`}>
           <Media
             ratio={ratio}
             imageUrl={imageUrl}
