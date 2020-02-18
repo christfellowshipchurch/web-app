@@ -167,16 +167,15 @@ const HeroSection = ({
                     width: 100
                   }}
                 />
-                <p
+                <h4
                   className={classnames(
                     'text-white',
                     'pt-3',
                     'mb-0',
-                    'font-weight-bold'
                   )}
                 >
                   {n.title}
-                </p>
+                </h4>
                </div>
               ))}
               </div>   

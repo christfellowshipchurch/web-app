@@ -55,7 +55,7 @@ const GroupBlock = ({
           {multipleBlocks &&
             <div className='row py-4'>
               <div className='col'>
-                <h2 className='text-center mb-0'>{title}</h2>
+                <h2 className='text-center mb-0 mx-4'>{title}</h2>
               </div>
             </div>
           }
