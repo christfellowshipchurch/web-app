@@ -12,6 +12,7 @@ import {
 import { GET_BLOCK_ITEMS } from './queries'
 
 import Loader from '../ui/Loader'
+import { htmlToReactParser } from '../utils'
 
 import {
     Block,
@@ -70,6 +71,9 @@ const mapItemToVisual = (item, bg) => {
             break
         case 'WebsiteGroupItem':
             return <GroupBlock {...item} withAnimation />
+        case 'WebsiteHtmlBlockItem':
+            return <div>{htmlToReactParser.parse(item.htmlContent)}</div>
+            break
         case 'WebsiteFeature':
             return (
                 <div className={classnames("col", 'px-4')}>
