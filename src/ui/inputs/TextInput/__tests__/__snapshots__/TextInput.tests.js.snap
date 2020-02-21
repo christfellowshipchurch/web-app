@@ -38,11 +38,14 @@ exports[`TextInput renders a Text Input with a placeholder 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
+        disabled={false}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -99,11 +102,14 @@ exports[`TextInput renders a Text Input with a prefix 1`] = `
     >
       <label
         className="m-0 input-label"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
+        disabled={false}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -170,11 +176,14 @@ exports[`TextInput renders a Text Input with a suffix 1`] = `
     >
       <label
         className="m-0 input-label"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
+        disabled={false}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -241,11 +250,14 @@ exports[`TextInput renders a Text Input with an error 1`] = `
     >
       <label
         className="m-0 input-label"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
+        disabled={false}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -329,11 +341,14 @@ exports[`TextInput renders a Text Input with using success 1`] = `
     >
       <label
         className="m-0 input-label"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
+        disabled={false}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -417,11 +432,14 @@ exports[`TextInput renders a Text Input without crashing 1`] = `
     >
       <label
         className="m-0 input-label"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
+        disabled={false}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -477,12 +495,14 @@ exports[`TextInput renders a disabled Text Input 1`] = `
     >
       <label
         className="m-0 input-label"
+        htmlFor="label"
       >
         Label
       </label>
       <input
         className="w-100 py-0"
         disabled={true}
+        id="label"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
