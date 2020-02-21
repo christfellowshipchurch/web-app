@@ -42,7 +42,7 @@ const GroupBlock = ({
 
   const groupTitle = get(data, 'node.title', '')
   const groupBody = get(data, 'node.htmlContent', '')
-  const blockItems = mapEdgesToNodes(data.node.childContentItemsConnection)
+  const blockItems = mapEdgesToNodes(get(data, 'node.childContentItemsConnection', []))
 
   if (!blockItems || !blockItems.length) return null
 

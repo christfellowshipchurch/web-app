@@ -6,7 +6,7 @@ import { set } from 'lodash'
 
 import {
     Articles
-} from '../../../../data-mocks'
+} from '../../data-mocks'
 import { ArticleDetail } from '..'
 
 const {

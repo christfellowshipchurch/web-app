@@ -1,20 +1,26 @@
-import getGroupContentItems from '../queries/getGroupContentItems'
-import GET_BLOCK_ITEM from '../data-mocks/website-block'
+import GET_GROUP_BLOCK from '../ui/GroupBlock/queries'
+import { BLOCK_TEMPLATE } from './website-block'
 
 export const GET_GROUP_ITEM_MOCK = {
     request: {
-        query: getGroupContentItems,
-        variables: { id: "GroupBlock" }
+        query: GET_GROUP_BLOCK,
+        variables: { id: "WebsiteGroupItem:1" }
     },
     result: {
         data: {
             node: {
+                // __typename:'WebsiteGroupItem',
+                id:'WebsiteGroupItem:1',
+                title:'Group Block Title',
+                htmlContent: 'html content',
                 childContentItemsConnection: {
-                    edges: [
-                        { node: GET_BLOCK_ITEM }, 
-                    ]
+                    edges: [{
+                        node: BLOCK_TEMPLATE,
+                        node: BLOCK_TEMPLATE,
+                        node: BLOCK_TEMPLATE,
+                    }]
                 }
             }
-        },
-    },
+        }
+    }
 }
