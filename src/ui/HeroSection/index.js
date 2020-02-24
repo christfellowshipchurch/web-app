@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import VisibilitySensor from 'react-visibility-sensor'
 import { get } from 'lodash'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsers, faBook, faSearch } from '../../images/iconImages'
 
 import {
   Block,
@@ -15,6 +17,7 @@ import {
 } from '../../utils'
 
 import SwoopImg from '../../images/cyan_hole_punch.svg'
+import { faUser } from '@fortawesome/fontawesome-pro-light'
 
 const Swoop = () => {
   return (
@@ -22,7 +25,7 @@ const Swoop = () => {
       src={SwoopImg}
       style={{
         zIndex: 0,
-        width: '105%'
+        width: '100%'
       }}
       className={classnames(
         'absolute-center',
@@ -33,13 +36,16 @@ const Swoop = () => {
   )
 }
 
+
+
 const HeroSection = ({
   title,
   htmlContent,
   callToAction,
   secondaryCallToAction,
   image,
-  video
+  video,
+  icons
 }) => {
   return (
     <VisibilitySensor
@@ -49,6 +55,7 @@ const HeroSection = ({
     >
       {({ isVisible }) => {
         return (
+          <>
           <Media
             ratio="16by9"
             overlay='black'
@@ -67,13 +74,19 @@ const HeroSection = ({
             <Swoop />
 
             <div
-              className="w-100 max-width-1100"
+              className={classnames(
+                'w-100',
+                'max-width-1100',
+                'text-center',
+                'd-flex',
+                'justify-content-center'
+              )}
               style={{ zIndex: 1000 }}
             >
               <div
                 className={classnames(
                   'hero',
-                  "max-width-600",
+                  "max-width-800",
                   'p-3',
                   'pt-5',
                   {
@@ -87,16 +100,16 @@ const HeroSection = ({
                   {title}
                 </h1>
 
-                <p className="my-2 pl-0 text-white">
+                <p className="my-2 pl-0 text-white font-weight-light">
                   {htmlToReactParser.parse(htmlContent)}
                 </p>
 
-                <div className="my-2">
+                <div className="my-3">
                   {callToAction && <a
                     href={get(callToAction, 'action', '#')}
                     className={classnames(
                       "btn",
-                      "btn-white",
+                      'btn-primary',
                       "min-width-250",
                     )}
                   >
@@ -118,6 +131,56 @@ const HeroSection = ({
               </div>
             </div>
           </Media>
+          <div 
+            className={classnames(
+              'width-100', 
+              'bg-primary',
+              'd-flex',
+              'justify-content-center'
+            )}
+          >
+             <div 
+              className={classnames(
+                'row',
+                'container-fluid',
+                'mb-4'
+              )}
+            >
+             {icons.map((n, i) => (
+               <div 
+                className={classnames(
+                  'col-12',
+                  'col-md-4',
+                  'd-flex',
+                  'flex-column',
+                  'align-items-center',
+                  'mt-4'
+                )}
+                key={i}
+              >
+                <Media
+                  imageUrl={n.icon}
+                  rounded
+                  circle
+                  style={{
+                    height: 100,
+                    width: 100
+                  }}
+                />
+                <h4
+                  className={classnames(
+                    'text-white',
+                    'pt-3',
+                    'mb-0',
+                  )}
+                >
+                  {n.title}
+                </h4>
+               </div>
+              ))}
+              </div>   
+          </div>
+          </>
         )
       }}
     </VisibilitySensor>
@@ -141,7 +204,13 @@ HeroSection.propTypes = {
   }),
   video: PropTypes.shape({
     uri: PropTypes.string.isRequired,
-  })
+  }),
+  icons: PropTypes.arrayOf(
+    PropTypes.shape({
+      icon: PropTypes.string,
+      title: PropTypes.string
+    })
+  )
 }
 
 HeroSection.defaultProps = {
@@ -150,6 +219,20 @@ HeroSection.defaultProps = {
   secondaryCallToAction: null,
   image: null,
   video: null,
+  icons: [
+    {
+      icon: faUsers,
+      title: 'Find Community'
+    },
+    {
+      icon: faBook,
+      title: 'Grow in Your Faith'
+    },
+    {
+      icon: faSearch,
+      title: 'Discover Your Purpose'
+    },
+  ]
 }
 
 export default HeroSection

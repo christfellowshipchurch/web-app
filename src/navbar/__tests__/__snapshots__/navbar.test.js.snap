@@ -4,6 +4,9 @@ exports[`NavbarWithOpacity renders without crashing 1`] = `
 <NavbarConnected
   bg="transparent"
   brandImageKey="brandImageAlt"
+  fixed={true}
+  onSelect={[Function]}
+  onToggle={[Function]}
   variant="dark"
 />
 `;

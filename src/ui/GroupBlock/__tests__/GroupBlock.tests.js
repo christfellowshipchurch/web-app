@@ -1,34 +1,110 @@
 import React from 'react'
-import renderer from "react-test-renderer"
-import { Row } from '../../../ui'
-import ContentBlock from '../../ContentBlock'
-import FormattedCarousel from '../../FormattedCarousel'
+// import renderer, { act } from "react-test-renderer"
+import { MockedProvider } from '@apollo/react-testing'
+import { act, render } from '@testing-library/react'
 
+import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory'
+import introspectionQueryResultData from '../../../fragmentTypes.json'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+})
+
+const cache = new InMemoryCache({ addTypename: false, fragmentMatcher })
+
+import GroupBlock from '../GroupBlock'
+import { WebBlocks } from '../../../data-mocks'
+
+const {
+  GET_GROUP_ITEM_MOCK
+} = WebBlocks
+
+let component = null
 
 describe("GroupBlock Renderer", () => {
-  it("Displays a Row GroupBlock", () => {
-    // const groupLayout = 'row'
-    // expect(GroupBlock(groupLayout)).toBe('row')
-    const tree = renderer.create(
-      <Row>
-        <ContentBlock/>
-      </Row>  
-    )
-    expect(tree).toMatchSnapshot()
+  it("Displays a Row GroupBlock", async () => {
+    await act(async () => {
+      component = render(
+        <MockedProvider
+          mocks={[
+            GET_GROUP_ITEM_MOCK
+          ]}
+          addTypename={false}
+          cache={cache}
+        >
+          <GroupBlock
+            id='WebsiteGroupItem:1'
+            groupLayout='row'
+          />
+        </MockedProvider>
+      )
+    })
+    const { container } = component
+    expect(container).toMatchSnapshot()
   })
 
-  it("Displays a Carousel GroupBlock", () => {
-    // const groupLayout = 'carousel'
-    // expect(GroupBlock(groupLayout)).toBe('carousel')
+  // it("Displays a Accordion GroupBlock", async () => {
+  //   await act(async () => {
+  //     component = render(
+  //       <MockedProvider
+  //         mocks={[
+  //           GET_GROUP_ITEM_MOCK
+  //         ]}
+  //         addTypename={true}
+  //       >
+  //         <GroupBlock
+  //           id='WebsiteGroupItem:1'
+  //           cache={cache}
+  //           groupLayout='row'
+  //         />
+  //       </MockedProvider>
+  //     )
+  //   })
+  //   const { container } = component
+  //   expect(container).toMatchSnapshot()
+  // })
 
-    const children = [{
-            images: '',
-            imageAlt: '',
-    }]
+  // it("Displays a Carousel GroupBlock", async () => {
+  //   await act(async () => {
+  //     component = render(
+  //       <MockedProvider
+  //         mocks={[
+  //           GET_GROUP_ITEM_MOCK
+  //         ]}
+  //         addTypename={true}
+  //       >
+  //         <GroupBlock
+  //           id='WebsiteGroupItem:1'
+  //           cache={cache}
+  //           groupLayout='carousel'
+  //         />
+  //       </MockedProvider>
+  //     )
+  //   })
+  //   const { container } = component
+  //   expect(container).toMatchSnapshot()
+  // })
 
-    const tree = renderer.create(
-      <FormattedCarousel children={children} />
-    )
-    expect(tree).toMatchSnapshot()
-  })
+
+  // it("Displays a Tabs GroupBlock", async () => {
+  //   await act(async () => {
+  //     component = render(
+  //       <MockedProvider
+  //         mocks={[
+  //           GET_GROUP_ITEM_MOCK
+  //         ]}
+  //         addTypename={true}
+  //       >
+  //         <GroupBlock
+  //           id='WebsiteGroupItem:1'
+  //           cache={cache}
+  //           groupLayout='tabs'
+  //         />
+  //       </MockedProvider>
+  //     )
+  //   })
+  //   const { container } = component
+  //   expect(container).toMatchSnapshot()
+  // })
 })

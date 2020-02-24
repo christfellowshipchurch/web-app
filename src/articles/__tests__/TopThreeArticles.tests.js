@@ -8,7 +8,7 @@ import {
 
 import {
     Articles
-} from '../../../../data-mocks'
+} from '../../data-mocks'
 import { TopThreeArticles } from '..'
 
 const {

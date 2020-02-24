@@ -8,6 +8,7 @@ import { htmlToReactParser } from '../../utils'
 import { Layout } from '..'
 
 import ButtonRow from '../ButtonRow'
+import { propTypes } from 'react-image'
 
 const Block = ({
   contentLayout,
@@ -25,11 +26,19 @@ const Block = ({
   withAnimation,
   textColor,
   variant,
+  grouped,
+  hideTitle,
+  textAlignment
 }) => {
   const textColorClass = classnames({
     'text-white': variant === 'dark',
     'text-dark': variant === 'light',
   })
+
+  //If Block is being grouped with 3 or more Blocks, it will remove title and padding
+  const groupPadding = grouped
+    ? 'py-0'
+    : 'py-6'
 
   return (
     <VisibilitySensor
@@ -41,16 +50,17 @@ const Block = ({
         return (
           <Layout
             layout={camelCase(contentLayout)}
+            grouped={grouped}
             className={classnames(
               "max-width-1100",
-              'py-6',
+              groupPadding,
               {
                 "opacity-0": !isVisible,
                 "opacity-100": isVisible || !withAnimation,
                 // "scale-95": !isVisible,
                 // "scale-100": isVisible,
               },
-              className,
+              className
             )}
             media={get(images, '[0].sources[0].uri', null) || get(videos, '[0].sources[0].uri', null)
               ? {
@@ -60,6 +70,7 @@ const Block = ({
                 ratio: imageRatio,
                 showControls: true,
                 rounded: true,
+                circle: grouped,
                 className: classnames({
                   "max-width-800": contentLayout === 'default' || contentLayout === 'inverted',
                   "mx-auto": contentLayout === 'default' || contentLayout === 'inverted',
@@ -70,10 +81,10 @@ const Block = ({
               } : null}
           >
             <div
-              className="max-width-800 mx-auto"
               className={classnames(
                 "max-width-800",
                 "mx-auto",
+                `text-${textAlignment}`,
                 {
                   "animate-slide-left-right": isVisible && contentLayout === 'left',
                   "animate-slide-right-left": isVisible && contentLayout === 'right',
@@ -98,7 +109,7 @@ const Block = ({
                   textColorClass
                 )}
               >
-                {title}
+                {!hideTitle && title}
               </h2>
 
               <div
@@ -110,7 +121,7 @@ const Block = ({
                 {htmlToReactParser.parse(htmlContent)}
               </div>
 
-              <div className=''>
+              <div className={`${grouped ? 'pt-3' : ''}`}>
                 {callToAction
                   && callToAction.call !== ''
                   && callToAction.action !== ''
@@ -175,7 +186,7 @@ Block.defaultProps = {
   withAnimation: false,
   contentLayout: 'default',
   textColor: 'dark',
-  variant: 'light'
+  variant: 'light',
 }
 
 export default Block

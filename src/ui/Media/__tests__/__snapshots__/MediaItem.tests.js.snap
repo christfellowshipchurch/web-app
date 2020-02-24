@@ -2,7 +2,8 @@
 
 exports[`MediaItem renders a circular media item 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1 rounded-circle "
+  className="embed-responsive embed-responsive-1by1 rounded-circle"
+  style={Object {}}
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -23,7 +24,8 @@ exports[`MediaItem renders a circular media item 1`] = `
 
 exports[`MediaItem renders a media item with manual video controls 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1  "
+  className="embed-responsive embed-responsive-1by1"
+  style={Object {}}
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -44,7 +46,8 @@ exports[`MediaItem renders a media item with manual video controls 1`] = `
 
 exports[`MediaItem renders a rounded media item 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1 rounded "
+  className="embed-responsive embed-responsive-1by1 rounded"
+  style={Object {}}
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -65,7 +68,8 @@ exports[`MediaItem renders a rounded media item 1`] = `
 
 exports[`MediaItem renders a video with a background image 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1  "
+  className="embed-responsive embed-responsive-1by1"
+  style={Object {}}
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -87,6 +91,7 @@ exports[`MediaItem renders a video with a background image 1`] = `
     loop={true}
     muted={true}
     playsInline={true}
+    poster="https://img.url.com"
   >
     <source
       src="https://video.url.com"
@@ -98,7 +103,8 @@ exports[`MediaItem renders a video with a background image 1`] = `
 
 exports[`MediaItem renders an image with no video 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1  "
+  className="embed-responsive embed-responsive-1by1"
+  style={Object {}}
 >
   <div
     className="fill d-flex justify-content-center align-items-center"
@@ -119,28 +125,34 @@ exports[`MediaItem renders an image with no video 1`] = `
 
 exports[`MediaItem renders content overtop of an image 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1  "
+  className="overflow-hidden p-relative"
+  style={Object {}}
 >
   <div
-    className="fill d-flex justify-content-center align-items-center"
+    className="fill embed-responsive embed-responsive-1by1"
+    style={
+      Object {
+        "zIndex": 0,
+      }
+    }
   >
     <div
-      className="spinner-border text-primary"
-      role="status"
+      className="fill d-flex justify-content-center align-items-center"
     >
-      <span
-        className="sr-only"
+      <div
+        className="spinner-border text-primary"
+        role="status"
       >
-        Loading...
-      </span>
+        <span
+          className="sr-only"
+        >
+          Loading...
+        </span>
+      </div>
     </div>
   </div>
-  <div
-    className="fill d-flex justify-content-center align-items-center"
-  >
-    <h1>
-      This is content overtop of an image
-    </h1>
-  </div>
+  <h1>
+    This is content overtop of an image
+  </h1>
 </div>
 `;

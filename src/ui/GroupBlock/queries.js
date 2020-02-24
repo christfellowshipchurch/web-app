@@ -1,10 +1,13 @@
 import gql from 'graphql-tag'
 
-export const GET_BLOCK_ITEMS = gql`
-  query getBlockItems($website:String!, $title:String!) {
-    getWebsitePageContentByTitle(website:$website, title:$title) {
+export default gql`
+query getGroupBlockItems($id: ID!) {
+  node(id: $id) {
+    ... on WebsiteGroupItem {
       id
       title
+      htmlContent
+      
       childContentItemsConnection {
         edges {
           node {
@@ -25,17 +28,10 @@ export const GET_BLOCK_ITEMS = gql`
               }
             }
 
-            coverImage {
-              name
-              sources {
-                uri
-              }
-            }
-
             ... on WebsiteBlockItem {
               title
               subtitle
-
+              
               contentLayout
               callToAction {
                 call
@@ -46,27 +42,29 @@ export const GET_BLOCK_ITEMS = gql`
                 action
               }
       
+              coverImage {
+                name
+                sources {
+                  uri
+                }
+              }
               imageAlt
               imageRatio
 
               openLinksInNewTab
             }
-            
-
-            ... on WebsiteGroupItem {
-              groupLayout
-              accordionType 
-              title
-            }
 
             ... on WebsiteFeature {
               feature
-              title
-              subtitle
-            } 
+            }
+
+            ... on WebsitePagesContentItem {
+              icon
+            }
           }
         }
       }
     }
   }
+}
 `

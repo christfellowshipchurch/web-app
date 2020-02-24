@@ -17,10 +17,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -68,10 +68,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -119,10 +119,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -170,10 +170,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -221,10 +221,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -272,10 +272,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -323,10 +323,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -374,10 +374,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -430,10 +430,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -481,10 +481,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -532,10 +532,10 @@ exports[`Accordion renders an Accordion with pagination 1`] = `
           className="col-12 col-md-6 py-1 px-3"
         >
           <div
-            className="bg-white rounded shadow-sm"
+            className="bg-white rounded shadow-sm border border-light"
           >
             <button
-              className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+              className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
               onClick={[Function]}
               variant="link"
             >
@@ -606,10 +606,10 @@ exports[`Accordion renders an Accordion without crashing 1`] = `
       className="col-12 col-md-6 py-1 px-3"
     >
       <div
-        className="bg-white rounded shadow-sm"
+        className="bg-white rounded shadow-sm border border-light"
       >
         <button
-          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
           onClick={[Function]}
           variant="link"
         >
@@ -657,10 +657,10 @@ exports[`Accordion renders an Accordion without crashing 1`] = `
       className="col-12 col-md-6 py-1 px-3"
     >
       <div
-        className="bg-white rounded shadow-sm"
+        className="bg-white rounded shadow-sm border border-light"
       >
         <button
-          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
           onClick={[Function]}
           variant="link"
         >
@@ -708,10 +708,10 @@ exports[`Accordion renders an Accordion without crashing 1`] = `
       className="col-12 col-md-6 py-1 px-3"
     >
       <div
-        className="bg-white rounded shadow-sm"
+        className="bg-white rounded shadow-sm border border-light"
       >
         <button
-          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
           onClick={[Function]}
           variant="link"
         >
@@ -759,10 +759,10 @@ exports[`Accordion renders an Accordion without crashing 1`] = `
       className="col-12 col-md-6 py-1 px-3"
     >
       <div
-        className="bg-white rounded shadow-sm"
+        className="bg-white rounded shadow-sm border border-light"
       >
         <button
-          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
           onClick={[Function]}
           variant="link"
         >
@@ -810,10 +810,10 @@ exports[`Accordion renders an Accordion without crashing 1`] = `
       className="col-12 col-md-6 py-1 px-3"
     >
       <div
-        className="bg-white rounded shadow-sm"
+        className="bg-white rounded shadow-sm border border-light"
       >
         <button
-          className="p-3 w-100 text-left bg-transparent border-light rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center"
+          className="p-3 w-100 text-left bg-transparent rounded focus-indicator-none d-flex flex-row justify-content-between align-items-center border-0"
           onClick={[Function]}
           variant="link"
         >

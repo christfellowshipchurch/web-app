@@ -20,6 +20,7 @@ const Layout = ({
   children,
   className,
   rounded,
+  grouped,
   media
 }) => {
   layout = lowerCase(layout)
@@ -32,13 +33,13 @@ const Layout = ({
 
   const mediaItem = media
     ? (
-      <div>
+      <div className={`${grouped ? 'mx-xl-3 mx-lg-3 mx-md-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6 px-4 mx-4' : ''}`}>
         <Media {...media} />
       </div>
     )
     : imageUrl || videoUrl
       ? (
-        <div>
+        <div className={`${grouped ? 'mx-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6' : ''}`}>
           <Media
             ratio={ratio}
             imageUrl={imageUrl}
@@ -52,10 +53,10 @@ const Layout = ({
   return (
     <div className={`container-fluid ${className}`}>
       <div className="row align-items-center">
-        <div className={`col-12 ${mediaColSize} ${mediaColOrder} px-3 my-2`}>
+        <div className={`col-12 ${mediaColSize} ${mediaColOrder} ${grouped ? 'px-4' : 'px-3'} my-2`}>
           {mediaItem}
         </div>
-        <div className={`col-12 col-md ${textAlignment} px-3 my-2`}>
+        <div className={`col-12 col-md ${textAlignment} px-4 my-2`}>
           {children}
         </div>
       </div>
@@ -78,131 +79,3 @@ Layout.defaultProps = defaultProps
 Layout.propTypes = propTypes
 
 export default Layout
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react'
-// import classnames from 'classnames'
-// import { toLower } from 'lodash'
-// import Block from '../Block'
-
-// import ButtonRow from '../ButtonRow'
-
-// const titleClasses = classnames(
-//   'font-weight-bold'
-// )
-// const subtitleClasses = classnames(
-//   'pt-1'
-// )
-
-// // const block = {
-// //   contentLayout: 'default',
-// //   images,
-// //   videos,
-// //   imageAlt,
-// //   imageRatio,
-// //   subtitle: 'subtitle',
-// //   title: 'title',
-// //   htmlContent: 'html content',
-// //   callToAction: {call:'call', action: 'action'},
-// //   secondaryCallToAction,
-// //   openLinksInNewTab,
-// //   className
-
-
-// const Layout = ({ type, children }) => {
-//   return (
-//     <div className='container'>
-//       <div className='row'>
-//         <div className='col'>
-//           { children.map((n, i) => {
-//             switch (type) {
-//               case 'default':
-//                 return { children }
-//               case 'inverted':
-//                 return (
-//                   <div>
-
-//                   </div>
-//                 )
-//               case 'left':
-//                 return (
-//                   <div>
-
-//                   </div>
-//                 )
-//               case 'right':
-//                 return (
-//                   <div>
-
-//                   </div>
-//                 )
-//             }
-//           })}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Layout

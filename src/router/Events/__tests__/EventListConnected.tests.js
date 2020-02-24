@@ -1,46 +1,30 @@
 import React from 'react'
+import ShallowRenderer from 'react-test-renderer/shallow'
 import { MockedProvider } from '@apollo/react-testing'
 import { act, render } from '@testing-library/react'
 import wait from 'waait'
 
+import { Events } from '../../../data-mocks'
 import {
-    Articles
-} from '../../data-mocks'
-import { ArticleList } from '../'
+    AuthProvider,
+} from '../../../auth'
+import EventListConnected from '../EventListConnected'
 
-const {
-    ARTICLE_LIST_MOCKS,
-    ARTICLE_LIST_ERROR,
-} = Articles
+const { EVENT_LIST_MOCK, EVENT_LIST_ERROR } = Events
 
 let component = null
 
-describe("ArticleList", () => {
-    it("renders without crashing", () => {
-        act(() => {
-            render(
-                <MockedProvider
-                    mocks={[
-                        ARTICLE_LIST_MOCKS
-                    ]}
-                    addTypename={false}
-                >
-                    <ArticleList />
-                </MockedProvider>
-            )
-        })
-    })
-
-    it("renders a list of articles", async () => {
+describe('EventListConnected', () => {
+    it("renders a collection of events", async () => {
         act(() => {
             component = render(
                 <MockedProvider
                     mocks={[
-                        ARTICLE_LIST_MOCKS
+                        EVENT_LIST_MOCK,
                     ]}
                     addTypename={false}
                 >
-                    <ArticleList />
+                    <EventListConnected />
                 </MockedProvider>
             )
         })
@@ -51,11 +35,14 @@ describe("ArticleList", () => {
         expect(container).toMatchSnapshot()
     })
 
+    // Loading States
     it("renders the loading state", () => {
         act(() => {
             component = render(
                 <MockedProvider mocks={[]}>
-                    <ArticleList />
+                    <AuthProvider>
+                        <EventListConnected />
+                    </AuthProvider>
                 </MockedProvider>
             )
         })
@@ -69,10 +56,12 @@ describe("ArticleList", () => {
             component = render(
                 <MockedProvider
                     mocks={[
-                        ARTICLE_LIST_ERROR
+                        EVENT_LIST_ERROR
                     ]}
                 >
-                    <ArticleList />
+                    <AuthProvider>
+                        <EventListConnected />
+                    </AuthProvider>
                 </MockedProvider>
             )
         })

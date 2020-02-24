@@ -2,43 +2,47 @@
 
 exports[`ContentBlock Renderer Displays ContentBlock with Media displaying in the background 1`] = `
 <div
-  className="embed-responsive embed-responsive-1by1  "
+  className="overflow-hidden p-relative"
+  style={Object {}}
 >
   <div
-    className="fill d-flex justify-content-center align-items-center"
+    className="fill embed-responsive embed-responsive-1by1"
+    style={
+      Object {
+        "zIndex": 0,
+      }
+    }
+  />
+  <div
+    className="container-fluid max-width-1100 py-6 opacity-0 opacity-100"
   >
     <div
-      className="col px-4 py-6 undefined"
+      className="row align-items-center"
     >
       <div
-        className="container-fluid max-width-1100"
+        className="col-12 col-md-12 order-first px-3 my-2"
+      />
+      <div
+        className="col-12 col-md text-center px-3 my-2"
       >
         <div
-          className="row align-items-center"
+          className="max-width-800 mx-auto"
         >
-          <div
-            className="col-12 col-md-6 order-first order-md-last px-3"
+          <h5
+            className="mt-3 subtitle text-secondary text-dark"
+          />
+          <h2
+            className="font-weight-bold text-dark"
           />
           <div
-            className="col-12 col-md text-left px-3"
-          >
-            <div
-              className="max-width-800 mx-auto"
-            >
-              <h5
-                className="pt-1 subtitle"
-              />
-              <h1
-                className="font-weight-bold"
-              />
-              <div
-                className="pb-4"
-              />
-              <div>
-                <br />
-              </div>
-            </div>
-          </div>
+            className="pb-3 text-dark"
+          />
+          <div
+            className=""
+          />
+          <div
+            className=""
+          />
         </div>
       </div>
     </div>
@@ -54,36 +58,35 @@ exports[`ContentBlock Renderer Displays ContentBlock with normal layout 1`] = `
     className="row"
   >
     <div
-      className="col px-4 py-6 undefined"
+      className="container-fluid max-width-1100 py-6 opacity-0 opacity-100"
     >
       <div
-        className="container-fluid max-width-1100"
+        className="row align-items-center"
       >
         <div
-          className="row align-items-center"
+          className="col-12 col-md-12 order-first px-3 my-2"
+        />
+        <div
+          className="col-12 col-md text-center px-3 my-2"
         >
           <div
-            className="col-12 col-md-6 order-first order-md-last px-3"
-          />
-          <div
-            className="col-12 col-md text-left px-3"
+            className="max-width-800 mx-auto"
           >
+            <h5
+              className="mt-3 subtitle text-secondary text-dark"
+            />
+            <h2
+              className="font-weight-bold text-dark"
+            />
             <div
-              className="max-width-800 mx-auto"
-            >
-              <h5
-                className="pt-1 subtitle"
-              />
-              <h1
-                className="font-weight-bold"
-              />
-              <div
-                className="pb-4"
-              />
-              <div>
-                <br />
-              </div>
-            </div>
+              className="pb-3 text-dark"
+            />
+            <div
+              className=""
+            />
+            <div
+              className=""
+            />
           </div>
         </div>
       </div>

@@ -52,7 +52,7 @@ const CampusPageBuilder = ({ name: campusName }) => {
     const valueProposition = `At Christ Fellowship Church in ${name}, we have weekend church services where you can experience uplifting worship, powerful messages from our pastors, special programming for your family, and an opportunity to meet other amazing people like you!`
     
     return (
-        <div className="container-fluid">
+        <div>
             <div className="row">
                 <div className="col">
                     <Media

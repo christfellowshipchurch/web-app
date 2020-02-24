@@ -257,7 +257,7 @@ Footer.propTypes = {
 Footer.defaultProps = {
     imgUrl: '',
     phone: '(561)799-7600',
-    email: 'hello@cftoday.org',
+    email: 'hello@christfellowship.church',
     footerLinks: [
         { call: 'Leadership', action: '/about-page' },
         { call: 'History', action: '/about-page' },
@@ -267,17 +267,17 @@ Footer.defaultProps = {
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
     locations: [
-        { call: 'Palm Beach Gardens', action: '/palm-beach-gardens-page' },
-        { call: 'Royal Palm Beach', action: '/royal-palm-beach-page' },
-        { call: 'Stuart', action: '/stuart-page' },
-        { call: 'Port St. Lucie', action: '/port-st-lucie-page' },
-        { call: 'Jupiter', action: '/jupiter-page' },
-        { call: 'Downtown WPB', action: '/downtown-wpb-page' },
-        { call: 'Boyton Beach', action: '/boyton-beach-page' },
-        { call: 'Okeechobee', action: '/okeechobee-page' },
-        { call: 'Belle Glade', action: '/belle-glade-page' },
-        { call: 'CF En Espanol', action: '/cf-en-espanol-page' },
-        { call: 'Church Online', action: '/church-online-page' }
+        { call: 'Palm Beach Gardens', action: '/locations/palm-beach-gardens' },
+        { call: 'Royal Palm Beach', action: '/locations/royal-palm-beach' },
+        { call: 'Stuart', action: '/locations/stuart' },
+        { call: 'Port St. Lucie', action: '/locations/port-st-lucie' },
+        { call: 'Jupiter', action: '/locations/jupiter' },
+        { call: 'Downtown WPB', action: '/locations/downtown-wpb' },
+        { call: 'Boyton Beach', action: '/locations/boyton-beach' },
+        { call: 'Okeechobee', action: '/locations/okeechobee' },
+        { call: 'Belle Glade', action: '/locations/belle-glade' },
+        { call: 'CF En Español', action: '/locations/cf-en-espanol' },
+        { call: 'Church Online', action: '/locations/church-online' }
     ],
     socialMediaLinks: []
 }

@@ -1,63 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GroupBlock Renderer Displays a Carousel GroupBlock 1`] = `
-<div
-  className="container"
->
+exports[`GroupBlock Renderer Displays a Accordion GroupBlock 1`] = `
+<div>
   <div
-    className="row py-6"
+    class="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light"
   >
     <div
-      className="col"
+      class="fill d-flex justify-content-center align-items-center"
     >
       <div
-        className="carousel slide"
-        onKeyDown={[Function]}
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
-        onTouchEnd={[Function]}
-        onTouchStart={[Function]}
+        class="spinner-border text-primary"
+        role="status"
       >
-        <ol
-          className="carousel-indicators"
-        />
-        <div
-          className="carousel-inner"
-        />
-        <a
-          className="carousel-control-prev"
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
+        <span
+          class="sr-only"
         >
-          <span
-            aria-hidden="true"
-            className="carousel-control-prev-icon"
-          />
-          <span
-            className="sr-only"
-          >
-            Previous
-          </span>
-        </a>
-        <a
-          className="carousel-control-next"
-          href="#"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="button"
+          Loading...
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GroupBlock Renderer Displays a Carousel GroupBlock 1`] = `
+<div>
+  <div
+    class="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light"
+  >
+    <div
+      class="fill d-flex justify-content-center align-items-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        role="status"
+      >
+        <span
+          class="sr-only"
         >
-          <span
-            aria-hidden="true"
-            className="carousel-control-next-icon"
-          />
-          <span
-            className="sr-only"
-          >
-            Next
-          </span>
-        </a>
+          Loading...
+        </span>
       </div>
     </div>
   </div>
@@ -65,41 +47,22 @@ exports[`GroupBlock Renderer Displays a Carousel GroupBlock 1`] = `
 `;
 
 exports[`GroupBlock Renderer Displays a Row GroupBlock 1`] = `
-<div
-  className="col-12"
->
+<div>
   <div
-    className="col px-4 py-6 undefined"
+    class="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light"
   >
     <div
-      className="container-fluid max-width-1100"
+      class="fill d-flex justify-content-center align-items-center"
     >
       <div
-        className="row align-items-center"
+        class="spinner-border text-primary"
+        role="status"
       >
-        <div
-          className="col-12 col-md-6 order-first order-md-last px-3"
-        />
-        <div
-          className="col-12 col-md text-left px-3"
+        <span
+          class="sr-only"
         >
-          <div
-            className="max-width-800"
-          >
-            <h6
-              className="pt-1"
-            />
-            <h2
-              className="font-weight-bold"
-            />
-            <div
-              className="pb-4"
-            />
-            <div>
-              <br />
-            </div>
-          </div>
-        </div>
+          Loading...
+        </span>
       </div>
     </div>
   </div>

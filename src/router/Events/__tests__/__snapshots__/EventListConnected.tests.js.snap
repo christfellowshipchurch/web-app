@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventListConnected renders a collection of events 1`] = `
+<div>
+  <div
+    class="container-fluid my-6 px-4"
+    style=""
+  >
+    <div
+      class="row pt-2"
+    >
+      <div
+        class="col"
+      >
+        <h3
+          class="mb-0"
+        >
+          Featured Events
+        </h3>
+      </div>
+    </div>
+    <div
+      class="row mx-n2"
+    />
+    <hr />
+    <div
+      class="row pt-2"
+    >
+      <div
+        class="col"
+      >
+        <h3
+          class="mb-0"
+        >
+          Upcoming Events
+        </h3>
+      </div>
+    </div>
+    <div
+      class="row mx-n2"
+    />
+  </div>
+</div>
+`;
+
+exports[`EventListConnected renders the error state 1`] = `
+<div>
+  <div
+    class="p-2 p-md-5"
+    style=""
+  >
+    <div
+      class="alert alert-danger"
+      role="alert"
+    >
+      There was an error loading the content. Please try reloading the page.
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EventListConnected renders the loading state 1`] = `
+<div>
+  <div
+    style="position: relative; height: 50vh;"
+  >
+    <div
+      class="fill d-flex justify-content-center align-items-center"
+    >
+      <div
+        class="spinner-border text-primary"
+        role="status"
+      >
+        <span
+          class="sr-only"
+        >
+          Loading...
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

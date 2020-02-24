@@ -121,7 +121,7 @@ const Swoop = ({
         const index = bgIndex % backgroundColors.length
         const bg = backgroundColors[index]
         const ignoreSwoop = camelCase(get(item, 'contentLayout', '')).includes('background')
-            || (item.__typename === 'WebsiteGroupItem' && get(item, 'groupLayout', '') !== 'accordion')
+            || get(item, 'groupLayout', '') === 'tabs'
 
         if (!camelCase(get(item, 'contentLayout', '')).includes('background'))
             bgIndex++

@@ -9,7 +9,7 @@ import {
 import {
   mapEdgesToNodes,
 } from '../../utils'
-import getGroupContentItems from '../../queries/getGroupContentItems'
+import GET_GROUP_BLOCK from './queries'
 
 import Loader from '../Loader'
 import Block from '../Block'
@@ -22,11 +22,12 @@ import { Feature } from '../../features'
 
 const GroupBlock = ({
   id,
+  title,
   groupLayout,
   accordionType,
   withAnimation,
 }) => {
-  const { loading, error, data } = useQuery(getGroupContentItems, { variables: { id } })
+  const { loading, error, data } = useQuery(GET_GROUP_BLOCK, { variables: { id } })
 
   if (loading) return (
     <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
@@ -41,14 +42,24 @@ const GroupBlock = ({
 
   const groupTitle = get(data, 'node.title', '')
   const groupBody = get(data, 'node.htmlContent', '')
-  const blockItems = mapEdgesToNodes(data.node.childContentItemsConnection)
+  const blockItems = mapEdgesToNodes(get(data, 'node.childContentItemsConnection', []))
 
   if (!blockItems || !blockItems.length) return null
+
+  const multipleBlocks = blockItems.length > 2
 
   switch (lowerCase(groupLayout)) {
     case 'row':
       return (
-        <div className="row justify-content-center">
+        <div className='container-fluid py-4'>
+          {multipleBlocks &&
+            <div className='row py-4'>
+              <div className='col'>
+                <h2 className='text-center mb-0 mx-4'>{title}</h2>
+              </div>
+            </div>
+          }
+          <div className='row'>
           {blockItems.map((n, i) => {
             switch (get(n, '__typename', '')) {
               case 'WebsiteBlockItem':
@@ -56,7 +67,7 @@ const GroupBlock = ({
                   return (
                     <BackgroundContentBlock
                       {...n}
-                      className="col-12 col-md-6 d-flex align-items-center"
+                      className={`col-12 col-md-${multipleBlocks ? '6' : '4'} d-flex align-items-center`}
                       key={i}
                       withAnimation={withAnimation}
                     />
@@ -65,7 +76,10 @@ const GroupBlock = ({
                   return (
                     <Block
                       {...n}
-                      className="col-12 col-md-6"
+                      grouped={multipleBlocks}
+                      hideTitle
+                      textAlignment={multipleBlocks ? 'center' : 'left'}
+                      className={`col-12 col-md-${multipleBlocks? '4' : '6'} py-0`}
                       key={i}
                       withAnimation={withAnimation}
                     />
@@ -81,6 +95,7 @@ const GroupBlock = ({
                 return null
             }
           })}
+          </div>
         </div>
       )
     case 'accordion':
