@@ -27,6 +27,14 @@ export const Login = {
     ...LoginMocks,
 }
 
+//Website Blocks
+import * as WebsiteBlocks from './website-block'
+import * as WebsiteGroupBlocks from './website-group-block'
+
+export const WebBlocks ={
+    ...WebsiteBlocks,
+    ...WebsiteGroupBlocks
+}
 // Events
 import * as EventConnected from './event-connected'
 import * as EventListConnected from './event-list-connected'

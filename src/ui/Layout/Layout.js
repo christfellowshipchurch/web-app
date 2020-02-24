@@ -20,6 +20,7 @@ const Layout = ({
   children,
   className,
   rounded,
+  grouped,
   media
 }) => {
   layout = lowerCase(layout)
@@ -32,13 +33,13 @@ const Layout = ({
 
   const mediaItem = media
     ? (
-      <div>
+      <div className={`${grouped ? 'mx-xl-3 mx-lg-3 mx-md-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6 px-4 mx-4' : ''}`}>
         <Media {...media} />
       </div>
     )
     : imageUrl || videoUrl
       ? (
-        <div>
+        <div className={`${grouped ? 'mx-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6' : ''}`}>
           <Media
             ratio={ratio}
             imageUrl={imageUrl}
@@ -52,10 +53,10 @@ const Layout = ({
   return (
     <div className={`container-fluid ${className}`}>
       <div className="row align-items-center">
-        <div className={`col-12 ${mediaColSize} ${mediaColOrder} px-3 my-2`}>
+        <div className={`col-12 ${mediaColSize} ${mediaColOrder} ${grouped ? 'px-4' : 'px-3'} my-2`}>
           {mediaItem}
         </div>
-        <div className={`col-12 col-md ${textAlignment} px-3 my-2`}>
+        <div className={`col-12 col-md ${textAlignment} px-4 my-2`}>
           {children}
         </div>
       </div>

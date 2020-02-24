@@ -5,7 +5,7 @@ import wait from 'waait'
 
 import {
     Articles
-} from '../../../../data-mocks'
+} from '../../data-mocks'
 import { ArticleList } from '../'
 
 const {

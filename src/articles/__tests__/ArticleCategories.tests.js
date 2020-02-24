@@ -5,7 +5,7 @@ import wait from 'waait'
 
 import {
     Articles
-} from '../../../../data-mocks'
+} from '../../data-mocks'
 import { ArticleCategories } from '..'
 
 const {
@@ -16,8 +16,8 @@ const {
 let component = null
 
 describe("ArticleCategories", () => {
-    it("renders without crashing", () => {
-        act(() => {
+    it("renders without crashing",async () => {
+        await act(async () => {
             render(
                 <MockedProvider
                     mocks={[
@@ -32,10 +32,13 @@ describe("ArticleCategories", () => {
     })
 
     // Loading States
-    it("renders the loading state", () => {
-        act(() => {
+    it("renders the loading state", async () => {
+        await act(async () => {
             component = render(
-                <MockedProvider mocks={[]}>
+                <MockedProvider 
+                    mocks={[]}
+                    addTypename={false}
+                >
                     <ArticleCategories id="MainArticle" />
                 </MockedProvider>
             )
@@ -46,12 +49,13 @@ describe("ArticleCategories", () => {
     })
 
     it("renders the error state", async () => {
-        act(() => {
+        await act(async () => {
             component = render(
                 <MockedProvider
                     mocks={[
                         ARTICLE_CATEGORIES_ERROR
                     ]}
+                    addTypename={false}
                 >
                     <ArticleCategories id="MainArticle" />
                 </MockedProvider>
@@ -65,7 +69,7 @@ describe("ArticleCategories", () => {
     })
 
     it("receives a null value from the server", async () => {
-        act(() => {
+        await act(async () => {
             const mocks = ARTICLE_CATEGORIES_MOCK
 
             mocks.result.data.node.categories = null

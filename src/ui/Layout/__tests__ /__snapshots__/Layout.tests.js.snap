@@ -11,7 +11,7 @@ exports[`Layout renders Layout in default layout without media 1`] = `
       className="col-12 col-md-12 order-first px-3 my-2"
     />
     <div
-      className="col-12 col-md text-center px-3 my-2"
+      className="col-12 col-md text-center px-4 my-2"
     >
       <h1>
         Title
@@ -34,7 +34,9 @@ exports[`Layout renders a content Layout with the inverted layout 1`] = `
     <div
       className="col-12 col-md-12 order-last px-3 my-2"
     >
-      <div>
+      <div
+        className=""
+      >
         <div
           className="embed-responsive embed-responsive-21by9 rounded"
           style={Object {}}
@@ -70,7 +72,7 @@ exports[`Layout renders a content Layout with the inverted layout 1`] = `
       </div>
     </div>
     <div
-      className="col-12 col-md text-center px-3 my-2"
+      className="col-12 col-md text-center px-4 my-2"
     >
       <h1
         larger={true}
@@ -100,7 +102,9 @@ exports[`Layout renders a content Layout with the left layout 1`] = `
     <div
       className="col-12 col-md-6 order-first order-md-last px-3 my-2"
     >
-      <div>
+      <div
+        className=""
+      >
         <div
           className="embed-responsive embed-responsive-21by9 rounded"
           style={Object {}}
@@ -136,7 +140,7 @@ exports[`Layout renders a content Layout with the left layout 1`] = `
       </div>
     </div>
     <div
-      className="col-12 col-md text-left px-3 my-2"
+      className="col-12 col-md text-left px-4 my-2"
     >
       <h1>
         Title
@@ -162,7 +166,9 @@ exports[`Layout renders a content Layout with the right layout 1`] = `
     <div
       className="col-12 col-md-6 order-first px-3 my-2"
     >
-      <div>
+      <div
+        className=""
+      >
         <div
           className="embed-responsive embed-responsive-21by9 rounded"
           style={Object {}}
@@ -198,7 +204,7 @@ exports[`Layout renders a content Layout with the right layout 1`] = `
       </div>
     </div>
     <div
-      className="col-12 col-md text-left px-3 my-2"
+      className="col-12 col-md text-left px-4 my-2"
     >
       <h1>
         Title
@@ -224,7 +230,9 @@ exports[`Layout renders a subtitle in the Layout in the default size 1`] = `
     <div
       className="col-12 col-md-12 order-first px-3 my-2"
     >
-      <div>
+      <div
+        className=""
+      >
         <div
           className="embed-responsive embed-responsive-21by9 rounded"
           style={Object {}}
@@ -260,7 +268,7 @@ exports[`Layout renders a subtitle in the Layout in the default size 1`] = `
       </div>
     </div>
     <div
-      className="col-12 col-md text-center px-3 my-2"
+      className="col-12 col-md text-center px-4 my-2"
     >
       <h1>
         Title
@@ -286,7 +294,9 @@ exports[`Layout renders an image and Layout in default layout 1`] = `
     <div
       className="col-12 col-md-12 order-first px-3 my-2"
     >
-      <div>
+      <div
+        className=""
+      >
         <div
           className="embed-responsive embed-responsive-21by9 rounded"
           style={Object {}}
@@ -309,7 +319,7 @@ exports[`Layout renders an image and Layout in default layout 1`] = `
       </div>
     </div>
     <div
-      className="col-12 col-md text-center px-3 my-2"
+      className="col-12 col-md text-center px-4 my-2"
     >
       <h1>
         Title
