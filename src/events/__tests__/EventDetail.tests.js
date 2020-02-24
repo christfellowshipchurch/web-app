@@ -7,7 +7,7 @@ import { AuthProvider } from '../../auth'
 import EventDetail from '../EventDetail'
 import { Events } from '../../data-mocks'
 
-const { TEST_EVENT_JSON } = Events
+const { TEST_EVENT_JSON, CURRENT_USER_CAMPUS } = Events
 
 let component = null
 
@@ -17,6 +17,7 @@ describe('EventDetail', () => {
             component = render(
                 <MockedProvider
                     mocks={[
+                        CURRENT_USER_CAMPUS
                     ]}
                     addTypename={false}
                 >

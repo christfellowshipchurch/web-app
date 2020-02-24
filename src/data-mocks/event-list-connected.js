@@ -8,6 +8,7 @@ export const EVENT_LIST_MOCK = {
         "data": {
             "allEvents": [
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:569c5cbfe8d109f8d7db5f9dd9fa6ee6",
                     "title": "Baptism Weekend",
                     "summary": "Take your next step",
@@ -35,6 +36,7 @@ export const EVENT_LIST_MOCK = {
                     ]
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:7599c1977d3e517b75adeebc411d51ed",
                     "title": "Vision Weekend",
                     "summary": "The Movement is Now",
@@ -68,6 +70,7 @@ export const EVENT_LIST_MOCK = {
                     ]
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:75e68071e125ce1418af9336e54e3373",
                     "title": "Easter at CF",
                     "summary": "Come Celebrate EasterAre you looking for a place to celebrate Easter?",
@@ -95,6 +98,7 @@ export const EVENT_LIST_MOCK = {
                     ]
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:ebe739b319f9ea85253ad2d699371d90",
                     "title": "Freedom",
                     "summary": "Your Journey to Freedom Starts Here",
@@ -122,6 +126,7 @@ export const EVENT_LIST_MOCK = {
                     ]
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:b4bd53873e28223e8d8d2e4e130fc1d9",
                     "title": "Kingdom Builders",
                     "summary": "Learn more about Kingdom Builders",
@@ -149,6 +154,7 @@ export const EVENT_LIST_MOCK = {
                     ]
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:bfc1c94e10360f9a8ae1bb866ee0cc4f",
                     "title": "Prep for Marriage",
                     "summary": "Even more important than preparing to get married is preparing to be married!",
@@ -176,6 +182,7 @@ export const EVENT_LIST_MOCK = {
                     ]
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:dc527151fddce2bc05550816976bc44d",
                     "title": "Baby Blessing Celebration",
                     "summary": "One of the very special things about Christ Fellowship is the way we nurture children and young people.",
@@ -196,6 +203,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:d0bcc4959a9cb0ef920db0c543f4ec8c",
                     "title": "CFKids Vision Experience",
                     "summary": "Come get a glimpse of the fun we have and how you can help make a difference in the lives of kids and families as a member of our volunteer Dream Team.",
@@ -216,6 +224,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:de4fa4c054e27fbe5d7f4578c4fe158e",
                     "title": "Starting Line",
                     "summary": "Have your children been asking questions about accepting Christ or being baptized?",
@@ -236,6 +245,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:7a24b32c32da017d09844ba5f26791d7",
                     "title": "CF Students",
                     "summary": "Experience worship, teaching, and connecting with other students through Life Groups.",
@@ -256,6 +266,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:769c1f5b75e7a468902d09a53703489a",
                     "title": "Student Leadership University 101",
                     "summary": "Student Leadership University 101 provides a year’s worth of leadership development in just 4 days.",
@@ -276,6 +287,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:600400fe4729532e3960943e087ed360",
                     "title": "CF Young Adults",
                     "summary": "Thursdays at 7PMGet connected to our weekly gatherings!",
@@ -296,6 +308,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:dbe524a6a406d40eec1fe220af51f562",
                     "title": "WAKE",
                     "summary": "A life-changing event for young adults in South Florida.",
@@ -316,6 +329,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:bc8b548828ceb2e14f4a14da61a4d9ab",
                     "title": "Financial Peace University",
                     "summary": "Take Control of your Finances",
@@ -336,6 +350,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:e4d4b085fcfecd5c92717b744335ee37",
                     "title": "Financial Planning Ministry",
                     "summary": "Plan your legacy",
@@ -356,6 +371,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:70d5b57fb8dbc686a49196afbbce0b61",
                     "title": "Smart Money, Smart Kids",
                     "summary": "Teaching parents how to help their kids win with money and life",
@@ -376,6 +392,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:b18c4d205147fb0543bd25cc7cc25ca1",
                     "title": "Crew Nights",
                     "summary": "Crew is a movement of guys from all generations committed to growing in their faith and becoming the men God created them to be.",
@@ -396,6 +413,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:ea4aa1c63df29b10bd820fc79f38c823",
                     "title": "Prep for Marriage",
                     "summary": "A 6-week interactive class",
@@ -416,6 +434,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:fcee1cd05eb779eee0442454ceff5947",
                     "title": "Ignite",
                     "summary": "Ignite is a marriage event for all Married People and will take place on Saturday, March 21, 2020.",
@@ -436,6 +455,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:0da3a1b9ef3b88e8c86b071737e25542",
                     "title": "Worship Team Auditions",
                     "summary": "Join the team",
@@ -456,6 +476,7 @@ export const EVENT_LIST_MOCK = {
                     "events": []
                 },
                 {
+                    "__typename": "EventContentItem",
                     "id": "EventContentItem:d7b142e452e325de7cd5294439d7a85a",
                     "title": "One Day Journey",
                     "summary": "Your First Step",
@@ -484,6 +505,7 @@ export const EVENT_LIST_MOCK = {
                 "edges": [
                     {
                         "node": {
+                            "__typename": "EventContentItem",
                             "id": "EventContentItem:569c5cbfe8d109f8d7db5f9dd9fa6ee6",
                             "title": "Baptism Weekend",
                             "summary": "Take your next step",
@@ -513,6 +535,7 @@ export const EVENT_LIST_MOCK = {
                     },
                     {
                         "node": {
+                            "__typename": "EventContentItem",
                             "id": "EventContentItem:7599c1977d3e517b75adeebc411d51ed",
                             "title": "Vision Weekend",
                             "summary": "The Movement is Now",
@@ -548,6 +571,7 @@ export const EVENT_LIST_MOCK = {
                     },
                     {
                         "node": {
+                            "__typename": "EventContentItem",
                             "id": "EventContentItem:75e68071e125ce1418af9336e54e3373",
                             "title": "Easter at CF",
                             "summary": "Come Celebrate EasterAre you looking for a place to celebrate Easter?",
@@ -577,6 +601,7 @@ export const EVENT_LIST_MOCK = {
                     },
                     {
                         "node": {
+                            "__typename": "EventContentItem",
                             "id": "EventContentItem:dc527151fddce2bc05550816976bc44d",
                             "title": "Baby Blessing Celebration",
                             "summary": "One of the very special things about Christ Fellowship is the way we nurture children and young people.",
