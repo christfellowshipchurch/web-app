@@ -39,14 +39,40 @@ export const GET_EVENT = gql`
 export const GET_EVENTS = gql`
     query getEvents {
         allEvents {
-            id
-            title
-            nextOccurrence
+            ...eventsFragment
+        }
 
-            events {
-                start
-                end
+        featuredEvents {
+            edges {
+                node {
+                   ...eventsFragment
+                }
             }
+        }
+    }
+
+    fragment eventsFragment on EventContentItem {
+        id
+        title
+        summary
+
+        nextOccurrence
+
+        coverImage {
+            name
+            sources {
+                uri
+            }
+        }
+
+        sharing {
+            url
+            title
+            message
+        }
+
+        events {
+            start
         }
     }
 `

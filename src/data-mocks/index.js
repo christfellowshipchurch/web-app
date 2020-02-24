@@ -35,3 +35,18 @@ export const WebBlocks ={
     ...WebsiteBlocks,
     ...WebsiteGroupBlocks
 }
+// Events
+import * as EventConnected from './event-connected'
+import * as EventListConnected from './event-list-connected'
+
+export const Events = {
+    ...EventConnected,
+    ...EventListConnected
+}
+
+// Card Feed
+import * as CardFeedMocks from './card-feed'
+
+export const CardFeed = {
+    ...CardFeedMocks,
+}
