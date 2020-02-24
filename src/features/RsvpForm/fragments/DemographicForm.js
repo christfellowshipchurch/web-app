@@ -57,7 +57,9 @@ const DemographicForm = ({
                 <div className="col">
                     <TextInput
                         label="Number of Children Attending"
-                        value={get(values, 'children', 0)}
+                        // value={get(values, 'children', 0)}
+                        //TEMPORARY FIX FOR STRING ERROR
+                        value={'0'}
                         onChange={(e) => setFieldValue('children', get(e, 'target.value', ''))}
                         icon={faBabyCarriage}
                         type="number"
