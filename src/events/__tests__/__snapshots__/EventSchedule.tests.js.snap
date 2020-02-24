@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventSchedule renders the schedule of an event 1`] = `
+<div>
+  <div
+    class="card border-0 shadow mb-3"
+  >
+    <div
+      class="card-body"
+    >
+      <div
+        class="dropdown"
+        id="event-campus-selection"
+      >
+        <div
+          class="w-100"
+          style="vertical-align: middle; cursor: pointer;"
+        >
+          <span
+            class="h4"
+          >
+            Select Location
+            <span
+              class="ml-2 float-right"
+              style="font-size: 22px;"
+            >
+              <svg
+                aria-hidden="true"
+                class="svg-inline--fa fa-angle-down fa-w-10 "
+                data-icon="angle-down"
+                data-prefix="far"
+                focusable="false"
+                role="img"
+                viewBox="0 0 320 512"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M151.5 347.8L3.5 201c-4.7-4.7-4.7-12.3 0-17l19.8-19.8c4.7-4.7 12.3-4.7 17 0L160 282.7l119.7-118.5c4.7-4.7 12.3-4.7 17 0l19.8 19.8c4.7 4.7 4.7 12.3 0 17l-148 146.8c-4.7 4.7-12.3 4.7-17 0z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="card border-0 shadow my-3"
+  >
+    <div
+      class="card-body"
+    >
+      <div
+        class="py-3"
+      >
+        <div
+          class=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -38,6 +38,7 @@ exports[`Dropdown renders a Dropdown with a placeholder 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
@@ -125,6 +126,7 @@ exports[`Dropdown renders a Dropdown with a prefix 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
@@ -223,6 +225,7 @@ exports[`Dropdown renders a Dropdown with a suffix 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
@@ -321,6 +324,7 @@ exports[`Dropdown renders a Dropdown with an error 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
@@ -408,6 +412,7 @@ exports[`Dropdown renders a Dropdown with using success 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
@@ -495,6 +500,7 @@ exports[`Dropdown renders a Dropdown without crashing 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
@@ -582,6 +588,7 @@ exports[`Dropdown renders a disabled Dropdown 1`] = `
     >
       <label
         className="m-0 input-label-sm"
+        htmlFor="label"
       >
         Label
       </label>
