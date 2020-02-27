@@ -53,7 +53,7 @@ const CardFeed = ({
     if (first) content = take(content, first)
 
     return content.length > 0
-    ? <div className="container-fluid max-width-1100 my-6 px-4">
+    ? <div className="container-fluid max-width-1100 my-6">
             <div className="row">
                 <div className="col">
                     <h3 className="text-dark align-self-start">

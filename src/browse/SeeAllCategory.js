@@ -14,10 +14,10 @@ const SeeAllCategory = ({
 }) => {
     return (
         <div 
-            className="container-fluid my-6"
+            className="container-fluid"
             style={{minHeight:'100%'}}
         >
-            <div className='row align-content-center'>
+            <div className='row align-content-center mt-3 mb-n6'>
                 <a
                     href='#'
                     onClick={(e) => {
@@ -34,7 +34,7 @@ const SeeAllCategory = ({
                     {title}
                 </a>
             </div>
-            <div className="row">
+            <div className="row px-n2">
                 <CardFeed id={categoryId} />
             </div>
         </div>
