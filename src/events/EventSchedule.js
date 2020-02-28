@@ -107,6 +107,8 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   // when the selection changes, call the onChange method
   useEffect(() => onChange(selected), [selected])
 
+  
+
   return <Card className="mb-3">
     <Dropdown
       id={id}
@@ -167,17 +169,23 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents)
   }
 
-  return [
-    <CampusSelection
-      key={`CampusSelection`}
-      campuses={campusOptions}
-      onChange={onChange}
-      defaultCampus={defaultCampus}
-    />,
+  const noCampuses = campusOptions.length < 1
+
+  return (
+    <>
+    {!noCampuses &&
+      <CampusSelection
+        key={`CampusSelection`}
+        campuses={campusOptions}
+        onChange={onChange}
+        defaultCampus={defaultCampus}
+      />
+    }
+
     <Card
       key={`EventOccurences`}
       className={classnames(
-        'my-3',
+        'mb-3',
       )}
     >
       <div className="py-3">
@@ -219,6 +227,10 @@ const EventSchedule = ({
           </div>
         })}
 
+          {!!noCampuses &&
+            <h3 className='mb-n4'>Get Started</h3>
+          }
+
         <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
           {callsToAction.map((n, i) => (
             <a
@@ -238,7 +250,8 @@ const EventSchedule = ({
         </div>
       </div>
     </Card >
-  ]
+    </>
+  )
 }
 
 EventSchedule.propTypes = {

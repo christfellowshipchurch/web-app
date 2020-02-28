@@ -46,7 +46,7 @@ exports[`EventSchedule renders the schedule of an event 1`] = `
     </div>
   </div>
   <div
-    class="card border-0 shadow my-3"
+    class="card border-0 shadow mb-3"
   >
     <div
       class="card-body"
