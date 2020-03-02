@@ -148,6 +148,8 @@ const EventSchedule = ({
   events,
 }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([])
+  const noEvents = events.length < 1
+
   const campusOptions = uniq(flatMapDepth(
     events.map(e => e.campuses.map(c => c.name)),
     identity,
@@ -169,11 +171,10 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents)
   }
 
-  const noCampuses = campusOptions.length < 1
 
   return (
     <>
-    {!noCampuses &&
+    {!noEvents &&
       <CampusSelection
         key={`CampusSelection`}
         campuses={campusOptions}
@@ -181,75 +182,74 @@ const EventSchedule = ({
         defaultCampus={defaultCampus}
       />
     }
-
-    <Card
-      key={`EventOccurences`}
-      className={classnames(
-        'mb-3',
-      )}
-    >
-      <div className="py-3">
-        {groupByLocationDate.map((event, i) => {
-          const { location, dateTimes } = event
-          return <div
-            key={`EventOccurence:${i}`}
-            className={classnames({
-              'border-bottom': i < groupByLocationDate.length - 1,
-              'border-light': i < groupByLocationDate.length - 1,
-              'mb-3': i < groupByLocationDate.length - 1,
-            })}
-          >
-            {keys(dateTimes).map(date => (
-              <EventTimes
-                key={`EventOccurenceDate:${date}`}
-                date={date}
-                times={dateTimes[date]}
+       <Card
+          key={`EventOccurences`}
+          className={classnames(
+            'mb-3',
+          )}
+        >
+          <div className="py-3">
+            {groupByLocationDate.map((event, i) => {
+              const { location, dateTimes } = event
+              return <div
+                key={`EventOccurence:${i}`}
                 className={classnames({
-                  'mb-4': keys(dateTimes).length > 1,
+                  'border-bottom': i < groupByLocationDate.length - 1,
+                  'border-light': i < groupByLocationDate.length - 1,
+                  'mb-3': i < groupByLocationDate.length - 1,
                 })}
-              />
-            ))}
-
-            <div className="my-3">
-              <h4
-                className='mb-2'
               >
-                Address
-              </h4>
-              <a
-                className="text-dark"
-                href={getDirectionsUrl(location)}
-                target="_blank"
-              >
-                {location}
-              </a>
+                {keys(dateTimes).map(date => (
+                  <EventTimes
+                    key={`EventOccurenceDate:${date}`}
+                    date={date}
+                    times={dateTimes[date]}
+                    className={classnames({
+                      'mb-4': keys(dateTimes).length > 1,
+                    })}
+                  />
+                ))}
+    
+                <div className="my-3">
+                  <h4
+                    className='mb-2'
+                  >
+                    Address
+                  </h4>
+                  <a
+                    className="text-dark"
+                    href={getDirectionsUrl(location)}
+                    target="_blank"
+                  >
+                    {location}
+                  </a>
+                </div>
+              </div>
+            })}
+    
+              {!!noEvents && callsToAction.length > 0 &&
+                <h3 className='mb-n4'>Get Started</h3>
+              }
+    
+            <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
+              {callsToAction.map((n, i) => (
+                <a
+                  key={i}
+                  className={classnames(
+                    'btn',
+                    'btn-primary',
+                    'btn-block',
+                    "my-3"
+                  )}
+                  href={n.action}
+                  target={openLinksInNewTab ? '_blank' : ''}
+                >
+                  {n.call}
+                </a>
+              ))}
             </div>
           </div>
-        })}
-
-          {!!noCampuses &&
-            <h3 className='mb-n4'>Get Started</h3>
-          }
-
-        <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
-          {callsToAction.map((n, i) => (
-            <a
-              key={i}
-              className={classnames(
-                'btn',
-                'btn-primary',
-                'btn-block',
-                "my-3"
-              )}
-              href={n.action}
-              target={openLinksInNewTab ? '_blank' : ''}
-            >
-              {n.call}
-            </a>
-          ))}
-        </div>
-      </div>
-    </Card >
+        </Card > 
     </>
   )
 }
