@@ -171,6 +171,13 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents)
   }
 
+  //if array is empty set to default button
+  if(callsToAction.length < 1){
+    callsToAction = [{
+      call: 'Register',
+      action: '/#'
+    }]
+  }
 
   return (
     <>
@@ -262,12 +269,15 @@ EventSchedule.propTypes = {
       call: PropTypes.string,
       action: PropTypes.string,
     })
-  )
+  ).isRequired
 }
 
 EventSchedule.defaultProps = {
   defaultCampus: '',
-  callsToAction: []
+  callsToAction: [{
+    call:'Register',
+    action: '/#'
+  }]
 }
 
 export default EventSchedule
