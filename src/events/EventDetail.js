@@ -63,7 +63,7 @@ const EventDetail = ({
             className="py-3"
           >
             <h3 className='text-dark'>
-              Event Details
+              Details
             </h3>
             <div className='mb-5'>
               {htmlToReactParser.parse(htmlContent)}
