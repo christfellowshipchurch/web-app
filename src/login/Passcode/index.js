@@ -1,24 +1,26 @@
-import React from 'react'
-import { useMutation } from 'react-apollo'
-import { get, has } from 'lodash'
-import * as Yup from 'yup'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
-import { Formik } from 'formik'
-import { faLockAlt } from '@fortawesome/fontawesome-pro-light'
-
-import { useAuth } from '../../auth'
-import { useForm } from '../../hooks'
-
-import { AUTHENTICATE_CREDENTIALS, CREATE_NEW_LOGIN } from '../mutations'
+import React from 'react';
+import { useMutation, useQuery } from 'react-apollo';
+import { get, has } from 'lodash';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { Formik } from 'formik';
+import { faLockAlt } from '@fortawesome/fontawesome-pro-light';
 
 import {
     TextInput,
-    Button
-} from '@christfellowshipchurch/web-ui-kit'
+    Button,
+    Loader,
+} from '../../ui';
+import { useAuth } from '../../auth';
+import { useForm } from '../../hooks';
 
-import { RequestEmailPin } from '../Reset'
-import ResendSMS from '../ResendSMS'
+import { AUTHENTICATE_CREDENTIALS, CREATE_NEW_LOGIN, VERIFY_PIN } from '../mutations';
+import { USER_EXISTS } from '../queries';
+
+
+import { RequestEmailPin } from '../Reset';
+import ResendSMS from '../ResendSMS';
 
 const PasscodeForm = ({
     identity,
@@ -30,78 +32,90 @@ const PasscodeForm = ({
     update,
     columns,
 }) => {
+    const { data = {}, loading, error } = useQuery(USER_EXISTS, {
+        variables: { identity },
+        fetchPolicy: 'network-only',
+    });
     const {
         values,
         errors,
         submitting,
         setValue,
         setSubmitting,
-        setError
-    } = useForm()
-    const { setToken } = useAuth()
-    const [authenticateCredentials] = useMutation(AUTHENTICATE_CREDENTIALS)
-    const [createNewLogin] = useMutation(CREATE_NEW_LOGIN)
+        setError,
+    } = useForm();
+    const { setToken, hideLogin } = useAuth();
+    const [authenticateCredentials] = useMutation(AUTHENTICATE_CREDENTIALS);
+    const [verifyPin] = useMutation(VERIFY_PIN);
+    const [createNewLogin] = useMutation(CREATE_NEW_LOGIN);
+    const { userExists = false } = data;
 
     const onClick = async () => {
-        setSubmitting(true)
-        const { passcode } = values
+        setSubmitting(true);
+        const { passcode } = values;
 
         // isExisitingIdentity checks for an existing Sms login
         // password logins aren't known to be existing or not until the authentication is run
-        if (isExistingIdentity) {
-            try {
-                await authenticateCredentials({
-                    variables: { identity, passcode },
-                    update: (cache, { data: { authenticateCredentials: { token } } }) => {
-                        setToken(token)
-                        setSubmitting(false)
-                        update({
-                            identity,
-                            passcode: get(values, 'passcode', ''),
-                            isExistingIdentity
-                        })
-                    },
-                    onError: (e) => {
-                        // the code or password entered was for an existing user login and was incorrect
-                        setError('passcode', `The ${inputLabel[type]} you entered is incorrect`)
-                        setSubmitting(false)
-                    }
-                })
-            } catch (e) {
-                setError('passcode', `The ${inputLabel[type]} you entered is incorrect`)
-                setSubmitting(false)
+        if (userExists) {
+            if (type === 'sms') {
+                try {
+                    await verifyPin({
+                        variables: { phone: identity, code: passcode },
+                        update: (cache, { data: { authenticateWithSms: { token } = {} } = {} }) => {
+                            setToken(token);
+                            setSubmitting(false);
+                            hideLogin();
+                        },
+                        onError: (e) => {
+                            // the code or password entered was for an existing user login and was incorrect
+                            setError('passcode', `The ${inputLabel[type]} you entered is incorrect`);
+                            setSubmitting(false);
+                        },
+                    });
+                } catch (e) {
+                    setError('passcode', `The ${inputLabel[type]} you entered is incorrect`);
+                    setSubmitting(false);
+                }
             }
         } else {
             createNewLogin({
                 variables: { identity, passcode },
                 update: (cache, { data: { createNewUserLogin: { token } } }) => {
-                    setSubmitting(false)
+                    setSubmitting(false);
                     update({
                         identity,
                         passcode: get(values, 'passcode', ''),
-                        isExistingIdentity
-                    })
+                        isExistingIdentity,
+                    });
                 },
                 onError: () => {
-                    setError('passcode', 'Sorry! We are unable to log you in at this time')
+                    setError('passcode', 'Sorry! We are unable to log you in at this time');
 
-                    setSubmitting(false)
-                }
-            })
+                    setSubmitting(false);
+                },
+            });
         }
-    }
+    };
 
-    const inputType = type === 'sms' ? 'numeric' : 'password'
+    const inputType = type === 'sms' ? 'numeric' : 'password';
     const disabled = submitting
         || !!get(errors, 'passcode', false)
         || get(values, 'passcode', '') === ''
-        || identity === ''
+        || identity === '';
+
+    if (loading) {
+        return (
+            <div style={{ minHeight: 300 }}>
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col my-2 justify-content-center">
-                    <p className='mb-0'>
+                    <p className="mb-0">
                         {promptText[type]}
                     </p>
                 </div>
@@ -134,48 +148,50 @@ const PasscodeForm = ({
                 {type === 'password'
                     && identity
                     && identity !== ''
-                    && isExistingIdentity &&
-                    <div className="col-12 text-center my-4">
-                        <RequestEmailPin
-                            email={identity}
-                            update={() => update({ requestedEmailPin: true })}
-                            onClick={() => setSubmitting(true)}
-                        >
-                            Forgot your password? We can help with that!
-                        </RequestEmailPin>
-                    </div>
-                }
-                {type === 'sms' && identity && identity !== '' &&
-                    <div className="col-12 text-center my-3">
-                        <ResendSMS phoneNumber={identity}>Didn't get a code? Request a new one.</ResendSMS>
-                    </div>
-                }
+                    && isExistingIdentity
+                    && (
+                        <div className="col-12 text-center my-4">
+                            <RequestEmailPin
+                                email={identity}
+                                update={() => update({ requestedEmailPin: true })}
+                                onClick={() => setSubmitting(true)}
+                            >
+                                Forgot your password? We can help with that!
+                      </RequestEmailPin>
+                        </div>
+                    )}
+                {type === 'sms' && identity && identity !== ''
+                    && (
+                        <div className="col-12 text-center my-3">
+                            <ResendSMS phoneNumber={identity}>Didn't get a code? Request a new one.</ResendSMS>
+                        </div>
+                    )}
             </div>
         </div>
-    )
-}
+    );
+};
 
 PasscodeForm.defaultProps = {
     identity: '',
     isExistingIdentity: false,
     titleText: {
         sms: 'Confirmation Code',
-        password: 'Password'
+        password: 'Password',
     },
     promptText:
     {
-        sms: "Enter in the Confirmation Code that was texted to your mobile phone number.",
-        password: "Enter in your existing password or create your password below."
+        sms: 'Enter in the Confirmation Code that was texted to your mobile phone number.',
+        password: 'Enter in your existing password or create your password below.',
     },
     buttonText: 'Submit',
     inputLabel: {
-        sms: "Confirmation Code",
-        password: "Password"
+        sms: 'Confirmation Code',
+        password: 'Password',
     },
     type: 'sms',
     update: () => true,
-    columns: 'col'
-}
+    columns: 'col',
+};
 
 PasscodeForm.propTypes = {
     identity: PropTypes.string,
@@ -197,8 +213,8 @@ PasscodeForm.propTypes = {
     update: PropTypes.func,
     columns: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-    ])
-}
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
+};
 
-export default PasscodeForm
+export default PasscodeForm;

@@ -1,13 +1,20 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const REQUEST_PIN = gql`
-  mutation requestPin($phoneNumber: String!) {
-    requestSmsLoginPin(phoneNumber: $phoneNumber) {
+  mutation requestPin($phone: String!) {
+    requestSmsLoginPin(phoneNumber: $phone) {
       success
-      isExistingIdentity
     }
   }
-`
+`;
+
+export const VERIFY_PIN = gql`
+  mutation verifyPin($phone: String!, $code: String!) {
+    authenticateWithSms(phoneNumber: $phone, pin: $code) {
+      token
+    }
+  }
+`;
 
 export const IS_VALID_IDENTITY = gql`
   mutation isValidIdentity($identity: String!) {
@@ -16,7 +23,7 @@ export const IS_VALID_IDENTITY = gql`
       isExistingIdentity
     }
   }
-`
+`;
 
 export const AUTHENTICATE_CREDENTIALS = gql`
   mutation authenticateCredentials($identity: String!, $passcode: String!) {
@@ -24,7 +31,7 @@ export const AUTHENTICATE_CREDENTIALS = gql`
       token
     }
   }
-`
+`;
 
 export const CREATE_NEW_LOGIN = gql`
   mutation createNewUserAccount($identity: String!, $passcode: String!) {
@@ -32,7 +39,7 @@ export const CREATE_NEW_LOGIN = gql`
       token
     }
   }
-`
+`;
 
 export const HANDLE_NEW_LOGIN = gql`
   mutation handleNewUserAccount($identity: String!, $passcode: String!) {
@@ -40,7 +47,7 @@ export const HANDLE_NEW_LOGIN = gql`
       token
     }
   }
-`
+`;
 
 export const UPDATE_PROFILE = gql`
     mutation relateUserLoginToPerson(
@@ -64,7 +71,7 @@ export const UPDATE_PROFILE = gql`
             token
         }
     }
-`
+`;
 
 export const REQUEST_PASSWORD_CHANGE = gql`
   mutation requestPasswordChange(
@@ -80,10 +87,10 @@ export const REQUEST_PASSWORD_CHANGE = gql`
       token
     }
   }
-`
+`;
 
 export const REQUEST_EMAIL_PIN = gql`
   mutation requestEmailLoginPin($email:String!) {
     requestEmailLoginPin(email:$email)
   }
-`
+`;
