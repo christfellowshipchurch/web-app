@@ -62,24 +62,8 @@ const IdentityForm = ({
         const { email, phoneNumber } = await parseUsername(identity);
 
         if (email) {
-            // TODO : fix and support
-            validateIdentity({
-                variables: {
-                    identity,
-                },
-                update: (cache, { data: { isValidIdentity: { success, isExistingIdentity } } }) => {
-                    if (success) {
-                        // navigate to Passcode validation
-                        update({
-                            type: 'password', success, isExistingIdentity, identity,
-                        });
-                    } else {
-                        // show some error on the screen
-                    }
-
-                    setSubmitting(false);
-                },
-                onError: () => setSubmitting(false),
+            update({
+                type: 'password', identity,
             });
         } else if (phoneNumber) {
             requestPin({

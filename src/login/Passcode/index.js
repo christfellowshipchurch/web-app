@@ -44,7 +44,7 @@ const PasscodeForm = ({
         setSubmitting,
         setError,
     } = useForm();
-    const { setToken, hideLogin } = useAuth();
+    const { setToken, hideLogIn } = useAuth();
     const [authenticateCredentials] = useMutation(AUTHENTICATE_CREDENTIALS);
     const [verifyPin] = useMutation(VERIFY_PIN);
     const [createNewLogin] = useMutation(CREATE_NEW_LOGIN);
@@ -64,9 +64,28 @@ const PasscodeForm = ({
                         update: (cache, { data: { authenticateWithSms: { token } = {} } = {} }) => {
                             setToken(token);
                             setSubmitting(false);
-                            hideLogin();
+                            hideLogIn();
                         },
-                        onError: (e) => {
+                        onError: () => {
+                            // the code or password entered was for an existing user login and was incorrect
+                            setError('passcode', `The ${inputLabel[type]} you entered is incorrect`);
+                            setSubmitting(false);
+                        },
+                    });
+                } catch (e) {
+                    setError('passcode', `The ${inputLabel[type]} you entered is incorrect`);
+                    setSubmitting(false);
+                }
+            } else if (type === 'password') {
+                try {
+                    await authenticateCredentials({
+                        variables: { email: identity, password: passcode },
+                        update: (cache, { data: { authenticate: { token } = {} } = {} }) => {
+                            setToken(token);
+                            setSubmitting(false);
+                            hideLogIn();
+                        },
+                        onError: () => {
                             // the code or password entered was for an existing user login and was incorrect
                             setError('passcode', `The ${inputLabel[type]} you entered is incorrect`);
                             setSubmitting(false);
@@ -78,22 +97,7 @@ const PasscodeForm = ({
                 }
             }
         } else {
-            createNewLogin({
-                variables: { identity, passcode },
-                update: (cache, { data: { createNewUserLogin: { token } } }) => {
-                    setSubmitting(false);
-                    update({
-                        identity,
-                        passcode: get(values, 'passcode', ''),
-                        isExistingIdentity,
-                    });
-                },
-                onError: () => {
-                    setError('passcode', 'Sorry! We are unable to log you in at this time');
-
-                    setSubmitting(false);
-                },
-            });
+            update(type, identity, passcode);
         }
     };
 

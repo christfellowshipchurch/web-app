@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_EVENT_SCHEDULES = gql`
     query getEventSchedules($id: ID!) {
@@ -22,7 +22,7 @@ export const GET_EVENT_SCHEDULES = gql`
             }
         }
     }
-`
+`;
 
 export const GET_CURRENT_PERSON_CAMPUS = gql`
     query {
@@ -34,4 +34,4 @@ export const GET_CURRENT_PERSON_CAMPUS = gql`
             }
         }
     }
-`
+`;

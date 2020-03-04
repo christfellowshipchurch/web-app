@@ -3,35 +3,35 @@ import React, {
     useEffect,
     useState,
     useContext,
-    createContext
-} from 'react'
-import { AUTH_TOKEN_KEY } from '../keys'
+    createContext,
+} from 'react';
+import { AUTH_TOKEN_KEY } from '../keys';
 
-const initialState = ''
-const localState = localStorage.getItem(AUTH_TOKEN_KEY)
-const AuthContext = createContext()
-const useAuth = () => useContext(AuthContext)
+const initialState = '';
+const localState = localStorage.getItem(AUTH_TOKEN_KEY);
+const AuthContext = createContext();
+const useAuth = () => useContext(AuthContext);
 
-let reducer = (token, newToken) => {
+const reducer = (token, newToken) => {
     if (newToken === null) {
-        localStorage.removeItem(AUTH_TOKEN_KEY)
-        return initialState
+        localStorage.removeItem(AUTH_TOKEN_KEY);
+        return initialState;
     }
-    return newToken || token
-}
+    return newToken || token;
+};
 
 const AuthProvider = (props) => {
-    const [token, setToken] = useReducer(reducer, localState || initialState)
-    const [isLoggedIn, setIsLoggedIn] = useState(!!token)
-    const [triggerLogIn, setTriggerLogIn] = useState(false)
+    const [token, setToken] = useReducer(reducer, localState || initialState);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!token);
+    const [triggerLogIn, setTriggerLogIn] = useState(false);
     const logout = () => {
-        setToken(null)
-    }
+        setToken(null);
+    };
 
     useEffect(() => {
-        localStorage.setItem(AUTH_TOKEN_KEY, token)
-        setIsLoggedIn(!!token)
-    }, [token])
+        localStorage.setItem(AUTH_TOKEN_KEY, token);
+        setIsLoggedIn(!!token);
+    }, [token]);
 
     return (
         <AuthContext.Provider
@@ -42,18 +42,18 @@ const AuthProvider = (props) => {
                 logout,
                 triggerLogIn,
                 logIn: () => {
-                    if (!isLoggedIn) setTriggerLogIn(true)
+                    if (!isLoggedIn) setTriggerLogIn(true);
                 },
-                hideLogIn: () => setTriggerLogIn(false)
+                hideLogIn: () => setTriggerLogIn(false),
             }}
         >
             {props.children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export {
     AuthContext,
     AuthProvider,
-    useAuth
-}
+    useAuth,
+};

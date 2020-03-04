@@ -26,8 +26,8 @@ export const IS_VALID_IDENTITY = gql`
 `;
 
 export const AUTHENTICATE_CREDENTIALS = gql`
-  mutation authenticateCredentials($identity: String!, $passcode: String!) {
-    authenticateCredentials(identity: $identity, passcode: $passcode) {
+  mutation authenticate($email: String!, $password: String!) {
+    authenticate(identity: $email, password: $password) {
       token
     }
   }
@@ -41,36 +41,61 @@ export const CREATE_NEW_LOGIN = gql`
   }
 `;
 
-export const HANDLE_NEW_LOGIN = gql`
-  mutation handleNewUserAccount($identity: String!, $passcode: String!) {
-    createNewUserAccount(identity: $identity, passcode: $passcode) {
+// enum UPDATEABLE_PROFILE_FIELDS {
+//   FirstName
+//   LastName
+//   Email
+//   NickName
+//   Gender
+//   BirthDate
+// }
+
+export const REGISTER_WITH_SMS = gql`
+  mutation registerWithSms(
+    $identity: String!
+    $password: String!
+    $userProfile: [UpdateProfileInput]
+  ) {
+    registerWithSms(
+      phoneNumber: $identity
+      pin: $password
+      userProfile: $userProfile
+    ) {
       token
+      user {
+        id
+        profile {
+          id
+          firstName
+          lastName
+        }
+      }
     }
   }
 `;
 
-export const UPDATE_PROFILE = gql`
-    mutation relateUserLoginToPerson(
-        $identity:String!, 
-        $passcode:String!, 
-        $firstName:String!, 
-        $lastName:String!, 
-        $birthDate: String!, 
-        $gender: String!) {
-        
-        relateUserLoginToPerson(
-            identity:$identity,
-            passcode:$passcode,
-            input: [
-                { field: FirstName, value: $firstName }
-                { field: LastName, value: $lastName }
-                { field: BirthDate, value: $birthDate }
-                { field: Gender, value: $gender }
-            ]
-        ) {
-            token
+export const REGISTER_WITH_EMAIL = gql`
+  mutation register(
+    $identity: String!
+    $password: String!
+    $userProfile: [UpdateProfileInput]
+  ) {
+    registerPerson(
+      email: $identity
+      password: $password
+      userProfile: $userProfile
+    ) {
+      token
+      user {
+        id
+        profile {
+          id
+          firstName
+          lastName
         }
+      }
     }
+  }
 `;
 
 export const REQUEST_PASSWORD_CHANGE = gql`

@@ -62,24 +62,8 @@ const LoginCard = () => {
                         isExistingIdentity={get(payload, 'isExistingIdentity', false)}
                         type={get(payload, 'type', 'sms')}
                         update={(props) => {
-                            const requestedEmailPin = get(props, 'requestedEmailPin', false);
-
-                            if (requestedEmailPin) {
-                                setIndex(4);
-                            } else {
-                                const {
-                                    identity,
-                                    passcode,
-                                    isExistingIdentity,
-                                } = props;
-                                setPayload({ identity, passcode });
-
-                                if (isExistingIdentity) {
-                                    hideLogIn();
-                                } else {
-                                    setIndex(2);
-                                }
-                            }
+                            setPayload(props);
+                            setIndex(2);
                         }}
                         columns={columnSizes}
                     />
