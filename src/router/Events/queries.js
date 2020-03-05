@@ -55,6 +55,7 @@ export const GET_EVENTS = gql`
         id
         title
         summary
+        hideLabel
 
         nextOccurrence
 
