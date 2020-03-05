@@ -1,37 +1,49 @@
-import React from 'react'
-import { useQuery } from 'react-apollo'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-apollo';
 import {
-    get
-} from 'lodash'
+    get,
+    find,
+    camelCase,
+} from 'lodash';
 
-import FooterBar from './Footer'
-import { GET_WEBSITE_FOOTER } from './queries'
+import FooterBar from './Footer';
+import { GET_WEBSITE_FOOTER } from './queries';
 
 
-const Footer = () => {
-    const website = process.env.REACT_APP_WEBSITE_KEY
+const Footer = ({ brandImageKey }) => {
+    const website = process.env.REACT_APP_WEBSITE_KEY;
     const {
         loading,
         error,
-        data
+        data,
     } = useQuery(GET_WEBSITE_FOOTER, {
         variables: { website },
-        fetchPolicy: "cache-and-network"
-    })
-    const footer = get(data, 'getWebsiteNavigation', {})
-    const brandImage = get(footer, 'images[0].sources[0].uri', '')
-    const socialMediaLinks = get(footer, 'socialMediaLinks', [])
-    const footerLinks = get(footer, 'footerLinks', [])
+        fetchPolicy: 'cache-and-network',
+    });
+    const footer = get(data, 'getWebsiteNavigation', {});
+    const brandImage = find(get(footer, 'images', []),
+        ({ name }) => camelCase(name) === camelCase(brandImageKey));
+    const socialMediaLinks = get(footer, 'socialMediaLinks', []);
+    const footerLinks = get(footer, 'footerLinks', []);
 
-    if (loading || error) return <nav className="navbar navbar-expand-lg navbar-light bg-light"></nav>
+    if (loading || error) return <nav className="navbar navbar-expand-lg navbar-light bg-light" />;
 
-    return(
+    return (
         <FooterBar
-            imgUrl={brandImage}
+            imgUrl={get(brandImage, 'sources[0].uri', '')}
             // footerLinks={footerLinks}
             socialMediaLinks={socialMediaLinks}
         />
-    )
-}
+    );
+};
 
-export default Footer
+Footer.propTypes = {
+    brandImageKey: PropTypes.string,
+};
+
+Footer.defaultProps = {
+    brandImageKey: 'brandImageAlt',
+};
+
+export default Footer;
