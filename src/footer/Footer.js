@@ -61,7 +61,7 @@ const Footer = ({
                     <div className='mb-3'>
                         <img
                             src={imgUrl}
-                            alt='Brand Image'
+                            alt='Brand Icon'
                             style={{ height: 60, width: 'auto' }}
                         />
                     </div>
