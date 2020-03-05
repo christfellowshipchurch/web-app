@@ -12,6 +12,7 @@ const ContentCardConnectedWithQuery = ({
     tile,
     card,
     label,
+    hideLabel,
     ...otherProps
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
@@ -37,6 +38,10 @@ const ContentCardConnectedWithQuery = ({
         labelValue = node.events.length
             ? moment(get(node, 'nextOccurrence', new Date)).format('MMM D')
             : 'Dates Coming Soon'
+    }
+
+    if (hideLabel) {
+        labelValue = ''
     }
 
     return React.createElement(
@@ -89,6 +94,7 @@ ContentCardConnected.propTypes = {
     contentId: PropTypes.string,
     tile: PropTypes.bool,
     card: PropTypes.func,
+    hideLabel: PropTypes.bool,
     label: PropTypes.shape({
         field: PropTypes.oneOfType([
             PropTypes.string,
@@ -102,6 +108,7 @@ ContentCardConnected.propTypes = {
 ContentCardConnected.defaultProps = {
     card: ContentCard,
     tile: false,
+    hideLabel: false,
     label: {
         field: 'tags[0]',
         bg: 'dark',

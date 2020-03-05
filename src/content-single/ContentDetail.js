@@ -42,8 +42,8 @@ const ArticleDetail = ({
     );
   }
 
-  const article = get(data, 'getContentItemByTitle', null);
-  const bodyText = get(article, 'htmlContent', null);
+  const article = get(data, 'getContentItemByTitle', null)
+  const bodyText = get(article, 'htmlContent', '')
 
   const categoryTags = get(article, 'tags', []);
 
@@ -66,61 +66,58 @@ const ArticleDetail = ({
         <div className="container">
           <div className="row">
             <div className="col">
-              {get(article, 'title', '') !== ''
-                && (
-                  <h1 className="mb-2 text-dark">
-                    {article.title}
-                  </h1>
-                )}
+              {get(article, 'title', '') !== '' &&
+                <h1 className='mb-2 text-dark'>
+                  {article.title}
+                </h1>
+              }
 
-              {get(article, 'summary', '') !== ''
-                && (
-                  <h2 className="mt-1 article-subtitle font-weight-light">
-                    {article.summary}
-                  </h2>
-                )}
+              {get(article, 'summary', '') !== '' &&
+                <h2 className='mt-1 article-subtitle font-weight-light'>
+                  {article.summary}
+                </h2>
+              }
 
-              {get(article, 'images[0].sources[0].uri') !== ''
-                && (
-                  <Media
-                    rounded
-                    showControls
-                    ratio="16by9"
-                    imageUrl={get(article, 'images[0].sources[0].uri', '')}
-                    videoUrl={get(article, 'videos[0].sources[0].uri', '')}
-                    imageAlt={get(article, 'title', 'Christ Fellowship Church')}
-                    className="my-4"
-                  />
-                )}
+              {get(article, 'images[0].sources[0].uri') !== '' &&
+                <Media
+                  rounded
+                  showControls
+                  ratio="16by9"
+                  imageUrl={get(article, 'images[0].sources[0].uri', '')}
+                  videoUrl={get(article, 'videos[0].sources[0].uri', '')}
+                  imageAlt={get(article, 'title', 'Christ Fellowship Church')}
+                  className='my-4'
+                />
+              }
 
               {/* TODO : add some sort of default photo/icon */}
-              <div className="py-4 d-flex align-items-center">
-                {get(article, 'author.photo.uri', '') !== ''
-                  && (
+              {get(article, 'author', null) !== null &&
+                <div className='py-4 d-flex align-items-center'>
+                  {get(article, 'author.photo.uri', '') !== '' &&
                     <Media
                       circle
                       ratio="1by1"
                       imageUrl={get(article, 'author.photo.uri', '')}
-                      imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
-                      className="author-image mr-3"
+                      imageAlt={`${get(article, 'author.firstName')} ${get(article, 'author.lastName')}`}
+                      className='author-image mr-3'
                     />
-                  )}
-                <div className="text-left">
-                  <p className="my-1 font-weight-bold text-dark">
-                    {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
-                  </p>
-                  <p className="my-1">
-                    {`${publishDate}  •  ${readTime(bodyText)} min read`}
-                  </p>
+                  }
+                    <div className='text-left'>
+                      <p className='my-1 font-weight-bold text-dark'>
+                        {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
+                      </p>
+                      <p className='my-1'>
+                        {`${publishDate}  •  ${readTime(bodyText)} min read`}
+                      </p>
+                    </div>
                 </div>
-              </div>
-
-              {get(article, 'htmlContent', '') !== ''
-                && (
-                  <div className="article-body my-3 pb-4 text-left">
-                    {htmlToReactParser.parse(bodyText)}
-                  </div>
-                )}
+              }
+              
+              {get(article, 'htmlContent', '') !== '' &&
+                <div className="article-body my-3 pb-4 text-left">
+                  {htmlToReactParser.parse(bodyText)}
+                </div>
+              }
             </div>
           </div>
           {/* Category tags */}

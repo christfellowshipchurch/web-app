@@ -11,8 +11,8 @@ import {
 } from '../utils';
 
 import { GET_BLOCK_ITEMS } from './queries';
-
-import Loader from '../ui/Loader';
+import Loader from '../ui/Loader'
+import { htmlToReactParser } from '../utils'
 
 import {
     Block,
@@ -73,7 +73,10 @@ const mapItemToVisual = (item, bg) => {
             }
             break;
         case 'WebsiteGroupItem':
-            return <GroupBlock {...item} withAnimation />;
+            return <GroupBlock {...item} withAnimation />
+        case 'WebsiteHtmlBlockItem':
+            return <div>{htmlToReactParser.parse(item.htmlContent)}</div>
+            break
         case 'WebsiteFeature':
             return (
                 <div className={classnames('col', 'px-4')}>
@@ -115,8 +118,7 @@ const Swoop = ({
     }
 
     let bgIndex = 0;
-
-    const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection);
+    const blockItems = mapEdgesToNodes(get(data, 'getWebsitePageContentByTitle.childContentItemsConnection', []))
 
     return blockItems.map((item, i) => {
         const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-');

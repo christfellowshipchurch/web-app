@@ -16,9 +16,10 @@ import {
     BackgroundContentBlock,
     GroupBlock,
     Loader,
-} from '../ui';
-import { Feature } from '../features';
-
+} from '../ui'
+import { Feature } from '../features'
+import { get, camelCase, lowerCase } from 'lodash'
+import { htmlToReactParser } from '../utils'
 
 const bgColor = {
     true: 'bg-transparent',
@@ -88,8 +89,11 @@ const DefaultPage = ({ title }) => {
                                     {...item}
                                 />
                             </div>
-                        );
-                        break;
+                        )
+                        break
+                    case 'WebsiteHtmlBlockItem':
+                        content = <div>{htmlToReactParser.parse(item.htmlContent)}</div>
+                        break
                     default:
                         content = <h1 className={classnames('text-center')}>{item.title}</h1>;
                         break;

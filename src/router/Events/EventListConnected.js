@@ -30,6 +30,7 @@ const EventCollection = ({ title, events }) => ([
                 contentId={n.id}
                 urlBase='events'
                 className='my-4'
+                hideLabel={n.hideLabel}
                 label={{
                     field: (node) => {
                         const mStart = moment(get(node, 'startDate', new Date()))

@@ -158,6 +158,31 @@ export const TEST_EVENT_JSON = {
     ]
 }
 
+export const EMPTY_SCHEDULE_EVENT = {
+    "id": "EventContentItem:7599c1977d3e517b75adeebc411d51ed",
+    "title": "Vision Weekend",
+    "summary": "The Movement is Now",
+    "htmlContent": "<p>It's a movement of miracles</p><p>It's a movement of freedom</p><p>It's a movement of restoration</p><p>It's a movement of Impact</p><p>It's a movement of life change</p><p>It's a movement of new beginnings</p><p>It's a movement of hope</p><p>It's a movement of God</p><p><br /></p>",
+    "coverImage": {
+        "name": "Image",
+        "sources": [
+            {
+                "uri": "https://cloudfront.christfellowship.church/GetImage.ashx?guid=cb136dd3-83d9-41ae-912a-53266646edaf"
+            }
+        ]
+    },
+    "tags": [
+        "Vision"
+    ],
+    "callsToAction": [{
+        "call": "Register Here",
+        "action": "/#"
+    }],
+    "openLinksInNewTab": false,
+    "events": [
+    ]
+}
+
 export const EVENT_MOCK = {
     request: {
         query: GET_EVENT,
