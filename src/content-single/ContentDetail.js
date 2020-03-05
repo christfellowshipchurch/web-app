@@ -42,7 +42,7 @@ const ArticleDetail = ({
   }
 
   const article = get(data, 'getContentItemByTitle', null)
-  const bodyText = get(article, 'htmlContent', null)
+  const bodyText = get(article, 'htmlContent', '')
 
   const categoryTags = get(article, 'tags', [])
 
@@ -90,26 +90,28 @@ const ArticleDetail = ({
               }
 
               {/* TODO : add some sort of default photo/icon */}
-              <div className='py-4 d-flex align-items-center'>
-                {get(article, 'author.photo.uri', '') !== '' &&
-                  <Media
-                    circle
-                    ratio="1by1"
-                    imageUrl={get(article, 'author.photo.uri', '')}
-                    imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
-                    className='author-image mr-3'
-                  />
-                }
-                <div className='text-left'>
-                  <p className='my-1 font-weight-bold text-dark'>
-                    {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
-                  </p>
-                  <p className='my-1'>
-                    {`${publishDate}  •  ${readTime(bodyText)} min read`}
-                  </p>
+              {get(article, 'author', null) !== null &&
+                <div className='py-4 d-flex align-items-center'>
+                  {get(article, 'author.photo.uri', '') !== '' &&
+                    <Media
+                      circle
+                      ratio="1by1"
+                      imageUrl={get(article, 'author.photo.uri', '')}
+                      imageAlt={`${get(article, 'author.firstName')} ${get(article, 'author.lastName')}`}
+                      className='author-image mr-3'
+                    />
+                  }
+                    <div className='text-left'>
+                      <p className='my-1 font-weight-bold text-dark'>
+                        {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
+                      </p>
+                      <p className='my-1'>
+                        {`${publishDate}  •  ${readTime(bodyText)} min read`}
+                      </p>
+                    </div>
                 </div>
-              </div>
-
+              }
+              
               {get(article, 'htmlContent', '') !== '' &&
                 <div className="article-body my-3 pb-4 text-left">
                   {htmlToReactParser.parse(bodyText)}
