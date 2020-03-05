@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { get, camelCase, lowerCase } from 'lodash'
@@ -7,16 +7,20 @@ import {
 } from 'react-apollo'
 
 
-import { Media, Swoop } from '../ui'
+import { Media, Swoop, FloatingCard } from '../ui'
 import { GET_CAMPUS } from './queries'
 
 import PastorCallout from './PastorCallout'
 import AtThisLocation from './AtThisLocation'
 import CampusFAQ from './CampusFAQ'
 import CampusBlockItems from './CampusBlockItems'
-import { CampusTile } from '../features/CampusSelect'
+import { CampusTile, normalizeDate } from '../features/CampusSelect'
+import RsvpForm from '../features/RsvpForm'
+
 
 const CampusPageBuilder = ({ name: campusName }) => {
+    const [rsvpForm, setRsvpForm] = useState(null)
+
     const {
         loading,
         data: {
@@ -46,7 +50,7 @@ const CampusPageBuilder = ({ name: campusName }) => {
     )
     const valueTitle = 'A Place Where You Can Belong'
     const valueProposition = `At Christ Fellowship Church in ${name}, we have weekend church services where you can experience uplifting worship, powerful messages from our pastors, special programming for your family, and an opportunity to meet other amazing people like you!`
-
+    
     return (
         <div>
             <div className="row">
@@ -114,7 +118,19 @@ const CampusPageBuilder = ({ name: campusName }) => {
                     state={state}
                     postalCode={postalCode}
                     serviceTimes={serviceTimes}
+                    onClick={({ day, time }) => {
+                        setRsvpForm({
+                            visitDate: normalizeDate(day),
+                            visitTime: time,
+                            campus: name,
+                        })
+                    }}
                 />
+                {rsvpForm &&
+                <FloatingCard onPressExit={() => setRsvpForm(null)}>
+                    <RsvpForm initialValues={rsvpForm} />
+                </FloatingCard>
+                }
             </div>}
 
             <div className="row bg-white">

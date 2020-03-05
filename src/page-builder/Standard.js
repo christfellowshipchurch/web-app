@@ -18,6 +18,7 @@ import {
 } from '../ui'
 import { Feature } from '../features'
 import { get, camelCase, lowerCase } from 'lodash'
+import { htmlToReactParser } from '../utils'
 
 
 const bgColor = {
@@ -84,6 +85,9 @@ const DefaultPage = ({ title }) => {
                                 />
                             </div>
                         )
+                        break
+                    case 'WebsiteHtmlBlockItem':
+                        content = <div>{htmlToReactParser.parse(item.htmlContent)}</div>
                         break
                     default:
                         content = <h1 className={classnames("text-center")}>{item.title}</h1>
