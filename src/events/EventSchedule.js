@@ -171,6 +171,7 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents)
   }
 
+  //NOTE** would like to fix to use defaultProps instead in the future. As of now doesn't read empty arrays.
   //if array is empty set to default button
   if(callsToAction.length < 1){
     callsToAction = [{
