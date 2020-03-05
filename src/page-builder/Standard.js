@@ -7,6 +7,7 @@ import {
 import { get, camelCase, lowerCase } from 'lodash';
 import {
     mapEdgesToNodes,
+    htmlToReactParser,
 } from '../utils';
 
 import { GET_BLOCK_ITEMS } from './queries';
@@ -16,10 +17,8 @@ import {
     BackgroundContentBlock,
     GroupBlock,
     Loader,
-} from '../ui'
-import { Feature } from '../features'
-import { get, camelCase, lowerCase } from 'lodash'
-import { htmlToReactParser } from '../utils'
+} from '../ui';
+import { Feature } from '../features';
 
 const bgColor = {
     true: 'bg-transparent',
@@ -89,11 +88,11 @@ const DefaultPage = ({ title }) => {
                                     {...item}
                                 />
                             </div>
-                        )
-                        break
+                        );
+                        break;
                     case 'WebsiteHtmlBlockItem':
-                        content = <div>{htmlToReactParser.parse(item.htmlContent)}</div>
-                        break
+                        content = <div>{htmlToReactParser.parse(item.htmlContent)}</div>;
+                        break;
                     default:
                         content = <h1 className={classnames('text-center')}>{item.title}</h1>;
                         break;
