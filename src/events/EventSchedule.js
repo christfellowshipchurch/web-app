@@ -107,6 +107,8 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   // when the selection changes, call the onChange method
   useEffect(() => onChange(selected), [selected])
 
+  
+
   return <Card className="mb-3">
     <Dropdown
       id={id}
@@ -146,6 +148,8 @@ const EventSchedule = ({
   events,
 }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([])
+  const noEvents = events.length < 1
+
   const campusOptions = uniq(flatMapDepth(
     events.map(e => e.campuses.map(c => c.name)),
     identity,
@@ -167,78 +171,95 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents)
   }
 
-  return [
-    <CampusSelection
-      key={`CampusSelection`}
-      campuses={campusOptions}
-      onChange={onChange}
-      defaultCampus={defaultCampus}
-    />,
-    <Card
-      key={`EventOccurences`}
-      className={classnames(
-        'my-3',
-      )}
-    >
-      <div className="py-3">
-        {groupByLocationDate.map((event, i) => {
-          const { location, dateTimes } = event
-          return <div
-            key={`EventOccurence:${i}`}
-            className={classnames({
-              'border-bottom': i < groupByLocationDate.length - 1,
-              'border-light': i < groupByLocationDate.length - 1,
-              'mb-3': i < groupByLocationDate.length - 1,
-            })}
-          >
-            {keys(dateTimes).map(date => (
-              <EventTimes
-                key={`EventOccurenceDate:${date}`}
-                date={date}
-                times={dateTimes[date]}
-                className={classnames({
-                  'mb-4': keys(dateTimes).length > 1,
-                })}
-              />
-            ))}
+  //NOTE** would like to fix to use defaultProps instead in the future. As of now doesn't read empty arrays.
+  //if array is empty set to default button
+  if(callsToAction.length < 1){
+    callsToAction = [{
+      call: 'Register',
+      action: '/#'
+    }]
+  }
 
-            <div className="my-3">
-              <h4
-                className='mb-2'
+  return (
+    <>
+    {!noEvents &&
+      <CampusSelection
+        key={`CampusSelection`}
+        campuses={campusOptions}
+        onChange={onChange}
+        defaultCampus={defaultCampus}
+      />
+    }
+       <Card
+          key={`EventOccurences`}
+          className={classnames(
+            'mb-3',
+          )}
+        >
+          <div className="py-3">
+            {groupByLocationDate.map((event, i) => {
+              const { location, dateTimes } = event
+              return <div
+                key={`EventOccurence:${i}`}
+                className={classnames({
+                  'border-bottom': i < groupByLocationDate.length - 1,
+                  'border-light': i < groupByLocationDate.length - 1,
+                  'mb-3': i < groupByLocationDate.length - 1,
+                })}
               >
-                Address
-              </h4>
-              <a
-                className="text-dark"
-                href={getDirectionsUrl(location)}
-                target="_blank"
-              >
-                {location}
-              </a>
+                {keys(dateTimes).map(date => (
+                  <EventTimes
+                    key={`EventOccurenceDate:${date}`}
+                    date={date}
+                    times={dateTimes[date]}
+                    className={classnames({
+                      'mb-4': keys(dateTimes).length > 1,
+                    })}
+                  />
+                ))}
+    
+                <div className="my-3">
+                  <h4
+                    className='mb-2'
+                  >
+                    Address
+                  </h4>
+                  <a
+                    className="text-dark"
+                    href={getDirectionsUrl(location)}
+                    target="_blank"
+                  >
+                    {location}
+                  </a>
+                </div>
+              </div>
+            })}
+    
+              {!!noEvents && callsToAction.length > 0 &&
+                <h3 className='mb-n4'>Get Started</h3>
+              }
+    
+            <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
+              {callsToAction.map((n, i) => (
+                <a
+                  key={i}
+                  className={classnames(
+                    'btn',
+                    'btn-primary',
+                    'btn-block',
+                    "my-3"
+                  )}
+                  href={n.action}
+                  target={openLinksInNewTab ? '_blank' : ''}
+                >
+                  {n.call}
+                </a>
+              ))}
             </div>
           </div>
-        })}
-
-        <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
-          {callsToAction.map((n, i) => (
-            <a
-              key={i}
-              className={classnames(
-                'btn',
-                'btn-primary',
-                'btn-block',
-                "my-3"
-              )}
-              href={n.action}
-              target={openLinksInNewTab ? '_blank' : ''}
-            >
-              {n.call}
-            </a>
-          ))}
-        </div>
-      </div>
-    </Card >
-  ]
+        </Card > 
+    </>
+  )
 }
 
 EventSchedule.propTypes = {
@@ -249,12 +270,15 @@ EventSchedule.propTypes = {
       call: PropTypes.string,
       action: PropTypes.string,
     })
-  )
+  ).isRequired
 }
 
 EventSchedule.defaultProps = {
   defaultCampus: '',
-  callsToAction: []
+  callsToAction: [{
+    call:'Register',
+    action: '/#'
+  }]
 }
 
 export default EventSchedule

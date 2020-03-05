@@ -14,7 +14,7 @@ import RsvpForm from '../RsvpForm'
 
 import { GET_CAMPUSES } from './queries'
 
-const normalizeDate = (date) => {
+export const normalizeDate = (date) => {
     if (!date || date === '') return ''
 
     const m = moment(date)
@@ -261,6 +261,14 @@ const CampusSelect = ({
             }
         </div>
     )
+}
+
+CampusTile.defaultProps = {
+    onClick: () => true,
+}
+
+CampusTile.propTypes = {
+    onClick: PropTypes.func
 }
 
 CampusSelect.defaultProps = {

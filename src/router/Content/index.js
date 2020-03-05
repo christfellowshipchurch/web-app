@@ -28,10 +28,10 @@ const CategoryUrlMapper = ({ match: { params: { category } } }) => {
     const categoryData = get(data, 'getCategoryByTitle', {})
 
     return <div
-        className="container my-6"
+        className="container-fluid"
         style={{ minHeight: '100%' }}
     >
-        <div className='row align-content-center'>
+        <div className='row align-content-center mt-6 mb-n6'>
             <h3>
                 {get(categoryData, 'title', '')}
             </h3>
