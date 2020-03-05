@@ -127,20 +127,10 @@ const ProfileConnected = ({ dropDownLinks }) => {
               'text-dark',
             )}
           >
-            <p
-              className={classnames(
-                'mb-0',
-                'p-1',
-                'nav-link',
-              )}
-            >
-              {get(data, 'currentUser.profile.firstName')}
-            </p>
             {get(data, 'currentUser.profile.photo.uri', '') !== ''
               ? (
                 <div
                   style={{ width: 48, height: 48 }}
-                  className='mx-2'
                 >
                   <Media
                     imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
