@@ -15,7 +15,7 @@ import {
 import { useForm } from '../../hooks';
 import { useAuth } from '../../auth';
 
-import { REGISTER_WITH_SMS, REGISTER_WITH_EMAIL } from '../mutations';
+import { REQUEST_PIN } from '../mutations';
 
 import {
     Radio,
@@ -35,7 +35,6 @@ const validation = {
 
 const ProfileInformationForm = ({
     identity,
-    passcode,
     type,
     promptText,
     buttonText,
@@ -57,14 +56,11 @@ const ProfileInformationForm = ({
             birthDate: defaultDate,
         },
     });
-    const { setToken } = useAuth();
-    const [registerWithSms] = useMutation(REGISTER_WITH_SMS);
-    const [registerWithEmail] = useMutation(REGISTER_WITH_EMAIL);
+    const [requestPin] = useMutation(REQUEST_PIN);
     const birthDate = moment(get(values, 'birthDate', defaultDate)).format('YYYY-MM-DD');
-    const onRegister = ({ token }) => {
-        setToken(token);
+    const onUpdate = (props) => {
         setSubmitting(false);
-        update();
+        update(props);
     };
     const onError = () => {
         setError('general', 'There was an issue with your submission. Please refresh the page and try again.');
@@ -78,35 +74,27 @@ const ProfileInformationForm = ({
 
     const onClick = () => {
         setSubmitting(true);
-        if (identity && passcode) {
+        if (identity) {
             const variables = {
                 identity,
-                password: passcode,
                 userProfile: [
                     { field: 'FirstName', value: get(values, 'firstName') },
                     { field: 'LastName', value: get(values, 'lastName') },
                     { field: 'BirthDate', value: get(values, 'birthDate') },
                     { field: 'Gender', value: get(values, 'gender', 'Unknown') },
                 ],
+                type,
             };
             if (type === 'sms') {
-                // TODO : test
-                registerWithSms({
-                    variables,
-                    update: (cache, { data: { registerWithSms: { token } } }) => {
-                        onRegister({ token });
+                requestPin({
+                    variables: { phone: identity },
+                    update: () => {
+                        onUpdate(variables);
                     },
                     onError,
                 });
-            } else if (type === 'email') {
-                // TODO : test
-                registerWithEmail({
-                    variables,
-                    update: (cache, { data: { registerPerson: { token } } }) => {
-                        onRegister({ token });
-                    },
-                    onError,
-                });
+            } else if (type === 'password') {
+                onUpdate(variables);
             }
         } else {
             setError('general', 'There was an issue with your submission. Please refresh the page and try again.');

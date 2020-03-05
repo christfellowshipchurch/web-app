@@ -41,15 +41,6 @@ export const CREATE_NEW_LOGIN = gql`
   }
 `;
 
-// enum UPDATEABLE_PROFILE_FIELDS {
-//   FirstName
-//   LastName
-//   Email
-//   NickName
-//   Gender
-//   BirthDate
-// }
-
 export const REGISTER_WITH_SMS = gql`
   mutation registerWithSms(
     $identity: String!

@@ -96,7 +96,7 @@ const NavbarConnected = ({
 
     return (
       <Navbar
-        {...navbarProps}
+        {...navbarProps} // eslint-disable react/jsx-props-no-spreading
         className={classnames(
           'd-flex',
           'flex-column',

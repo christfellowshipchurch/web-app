@@ -11,7 +11,7 @@ import ProfileInformation from './ProfileInformation';
 import { useAuth } from '../auth';
 
 const LoginCard = () => {
-    const { hideLogIn } = useAuth();
+    const { hideLogIn, setToken } = useAuth();
     const [payload, setPayload] = useState(null);
     const [index, setIndex] = useState(0);
 
@@ -48,19 +48,18 @@ const LoginCard = () => {
             >
                 <Carousel.Item>
                     <Identity
-                        update={({ identity, isExistingIdentity, type }) => {
-                            setPayload({ identity, isExistingIdentity, type });
-                            setIndex(1);
+                        update={({ identity, userExists, type }) => {
+                            setPayload({ identity, userExists, type });
+                            setIndex(userExists ? 2 : 1);
                         }}
                         columns={columnSizes}
                     />
                 </Carousel.Item>
 
                 <Carousel.Item>
-                    <Passcode
+                    <ProfileInformation
                         identity={get(payload, 'identity', null)}
-                        isExistingIdentity={get(payload, 'isExistingIdentity', false)}
-                        type={get(payload, 'type', 'sms')}
+                        type={get(payload, 'type', null)}
                         update={(props) => {
                             setPayload(props);
                             setIndex(2);
@@ -70,10 +69,15 @@ const LoginCard = () => {
                 </Carousel.Item>
 
                 <Carousel.Item>
-                    <ProfileInformation
+                    <Passcode
                         identity={get(payload, 'identity', null)}
-                        passcode={get(payload, 'passcode', null)}
-                        update={() => hideLogIn()}
+                        userProfile={get(payload, 'userProfile', [])}
+                        isExistingIdentity={get(payload, 'userExists', false)}
+                        type={get(payload, 'type', 'sms')}
+                        update={({ token }) => {
+                            if (token) setToken(token);
+                            hideLogIn();
+                        }}
                         columns={columnSizes}
                     />
                 </Carousel.Item>

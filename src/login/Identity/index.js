@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from 'react-apollo';
+import { useMutation, useLazyQuery } from 'react-apollo';
 import { get, has } from 'lodash';
 import * as Yup from 'yup';
 import classnames from 'classnames';
@@ -12,7 +12,8 @@ import {
 import { useForm } from '../../hooks';
 import { parseUsername } from '../utils';
 
-import { IS_VALID_IDENTITY, REQUEST_PIN } from '../mutations';
+import { REQUEST_PIN } from '../mutations';
+import { USER_EXISTS } from '../queries';
 
 import {
     Checkbox,
@@ -53,39 +54,46 @@ const IdentityForm = ({
             privacyPolicyAgreement: false,
         },
     });
-    const [validateIdentity] = useMutation(IS_VALID_IDENTITY);
     const [requestPin] = useMutation(REQUEST_PIN);
+    const [checkIfUserExists] = useLazyQuery(USER_EXISTS, {
+        fetchPolicy: 'network-only',
+        onCompleted: async (data) => {
+            const userExists = get(data, 'userExists', 'NONE') !== 'NONE';
+            const identity = get(values, 'identity', '');
+            const { email, phoneNumber } = await parseUsername(identity);
+
+            if (userExists && phoneNumber) {
+                requestPin({
+                    variables: {
+                        phone: identity,
+                    },
+                    update: (cache, { data: { requestSmsLoginPin: { success } } }) => {
+                        if (success) {
+                            // navigate to Passcode validation
+                            update({ identity, type: 'sms', userExists });
+                        } else {
+                            // show some error on the screen
+                        }
+
+                        setSubmitting(false);
+                    },
+                    onError: () => setSubmitting(false),
+                });
+            } else if (email || phoneNumber) {
+                // identity is confirmed to be either phone number or email
+                update({ identity, type: phoneNumber ? 'sms' : 'password', userExists });
+                setSubmitting(false);
+            } else {
+                setSubmitting(false);
+                // error handling cause the identity is neither phone nor email
+            }
+        },
+    });
 
     const onClick = async () => {
         setSubmitting(true);
         const identity = get(values, 'identity', '');
-        const { email, phoneNumber } = await parseUsername(identity);
-
-        if (email) {
-            update({
-                type: 'password', identity,
-            });
-        } else if (phoneNumber) {
-            requestPin({
-                variables: {
-                    phone: identity,
-                },
-                update: (cache, { data: { requestSmsLoginPin: { success, isExistingIdentity } } }) => {
-                    if (success) {
-                        // navigate to Passcode validation
-                        update({ identity, type: 'sms', isExistingIdentity });
-                    } else {
-                        // show some error on the screen
-                    }
-
-                    setSubmitting(false);
-                },
-                onError: () => setSubmitting(false),
-            });
-        } else {
-            setSubmitting(false);
-            // error handling
-        }
+        checkIfUserExists({ variables: { identity } });
     };
 
     const disabled = !!get(errors, 'identity', true)

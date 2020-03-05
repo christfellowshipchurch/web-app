@@ -15,7 +15,9 @@ import {
 import { useAuth } from '../../auth';
 import { useForm } from '../../hooks';
 
-import { AUTHENTICATE_CREDENTIALS, CREATE_NEW_LOGIN, VERIFY_PIN } from '../mutations';
+import {
+    AUTHENTICATE_CREDENTIALS, VERIFY_PIN, REGISTER_WITH_SMS, REGISTER_WITH_EMAIL,
+} from '../mutations';
 import { USER_EXISTS } from '../queries';
 
 
@@ -24,6 +26,7 @@ import ResendSMS from '../ResendSMS';
 
 const PasscodeForm = ({
     identity,
+    userProfile,
     isExistingIdentity,
     promptText,
     buttonText,
@@ -32,10 +35,6 @@ const PasscodeForm = ({
     update,
     columns,
 }) => {
-    const { data = {}, loading, error } = useQuery(USER_EXISTS, {
-        variables: { identity },
-        fetchPolicy: 'network-only',
-    });
     const {
         values,
         errors,
@@ -44,11 +43,14 @@ const PasscodeForm = ({
         setSubmitting,
         setError,
     } = useForm();
-    const { setToken, hideLogIn } = useAuth();
     const [authenticateCredentials] = useMutation(AUTHENTICATE_CREDENTIALS);
     const [verifyPin] = useMutation(VERIFY_PIN);
-    const [createNewLogin] = useMutation(CREATE_NEW_LOGIN);
-    const { userExists = false } = data;
+    const [registerWithSms] = useMutation(REGISTER_WITH_SMS);
+    const [registerWithEmail] = useMutation(REGISTER_WITH_EMAIL);
+    const onUpdate = (props) => {
+        setSubmitting(false);
+        update(props);
+    };
 
     const onClick = async () => {
         setSubmitting(true);
@@ -56,15 +58,13 @@ const PasscodeForm = ({
 
         // isExisitingIdentity checks for an existing Sms login
         // password logins aren't known to be existing or not until the authentication is run
-        if (userExists) {
+        if (isExistingIdentity) {
             if (type === 'sms') {
                 try {
                     await verifyPin({
                         variables: { phone: identity, code: passcode },
                         update: (cache, { data: { authenticateWithSms: { token } = {} } = {} }) => {
-                            setToken(token);
-                            setSubmitting(false);
-                            hideLogIn();
+                            onUpdate({ token });
                         },
                         onError: () => {
                             // the code or password entered was for an existing user login and was incorrect
@@ -77,13 +77,12 @@ const PasscodeForm = ({
                     setSubmitting(false);
                 }
             } else if (type === 'password') {
+                console.log('EXISTING PERSON');
                 try {
                     await authenticateCredentials({
                         variables: { email: identity, password: passcode },
                         update: (cache, { data: { authenticate: { token } = {} } = {} }) => {
-                            setToken(token);
-                            setSubmitting(false);
-                            hideLogIn();
+                            onUpdate({ token });
                         },
                         onError: () => {
                             // the code or password entered was for an existing user login and was incorrect
@@ -96,8 +95,41 @@ const PasscodeForm = ({
                     setSubmitting(false);
                 }
             }
-        } else {
-            update(type, identity, passcode);
+        } else if (type === 'sms') {
+            try {
+                await registerWithSms({
+                    variables: { identity, password: passcode, userProfile },
+                    update: (cache, { data: { registerWithSms: { token } = {} } = {} }) => {
+                        onUpdate({ token });
+                    },
+                    onError: () => {
+                        // the code or password entered was for an existing user login and was incorrect
+                        setError('passcode', `The ${inputLabel[type]} you entered is incorrect`);
+                        setSubmitting(false);
+                    },
+                });
+            } catch (e) {
+                setError('passcode', 'There was an error creating your account. Please try again.');
+                setSubmitting(false);
+            }
+        } else if (type === 'password') {
+            console.log('NEW PERSON');
+            try {
+                await registerWithEmail({
+                    variables: { identity, password: passcode, userProfile },
+                    update: (cache, { data: { registerPerson: { token } = {} } = {} }) => {
+                        onUpdate({ token });
+                    },
+                    onError: () => {
+                        // the code or password entered was for an existing user login and was incorrect
+                        setError('passcode', 'There was an error creating your account. Please try again.');
+                        setSubmitting(false);
+                    },
+                });
+            } catch (e) {
+                setError('passcode', 'There was an error creating your account. Please try again.');
+                setSubmitting(false);
+            }
         }
     };
 
@@ -106,14 +138,6 @@ const PasscodeForm = ({
         || !!get(errors, 'passcode', false)
         || get(values, 'passcode', '') === ''
         || identity === '';
-
-    if (loading) {
-        return (
-            <div style={{ minHeight: 300 }}>
-                <Loader />
-            </div>
-        );
-    }
 
     return (
         <div className="container">
