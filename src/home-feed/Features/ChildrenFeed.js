@@ -55,7 +55,7 @@ const CardFeed = ({
                         {title}
                     </h3>
                 </div>
-                {!!urlBase && urlBase !== '' &&
+                {!!urlBase && urlBase !== '' && title !== 'Most Recent' &&
                     <div className="col text-right">
                         <a
                             href={`${urlBase}/${kebabCase(title)}`}
