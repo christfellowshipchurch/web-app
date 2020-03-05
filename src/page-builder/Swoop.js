@@ -114,7 +114,7 @@ const Swoop = ({
 
     let bgIndex = 0
 
-    const blockItems = mapEdgesToNodes(data.getWebsitePageContentByTitle.childContentItemsConnection)
+    const blockItems = mapEdgesToNodes(get(data, 'getWebsitePageContentByTitle.childContentItemsConnection', []))
 
     return blockItems.map((item, i) => {
         const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-')
