@@ -1,3 +1,3 @@
-export * from './Provider'
-export { default as authLink } from './authLink'
-export * from './currentUser'
+export * from './Provider';
+export { default as authLink } from './authLink';
+export * from './currentUser';

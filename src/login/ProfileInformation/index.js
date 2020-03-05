@@ -1,41 +1,41 @@
-import React from 'react'
-import { useMutation } from 'react-apollo'
-import { get, has } from 'lodash'
-import * as Yup from 'yup'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
-import moment from 'moment'
-import { Formik } from 'formik'
-import { faLockAlt } from '@fortawesome/fontawesome-pro-light'
+import React from 'react';
+import { useMutation } from 'react-apollo';
+import { get, has } from 'lodash';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { Formik } from 'formik';
+import { faLockAlt } from '@fortawesome/fontawesome-pro-light';
 
-import { useForm } from '../../hooks'
-import { useAuth } from '../../auth'
-
-import { UPDATE_PROFILE } from '../mutations'
-
-import {
-    Radio
-} from '../../ui'
 import {
     TextInput,
-    Button
-} from '@christfellowshipchurch/web-ui-kit'
+    Button,
+} from '@christfellowshipchurch/web-ui-kit';
+import { useForm } from '../../hooks';
+import { useAuth } from '../../auth';
+
+import { REQUEST_PIN } from '../mutations';
+
+import {
+    Radio,
+} from '../../ui';
 
 const validation = {
-    firstName: (value) => value && value !== ''
+    firstName: (value) => (value && value !== ''
         ? false
-        : 'Please enter your first name',
-    lastName: (value) => value && value !== ''
+        : 'Please enter your first name'),
+    lastName: (value) => (value && value !== ''
         ? false
-        : 'Please enter your last name',
-    birthDate: (value) => value && moment().diff(moment(value), 'years') >= 13
+        : 'Please enter your last name'),
+    birthDate: (value) => (value && moment().diff(moment(value), 'years') >= 13
         ? false
-        : 'You must be at least 13 years old to create an account'
-}
+        : 'You must be at least 13 years old to create an account'),
+};
 
 const ProfileInformationForm = ({
     identity,
-    passcode,
+    type,
     promptText,
     buttonText,
     defaultDate,
@@ -49,61 +49,71 @@ const ProfileInformationForm = ({
         submitting,
         setValue,
         setSubmitting,
-        setError
+        setError,
     } = useForm({
         validation,
         defaultValues: {
-            birthDate: defaultDate
-        }
-    })
-    const { setToken } = useAuth()
-    const [updateProfile] = useMutation(UPDATE_PROFILE)
-    const birthDate = moment(get(values, 'birthDate', defaultDate)).format('YYYY-MM-DD')
+            birthDate: defaultDate,
+        },
+    });
+    const [requestPin] = useMutation(REQUEST_PIN);
+    const birthDate = moment(get(values, 'birthDate', defaultDate)).format('YYYY-MM-DD');
+    const onUpdate = (props) => {
+        setSubmitting(false);
+        update(props);
+    };
+    const onError = () => {
+        setError('general', 'There was an issue with your submission. Please refresh the page and try again.');
+        setSubmitting(false);
+    };
 
     const disabled = submitting
         || !!get(errors, 'firstName', true)
         || !!get(errors, 'lastName', true)
-        || !!get(errors, 'birthDate', true)
+        || !!get(errors, 'birthDate', true);
 
     const onClick = () => {
-        setSubmitting(true)
-        if (identity && passcode) {
-            updateProfile({
-                variables: {
-                    identity,
-                    passcode,
-                    firstName: get(values, 'firstName'),
-                    lastName: get(values, 'lastName'),
-                    birthDate: get(values, 'birthDate'),
-                    gender: get(values, 'gender', 'Unknown')
-                },
-                update: (cache, { data: { relateUserLoginToPerson: { token } } }) => {
-                    setToken(token)
-                    setSubmitting(false)
-                    update()
-                },
-                onError: () => {
-                    setError('general', 'There was an issue with your submission. Please refresh the page and try again.')
-                    setSubmitting(false)
-                }
-            })
+        setSubmitting(true);
+        if (identity) {
+            const variables = {
+                identity,
+                userProfile: [
+                    { field: 'FirstName', value: get(values, 'firstName') },
+                    { field: 'LastName', value: get(values, 'lastName') },
+                    { field: 'BirthDate', value: get(values, 'birthDate') },
+                    { field: 'Gender', value: get(values, 'gender', 'Unknown') },
+                ],
+                type,
+            };
+            if (type === 'sms') {
+                requestPin({
+                    variables: { phone: identity },
+                    update: () => {
+                        onUpdate(variables);
+                    },
+                    onError,
+                });
+            } else if (type === 'password') {
+                onUpdate(variables);
+            }
         } else {
-            setError('general', 'There was an issue with your submission. Please refresh the page and try again.')
+            setError('general', 'There was an issue with your submission. Please refresh the page and try again.');
         }
-    }
+    };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col my-2 justify-content-center text-center">
-                    <p className='text-center p-0 mb-0'>
+                    <p className="text-center p-0 mb-0">
                         {promptText}
                     </p>
-                    {has(errors, 'general') &&
-                        <i className="text-danger">
-                            {get(errors, 'general', "An error occured. Please try again.")}
-                        </i>
-                    }
+                    {has(errors, 'general')
+                        && (
+                            <i className="text-danger">
+                                {get(errors, 'general', 'An error occured. Please try again.')}
+                            </i>
+                        )}
                 </div>
             </div>
 
@@ -111,7 +121,7 @@ const ProfileInformationForm = ({
                 <div className={classnames(columns)}>
                     <TextInput
                         error={has(errors, 'firstName') && get(errors, 'firstName', '')}
-                        label='First Name*'
+                        label="First Name*"
                         onChange={(e) => setValue('firstName', get(e, 'target.value', ''))}
                         disabled={submitting}
                         value={get(values, 'firstName', '')}
@@ -123,7 +133,7 @@ const ProfileInformationForm = ({
                 <div className={classnames(columns)}>
                     <TextInput
                         error={has(errors, 'lastName') && get(errors, 'lastName', '')}
-                        label='Last Name*'
+                        label="Last Name*"
                         onChange={(e) => setValue('lastName', get(e, 'target.value', ''))}
                         disabled={submitting}
                         value={get(values, 'lastName', '')}
@@ -136,7 +146,7 @@ const ProfileInformationForm = ({
                     <TextInput
                         type="date"
                         error={has(errors, 'birthDate') && get(errors, 'birthDate', '')}
-                        label='Birth Date*'
+                        label="Birth Date*"
                         onChange={(e) => setValue('birthDate', moment(get(e, 'target.value', '')).toISOString())}
                         disabled={submitting}
                         value={birthDate}
@@ -149,7 +159,7 @@ const ProfileInformationForm = ({
                     <Radio
                         options={genderList}
                         error={has(errors, 'gender') && get(errors, 'gender', '')}
-                        label='Gender'
+                        label="Gender"
                         onClick={(value) => setValue('gender', value)}
                         disabled={submitting}
                         value={get(values, 'gender', '')}
@@ -166,8 +176,8 @@ const ProfileInformationForm = ({
                 />
             </div>
         </div>
-    )
-}
+    );
+};
 
 ProfileInformationForm.defaultProps = {
     genderList: ['Male', 'Female'],
@@ -176,8 +186,8 @@ ProfileInformationForm.defaultProps = {
     promptText: "In order for us to get you the blah blah blah. So let's go ahead and bleedidy doopody dee",
     buttonText: 'Finish',
     update: () => true,
-    columns: 'col'
-}
+    columns: 'col',
+};
 
 ProfileInformationForm.propTypes = {
     genderList: PropTypes.arrayOf(PropTypes.string),
@@ -188,8 +198,8 @@ ProfileInformationForm.propTypes = {
     update: PropTypes.func,
     columns: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-    ])
-}
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
+};
 
-export default ProfileInformationForm
+export default ProfileInformationForm;

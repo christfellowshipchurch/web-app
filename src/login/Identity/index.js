@@ -1,38 +1,38 @@
-import React, { useState } from 'react'
-import { useMutation, useLazyQuery } from 'react-apollo'
-import { get, has, keys } from 'lodash'
-import * as Yup from 'yup'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { useMutation, useLazyQuery } from 'react-apollo';
+import { get, has } from 'lodash';
+import * as Yup from 'yup';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
-import { Formik } from 'formik'
-import { useForm } from '../../hooks'
-import { parseUsername } from '../utils'
-
-import { IS_VALID_IDENTITY, REQUEST_PIN } from '../mutations'
-
-import {
-    Checkbox
-} from '../../ui'
 import {
     TextInput,
-    Button
-} from '@christfellowshipchurch/web-ui-kit'
+    Button,
+} from '@christfellowshipchurch/web-ui-kit';
+import { useForm } from '../../hooks';
+import { parseUsername } from '../utils';
+
+import { REQUEST_PIN } from '../mutations';
+import { USER_EXISTS } from '../queries';
+
+import {
+    Checkbox,
+} from '../../ui';
 
 const validation = {
     identity: async (value) => {
-        const schema = Yup.string()
-        const isValid = await schema.isValid(value)
+        const schema = Yup.string();
+        const isValid = await schema.isValid(value);
 
         if (isValid && value !== '') {
-            const { email, phoneNumber } = await parseUsername(value)
+            const { email, phoneNumber } = await parseUsername(value);
 
-            if (email || phoneNumber) return false
+            if (email || phoneNumber) return false;
         }
 
-        return 'Please enter a valid phone number or email'
-    }
-}
+        return 'Please enter a valid phone number or email';
+    },
+};
 
 const IdentityForm = ({
     promptText,
@@ -40,7 +40,7 @@ const IdentityForm = ({
     dislaimerText,
     inputLabel,
     update,
-    columns
+    columns,
 }) => {
     const {
         values,
@@ -51,66 +51,60 @@ const IdentityForm = ({
     } = useForm({
         validation,
         defaultValues: {
-            privacyPolicyAgreement: false
-        }
-    })
-    const [validateIdentity] = useMutation(IS_VALID_IDENTITY)
-    const [requestPin] = useMutation(REQUEST_PIN)
+            privacyPolicyAgreement: false,
+        },
+    });
+    const [requestPin] = useMutation(REQUEST_PIN);
+    const [checkIfUserExists] = useLazyQuery(USER_EXISTS, {
+        fetchPolicy: 'network-only',
+        onCompleted: async (data) => {
+            const userExists = get(data, 'userExists', 'NONE') !== 'NONE';
+            const identity = get(values, 'identity', '');
+            const { email, phoneNumber } = await parseUsername(identity);
+
+            if (userExists && phoneNumber) {
+                requestPin({
+                    variables: {
+                        phone: identity,
+                    },
+                    update: (cache, { data: { requestSmsLoginPin: { success } } }) => {
+                        if (success) {
+                            // navigate to Passcode validation
+                            update({ identity, type: 'sms', userExists });
+                        } else {
+                            // show some error on the screen
+                        }
+
+                        setSubmitting(false);
+                    },
+                    onError: () => setSubmitting(false),
+                });
+            } else if (email || phoneNumber) {
+                // identity is confirmed to be either phone number or email
+                update({ identity, type: phoneNumber ? 'sms' : 'password', userExists });
+                setSubmitting(false);
+            } else {
+                setSubmitting(false);
+                // error handling cause the identity is neither phone nor email
+            }
+        },
+    });
 
     const onClick = async () => {
-        setSubmitting(true)
-        const identity = get(values, 'identity', '')
-        const { email, phoneNumber } = await parseUsername(identity)
-
-        if (email) {
-            validateIdentity({
-                variables: {
-                    identity: identity,
-                },
-                update: (cache, { data: { isValidIdentity: { success, isExistingIdentity } } }) => {
-                    if (success) {
-                        // navigate to Passcode validation
-                        update({ type: 'password', success, isExistingIdentity, identity })
-                    } else {
-                        // show some error on the screen
-                    }
-
-                    setSubmitting(false)
-                },
-                onError: () => setSubmitting(false)
-            })
-        } else if (phoneNumber) {
-            requestPin({
-                variables: {
-                    phoneNumber: identity,
-                },
-                update: (cache, { data: { requestSmsLoginPin: { success, isExistingIdentity } } }) => {
-                    if (success) {
-                        // navigate to Passcode validation
-                        update({ identity, type: 'sms', isExistingIdentity })
-                    } else {
-                        // show some error on the screen
-                    }
-
-                    setSubmitting(false)
-                },
-                onError: () => setSubmitting(false)
-            })
-        } else {
-            setSubmitting(false)
-            // error handling
-        }
-    }
+        setSubmitting(true);
+        const identity = get(values, 'identity', '');
+        checkIfUserExists({ variables: { identity } });
+    };
 
     const disabled = !!get(errors, 'identity', true)
         || !get(values, 'privacyPolicyAgreement', false)
-        || submitting
+        || submitting;
 
     return (
         <div className="container">
             <div className="row text-center">
                 <div className="col-12">
-                    <p className='mb-0 pb-3'>
+                    <p className="mb-0 pb-3">
                         {promptText}
                     </p>
                 </div>
@@ -136,7 +130,7 @@ const IdentityForm = ({
                         label={dislaimerText}
                         onClick={() => setValue(
                             'privacyPolicyAgreement',
-                            !get(values, 'privacyPolicyAgreement', true)
+                            !get(values, 'privacyPolicyAgreement', true),
                         )}
                         checked={get(values, 'privacyPolicyAgreement', false)}
                         disabled={submitting}
@@ -153,8 +147,8 @@ const IdentityForm = ({
                 />
             </div>
         </div>
-    )
-}
+    );
+};
 
 IdentityForm.propTypes = {
     titleText: PropTypes.string,
@@ -165,19 +159,19 @@ IdentityForm.propTypes = {
     update: PropTypes.func,
     columns: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-    ])
-}
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
+};
 
 IdentityForm.defaultProps = {
     titleText: 'Welcome Home!',
-    inputLabel: "Mobile Number or Email",
+    inputLabel: 'Mobile Number or Email',
     promptText:
         "Get started by entering in either you phone number or email address. We'll never share your information or contact you (unless you ask!).",
     buttonText: 'Agree and Continue',
     dislaimerText: 'I understand and agree to the following policies as laid out by Christ Fellowship Church:',
     update: () => true,
-    columns: 'col'
-}
+    columns: 'col',
+};
 
-export default IdentityForm
+export default IdentityForm;

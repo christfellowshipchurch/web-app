@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_WEBSITE_FOOTER = gql`
   query websiteNavigation($website:String!) {
@@ -23,4 +23,4 @@ export const GET_WEBSITE_FOOTER = gql`
       }
     }
   }
-`
+`;
