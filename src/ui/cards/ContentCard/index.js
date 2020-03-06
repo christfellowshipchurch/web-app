@@ -1,35 +1,33 @@
-import React from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import {
     get,
     has,
-    kebabCase
-} from 'lodash'
+    kebabCase,
+} from 'lodash';
 
 import {
     Card,
-    Media
-} from '../../'
+    Media,
+} from '../..';
 
 const ContentCardWrapper = ({
     element,
     children,
-}) => {
-    return React.createElement(
-        element,
-        {
-            className: classnames(
-                'col-12',
-                'col-md-6',
-                'col-lg-4',
-                'p-2',
-                'mb-2',
-            ),
-        },
-        children
-    )
-}
+}) => React.createElement(
+    element,
+    {
+        className: classnames(
+            'col-12',
+            'col-md-6',
+            'col-lg-4',
+            'p-2',
+            'mb-2',
+        ),
+    },
+    children,
+);
 
 const ContentCard = ({
     title,
@@ -40,11 +38,14 @@ const ContentCard = ({
     onClick,
     urlBase,
     label,
-    row
+    row,
 }) => {
-    const style = !!onClick
+    const style = onClick
         ? { cursor: 'pointer' }
-        : {}
+        : {};
+    const href = !!title && title !== ''
+        ? `/${urlBase}/${kebabCase(title.toUpperCase())}`
+        : '#';
 
     return (
         <a
@@ -56,15 +57,15 @@ const ContentCard = ({
                 'pt-2',
                 'scale-media-up-on-hover',
                 'no-decoration',
-                'my-3'
+                'my-3',
             )}
-            href={`/${urlBase}/${kebabCase(title)}`}
+            href={href}
         >
             <Card
                 fill
                 className={classnames(
                     {
-                        'h-100': !row
+                        'h-100': !row,
                     },
                     'overflow-hidden',
                 )}
@@ -75,13 +76,13 @@ const ContentCard = ({
                         'flex-column': !!row,
                         'flex-md-row': !!row,
                         'd-flex': row,
-                        'align-items-md-center': row
+                        'align-items-md-center': row,
                     })}
                 >
                     <Media
                         imageAlt={get(coverImage, '[0].name', 'Christ Fellowship Church')}
                         imageUrl={get(coverImage, '[0].uri', '')}
-                        ratio='16by9'
+                        ratio="16by9"
                         className={classnames(
                             'rounded-top',
                             'bg-light',
@@ -89,35 +90,36 @@ const ContentCard = ({
                         style={{ ...(row && { flex: 1 }) }}
                         forceRatio
                     >
-                        {label.value !== '' &&
-                            <h6
-                                style={{
-                                    position: 'absolute',
-                                    bottom: -10,
-                                    left: 0,
-                                    letterSpacing: 4
-                                }}
-                                className={classnames(
-                                    'px-3',
-                                    'py-2',
-                                    [`bg-${label.bg}`],
-                                    [`text-${label.textColor}`],
-                                    'text-uppercase',
-                                )}
-                            >
-                                <small className='font-weight-bold'>
-                                    {label.value}
-                                </small>
-                            </h6>
-                        }
+                        {label.value !== ''
+                            && (
+                                <h6
+                                    style={{
+                                        position: 'absolute',
+                                        bottom: -10,
+                                        left: 0,
+                                        letterSpacing: 4,
+                                    }}
+                                    className={classnames(
+                                        'px-3',
+                                        'py-2',
+                                        [`bg-${label.bg}`],
+                                        [`text-${label.textColor}`],
+                                        'text-uppercase',
+                                    )}
+                                >
+                                    <small className="font-weight-bold">
+                                        {label.value}
+                                    </small>
+                                </h6>
+                            )}
                     </Media>
                     <div
-                        className='mt-3 mx-3 row'
+                        className="mt-3 mx-3 row"
                         style={{ ...(row && { flex: 2 }) }}
                     >
                         <div className="col pr-1">
                             <h4
-                                className='mb-1'
+                                className="mb-1"
                             >
                                 {title}
                             </h4>
@@ -128,19 +130,20 @@ const ContentCard = ({
                                 {summary}
                             </p>
                         </div>
-                        {!!icon && icon !== '' &&
-                            <div className="col-1 text-right text-secondary">
-                                <span className="h4">
-                                    <i className={`fal fa-${icon}`}></i>
-                                </span>
-                            </div>
-                        }
+                        {!!icon && icon !== ''
+                            && (
+                                <div className="col-1 text-right text-secondary">
+                                    <span className="h4">
+                                        <i className={`fal fa-${icon}`} />
+                                    </span>
+                                </div>
+                            )}
                     </div>
                 </div>
             </Card>
         </a>
-    )
-}
+    );
+};
 
 ContentCard.propTypes = {
     imageUrl: PropTypes.string,
@@ -155,8 +158,8 @@ ContentCard.propTypes = {
         bg: PropTypes.string,
         textColor: PropTypes.string,
     }),
-    row: PropTypes.bool
-}
+    row: PropTypes.bool,
+};
 
 ContentCard.defaultProps = {
     imageUrl: null,
@@ -168,9 +171,9 @@ ContentCard.defaultProps = {
     label: {
         value: 'tags[0]',
         bg: 'dark',
-        textColor: 'white'
+        textColor: 'white',
     },
-    row: false
-}
+    row: false,
+};
 
-export default ContentCard
+export default ContentCard;

@@ -1,37 +1,39 @@
-import React from 'react'
-import { useQuery } from 'react-apollo'
-import { get } from 'lodash'
+import React from 'react';
+import { useQuery } from 'react-apollo';
+import { get } from 'lodash';
 
 import {
-    Loader
-} from '../../ui'
+    Loader,
+} from '../../ui';
 import {
     EventDetail,
     EventBanner,
-} from '../../events'
-import { CardFeed } from '../../content-feed'
+} from '../../events';
+import { CardFeed } from '../../content-feed';
 
-import { GET_EVENT } from './queries'
-import { redirectTo } from '../../utils'
-import { useAuth } from '../../auth'
+import { GET_EVENT } from './queries';
+import { redirectTo } from '../../utils';
+import { useAuth } from '../../auth';
 
 const EventConnected = ({ title }) => {
     const { loading, error, data } = useQuery(
         GET_EVENT,
-        { variables: { title } }
-    )
+        { variables: { title } },
+    );
 
-    if (loading) return <Loader />
+    console.log({ data });
+
+    if (loading) return <Loader />;
     if (error) {
-        console.log({ error })
-        return null
+        console.log({ error });
+        return null;
     }
 
-    const content = get(data, 'getEventContentByTitle', null)
+    const content = get(data, 'getEventContentByTitle', null);
 
     if (!content) {
-        redirectTo('/events')
-        return null
+        // redirectTo('/events');
+        return null;
     }
 
     return [
@@ -48,11 +50,11 @@ const EventConnected = ({ title }) => {
             key={3}
             id={content.id}
             title="Related Events"
-            urlBase='events'
-            connection='sibling'
+            urlBase="events"
+            connection="sibling"
             first={3}
-        />
-    ]
-}
+        />,
+    ];
+};
 
-export default EventConnected
+export default EventConnected;

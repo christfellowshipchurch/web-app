@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 import {
-    Switch, Route, Redirect
-} from 'react-router-dom'
+    Switch, Route, Redirect,
+} from 'react-router-dom';
 
-import EventConnected from './EventConnected'
-import EventListConnected from './EventListConnected'
+import EventConnected from './EventConnected';
+import EventListConnected from './EventListConnected';
 
 const EventDetailLayout = ({ match: { params: { eventName } } }) => (
     <EventConnected title={eventName} />
-)
+);
 
 const Router = () => (
     <Switch>
@@ -17,6 +17,6 @@ const Router = () => (
         <Route path="*" component={EventListConnected} />
 
     </Switch>
-)
+);
 
-export default Router
+export default Router;
