@@ -42,6 +42,7 @@ const EventDetail = ({
   tags,
   callsToAction,
   openLinksInNewTab,
+  hideLabel,
   events,
 }) => (
     <div className={classnames(
@@ -54,9 +55,10 @@ const EventDetail = ({
         <div className="col-12 col-lg-4 p-2">
           <ConnectedEventSchedule
             id={id}
-            callsToAction={callsToAction}
+            callsToAction={callsToAction} 
             openLinksInNewTab={openLinksInNewTab}
             events={events}
+            hideLabel={hideLabel}
           />
         </div>
 
