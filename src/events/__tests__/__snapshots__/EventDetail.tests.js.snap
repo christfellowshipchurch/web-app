@@ -82,7 +82,7 @@ exports[`EventDetail renders Event Details 1`] = `
             <h3
               class="text-dark"
             >
-              Event Details
+              Details
             </h3>
             <div
               class="mb-5"
