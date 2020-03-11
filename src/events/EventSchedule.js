@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
@@ -8,6 +9,7 @@ import {
   uniqBy,
   groupBy,
   keys,
+  get
 } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -25,6 +27,7 @@ import {
 } from '../ui'
 import Icon from './eventIcon'
 import { getDirectionsUrl } from '../utils'
+import { GET_CAMPUS_ADDRESSES } from './queries'
 
 const EventTimes = ({ date, times, className }) => {
   const mDate = moment(date)
@@ -149,8 +152,17 @@ const EventSchedule = ({
   events,
 }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([])
-  const noEvents = events.length < 1
+  const [visibleAddress, setVisibleAddress] = useState(null)
 
+  const { data: campusAddresses } = useQuery(GET_CAMPUS_ADDRESSES)
+  const addresses = get(campusAddresses, 'campuses', []).map((n) => {
+    const name = n.name
+    const addressString = ''
+    const address = addressString.concat(n.street1, ' ', n.city, ', ', n.state, ', ', n.postalCode.substring(0, 5))
+    return {name: name, address: address}
+  })
+
+  const noEvents = events.length < 1  
   const campusOptions = uniq(flatMapDepth(
     events.map(e => e.campuses.map(c => c.name)),
     identity,
@@ -158,6 +170,7 @@ const EventSchedule = ({
   ))
   const groupByLocations = groupBy(visibleOccurrences, 'location')
   const groupByLocationDate = keys(groupByLocations).map(l => {
+
     const dateTimes = groupBy(
       groupByLocations[l],
       (o) => moment(o.start).format('YYYY-MM-DD')
@@ -168,8 +181,9 @@ const EventSchedule = ({
 
   const onChange = (campus) => {
     const campusEvents = events.filter(e => e.campuses.find(c => c.name === campus))
-
+    const currentAddress = addresses.find(c => c.name === campus)
     setVisibleOccurrences(campusEvents)
+    setVisibleAddress(currentAddress)
   }
 
   return (
@@ -210,7 +224,7 @@ const EventSchedule = ({
                 />
               ))}
 
-              {!!location &&
+              {!!visibleAddress &&
                 <div className="my-3">
                   <h4
                     className='mb-2'
@@ -219,13 +233,15 @@ const EventSchedule = ({
                   </h4>
                   <a
                     className="text-dark"
-                    href={getDirectionsUrl(location)}
+                    href={getDirectionsUrl(visibleAddress.address)}
                     target="_blank"
                   >
-                    {location}
+                    {visibleAddress.address}
                   </a>
                 </div>
               }
+                
+              
             </div>
           })}
 
