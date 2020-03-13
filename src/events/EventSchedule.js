@@ -217,21 +217,6 @@ const EventSchedule = ({
                     })}
                   />
                 ))}
-    
-                <div className="my-3">
-                  <h4
-                    className='mb-2'
-                  >
-                    Address
-                  </h4>
-                  <a
-                    className="text-dark"
-                    href={getDirectionsUrl(location)}
-                    target="_blank"
-                  >
-                    {location}
-                  </a>
-                </div>
               </div>
             })}
     
