@@ -150,7 +150,8 @@ const NavbarConnected = ({
                 </Nav.Link>
               ))}
 
-              <Nav.Link
+              {/* TODO : revert when login gets added back */}
+              {/* <Nav.Link
                 href="#"
                 className="mx-3 my-2"
                 onSelect={() => {
@@ -159,7 +160,7 @@ const NavbarConnected = ({
                 }}
               >
                 Log In
-              </Nav.Link>
+              </Nav.Link> */}
 
               {quickAction.display
                 && (
