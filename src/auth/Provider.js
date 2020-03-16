@@ -42,7 +42,8 @@ const AuthProvider = (props) => {
                 logout,
                 triggerLogIn,
                 logIn: () => {
-                    if (!isLoggedIn) setTriggerLogIn(true);
+                    setTriggerLogIn(false);
+                    // if (!isLoggedIn) setTriggerLogIn(true);
                 },
                 hideLogIn: () => setTriggerLogIn(false),
             }}
