@@ -131,7 +131,7 @@ const HeroSection = ({
               </div>
             </div>
           </Media>
-          <div 
+          {/* <div 
             className={classnames(
               'width-100', 
               'bg-primary',
@@ -179,7 +179,7 @@ const HeroSection = ({
                </div>
               ))}
               </div>   
-          </div>
+          </div> */}
           </>
         )
       }}
