@@ -167,7 +167,7 @@ const NavbarConnected = ({
                   <div className="mx-3 my-2">
                     <Button
                       title={quickAction.call}
-                      onClick={() => redirectTo(quickAction.action)}
+                      onClick={() => redirectTo(quickAction.action, true)}
                     />
                   </div>
                 )}
