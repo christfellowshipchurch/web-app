@@ -1,4 +1,21 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+import ApollosConfig from '@apollosproject/config';
+
+export const GET_CONTENT_ITEM = gql`
+  query getContentItem($itemId: ID!) {
+    node(id: $itemId) {
+      __typename
+      ... on ContentItem {
+        ...contentItemFragment
+        ...eventContentItemFragment
+        ...publishFragment
+      }
+    }
+  }
+  ${ApollosConfig.FRAGMENTS.CONTENT_ITEM_FRAGMENT}
+  ${ApollosConfig.FRAGMENTS.EVENT_ITEM_FRAGMENT}
+  ${ApollosConfig.FRAGMENTS.PUBLISH_FRAGMENT}
+`;
 
 export const PUBLISH_FRAGMENT = gql`
     fragment publishFragment on ContentItem {
@@ -51,7 +68,7 @@ export const PUBLISH_FRAGMENT = gql`
             publishDate
         }
     }
-`
+`;
 
 export const ACCESSORY_FRAGMENT = gql`
     fragment accessoryFragment on ContentItem {
@@ -72,7 +89,7 @@ export const ACCESSORY_FRAGMENT = gql`
             icon
         }
     }
-`
+`;
 
 export const GET_ARTICLE_BY_TITLE = gql`
     query getContentItemByTitle($title:String!) {
@@ -100,7 +117,7 @@ export const GET_ARTICLE_BY_TITLE = gql`
     }
     ${ACCESSORY_FRAGMENT}
     ${PUBLISH_FRAGMENT}
-`
+`;
 
 export const GET_ARTICLE_CATEGORIES = gql`
     query getArticleCategories($id:ID!) {
@@ -111,7 +128,7 @@ export const GET_ARTICLE_CATEGORIES = gql`
         }
     }
     ${ACCESSORY_FRAGMENT}
-`
+`;
 
 export const GET_RELATED_ARTICLES = gql`
     query getRelatedArticles($id:ID!) {
@@ -134,7 +151,7 @@ export const GET_RELATED_ARTICLES = gql`
             }
         }
     }
-`
+`;
 export const GET_TOP_THREE_ARTICLES = gql`
     query getBrowseFilters {
         getBrowseFilters {
@@ -166,4 +183,4 @@ export const GET_TOP_THREE_ARTICLES = gql`
             }
         }
     }
-`
+`;
