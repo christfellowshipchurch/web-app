@@ -1,5 +1,6 @@
 import gql from 'graphql-tag';
-import ApollosConfig from '@apollosproject/config';
+import ApollosFragments from '@apollosproject/ui-fragments';
+import LocalFragments from '../localFragments';
 
 export const GET_CONTENT_ITEM = gql`
   query getContentItem($itemId: ID!) {
@@ -12,9 +13,9 @@ export const GET_CONTENT_ITEM = gql`
       }
     }
   }
-  ${ApollosConfig.FRAGMENTS.CONTENT_ITEM_FRAGMENT}
-  ${ApollosConfig.FRAGMENTS.EVENT_ITEM_FRAGMENT}
-  ${ApollosConfig.FRAGMENTS.PUBLISH_FRAGMENT}
+  ${ApollosFragments.CONTENT_ITEM_FRAGMENT}
+  ${LocalFragments.EVENT_ITEM_FRAGMENT}
+  ${LocalFragments.PUBLISH_FRAGMENT}
 `;
 
 export const PUBLISH_FRAGMENT = gql`
