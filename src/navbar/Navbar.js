@@ -115,10 +115,10 @@ const NavbarConnected = ({
         >
           {brandImage
             && (
-              <Navbar.Brand href="/">
+              <Navbar.Brand href="/" className="pl-2">
                 <img
                   src={brandImage.uri}
-                  style={{ height: '80px', width: 'auto' }}
+                  style={{ height: '60px', width: 'auto' }}
                   alt={brandImage.alt}
                 />
               </Navbar.Brand>

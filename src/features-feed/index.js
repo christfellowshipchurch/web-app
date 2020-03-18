@@ -11,6 +11,8 @@ import ActionMapper from './ActionMapper';
 import { useAuthQuery } from '../auth';
 import { GET_FEED_FEATURES } from './queries';
 
+export const FeatureSection = ({ children }) => <div className="max-wdith-1100 mx-auto my-4 px-2">{children}</div>;
+
 const FeatureFeed = () => {
     const { loading, error, data } = useQuery(GET_FEED_FEATURES, { fetchPolicy: 'cache-and-network' });
 
@@ -28,9 +30,7 @@ const FeatureFeed = () => {
     const content = get(data, 'userFeedFeatures', []);
 
     return content.map((n, i) => (
-        <div className="max-wdith-1100 mx-auto my-4 px-2">
-            <ActionMapper key={`HomeFeedFeature:${i}`} {...n} />
-        </div>
+        <ActionMapper key={`HomeFeedFeature:${i}`} {...n} />
     ));
 };
 

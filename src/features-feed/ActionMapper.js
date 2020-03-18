@@ -9,7 +9,7 @@ import {
     AnnouncementFeed, TileRowCardFeed, CardRow, ChildrenFeed,
 } from './Features';
 import { ContentCard } from '../ui';
-import { CARD_PADDING, MARGIN_Y } from '.';
+import { CARD_PADDING, MARGIN_Y, FeatureSection } from '.';
 
 const ACTION_TYPES = {
     event: 'READ_EVENT',
@@ -31,20 +31,24 @@ const ActionMapper = ({
     if (actionTypes.length === 1 && actionTypes.includes(ACTION_TYPES.event)) {
         // When the only action is to view Events
         return (
-            <TileRowCardFeed
-                title={title}
-                isLoading={isLoading}
-                actions={take(actions, 4)}
-            />
+            <FeatureSection>
+                <TileRowCardFeed
+                    title={title}
+                    isLoading={isLoading}
+                    actions={take(actions, 4)}
+                />
+            </FeatureSection>
         );
     } if (actionTypes.length === 1 && actionTypes.includes(ACTION_TYPES.content)) {
         // When the only action is to view Content
         return (
-            <CardRow
-                title={title}
-                actions={take(actions, 3)}
-                isLoading={isLoading}
-            />
+            <FeatureSection>
+                <CardRow
+                    title={title}
+                    actions={take(actions, 3)}
+                    isLoading={isLoading}
+                />
+            </FeatureSection>
         );
     }
 
@@ -56,19 +60,23 @@ const ActionMapper = ({
             case ACTION_TYPES.global:
                 // break
                 return (
-                    <AnnouncementFeed
-                        key={key}
-                        itemId={relatedNode.id}
-                    />
+                    <FeatureSection>
+                        <AnnouncementFeed
+                            key={key}
+                            itemId={relatedNode.id}
+                        />
+                    </FeatureSection>
                 );
             case ACTION_TYPES.children:
                 return (
-                    <ChildrenFeed
-                        id={relatedNode.id}
-                        connection="child"
-                        title={actionTitle}
-                        first={3}
-                    />
+                    <FeatureSection key={key}>
+                        <CardFeed
+                            id={relatedNode.id}
+                            connection="child"
+                            title={actionTitle}
+                            first={3}
+                        />
+                    </FeatureSection>
                 );
             default:
                 CardType = ContentCard;
@@ -76,21 +84,22 @@ const ActionMapper = ({
         }
 
         return !!CardType && (
-            <div
-                key={`HomeFeedCard:${key}`}
-                className="container-fluid"
-            >
-                <div className="row">
-                    <div className={classnames('col', CARD_PADDING)}>
-                        <ContentCardConnected
-                            card={CardType}
-                            contentId={relatedNode.id}
-                            isLoading={isLoading}
-                            coverImage={image}
-                        />
+            <FeatureSection key={key}>
+                <div
+                    className="container-fluid"
+                >
+                    <div className="row">
+                        <div className={classnames('col', CARD_PADDING)}>
+                            <ContentCardConnected
+                                card={CardType}
+                                contentId={relatedNode.id}
+                                isLoading={isLoading}
+                                coverImage={image}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </FeatureSection>
         );
     });
 };
