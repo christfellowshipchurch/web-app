@@ -1,5 +1,4 @@
 import React from 'react';
-import ApollosConfig from '@apollosproject/config';
 
 import Router from './router';
 import Footer from './footer';
@@ -11,8 +10,6 @@ import { useAuth } from './auth';
 
 const opaqueNavbarPages = ['', '/', '/animations'];
 
-console.log({ ApollosConfig });
-
 const App = () => {
   const { triggerLogIn } = useAuth();
   const page = window.location.pathname;
@@ -23,9 +20,7 @@ const App = () => {
     <div>
       <SEO />
 
-      {opaqueNavbarPages.includes(page)
-        ? <NavbarWithOpacity offset={50} />
-        : <Navbar />}
+      <Navbar />
 
       <div className="mt-0">
         <Router />

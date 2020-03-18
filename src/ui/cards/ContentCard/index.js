@@ -12,6 +12,8 @@ import {
     Media,
 } from '../..';
 
+import { generateUrlLink } from '..';
+
 const ContentCardWrapper = ({
     element,
     children,
@@ -29,7 +31,13 @@ const ContentCardWrapper = ({
     children,
 );
 
+const parseId = ({ urlBase, id }) => (urlBase === 'content'
+    ? `-${get(id.split(':'), '[1]', '')}`
+    : '');
+
 const ContentCard = ({
+    __typename,
+    id,
     title,
     coverImage,
     summary,
@@ -43,9 +51,7 @@ const ContentCard = ({
     const style = onClick
         ? { cursor: 'pointer' }
         : {};
-    const href = !!title && title !== ''
-        ? `/${urlBase}/${kebabCase(title.toUpperCase())}`
-        : '#';
+    const href = generateUrlLink({ urlBase, title, id });
 
     return (
         <a

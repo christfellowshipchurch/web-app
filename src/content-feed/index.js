@@ -1,2 +1,2 @@
-export { default as CardFeed } from './CardFeed'
-export * from './queries'
+export { default as CardFeed } from './CardFeed';
+export * from './queries';

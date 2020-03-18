@@ -1,6 +1,6 @@
 import React from 'react';
 import PageBuilder from '../../page-builder';
-import HomeFeed from '../../home-feed';
+import FeaturesFeed from '../../features-feed';
 
 import { useAuth } from '../../auth';
 
@@ -8,7 +8,7 @@ const HomeRouter = () => {
     const { isLoggedIn } = useAuth();
 
     return isLoggedIn
-        ? <HomeFeed />
+        ? <FeaturesFeed />
         : (
             <PageBuilder
                 title="home-page"
@@ -17,4 +17,4 @@ const HomeRouter = () => {
         );
 };
 
-export default HomeRouter;
+export default FeaturesFeed;

@@ -1,2 +1,2 @@
-export { default as Browse } from './Browse'
-export { default as ContentCategoryFeed } from './SeeAllCategory'
+export { default as Browse } from './Browse';
+export { default as ContentCategoryFeed } from './SeeAllCategory';

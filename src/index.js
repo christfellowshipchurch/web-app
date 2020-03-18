@@ -14,8 +14,6 @@ import {
     AuthProvider,
 } from './auth';
 
-import './loadConfig';
-
 ReactDOM.render(
     <ClientProvider>
         <BrowserRouter>

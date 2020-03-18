@@ -1,11 +1,11 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useQuery } from 'react-apollo'
-import { get } from 'lodash'
-import moment from 'moment'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-apollo';
+import { get } from 'lodash';
+import moment from 'moment';
 
-import { ContentCard } from '../ui'
-import GET_CONTENT_CARD, { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries'
+import { ContentCard } from '../ui';
+import GET_CONTENT_CARD, { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries';
 
 const ContentCardConnectedWithQuery = ({
     contentId,
@@ -16,32 +16,34 @@ const ContentCardConnectedWithQuery = ({
     ...otherProps
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
-        { variables: { contentId, tile: false } }
-    )
+        { variables: { contentId, tile: false } });
 
-    if (error) return null
+    if (error) return null;
 
-    const node = get(data, 'node', {})
-    const typename = get(node, '__typename', '')
+    const node = get(data, 'node', {});
+    const typename = get(node, '__typename', '');
     const metrics = [
         {
             icon: node.isLiked ? 'like-solid' : 'like',
             value: node.likedCount,
         },
-    ]
-    const coverImage = get(node, 'coverImage.sources', undefined)
+    ];
+    const coverImage = get(node, 'coverImage.sources', undefined);
     let labelValue = typeof label.field === 'string'
         ? get(node, label.field, '')
-        : label.field(node)
+        : label.field(node);
 
     if (typename === 'EventContentItem') {
-        labelValue = node.events.length
-            ? moment(get(node, 'nextOccurrence', new Date)).format('MMM D')
-            : 'Dates Coming Soon'
+        const hideLabel = get(node, 'hideLabel', false);
+        const comingSoon = hideLabel ? '' : 'Dates Coming Soon';
+
+        label = get(node, 'events', []).length
+            ? moment(get(node, 'nextOccurrence', new Date())).format('MMM D')
+            : comingSoon;
     }
 
     if (hideLabel) {
-        labelValue = ''
+        labelValue = '';
     }
 
     return React.createElement(
@@ -55,14 +57,14 @@ const ContentCardConnectedWithQuery = ({
             isLoading: loading,
             label: {
                 value: labelValue,
-                ...label
+                ...label,
             },
             urlBase: typename === 'EventContentItem'
                 ? 'events'
-                : get(otherProps, 'baseUrl', 'content')
-        }
-    )
-}
+                : get(otherProps, 'baseUrl', 'content'),
+        },
+    );
+};
 
 const ContentCardConnected = ({
     contentId,
@@ -71,23 +73,26 @@ const ContentCardConnected = ({
     card = ContentCard,
     ...otherProps
 }) => {
-    if (!contentId || isLoading)
+    if (!contentId || isLoading) {
         return React.createElement(
             card,
             {
                 ...otherProps,
                 tile,
-                isLoading: true
-            }
-        )
+                isLoading: true,
+            },
+        );
+    }
 
-    return <ContentCardConnectedWithQuery
-        contentId={contentId}
-        tile={tile}
-        card={card}
-        {...otherProps}
-    />
-}
+    return (
+        <ContentCardConnectedWithQuery
+            contentId={contentId}
+            tile={tile}
+            card={card}
+            {...otherProps}
+        />
+    );
+};
 
 ContentCardConnected.propTypes = {
     isLoading: PropTypes.bool,
@@ -102,8 +107,8 @@ ContentCardConnected.propTypes = {
         ]),
         bg: PropTypes.string,
         textColor: PropTypes.string,
-    })
-}
+    }),
+};
 
 ContentCardConnected.defaultProps = {
     card: ContentCard,
@@ -113,7 +118,7 @@ ContentCardConnected.defaultProps = {
         field: 'tags[0]',
         bg: 'dark',
         textColor: 'white',
-    }
-}
+    },
+};
 
-export default ContentCardConnected
+export default ContentCardConnected;
