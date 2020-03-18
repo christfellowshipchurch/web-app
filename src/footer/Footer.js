@@ -1,30 +1,30 @@
-import React from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import { chunk, toLower } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
+import { chunk, toLower } from 'lodash'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faFacebookSquare,
     faInstagram,
     faYoutube,
     faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
+} from '@fortawesome/free-brands-svg-icons'
 
-import { useAuth } from '../auth';
+import { useAuth } from '../auth'
 
 const SM_ICONS = {
     facebook: faFacebookSquare,
     instagram: faInstagram,
     youtube: faYoutube,
     twitter: faTwitter,
-};
+}
 
 const LinkColumn = ({ children }) => (
     <div
         className={classnames(
             'd-flex',
             'justify-content-lg-center',
-            'my-4',
+            'mb-4',
         )}
         style={{ flex: 1 }}
     >
@@ -37,7 +37,7 @@ const LinkColumn = ({ children }) => (
 
         </div>
     </div>
-);
+)
 
 const Link = ({ href, title }) => (
     <a
@@ -49,7 +49,7 @@ const Link = ({ href, title }) => (
     >
         {title}
     </a>
-);
+)
 
 const Footer = ({
     imgUrl,
@@ -60,7 +60,7 @@ const Footer = ({
     aboutLinks,
     socialMediaLinks,
 }) => {
-    const { isLoggedIn, logIn } = useAuth();
+    const { isLoggedIn, logIn } = useAuth()
 
     return (
         <div className={classnames('bg-dark')}>
@@ -73,6 +73,7 @@ const Footer = ({
                     'container-fluid',
                     'mx-auto',
                     'px-4',
+                    'pt-4'
                 )}
             >
                 {/* Brand and Contact Info */}
@@ -98,7 +99,7 @@ const Footer = ({
                     )}
                     >
                         Resources
-                </h4>
+                    </h4>
 
                     {resourceLinks.map((link, i) => (
                         <Link
@@ -117,8 +118,8 @@ const Footer = ({
                         'mb-1',
                     )}
                     >
-                        Connect
-                </h4>
+                            Connect
+                    </h4>
 
                     {connectLinks.map((link, i) => (
                         <Link
@@ -137,8 +138,8 @@ const Footer = ({
                         'mb-1',
                     )}
                     >
-                        About
-                </h4>
+                            About
+                    </h4>
 
                     {aboutLinks.map((link, i) => (
                         <Link
@@ -199,10 +200,10 @@ const Footer = ({
             </div>
         </div>
 
-    );
-};
+    )
+}
 
-export default Footer;
+export default Footer
 
 Footer.propTypes = {
     imgUrl: PropTypes.string,
@@ -238,7 +239,7 @@ Footer.propTypes = {
             action: PropTypes.string,
         }),
     ),
-};
+}
 
 Footer.defaultProps = {
     imgUrl: '',
@@ -261,4 +262,4 @@ Footer.defaultProps = {
         { call: 'Give Online', action: '/#' },
     ],
     socialMediaLinks: [],
-};
+}
