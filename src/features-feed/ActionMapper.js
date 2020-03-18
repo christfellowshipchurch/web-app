@@ -20,9 +20,7 @@ const ACTION_TYPES = {
 
 const ActionMapper = ({
     title,
-    subtitle,
     actions,
-    navigation,
     image,
     isLoading,
 }) => {
@@ -60,9 +58,8 @@ const ActionMapper = ({
             case ACTION_TYPES.global:
                 // break
                 return (
-                    <FeatureSection>
+                    <FeatureSection key={key}>
                         <AnnouncementFeed
-                            key={key}
                             itemId={relatedNode.id}
                         />
                     </FeatureSection>

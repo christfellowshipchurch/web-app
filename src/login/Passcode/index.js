@@ -77,7 +77,6 @@ const PasscodeForm = ({
                     setSubmitting(false);
                 }
             } else if (type === 'password') {
-                console.log('EXISTING PERSON');
                 try {
                     await authenticateCredentials({
                         variables: { email: identity, password: passcode },
@@ -113,7 +112,6 @@ const PasscodeForm = ({
                 setSubmitting(false);
             }
         } else if (type === 'password') {
-            console.log('NEW PERSON');
             try {
                 await registerWithEmail({
                     variables: { identity, password: passcode, userProfile },

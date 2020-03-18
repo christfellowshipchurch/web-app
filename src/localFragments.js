@@ -21,6 +21,9 @@ export default {
           start
         }
       }
+      ... on LinkContentItem {
+        redirectUrl
+      }
     }
   `,
   CAMPUS_PARTS_FRAGMENT: gql`

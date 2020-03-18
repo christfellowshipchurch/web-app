@@ -35,7 +35,6 @@ const AnnouncementFeed = ({
         fetchPolicy: 'cache-and-network',
         variables: {
             itemId,
-            first: 4,
             child: true,
             sibling: false,
         },
@@ -57,32 +56,35 @@ const AnnouncementFeed = ({
                 'container-fluid',
             )}
         >
-            <div className="row">
+            <div className="row mx-n2">
                 {content.map(({ node }, i) => {
                     const placement = i === 0
                         ? 0
                         : i === content.length - 1 ? 1 : -1;
 
-
                     return (
                         <div
                             key={`AnnouncementFeed:${i}`}
                             className={classnames(
-                                CARD_PADDING,
+                                'p-2',
                                 'col-12',
                                 {
-                                    'col-md-6': placement === -1,
+                                    'col-md-4': i > 0,
                                 },
                             )}
                         >
                             <ContentCardConnected
                                 contentId={node.id}
-                                {...node}
+                                // {...node}
                                 card={placement === 0 ? HighlightCard : ContentCard}
                                 ratio={RATIO_MAP[placement]}
-                                tile={placement === -1}
-                                row={placement === 1}
+                                // tile={placement === -1}
+                                // row={placement === 1}
                                 style={placement === 0 ? { maxHeight: 450 } : {}}
+                                mediaProps={{
+                                    gradient: 'dark',
+                                    gradientDirection: 'bottom-top',
+                                }}
                             />
                         </div>
                     );

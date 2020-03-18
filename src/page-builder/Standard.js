@@ -34,8 +34,6 @@ const DefaultPage = ({ title }) => {
         { variables: { website, title } },
     );
 
-    console.log({ data });
-
     if (loading) {
         return (
             <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">

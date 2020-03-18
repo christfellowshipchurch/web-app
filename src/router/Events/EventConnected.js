@@ -21,8 +21,6 @@ const EventConnected = ({ title }) => {
         { variables: { title } },
     );
 
-    console.log({ data });
-
     if (loading) return <Loader />;
     if (error) {
         console.log({ error });

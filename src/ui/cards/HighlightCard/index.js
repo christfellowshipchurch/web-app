@@ -1,19 +1,22 @@
-import React from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import {
     get,
     has,
-    kebabCase
-} from 'lodash'
+    kebabCase,
+} from 'lodash';
 
 import {
     Card,
     Media,
-    Loader
-} from '../..'
+    Loader,
+} from '../..';
+
+import { generateUrlLink } from '..';
 
 const HighlightCard = ({
+    id,
     title,
     coverImage,
     summary,
@@ -25,15 +28,18 @@ const HighlightCard = ({
     ratio,
     tile,
     isLoading,
-    style
-}) => {
-    return (
+    style,
+    mediaProps,
+    redirectUrl,
+}) => (
         <a
             className={classnames(
                 'scale-media-up-on-hover',
                 'no-decoration',
             )}
-            href={`/${urlBase}/${kebabCase(title)}`}
+            {...generateUrlLink({
+                urlBase, title, id, redirectUrl,
+            })}
         >
             <Media
                 ratio={ratio}
@@ -41,9 +47,9 @@ const HighlightCard = ({
                 imageUrl={get(coverImage, '[0].uri', '')}
                 rounded
                 withHover
-                overlay='black'
                 forceRatio
                 style={style}
+                {...mediaProps}
             >
                 <div
                     className={classnames(
@@ -52,35 +58,36 @@ const HighlightCard = ({
                         'p-3',
                         'd-flex',
                         'flex-row',
-                        'align-items-end'
+                        'align-items-end',
                     )}
                     style={{ zIndex: 2 }}
                 >
                     {isLoading
                         ? <Loader />
-                        : <div>
-                            <span
-                                className={classnames(
-                                    "text-white",
-                                    {
-                                        'h5': tile,
-                                        'h4-md': tile,
-                                        'h3-lg': tile,
-                                        'h3': !tile
-                                    }
-                                )}
-                            >
-                                {title}
-                            </span>
-                            <p className="text-white">
-                                {summary}
-                            </p>
-                        </div>}
+                        : (
+                            <div>
+                                <span
+                                    className={classnames(
+                                        'text-white',
+                                        {
+                                            h5: tile,
+                                            'h4-md': tile,
+                                            'h3-lg': tile,
+                                            h3: !tile,
+                                        },
+                                    )}
+                                >
+                                    {title}
+                                </span>
+                                <p className="text-white">
+                                    {summary}
+                                </p>
+                            </div>
+                        )}
                 </div>
             </Media>
         </a>
-    )
-}
+    );
 
 HighlightCard.propTypes = {
     imageUrl: PropTypes.string,
@@ -98,7 +105,8 @@ HighlightCard.propTypes = {
     ratio: PropTypes.any,
     tile: PropTypes.bool,
     isLoading: PropTypes.bool,
-}
+    mediaProps: PropTypes.object,
+};
 
 HighlightCard.defaultProps = {
     imageUrl: null,
@@ -110,11 +118,14 @@ HighlightCard.defaultProps = {
     label: {
         value: 'tags[0]',
         bg: 'dark',
-        textColor: 'white'
+        textColor: 'white',
     },
     ratio: '1by1',
     tile: false,
-    isLoading: false
-}
+    isLoading: false,
+    mediaProps: {
+        overlay: 'black',
+    },
+};
 
-export default HighlightCard
+export default HighlightCard;

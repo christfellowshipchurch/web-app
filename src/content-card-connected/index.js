@@ -16,7 +16,7 @@ const ContentCardConnectedWithQuery = ({
     ...otherProps
 }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_CARD,
-        { variables: { contentId, tile: false } });
+        { variables: { contentId, tile: false }, fetchPolicy: 'cache-and-network' });
 
     if (error) return null;
 

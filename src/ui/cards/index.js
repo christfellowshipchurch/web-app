@@ -7,13 +7,28 @@ export { default as TileRowCard } from './TileRowCard';
 export { default as HighlightCard } from './HighlightCard';
 
 
-export const generateUrlLink = ({ urlBase, title, id }) => {
-    if (!title || title === '') return '#';
+export const generateUrlLink = ({
+    urlBase, title, id, redirectUrl,
+}) => {
+    const href = {
+        target: '',
+        href: '#',
+    };
 
-    const prefix = kebabCase(title.toUpperCase());
-    const suffix = urlBase === 'content'
-        ? `-${get(id.split(':'), '[1]', '')}`
-        : '';
+    if (!title || title === '') return href;
 
-    return `/${urlBase}/${prefix}${suffix}`;
+    if (redirectUrl) {
+        href.href = redirectUrl;
+    } else {
+        const prefix = kebabCase(title.toUpperCase());
+        const suffix = urlBase === 'content'
+            ? `-${get(id.split(':'), '[1]', '')}`
+            : '';
+
+        href.href = `/${urlBase}/${prefix}${suffix}`;
+    }
+
+    if (href.href.includes('http')) href.target = '_blank';
+
+    return href;
 };

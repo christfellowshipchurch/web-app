@@ -47,11 +47,14 @@ const ContentCard = ({
     urlBase,
     label,
     row,
+    redirectUrl,
 }) => {
     const style = onClick
         ? { cursor: 'pointer' }
         : {};
-    const href = generateUrlLink({ urlBase, title, id });
+    const href = generateUrlLink({
+        urlBase, title, id, redirectUrl,
+    });
 
     return (
         <a
@@ -65,7 +68,7 @@ const ContentCard = ({
                 'no-decoration',
                 'my-3',
             )}
-            href={href}
+            {...href}
         >
             <Card
                 fill
@@ -165,6 +168,7 @@ ContentCard.propTypes = {
         textColor: PropTypes.string,
     }),
     row: PropTypes.bool,
+    redirectUrl: PropTypes.string,
 };
 
 ContentCard.defaultProps = {
@@ -180,6 +184,7 @@ ContentCard.defaultProps = {
         textColor: 'white',
     },
     row: false,
+    redirectUrl: '',
 };
 
 export default ContentCard;
