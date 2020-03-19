@@ -19,6 +19,57 @@ const LiveBanner = () => {
     pollInterval: 60000,
   });
 
+  const link = 'content/covid-19-update-06673de02b3cef9ed190656386c9de85';
+
+  return (
+    <div
+      className={classnames(
+        'w-100',
+        'justify-content-start',
+        'justify-content-md-center',
+        'align-items-center',
+        'p-2',
+        'bg-primary',
+        {
+          'd-none': closed,
+          'd-flex': !closed,
+        },
+      )}
+    >
+      <a
+        className={classnames(
+          'h4',
+          'mb-0',
+          'text-white',
+        )}
+        href={link}
+        target="_blank"
+      >
+        COVID-19 Updates
+      </a>
+      <div
+        style={{
+          fontSize: '20px',
+          position: 'absolute',
+          right: 10,
+        }}
+      >
+        <FontAwesomeIcon
+          className={classnames(
+            'cursor-hover',
+          )}
+          color={
+            lightBanner
+              ? 'grey'
+              : 'white'
+          }
+          icon={faTimes}
+          onClick={() => isClosed(true)}
+        />
+      </div>
+    </div>
+  );
+
   // temporary fix to remove live banner
   if (true || loading || error) return null;
 
