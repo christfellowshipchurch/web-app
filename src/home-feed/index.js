@@ -1,9 +1,5 @@
 import React from 'react'
-import { useQuery } from 'react-apollo'
-import PropTypes from 'prop-types'
 import { get } from 'lodash'
-
-import gql from 'graphql-tag'
 
 import { Loader, Media } from '../ui'
 import ActionMapper from './ActionMapper'
