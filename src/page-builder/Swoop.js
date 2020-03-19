@@ -40,6 +40,7 @@ const mapItemToVisual = (item, bg) => {
                             video={{ uri: get(item, 'videos[0].sources[0].uri', '') }}
                             callToAction={get(item, 'callToAction', null)}
                             secondaryCallToAction={get(item, 'secondaryCallToAction', null)}
+                            openLinksInNewTab={get(item, 'openLinksInNewTab', null)}
                         />
                     );
                 case 'backgroundSmall':

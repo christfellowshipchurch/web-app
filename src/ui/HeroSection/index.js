@@ -43,6 +43,7 @@ const HeroSection = ({
   htmlContent,
   callToAction,
   secondaryCallToAction,
+  openLinksInNewTab,
   image,
   video,
   icons
@@ -107,6 +108,7 @@ const HeroSection = ({
                 <div className="my-3">
                   {callToAction && <a
                     href={get(callToAction, 'action', '#')}
+                    target={openLinksInNewTab ? '_blank' : ''}
                     className={classnames(
                       "btn",
                       'btn-primary',
@@ -120,6 +122,7 @@ const HeroSection = ({
                 <div className="my-3">
                   {secondaryCallToAction && <a
                     href={get(secondaryCallToAction, 'action', '#')}
+                    target={openLinksInNewTab ? '_blank' : ''}
                     className={classnames(
                       "text-white",
                     )}
@@ -132,6 +135,15 @@ const HeroSection = ({
             </div>
           </Media>
           <div 
+            className={classnames(
+              'width-100', 
+              'bg-primary'
+            )}
+            style={{
+              height: 70,
+            }}
+          />
+          {/* <div 
             className={classnames(
               'width-100', 
               'bg-primary',
@@ -179,7 +191,7 @@ const HeroSection = ({
                </div>
               ))}
               </div>   
-          </div>
+          </div> */}
           </>
         )
       }}

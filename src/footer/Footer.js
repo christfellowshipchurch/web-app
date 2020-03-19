@@ -1,209 +1,184 @@
-import React from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
-import { chunk } from 'lodash'
-import { toLower} from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { chunk, toLower } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFacebookSquare,
     faInstagram,
     faYoutube,
-    faTwitter
-} from '@fortawesome/free-brands-svg-icons'
+    faTwitter,
+} from '@fortawesome/free-brands-svg-icons';
 
-import { useAuth } from '../auth'
+import { useAuth } from '../auth';
 
 const SM_ICONS = {
     facebook: faFacebookSquare,
     instagram: faInstagram,
     youtube: faYoutube,
-    twitter: faTwitter
-}
+    twitter: faTwitter,
+};
+
+const LinkColumn = ({ children }) => (
+    <div
+        className={classnames(
+            'd-flex',
+            'justify-content-lg-center',
+            'mb-4',
+        )}
+        style={{ flex: 1 }}
+    >
+        <div className={classnames(
+            'd-flex',
+            'flex-column',
+        )}
+        >
+            {children}
+
+        </div>
+    </div>
+);
+
+const Link = ({ href, title }) => (
+    <a
+        href={href}
+        className={classnames(
+            'text-light',
+            'font-weight-light',
+        )}
+    >
+        {title}
+    </a>
+);
 
 const Footer = ({
     imgUrl,
     phone,
     email,
-    locations,
-    footerLinks,
-    socialMediaLinks
+    resourceLinks,
+    connectLinks,
+    aboutLinks,
+    socialMediaLinks,
 }) => {
-    
-    const { isLoggedIn, logIn } = useAuth()
+    const { isLoggedIn, logIn } = useAuth();
 
     return (
-        <div>
+        <div className={classnames('bg-dark')}>
             {/* Top Dark Bar */}
             <div
                 className={classnames(
-                    'bg-dark',
-                    'pl-3',
-                    'py-2',
-                    'row'
+                    'd-flex',
+                    'flex-column',
+                    'flex-md-row',
+                    'container-fluid',
+                    'mx-auto',
+                    'px-4',
+                    'pt-4',
                 )}
             >
                 {/* Brand and Contact Info */}
-                <div className={classnames(
-                    'col',
-                    'mt-4',
-                    'mr-6',
-                    'ml-md-5',
-                    'pr-4',
-                    'd-flex',
-                    'justify-content-lg-end',
-                    'justify-content-md-start'
-                )}>
-                    <div className={classnames(
-                        'd-flex',
-                        'flex-column',
-                        'text-left'
-                    )}>
-                    <div className='mb-3'>
+                <LinkColumn>
+                    <div className="mb-1">
                         <img
                             src={imgUrl}
-                            alt='Brand Icon'
+                            alt="Brand Icon"
                             style={{ height: 60, width: 'auto' }}
                         />
                     </div>
-                    <a 
-                        href={`tel:${phone}`}
-                        className={classnames(
-                            'text-light',
-                            'font-weight-light'
-                        )}
-                    >
-                        {phone}
-                    </a>
-                    <a 
-                        href={`mailto:${email}`}
-                        target='_blank'
-                        className={classnames(
-                            'text-light',
-                            'font-weight-light'
-                        )}
-                    >
-                        {email}
-                    </a>
-                        {!isLoggedIn &&
-                            <a
-                                className={classnames(
-                                    'text-light',
-                                    'font-weight-light'
-                                )}
-                                href='#login'
-                                onClick={() => { 
-                                    logIn()
-                                 }}
-                            >
-                                Login
-                            </a>
-                        }
-                    </div>
-                </div>
-                {/* Locations Section*/}
-                <div className={classnames(
-                    'col-xs-12',
-                    'text-left',
-                    'mt-4',
-                    'ml-md-5',
-                    'ml-lg-0'
-                )}>
+
+                    <Link href={`tel:${phone}`} title={phone} />
+                    <Link href={`mailto:${email}`} title={email} />
+                </LinkColumn>
+
+                {/* Resource Col */}
+                <LinkColumn>
                     <h4 className={classnames(
                         'text-white',
                         'text-uppercase',
-                        'pb-3',
-                        'mb-1'
-                    )}>
-                        Locations
-                    </h4>
-                    <div className='row'>
-                    {chunk(locations, 6).map((n, i) => (
-                        <div 
+                        'mb-1',
+                    )}
+                    >
+                        Resources
+          </h4>
+
+                    {resourceLinks.map((link, i) => (
+                        <Link
                             key={i}
-                            className={classnames(
-                                'col-xs-12',
-                                'flex-column',
-                                'd-flex',
-                                'mr-6',
-                                'pr-4'
-                            )}
-                        >
-                            {n.map((link, i) => (
-                                <a key={i}
-                                    href={link.action}
-                                    className={classnames(
-                                        'text-light',
-                                        'font-weight-light'
-                                    )}
-                                >
-                                    {link.call}
-                                </a>
-                            ))}
-                        </div>
+                            href={link.action}
+                            title={link.call}
+                        />
                     ))}
-                    </div> 
-                </div>
-                {/* About Section */}
-                <div className={classnames(
-                    'col',
-                    'text-left',
-                    'd-flex',
-                    'flex-column',
-                    'mr-6',
-                    'pr-4',
-                    'my-4',
-                    'ml-md-5',
-                    'ml-lg-0'
-                )}>
+                </LinkColumn>
+
+                {/* Connect Col */}
+                <LinkColumn>
                     <h4 className={classnames(
                         'text-white',
                         'text-uppercase',
-                        'pb-3',
-                        'mb-1'
-                    )}>
-                        About
-                    </h4>
-                    {footerLinks.map((link, i) => (
-                        <a key={i}
+                        'mb-1',
+                    )}
+                    >
+                        Connect
+          </h4>
+
+                    {connectLinks.map((link, i) => (
+                        <Link
+                            key={i}
                             href={link.action}
-                            className={classnames(
-                                'text-light',
-                                'font-weight-light'
-                            )}
-                            onClick={() => { }}>
-                            {link.call}
-                        </a>
+                            title={link.call}
+                        />
                     ))}
-                </div>
+                </LinkColumn>
+
+                {/* About Col */}
+                <LinkColumn>
+                    <h4 className={classnames(
+                        'text-white',
+                        'text-uppercase',
+                        'mb-1',
+                    )}
+                    >
+                        About
+          </h4>
+
+                    {aboutLinks.map((link, i) => (
+                        <Link
+                            key={i}
+                            href={link.action}
+                            title={link.call}
+                        />
+                    ))}
+                </LinkColumn>
             </div>
             {/* Bottom Light Bar */}
             <div
                 className={classnames(
                     'bg-white',
-                    "footer",
-                    'py-3'
+                    'footer',
+                    'py-3',
                 )}
             >
                 <div
                     className={classnames(
-                        "row",
-                        'my-2'
+                        'row',
+                        'my-2',
                     )}
                 >
                     <div className={classnames(
                         'col',
-                        'text-center'
-                    )}>
+                        'text-center',
+                    )}
+                    >
                         {socialMediaLinks.map(({ call, action }, i) => (
-                            <a 
-                                href={action} 
-                                target='_blank'
-                                key={i} 
+                            <a
+                                href={action}
+                                target="_blank"
+                                key={i}
                                 className="text-primary mx-3"
                             >
                                 <FontAwesomeIcon
                                     icon={SM_ICONS[toLower(call)]}
-                                    size='2x'
+                                    size="2x"
                                 />
                             </a>
                         ))}
@@ -212,12 +187,12 @@ const Footer = ({
 
                 <div
                     className={classnames(
-                        "row",
-                        'pb-2'
+                        'row',
+                        'pb-2',
                     )}
                 >
                     <div className="col px-3">
-                        <p className='text-center text-dark m-0'>
+                        <p className="text-center text-dark m-0">
                             {`${new Date().getFullYear()} Christ Fellowship Church. All Rights Reserved`}
                         </p>
                     </div>
@@ -225,59 +200,66 @@ const Footer = ({
             </div>
         </div>
 
-    )
-}
+    );
+};
 
-export default Footer
+export default Footer;
 
 Footer.propTypes = {
     imgUrl: PropTypes.string,
     phone: PropTypes.string,
     email: PropTypes.string,
-    footerLinks: PropTypes.arrayOf(
+    aboutLinks: PropTypes.arrayOf(
         PropTypes.shape({
             call: PropTypes.string,
             action: PropTypes.string,
-        })
+        }),
+    ),
+    resourceLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+            call: PropTypes.string,
+            action: PropTypes.string,
+        }),
+    ),
+    connectLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+            call: PropTypes.string,
+            action: PropTypes.string,
+        }),
     ),
     locations: PropTypes.arrayOf(
         PropTypes.shape({
             call: PropTypes.string,
             action: PropTypes.string,
-        })
+        }),
     ),
     socialMediaLinks: PropTypes.arrayOf(
         PropTypes.shape({
             call: PropTypes.string,
             action: PropTypes.string,
-        })
+        }),
     ),
-}
+};
 
 Footer.defaultProps = {
     imgUrl: '',
     phone: '(561)799-7600',
     email: 'hello@christfellowship.church',
-    footerLinks: [
-        { call: 'Leadership', action: '/about-page' },
-        { call: 'History', action: '/about-page' },
-        { call: 'Core Values', action: '/about-page' },
-        { call: 'Beliefs', action: '/about-page' },
+    aboutLinks: [
+        { call: 'Our Leadership', action: '/about-page' },
         { call: 'Privacy Policy', action: '/privacy-policy' },
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
-    locations: [
-        { call: 'Palm Beach Gardens', action: '/locations/palm-beach-gardens' },
-        { call: 'Royal Palm Beach', action: '/locations/royal-palm-beach' },
-        { call: 'Stuart', action: '/locations/stuart' },
-        { call: 'Port St. Lucie', action: '/locations/port-st-lucie' },
-        { call: 'Jupiter', action: '/locations/jupiter' },
-        { call: 'Downtown WPB', action: '/locations/downtown-wpb' },
-        { call: 'Boyton Beach', action: '/locations/boyton-beach' },
-        { call: 'Okeechobee', action: '/locations/okeechobee' },
-        { call: 'Belle Glade', action: '/locations/belle-glade' },
-        { call: 'CF En Español', action: '/locations/cf-en-espanol' },
-        { call: 'Church Online', action: '/locations/church-online' }
+    resourceLinks: [
+        { call: 'Church Online', action: '/#' },
+        { call: 'Past Messages', action: '/#' },
+        { call: 'Ministry Updates', action: '/#' },
     ],
-    socialMediaLinks: []
-}
+    connectLinks: [
+        { call: 'First Time Here', action: '/#' },
+        { call: 'Submit Prayer Request', action: '/#' },
+        { call: 'Join Us In Prayer', action: '/#' },
+        { call: 'Give Online', action: '/#' },
+    ],
+    socialMediaLinks: [],
+};

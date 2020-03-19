@@ -64,8 +64,16 @@ exports[`EventDetail renders Event Details 1`] = `
               class="py-3"
             >
               <div
-                class=""
-              />
+                class="mt-5"
+              >
+                <a
+                  class="btn btn-primary btn-block my-3"
+                  href="/#"
+                  target=""
+                >
+                  Register
+                </a>
+              </div>
             </div>
           </div>
         </div>
