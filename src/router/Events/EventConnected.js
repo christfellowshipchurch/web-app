@@ -8,7 +8,7 @@ import {
 import {
     EventDetail,
     EventBanner,
-} from '../../events';
+} from '../../content-single/EventContentItem';
 import { CardFeed } from '../../content-feed';
 
 import { GET_EVENT } from './queries';

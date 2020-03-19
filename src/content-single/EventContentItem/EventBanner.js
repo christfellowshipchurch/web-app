@@ -6,7 +6,7 @@ import {
   startCase
 } from 'lodash'
 
-import { Media } from '../ui'
+import { Media } from '../../ui'
 
 const EventBanner = ({
   coverImage,
@@ -15,26 +15,51 @@ const EventBanner = ({
 }) => {
 
   return (
-    <div className='w-100'>
-      <div className='row'>
+    <>
+    <Media 
+      imageUrl={get(coverImage, 'sources[0].uri', '')}
+      imageAlt={get(coverImage, 'name', 'background image')}
+      className='max-height-45-vh'
+      gradient="black"
+      ratio='21by9'
+      forceRatio
+      style={{
+        filter: 'blur(9px)'
+    }}
+    />
+    <div className={classnames(
+      'px-3',
+      )}
+      style={{
+        zIndex: 5
+      }}
+    >
+      <div className={classnames(
+        'row',
+        'max-width-800',
+        'mx-auto',
+      )}>
         <div className={classnames(
-          'col-12',
-        )}
-        >
+          'col-12'
+        )}>
           <Media
             imageUrl={get(coverImage, 'sources[0].uri', '')}
-            imageAlt={get(coverImage, 'name', 'Event at Christ Fellowship Church')}
+            imageAlt={get(coverImage, 'name', 'bg blur')}
             className='max-height-45-vh'
-            ratio={{ xs: "1by1", md: '21by9' }}
+            ratio={{ xs: "1by1", md: '16by9' }}
             gradient="black"
             forceRatio
+            rounded
+            style={{
+              position: 'absolute',
+              top: -400,
+            }}
           >
             <div
               className={classnames(
                 'p-4',
                 'w-100',
                 'h-100',
-                'max-width-1100',
                 'd-flex',
                 'align-items-end',
                 'justify-content-start',
@@ -53,6 +78,7 @@ const EventBanner = ({
         </div>
       </div>
     </div>
+    </>
   )
 }
 

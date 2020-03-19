@@ -22,9 +22,9 @@ import moment from 'moment';
 
 import {
   Card,
-} from '../ui';
+} from '../../ui';
 import Icon from './eventIcon';
-import { getDirectionsUrl } from '../utils';
+import { getDirectionsUrl } from '../../utils';
 
 const EventTimes = ({ date, times, className }) => {
   const mDate = moment(date);

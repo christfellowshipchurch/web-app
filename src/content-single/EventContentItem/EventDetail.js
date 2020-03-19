@@ -3,16 +3,16 @@ import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import { useAuth, useAuthQuery } from '../auth';
+import { useAuth, useAuthQuery } from '../../auth';
 
 import {
   Card,
-} from '../ui';
+} from '../../ui';
 import EventSchedule from './EventSchedule';
 import EventShare from './EventShare';
 
-import { CAMPUS_KEY } from '../keys';
-import { htmlToReactParser } from '../utils';
+import { CAMPUS_KEY } from '../../keys';
+import { htmlToReactParser } from '../../utils';
 
 import { GET_CURRENT_PERSON_CAMPUS } from './queries';
 
@@ -46,7 +46,8 @@ const EventDetail = ({
 }) => (
     <div className={classnames(
       'container-fluid',
-      'my-4',
+      'mt-6',
+      'mb-4',
       'px-3',
     )}
     >
