@@ -130,14 +130,6 @@ const ContentCard = ({
                                 {summary}
                             </p>
                         </div>
-                        {!!icon && icon !== ''
-                            && (
-                                <div className="col-1 text-right text-secondary">
-                                    <span className="h4">
-                                        <i className={`fal fa-${icon}`} />
-                                    </span>
-                                </div>
-                            )}
                     </div>
                 </div>
             </Card>
@@ -151,7 +143,6 @@ ContentCard.propTypes = {
     summary: PropTypes.string,
     onClick: PropTypes.func,
     as: PropTypes.string,
-    icon: PropTypes.string,
     urlBase: PropTypes.string,
     label: PropTypes.shape({
         value: PropTypes.string,
@@ -166,7 +157,6 @@ ContentCard.defaultProps = {
     title: null,
     onClick: null,
     as: 'div',
-    icon: null,
     urlBase: 'content',
     label: {
         value: 'tags[0]',
