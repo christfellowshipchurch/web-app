@@ -32,7 +32,7 @@ exports[`EventListConnected renders a collection of events 1`] = `
         <h3
           class="mb-0"
         >
-          Upcoming Events
+          All Events and Opportunities
         </h3>
       </div>
     </div>

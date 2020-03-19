@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
@@ -8,6 +9,7 @@ import {
   uniqBy,
   groupBy,
   keys,
+  get
 } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -25,6 +27,7 @@ import {
 } from '../ui'
 import Icon from './eventIcon'
 import { getDirectionsUrl } from '../utils'
+import { GET_CAMPUS_ADDRESSES } from './queries'
 
 const EventTimes = ({ date, times, className }) => {
   const mDate = moment(date)
@@ -107,7 +110,7 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   // when the selection changes, call the onChange method
   useEffect(() => onChange(selected), [selected])
 
-  
+
 
   return <Card className="mb-3">
     <Dropdown
@@ -145,11 +148,21 @@ const EventSchedule = ({
   defaultCampus,
   callsToAction,
   openLinksInNewTab,
+  hideLabel,
   events,
 }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([])
-  const noEvents = events.length < 1
+  const [visibleAddress, setVisibleAddress] = useState(null)
 
+  const { data: campusAddresses } = useQuery(GET_CAMPUS_ADDRESSES)
+  const addresses = get(campusAddresses, 'campuses', []).map((n) => {
+    const name = n.name
+    const addressString = ''
+    const address = addressString.concat(n.street1, ' ', n.city, ', ', n.state, ', ', n.postalCode.substring(0, 5))
+    return {name: name, address: address}
+  })
+
+  const noEvents = events.length < 1  
   const campusOptions = uniq(flatMapDepth(
     events.map(e => e.campuses.map(c => c.name)),
     identity,
@@ -157,6 +170,7 @@ const EventSchedule = ({
   ))
   const groupByLocations = groupBy(visibleOccurrences, 'location')
   const groupByLocationDate = keys(groupByLocations).map(l => {
+
     const dateTimes = groupBy(
       groupByLocations[l],
       (o) => moment(o.start).format('YYYY-MM-DD')
@@ -167,57 +181,50 @@ const EventSchedule = ({
 
   const onChange = (campus) => {
     const campusEvents = events.filter(e => e.campuses.find(c => c.name === campus))
-
+    const currentAddress = addresses.find(c => c.name === campus)
     setVisibleOccurrences(campusEvents)
-  }
-
-  //NOTE** would like to fix to use defaultProps instead in the future. As of now doesn't read empty arrays.
-  //if array is empty set to default button
-  if(callsToAction.length < 1){
-    callsToAction = [{
-      call: 'Register',
-      action: '/#'
-    }]
+    setVisibleAddress(currentAddress)
   }
 
   return (
     <>
-    {!noEvents &&
-      <CampusSelection
-        key={`CampusSelection`}
-        campuses={campusOptions}
-        onChange={onChange}
-        defaultCampus={defaultCampus}
-      />
-    }
-       <Card
-          key={`EventOccurences`}
-          className={classnames(
-            'mb-3',
-          )}
-        >
-          <div className="py-3">
-            {groupByLocationDate.map((event, i) => {
-              const { location, dateTimes } = event
-              return <div
-                key={`EventOccurence:${i}`}
-                className={classnames({
-                  'border-bottom': i < groupByLocationDate.length - 1,
-                  'border-light': i < groupByLocationDate.length - 1,
-                  'mb-3': i < groupByLocationDate.length - 1,
-                })}
-              >
-                {keys(dateTimes).map(date => (
-                  <EventTimes
-                    key={`EventOccurenceDate:${date}`}
-                    date={date}
-                    times={dateTimes[date]}
-                    className={classnames({
-                      'mb-4': keys(dateTimes).length > 1,
-                    })}
-                  />
-                ))}
-    
+      {!noEvents &&
+        <CampusSelection
+          key={`CampusSelection`}
+          campuses={campusOptions}
+          onChange={onChange}
+          defaultCampus={defaultCampus}
+        />
+      }
+      <Card
+        key={`EventOccurences`}
+        className={classnames(
+          'mb-3',
+        )}
+      >
+        <div className="py-3">
+          {groupByLocationDate.map((event, i) => {
+            const { location, dateTimes } = event
+            return <div
+              key={`EventOccurence:${i}`}
+              className={classnames({
+                'border-bottom': i < groupByLocationDate.length - 1,
+                'border-light': i < groupByLocationDate.length - 1,
+                'mb-3': i < groupByLocationDate.length - 1,
+              })}
+            >
+              {keys(dateTimes).map(date => (
+                <EventTimes
+                  key={`EventOccurenceDate:${date}`}
+                  date={date}
+                  times={dateTimes[date]}
+                  className={classnames({
+                    'mb-4': keys(dateTimes).length > 1,
+                  })}
+                />
+              ))}
+
+              {!!visibleAddress &&
                 <div className="my-3">
                   <h4
                     className='mb-2'
@@ -226,38 +233,51 @@ const EventSchedule = ({
                   </h4>
                   <a
                     className="text-dark"
-                    href={getDirectionsUrl(location)}
+                    href={getDirectionsUrl(visibleAddress.address)}
                     target="_blank"
                   >
-                    {location}
+                    {visibleAddress.address}
                   </a>
                 </div>
-              </div>
-            })}
-    
-              {!!noEvents && callsToAction.length > 0 &&
-                <h3 className='mb-n4'>Get Started</h3>
               }
-    
-            <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
-              {callsToAction.map((n, i) => (
-                <a
-                  key={i}
-                  className={classnames(
-                    'btn',
-                    'btn-primary',
-                    'btn-block',
-                    "my-3"
-                  )}
-                  href={n.action}
-                  target={openLinksInNewTab ? '_blank' : ''}
-                >
-                  {n.call}
-                </a>
-              ))}
+                
+              
             </div>
+          })}
+
+          {!!noEvents && callsToAction.length > 0 &&
+            <h3 className={`mb-n4 text-${hideLabel ? 'left' : 'center'}`}>
+              {hideLabel
+                ? 'Get Started'
+                : 'Check Back Soon for More Information'
+              }
+            </h3>
+          }
+          {!!noEvents && callsToAction.length < 1 &&
+            <h3 className={`mb-n4 text-center pb-4`}>
+              Check Back Soon for More Information
+            </h3>
+          }
+
+          <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
+            {callsToAction.map((n, i) => (
+              <a
+                key={i}
+                className={classnames(
+                  'btn',
+                  'btn-primary',
+                  'btn-block',
+                  "my-3"
+                )}
+                href={n.action}
+                target={openLinksInNewTab ? '_blank' : ''}
+              >
+                {n.call}
+              </a>
+            ))}
           </div>
-        </Card > 
+        </div>
+      </Card >
     </>
   )
 }
@@ -276,7 +296,7 @@ EventSchedule.propTypes = {
 EventSchedule.defaultProps = {
   defaultCampus: '',
   callsToAction: [{
-    call:'Register',
+    call: 'Register',
     action: '/#'
   }]
 }

@@ -23,6 +23,7 @@ export const GET_EVENT = gql`
             }
 
             openLinksInNewTab
+            hideLabel
 
             events {
                 start

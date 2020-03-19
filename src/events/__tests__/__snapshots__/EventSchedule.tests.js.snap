@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EventSchedule renders an empty schedule 1`] = `
+exports[`EventSchedule renders an empty schedule with Get Started Label and call to action 1`] = `
 <div>
   <div
     class="card border-0 shadow mb-3"
@@ -12,9 +12,9 @@ exports[`EventSchedule renders an empty schedule 1`] = `
         class="py-3"
       >
         <h3
-          class="mb-n4"
+          class="mb-n4 text-center"
         >
-          Get Started
+          Check Back Soon for More Information
         </h3>
         <div
           class="mt-5"
