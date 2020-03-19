@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from 'react-apollo';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, has, camelCase } from 'lodash';
+import { get, has, camelCase, includes } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/fontawesome-pro-light';
 
@@ -94,6 +94,7 @@ const NavbarConnected = ({
     if (fixed) navbarProps.fixed = 'top';
     else navbarProps.sticky = 'top';
 
+
     return (
       <Navbar
         {...navbarProps} // eslint-disable react/jsx-props-no-spreading
@@ -139,16 +140,25 @@ const NavbarConnected = ({
                 'align-items-lg-center',
               )}
             >
-              {navigationData.navigationLinks.map((link, i) => (
-                <Nav.Link
-                  key={i}
-                  href={link.action}
-                  className="mx-3 my-2"
-                  onSelect={onSelect}
-                >
-                  {link.call}
-                </Nav.Link>
-              ))}
+              {navigationData.navigationLinks.map((link, i) => {
+                let newTab = false
+                if(includes(link.action, 'http')){
+                   newTab = true
+                }
+                return (
+                  <Nav.Link
+                    key={i}
+                    href={link.action}
+                    target={newTab
+                      ? '_blank'
+                      : ''
+                    }
+                    className="mx-3 my-2"
+                    onSelect={onSelect}
+                  >
+                    {link.call}
+                  </Nav.Link>
+              )})}
 
               {/* TODO : revert when login gets added back */}
               {/* <Nav.Link
@@ -167,7 +177,7 @@ const NavbarConnected = ({
                   <div className="mx-3 my-2">
                     <Button
                       title={quickAction.call}
-                      onClick={() => redirectTo(quickAction.action)}
+                      onClick={() => redirectTo(quickAction.action, true)}
                     />
                   </div>
                 )}

@@ -1,30 +1,30 @@
-import React from 'react';
-import classnames from 'classnames';
-import PropTypes from 'prop-types';
-import { chunk, toLower } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react'
+import classnames from 'classnames'
+import PropTypes from 'prop-types'
+import { chunk, toLower } from 'lodash'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faFacebookSquare,
     faInstagram,
     faYoutube,
     faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
+} from '@fortawesome/free-brands-svg-icons'
 
-import { useAuth } from '../auth';
+import { useAuth } from '../auth'
 
 const SM_ICONS = {
     facebook: faFacebookSquare,
     instagram: faInstagram,
     youtube: faYoutube,
     twitter: faTwitter,
-};
+}
 
 const LinkColumn = ({ children }) => (
     <div
         className={classnames(
             'd-flex',
             'justify-content-lg-center',
-            'my-4',
+            'mb-4',
         )}
         style={{ flex: 1 }}
     >
@@ -37,7 +37,7 @@ const LinkColumn = ({ children }) => (
 
         </div>
     </div>
-);
+)
 
 const Link = ({ href, title }) => (
     <a
@@ -49,17 +49,18 @@ const Link = ({ href, title }) => (
     >
         {title}
     </a>
-);
+)
 
 const Footer = ({
     imgUrl,
     phone,
     email,
-    locations,
-    footerLinks,
+    resourceLinks,
+    connectLinks,
+    aboutLinks,
     socialMediaLinks,
 }) => {
-    const { isLoggedIn, logIn } = useAuth();
+    const { isLoggedIn, logIn } = useAuth()
 
     return (
         <div className={classnames('bg-dark')}>
@@ -69,9 +70,10 @@ const Footer = ({
                     'd-flex',
                     'flex-column',
                     'flex-md-row',
-                    'max-width-800',
+                    'container-fluid',
                     'mx-auto',
                     'px-4',
+                    'pt-4'
                 )}
             >
                 {/* Brand and Contact Info */}
@@ -88,7 +90,7 @@ const Footer = ({
                     <Link href={`mailto:${email}`} title={email} />
                 </LinkColumn>
 
-                {/* Brand and Contact Info */}
+                {/* Resource Col */}
                 <LinkColumn>
                     <h4 className={classnames(
                         'text-white',
@@ -96,10 +98,50 @@ const Footer = ({
                         'mb-1',
                     )}
                     >
-                        About
-          </h4>
+                        Resources
+                    </h4>
 
-                    {footerLinks.map((link, i) => (
+                    {resourceLinks.map((link, i) => (
+                        <Link
+                            key={i}
+                            href={link.action}
+                            title={link.call}
+                        />
+                    ))}
+                </LinkColumn>
+
+                {/* Connect Col */}
+                <LinkColumn>
+                    <h4 className={classnames(
+                        'text-white',
+                        'text-uppercase',
+                        'mb-1',
+                    )}
+                    >
+                            Connect
+                    </h4>
+
+                    {connectLinks.map((link, i) => (
+                        <Link
+                            key={i}
+                            href={link.action}
+                            title={link.call}
+                        />
+                    ))}
+                </LinkColumn>
+
+                {/* About Col */}
+                <LinkColumn>
+                    <h4 className={classnames(
+                        'text-white',
+                        'text-uppercase',
+                        'mb-1',
+                    )}
+                    >
+                            About
+                    </h4>
+
+                    {aboutLinks.map((link, i) => (
                         <Link
                             key={i}
                             href={link.action}
@@ -158,16 +200,28 @@ const Footer = ({
             </div>
         </div>
 
-    );
-};
+    )
+}
 
-export default Footer;
+export default Footer
 
 Footer.propTypes = {
     imgUrl: PropTypes.string,
     phone: PropTypes.string,
     email: PropTypes.string,
-    footerLinks: PropTypes.arrayOf(
+    aboutLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+            call: PropTypes.string,
+            action: PropTypes.string,
+        }),
+    ),
+    resourceLinks: PropTypes.arrayOf(
+        PropTypes.shape({
+            call: PropTypes.string,
+            action: PropTypes.string,
+        }),
+    ),
+    connectLinks: PropTypes.arrayOf(
         PropTypes.shape({
             call: PropTypes.string,
             action: PropTypes.string,
@@ -185,32 +239,27 @@ Footer.propTypes = {
             action: PropTypes.string,
         }),
     ),
-};
+}
 
 Footer.defaultProps = {
     imgUrl: '',
     phone: '(561)799-7600',
     email: 'hello@christfellowship.church',
-    footerLinks: [
-        { call: 'Leadership', action: '/about-page' },
-        { call: 'History', action: '/about-page' },
-        { call: 'Core Values', action: '/about-page' },
-        { call: 'Beliefs', action: '/about-page' },
+    aboutLinks: [
+        { call: 'Our Leadership', action: '/about-page' },
         { call: 'Privacy Policy', action: '/privacy-policy' },
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
-    locations: [
-        { call: 'Palm Beach Gardens', action: '/locations/palm-beach-gardens' },
-        { call: 'Royal Palm Beach', action: '/locations/royal-palm-beach' },
-        { call: 'Stuart', action: '/locations/stuart' },
-        { call: 'Port St. Lucie', action: '/locations/port-st-lucie' },
-        { call: 'Jupiter', action: '/locations/jupiter' },
-        { call: 'Downtown WPB', action: '/locations/downtown-wpb' },
-        { call: 'Boyton Beach', action: '/locations/boyton-beach' },
-        { call: 'Okeechobee', action: '/locations/okeechobee' },
-        { call: 'Belle Glade', action: '/locations/belle-glade' },
-        { call: 'CF En Español', action: '/locations/cf-en-espanol' },
-        { call: 'Church Online', action: '/locations/church-online' },
+    resourceLinks: [
+        { call: 'Church Online', action: '/#' },
+        { call: 'Past Messages', action: '/#' },
+        { call: 'Ministry Updates', action: '/#' },
+    ],
+    connectLinks: [
+        { call: 'First Time Here', action: '/#' },
+        { call: 'Submit Prayer Request', action: '/#' },
+        { call: 'Join Us In Prayer', action: '/#' },
+        { call: 'Give Online', action: '/#' },
     ],
     socialMediaLinks: [],
-};
+}
