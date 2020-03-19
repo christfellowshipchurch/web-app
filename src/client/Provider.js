@@ -6,15 +6,16 @@ import { ApolloLink } from 'apollo-link';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache, IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 import { persistCache } from 'apollo-cache-persist';
+
 import introspectionQueryResultData from '../fragmentTypes.json';
+import { Loader } from '../ui';
 
 import {
     authLink,
 } from '../auth';
 
 export default ({ children }) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [client, setClient] = useState(null);
+    const [state, setState] = useState({ isLoading: true });
     useEffect(() => {
         const setUpCache = async () => {
             const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -46,16 +47,21 @@ export default ({ children }) => {
                 console.error('Error restoring Apollo cache', error);
             }
 
-            setClient(apolloClient);
-            setIsLoading(false);
+            setState({ client: apolloClient, isLoading: false });
         };
         setUpCache();
     }, []);
 
-    if (isLoading) return null;
+    if (state.isLoading) {
+        return (
+            <div style={{ height: '100vh', width: '100vw' }}>
+                <Loader />
+            </div>
+        );
+    }
 
     return (
-        <ApolloProvider client={client}>
+        <ApolloProvider client={state.client}>
             {children}
         </ApolloProvider>
     );
