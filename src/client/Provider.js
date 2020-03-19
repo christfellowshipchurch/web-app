@@ -39,7 +39,7 @@ export default ({ children }) => {
 
             try {
                 // See above for additional options, including other storage providers.
-                await persistCache({
+                persistCache({
                     cache,
                     storage: window.localStorage,
                 });
