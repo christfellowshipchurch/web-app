@@ -2,7 +2,9 @@ import React from 'react';
 import { useQuery } from 'react-apollo';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, has, camelCase, includes } from 'lodash';
+import {
+  get, has, camelCase, includes,
+} from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/fontawesome-pro-light';
 
@@ -13,6 +15,7 @@ import DefaultIcon from '../images/default_icon.png';
 
 import { Button } from '../ui';
 import LiveBanner from './LiveBanner';
+import DynamicBanner from './DynamicBanner';
 import { redirectTo } from '../utils';
 import { useAuth } from '../auth';
 import AuthNavbar from './AuthNavbar';
@@ -105,7 +108,7 @@ const NavbarConnected = ({
         )}
       >
         <div className="row w-100">
-          <LiveBanner />
+          <DynamicBanner />
         </div>
         <div className={classnames(
           'row',
@@ -119,7 +122,7 @@ const NavbarConnected = ({
               <Navbar.Brand href="/" className="pl-2">
                 <img
                   src={brandImage.uri}
-                  style={{ height: '70px', width: 'auto' }}
+                  style={{ height: '100px', width: 'auto' }}
                   alt={brandImage.alt}
                 />
               </Navbar.Brand>
@@ -141,9 +144,9 @@ const NavbarConnected = ({
               )}
             >
               {navigationData.navigationLinks.map((link, i) => {
-                let newTab = false
-                if(includes(link.action, 'http')){
-                   newTab = true
+                let newTab = false;
+                if (includes(link.action, 'http')) {
+                  newTab = true;
                 }
                 return (
                   <Nav.Link
@@ -151,14 +154,14 @@ const NavbarConnected = ({
                     href={link.action}
                     target={newTab
                       ? '_blank'
-                      : ''
-                    }
+                      : ''}
                     className="mx-3 my-2"
                     onSelect={onSelect}
                   >
                     {link.call}
                   </Nav.Link>
-              )})}
+                );
+              })}
 
               {/* TODO : revert when login gets added back */}
               {/* <Nav.Link
