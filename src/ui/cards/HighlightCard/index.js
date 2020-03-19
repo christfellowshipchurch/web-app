@@ -49,6 +49,7 @@ const HighlightCard = ({
                 withHover
                 forceRatio
                 style={style}
+                className="shadow"
                 {...mediaProps}
             >
                 <div
