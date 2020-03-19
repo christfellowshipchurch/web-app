@@ -10,16 +10,18 @@ import { ContentCard, HighlightCard, ContentContainer } from '../../ui';
 import { GET_CONTENT_FEED } from '../../content-feed';
 import { CARD_PADDING, MARGIN_Y, PADDING_X } from '..';
 
-const cardLoadingObject = {
-    id: 'fake_id',
-    title: '',
-    coverImage: [],
-};
-
 const RATIO_MAP = {
     '-1': '4by3',
     0: { xs: '1by1', lg: '16by9' },
     1: '21by9',
+};
+
+const cardLoadingObject = {
+    id: 'fake_id',
+    title: '',
+    coverImage: [],
+    ratio: RATIO_MAP[0],
+
 };
 
 const StyledHighlightCard = ({ style, ...props }) => <HighlightCard {...props} style={{ maxHeight: 450, ...style }} />;
@@ -42,8 +44,8 @@ const AnnouncementFeed = ({
 
     if (loading) {
         return (
-            <ContentContainer className="max-width-800 p-4">
-                <HighlightCard isLoading={loading} {...cardLoadingObject} />
+            <ContentContainer className="max-width-800">
+                <StyledHighlightCard isLoading {...cardLoadingObject} />
             </ContentContainer>
         );
     }
@@ -76,11 +78,11 @@ const AnnouncementFeed = ({
                             <ContentCardConnected
                                 contentId={node.id}
                                 // {...node}
-                                card={placement === 0 ? HighlightCard : ContentCard}
+                                card={placement === 0 ? StyledHighlightCard : ContentCard}
                                 ratio={RATIO_MAP[placement]}
                                 // tile={placement === -1}
                                 // row={placement === 1}
-                                style={placement === 0 ? { maxHeight: 450 } : {}}
+                                // style={placement === 0 ? { maxHeight: 450 } : {}}
                                 mediaProps={{
                                     gradient: 'dark',
                                     gradientDirection: 'bottom-top',
