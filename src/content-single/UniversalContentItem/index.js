@@ -1,34 +1,40 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   useQuery,
 } from 'react-apollo';
 import {
-  get, has, toLower,
+  get, toLower,
 } from 'lodash';
 import moment from 'moment';
-import { htmlToReactParser } from '../utils';
+import { htmlToReactParser } from '../../utils';
 import {
   Loader,
   Media,
-} from '../ui';
-import RelatedArticles from './RelatedArticles';
-import ArticleCategories from './ArticleCategories';
+} from '../../ui';
+import Placeholder from './Placeholder';
+
+import Author from '../Author';
+import RelatedArticles from './RelatedContent';
+import ArticleCategories from './ContentCategories';
 import {
-  GET_ARTICLE_BY_TITLE,
-} from './queries';
+  GET_CONTENT_ITEM,
+} from '../queries';
 
 const DATE_FORMAT = 'MMMM D, YYYY';
 
-const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
-  const { loading, error, data } = useQuery(GET_ARTICLE_BY_TITLE,
+const ArticleDetail = ({
+  itemId,
+}) => {
+  const { loading, error, data } = useQuery(GET_CONTENT_ITEM,
     {
       variables: {
-        title: toLower(articleTitle),
+        itemId,
       },
       fetchPolicy: 'cache-and-network',
     });
 
-  if (loading) return <Loader />;
+  if (loading) return <Placeholder />;
 
   if (error) {
     console.log({ error });
@@ -40,7 +46,10 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
     );
   }
 
-  const article = get(data, 'getArticleByTitle', null);
+  const article = get(data, 'node', null);
+  const bodyText = get(article, 'htmlContent', '');
+
+  const categoryTags = get(article, 'tags', []);
 
   if (!article) {
     console.error('Articles: Null was returned from the server');
@@ -75,13 +84,13 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
                   </h2>
                 )}
 
-              {get(article, 'images[0].sources[0].uri') !== ''
+              {get(article, 'coverImage.sources[0].uri') !== ''
                 && (
                   <Media
                     rounded
                     showControls
                     ratio="16by9"
-                    imageUrl={get(article, 'images[0].sources[0].uri', '')}
+                    imageUrl={get(article, 'coverImage.sources[0].uri', '')}
                     videoUrl={get(article, 'videos[0].sources[0].uri', '')}
                     imageAlt={get(article, 'title', 'Christ Fellowship Church')}
                     className="my-4"
@@ -89,59 +98,42 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
                 )}
 
               {/* TODO : add some sort of default photo/icon */}
-              <div className="py-4 d-flex align-items-center">
-                {get(article, 'author.photo.uri', '') !== ''
-                  && (
-                    <Media
-                      circle
-                      ratio="1by1"
-                      imageUrl={get(article, 'author.photo.uri', '')}
-                      imageAlt={`${get(article, 'author.person.firstName')} ${get(article, 'author.person.lastName')}`}
-                      className="author-image mr-3"
-                    />
-                  )}
-                <div className="text-left">
-                  <p className="my-1 font-weight-bold text-dark">
-                    {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
-                  </p>
-                  <p className="my-1">
-                    {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
-                  </p>
-                </div>
-              </div>
+              <Author contentId={itemId} />
 
               {get(article, 'htmlContent', '') !== ''
                 && (
                   <div className="article-body my-3 pb-4 text-left">
-                    {htmlToReactParser.parse(article.htmlContent)}
+                    {htmlToReactParser.parse(bodyText)}
                   </div>
                 )}
             </div>
           </div>
-
-          <div className="row pb-6">
-            <div className="col-12">
-              <h4
-                className="text-uppercase text-muted"
-                style={{ fontWeight: 900, letterSpacing: 2 }}
-              >
-                categories
-              </h4>
-            </div>
-            <div className="col-12">
-              <ArticleCategories id={get(article, 'id', null)} />
-            </div>
-          </div>
+          {/* Category tags */}
+          {categoryTags.length > 0
+            && (
+              <div className="row pb-6">
+                <div className="col-12">
+                  <h4
+                    className="text-uppercase text-muted"
+                    style={{ fontWeight: 900, letterSpacing: 2 }}
+                  >
+                    categories
+                  </h4>
+                </div>
+                <div className="col-12">
+                  <ArticleCategories categories={categoryTags} />
+                </div>
+              </div>
+            )}
         </div>
       </div>
-      <div className="container-fluid py-4">
-        <RelatedArticles id={get(article, 'id')} />
-      </div>
+      <RelatedArticles id={get(article, 'id')} />
     </>
   );
 };
 
 ArticleDetail.propTypes = {
+  itemId: PropTypes.string,
 };
 
 ArticleDetail.defaultProps = {

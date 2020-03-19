@@ -1,20 +1,20 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import {
   get,
   toLower,
-  kebabCase
-} from 'lodash'
+  kebabCase,
+} from 'lodash';
 
-import { Media } from '../ui'
+import { Media } from '../../ui';
 
-const ArticleLinks = ({ articles }) => (
+const Links = ({ articles, label }) => (
   <div className="container-fluid my-6 px-3">
     <div className="row">
       <div className="col">
         <h3 className="text-dark align-self-start">
-          Related Articles
+          {label}
         </h3>
       </div>
       <div className="col text-right">
@@ -35,7 +35,7 @@ const ArticleLinks = ({ articles }) => (
             'col-12',
             'col-md-4',
             'p-1',
-            'text-white'
+            'text-white',
           )}
         >
           <Media
@@ -53,7 +53,7 @@ const ArticleLinks = ({ articles }) => (
                 'p-3',
                 'd-flex',
                 'flex-row',
-                'align-items-end'
+                'align-items-end',
               )}
               style={{ zIndex: 2 }}
             >
@@ -70,22 +70,24 @@ const ArticleLinks = ({ articles }) => (
                 left: 0,
                 overflow: 'hidden',
                 background: 'rgba(0, 0, 0, 0.4)',
-                zIndex: 0
-              }}>
-            </div>
+                zIndex: 0,
+              }}
+            />
           </Media>
         </a>
       ))}
     </div>
-  </div >
-)
+  </div>
+);
 
-ArticleLinks.propTypes = {
-  articles: PropTypes.arrayOf(PropTypes.object)
-}
+Links.propTypes = {
+  articles: PropTypes.arrayOf(PropTypes.object),
+  label: PropTypes.string,
+};
 
-ArticleLinks.defaultProps = {
-  articles: []
-}
+Links.defaultProps = {
+  articles: [],
+  label: 'Related Content',
+};
 
-export default ArticleLinks
+export default Links;

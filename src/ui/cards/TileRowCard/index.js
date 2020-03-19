@@ -1,18 +1,21 @@
-import React from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
 import {
     get,
     has,
-    kebabCase
-} from 'lodash'
+    kebabCase,
+} from 'lodash';
 
 import {
     Card,
-    Media
-} from '../../'
+    Media,
+} from '../..';
+
+import { generateUrlLink } from '..';
 
 const TileRowCard = ({
+    id,
     title,
     coverImage,
     summary,
@@ -20,11 +23,12 @@ const TileRowCard = ({
     icon,
     onClick,
     urlBase,
-    label
+    label,
+    redirectUrl,
 }) => {
-    const style = !!onClick
+    const style = onClick
         ? { cursor: 'pointer' }
-        : {}
+        : {};
 
     return (
         <a
@@ -35,37 +39,40 @@ const TileRowCard = ({
                 'no-decoration',
                 'd-flex',
                 'flex-row',
-                'align-items-center'
+                'align-items-center',
             )}
-            href={`/${urlBase}/${kebabCase(title)}`}
+            {...generateUrlLink({
+                urlBase, title, id, redirectUrl,
+            })}
         >
             <div style={{ flex: 1 }}>
                 <Media
                     imageAlt={get(coverImage, '[0].name', 'Christ Fellowship Church')}
                     imageUrl={get(coverImage, '[0].uri', '')}
-                    ratio='1by1'
+                    ratio="1by1"
                     className={classnames(
                         'rounded',
                         'bg-light',
                     )}
                     mediaItemStyles={{
-                        boxShadow:'0 10px 9px -4px rgba(0, 0, 0, 0.25)'
+                        boxShadow: '0 10px 9px -4px rgba(0, 0, 0, 0.25)',
                     }}
                 />
             </div>
             <div
                 style={{ flex: 3 }}
                 className={classnames(
-                    'px-2'
+                    'px-2',
                 )}
             >
-                {label.value !== '' &&
-                    <h6
-                        className='text-secondary'
-                    >
-                        {label.value}
-                    </h6>
-                }
+                {label.value !== ''
+                    && (
+                        <h6
+                            className="text-secondary"
+                        >
+                            {label.value}
+                        </h6>
+                    )}
                 <h4 className="mb-0">
                     {title}
                 </h4>
@@ -77,8 +84,8 @@ const TileRowCard = ({
                 </p>
             </div>
         </a>
-    )
-}
+    );
+};
 
 TileRowCard.propTypes = {
     imageUrl: PropTypes.string,
@@ -92,8 +99,8 @@ TileRowCard.propTypes = {
         value: PropTypes.string,
         bg: PropTypes.string,
         textColor: PropTypes.string,
-    })
-}
+    }),
+};
 
 TileRowCard.defaultProps = {
     imageUrl: null,
@@ -105,8 +112,8 @@ TileRowCard.defaultProps = {
     label: {
         value: 'tags[0]',
         bg: 'dark',
-        textColor: 'white'
-    }
-}
+        textColor: 'white',
+    },
+};
 
-export default TileRowCard
+export default TileRowCard;

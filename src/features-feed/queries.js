@@ -1,6 +1,6 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
-import { LARGE_CARD_FRAGMENT } from '../content-card-connected'
+import { LARGE_CARD_FRAGMENT } from '../content-card-connected';
 
 export const GET_FEED_FEATURES = gql`
     query getFeedFeatures {
@@ -22,9 +22,8 @@ export const GET_FEED_FEATURES = gql`
                     relatedNode {
                         id
                     }
-                    hideLabel
                 }
             }
         }
     }
-`
+`;

@@ -35,17 +35,3 @@ export const GET_CURRENT_PERSON_CAMPUS = gql`
         }
     }
 `;
-
-export const GET_CAMPUS_ADDRESSES = gql`
-    query getCampuses {
-        campuses {
-            id
-            name
-        
-            street1
-            postalCode
-            state
-            city
-        }
-    }
-`;

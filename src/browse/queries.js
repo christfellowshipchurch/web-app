@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_FILTERS = gql`
     query getBrowseFilters {
@@ -14,7 +14,7 @@ export const GET_FILTERS = gql`
             }
         }
     }
-`
+`;
 
 export const GET_CATEGORIES_FROM_FILTER = gql`
     query getFilterCategories($id:ID!) {
@@ -34,7 +34,7 @@ export const GET_CATEGORIES_FROM_FILTER = gql`
             }
         }
     }
-`
+`;
 
 export const GET_CATEGORY_PREVIEW = gql`
     query getFilterCategories($id:ID!) {
@@ -54,5 +54,4 @@ export const GET_CATEGORY_PREVIEW = gql`
             }
         }
     }
-`
-
+`;

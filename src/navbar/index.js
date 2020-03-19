@@ -1,2 +1,2 @@
-export { default } from './Navbar'
-export { default as NavbarWithOpacity } from './NavbarWithOpacity'
+export { default } from './Navbar';
+export { default as NavbarWithOpacity } from './NavbarWithOpacity';

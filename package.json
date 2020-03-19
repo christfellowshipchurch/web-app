@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@apollo/react-testing": "^3.1.1",
+    "@apollosproject/config": "^1.3.0",
+    "@apollosproject/ui-fragments": "^1.3.0",
     "@babel/cli": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@christfellowshipchurch/web-fonts": "^1.0.0",
@@ -26,6 +28,7 @@
     "classnames": "^2.2.6",
     "formik": "^1.5.8",
     "graphql": "^14.1.1",
+    "graphql-tag": "^2.10.3",
     "html-to-react": "^1.3.4",
     "jest-coverage-badges": "^1.1.2",
     "lodash": "^4.17.11",

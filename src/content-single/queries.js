@@ -1,4 +1,22 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+import ApollosFragments from '@apollosproject/ui-fragments';
+import LocalFragments from '../localFragments';
+
+export const GET_CONTENT_ITEM = gql`
+  query getContentItem($itemId: ID!) {
+    node(id: $itemId) {
+      __typename
+      ... on ContentItem {
+        ...contentItemFragment
+        ...eventContentItemFragment
+        ...publishFragment
+      }
+    }
+  }
+  ${ApollosFragments.CONTENT_ITEM_FRAGMENT}
+  ${LocalFragments.EVENT_ITEM_FRAGMENT}
+  ${LocalFragments.PUBLISH_FRAGMENT}
+`;
 
 export const PUBLISH_FRAGMENT = gql`
     fragment publishFragment on ContentItem {
@@ -51,24 +69,28 @@ export const PUBLISH_FRAGMENT = gql`
             publishDate
         }
     }
-`
+`;
 
 export const ACCESSORY_FRAGMENT = gql`
     fragment accessoryFragment on ContentItem {
         ... on ContentSeriesContentItem {
             tags
+            icon
         }
         ... on UniversalContentItem {
             tags
+            icon
         }
         ... on DevotionalContentItem {
             tags
+            icon
         }
         ... on MediaContentItem {
             tags
+            icon
         }
     }
-`
+`;
 
 export const GET_ARTICLE_BY_TITLE = gql`
     query getContentItemByTitle($title:String!) {
@@ -96,7 +118,7 @@ export const GET_ARTICLE_BY_TITLE = gql`
     }
     ${ACCESSORY_FRAGMENT}
     ${PUBLISH_FRAGMENT}
-`
+`;
 
 export const GET_ARTICLE_CATEGORIES = gql`
     query getArticleCategories($id:ID!) {
@@ -107,7 +129,7 @@ export const GET_ARTICLE_CATEGORIES = gql`
         }
     }
     ${ACCESSORY_FRAGMENT}
-`
+`;
 
 export const GET_RELATED_ARTICLES = gql`
     query getRelatedArticles($id:ID!) {
@@ -130,7 +152,7 @@ export const GET_RELATED_ARTICLES = gql`
             }
         }
     }
-`
+`;
 export const GET_TOP_THREE_ARTICLES = gql`
     query getBrowseFilters {
         getBrowseFilters {
@@ -162,4 +184,4 @@ export const GET_TOP_THREE_ARTICLES = gql`
             }
         }
     }
-`
+`;

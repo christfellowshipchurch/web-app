@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Img from 'react-image'
-import Loaders from '../Loader'
+import Img from 'react-image';
+import Loaders from '../Loader';
 
 const MediaImage = ({ className, source, alt }) => (
   <Img
@@ -11,19 +11,19 @@ const MediaImage = ({ className, source, alt }) => (
     className={className}
     loader={<Loaders />}
   />
-)
+);
 
 const defaultProps = {
-  className: ''
-}
+  className: '',
+};
 
 const propTypes = {
   className: PropTypes.string,
   source: PropTypes.string.isRequired,
   alt: PropTypes.string.isRequired,
-}
+};
 
-MediaImage.propTypes = propTypes
-MediaImage.defaultProps = defaultProps
+MediaImage.propTypes = propTypes;
+MediaImage.defaultProps = defaultProps;
 
 export default MediaImage;

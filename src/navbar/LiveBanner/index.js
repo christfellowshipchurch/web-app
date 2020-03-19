@@ -1,47 +1,99 @@
-import React, { useState } from 'react'
-import { useQuery } from 'react-apollo'
-import { get } from 'lodash'
-import classnames from 'classnames'
-import moment from 'moment'
-import { faTimes } from '@fortawesome/fontawesome-pro-light'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react';
+import { useQuery } from 'react-apollo';
+import { get } from 'lodash';
+import classnames from 'classnames';
+import moment from 'moment';
+import { faTimes } from '@fortawesome/fontawesome-pro-light';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { GET_LIVE_STREAM } from './queries'
-import { redirectTo } from '../../utils'
-import { useAuth } from '../../auth'
+import { GET_LIVE_STREAM } from './queries';
+import { redirectTo } from '../../utils';
+import { useAuth } from '../../auth';
 
 const LiveBanner = () => {
-  const [closed, isClosed] = useState(false)
-  const { isLoggedIn } = useAuth()
+  const [closed, isClosed] = useState(false);
+  const { isLoggedIn } = useAuth();
 
   const { loading, error, data } = useQuery(GET_LIVE_STREAM, {
-    fetchPolicy: "network-only",
+    fetchPolicy: 'network-only',
     pollInterval: 60000,
-  })
+  });
 
-  if (loading || error) return null
+  const link = 'content/covid-19-update-06673de02b3cef9ed190656386c9de85';
 
-  const isLive = get(data, 'liveStream.isLive', false)
-  const startTime = moment(get(data, 'liveStream.eventStartTime', Date()))
+  return (
+    <div
+      className={classnames(
+        'w-100',
+        'justify-content-start',
+        'justify-content-md-center',
+        'align-items-center',
+        'p-2',
+        'bg-primary',
+        {
+          'd-none': closed,
+          'd-flex': !closed,
+        },
+      )}
+    >
+      <a
+        className={classnames(
+          'h4',
+          'mb-0',
+          'text-white',
+        )}
+        href={link}
+        target="_blank"
+      >
+        COVID-19 Updates
+      </a>
+      <div
+        style={{
+          fontSize: '20px',
+          position: 'absolute',
+          right: 10,
+        }}
+      >
+        <FontAwesomeIcon
+          className={classnames(
+            'cursor-hover',
+          )}
+          color={
+            lightBanner
+              ? 'grey'
+              : 'white'
+          }
+          icon={faTimes}
+          onClick={() => isClosed(true)}
+        />
+      </div>
+    </div>
+  );
+
+  // temporary fix to remove live banner
+  if (true || loading || error) return null;
+
+  const isLive = get(data, 'liveStream.isLive', false);
+  const startTime = moment(get(data, 'liveStream.eventStartTime', Date()));
   const halfHourBefore = moment(get(data, 'liveStream.eventStartTime', Date()))
-    .subtract(30, 'minutes')
-  const currentTime = moment()
+    .subtract(30, 'minutes');
+  const currentTime = moment();
 
-  let almostLive = false
+  let almostLive = false;
 
-  //checks if service starts in the next 30 min
+  // checks if service starts in the next 30 min
   if (!isLive) {
     if (currentTime.isBetween(halfHourBefore, startTime)) {
-      almostLive = true
+      almostLive = true;
     }
   }
 
-  //checks if the user is on home page AND logged out in order to display Light Banner
-  const page = window.location.pathname
-  let lightBanner
+  // checks if the user is on home page AND logged out in order to display Light Banner
+  const page = window.location.pathname;
+  let lightBanner;
   if (!isLoggedIn) {
     if (page === '' || page === '/') {
-      lightBanner = true
+      lightBanner = true;
     }
   }
 
@@ -57,8 +109,8 @@ const LiveBanner = () => {
           'bg-white': lightBanner,
           'bg-primary': !lightBanner,
           'd-none': closed,
-          'd-flex': !closed
-        }
+          'd-flex': !closed,
+        },
       )}
     >
       <a
@@ -68,37 +120,38 @@ const LiveBanner = () => {
           {
             'text-dark': lightBanner,
             'text-white': !lightBanner,
-          }
+          },
         )}
-        href='https://live.gochristfellowship.com/'
+        href="https://live.gochristfellowship.com/"
         target="_blank"
       >
         {almostLive
           ? 'We’re almost live! Join here!'
           : 'Join us for Church Online!'}
-        {!almostLive &&
-          <span
-            className={classnames(
-              'badge',
-              'badge-danger',
-              'mx-2',
-              'py-1',
-              'px-2',
-            )}
-            style={{
-              fontSize: '85%',
-              borderRadius: 3
-            }}
-          >
-            LIVE
-          </span>
-        }
+        {!almostLive
+          && (
+            <span
+              className={classnames(
+                'badge',
+                'badge-danger',
+                'mx-2',
+                'py-1',
+                'px-2',
+              )}
+              style={{
+                fontSize: '85%',
+                borderRadius: 3,
+              }}
+            >
+              LIVE
+            </span>
+          )}
       </a>
       <div
         style={{
           fontSize: '20px',
           position: 'absolute',
-          right: 10
+          right: 10,
         }}
       >
         <FontAwesomeIcon
@@ -108,13 +161,14 @@ const LiveBanner = () => {
           color={
             lightBanner
               ? 'grey'
-              : 'white'}
+              : 'white'
+          }
           icon={faTimes}
           onClick={() => isClosed(true)}
         />
       </div>
     </div>
-  ) : null
-}
+  ) : null;
+};
 
-export default LiveBanner
+export default LiveBanner;

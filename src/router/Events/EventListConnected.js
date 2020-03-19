@@ -91,7 +91,7 @@ const EventListConnected = () => {
         <div className="container-fluid my-6 px-4">
             <EventCollection title="Featured Events" events={featuredEvents} />
             <hr />
-            <EventCollection title="All Events and Opportunities" events={allEventsSorted} />
+            <EventCollection title="Upcoming Events" events={allEventsSorted} />
         </div>
     )
 }

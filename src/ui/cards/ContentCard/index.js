@@ -12,6 +12,8 @@ import {
     Media,
 } from '../..';
 
+import { generateUrlLink } from '..';
+
 const ContentCardWrapper = ({
     element,
     children,
@@ -29,7 +31,13 @@ const ContentCardWrapper = ({
     children,
 );
 
+const parseId = ({ urlBase, id }) => (urlBase === 'content'
+    ? `-${get(id.split(':'), '[1]', '')}`
+    : '');
+
 const ContentCard = ({
+    __typename,
+    id,
     title,
     coverImage,
     summary,
@@ -39,13 +47,14 @@ const ContentCard = ({
     urlBase,
     label,
     row,
+    redirectUrl,
 }) => {
     const style = onClick
         ? { cursor: 'pointer' }
         : {};
-    const href = !!title && title !== ''
-        ? `/${urlBase}/${kebabCase(title.toUpperCase())}`
-        : '#';
+    const href = generateUrlLink({
+        urlBase, title, id, redirectUrl,
+    });
 
     return (
         <a
@@ -59,7 +68,7 @@ const ContentCard = ({
                 'no-decoration',
                 'my-3',
             )}
-            href={href}
+            {...href}
         >
             <Card
                 fill
@@ -130,6 +139,14 @@ const ContentCard = ({
                                 {summary}
                             </p>
                         </div>
+                        {!!icon && icon !== ''
+                            && (
+                                <div className="col-1 text-right text-secondary">
+                                    <span className="h4">
+                                        <i className={`fal fa-${icon}`} />
+                                    </span>
+                                </div>
+                            )}
                     </div>
                 </div>
             </Card>
@@ -143,6 +160,7 @@ ContentCard.propTypes = {
     summary: PropTypes.string,
     onClick: PropTypes.func,
     as: PropTypes.string,
+    icon: PropTypes.string,
     urlBase: PropTypes.string,
     label: PropTypes.shape({
         value: PropTypes.string,
@@ -150,6 +168,7 @@ ContentCard.propTypes = {
         textColor: PropTypes.string,
     }),
     row: PropTypes.bool,
+    redirectUrl: PropTypes.string,
 };
 
 ContentCard.defaultProps = {
@@ -157,6 +176,7 @@ ContentCard.defaultProps = {
     title: null,
     onClick: null,
     as: 'div',
+    icon: null,
     urlBase: 'content',
     label: {
         value: 'tags[0]',
@@ -164,6 +184,7 @@ ContentCard.defaultProps = {
         textColor: 'white',
     },
     row: false,
+    redirectUrl: '',
 };
 
 export default ContentCard;
