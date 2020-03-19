@@ -20,7 +20,7 @@ const TileRowCardFeed = ({
     actions,
     isLoading
 }) => {
-
+    console.log({actions})
     return (
         <div
             className={classnames(
@@ -48,17 +48,18 @@ const TileRowCardFeed = ({
                                 </div>
                             </div>
                             <div className="row mx-n2">
-                                {actions.map(({ relatedNode }, i) =>
+                                {actions.map((action, i) =>
                                     <div
-                                        key={`TileRowCardFeed:${relatedNode.id}`}
+                                        key={`TileRowCardFeed:${action.relatedNode.id}`}
                                         className={classnames(
                                             'col-12',
                                             'col-md-6'
                                         )}
                                     >
                                         <ContentCardConnected
-                                            contentId={relatedNode.id}
+                                            contentId={action.relatedNode.id}
                                             card={TileRowCard}
+                                            hideLabel={action.hideLabel}
                                         />
                                     </div>
                                 )}

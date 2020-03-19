@@ -22,6 +22,7 @@ export const GET_FEED_FEATURES = gql`
                     relatedNode {
                         id
                     }
+                    hideLabel
                 }
             }
         }
