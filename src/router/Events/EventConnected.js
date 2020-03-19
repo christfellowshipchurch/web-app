@@ -5,6 +5,8 @@ import { get } from 'lodash';
 import {
     Loader,
 } from '../../ui';
+
+import ContentSingle from '../../content-single';
 import {
     EventDetail,
     EventBanner,
@@ -33,6 +35,10 @@ const EventConnected = ({ title }) => {
         // redirectTo('/events');
         return null;
     }
+
+    console.log({ content });
+
+    return <ContentSingle itemId={content.id} />;
 
     return [
         <EventBanner

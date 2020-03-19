@@ -38,6 +38,8 @@ const ConnectedEventSchedule = (props) => {
 
 const EventDetail = ({
   id,
+  title,
+  summary,
   htmlContent,
   tags,
   callsToAction,
@@ -46,12 +48,24 @@ const EventDetail = ({
 }) => (
     <div className={classnames(
       'container-fluid',
-      'mt-6',
       'mb-4',
       'px-3',
     )}
     >
-      <div className="row">
+      {(title !== ''
+        || summary !== '')
+        && (
+          <div className="mt-4 mb-2">
+            <h1 className="mb-2 text-dark">
+              {title}
+            </h1>
+            <h3 className="mt-1 content-subtitle font-weight-light">
+              {summary}
+            </h3>
+          </div>
+        )}
+
+      <div className="row mx-n2">
         <div className="col-12 col-lg-4 p-2">
           <ConnectedEventSchedule
             id={id}
