@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { useQuery } from 'react-apollo'
-import { get } from 'lodash'
-import moment from 'moment'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { useQuery } from 'react-apollo';
+import { get } from 'lodash';
+import moment from 'moment';
 
-import { Loader } from '../../ui'
-import ContentCardConnected from '../../content-card-connected'
+import { Loader } from '../../ui';
+import ContentCardConnected from '../../content-card-connected';
 
-import { GET_EVENTS } from './queries'
+import { GET_EVENTS } from './queries';
 
 const EventCollection = ({ title, events }) => ([
     <div
@@ -15,7 +15,7 @@ const EventCollection = ({ title, events }) => ([
         className="row pt-2"
     >
         <div className="col">
-            <h3 className='mb-0'>
+            <h3 className="mb-0">
                 {title}
             </h3>
         </div>
@@ -24,67 +24,70 @@ const EventCollection = ({ title, events }) => ([
         key={`EventCollection:${title}`}
         className="row mx-n2"
     >
-        {events.map((n, i) =>
+        {events.map((n, i) => (
             <ContentCardConnected
                 key={i}
                 contentId={n.id}
-                urlBase='events'
-                className='my-4'
+                urlBase="events"
+                className="my-4"
                 hideLabel={n.hideLabel}
                 label={{
                     field: (node) => {
-                        const mStart = moment(get(node, 'startDate', new Date()))
-                        let mEnd = null
-                        const end = get(node, 'endDate', null)
+                        const mStart = moment(get(node, 'startDate', new Date()));
+                        let mEnd = null;
+                        const end = get(node, 'endDate', null);
 
                         if (end) {
-                            mEnd = moment(end)
+                            mEnd = moment(end);
                             const format = mStart.month() === mEnd.month()
                                 ? 'D'
-                                : 'MMM D'
+                                : 'MMM D';
 
-                            return `${mStart.format('MMM D')} - ${mEnd.format(format)}`
+                            return `${mStart.format('MMM D')} - ${mEnd.format(format)}`;
                         }
 
-                        return mStart.format('MMM D')
+                        return mStart.format('MMM D');
                     },
                     bg: 'primary',
                     textColor: 'white',
                 }}
             />
-        )}
-    </div>
-])
+        ))}
+    </div>,
+]);
 
 EventCollection.propTypes = {
     title: PropTypes.string,
     events: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string,
         nextOccurrence: PropTypes.string,
-    }))
-}
+    })),
+};
 
 EventCollection.defaultProps = {
-    events: []
-}
+    events: [],
+};
 
 const EventListConnected = () => {
-    const { loading, error, data } = useQuery(GET_EVENTS)
+    const { loading, error, data } = useQuery(GET_EVENTS, { fetchPolicy: 'cache-and-network' });
 
-    if (loading) return <div style={{ position: 'relative', height: '50vh' }}><Loader /></div>
-    if (error) return <div className="p-2 p-md-5">
-        <div className="alert alert-danger" role="alert">
-            There was an error loading the content. Please try reloading the page.
+    if (loading) return <div style={{ position: 'relative', height: '50vh' }}><Loader /></div>;
+    if (error) {
+        return (
+            <div className="p-2 p-md-5">
+                <div className="alert alert-danger" role="alert">
+                    There was an error loading the content. Please try reloading the page.
         </div>
-    </div>
+            </div>
+        );
+    }
 
     const featuredEvents = get(data, 'featuredEvents.edges', []).map(
-        ({ node }) => node
-    )
+        ({ node }) => node,
+    );
     const allEventsSorted = get(data, 'allEvents', []).sort(
-        (a, b) =>
-            b.events.length - a.events.length ||
-            moment(a.nextOccurrence).diff(b.nextOccurrence)
+        (a, b) => b.events.length - a.events.length
+            || moment(a.nextOccurrence).diff(b.nextOccurrence),
     );
 
     return (
@@ -93,7 +96,7 @@ const EventListConnected = () => {
             <hr />
             <EventCollection title="Upcoming Events" events={allEventsSorted} />
         </div>
-    )
-}
+    );
+};
 
-export default EventListConnected
+export default EventListConnected;

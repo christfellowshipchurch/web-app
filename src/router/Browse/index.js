@@ -1,18 +1,20 @@
-import React from 'react'
+import React from 'react';
 import {
-    Switch, Route, Redirect
-} from 'react-router-dom'
-import { get } from 'lodash'
+    Switch, Route, Redirect,
+} from 'react-router-dom';
+import { get } from 'lodash';
 
-import { Browse } from '../../browse'
+import { Browse } from '../../browse';
 
 const BrowseUrlMapper = ({
-    match: { params }
-}) => <Browse
-        filter={get(params, 'filter', null)}
-        category={get(params, 'category', null)}
-        title={get(params, 'title', null)}
-    />
+    match: { params },
+}) => (
+        <Browse
+            filter={get(params, 'filter', null)}
+            category={get(params, 'category', null)}
+            title={get(params, 'title', null)}
+        />
+    );
 
 const Router = () => (
     <Switch>
@@ -22,6 +24,6 @@ const Router = () => (
 
         <Route path="*" component={Browse} />
     </Switch>
-)
+);
 
-export default Router
+export default Router;

@@ -22,7 +22,7 @@ const ContentSingleWithRouter = ({ match: { params: { contentTitle = '' } = {} }
 const CategoryUrlMapper = ({ match: { params: { category } } }) => {
     const { loading, error, data } = useQuery(
         GET_CATEGORY_BY_TITLE,
-        { variables: { title: category } },
+        { variables: { title: category }, fetchPolicy: 'cache-and-network' },
     );
 
     if (loading) return <Loader />;

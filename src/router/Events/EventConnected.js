@@ -18,7 +18,7 @@ import { useAuth } from '../../auth';
 const EventConnected = ({ title }) => {
     const { loading, error, data } = useQuery(
         GET_EVENT,
-        { variables: { title } },
+        { variables: { title }, fetchPolicy: 'cache-and-network' },
     );
 
     if (loading) return <Loader />;
