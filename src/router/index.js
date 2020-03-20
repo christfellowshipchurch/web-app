@@ -14,6 +14,8 @@ import Profile from './Profile';
 import Animations from './Animations';
 import Campuses from './Campuses';
 
+import { ErrorBlock } from '../ui'
+
 const Router = () => (
     <Switch>
         <Route exact path="/animations" component={Animations} />
@@ -26,6 +28,7 @@ const Router = () => (
         <Route path="/browse" component={Browse} />
         <Route path="/profile" component={Profile} />
         <Route path="/locations" component={Campuses} />
+        <Route path="/error" component={ErrorBlock} />
 
         <Route exact path="/:page" component={PageBuilder} />
 
