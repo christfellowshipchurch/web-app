@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons"
 import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 
-import { Card, AddToCalendar } from '../ui'
+import { Card, AddToCalendar } from '../../ui'
 import EventIcon from './eventIcon'
 
 const EventShare = ({

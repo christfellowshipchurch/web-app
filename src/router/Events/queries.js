@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_EVENT = gql`
     query getEvent($title: String!) {
@@ -34,7 +34,7 @@ export const GET_EVENT = gql`
             }
         }
     }
-`
+`;
 
 export const GET_EVENTS = gql`
     query getEvents {
@@ -76,4 +76,4 @@ export const GET_EVENTS = gql`
             start
         }
     }
-`
+`;
