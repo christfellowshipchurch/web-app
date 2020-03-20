@@ -1,5 +1,10 @@
 # Christ Fellowship Web App
 [![Package Version](https://img.shields.io/github/package-json/v/christfellowshipchurch/web-app.svg)](https://github.com/christfellowshipchurch/web-app)
+
+## Live Site
+[![Netlify Status](https://api.netlify.com/api/v1/badges/59817745-3a48-4020-9028-1630e394dc04/deploy-status)](https://app.netlify.com/sites/upbeat-pasteur-01cde4/deploys)
+
+## Beta Site
 [![Netlify Status](https://api.netlify.com/api/v1/badges/14629c48-db6b-49b0-950b-069dc1ae88f3/deploy-status)](https://app.netlify.com/sites/eloquent-hodgkin-806a2b/deploys)
 
 This is a repository for the Christ Fellowship website. 
