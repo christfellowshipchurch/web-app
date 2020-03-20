@@ -7,6 +7,7 @@ import {
 import { Media } from '../../ui';
 
 const EventBanner = ({
+  title,
   coverImage,
 }) => (
     <div className="p-relative">
@@ -16,7 +17,7 @@ const EventBanner = ({
       >
         <Media
           imageUrl={get(coverImage, 'sources[0].uri', '')}
-          imageAlt={get(coverImage, 'name', 'bg blur')}
+          imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
           ratio={{ xs: '1by1', md: '16by9' }}
           forceRatio
           className="absolute-center"
@@ -28,7 +29,7 @@ const EventBanner = ({
       <div className="max-width-1100 mx-auto px-3 pt-6">
         <Media
           imageUrl={get(coverImage, 'sources[0].uri', '')}
-          imageAlt={get(coverImage, 'name', 'bg blur')}
+          imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
           className="max-height-45-vh"
           ratio={{ xs: '1by1', md: '16by9' }}
           forceRatio
@@ -40,6 +41,7 @@ const EventBanner = ({
   );
 
 EventBanner.propTypes = {
+  title: PropTypes.string,
   coverImage: PropTypes.any, // eslint-disable-line
 };
 
