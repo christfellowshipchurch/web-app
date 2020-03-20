@@ -72,24 +72,24 @@ const ErrorBlock = ({
           <ErrorLink
             icon={onlineIcon}
             call='Watch Church Online'
-            action='https://christfellowshipchurch.online.church/'
+            action='https://live.christfellowship.church/'
           />
           <ErrorLink
             icon={homeIcon}
             call='Go to Home Page'
-            action='/'
+            action='https://christfellowship.church/'
           />
         </div>
-        <div className='col-6'>
+        <div className='col-md-6 col-12'>
             <ErrorLink
               icon={sermonIcon}
               call='Watch the Latest Sermon'
-              action='/browse'
+              action='https://www.youtube.com/user/christfellowship/videos'
             />
             <ErrorLink
               icon={contactIcon}
               call='Contact Us'
-              action={`mailto:hello@christfellowship.church`} 
+              action='https://rock.gocf.org/contactus'
             />
         </div>
       </div>

@@ -251,15 +251,15 @@ Footer.defaultProps = {
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
     resourceLinks: [
-        { call: 'Church Online', action: '/#' },
-        { call: 'Past Messages', action: '/#' },
-        { call: 'Ministry Updates', action: '/#' },
+        { call: 'Church Online', action: 'https://live.christfellowship.church/' },
+        { call: 'Past Messages', action: 'https://www.youtube.com/user/christfellowship/videos' },
+        { call: 'Ministry Updates', action: '/content/ministry-updates-d5bf6fa745f26bd019ea35882ecab86c' },
     ],
     connectLinks: [
-        { call: 'First Time Here', action: '/#' },
-        { call: 'Submit Prayer Request', action: '/#' },
-        { call: 'Join Us In Prayer', action: '/#' },
-        { call: 'Give Online', action: '/#' },
+        { call: 'First Time Here', action: 'https://rock.gocf.org/connect' },
+        { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
+        { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
+        { call: 'Give Online', action: 'https://pushpay.com/g/christfellowship' },
     ],
     socialMediaLinks: [],
 };
