@@ -8,11 +8,12 @@ import {
   homeIcon,
   sermonIcon
 } from './images'
+import { Media } from '../../ui'
 
 const ErrorLink = ({ icon, call, action }) => (
   <div className={classnames(
     'row',
-    'my-3',
+    'mt-3',
     'd-flex',
     'align-items-center'
   )}>
@@ -42,11 +43,11 @@ const ErrorBlock = ({
         'my-6'
       )}
     >
-      <img
-        src={bookImage}
-        style={{
-          maxWidth: 700,
-        }}
+      <Media
+        imageUrl={bookImage}
+        imageAlt='404 Image'
+        ratio='21by9'
+        className='w-75'
       />
       <h1
         className={classnames(
@@ -55,20 +56,21 @@ const ErrorBlock = ({
       >
         Page Not Found
       </h1>
-      <h4
+      <p
         className={classnames(
-          'font-weight-normal',
-          'my-2'
+          'text-center',
+          'my-2',
+          'mx-3'
         )}
       >
         The page you’re looking for doesn’t exist, or is unavailable. Here’s some helpful links instead:
-      </h4>
+      </p>
       <div className={classnames(
         'row',
-        'my-4',
+        'my-3',
         'w-75'
       )}>
-        <div className='col-6'>
+        <div className='col-md-6 col-12'>
           <ErrorLink
             icon={onlineIcon}
             call='Watch Church Online'
