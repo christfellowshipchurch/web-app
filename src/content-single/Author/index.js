@@ -23,7 +23,7 @@ const Author = ({ contentId }) => {
         variables: { id: contentId },
         fetchPolicy: 'cache-and-network',
     });
-    const authorImageSources = get(node, 'author.photo', '');
+    const authorImageSources = get(node, 'author.photo.uri', '');
     const firstName = get(node, 'author.firstName', '');
     const lastName = get(node, 'author.lastName', '');
     const authorName = `${firstName} ${lastName}`;
