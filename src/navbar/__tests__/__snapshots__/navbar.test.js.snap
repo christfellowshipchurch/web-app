@@ -1,12 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Navbar renders without crashing 1`] = `
+<Context.Provider
+  value={
+    Object {
+      "hideLogIn": [Function],
+      "isLoggedIn": false,
+      "logIn": [Function],
+      "logout": [Function],
+      "setToken": [Function],
+      "token": "",
+      "triggerLogIn": false,
+    }
+  }
+>
+  <NavbarConnected
+    bg="white"
+    brandImageKey="brandImage"
+    fixed={false}
+    onSelect={[Function]}
+    onToggle={[Function]}
+    variant="light"
+  />
+</Context.Provider>
+`;
+
 exports[`NavbarWithOpacity renders without crashing 1`] = `
-<NavbarConnected
-  bg="transparent"
-  brandImageKey="brandImageAlt"
-  fixed={true}
-  onSelect={[Function]}
-  onToggle={[Function]}
-  variant="dark"
-/>
+<Context.Provider
+  value={
+    Object {
+      "hideLogIn": [Function],
+      "isLoggedIn": false,
+      "logIn": [Function],
+      "logout": [Function],
+      "setToken": [Function],
+      "token": "",
+      "triggerLogIn": false,
+    }
+  }
+>
+  <NavbarWithOpacity
+    offset={50}
+  />
+</Context.Provider>
 `;
