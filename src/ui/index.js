@@ -6,6 +6,7 @@ import Button from './Button'
 import ButtonRow from './ButtonRow'
 import Carousel from './Carousel'
 import ContentContainer from './ContentContainer'
+import ErrorBlock from './ErrorBlock'
 import GroupBlock from './GroupBlock'
 import HeroSection from './HeroSection'
 import Layout from './Layout'
@@ -23,6 +24,7 @@ export {
     ButtonRow,
     Carousel,
     ContentContainer,
+    ErrorBlock,
     GroupBlock,
     HeroSection,
     Layout,
