@@ -172,15 +172,6 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents);
   };
 
-  // NOTE** would like to fix to use defaultProps instead in the future. As of now doesn't read empty arrays.
-  // if array is empty set to default button
-  if (callsToAction.length < 1) {
-    callsToAction = [{
-      call: 'Register',
-      action: '/#',
-    }];
-  }
-
   return (
     <>
       {!noEvents
@@ -253,7 +244,7 @@ const EventSchedule = ({
                   'my-3',
                 )}
                 href={n.action}
-                target={openLinksInNewTab ? '_blank' : ''}
+                target={n.action.includes('http') ? '_blank' : ''}
               >
                 {n.call}
               </a>
@@ -278,10 +269,7 @@ EventSchedule.propTypes = {
 
 EventSchedule.defaultProps = {
   defaultCampus: '',
-  callsToAction: [{
-    call: 'Register',
-    action: '/#',
-  }],
+  callsToAction: [],
 };
 
 export default EventSchedule;
