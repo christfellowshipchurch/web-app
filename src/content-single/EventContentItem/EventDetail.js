@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useQuery } from 'react-apollo';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
@@ -9,7 +8,6 @@ import {
   Card,
 } from '../../ui';
 import EventSchedule from './EventSchedule';
-import EventShare from './EventShare';
 
 import { CAMPUS_KEY } from '../../keys';
 import { htmlToReactParser } from '../../utils';
@@ -47,7 +45,7 @@ const EventDetail = ({
   events,
 }) => (
     <div className={classnames(
-      'container-fluid',
+      'container',
       'mb-4',
       'px-3',
     )}
@@ -66,7 +64,7 @@ const EventDetail = ({
         )}
 
       <div className="row mx-n2">
-        <div className="col-12 col-lg-4 p-2">
+        <div className="col-12 col-lg-5 p-2">
           <ConnectedEventSchedule
             id={id}
             callsToAction={callsToAction}
@@ -75,14 +73,14 @@ const EventDetail = ({
           />
         </div>
 
-        <div className="col-12 col-lg-8 p-2">
+        <div className="col-12 col-lg-7 p-2">
           <Card
-            className="py-3"
+            className=""
           >
             <h3 className="text-dark">
               Details
           </h3>
-            <div className="mb-5">
+            <div className="">
               {htmlToReactParser.parse(htmlContent)}
             </div>
 

@@ -198,7 +198,7 @@ const EventSchedule = ({
           'mb-3',
         )}
       >
-        <div className="py-3">
+        <div className="">
           {groupByLocationDate.map((event, i) => {
             const { location, dateTimes } = event;
             return (
