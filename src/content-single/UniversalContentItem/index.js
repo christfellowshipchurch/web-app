@@ -1,27 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 import {
-  useQuery,
-} from 'react-apollo';
+  get
+} from 'lodash'
+import { htmlToReactParser } from '../../utils'
 import {
-  get, toLower,
-} from 'lodash';
-import moment from 'moment';
-import { htmlToReactParser } from '../../utils';
-import {
-  Loader,
   Media,
-} from '../../ui';
-import Placeholder from './Placeholder';
+} from '../../ui'
+import Placeholder from './Placeholder'
 
-import Author from '../Author';
-import RelatedArticles from './RelatedContent';
-import ArticleCategories from './ContentCategories';
-import {
-  GET_CONTENT_ITEM,
-} from '../queries';
+import Author from '../Author'
+import RelatedArticles from './RelatedContent'
+import ArticleCategories from './ContentCategories'
 
-const DATE_FORMAT = 'MMMM D, YYYY';
 
 const ArticleDetail = ({
   itemId,
@@ -29,28 +20,28 @@ const ArticleDetail = ({
   error,
   content,
 }) => {
-  if (loading) return <Placeholder />;
+  if (loading) return <Placeholder />
 
   if (error) {
-    console.log({ error });
+    console.log({ error })
     // TODO : should we show an error? Or should we just redirect to the Articles page?
     return (
       <h3 className="text-center text-danger">
         There was an error loading this content. Try refreshing the page.
       </h3>
-    );
+    )
   }
-  const bodyText = get(content, 'htmlContent', '');
+  const bodyText = get(content, 'htmlContent', '')
 
-  const categoryTags = get(content, 'tags', []);
+  const categoryTags = get(content, 'tags', [])
 
   if (!content) {
-    console.error('Articles: Null was returned from the server');
+    console.error('Articles: Null was returned from the server')
     return (
       <h3 className="text-center text-danger">
         There was an error loading this content. Try refreshing the page.
       </h3>
-    );
+    )
   }
 
   return (
@@ -118,14 +109,14 @@ const ArticleDetail = ({
       </div>
       <RelatedArticles id={get(content, 'id')} />
     </>
-  );
-};
+  )
+}
 
 ArticleDetail.propTypes = {
   itemId: PropTypes.string,
-};
+}
 
 ArticleDetail.defaultProps = {
-};
+}
 
-export default ArticleDetail;
+export default ArticleDetail
