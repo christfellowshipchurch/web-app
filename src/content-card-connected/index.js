@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import moment from 'moment';
 
 import { ContentCard } from '../ui';
-import GET_CONTENT_CARD, { TILE_CARD_FRAGMENT, LARGE_CARD_FRAGMENT } from './queries';
+import GET_CONTENT_CARD from './queries';
 
 const ContentCardConnectedWithQuery = ({
     contentId,
@@ -46,6 +46,20 @@ const ContentCardConnectedWithQuery = ({
         labelValue = '';
     }
 
+    let urlBase = 'content';
+    switch (typename) {
+        case 'EventContentItem':
+            urlBase = 'events';
+            break;
+        case 'InformationalContentItem':
+            urlBase = 'items';
+            break;
+        default:
+            break;
+    }
+
+    urlBase = get(otherProps, 'baseUrl', urlBase);
+
     return React.createElement(
         card,
         {
@@ -59,9 +73,7 @@ const ContentCardConnectedWithQuery = ({
                 value: labelValue,
                 ...label,
             },
-            urlBase: typename === 'EventContentItem'
-                ? 'events'
-                : get(otherProps, 'baseUrl', 'content'),
+            urlBase,
         },
     );
 };

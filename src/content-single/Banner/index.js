@@ -6,7 +6,7 @@ import {
 
 import { Media } from '../../ui';
 
-const EventBanner = ({
+const Banner = ({
   title,
   coverImage,
 }) => (
@@ -40,7 +40,7 @@ const EventBanner = ({
     </div>
   );
 
-EventBanner.propTypes = {
+Banner.propTypes = {
   title: PropTypes.string,
   coverImage: PropTypes.shape({
     name: PropTypes.string,
@@ -48,9 +48,9 @@ EventBanner.propTypes = {
   }),
 };
 
-EventBanner.defaultProps = {
+Banner.defaultProps = {
   title: '',
   coverImage: {},
 };
 
-export default EventBanner;
+export default Banner;

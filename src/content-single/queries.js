@@ -9,6 +9,7 @@ export const GET_CONTENT_ITEM = gql`
       ... on ContentItem {
         ...contentItemFragment
         ...eventContentItemFragment
+        ...informationalContentItemFragment
         ...publishFragment
       }
     }
@@ -16,6 +17,7 @@ export const GET_CONTENT_ITEM = gql`
   ${ApollosFragments.CONTENT_ITEM_FRAGMENT}
   ${LocalFragments.EVENT_ITEM_FRAGMENT}
   ${LocalFragments.PUBLISH_FRAGMENT}
+  ${LocalFragments.INFORMATIONAL_ITEM_FRAGMENT}
 `;
 
 export const PUBLISH_FRAGMENT = gql`

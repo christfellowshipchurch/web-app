@@ -21,7 +21,7 @@ export default {
           start
         }
       }
-      ... on LinkContentItem {
+      ... on InformationalContentItem {
         redirectUrl
       }
     }
@@ -61,6 +61,14 @@ export default {
         action
       }
       hideLabel
+    }
+  `,
+  INFORMATIONAL_ITEM_FRAGMENT: gql`
+    fragment informationalContentItemFragment on InformationalContentItem {
+      callsToAction {
+        call
+        action
+      }
     }
   `,
   PUBLISH_FRAGMENT: gql`
