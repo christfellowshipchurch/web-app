@@ -26,7 +26,7 @@ const EventBanner = ({
         <div className="fill bg-black opacity-30" />
       </div>
 
-      <div className="max-width-800 mx-auto px-3 pt-6">
+      <div className="max-width-1100 mx-auto px-3 pt-6">
         <Media
           imageUrl={get(coverImage, 'sources[0].uri', '')}
           imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
