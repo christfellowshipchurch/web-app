@@ -6,7 +6,6 @@ export { default as ContentCard } from './ContentCard';
 export { default as TileRowCard } from './TileRowCard';
 export { default as HighlightCard } from './HighlightCard';
 
-
 export const generateUrlLink = ({
     urlBase, title, id, redirectUrl,
 }) => {
@@ -21,7 +20,7 @@ export const generateUrlLink = ({
         href.href = redirectUrl;
     } else {
         const prefix = kebabCase(title.toUpperCase());
-        const suffix = urlBase === 'content'
+        const suffix = urlBase === 'content' || urlBase === 'items'
             ? `-${get(id.split(':'), '[1]', '')}`
             : '';
 

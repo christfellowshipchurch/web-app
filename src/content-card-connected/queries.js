@@ -9,16 +9,7 @@ const GET_CONTENT_CARD = gql`
       __typename
       ...contentCardFragment
       ...accessoryFragment
-      ... on LinkContentItem {
-        title
-        summary
-        coverImage {
-          sources {
-            uri
-          }
-        }
-        redirectUrl
-      }
+      
     }
   }
   ${ApollosFragments.CONTENT_CARD_FRAGMENT}
