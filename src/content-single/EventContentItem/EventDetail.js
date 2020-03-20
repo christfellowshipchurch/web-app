@@ -45,7 +45,7 @@ const EventDetail = ({
   events,
 }) => (
     <div className={classnames(
-      'container',
+      'container-fluid',
       'mb-4',
       'px-3',
     )}
@@ -64,7 +64,7 @@ const EventDetail = ({
         )}
 
       <div className="row mx-n2">
-        <div className="col-12 col-lg-5 p-2">
+        <div className="col-12 col-lg-4 p-2">
           <ConnectedEventSchedule
             id={id}
             callsToAction={callsToAction}
@@ -73,7 +73,7 @@ const EventDetail = ({
           />
         </div>
 
-        <div className="col-12 col-lg-7 p-2">
+        <div className="col-12 col-lg-8 p-2">
           <Card
             className=""
           >
