@@ -17,6 +17,7 @@ import {
     BackgroundContentBlock,
     GroupBlock,
     Loader,
+    ErrorBlock,
 } from '../ui';
 import { Feature } from '../features';
 
@@ -44,7 +45,7 @@ const DefaultPage = ({ title }) => {
 
     if (error) {
         console.error('ERROR: ', { error });
-        return <h1 className="text-center">There was an error loading the page. Please try again.</h1>;
+        return <ErrorBlock />
     }
 
     let bgIndex = true;

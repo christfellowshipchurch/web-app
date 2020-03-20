@@ -10,12 +10,13 @@ import { htmlToReactParser } from '../utils';
 import {
   Loader,
   Media,
+  ErrorBlock
 } from '../ui';
 import RelatedArticles from './RelatedArticles';
 import ArticleCategories from './ArticleCategories';
 import {
   GET_ARTICLE_BY_TITLE,
-} from './queries';
+} from './queries'
 
 const DATE_FORMAT = 'MMMM D, YYYY';
 
@@ -31,24 +32,15 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
   if (loading) return <Loader />;
 
   if (error) {
-    console.log({ error });
-    // TODO : should we show an error? Or should we just redirect to the Articles page?
-    return (
-      <h3 className="text-center text-danger">
-        There was an error loading this content. Try refreshing the page.
-      </h3>
-    );
+    console.log({ error })
+    return <ErrorBlock/>
   }
 
   const article = get(data, 'getArticleByTitle', null);
 
   if (!article) {
     console.error('Articles: Null was returned from the server');
-    return (
-      <h3 className="text-center text-danger">
-        There was an error loading this content. Try refreshing the page.
-      </h3>
-    );
+    return <ErrorBlock />
   }
 
   const publishDate = get(article, 'publishDate', '') !== ''

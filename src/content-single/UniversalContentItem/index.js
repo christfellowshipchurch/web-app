@@ -11,6 +11,7 @@ import { htmlToReactParser } from '../../utils';
 import {
   Loader,
   Media,
+  ErrorBlock,
 } from '../../ui';
 import Placeholder from './Placeholder';
 
@@ -33,12 +34,7 @@ const ArticleDetail = ({
 
   if (error) {
     console.log({ error });
-    // TODO : should we show an error? Or should we just redirect to the Articles page?
-    return (
-      <h3 className="text-center text-danger">
-        There was an error loading this content. Try refreshing the page.
-      </h3>
-    );
+    return <ErrorBlock />
   }
   const bodyText = get(content, 'htmlContent', '');
 
