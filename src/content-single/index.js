@@ -6,6 +6,7 @@ import { get } from 'lodash';
 import { GET_CONTENT_ITEM } from './queries';
 import UniversalContentItem from './UniversalContentItem';
 import EventContentItem from './EventContentItem';
+import InformationalContentItem from './InformationalContentItem';
 
 const ContentSingle = ({ itemId }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_ITEM, {
@@ -25,6 +26,15 @@ const ContentSingle = ({ itemId }) => {
         case 'EventContentItem':
             return (
                 <EventContentItem
+                    itemId={itemId}
+                    content={content}
+                    loading={loading}
+                    error={error}
+                />
+            );
+        case 'InformationalContentItem':
+            return (
+                <InformationalContentItem
                     itemId={itemId}
                     content={content}
                     loading={loading}

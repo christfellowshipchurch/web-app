@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import Placeholder from './Placeholder';
 import Banner from '../Banner';
-import Detail from './EventDetail';
+import Detail from './Detail';
 
 const EventContentItem = ({
   itemId, content, loading, error,

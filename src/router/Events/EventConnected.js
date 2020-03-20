@@ -7,10 +7,6 @@ import {
 } from '../../ui';
 
 import ContentSingle from '../../content-single';
-import {
-    EventDetail,
-    EventBanner,
-} from '../../content-single/EventContentItem';
 import { CardFeed } from '../../content-feed';
 
 import { GET_EVENT } from './queries';
@@ -36,29 +32,7 @@ const EventConnected = ({ title }) => {
         return null;
     }
 
-    console.log({ content });
-
     return <ContentSingle itemId={content.id} />;
-
-    return [
-        <EventBanner
-            key={1}
-            {...content}
-        />,
-        <EventDetail
-            key={2}
-            {...content}
-        />,
-        // TODO : finish this
-        <CardFeed
-            key={3}
-            id={content.id}
-            title="Related Events"
-            urlBase="events"
-            connection="sibling"
-            first={3}
-        />,
-    ];
 };
 
 export default EventConnected;
