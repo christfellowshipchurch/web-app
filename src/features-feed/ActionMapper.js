@@ -72,6 +72,7 @@ const ActionMapper = ({
                             connection="child"
                             title={actionTitle}
                             first={3}
+                            urlBase="browse"
                         />
                     </FeatureSection>
                 );
