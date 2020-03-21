@@ -34,6 +34,7 @@ const RowFeed = ({
             child: connection === 'child',
             sibling: connection === 'sibling',
         },
+        fetchPolicy: 'cache-and-network',
     });
 
     if (loading) {
