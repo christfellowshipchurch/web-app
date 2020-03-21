@@ -114,7 +114,7 @@ const Swoop = ({
         );
     }
 
-    if (error) {
+    if (error || data.getWebsitePageContentByTitle === null) {
         console.error('ERROR: ', { error });
         return <ErrorBlock />
     }
