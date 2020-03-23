@@ -15,7 +15,7 @@ import {
 } from '../auth';
 
 export default ({ children }) => {
-    const [state, setState] = useState({ isLoading: true });
+    const [client, setClient] = useState(undefined);
     useEffect(() => {
         const setUpCache = async () => {
             const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -32,27 +32,25 @@ export default ({ children }) => {
                 },
             });
 
-            const apolloClient = new ApolloClient({
+            const client = new ApolloClient({
                 link: ApolloLink.from([authLink, httpLink]),
                 cache,
             });
+            const initData = {};
 
-            try {
-                // See above for additional options, including other storage providers.
-                persistCache({
-                    cache,
-                    storage: window.localStorage,
-                });
-            } catch (error) {
-                console.error('Error restoring Apollo cache', error);
-            }
-
-            setState({ client: apolloClient, isLoading: false });
+            persistCache({
+                cache,
+                storage: window.localStorage,
+            }).then(() => {
+                client.onResetStore(async () => cache.writeData({ data: initData }));
+                setClient(client);
+            });
+            return () => { };
         };
         setUpCache();
     }, []);
 
-    if (state.isLoading) {
+    if (client === undefined) {
         return (
             <div style={{ height: '100vh', width: '100vw' }}>
                 <Loader />
@@ -61,7 +59,7 @@ export default ({ children }) => {
     }
 
     return (
-        <ApolloProvider client={state.client}>
+        <ApolloProvider client={client}>
             {children}
         </ApolloProvider>
     );
