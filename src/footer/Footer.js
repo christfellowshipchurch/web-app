@@ -257,7 +257,7 @@ Footer.defaultProps = {
         { call: 'Give Online', action: 'https://pushpay.com/g/christfellowship' },
     ],
     connectLinks: [
-        { call: 'First Time Here', action: 'https://rock.gocf.org/connect' },
+        { call: 'New Here? Start Here!', action: 'https://rock.gocf.org/connect' },
         { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
         { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
         { call: 'Contact Us', action: 'https://rock.gocf.org/contactus' },
