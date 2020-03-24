@@ -1,43 +1,41 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
-  get
-} from 'lodash'
-import { htmlToReactParser } from '../../utils'
+  get,
+} from 'lodash';
+import { htmlToReactParser } from '../../utils';
 import {
   Media,
   ErrorBlock,
 } from '../../ui';
 import Placeholder from './Placeholder';
 
-import Author from '../Author'
-import RelatedArticles from './RelatedContent'
-import ArticleCategories from './ContentCategories'
+import Author from '../Author';
+import RelatedArticles from './RelatedContent';
+import ArticleCategories from './ContentCategories';
 
 
-const ArticleDetail = ({
+const UniversalContentItem = ({
   itemId,
   loading,
   error,
   content,
 }) => {
-  if (loading) return <Placeholder />
+  if (loading) return <Placeholder />;
 
   if (error) {
     console.log({ error });
-    return <ErrorBlock />
+    return <ErrorBlock />;
   }
-  const bodyText = get(content, 'htmlContent', '')
+  const bodyText = get(content, 'htmlContent', '');
 
-  const categoryTags = get(content, 'tags', [])
+  const categoryTags = get(content, 'tags', []);
 
   if (!content) {
-    console.error('Articles: Null was returned from the server')
+    console.error('Articles: Null was returned from the server');
     return (
-      <h3 className="text-center text-danger">
-        There was an error loading this content. Try refreshing the page.
-      </h3>
-    )
+      <ErrorBlock />
+    );
   }
 
   return (
@@ -105,14 +103,14 @@ const ArticleDetail = ({
       </div>
       <RelatedArticles id={get(content, 'id')} />
     </>
-  )
-}
+  );
+};
 
-ArticleDetail.propTypes = {
+UniversalContentItem.propTypes = {
   itemId: PropTypes.string,
-}
+};
 
-ArticleDetail.defaultProps = {
-}
+UniversalContentItem.defaultProps = {
+};
 
-export default ArticleDetail
+export default UniversalContentItem;
