@@ -36,7 +36,29 @@ const Detail = ({
         )}
 
       <div className="row mx-n2">
-        <div className="col-12 col-lg-8 p-2">
+        {callsToAction.length > 0 && (
+          <div className="col-12 col-md-5 col-lg-4 p-2">
+            <Card>
+              {callsToAction.map((cta, i) => (
+                <a
+                  key={`${cta.call}:${i}`}
+                  className={classnames(
+                    'btn',
+                    'btn-primary',
+                    'btn-block',
+                    'my-3',
+                  )}
+                  href={cta.action}
+                  target={cta.action.includes('http') ? '_blank' : ''}
+                >
+                  {cta.call}
+                </a>
+              ))}
+            </Card>
+          </div>
+        )}
+
+        <div className="col-12 col-md-7 col-lg-8 p-2">
           <Card
             className=""
           >
