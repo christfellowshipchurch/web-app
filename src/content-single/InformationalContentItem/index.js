@@ -6,9 +6,9 @@ import Placeholder from './Placeholder';
 import Banner from '../Banner';
 import Detail from './Detail';
 
-import { ErrorBlock } from '../../ui'
+import { ErrorBlock } from '../../ui';
 
-const EventContentItem = ({
+const InformationalContentItem = ({
   itemId, content, loading, error,
 }) => {
   if (loading) { return <Placeholder />; }
@@ -29,11 +29,11 @@ const EventContentItem = ({
   );
 };
 
-EventContentItem.propTypes = {
+InformationalContentItem.propTypes = {
   itemId: PropTypes.string,
 };
 
-EventContentItem.defaultProps = {
+InformationalContentItem.defaultProps = {
 };
 
-export default EventContentItem;
+export default InformationalContentItem;
