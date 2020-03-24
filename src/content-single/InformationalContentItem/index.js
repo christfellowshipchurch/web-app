@@ -6,6 +6,8 @@ import Placeholder from './Placeholder';
 import Banner from '../Banner';
 import Detail from './Detail';
 
+import { ErrorBlock } from '../../ui'
+
 const EventContentItem = ({
   itemId, content, loading, error,
 }) => {
@@ -15,9 +17,7 @@ const EventContentItem = ({
     console.log({ error });
     // TODO : should we show an error? Or should we just redirect to the Articles page?
     return (
-      <h3 className="text-center text-danger">
-        There was an error loading this content. Try refreshing the page.
-      </h3>
+      <ErrorBlock />
     );
   }
 

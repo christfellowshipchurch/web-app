@@ -34,9 +34,7 @@ const ArticleDetail = ({
   if (!content) {
     console.error('Articles: Null was returned from the server')
     return (
-      <h3 className="text-center text-danger">
-        There was an error loading this content. Try refreshing the page.
-      </h3>
+      <ErrorBlock />
     )
   }
 
