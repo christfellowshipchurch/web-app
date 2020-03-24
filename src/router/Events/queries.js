@@ -1,4 +1,6 @@
 import gql from 'graphql-tag';
+import ApollosFragments from '@apollosproject/ui-fragments';
+import LocalFragments from '../../localFragments';
 
 export const GET_EVENT = gql`
     query getEvent($title: String!) {
@@ -39,41 +41,21 @@ export const GET_EVENT = gql`
 export const GET_EVENTS = gql`
     query getEvents {
         allEvents {
-            ...eventsFragment
+            id
         }
 
         featuredEvents {
             edges {
                 node {
-                   ...eventsFragment
+                    id
                 }
             }
         }
     }
 
-    fragment eventsFragment on EventContentItem {
-        id
-        title
-        summary
-        hideLabel
-
-        nextOccurrence
-
-        coverImage {
-            name
-            sources {
-                uri
-            }
-        }
-
-        sharing {
-            url
-            title
-            message
-        }
-
-        events {
-            start
-        }
-    }
+    
 `;
+
+// ${ApollosFragments.CONTENT_CARD_FRAGMENT}
+//     ${LocalFragments.ACCESSORY_FRAGMENT}
+//     ${LocalFragments.EVENT_ITEM_FRAGMENT}

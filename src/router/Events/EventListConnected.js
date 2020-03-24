@@ -4,7 +4,7 @@ import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
 import moment from 'moment';
 
-import { Loader } from '../../ui';
+import { Loader, ContentCard } from '../../ui';
 import ContentCardConnected from '../../content-card-connected';
 
 import { GET_EVENTS } from './queries';
@@ -30,27 +30,7 @@ const EventCollection = ({ title, events }) => ([
                 contentId={n.id}
                 urlBase="events"
                 className="my-4"
-                hideLabel={n.hideLabel}
-                label={{
-                    field: (node) => {
-                        const mStart = moment(get(node, 'startDate', new Date()));
-                        let mEnd = null;
-                        const end = get(node, 'endDate', null);
-
-                        if (end) {
-                            mEnd = moment(end);
-                            const format = mStart.month() === mEnd.month()
-                                ? 'D'
-                                : 'MMM D';
-
-                            return `${mStart.format('MMM D')} - ${mEnd.format(format)}`;
-                        }
-
-                        return mStart.format('MMM D');
-                    },
-                    bg: 'primary',
-                    textColor: 'white',
-                }}
+                {...n}
             />
         ))}
     </div>,
@@ -65,7 +45,6 @@ EventCollection.propTypes = {
 };
 
 EventCollection.defaultProps = {
-    events: [],
 };
 
 const EventListConnected = () => {
@@ -85,16 +64,12 @@ const EventListConnected = () => {
     const featuredEvents = get(data, 'featuredEvents.edges', []).map(
         ({ node }) => node,
     );
-    const allEventsSorted = get(data, 'allEvents', []).sort(
-        (a, b) => b.events.length - a.events.length
-            || moment(a.nextOccurrence).diff(b.nextOccurrence),
-    );
 
     return (
         <div className="container-fluid my-6 px-4">
             <EventCollection title="Featured Events" events={featuredEvents} />
             <hr />
-            <EventCollection title="Upcoming Events" events={allEventsSorted} />
+            <EventCollection title="Upcoming Events" events={get(data, 'allEvents', [])} />
         </div>
     );
 };
