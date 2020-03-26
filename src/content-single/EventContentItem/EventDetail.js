@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import { useAuth, useAuthQuery } from '../../auth';
 
 import {
-  Card,
+  Card, Button
 } from '../../ui';
 import EventSchedule from './EventSchedule';
+import EventShare from './EventShare'
 
 import { CAMPUS_KEY } from '../../keys';
 import { htmlToReactParser } from '../../utils';
@@ -43,75 +44,97 @@ const EventDetail = ({
   callsToAction,
   openLinksInNewTab,
   events,
-}) => (
-    <div className={classnames(
-      'container-fluid',
-      'mb-4',
-      'px-3',
-    )}
-    >
-      {(title !== ''
-        || summary !== '')
-        && (
-          <div className="mt-4 mb-2">
-            <h1 className="mb-2 text-dark">
-              {title}
-            </h1>
-            <h3 className="mt-1 content-subtitle font-weight-light">
-              {summary}
-            </h3>
-          </div>
-        )}
+}) => {
+  const [ showShareCard, setShowShareCard ] = useState(false)
 
-      <div className="row mx-n2">
-        <div className="col-12 col-lg-4 p-2">
-          <ConnectedEventSchedule
-            id={id}
-            callsToAction={callsToAction}
-            openLinksInNewTab={openLinksInNewTab}
-            events={events}
-          />
+  return(
+      <div className={classnames(
+        'container-fluid',
+        'mb-4',
+        'px-3',
+      )}
+      >
+        <div
+          className={classnames(
+            'row',
+            'd-flex',
+            'align-items-center',
+            'justify-content-between'
+          )}
+        >
+          {(title !== ''
+            || summary !== '')
+            && (
+              <div className="mt-4 mb-2">
+                <h1 className="mb-2 text-dark">
+                  {title}
+                </h1>
+                <h3 className="mt-1 content-subtitle font-weight-light">
+                  {summary}
+                </h3>
+              </div>
+            )}
+            <div>
+              <Button 
+                onClick={() => setShowShareCard(true)}
+                title='Invite'
+              />
+            </div>
+        </div>
+        <div className="row mx-n2">
+          <div className="col-12 col-lg-4 p-2">
+            <ConnectedEventSchedule
+              id={id}
+              callsToAction={callsToAction}
+              openLinksInNewTab={openLinksInNewTab}
+              events={events}
+            />
+          </div>
+
+          <div className="col-12 col-lg-8 p-2">
+            <Card
+              className=""
+            >
+              <h3 className="text-dark">
+                Details
+            </h3>
+              <div className="">
+                {htmlToReactParser.parse(htmlContent)}
+              </div>
+
+              <div className="mx-n1">
+                {tags.map((n, i) => (
+                  <span
+                    key={i}
+                    className={classnames(
+                      'badge',
+                      'badge-light',
+                      'font-weight-normal',
+                      'py-2',
+                      'px-3',
+                      'mx-1',
+                    )}
+                  >
+                    {n}
+                  </span>
+                ))}
+              </div>
+            </Card>
+          </div>
         </div>
 
-        <div className="col-12 col-lg-8 p-2">
-          <Card
-            className=""
-          >
-            <h3 className="text-dark">
-              Details
-          </h3>
-            <div className="">
-              {htmlToReactParser.parse(htmlContent)}
-            </div>
-
-            <div className="mx-n1">
-              {tags.map((n, i) => (
-                <span
-                  key={i}
-                  className={classnames(
-                    'badge',
-                    'badge-light',
-                    'font-weight-normal',
-                    'py-2',
-                    'px-3',
-                    'mx-1',
-                  )}
-                >
-                  {n}
-                </span>
-              ))}
-            </div>
-          </Card>
+        <div className="row">
+          <div className="col-12 col-lg-4 p-2">
+            {showShareCard &&
+              <EventShare 
+                title={title}
+                onPressExit={() => setShowShareCard(false)}
+              />
+            }
+          </div>
         </div>
       </div>
-
-      {/* <div className="row">
-        <div className="col-12 col-lg-4 p-2">
-          <EventShare />
-        </div>
-      </div> */}
-    </div>
-  );
+    )};
 
 EventDetail.propTypes = {
   htmlContent: PropTypes.string,
