@@ -72,7 +72,10 @@ const ActionMapper = ({
                             connection="child"
                             title={actionTitle}
                             first={3}
-                            urlBase={`content/collection/${kebabCase(actionTitle)}-${relatedNode.id.split(':').pop()}`}
+                            urlBase={actionTitle === 'Popular Now'
+                                ? 'browse'
+                                : `content/collection/${kebabCase(actionTitle)}-${relatedNode.id.split(':').pop()}`
+                            }
                         />
                     </FeatureSection>
                 )
