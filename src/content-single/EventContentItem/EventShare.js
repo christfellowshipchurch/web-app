@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons"
 import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 
-import { Card, AddToCalendar } from '../../ui'
+import { Card, AddToCalendar, FloatingCard } from '../../ui'
 import EventIcon from './eventIcon'
 
 const EventShare = ({
@@ -25,15 +25,28 @@ const EventShare = ({
   description,
   address,
   startTime,
-  endTime
+  endTime,
+  onPressExit
 }) => {
+  console.log('url', document.URL)
   return (
     <div>
-      <Card className="p-3">
-        <div className='d-flex align-items-center'>
+      <FloatingCard 
+        className="p-3"
+        onPressExit={
+          () => onPressExit()
+        }
+      >
+        <div
+          className={classnames(
+            'd-flex',
+            'align-items-center',
+            'justify-content-center'
+            )}
+        >
           <EventIcon
             icon={faCalendarPlus}
-            className='mb-1 mr-2'
+            className='mr-2'
           />
           <AddToCalendar
             className={classnames(
@@ -54,7 +67,13 @@ const EventShare = ({
             }}
           />
         </div>
-        <div className='d-flex align-items-center'>
+        <div
+          className={classnames(
+            'd-flex',
+            'align-items-center',
+            'justify-content-center'
+            )}
+        >          
           <FacebookShareButton
             url={document.URL}
             quote={`Check out ${title} happening at Christ Fellowship Church!`}
@@ -68,7 +87,7 @@ const EventShare = ({
 
           <TwitterShareButton
             url={document.URL}
-            quote={`${title} at Christ Fellowship Church`}
+            title={`${title} at Christ Fellowship Church`}
           >
             <a href="#">
               <EventIcon
@@ -91,7 +110,7 @@ const EventShare = ({
           </EmailShareButton>
           <h4 className='mb-0 p-2 text-dark'>Share</h4>
         </div>
-      </Card>
+      </FloatingCard>
     </div>
 
   )
