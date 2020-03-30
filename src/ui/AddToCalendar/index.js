@@ -21,9 +21,14 @@ const AddToCalendar = ({
   event,
   type,
   title,
+  allDay,
   className,
   style
-}) => (
+}) => {
+
+  console.log({event})
+  
+  return(
     <Dropdown>
       <Dropdown.Toggle
         id={uniqueId('add-to-calendar-')}
@@ -36,25 +41,28 @@ const AddToCalendar = ({
 
       <Dropdown.Menu>
         <Dropdown.Item
-          href={icsLink(event)}
+          href={icsLink(event, allDay)}
+          target='_blank'
         >
           <FontAwesomeIcon icon={faApple} /> Apple
         </Dropdown.Item>
 
         <Dropdown.Item
-          href={googleCalLink(event)}
+          href={googleCalLink(event, allDay)}
+          target='_blank'
         >
           <FontAwesomeIcon icon={faGoogle} /> Google
         </Dropdown.Item>
 
         <Dropdown.Item
-          href={icsLink(event)}
+          href={icsLink(event, allDay)}
+          target='_blank'
         >
           <FontAwesomeIcon icon={faMicrosoft} /> Outlook
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-  )
+  )}
 
 AddToCalendar.propTypes = {
   event: PropTypes.shape({
@@ -77,12 +85,14 @@ AddToCalendar.propTypes = {
   ]),
   title: PropTypes.string,
   className: PropTypes.string,
+  allDay: PropTypes.bool,
   style: PropTypes.object
 }
 
 AddToCalendar.defaultProps = {
   type: 'link',
   title: 'Add to Calendar',
+  allDay: false,
   className: '',
   style: {}
 }

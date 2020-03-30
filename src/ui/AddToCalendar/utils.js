@@ -7,13 +7,23 @@ const formatEvent = (event) => ({
   address: get(event, 'address', ''),
   startTime: moment(get(event, 'startTime', new Date())).toISOString(),
   endTime: moment(
-    has(event, 'endTime')
+    get(event, 'endTime', null) === null
       ? get(event, 'endTime', new Date())
-      : get(event, 'startTime', new Date())
+      : get(event, 'startTime', moment(new Date()).add(1, 'h'))
   ).toISOString(),
 })
 
-export const googleCalLink = (event) => {
+const formatTime = (date, allDay) => {
+
+  //Checks if Calendar is set to all day, and removes time
+  let formattedDate = allDay
+      ?  moment.utc(date).format("YYYYMMDD")
+      :  moment.utc(date).format("YYYYMMDDTHHmmssZ")
+
+  return formattedDate.replace("+00:00", "Z")
+}
+
+export const googleCalLink = (event, allDay) => {
   const {
     title,
     description,
@@ -23,18 +33,17 @@ export const googleCalLink = (event) => {
   } = formatEvent(event)
 
   return encodeURI([
-    'https://www.google.com/calendar/render',
+    'https://calendar.google.com/calendar/render',
     '?action=TEMPLATE',
-    `&text=${title}`,
-    `&dates=${startTime}`,
-    `/${endTime}`,
-    `&details=${description}`,
+    `&dates=${formatTime(startTime, allDay)}`,
+    `/${formatTime(endTime, allDay)}`,
     `&location=${address}`,
-    '&sprop=&sprop=name:'
+    `&text=${title}`,
+    `&details=${description}`,
   ].join(''))
 }
 
-export const icsLink = (event) => {
+export const icsLink = (event, allDay) => {
   const {
     title,
     description,
@@ -49,8 +58,8 @@ export const icsLink = (event) => {
       'VERSION:2.0',
       'BEGIN:VEVENT',
       `URL:${document.URL}`,
-      `DTSTART:${startTime}`,
-      `DTEND:${endTime}`,
+      `DTSTART:${formatTime(startTime, allDay)}`,
+      `DTEND:${formatTime(endTime, allDay)}`,
       `SUMMARY:${title}`,
       `DESCRIPTION:${description}`,
       `LOCATION:${address}`,
