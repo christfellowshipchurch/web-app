@@ -99,7 +99,8 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
 const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   const id = 'event-campus-selection';
   const selectLocation = 'Select Location';
-  const options = [selectLocation, ...campuses];
+  // const options = [selectLocation, ...campuses];
+  const options = [...campuses];
   const [selected, setSelected] = useState(options.includes(defaultCampus)
     ? defaultCampus
     : options[0]);
@@ -212,7 +213,7 @@ const EventSchedule = ({
                   />
                 ))}
 
-                <div className="my-3">
+                {/* <div className="my-3">
                   <h4
                     className="mb-2"
                   >
@@ -225,7 +226,7 @@ const EventSchedule = ({
                   >
                     {location}
                   </a>
-                </div>
+                </div> */}
               </div>
             );
           })}
