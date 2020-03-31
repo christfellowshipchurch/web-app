@@ -23,10 +23,10 @@ const AddToCalendar = ({
   title,
   allDay,
   className,
-  style
+  style,
+  iCalendarDescription
 }) => {
 
-  console.log({event})
   
   return(
     <Dropdown>
@@ -41,7 +41,7 @@ const AddToCalendar = ({
 
       <Dropdown.Menu>
         <Dropdown.Item
-          href={icsLink(event, allDay)}
+          href={icsLink({ description: iCalendarDescription, ...event.props }, allDay)}
           target='_blank'
         >
           <FontAwesomeIcon icon={faApple} /> Apple
@@ -86,7 +86,8 @@ AddToCalendar.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   allDay: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.object,
+  iCalendarDescription: PropTypes.string
 }
 
 AddToCalendar.defaultProps = {
@@ -94,7 +95,8 @@ AddToCalendar.defaultProps = {
   title: 'Add to Calendar',
   allDay: false,
   className: '',
-  style: {}
+  style: {},
+  iCalendarDescription: `Join us for an event at Christ Fellowship!`
 }
 
 export default AddToCalendar

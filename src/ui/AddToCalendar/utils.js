@@ -1,21 +1,19 @@
 import { get, has } from 'lodash'
 import moment from 'moment'
 
+
 const formatEvent = (event) => ({
   title: get(event, 'title', 'Christ Fellowship Church Event'),
   description: get(event, 'description', ''),
   address: get(event, 'address', ''),
-  startTime: moment(get(event, 'startTime', new Date())).toISOString(),
-  endTime: moment(
-    get(event, 'endTime', null) === null
-      ? get(event, 'endTime', new Date())
-      : get(event, 'startTime', moment(new Date()).add(1, 'h'))
-  ).toISOString(),
+  startTime: moment(get(event, 'startTime', moment(new Date()))),
+  endTime: moment(get(event, 'endTime', moment(new Date()).add(1, 'h'))),
 })
 
 const formatTime = (date, allDay) => {
 
-  //Checks if Calendar is set to all day, and removes time
+  //Checks if Calendar is set to all day, formats to year/month/day
+  //TODO: Time issue with formatting to allDay
   let formattedDate = allDay
       ?  moment.utc(date).format("YYYYMMDD")
       :  moment.utc(date).format("YYYYMMDDTHHmmssZ")

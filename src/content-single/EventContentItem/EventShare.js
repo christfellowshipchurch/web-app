@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import moment from 'moment'
-import { get, lastIndexOf } from 'lodash'
+import { get } from 'lodash'
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -11,7 +10,8 @@ import {
 
 import {
   faCalendarPlus,
-  faEnvelope
+  faEnvelope,
+  faSms
 } from "@fortawesome/pro-light-svg-icons"
 import {
   faFacebookSquare,
@@ -30,9 +30,12 @@ const EventShare = ({
   className
 }) => {
 
-  const startTime = get(events, '[0].start', new Date())
-  const lastEvent = events.length - 1
-  const endTime = get(events, `[${lastEvent}].end`, new Date())
+  const startTime = get(events, '[0].start', null)
+  const lastEvent = events.length > 1 
+    ? events.length - 1
+    : 0
+  const endTime = get(events, `[${lastEvent}].end`, null)
+
   const smsMessage = ( string ) => {
     const encodedString = encodeURI(string)
     const url = `sms://?&body=${encodedString}`
@@ -71,7 +74,7 @@ const EventShare = ({
                     startTime,
                     endTime
                   }}
-                  
+                  // allDay
                 />
             </div>
         }
@@ -98,7 +101,7 @@ const EventShare = ({
               <EventIcon
                 icon={faTwitter}
                 color='primary'
-                className="mx-2"
+                className="mx-3"
               />
             </a>
           </TwitterShareButton>

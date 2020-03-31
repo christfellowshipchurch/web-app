@@ -82,9 +82,7 @@ const EventDetail = ({
         </div>
 
         <div className="col-12 col-lg-8 p-2">
-          <Card
-            className=""
-          >
+          <Card>
             <h3 className="text-dark">
               Details
           </h3>

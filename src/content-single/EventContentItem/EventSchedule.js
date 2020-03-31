@@ -232,9 +232,9 @@ const EventSchedule = ({
           })}
 
           {!!noEvents && callsToAction.length > 0
-            && <h3 className="mb-n4">Get Started</h3>}
+            && <h3>Get Started</h3>}
 
-          <div className={classnames({ 'mt-5': callsToAction.length > 0 })}>
+          <div>
             {callsToAction.map((n, i) => (
               <a
                 key={i}
