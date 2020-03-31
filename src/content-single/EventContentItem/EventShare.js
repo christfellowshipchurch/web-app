@@ -33,6 +33,11 @@ const EventShare = ({
   const startTime = get(events, '[0].start', new Date())
   const lastEvent = events.length - 1
   const endTime = get(events, `[${lastEvent}].end`, new Date())
+  const smsMessage = ( string ) => {
+    const encodedString = encodeURI(string)
+    const url = `sms://?&body=${encodedString}`
+    return url
+  }
 
   console.log({startTime, endTime})
 
@@ -110,6 +115,18 @@ const EventShare = ({
               />
             </a>
           </EmailShareButton>
+          <a 
+            href={smsMessage(`Join me for ${title} at Christ Fellowship! ${document.URL}`)}
+            className={classnames(
+              'mx-3',
+              'd-md-none'
+            )}
+          >
+            <EventIcon
+                icon={faSms}
+                color='primary'
+            />
+          </a>
         </div>
       </Card>
     </div>
