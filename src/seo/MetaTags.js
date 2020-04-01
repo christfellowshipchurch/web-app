@@ -9,7 +9,7 @@ const metaTags = ({ title, description, keywords, openGraphProtocols, twitterPro
             <meta name="description" content={description} />
             <meta name="keywords" content={keywords.join(',')} />
 
-            {openGraphProtocols.map((n, i) => <meta name={`og:${n.name}`} content={n.content} key={i} />)}
+            {openGraphProtocols.map((n, i) => <meta property={`og:${n.name}`} content={n.content} key={i} />)}
             {twitterProtocols.map((n, i) => <meta name={`twitter:${n.name}`} content={n.content} key={i} />)}
         </MetaTags>
     )
@@ -33,12 +33,12 @@ const defaultProps = {
     description: defaultItems.description,
     keywords: ['Church', 'Christ Fellowship', 'Christ Fellowship Church', 'Churches in South Florida'],
     openGraphProtocols: [
-        { name: 'title', content: defaultItems.title },
-        { name: 'description', content: defaultItems.description },
-        { name: 'image', content: '' },
-        { name: 'site_name', content: defaultItems.title },
-        { name: 'url', content: 'https://gochristfellowship.com' },
-        { name: 'type', content: 'website' },
+        { property: 'title', content: defaultItems.title },
+        { property: 'description', content: defaultItems.description },
+        { property: 'image', content: 'https://cloudfront.christfellowship.church/GetImage.ashx?guid=b3511d0a-5bd1-4026-94d1-2a37083621fe' },
+        { property: 'site_name', content: defaultItems.title },
+        { property: 'url', content: 'https://gochristfellowship.com' },
+        { property: 'type', content: 'website' },
     ],
     twitterProtocols: [
         { name: 'title', content: defaultItems.title },
