@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { get } from 'lodash'
+import { get, includes, toLower } from 'lodash'
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -43,7 +43,20 @@ const EventShare = ({
     return url
   }
 
-  const shareMessages = {
+  // TODO: Come up with a different fix for Easter!!!!
+  const isEaster = includes(toLower(title), 'easter')
+
+  const shareMessages = isEaster 
+  ? {
+    faceBookShare: `An Online Easter Service Just for You`,
+    twitterShare: `I'll be watching Easter at Christ Fellowship online! \n Will you?`,
+    emailShare: {
+      subject: `An Online Easter Service Just for You`,
+      body: `Hey, \n\n I'm gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out EasteratCF.com to view when the service times are, as well as how you can watch online.`,
+    },
+    smsShare: `Hey, I'm gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? If so, check out EasteratCF.com to view when the service times are, as well as how you can watch online.`
+  }
+  : {
     faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
     twitterShare: `${title} at Christ Fellowship Church`,
     emailShare: {
@@ -83,7 +96,10 @@ const EventShare = ({
                     startTime,
                     endTime
                   }}
-                  alternateDescription={`Join us for ${title} at Christ Fellowship!`}
+                  alternateDescription={isEaster
+                    ? `Tune in to an online Easter service at Christ Fellowship via your phone, laptop, or TV. \n\n To view an online Easter service, click the link below.`
+                    : `Join us for ${title} at Christ Fellowship!`
+                  }
                 />
             </div>
         }
