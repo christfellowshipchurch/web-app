@@ -8,7 +8,6 @@ const metaTags = ({ title, description, keywords, openGraphProtocols, twitterPro
             <title>{title}</title>
             <meta name="description" content={description} />
             <meta name="keywords" content={keywords.join(',')} />
-            <meta property='og:image' content={image} />
 
             {openGraphProtocols.map((n, i) => <meta property={`og:${n.name}`} content={n.content} key={i} />)}
             {twitterProtocols.map((n, i) => <meta name={`twitter:${n.name}`} content={n.content} key={i} />)}
@@ -28,7 +27,6 @@ const propTypes = {
     keywords: PropTypes.arrayOf(PropTypes.string),
     openGraphProtocols: PropTypes.arrayOf(PropTypes.object),
     twitterProtocols: PropTypes.arrayOf(PropTypes.object),
-    image: PropTypes.string
 }
 const defaultProps = {
     title: defaultItems.title,
@@ -47,8 +45,7 @@ const defaultProps = {
         { name: 'description', content: defaultItems.description },
         { name: 'image', content: '' },
         { name: 'url', content: defaultItems.url },
-    ],
-    image: 'https://cloudfront.christfellowship.church/GetImage.ashx?guid=378fe8f3-9ae1-487a-9468-165f12bfef9b'
+    ]
 }
 
 metaTags.propTypes = propTypes;

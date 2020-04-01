@@ -21,20 +21,6 @@ const EventContentItem = ({
 
   return (
     <div>
-      <SEO 
-        title={get(content, 'title', 'Christ Fellowship')}
-        image={get(content, 'coverImage.sources[0].uri', '')}
-        // openGraphProtocols={[
-        //   {
-        //     property: 'title',
-        //     content: get(content, 'title', 'Christ Fellowship')
-        //   },
-        //   {
-        //     property: 'image',
-        //     content: get(content, 'coverImage.sources[0].uri', '')
-        //   }
-        // ]}
-      />
       <Banner {...content} />
       <Detail {...content} />
     </div>
