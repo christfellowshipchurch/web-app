@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
 import { ErrorBlock } from '../../ui'
+import SEO from '../../seo'
 
 import Placeholder from './Placeholder';
 import Banner from '../Banner';
@@ -20,6 +21,18 @@ const EventContentItem = ({
 
   return (
     <div>
+      <SEO 
+        openGraphProtocols={[
+          {
+            property: 'title',
+            content: get(content, 'title', 'Christ Fellowship')
+          },
+          {
+            property: 'image',
+            content: get(content, 'coverImage.sources[0].uri', '')
+          }
+        ]}
+      />
       <Banner {...content} />
       <Detail {...content} />
     </div>

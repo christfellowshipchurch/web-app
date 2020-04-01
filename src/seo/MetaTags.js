@@ -18,7 +18,7 @@ const metaTags = ({ title, description, keywords, openGraphProtocols, twitterPro
 const defaultItems = {
     title: 'Christ Fellowship Church',
     description: 'At Christ Fellowship Church, our goal is to help you know God, grow in your relationships, and discover your purpose so that you can impact the world.',
-    url: 'https://gochristfellowship.com'
+    url: 'https://christfellowship.church'
 }
 
 const propTypes = {
@@ -35,9 +35,9 @@ const defaultProps = {
     openGraphProtocols: [
         { property: 'title', content: defaultItems.title },
         { property: 'description', content: defaultItems.description },
-        { property: 'image', content: 'https://cloudfront.christfellowship.church/GetImage.ashx?guid=b3511d0a-5bd1-4026-94d1-2a37083621fe' },
+        { property: 'image', content: '' },
         { property: 'site_name', content: defaultItems.title },
-        { property: 'url', content: 'https://gochristfellowship.com' },
+        { property: 'url', content: 'https://christfellowship.church' },
         { property: 'type', content: 'website' },
     ],
     twitterProtocols: [
