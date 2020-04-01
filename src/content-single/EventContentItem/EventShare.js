@@ -17,7 +17,6 @@ import {
   faFacebookSquare,
   faTwitter
 } from "@fortawesome/free-brands-svg-icons"
-import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 import { Card, AddToCalendar } from '../../ui'
 import EventIcon from './eventIcon'
@@ -30,19 +29,29 @@ const EventShare = ({
   className
 }) => {
 
+  // Gets the very first and very last time of Schedules
   const startTime = get(events, '[0].start', null)
   const lastEvent = events.length > 1 
     ? events.length - 1
     : 0
   const endTime = get(events, `[${lastEvent}].end`, null)
 
-  const smsMessage = ( string ) => {
+  // Creates URL for SMS
+  const smsUrl = ( string ) => {
     const encodedString = encodeURI(string)
     const url = `sms://?&body=${encodedString}`
     return url
   }
 
-  console.log({startTime, endTime})
+  const shareMessages = {
+    faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
+    twitterShare: `${title} at Christ Fellowship Church`,
+    emailShare: {
+        subject: `${title} at Christ Fellowship Church`,
+        body: `Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n ${document.URL}`,
+      },
+    smsShare: `Join me for ${title} at Christ Fellowship! ${document.URL}`
+    }
 
   return (
     <div
@@ -51,7 +60,7 @@ const EventShare = ({
       <Card>
         <h3>Share</h3>
         {events.length != 0 &&
-          <div className='d-flex align-items-center px-3'>
+          <div className='d-flex d-block align-items-center px-3'>
               <EventIcon
                 icon={faCalendarPlus}
                 className='mr-2'
@@ -74,7 +83,7 @@ const EventShare = ({
                     startTime,
                     endTime
                   }}
-                  // allDay
+                  alternateDescription={`Join us for ${title} at Christ Fellowship!`}
                 />
             </div>
         }
@@ -83,7 +92,7 @@ const EventShare = ({
         <div className='d-flex align-items-center px-3'>
           <FacebookShareButton
             url={document.URL}
-            quote={`Check out ${title} happening at Christ Fellowship Church!`}
+            quote={shareMessages.faceBookShare}
           >
             <a href="#">
               <EventIcon
@@ -95,7 +104,7 @@ const EventShare = ({
 
           <TwitterShareButton
             url={document.URL}
-            quote={`${title} at Christ Fellowship Church`}
+            quote={shareMessages.twitterShare}
           >
             <a href="#">
               <EventIcon
@@ -108,8 +117,8 @@ const EventShare = ({
 
           <EmailShareButton
             url={document.URL}
-            subject={`${title} at Christ Fellowship Church`}
-            body={`Check out ${title} happening at Christ Fellowship Church! I would love for you to join me.`}
+            subject={shareMessages.emailShare.subject}
+            body={shareMessages.emailShare.body}
           >
             <a href="#">
               <EventIcon
@@ -119,7 +128,7 @@ const EventShare = ({
             </a>
           </EmailShareButton>
           <a 
-            href={smsMessage(`Join me for ${title} at Christ Fellowship! ${document.URL}`)}
+            href={smsUrl(shareMessages.smsShare)}
             className={classnames(
               'mx-3',
               'd-md-none'
@@ -134,8 +143,7 @@ const EventShare = ({
       </Card>
     </div>
 
-  )
-}
+  )}
 
 EventShare.propType = {
   title: PropTypes.string.isRequired,
