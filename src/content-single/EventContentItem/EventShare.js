@@ -49,7 +49,7 @@ const EventShare = ({
   const shareMessages = isEaster 
   ? {
     faceBookShare: `An Online Easter Service Just for You`,
-    twitterShare: `I'll be watching Easter at Christ Fellowship online! \n Will you?`,
+    twitterShare: `I'll be watching Easter at Christ Fellowship online! \nWill you? \n`,
     emailShare: {
       subject: `An Online Easter Service Just for You`,
       body: `Hey, \n\n I'm gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out EasteratCF.com to view when the service times are, as well as how you can watch online.`,
@@ -120,7 +120,7 @@ const EventShare = ({
 
           <TwitterShareButton
             url={document.URL}
-            quote={shareMessages.twitterShare}
+            title={shareMessages.twitterShare}
           >
             <a href="#">
               <EventIcon
