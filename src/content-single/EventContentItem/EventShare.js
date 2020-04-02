@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import { get, includes, toLower } from 'lodash'
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -9,13 +10,13 @@ import {
 
 import {
   faCalendarPlus,
-  faEnvelope
+  faEnvelope,
+  faSms
 } from "@fortawesome/pro-light-svg-icons"
 import {
   faFacebookSquare,
   faTwitter
 } from "@fortawesome/free-brands-svg-icons"
-import { faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 import { Card, AddToCalendar } from '../../ui'
 import EventIcon from './eventIcon'
@@ -24,93 +25,129 @@ const EventShare = ({
   title,
   description,
   address,
-  startTime,
-  endTime
+  events,
+  className
 }) => {
+
+  // Gets the very first and very last schedule
+  const startTime = get(events, '[0].start', null)
+  const lastEvent = events.length > 1 
+    ? events.length - 1
+    : 0
+  const endTime = get(events, `[${lastEvent}].end`, null)
+
+  // Creates URL for SMS
+  const smsUrl = ( string ) => {
+    const encodedString = encodeURI(string)
+    const url = `sms://?&body=${encodedString}`
+    return url
+  }
+
   return (
-    <div>
-      <Card className="p-3">
-        <div className='d-flex align-items-center'>
-          <EventIcon
-            icon={faCalendarPlus}
-            className='mb-1 mr-2'
-          />
-          <AddToCalendar
-            className={classnames(
-              "p-0",
-              "text-dark",
-              "font-weight-bold",
-            )}
-            style={{
-              fontSize: '1.125rem',
-              letterSpacing: 'normal'
-            }}
-            event={{
-              title,
-              description,
-              address,
-              startTime,
-              endTime
-            }}
-          />
-        </div>
-        <div className='d-flex align-items-center'>
+    <div
+      className={className}
+    >
+      <Card>
+        <h3>Share</h3>
+        {events.length != 0 &&
+          <div className='d-flex align-items-center px-3'>
+              <EventIcon
+                icon={faCalendarPlus}
+                className='mr-2'
+              />
+                <AddToCalendar
+                  className={classnames(
+                    "p-0",
+                    "text-dark",
+                    "font-weight-bold",
+                  )}
+                  style={{
+                    fontSize: '1.125rem',
+                    letterSpacing: 'normal'
+                  }}
+                  event={{
+                    title,
+                    description,
+                    // Location is the webUrl for now
+                    address: document.URL,
+                    startTime,
+                    endTime
+                  }}
+                  alternateDescription={`Join us for ${title} at Christ Fellowship!`}
+                  allDay
+                />
+            </div>
+        }
+          
+       
+        <div className='d-flex align-items-center px-3'>
           <FacebookShareButton
             url={document.URL}
-            quote={`Check out ${title} happening at Christ Fellowship Church!`}
+            quote={shareMessages.faceBookShare}
           >
             <a href="#">
               <EventIcon
                 icon={faFacebookSquare}
+                color='primary'
               />
             </a>
           </FacebookShareButton>
 
           <TwitterShareButton
             url={document.URL}
-            quote={`${title} at Christ Fellowship Church`}
+            title={shareMessages.twitterShare}
           >
             <a href="#">
               <EventIcon
                 icon={faTwitter}
-                className="mx-2"
+                color='primary'
+                className="mx-3"
               />
             </a>
           </TwitterShareButton>
 
           <EmailShareButton
             url={document.URL}
-            subject={`${title} at Christ Fellowship Church`}
-            body={`Check out ${title} happening at Christ Fellowship Church! I would love if you joined ne.`}
+            subject={shareMessages.emailShare.subject}
+            body={shareMessages.emailShare.body}
           >
             <a href="#">
               <EventIcon
                 icon={faEnvelope}
+                color='primary'
               />
             </a>
           </EmailShareButton>
-          <h4 className='mb-0 p-2 text-dark'>Share</h4>
+          <a 
+            href={smsUrl(shareMessages.smsShare)}
+            className={classnames(
+              'mx-3',
+              'd-md-none'
+            )}
+          >
+            <EventIcon
+                icon={faSms}
+                color='primary'
+            />
+          </a>
         </div>
       </Card>
     </div>
 
-  )
-}
+  )}
 
 EventShare.propType = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  location: PropTypes.string.isRequired,
-  startTime: PropTypes.string.isRequired,
-  endTime: PropTypes.string,
+  address: PropTypes.string.isRequired,
+  events: PropTypes.array
 }
 
 EventShare.defaultProps = {
   title: "Caleb's Event",
   description: "This event is being hosted by Caleb and you should come.",
-  address: "5343 Northlake Blvd. Palm Beach Gardens, FL 33418",
-  startTime: 'November 1, 2019 8:00pm',
-  endTime: 'November 1, 2019 9:00pm',
+  address: document.URL,
+  events: [],
 }
 
 export default EventShare
