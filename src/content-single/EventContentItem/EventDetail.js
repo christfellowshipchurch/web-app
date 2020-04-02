@@ -111,7 +111,8 @@ const EventDetail = ({
           <EventShare 
             className='d-lg-none mt-3'
             title={title}
-            description={summary}
+            description={htmlContent}
+            events={events}
           />
         </div>
       </div>

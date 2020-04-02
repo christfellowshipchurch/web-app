@@ -75,7 +75,7 @@ const EventShare = ({
       <Card>
         <h3>Share</h3>
         {events.length != 0 &&
-          <div className='d-flex d-block align-items-center px-3'>
+          <div className='d-flex align-items-center px-3'>
               <EventIcon
                 icon={faCalendarPlus}
                 className='mr-2'
