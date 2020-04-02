@@ -5,16 +5,23 @@ const formatEvent = (event) => ({
   title: get(event, 'title', 'Christ Fellowship Church Event'),
   description: get(event, 'description', ''),
   address: get(event, 'address', ''),
-  startTime: moment(get(event, 'startTime', new Date())).toISOString(),
+  startTime: moment(get(event, 'startTime', moment(new Date()))),
   endTime: moment(
     has(event, 'endTime')
       ? get(event, 'endTime', new Date())
       : get(event, 'startTime', new Date())
-  ).toISOString(),
+  ),
 })
 
-export const googleCalLink = (event) => {
-  const {
+const formatTime = (date, allDay) => { 
+  let formattedDate = allDay
+    ? moment.utc(date).format("YYYYMMDD")  
+    : moment.utc(date).format("YYYYMMDDTHHmmssZ")
+  return formattedDate.replace("+00:00", "Z")
+}
+
+export const googleCalLink = (event, allDay) => {
+  let {
     title,
     description,
     address,
@@ -22,26 +29,36 @@ export const googleCalLink = (event) => {
     endTime
   } = formatEvent(event)
 
+  //NOTE: when using all day format(removing time), the time defaults to midnight. 
+  // In order to show correct days, we must add a day to the endTime
+
+  if(allDay) {
+    endTime = moment(endTime).add(1, 'day')
+  }
+
   return encodeURI([
-    'https://www.google.com/calendar/render',
+    'https://calendar.google.com/calendar/render',
     '?action=TEMPLATE',
-    `&text=${title}`,
-    `&dates=${startTime}`,
-    `/${endTime}`,
-    `&details=${description}`,
+    `&dates=${formatTime(startTime, allDay)}`,
+    `/${formatTime(endTime, allDay)}`,
     `&location=${address}`,
-    '&sprop=&sprop=name:'
+    `&text=${title}`,
+    `&details=${description}`,
   ].join(''))
 }
 
-export const icsLink = (event) => {
-  const {
+export const icsLink = (event, allDay) => {
+  let {
     title,
     description,
     address,
     startTime,
     endTime
   } = formatEvent(event)
+
+  if(allDay) {
+    endTime = moment(endTime).add(1, 'day')
+  }
 
   return (
     'data:text/calendar;charset=utf8,' + [
@@ -49,8 +66,8 @@ export const icsLink = (event) => {
       'VERSION:2.0',
       'BEGIN:VEVENT',
       `URL:${document.URL}`,
-      `DTSTART:${startTime}`,
-      `DTEND:${endTime}`,
+      `DTSTART:${formatTime(startTime, allDay)}`,
+      `DTEND:${formatTime(endTime, allDay)}`,
       `SUMMARY:${title}`,
       `DESCRIPTION:${description}`,
       `LOCATION:${address}`,
