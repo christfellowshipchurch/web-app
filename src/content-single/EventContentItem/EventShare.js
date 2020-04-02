@@ -43,6 +43,16 @@ const EventShare = ({
     return url
   }
 
+  const shareMessages =  {
+      faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
+      twitterShare: `${title} at Christ Fellowship Church`,
+      emailShare: {
+          subject: `${title} at Christ Fellowship Church`,
+          body: `Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n ${document.URL}`,
+        },
+      smsShare: `Join me for ${title} at Christ Fellowship! ${document.URL}`
+    }
+
   return (
     <div
       className={className}
