@@ -43,7 +43,22 @@ const EventShare = ({
     return url
   }
 
-  const shareMessages =  {
+  // TODO: Come up with a different fix for Easter!!!!
+  // If the title is for Easter it will use the specific prewritten messages for that event.
+  // Else it will use the generic messages.
+  const isEaster = includes(toLower(title), 'easter')
+
+  const shareMessages = isEaster 
+    ? {
+      faceBookShare: `An Online Easter Service Just for You`,
+      twitterShare: `I'll be watching Easter at Christ Fellowship online! \nWill you? \n`,
+      emailShare: {
+        subject: `An Online Easter Service Just for You`,
+        body: `Hey, \n\n I'm gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out EasteratCF.com to view when the service times are, as well as how you can watch online.`,
+      },
+      smsShare: `Hey, I'm gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? If so, check out EasteratCF.com to view when the service times are, as well as how you can watch online.`
+    }
+    : {
       faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
       twitterShare: `${title} at Christ Fellowship Church`,
       emailShare: {
@@ -51,7 +66,7 @@ const EventShare = ({
           body: `Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n ${document.URL}`,
         },
       smsShare: `Join me for ${title} at Christ Fellowship! ${document.URL}`
-    }
+      }
 
   return (
     <div
@@ -83,7 +98,10 @@ const EventShare = ({
                     startTime,
                     endTime
                   }}
-                  alternateDescription={`Join us for ${title} at Christ Fellowship!`}
+                  alternateDescription={isEaster
+                    ? `Tune in to an online Easter service at Christ Fellowship via your phone, laptop, or TV. \n\n To view an online Easter service, click the link below.`
+                    : `Join us for ${title} at Christ Fellowship!`
+                  }
                   allDay
                 />
             </div>
