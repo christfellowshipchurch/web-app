@@ -1,7 +1,6 @@
 import { get, has } from 'lodash'
 import moment from 'moment'
 
-
 const formatEvent = (event) => ({
   title: get(event, 'title', 'Christ Fellowship Church Event'),
   description: get(event, 'description', ''),
@@ -10,25 +9,30 @@ const formatEvent = (event) => ({
   endTime: moment(get(event, 'endTime', moment(new Date()).add(1, 'h'))),
 })
 
-const formatTime = (date, allDay) => {
-
-  //Checks if Calendar is set to all day, formats to year/month/day
-  //TODO: Time issue with formatting to allDay
+const formatTime = (date, allDay) => { 
   let formattedDate = allDay
-      ?  moment.utc(date).format("YYYYMMDD")
-      :  moment.utc(date).format("YYYYMMDDTHHmmssZ")
-
+    ? moment.utc(date).format("YYYYMMDD")  
+    : moment.utc(date).format("YYYYMMDDTHHmmssZ")
   return formattedDate.replace("+00:00", "Z")
 }
 
 export const googleCalLink = (event, allDay) => {
-  const {
+  let {
     title,
     description,
     address,
     startTime,
     endTime
   } = formatEvent(event)
+
+  //NOTE: when using all day format(removing time), the time defaults to midnight. 
+  // In order to show correct days, we must subtract a day from the startTime 
+  // and add one to the endTime
+
+  if(allDay) {
+    startTime = moment(startTime).subtract(1, 'day')
+    endTime = moment(endTime).add(1, 'day')
+  }
 
   return encodeURI([
     'https://calendar.google.com/calendar/render',
@@ -42,13 +46,18 @@ export const googleCalLink = (event, allDay) => {
 }
 
 export const icsLink = (event, allDay) => {
-  const {
+  let {
     title,
     description,
     address,
     startTime,
     endTime
   } = formatEvent(event)
+
+  if(allDay) {
+    startTime = moment(startTime).subtract(1, 'day')
+    endTime = moment(endTime).add(1, 'day')
+  }
 
   return (
     'data:text/calendar;charset=utf8,' + [

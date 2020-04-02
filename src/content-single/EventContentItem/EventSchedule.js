@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import {
   flatMapDepth,
   identity,
@@ -8,27 +8,27 @@ import {
   uniqBy,
   groupBy,
   keys,
-} from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from 'lodash'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCalendarAlt,
   faClock,
   faAngleDown,
-} from '@fortawesome/fontawesome-pro-regular';
+} from '@fortawesome/fontawesome-pro-regular'
 import {
   Dropdown,
-} from 'react-bootstrap';
-import moment from 'moment';
+} from 'react-bootstrap'
+import moment from 'moment'
 
 import {
   Card,
-} from '../../ui';
-import Icon from './eventIcon';
-import { getDirectionsUrl } from '../../utils';
+} from '../../ui'
+import Icon from './eventIcon'
+import { getDirectionsUrl } from '../../utils'
 
 const EventTimes = ({ date, times, className }) => {
-  const mDate = moment(date);
-  const currentUtcOffset = moment().format('ZZ');
+  const mDate = moment(date)
+  const currentUtcOffset = moment().format('ZZ')
 
   return (
     <div
@@ -50,8 +50,8 @@ const EventTimes = ({ date, times, className }) => {
       {uniqBy(times, 'start')
         .sort((a, b) => moment(a.start).diff(moment(b.start)))
         .map((t) => {
-          const utc = moment.utc(t.start);
-          const local = moment(utc).utcOffset(currentUtcOffset);
+          const utc = moment.utc(t.start)
+          const local = moment(utc).utcOffset(currentUtcOffset)
 
           return (
             <div key={`${date}:${t.start}`}>
@@ -63,11 +63,11 @@ const EventTimes = ({ date, times, className }) => {
                 {local.format('LT')}
               </h4>
             </div>
-          );
+          )
         })}
     </div>
-  );
-};
+  )
+}
 
 const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
@@ -78,8 +78,8 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
     }}
     ref={ref}
     onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
+      e.preventDefault()
+      onClick(e)
     }}
   >
     <span className="h4">
@@ -94,19 +94,20 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
       </span>
     </span>
   </div>
-));
+))
 
 const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
-  const id = 'event-campus-selection';
-  const selectLocation = 'Select Location';
-  // const options = [selectLocation, ...campuses];
-  const options = [...campuses];
+  const id = 'event-campus-selection'
+  const selectLocation = 'Select Location'
+  // const options = [selectLocation, ...campuses]
+  // Defaults to first Campus for now
+  const options = [...campuses]
   const [selected, setSelected] = useState(options.includes(defaultCampus)
     ? defaultCampus
-    : options[0]);
+    : options[0])
 
   // when the selection changes, call the onChange method
-  useEffect(() => onChange(selected), [selected]);
+  useEffect(() => onChange(selected), [selected])
 
 
   return (
@@ -114,9 +115,9 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
       <Dropdown
         id={id}
         onSelect={(key, e) => {
-          e.preventDefault();
-          const index = parseInt(key, 10);
-          setSelected(options[index]);
+          e.preventDefault()
+          const index = parseInt(key, 10)
+          setSelected(options[index])
         }}
       >
         <Dropdown.Toggle
@@ -140,8 +141,8 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
         </Dropdown.Menu>
       </Dropdown>
     </Card>
-  );
-};
+  )
+}
 
 const EventSchedule = ({
   defaultCampus,
@@ -149,29 +150,29 @@ const EventSchedule = ({
   openLinksInNewTab,
   events,
 }) => {
-  const [visibleOccurrences, setVisibleOccurrences] = useState([]);
-  const noEvents = events.length < 1;
+  const [visibleOccurrences, setVisibleOccurrences] = useState([])
+  const noEvents = events.length < 1
 
   const campusOptions = uniq(flatMapDepth(
     events.map((e) => e.campuses.map((c) => c.name)),
     identity,
     2,
-  ));
-  const groupByLocations = groupBy(visibleOccurrences, 'location');
+  ))
+  const groupByLocations = groupBy(visibleOccurrences, 'location')
   const groupByLocationDate = keys(groupByLocations).map((l) => {
     const dateTimes = groupBy(
       groupByLocations[l],
       (o) => moment(o.start).format('YYYY-MM-DD'),
-    );
+    )
 
-    return { location: l, dateTimes };
-  });
+    return { location: l, dateTimes }
+  })
 
   const onChange = (campus) => {
-    const campusEvents = events.filter((e) => e.campuses.find((c) => c.name === campus));
+    const campusEvents = events.filter((e) => e.campuses.find((c) => c.name === campus))
 
-    setVisibleOccurrences(campusEvents);
-  };
+    setVisibleOccurrences(campusEvents)
+  }
 
   return (
     <>
@@ -192,7 +193,7 @@ const EventSchedule = ({
       >
         <div className="">
           {groupByLocationDate.map((event, i) => {
-            const { location, dateTimes } = event;
+            const { location, dateTimes } = event
             return (
               <div
                 key={`EventOccurence:${i}`}
@@ -228,7 +229,7 @@ const EventSchedule = ({
                   </a>
                 </div> */}
               </div>
-            );
+            )
           })}
 
           {!!noEvents && callsToAction.length > 0
@@ -254,8 +255,8 @@ const EventSchedule = ({
         </div>
       </Card>
     </>
-  );
-};
+  )
+}
 
 EventSchedule.propTypes = {
   id: PropTypes.string.isRequired,
@@ -266,11 +267,11 @@ EventSchedule.propTypes = {
       action: PropTypes.string,
     }),
   ).isRequired,
-};
+}
 
 EventSchedule.defaultProps = {
   defaultCampus: '',
   callsToAction: [],
-};
+}
 
-export default EventSchedule;
+export default EventSchedule
