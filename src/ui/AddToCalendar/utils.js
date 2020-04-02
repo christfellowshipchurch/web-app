@@ -26,11 +26,9 @@ export const googleCalLink = (event, allDay) => {
   } = formatEvent(event)
 
   //NOTE: when using all day format(removing time), the time defaults to midnight. 
-  // In order to show correct days, we must subtract a day from the startTime 
-  // and add one to the endTime
+  // In order to show correct days, we must add a day to the endTime
 
   if(allDay) {
-    startTime = moment(startTime).subtract(1, 'day')
     endTime = moment(endTime).add(1, 'day')
   }
 
@@ -55,7 +53,6 @@ export const icsLink = (event, allDay) => {
   } = formatEvent(event)
 
   if(allDay) {
-    startTime = moment(startTime).subtract(1, 'day')
     endTime = moment(endTime).add(1, 'day')
   }
 
