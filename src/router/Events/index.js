@@ -10,7 +10,7 @@ import redirects from '../../redirects.json'
 
 const EventDetailLayout = ({ match: { params: { eventName } } }) => {
     const page = eventName
-    const redirect = redirects[page]
+    const redirect = redirects[decodeURI(page)]
 
     // check if the redirects.json file has a redirect for this page
     if (!!redirect && redirect !== '') {

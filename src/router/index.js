@@ -1,39 +1,39 @@
-import React from 'react';
+import React from 'react'
 import {
     Switch, Route,
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import PageBuilder from './PageBuilder';
-import HomePage from './Home';
-import Login from './Login';
-import Events from './Events';
-import Articles from './Articles';
-import Browse from './Browse';
-import Content from './Content';
-import Items from './Items';
-import Profile from './Profile';
-import Animations from './Animations';
-import Campuses from './Campuses';
-import Live from './Live';
+import PageBuilder from './PageBuilder'
+import HomePage from './Home'
+import Login from './Login'
+import Events from './Events'
+import Articles from './Articles'
+import Browse from './Browse'
+import Content from './Content'
+import Items from './Items'
+import Profile from './Profile'
+import Animations from './Animations'
+import Campuses from './Campuses'
+import Live from './Live'
 
-import { ErrorBlock } from '../ui';
+import { ErrorBlock } from '../ui'
 
-import redirects from '../redirects.json';
+import redirects from '../redirects.json'
 
 const RedirectMapper = (props) => {
     // get page title from props
-    const { match: { params: { page } = {} } = {} } = props;
-    const redirect = redirects[page];
+    const { match: { params: { page } = {} } = {} } = props
+    const redirect = redirects[decodeURI(page)]
 
     // check if the redirects.json file has a redirect for this page
     if (!!redirect && redirect !== '') {
-        window.location.href = redirect;
-        return null; // return null so nothing is rendered while the redirect is happening
+        window.location.href = redirect
+        return null // return null so nothing is rendered while the redirect is happening
     }
 
     // if no redirect, proceed to the Page Builder
-    return <PageBuilder {...props} />;
-};
+    return <PageBuilder {...props} />
+}
 
 const Router = () => (
     <Switch>
@@ -55,6 +55,6 @@ const Router = () => (
 
         <Route path="*" component={HomePage} />
     </Switch>
-);
+)
 
-export default Router;
+export default Router
