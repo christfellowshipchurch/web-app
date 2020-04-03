@@ -21,9 +21,13 @@ const AddToCalendar = ({
   event,
   type,
   title,
+  allDay,
   className,
-  style
-}) => (
+  style,
+  alternateDescription
+}) => {
+
+  return(
     <Dropdown>
       <Dropdown.Toggle
         id={uniqueId('add-to-calendar-')}
@@ -35,26 +39,32 @@ const AddToCalendar = ({
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
+        {/* Apple Calendar */}
         <Dropdown.Item
-          href={icsLink(event)}
+          href={icsLink({ ...event, description: alternateDescription }, allDay)}
+          target='_blank'
         >
           <FontAwesomeIcon icon={faApple} /> Apple
         </Dropdown.Item>
 
+        {/* Google Calendar */}
         <Dropdown.Item
-          href={googleCalLink(event)}
+          href={googleCalLink(event, allDay)}
+          target='_blank'
         >
           <FontAwesomeIcon icon={faGoogle} /> Google
         </Dropdown.Item>
 
+        {/* Outlook */}
         <Dropdown.Item
-          href={icsLink(event)}
+          href={icsLink({ ...event, description: alternateDescription }, allDay)}
+          target='_blank'
         >
           <FontAwesomeIcon icon={faMicrosoft} /> Outlook
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-  )
+  )}
 
 AddToCalendar.propTypes = {
   event: PropTypes.shape({
@@ -77,14 +87,16 @@ AddToCalendar.propTypes = {
   ]),
   title: PropTypes.string,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  alternateDescription: PropTypes.string,
 }
 
 AddToCalendar.defaultProps = {
   type: 'link',
   title: 'Add to Calendar',
   className: '',
-  style: {}
+  style: {},
+  alternateDescription: `Join us for an event at Christ Fellowship!`,
 }
 
 export default AddToCalendar

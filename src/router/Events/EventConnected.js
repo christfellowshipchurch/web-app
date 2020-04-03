@@ -3,7 +3,7 @@ import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
 
 import {
-    Loader,
+    Loader, ErrorBlock
 } from '../../ui';
 
 import ContentSingle from '../../content-single';
@@ -28,8 +28,7 @@ const EventConnected = ({ title }) => {
     const content = get(data, 'getEventContentByTitle', null);
 
     if (!content) {
-        // redirectTo('/events');
-        return null;
+        return <ErrorBlock />
     }
 
     return <ContentSingle itemId={content.id} />;
