@@ -1,14 +1,27 @@
-import React from 'react';
+import React from 'react'
 import {
     Switch, Route, Redirect,
-} from 'react-router-dom';
+} from 'react-router-dom'
 
-import EventConnected from './EventConnected';
-import EventListConnected from './EventListConnected';
+import EventConnected from './EventConnected'
+import EventListConnected from './EventListConnected'
 
-const EventDetailLayout = ({ match: { params: { eventName } } }) => (
-    <EventConnected title={eventName} />
-);
+import redirects from '../../redirects.json'
+
+const EventDetailLayout = ({ match: { params: { eventName } } }) => {
+    const page = eventName
+    const redirect = redirects[page]
+
+    // check if the redirects.json file has a redirect for this page
+    if (!!redirect && redirect !== '') {
+        window.location.href = redirect
+        return null // return null so nothing is rendered while the redirect is happening
+    }
+
+    // if no redirect, proceed to the Router
+    return <EventConnected title={eventName} />
+}
+
 
 const Router = () => (
     <Switch>
@@ -17,6 +30,6 @@ const Router = () => (
         <Route path="*" component={EventListConnected} />
 
     </Switch>
-);
+)
 
-export default Router;
+export default Router
