@@ -74,7 +74,6 @@ const EventDetail = ({
             events={events}
           />
           <EventShare 
-            className='d-none d-lg-block mt-3'
             title={title}
             description={htmlContent}
             events={events}
@@ -108,12 +107,6 @@ const EventDetail = ({
               ))}
             </div>
           </Card>
-          <EventShare 
-            className='d-lg-none mt-3'
-            title={title}
-            description={htmlContent}
-            events={events}
-          />
         </div>
       </div>
     </div>
