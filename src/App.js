@@ -3,6 +3,7 @@ import React from 'react';
 import Router from './router';
 import Footer from './footer';
 import SEO from './seo';
+import Metadata from './metadata';
 import Navbar, { NavbarWithOpacity } from './navbar';
 import LogIn from './login';
 
@@ -18,7 +19,7 @@ const App = () => {
 
   return (
     <div>
-      <SEO />
+      <Metadata />
 
       <Navbar />
 

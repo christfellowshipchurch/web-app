@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { get } from 'lodash';
 
+import Metadata from '../../metadata';
 import {
     Media,
 } from '../../ui';
@@ -35,6 +36,7 @@ const Author = ({ contentId }) => {
 
     return (
         <div className="py-4 d-flex align-items-center">
+            <Metadata tags={[{ name: 'author', content: authorName }]} />
             {authorImageSources.length > 0
                 && (
                     <Media

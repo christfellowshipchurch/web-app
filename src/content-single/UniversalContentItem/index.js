@@ -14,7 +14,6 @@ import Author from '../Author';
 import RelatedArticles from './RelatedContent';
 import ArticleCategories from './ContentCategories';
 
-
 const UniversalContentItem = ({
   itemId,
   loading,

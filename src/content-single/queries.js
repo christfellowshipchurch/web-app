@@ -13,6 +13,11 @@ export const GET_CONTENT_ITEM = gql`
         ...publishFragment
       }
     }
+
+    metadata(relatedNode:$itemId) {
+        name
+        content
+    }
   }
   ${ApollosFragments.CONTENT_ITEM_FRAGMENT}
   ${LocalFragments.EVENT_ITEM_FRAGMENT}
