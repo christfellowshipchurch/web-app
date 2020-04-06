@@ -128,7 +128,7 @@ const ContentCard = ({
                     >
                         <div className="col pr-1">
                             <h4
-                                className="mb-1"
+                                className="mb-2"
                             >
                                 {title}
                             </h4>
