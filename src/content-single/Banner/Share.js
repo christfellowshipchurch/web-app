@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  get, includes, toLower, uniqueId,
+  includes, toLower, uniqueId,
 } from 'lodash';
 import {
   FacebookShareButton,
@@ -23,6 +23,7 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { GoogleAnalytics } from '../../seo'
 
 const Share = ({
   title,
@@ -64,6 +65,7 @@ const Share = ({
     <Dropdown
       drop="up"
       alignRight={false}
+      onClick={() => GoogleAnalytics.buttonClick(`Invite Button - ${title}`)}
     >
       <Dropdown.Toggle
         id={uniqueId('share-')}
@@ -79,6 +81,7 @@ const Share = ({
       <Dropdown.Menu>
         <Dropdown.Item
           target="_blank"
+          onClick={() => GoogleAnalytics.buttonClick(`Facebook Share Button - ${title}`)}
         >
           <FacebookShareButton
             url={document.URL}
@@ -95,6 +98,7 @@ const Share = ({
 
         <Dropdown.Item
           target="_blank"
+          onClick={() => GoogleAnalytics.buttonClick(`Twitter Share Button - ${title}`)}
         >
           <TwitterShareButton
             url={document.URL}
@@ -111,6 +115,7 @@ const Share = ({
 
         <Dropdown.Item
           target="_blank"
+          onClick={() => GoogleAnalytics.buttonClick(`Email Share Button - ${title}`)}
         >
           <EmailShareButton
             url={document.URL}
@@ -130,6 +135,7 @@ const Share = ({
           href={smsUrl(shareMessages.smsShare)}
           target="_blank"
           className="d-md-none"
+          onClick={() => GoogleAnalytics.buttonClick(`SMS Share Button - ${title}`)}
         >
           <span className="mr-2">
             <FontAwesomeIcon

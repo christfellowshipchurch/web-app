@@ -1,3 +1,7 @@
 import MetaTags from './MetaTags';
+import GoogleAnalytics from './GoogleAnalytics'
 
-export default MetaTags;
+export {
+    MetaTags,
+    GoogleAnalytics
+}
