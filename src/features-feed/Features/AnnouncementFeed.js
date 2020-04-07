@@ -65,30 +65,36 @@ const AnnouncementFeed = ({
                         : i === content.length - 1 ? 1 : -1;
 
                     return (
-                        <div
+                        i === 0
+                        ? <div
                             key={`AnnouncementFeed:${i}`}
                             className={classnames(
                                 'p-2',
-                                'col-12',
-                                {
-                                    'col-md-4': i > 0,
-                                },
+                                'col-12'
                             )}
                         >
                             <ContentCardConnected
                                 contentId={node.id}
-                                // {...node}
-                                card={placement === 0 ? StyledHighlightCard : ContentCard}
+                                card={StyledHighlightCard }
                                 ratio={RATIO_MAP[placement]}
-                                // tile={placement === -1}
-                                // row={placement === 1}
-                                // style={placement === 0 ? { maxHeight: 450 } : {}}
                                 mediaProps={{
                                     gradient: 'dark',
                                     gradientDirection: 'bottom-top',
                                 }}
                             />
                         </div>
+
+                        : 
+                            <ContentCardConnected
+                                key={`AnnouncementFeed:${i}`}
+                                contentId={node.id}
+                                card={ContentCard}
+                                ratio={RATIO_MAP[placement]}
+                                mediaProps={{
+                                    gradient: 'dark',
+                                    gradientDirection: 'bottom-top',
+                                }}
+                            />
                     );
                 })}
             </div>
