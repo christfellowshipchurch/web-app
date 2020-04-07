@@ -62,9 +62,6 @@ const Detail = ({
           <Card
             className=""
           >
-            <h3 className="text-dark">
-              Details
-          </h3>
             <div className="">
               {htmlToReactParser.parse(htmlContent)}
             </div>

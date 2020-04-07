@@ -10,14 +10,15 @@ import ContentSingle from '../../content-single';
 import { CardFeed } from '../../content-feed';
 
 import { GET_EVENT } from './queries';
-import { redirectTo } from '../../utils';
-import { useAuth } from '../../auth';
+import { GoogleAnalytics } from '../../analytics'
 
 const EventConnected = ({ title }) => {
     const { loading, error, data } = useQuery(
         GET_EVENT,
         { variables: { title }, fetchPolicy: 'cache-and-network' },
     );
+
+    GoogleAnalytics.initWithPageView(`/${title || ''}`)
 
     if (loading) return <Loader />;
     if (error) {

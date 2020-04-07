@@ -78,9 +78,6 @@ const EventDetail = ({
 
         <div className="col-12 col-lg-8 p-2">
           <Card>
-            <h3 className="text-dark">
-              Details
-          </h3>
             <div className="">
               {htmlToReactParser.parse(htmlContent)}
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  get, includes, toLower, uniqueId,
+  includes, toLower, uniqueId,
 } from 'lodash';
 import {
   FacebookShareButton,
@@ -23,11 +23,23 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
+import { GoogleAnalytics } from '../../analytics'
 
 const Share = ({
   title,
   shareTitle,
 }) => {
+
+  //Google Analytics
+  const buttonClick = ( label, action ) => {
+    GoogleAnalytics.trackEvent({
+      category: 'Share',
+      action: action,
+      label: label
+    })
+  }
+
+
   // Creates URL for SMS
   const smsUrl = (string) => {
     const encodedString = encodeURI(string);
@@ -64,6 +76,7 @@ const Share = ({
     <Dropdown
       drop="up"
       alignRight={false}
+      onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}
     >
       <Dropdown.Toggle
         id={uniqueId('share-')}
@@ -79,6 +92,7 @@ const Share = ({
       <Dropdown.Menu>
         <Dropdown.Item
           target="_blank"
+          onClick={() => buttonClick(`${title} - Facebook Share Button`, 'Shared from Share Sheet')}
         >
           <FacebookShareButton
             url={document.URL}
@@ -95,6 +109,7 @@ const Share = ({
 
         <Dropdown.Item
           target="_blank"
+          onClick={() => buttonClick(`${title} - Twitter Share Button`, 'Shared from Share Sheet')}
         >
           <TwitterShareButton
             url={document.URL}
@@ -111,6 +126,7 @@ const Share = ({
 
         <Dropdown.Item
           target="_blank"
+          onClick={() => buttonClick(`${title} - Email Share Button`, 'Shared from Share Sheet')}
         >
           <EmailShareButton
             url={document.URL}
@@ -130,6 +146,7 @@ const Share = ({
           href={smsUrl(shareMessages.smsShare)}
           target="_blank"
           className="d-md-none"
+          onClick={() => buttonClick(`${title} - SMS Share Button`, 'Shared from Share Sheet')}
         >
           <span className="mr-2">
             <FontAwesomeIcon
