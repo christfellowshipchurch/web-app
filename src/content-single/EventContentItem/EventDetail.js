@@ -72,6 +72,8 @@ const EventDetail = ({
             callsToAction={callsToAction}
             openLinksInNewTab={openLinksInNewTab}
             events={events}
+            title={title}
+            description={htmlContent}
           />
           <EventShare 
             title={title}

@@ -8,6 +8,9 @@ import {
   uniqBy,
   groupBy,
   keys,
+  get,
+  includes,
+  toLower
 } from 'lodash'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -15,6 +18,9 @@ import {
   faClock,
   faAngleDown,
 } from '@fortawesome/fontawesome-pro-regular'
+import {   
+  faCalendarPlus,
+} from '@fortawesome/pro-light-svg-icons'
 import {
   Dropdown,
 } from 'react-bootstrap'
@@ -22,6 +28,7 @@ import moment from 'moment'
 
 import {
   Card,
+  AddToCalendar
 } from '../../ui'
 import Icon from './eventIcon'
 import { getDirectionsUrl } from '../../utils'
@@ -149,6 +156,8 @@ const EventSchedule = ({
   callsToAction,
   openLinksInNewTab,
   events,
+  title,
+  description
 }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([])
   const noEvents = events.length < 1
@@ -173,6 +182,16 @@ const EventSchedule = ({
 
     setVisibleOccurrences(campusEvents)
   }
+
+  //Creates a start and end time for Add to Calendar
+  // takes the very first and very last time
+  const startTime = get(events, '[0].start', null)
+  const lastEvent = events.length > 1 
+    ? events.length - 1
+    : 0
+  const endTime = get(events, `[${lastEvent}].end`, null)
+  //TEMPORARY Easter messaging
+  const isEaster = includes(toLower(title), 'easter')
 
   return (
     <>
@@ -252,6 +271,38 @@ const EventSchedule = ({
               </a>
             ))}
           </div>
+          {events &&
+            <div className='d-flex align-items-center'>
+              <Icon
+                icon={faCalendarPlus}
+                className='mr-2'
+              />
+              <AddToCalendar
+                className={classnames(
+                  "p-0",
+                  "text-dark",
+                  "font-weight-bold",
+                )}
+                style={{
+                  fontSize: '1.125rem',
+                  letterSpacing: 'normal'
+                }}
+                event={{
+                  title,
+                  description,
+                  // Location is the webUrl for now
+                  address: document.URL,
+                  startTime,
+                  endTime
+                }}
+                alternateDescription={isEaster
+                  ? `Tune in to an online Easter service at Christ Fellowship via your phone, laptop, or TV. \n\n To view an online Easter service, click the link below.`
+                  : `Join us for ${title} at Christ Fellowship!`
+                }
+                allDay
+              />
+            </div>
+          }
         </div>
       </Card>
     </>
