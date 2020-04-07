@@ -5,10 +5,6 @@ import * as Yup from 'yup';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import {
-    TextInput,
-    Button,
-} from '@christfellowshipchurch/web-ui-kit';
 import { useForm } from '../../hooks';
 import { parseUsername } from '../utils';
 
@@ -17,6 +13,8 @@ import { USER_EXISTS } from '../queries';
 
 import {
     Checkbox,
+    TextInput,
+    Button,
 } from '../../ui';
 
 const validation = {

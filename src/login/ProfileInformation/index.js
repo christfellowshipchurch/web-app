@@ -8,10 +8,6 @@ import moment from 'moment';
 import { Formik } from 'formik';
 import { faLockAlt } from '@fortawesome/fontawesome-pro-light';
 
-import {
-    TextInput,
-    Button,
-} from '@christfellowshipchurch/web-ui-kit';
 import { useForm } from '../../hooks';
 import { useAuth } from '../../auth';
 
@@ -19,6 +15,8 @@ import { REQUEST_PIN } from '../mutations';
 
 import {
     Radio,
+    TextInput,
+    Button,
 } from '../../ui';
 
 const validation = {
