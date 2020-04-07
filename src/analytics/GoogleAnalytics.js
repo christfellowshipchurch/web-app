@@ -15,7 +15,7 @@ const initWithPageView = (route) => {
 }
 
 //Sends GoogleAnalytics ButtonClick event along with what button is being clicked
-const trackEvent = (category, action, label) => {
+const trackEvent = ({category, action, label}) => {
   ReactGA.event({
     category: category,
     action: action,
