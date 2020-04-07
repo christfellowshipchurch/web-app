@@ -10,7 +10,7 @@ import ContentSingle from '../../content-single';
 import { CardFeed } from '../../content-feed';
 
 import { GET_EVENT } from './queries';
-import { GoogleAnalytics } from '../../seo'
+import { GoogleAnalytics } from '../../analytics'
 
 const EventConnected = ({ title }) => {
     const { loading, error, data } = useQuery(

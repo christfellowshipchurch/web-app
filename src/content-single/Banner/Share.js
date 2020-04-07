@@ -23,7 +23,7 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
-import { GoogleAnalytics } from '../../seo'
+import { GoogleAnalytics } from '../../analytics'
 
 const Share = ({
   title,
