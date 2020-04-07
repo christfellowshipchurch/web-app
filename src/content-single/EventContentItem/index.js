@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
-import { ErrorBlock } from '../../ui'
+import { ErrorBlock } from '../../ui';
 
 import Placeholder from './Placeholder';
 import Banner from '../Banner';
@@ -15,12 +15,12 @@ const EventContentItem = ({
 
   if (error || (!loading && !content)) {
     console.log({ error });
-    return <ErrorBlock />
+    return <ErrorBlock />;
   }
 
   return (
     <div>
-      <Banner {...content} />
+      <Banner {...content} withShare shareTitle="Invite" />
       <Detail {...content} />
     </div>
   );

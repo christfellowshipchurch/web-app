@@ -1,21 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { uniqueId } from 'lodash'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 import {
-  Dropdown
-} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  Dropdown,
+} from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGoogle,
   faApple,
-  faMicrosoft
-} from '@fortawesome/free-brands-svg-icons'
+  faMicrosoft,
+} from '@fortawesome/free-brands-svg-icons';
 
 import {
   googleCalLink,
-  icsLink
-} from './utils'
+  icsLink,
+} from './utils';
 
 const AddToCalendar = ({
   event,
@@ -24,10 +24,8 @@ const AddToCalendar = ({
   allDay,
   className,
   style,
-  alternateDescription
-}) => {
-
-  return(
+  alternateDescription,
+}) => (
     <Dropdown>
       <Dropdown.Toggle
         id={uniqueId('add-to-calendar-')}
@@ -42,29 +40,35 @@ const AddToCalendar = ({
         {/* Apple Calendar */}
         <Dropdown.Item
           href={icsLink({ ...event, description: alternateDescription }, allDay)}
-          target='_blank'
+          target="_blank"
         >
-          <FontAwesomeIcon icon={faApple} /> Apple
-        </Dropdown.Item>
+          <FontAwesomeIcon icon={faApple} />
+          {' '}
+        Apple
+      </Dropdown.Item>
 
         {/* Google Calendar */}
         <Dropdown.Item
           href={googleCalLink(event, allDay)}
-          target='_blank'
+          target="_blank"
         >
-          <FontAwesomeIcon icon={faGoogle} /> Google
-        </Dropdown.Item>
+          <FontAwesomeIcon icon={faGoogle} />
+          {' '}
+        Google
+      </Dropdown.Item>
 
         {/* Outlook */}
         <Dropdown.Item
           href={icsLink({ ...event, description: alternateDescription }, allDay)}
-          target='_blank'
+          target="_blank"
         >
-          <FontAwesomeIcon icon={faMicrosoft} /> Outlook
-        </Dropdown.Item>
+          <FontAwesomeIcon icon={faMicrosoft} />
+          {' '}
+        Outlook
+      </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-  )}
+  );
 
 AddToCalendar.propTypes = {
   event: PropTypes.shape({
@@ -75,28 +79,28 @@ AddToCalendar.propTypes = {
     endTime: PropTypes.string,
   }).isRequired,
   type: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "success",
-    "info",
-    "warning",
-    "danger",
-    "light",
-    "dark",
-    "link"
+    'primary',
+    'secondary',
+    'success',
+    'info',
+    'warning',
+    'danger',
+    'light',
+    'dark',
+    'link',
   ]),
   title: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
   alternateDescription: PropTypes.string,
-}
+};
 
 AddToCalendar.defaultProps = {
   type: 'link',
   title: 'Add to Calendar',
   className: '',
   style: {},
-  alternateDescription: `Join us for an event at Christ Fellowship!`,
-}
+  alternateDescription: 'Join us for an event at Christ Fellowship!',
+};
 
-export default AddToCalendar
+export default AddToCalendar;
