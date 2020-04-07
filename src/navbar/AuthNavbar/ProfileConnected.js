@@ -6,11 +6,12 @@ import { get, has } from 'lodash'
 import { Dropdown } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/pro-light-svg-icons'
-import { Media } from '@christfellowshipchurch/web-ui-kit'
 
 import { useAuth, useAuthQuery } from '../../auth'
 import { GET_PROFILE_IMAGE } from '../queries'
 import ContactUsButton from './ContactUsButton'
+
+import { Media } from '../../ui'
 
 const ProfileConnected = ({ dropDownLinks }) => {
   const { logout } = useAuth()

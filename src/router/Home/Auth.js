@@ -1,7 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import { get } from 'lodash'
-import { Loader, Media } from '@christfellowshipchurch/web-ui-kit'
+import { Loader, Media } from '../../ui'
 
 import { useAuthQuery } from '../../auth'
 
