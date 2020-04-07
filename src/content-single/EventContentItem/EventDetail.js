@@ -1,39 +1,38 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { get } from 'lodash'
-import { useAuth, useAuthQuery } from '../../auth'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { get } from 'lodash';
+import { useAuth, useAuthQuery } from '../../auth';
 
 import {
   Card,
-} from '../../ui'
-import EventSchedule from './EventSchedule'
+} from '../../ui';
+import EventSchedule from './EventSchedule';
 
-import { CAMPUS_KEY } from '../../keys'
-import { htmlToReactParser } from '../../utils'
+import { CAMPUS_KEY } from '../../keys';
+import { htmlToReactParser } from '../../utils';
 
-import { GET_CURRENT_PERSON_CAMPUS } from './queries'
-import EventShare from './EventShare'
+import { GET_CURRENT_PERSON_CAMPUS } from './queries';
 
 const ConnectedEventSchedule = (props) => {
-  const { isLoggedIn } = useAuth()
-  const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON_CAMPUS)
+  const { isLoggedIn } = useAuth();
+  const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON_CAMPUS);
 
-  if (isLoggedIn && (loading || error)) return null
+  if (isLoggedIn && (loading || error)) return null;
 
   const fetchedCampus = get(
     data,
     'currentUser.profile.campus.name',
     localStorage.getItem(CAMPUS_KEY),
-  )
+  );
 
   return (
     <EventSchedule
       {...props}
       defaultCampus={fetchedCampus || ''}
     />
-  )
-}
+  );
+};
 
 
 const EventDetail = ({
@@ -72,11 +71,8 @@ const EventDetail = ({
             callsToAction={callsToAction}
             openLinksInNewTab={openLinksInNewTab}
             events={events}
-          />
-          <EventShare 
             title={title}
             description={htmlContent}
-            events={events}
           />
         </div>
 
@@ -110,7 +106,7 @@ const EventDetail = ({
         </div>
       </div>
     </div>
-  )
+  );
 
 EventDetail.propTypes = {
   htmlContent: PropTypes.string,
@@ -123,12 +119,12 @@ EventDetail.propTypes = {
       action: PropTypes.string,
     }),
   ),
-}
+};
 
 EventDetail.defaultProps = {
   htmlContent: '',
   tags: [],
   callsToAction: [],
-}
+};
 
-export default EventDetail
+export default EventDetail;

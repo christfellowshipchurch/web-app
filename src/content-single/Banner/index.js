@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import {
   get,
 } from 'lodash';
 
 import { Media } from '../../ui';
+import Share from './Share';
 
 const Banner = ({
   title,
   coverImage,
+  withShare,
+  shareTitle,
 }) => (
     <div className="p-relative">
       <div
@@ -35,7 +39,22 @@ const Banner = ({
           forceRatio
           rounded
           className="shadow"
-        />
+        >
+          {!!withShare
+            && (
+              <div className={classnames(
+                'd-flex',
+                'justify-content-end',
+                'align-items-end',
+                'w-100',
+                'h-100',
+                'p-2',
+              )}
+              >
+                <Share shareTitle={shareTitle} title={title} />
+              </div>
+            )}
+        </Media>
       </div>
     </div>
   );
@@ -46,11 +65,15 @@ Banner.propTypes = {
     name: PropTypes.string,
     sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
   }),
+  withShare: PropTypes.bool,
+  shareTitle: PropTypes.string,
 };
 
 Banner.defaultProps = {
   title: '',
   coverImage: {},
+  withShare: false,
+  shareTitle: 'Share',
 };
 
 export default Banner;

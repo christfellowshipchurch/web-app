@@ -32,3 +32,9 @@
   margin-top: 6px;
   font-size: 12px;
 }
+
+@each $color, $value in $theme-colors {
+  .btn-ghost-#{$color} {
+    @include button-ghost-variant(rgba($value, 0.87));
+  }
+}
