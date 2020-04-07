@@ -46,9 +46,9 @@ const Share = ({
       twitterShare: 'I\'ll be watching Easter at Christ Fellowship online! \nWill you? \n',
       emailShare: {
         subject: 'An Online Easter Service Just for You',
-        body: 'Hey, \n\n I\'m gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out this link to view when the service times are, as well as how you can watch online. \n\n',
+        body: 'Hey, \n\n I\'m going to be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out this link to view when the service times are, as well as how you can watch online. \n\n',
       },
-      smsShare: 'Hey, I\'m gonna be watching Easter at Christ Fellowship online. Would you like to watch with me? If so, check out EasteratCF.com to view when the service times are, as well as how you can watch online.',
+      smsShare: 'Hey, I\'m going to be watching Easter at Christ Fellowship online. Would you like to watch with me? If so, check out EasteratCF.com to view when the service times are, as well as how you can watch online.',
     }
     : {
       faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
