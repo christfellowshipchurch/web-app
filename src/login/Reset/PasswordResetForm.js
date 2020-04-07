@@ -14,8 +14,7 @@ import {
     faKey
 } from '@fortawesome/fontawesome-pro-light'
 
-import { TextInput, Button } from '@christfellowshipchurch/web-ui-kit'
-import { Card } from '../../ui'
+import { Card, TextInput, Button  } from '../../ui'
 
 import { redirectTo } from '../../utils'
 import { useAuth } from '../../auth'

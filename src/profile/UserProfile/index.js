@@ -3,10 +3,9 @@ import classnames from 'classnames'
 import propTypes from 'prop-types'
 import moment from 'moment'
 import { get } from 'lodash'
-import { Loader } from '@christfellowshipchurch/web-ui-kit'
 import { faEnvelope, faMobile } from '@fortawesome/fontawesome-pro-light'
 
-import { TextInput, Checkbox } from '../../ui'
+import { TextInput, Checkbox, Loader } from '../../ui'
 import { useAuthQuery } from '../../auth'
 
 import { GET_CURRENT_PERSON } from '../queries'

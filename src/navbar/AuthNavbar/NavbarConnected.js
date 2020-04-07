@@ -17,7 +17,6 @@ import {
   faSearch,
 } from '@fortawesome/pro-light-svg-icons'
 import { faBell } from '@fortawesome/pro-regular-svg-icons'
-import { Media } from '@christfellowshipchurch/web-ui-kit'
 
 import { useAuth } from '../../auth'
 import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from '../queries'
