@@ -271,7 +271,7 @@ const EventSchedule = ({
               </a>
             ))}
           </div>
-          {events &&
+          {!noEvents &&
             <div className='d-flex align-items-center'>
               <Icon
                 icon={faCalendarPlus}
