@@ -76,19 +76,24 @@ const Share = ({
     <Dropdown
       drop="up"
       alignRight={false}
-      onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}
     >
+      <a
+        onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}
+      >
       <Dropdown.Toggle
         id={uniqueId('share-')}
         variant="ghost-white"
       >
-        <span className="mr-2">
+        <span 
+          className="mr-2"
+        >
           <FontAwesomeIcon
             icon={faShare}
           />
         </span>
         {shareTitle}
       </Dropdown.Toggle>
+      </a>
       <Dropdown.Menu>
         <Dropdown.Item
           target="_blank"
