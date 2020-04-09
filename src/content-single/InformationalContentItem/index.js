@@ -23,7 +23,7 @@ const InformationalContentItem = ({
 
   return (
     <div>
-      <Banner {...content} />
+      <Banner {...content} withShare />
       <Detail {...content} />
     </div>
   );

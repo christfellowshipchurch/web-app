@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames'
 import {
   get,
 } from 'lodash';
@@ -13,6 +14,8 @@ import Placeholder from './Placeholder';
 import Author from '../Author';
 import RelatedArticles from './RelatedContent';
 import ArticleCategories from './ContentCategories';
+
+import Share from '../Banner/Share'
 
 const UniversalContentItem = ({
   itemId,
@@ -60,18 +63,33 @@ const UniversalContentItem = ({
               {get(content, 'coverImage.sources[0].uri') !== ''
                 && (
                   <Media
-                    rounded
-                    showControls
-                    ratio="16by9"
                     imageUrl={get(content, 'coverImage.sources[0].uri', '')}
                     videoUrl={get(content, 'videos[0].sources[0].uri', '')}
                     imageAlt={get(content, 'title', 'Christ Fellowship Church')}
-                    className="my-4"
+                    ratio={{ xs: '1by1', md: '16by9' }}
+                    forceRatio
+                    rounded
+                    showControls
+                    className="shadow my-4"
                   />
                 )}
 
               {/* TODO : add some sort of default photo/icon */}
-              <Author contentId={itemId} />
+              <div 
+                className={classnames(
+                  'd-flex',
+                  'align-items-center',
+                  'justify-content-between',
+                  'mt-n4'
+                )}
+              >
+                <Author contentId={itemId} />
+                <Share 
+                  title ={content.title}
+                  variant={'primary'}
+                />
+              </div>
+              
 
               {get(content, 'htmlContent', '') !== ''
                 && (
