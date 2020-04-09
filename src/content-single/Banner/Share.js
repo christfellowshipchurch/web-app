@@ -23,21 +23,20 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { faShare } from '@fortawesome/free-solid-svg-icons';
-import { GoogleAnalytics } from '../../analytics'
+import { GoogleAnalytics } from '../../analytics';
 
 const Share = ({
   title,
   shareTitle,
 }) => {
-
-  //Google Analytics
-  const buttonClick = ( label, action ) => {
+  // Google Analytics
+  const buttonClick = (label, action) => {
     GoogleAnalytics.trackEvent({
       category: 'Share',
-      action: action,
-      label: label
-    })
-  }
+      action,
+      label,
+    });
+  };
 
 
   // Creates URL for SMS
@@ -80,19 +79,19 @@ const Share = ({
       <a
         onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}
       >
-      <Dropdown.Toggle
-        id={uniqueId('share-')}
-        variant="ghost-white"
-      >
-        <span 
-          className="mr-2"
+        <Dropdown.Toggle
+          id={uniqueId('share-')}
+          variant="ghost-white"
         >
-          <FontAwesomeIcon
-            icon={faShare}
-          />
-        </span>
-        {shareTitle}
-      </Dropdown.Toggle>
+          <span
+            className="mr-2"
+          >
+            <FontAwesomeIcon
+              icon={faShare}
+            />
+          </span>
+          {shareTitle}
+        </Dropdown.Toggle>
       </a>
       <Dropdown.Menu>
         <Dropdown.Item
