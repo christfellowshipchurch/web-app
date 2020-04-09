@@ -77,16 +77,17 @@ const UniversalContentItem = ({
               {/* TODO : add some sort of default photo/icon */}
               <div 
                 className={classnames(
-                  'd-flex',
+                  'd-md-flex',
                   'align-items-center',
                   'justify-content-between',
-                  'mt-n4'
+                  'mt-n4',
+                  'pb-2'
                 )}
               >
                 <Author contentId={itemId} />
                 <Share 
                   title ={content.title}
-                  variant={'primary'}
+                  variant={'outline-dark'}
                 />
               </div>
               
