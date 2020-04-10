@@ -80,7 +80,6 @@ const UniversalContentItem = ({
                   'd-md-flex',
                   'align-items-center',
                   'justify-content-between',
-                  'mt-n4',
                   'pb-2'
                 )}
               >
