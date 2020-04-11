@@ -247,7 +247,7 @@ Footer.defaultProps = {
     email: 'hello@christfellowship.church',
     aboutLinks: [
         { call: 'Our Leadership', action: '/about-page' },
-        { call: 'Career Opporunities', action: 'https://boards.greenhouse.io/christfellowship' },
+        { call: 'Career Opportunities', action: 'https://boards.greenhouse.io/christfellowship' },
         { call: 'Privacy Policy', action: '/privacy-policy' },
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
