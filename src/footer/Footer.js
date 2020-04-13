@@ -262,6 +262,7 @@ Footer.defaultProps = {
         { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
         { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
         { call: 'Contact Us', action: 'https://rock.gocf.org/contactus' },
+        { call: 'Online Store', action: 'https://resource.gochristfellowship.com/' },
     ],
     socialMediaLinks: [],
 };
