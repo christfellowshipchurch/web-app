@@ -65,6 +65,8 @@ const NavbarConnected = ({
     fetchPolicy: 'cache-and-network',
   })
 
+  if (includes(document.URL, 'devicetype=app')) return null
+
   if (isLoggedIn) return <AuthNavbar />
 
   // If Query state is loading or there's an error,
