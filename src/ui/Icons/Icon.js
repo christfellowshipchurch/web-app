@@ -4,10 +4,13 @@ import icons from '../../icons.json'
 
 const Icon = ({ type, size, fill }) => {
   
-  const iconShape = icons[type]
+  const selectedIcon = icons[type]
+
+  const viewBox = selectedIcon.viewBox
+  const iconShape = selectedIcon.d
   
   return (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 32 32" aria-labelledby="title">
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox={viewBox} aria-labelledby="title">
     <path 
       d={iconShape}
       fill={fill}
@@ -17,10 +20,10 @@ const Icon = ({ type, size, fill }) => {
 
 export default Icon
 
-Icon.propTypes = {
+Icon.propTypes = { 
   size: PropTypes.number,
   fill: PropTypes.string,
-  icon: PropTypes.string
+  type: PropTypes.string
 };
 
 Icon.defaultProps = {
