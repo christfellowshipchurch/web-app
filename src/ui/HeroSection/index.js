@@ -3,8 +3,11 @@ import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import VisibilitySensor from 'react-visibility-sensor'
 import { get } from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers, faBook, faSearch } from '../../images/iconImages'
+import { 
+  Users, 
+  BookAlt,
+  Search
+} from '../Icons'
 
 import {
   Block,
@@ -17,7 +20,6 @@ import {
 } from '../../utils'
 
 import SwoopImg from '../../images/cyan_hole_punch.svg'
-import { faUser } from '@fortawesome/fontawesome-pro-light'
 
 const Swoop = () => {
   return (
@@ -233,15 +235,15 @@ HeroSection.defaultProps = {
   video: null,
   icons: [
     {
-      icon: faUsers,
+      icon: Users,
       title: 'Find Community'
     },
     {
-      icon: faBook,
+      icon: BookAlt,
       title: 'Grow in Your Faith'
     },
     {
-      icon: faSearch,
+      icon: Search,
       title: 'Discover Your Purpose'
     },
   ]

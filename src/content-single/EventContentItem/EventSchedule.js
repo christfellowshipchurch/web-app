@@ -12,15 +12,7 @@ import {
   includes,
   toLower
 } from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCalendarAlt,
-  faClock,
-  faAngleDown,
-} from '@fortawesome/fontawesome-pro-regular'
-import {   
-  faCalendarPlus,
-} from '@fortawesome/pro-light-svg-icons'
+import { CalendarAlt, CalendarPlus, Clock, AngleDown } from '../../ui/Icons'
 import {
   Dropdown,
 } from 'react-bootstrap'
@@ -46,9 +38,9 @@ const EventTimes = ({ date, times, className }) => {
       )}
     >
       <div>
-        <h3>
+        <h3 className='d-flex align-items-center'>
           <Icon
-            icon={faCalendarAlt}
+            icon={CalendarAlt}
             className="mr-2"
           />
           {mDate.format('ddd MMM D')}
@@ -62,9 +54,9 @@ const EventTimes = ({ date, times, className }) => {
 
           return (
             <div key={`${date}:${t.start}`}>
-              <h4 className="font-weight-normal">
+              <h4 className="font-weight-normal d-flex align-items-center">
                 <Icon
-                  icon={faClock}
+                  icon={Clock}
                   className="mr-2"
                 />
                 {local.format('LT')}
@@ -95,9 +87,7 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
         className="ml-2 float-right"
         style={{ fontSize: 22 }}
       >
-        <FontAwesomeIcon
-          icon={faAngleDown}
-        />
+        <AngleDown />
       </span>
     </span>
   </div>
@@ -274,7 +264,7 @@ const EventSchedule = ({
           {!noEvents &&
             <div className='d-flex align-items-center'>
               <Icon
-                icon={faCalendarPlus}
+                icon={CalendarPlus}
                 className='mr-2'
               />
               <AddToCalendar

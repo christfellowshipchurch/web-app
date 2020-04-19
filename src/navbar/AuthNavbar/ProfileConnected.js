@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { get, has } from 'lodash'
+import { get } from 'lodash'
 
 import { Dropdown } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/pro-light-svg-icons'
+import { Bars, Times } from '../../ui/Icons'
 
 import { useAuth, useAuthQuery } from '../../auth'
 import { GET_PROFILE_IMAGE } from '../queries'
@@ -51,15 +50,14 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 "px-lg-3",
               )}
             >
-              <FontAwesomeIcon
-                icon={
-                  menuIcon
-                    ? faTimes
-                    : faBars
+              {React.createElement(
+                menuIcon
+                ? Times
+                : Bars,
+                {
+                  fill:"#525252"
                 }
-                color="#525252"
-                style={{ minWidth: '32px' }}
-              />
+              )}
             </Dropdown.Toggle>
 
 

@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { useQuery } from 'react-apollo'
-import { get } from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft } from '@fortawesome/fontawesome-pro-regular'
+import { AngleLeft } from '../ui/Icons'
 
 import { CardFeed } from '../content-feed'
 
@@ -27,12 +24,10 @@ const SeeAllCategory = ({
                         e.preventDefault()
                         onBack()
                     }}
-                    className='h3'
+                    className='h3 d-flex align-items-center'
                 >
-                    <FontAwesomeIcon 
-                        icon={faAngleLeft} 
-                        color='black'
-                        className='mr-2'
+                    <AngleLeft
+                        size='24'
                     />
                     {title}
                 </a>

@@ -1,9 +1,6 @@
 import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { keys } from 'lodash';
-import { faPlayCircle } from '@fortawesome/fontawesome-pro-light';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import MediaItem from './MediaItem';
 

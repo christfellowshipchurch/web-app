@@ -12,18 +12,8 @@ import {
 import {
   Dropdown,
 } from 'react-bootstrap';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faEnvelope,
-  faSms,
-} from '@fortawesome/pro-light-svg-icons';
-import {
-  faFacebookSquare,
-  faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
-import { faShare } from '@fortawesome/free-solid-svg-icons';
 import { GoogleAnalytics } from '../../analytics';
+import { ShareSquare, Facebook, Comments, Envelope, Twitter } from '../../ui/Icons';
 
 const Share = ({
   title,
@@ -45,6 +35,8 @@ const Share = ({
     const url = `sms://?&body=${encodedString}`;
     return url;
   };
+
+  const iconSize = '24'
 
   // TODO: Come up with a different fix for Easter!!!!
   // If the title is for Easter it will use the specific prewritten messages for that event.
@@ -86,8 +78,8 @@ const Share = ({
           <span
             className="mr-2"
           >
-            <FontAwesomeIcon
-              icon={faShare}
+            <ShareSquare 
+              size={iconSize}
             />
           </span>
           {shareTitle}
@@ -103,8 +95,8 @@ const Share = ({
             quote={shareMessages.faceBookShare}
           >
             <span className="mr-2">
-              <FontAwesomeIcon
-                icon={faFacebookSquare}
+              <Facebook
+                size={iconSize}
               />
             </span>
             Facebook
@@ -120,8 +112,8 @@ const Share = ({
             title={shareMessages.twitterShare}
           >
             <span className="mr-2">
-              <FontAwesomeIcon
-                icon={faTwitter}
+              <Twitter 
+                size={iconSize}
               />
             </span>
             Twitter
@@ -138,8 +130,8 @@ const Share = ({
             body={shareMessages.emailShare.body}
           >
             <span className="mr-2">
-              <FontAwesomeIcon
-                icon={faEnvelope}
+              <Envelope 
+                size={iconSize}
               />
             </span>
             Email
@@ -153,8 +145,8 @@ const Share = ({
           onClick={() => buttonClick(`${title} - SMS Share Button`, 'Shared from Share Sheet')}
         >
           <span className="mr-2">
-            <FontAwesomeIcon
-              icon={faSms}
+            <Comments 
+              size={iconSize}
             />
           </span>
           Text Message

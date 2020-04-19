@@ -2,11 +2,10 @@ import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { keys } from 'lodash';
-import { faPlayCircle } from '@fortawesome/fontawesome-pro-light';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Image from './Image';
 import Video from './Video';
+import { PlayCircle } from '../Icons';
 
 const MediaItem = ({
   ratio,
@@ -113,7 +112,10 @@ const MediaItem = ({
                   className="btn btn-icon"
                   onClick={playButtonClick}
                 >
-                  <FontAwesomeIcon icon={faPlayCircle} size={playIcon.size} color={playIcon.color} />
+                  <PlayCircle 
+                    size={playIcon.size} 
+                    fill={playIcon.color} 
+                  />
                 </button>
               )
               : children}
@@ -133,7 +135,7 @@ MediaItem.defaultProps = {
   playIcon: {
     as: null,
     color: 'white',
-    size: '3x',
+    size: '54',
   },
   overlay: null,
   gradient: null,

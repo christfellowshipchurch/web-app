@@ -4,7 +4,7 @@ import AngleUp from "./angle-up"
 import ShareSquare from "./share-square"
 import Facebook from "./facebook"
 import Twitter from "./twitter"
-import Envelop from "./envelope"
+import Envelope from "./envelope"
 import Comments from "./comments"
 import CalendarAlt from "./calendar-alt"
 import Clock from "./clock"
@@ -25,18 +25,24 @@ import Search from "./search"
 import Mobile from "./mobile"
 import BookAlt from "./book-alt"
 import CheckCircle from "./check-circle"
-import Exclamation from "./exclamation-circle"
+import ExclamationCircle from "./exclamation-circle"
 import Ban from "./ban"
 import PlayCircle from "./play-circle"
+import AngleRight from './angle-right'
+import Google from './google'
+import Microsoft from './microsoft'
+import Apple from './apple'
+import CalendarPlus from './calendar-plus'
 
 export {
   Home,
   AngleLeft,
   AngleUp,
+  AngleRight,
   ShareSquare,
   Facebook,
   Twitter,
-  Envelop,
+  Envelope,
   Comments,
   CalendarAlt,
   Clock,
@@ -57,7 +63,11 @@ export {
   Mobile,
   BookAlt,
   CheckCircle,
-  Exclamation,
+  ExclamationCircle,
   Ban,
   PlayCircle,
+  Google,
+  Microsoft,
+  Apple,
+  CalendarPlus
 }

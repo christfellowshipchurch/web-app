@@ -6,17 +6,15 @@ import classnames from 'classnames'
 import { toLower, get, has, find, camelCase } from 'lodash'
 
 import { Navbar, Nav, Dropdown } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBars,
-  faTimes,
-  faUsers,
-  faHandshake,
-  faCalendarAlt,
-  faEnvelopeOpenDollar,
-  faSearch,
-} from '@fortawesome/pro-light-svg-icons'
-import { faBell } from '@fortawesome/pro-regular-svg-icons'
+  Bars,
+  Times,
+  Users,
+  Handshake,
+  CalendarAlt,
+  EnvelopeOpenDollar,
+  Search,
+} from '../../ui/Icons'
 
 import { useAuth } from '../../auth'
 import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from '../queries'
@@ -129,13 +127,18 @@ const NavbarConnected = ({
         onClick={onToggle}
         className="border-0"
       >
-        <FontAwesomeIcon
-          icon={menuIcon ? faTimes : faBars}
-          color="#525252"
+        <span
           onClick={() => setMenuIcon(!menuIcon)}
-          size='lg'
           className='mr-2'
-        />
+        >
+          {React.createElement(
+            menuIcon ? Times : Bars,
+            {
+              fill:"#525252",
+              size:'lg',
+            }
+          )}
+        </span>
       </Navbar.Toggle>
 
 
@@ -225,11 +228,12 @@ const NavbarConnected = ({
                   'ml-3',
                 )}
               >
-                <FontAwesomeIcon
-                  icon={navIcons[i]}
-                  color='black'
-                  style={{ minWidth: '20px' }}
-                />
+                {React.createElement(
+                  navIcons[i],
+                  {
+                    fill: 'black'
+                  }
+                )}
                 <Nav.Link
                   href={link.action}
                   className={classnames(
@@ -361,11 +365,11 @@ NavbarConnected.defaultProps = {
     { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
   ],
   navIcons: [
-    faSearch,
-    faCalendarAlt,
-    faHandshake,
-    faUsers,
-    faEnvelopeOpenDollar,
+    Search,
+    CalendarAlt,
+    Handshake,
+    Users,
+    EnvelopeOpenDollar,
   ],
   learnMoreLinks: [
     { call: 'About Christ Fellowship', action: '/about-page' },

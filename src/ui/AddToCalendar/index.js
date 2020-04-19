@@ -5,17 +5,14 @@ import { uniqueId } from 'lodash';
 import {
   Dropdown,
 } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGoogle,
-  faApple,
-  faMicrosoft,
-} from '@fortawesome/free-brands-svg-icons';
 
 import {
   googleCalLink,
   icsLink,
 } from './utils';
+import { Apple, Google, Microsoft } from '../Icons';
+
+const iconSize = '20'
 
 const AddToCalendar = ({
   event,
@@ -41,9 +38,11 @@ const AddToCalendar = ({
         <Dropdown.Item
           href={icsLink({ ...event, description: alternateDescription }, allDay)}
           target="_blank"
+          className='d-flex align-items-center'
         >
-          <FontAwesomeIcon icon={faApple} />
-          {' '}
+          <Apple 
+            size='22'
+          />
         Apple
       </Dropdown.Item>
 
@@ -51,9 +50,11 @@ const AddToCalendar = ({
         <Dropdown.Item
           href={googleCalLink(event, allDay)}
           target="_blank"
+          className='d-flex align-items-center'
         >
-          <FontAwesomeIcon icon={faGoogle} />
-          {' '}
+          <Google 
+            size={iconSize}
+          />
         Google
       </Dropdown.Item>
 
@@ -61,9 +62,11 @@ const AddToCalendar = ({
         <Dropdown.Item
           href={icsLink({ ...event, description: alternateDescription }, allDay)}
           target="_blank"
+          className='d-flex align-items-center'
         >
-          <FontAwesomeIcon icon={faMicrosoft} />
-          {' '}
+          <Microsoft 
+            size={iconSize}
+          />
         Outlook
       </Dropdown.Item>
       </Dropdown.Menu>

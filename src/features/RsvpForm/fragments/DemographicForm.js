@@ -3,12 +3,10 @@ import {
     get,
 } from 'lodash'
 import {
-    faUser,
-    faUsers,
-} from '@fortawesome/fontawesome-pro-light'
-import {
-    faBabyCarriage
-} from '@fortawesome/free-solid-svg-icons'
+    User,
+    Users,
+    BabyCarriage
+} from '../../../ui/Icons'
 import { TextInput } from '../../../ui'
 
 const DemographicForm = ({
@@ -24,7 +22,7 @@ const DemographicForm = ({
                         label="First Name"
                         value={get(values, 'firstName', '')}
                         onChange={(e) => setFieldValue('firstName', get(e, 'target.value', ''))}
-                        icon={faUser}
+                        icon={User}
                         disabled={loading}
                     />
                 </div>
@@ -35,7 +33,7 @@ const DemographicForm = ({
                         label="Last Name"
                         value={get(values, 'lastName', '')}
                         onChange={(e) => setFieldValue('lastName', get(e, 'target.value', ''))}
-                        icon={faUser}
+                        icon={User}
                         disabled={loading}
                     />
                 </div>
@@ -46,7 +44,7 @@ const DemographicForm = ({
                         label="Number of Adults Attending"
                         value={get(values, 'adults', 1)}
                         onChange={(e) => setFieldValue('adults', get(e, 'target.value', ''))}
-                        icon={faUsers}
+                        icon={Users}
                         type="number"
                         min="1"
                         disabled={loading}
@@ -61,7 +59,7 @@ const DemographicForm = ({
                         //TEMPORARY FIX FOR STRING ERROR
                         value={'0'}
                         onChange={(e) => setFieldValue('children', get(e, 'target.value', ''))}
-                        icon={faBabyCarriage}
+                        icon={BabyCarriage}
                         type="number"
                         min="0"
                         disabled={loading}

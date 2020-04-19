@@ -3,10 +3,9 @@ import { get } from 'lodash'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
 import { Card } from '../'
 import { htmlToReactParser } from '../../utils'
+import { Times } from '../Icons'
 
 const Title = ({ children }) =>
     <h4 className="mb-4">{children}</h4>
@@ -42,9 +41,7 @@ const FocusedCard = ({
                             className="text-success mr-2"
                             style={{ fontSize: 22 }}
                         >
-                            <FontAwesomeIcon
-                                icon={['fal', icon]}
-                            />
+                            {React.createElement(icon)}
                         </span>
                         {title}
                     </h4>
@@ -63,9 +60,8 @@ const FocusedCard = ({
                             zIndex: 100 // ui hack so the button is always accessible
                         }}
                     >
-                        <FontAwesomeIcon
-                            icon={['fal', 'times']}
-                            color='white'
+                        <Times
+                            fill='white'
                         />
                     </button>
                 </div>

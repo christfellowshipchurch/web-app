@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import { faLockAlt } from '@fortawesome/fontawesome-pro-light';
+import { LockAlt } from '../../ui/Icons';
 
 import {
     TextInput,
@@ -150,7 +150,7 @@ const PasscodeForm = ({
             <div className="row my-2 justify-content-center">
                 <div className={classnames(columns)}>
                     <TextInput
-                        icon={faLockAlt}
+                        icon={LockAlt}
                         type={inputType}
                         error={has(errors, 'passcode') && get(errors, 'passcode', '')}
                         label={inputLabel[type]}

@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import zipcodes from 'zipcodes'
 import moment from 'moment'
 
-import { faAngleDown } from '@fortawesome/fontawesome-pro-light'
+import { AngleDown } from '../../ui/Icons'
 
 import InputIcon from '../../ui/inputs/inputIcon'
 import { FloatingCard, Button, Loader, Media, CardGrid } from '../../ui'
@@ -64,7 +64,7 @@ const StyledCampusSelect = ({
                     </option>
                 )}
             </select>
-            <InputIcon icon={faAngleDown} />
+            <InputIcon icon={AngleDown} />
         </div>
     )
 

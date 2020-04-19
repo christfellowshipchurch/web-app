@@ -1,15 +1,11 @@
 import React from 'react';
 import { useMutation } from 'react-apollo';
 import { get, has } from 'lodash';
-import * as Yup from 'yup';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { Formik } from 'formik';
-import { faLockAlt } from '@fortawesome/fontawesome-pro-light';
 
 import { useForm } from '../../hooks';
-import { useAuth } from '../../auth';
 
 import { REQUEST_PIN } from '../mutations';
 
