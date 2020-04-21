@@ -256,13 +256,13 @@ Footer.defaultProps = {
         { call: 'Past Messages', action: 'https://www.youtube.com/playlist?list=PLUQ7jSnRB_efXMDq9Lka6stS02awWoaz4' },
         { call: 'Ministry Updates', action: '/items/ministry-updates-d5bf6fa745f26bd019ea35882ecab86c' },
         { call: 'Give Online', action: 'https://pushpay.com/g/christfellowship' },
+        { call: 'Online Store', action: 'https://resource.gochristfellowship.com/' },
     ],
     connectLinks: [
         { call: 'New Here? Start Here!', action: 'https://rock.gocf.org/connect' },
         { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
         { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
         { call: 'Contact Us', action: 'https://rock.gocf.org/contactus' },
-        { call: 'Online Store', action: 'https://resource.gochristfellowship.com/' },
     ],
     socialMediaLinks: [],
 };
