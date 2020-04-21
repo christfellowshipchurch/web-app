@@ -247,7 +247,7 @@ Footer.defaultProps = {
     email: 'hello@christfellowship.church',
     aboutLinks: [
         { call: 'Our Leadership', action: '/about-page' },
-        { call: 'Career Opporunities', action: 'https://boards.greenhouse.io/christfellowship' },
+        { call: 'Career Opportunities', action: 'https://boards.greenhouse.io/christfellowship' },
         { call: 'Privacy Policy', action: '/privacy-policy' },
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
@@ -256,6 +256,7 @@ Footer.defaultProps = {
         { call: 'Past Messages', action: 'https://www.youtube.com/playlist?list=PLUQ7jSnRB_efXMDq9Lka6stS02awWoaz4' },
         { call: 'Ministry Updates', action: '/items/ministry-updates-d5bf6fa745f26bd019ea35882ecab86c' },
         { call: 'Give Online', action: 'https://pushpay.com/g/christfellowship' },
+        { call: 'Online Store', action: 'https://resource.gochristfellowship.com/' },
     ],
     connectLinks: [
         { call: 'New Here? Start Here!', action: 'https://rock.gocf.org/connect' },
