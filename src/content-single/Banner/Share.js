@@ -28,6 +28,7 @@ import { GoogleAnalytics } from '../../analytics';
 const Share = ({
   title,
   shareTitle,
+  variant
 }) => {
   // Google Analytics
   const buttonClick = (label, action) => {
@@ -81,7 +82,7 @@ const Share = ({
       >
         <Dropdown.Toggle
           id={uniqueId('share-')}
-          variant="ghost-white"
+          variant={variant}
         >
           <span
             className="mr-2"
@@ -166,11 +167,13 @@ const Share = ({
 
 Share.propType = {
   shareTitle: PropTypes.string,
+  variant: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
 Share.defaultProps = {
   shareTitle: 'Share',
+  variant: 'ghost-white'
 };
 
 export default Share;
