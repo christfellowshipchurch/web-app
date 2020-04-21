@@ -37,7 +37,7 @@ const ContentCardConnectedWithQuery = ({
         const hideLabel = get(node, 'hideLabel', false);
         const comingSoon = hideLabel ? '' : 'Dates Coming Soon';
 
-        label = get(node, 'events', []).length
+        labelValue = get(node, 'events', []).length
             ? moment(get(node, 'nextOccurrence', new Date())).format('MMM D')
             : comingSoon;
     }
