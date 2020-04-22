@@ -26,7 +26,7 @@ const CardFeedWithRouter = ({ match: { params: { collectionTitle = '' } = {} } }
 
     return (
         <div
-            className="container-fluid"
+            className="container-fluid px-3"
             style={{ minHeight: '100%' }}
         >
             <div className="row align-content-center mt-6 mb-n6">
@@ -34,10 +34,10 @@ const CardFeedWithRouter = ({ match: { params: { collectionTitle = '' } = {} } }
                     {title}
                 </h2>
                 <a 
-                 className='col-2 text-right my-auto'
+                 className='col-2 my-auto'
                  href='/'
                 >
-                    <h4 className='font-weight-normal mb-0'>
+                    <h4 className='font-weight-normal text-sm-left text-md-right mb-0'>
                         Go Back
                     </h4>
                 </a>
