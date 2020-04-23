@@ -1,32 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import icons from '../../icons.json'
+import { kebabCase, camelCase, upperFirst, flow } from 'lodash'
+import { Icons } from './index'
 
-const Icon = ({ type, size, fill }) => {
-  
-  const selectedIcon = icons[type]
+const pascalCase = (string) =>
+  flow(
+    camelCase,
+    upperFirst
+  )(string);
 
-  const viewBox = selectedIcon.viewBox
-  const iconShape = selectedIcon.d
+
+const Icon = ({ name, size, fill }) => {
+
+  const IconComponent = Icons[pascalCase(name)];
   
   return (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox={viewBox} aria-labelledby="title">
-    <path 
-      d={iconShape}
-      fill={fill}
-    />
-  </svg>
-)}
+    React.createElement(
+      IconComponent,
+      {
+        size: size,
+        fill: fill
+      }
+    )
+  )}
 
 export default Icon
 
 Icon.propTypes = { 
+  name: PropTypes.string,
   size: PropTypes.number,
   fill: PropTypes.string,
-  type: PropTypes.string
 };
 
 Icon.defaultProps = {
-  size: 32,
-  type: 'home'
+  name: 'home',
+  size: 24,
 }

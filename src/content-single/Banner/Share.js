@@ -13,7 +13,7 @@ import {
   Dropdown,
 } from 'react-bootstrap';
 import { GoogleAnalytics } from '../../analytics';
-import { ShareSquare, Facebook, Comments, Envelope, Twitter } from '../../ui/Icons';
+import { Icon } from '../../ui/Icons';
 
 const Share = ({
   title,
@@ -79,7 +79,8 @@ const Share = ({
           <span
             className="mr-2"
           >
-            <ShareSquare 
+            <Icon
+              name='share-square'
               size={iconSize}
             />
           </span>
@@ -96,7 +97,8 @@ const Share = ({
             quote={shareMessages.faceBookShare}
           >
             <span className="mr-2">
-              <Facebook
+              <Icon
+                name='facebook'
                 size={iconSize}
               />
             </span>
@@ -113,7 +115,8 @@ const Share = ({
             title={shareMessages.twitterShare}
           >
             <span className="mr-2">
-              <Twitter 
+              <Icon
+                name='twitter'
                 size={iconSize}
               />
             </span>
@@ -131,7 +134,8 @@ const Share = ({
             body={shareMessages.emailShare.body}
           >
             <span className="mr-2">
-              <Envelope 
+              <Icon
+                name='envelope'
                 size={iconSize}
               />
             </span>
@@ -146,9 +150,10 @@ const Share = ({
           onClick={() => buttonClick(`${title} - SMS Share Button`, 'Shared from Share Sheet')}
         >
           <span className="mr-2">
-            <Comments 
-              size={iconSize}
-            />
+              <Icon
+                name='comments'
+                size={iconSize}
+              />
           </span>
           Text Message
         </Dropdown.Item>
