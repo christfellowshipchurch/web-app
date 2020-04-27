@@ -30,7 +30,7 @@ const CardFeedWithRouter = ({ match: { params: { collectionTitle = '' } = {} } }
             style={{ minHeight: '100%' }}
         >
             <div className="row align-content-center mt-6 mb-n6">
-                <h2 className='col-10'>
+                <h2 className='col-10 pr-4'>
                     {title}
                 </h2>
                 <a 
