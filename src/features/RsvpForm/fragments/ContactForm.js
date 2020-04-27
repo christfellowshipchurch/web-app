@@ -4,9 +4,9 @@ import {
     has,
 } from 'lodash'
 import {
-    faEnvelope,
-    faPhone
-} from '@fortawesome/fontawesome-pro-light'
+    Envelope,
+    PhoneAlt
+} from '../../../ui/Icons'
 import { TextInput } from '../../../ui'
 
 const ContactForm = ({
@@ -22,7 +22,7 @@ const ContactForm = ({
                         type="email"
                         disabled={loading}
                         label="Email Address"
-                        icon={faEnvelope}
+                        icon={Envelope}
                         value={get(values, 'email', '')}
                         onChange={(e) => setFieldValue('email', get(e, 'target.value', ''))}
                         error={has(values, 'email') && has(errors, 'email') ? get(errors, 'email', null) : null}
@@ -35,7 +35,7 @@ const ContactForm = ({
                         type="phone"
                         disabled={loading}
                         label="Phone Number"
-                        icon={faPhone}
+                        icon={PhoneAlt}
                         value={get(values, 'phoneNumber', '')}
                         onChange={(e) => setFieldValue('phoneNumber', get(e, 'target.value', ''))}
                         error={has(values, 'phoneNumber') && has(errors, 'phoneNumber') ? get(errors, 'phoneNumber', null) : null}

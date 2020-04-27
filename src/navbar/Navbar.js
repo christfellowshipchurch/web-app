@@ -5,8 +5,7 @@ import PropTypes from 'prop-types'
 import {
   get, has, camelCase, includes,
 } from 'lodash'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/fontawesome-pro-light'
+import { Bars, Times } from '../ui/Icons'
 
 import { Navbar, Nav } from 'react-bootstrap'
 
@@ -133,12 +132,11 @@ const NavbarConnected = ({
             onClick={onToggle, () => setIsExpanded(!isExpanded)}
             className="border-0 mr-2"
           >
-            <FontAwesomeIcon 
-              icon={isExpanded
-                    ? faTimes
-                    : faBars} 
-              size="1x" 
-            />
+            {React.createElement(
+              isExpanded
+                ? Times
+                : Bars
+            )}
           </Navbar.Toggle>
 
           <Navbar.Collapse>

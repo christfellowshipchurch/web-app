@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/fontawesome-pro-light'
+import { Times } from '../../Icons'
 
 const FloatingCard = ({
     children,
@@ -50,7 +49,7 @@ const FloatingCard = ({
                     )}
                 >
                     <button className="border-0" onClick={onPressExit}>
-                        <FontAwesomeIcon icon={faTimes} size='2x' />
+                        <Times />
                     </button>
                 </div>
                 <div className="card-body px-4 pt-0 pb-4">

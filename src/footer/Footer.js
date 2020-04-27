@@ -1,22 +1,17 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { chunk, toLower } from 'lodash';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFacebookSquare,
-    faInstagram,
-    faYoutube,
-    faTwitter,
-} from '@fortawesome/free-brands-svg-icons';
+import { toLower } from 'lodash';
+
+import { Facebook, Instagram, Youtube, Twitter } from '../ui/Icons'
 
 import { useAuth } from '../auth';
 
 const SM_ICONS = {
-    facebook: faFacebookSquare,
-    instagram: faInstagram,
-    youtube: faYoutube,
-    twitter: faTwitter,
+    facebook: Facebook,
+    instagram: Instagram,
+    youtube: Youtube,
+    twitter: Twitter,
 };
 
 const LinkColumn = ({ children }) => (
@@ -176,10 +171,12 @@ const Footer = ({
                                 key={i}
                                 className="text-primary mx-3"
                             >
-                                <FontAwesomeIcon
-                                    icon={SM_ICONS[toLower(call)]}
-                                    size="2x"
-                                />
+                                {React.createElement(
+                                    SM_ICONS[toLower(call)],
+                                    {
+                                        fill: '#00aeff'
+                                    },
+                                )}
                             </a>
                         ))}
                     </div>

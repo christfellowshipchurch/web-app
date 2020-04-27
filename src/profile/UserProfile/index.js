@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import propTypes from 'prop-types'
 import moment from 'moment'
 import { get } from 'lodash'
-import { faEnvelope, faMobile } from '@fortawesome/fontawesome-pro-light'
+import { Envelope, Mobile } from '../../ui/Icons'
 
 import { TextInput, Checkbox, Loader } from '../../ui'
 import { useAuthQuery } from '../../auth'
@@ -94,7 +94,7 @@ const CurrentProfile = ({
                         Communication Preferences
                     </h4>
                     <TextInput
-                        icon={faEnvelope}
+                        icon={Envelope}
                         value={get(profile, 'email', '')}
                         label='Email'
                         readOnly
@@ -111,7 +111,7 @@ const CurrentProfile = ({
                     </div>
 
                     <TextInput
-                        icon={faMobile}
+                        icon={Mobile}
                         value={get(profile, 'phoneNumber', '')}
                         label='Mobile Phone'
                         readOnly

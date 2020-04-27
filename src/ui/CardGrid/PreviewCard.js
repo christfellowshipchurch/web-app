@@ -1,9 +1,9 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { Card } from '../'
+import { AngleRight } from '../Icons'
 
 const PreviewCard = ({
     title,
@@ -30,9 +30,7 @@ const PreviewCard = ({
                             className="text-success mr-2 mb-2"
                             style={{ fontSize: 22 }}
                         >
-                            <FontAwesomeIcon
-                                icon={['fal', icon]}
-                            />
+                            {React.createElement(icon)}
                         </span>
                         <span className="mb-2 mt-1">
                             {title}
@@ -79,7 +77,7 @@ const PreviewCard = ({
 }
 
 PreviewCard.defaultProps = {
-    icon: 'hand-point-right',
+    icon: AngleRight,
     callToAction: 'Learn More',
     Component: null,
     onClick: () => true,

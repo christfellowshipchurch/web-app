@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  faExclamationCircle,
-  faCheckCircle,
-  faBan,
-  faUser,
-} from "@fortawesome/pro-light-svg-icons"
+  ExclamationCircle,
+  CheckCircle,
+  Ban,
+  User,
+} from '../../Icons'
 import { toLower, camelCase } from 'lodash'
 
 import InputContainer from '../inputContainer'
@@ -33,15 +33,15 @@ const TextInput = ({
     ? '#00aeef'
     : disabled ? '#e6e6e6' : '#525252'
   let suffix = withSuccess
-    ? { icon: faCheckCircle, color: '#1ec27f' }
+    ? { icon: CheckCircle, color: '#1ec27f' }
     : null
 
   if (error) {
-    suffix = { icon: faExclamationCircle, color: '#cb045b' }
+    suffix = { icon: ExclamationCircle, color: '#cb045b' }
   }
 
   if (disabled) {
-    suffix = { icon: faBan, color: '#e6e6e6' }
+    suffix = { icon: Ban, color: '#e6e6e6' }
   }
   const forLabel = toLower(camelCase(label))
 
@@ -74,7 +74,7 @@ const TextInput = ({
 
 TextInput.defaultProps = {
   onChange: () => { },
-  icon: faUser,
+  icon: User,
   hideIcon: false,
   readOnly: false
 }

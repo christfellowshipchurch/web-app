@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { useMutation, useQuery } from 'react-apollo'
 import classnames from 'classnames'
 import { get, has } from 'lodash'
-import { faEnvelope, faMobile, faCalendarAlt, faChurch } from '@fortawesome/fontawesome-pro-light'
-import { faHomeLg } from '@fortawesome/pro-light-svg-icons'
+import { Envelope, Mobile, CalendarAlt, Church, Home } from '../../ui/Icons'
 import AwesomePhoneNumber from 'awesome-phonenumber'
 import { string } from 'yup'
 import moment from 'moment'
@@ -27,7 +26,7 @@ const CampusSelection = ({ onChange, value }) => {
         onChange={(e) => onChange(e)}
         disabled={disabled}
         value={disabled ? '' : value}
-        icon={faChurch}
+        icon={Church}
     />
 }
 
@@ -203,7 +202,7 @@ const EditUserProfile = ({
                     </h4>
                     <div className='mb-3'>
                         <TextInput
-                            icon={faHomeLg}
+                            icon={Home}
                             label="Street Address"
                             value={get(values, 'street1', '')}
                             onChange={(e) => setValue('street1', e.target.value)}
@@ -245,7 +244,7 @@ const EditUserProfile = ({
                                 }}
                                 label='Select Date'
                                 value={moment(get(values, 'birthDate', '')).format('YYYY-MM-DD')}
-                                icon={faCalendarAlt}
+                                icon={CalendarAlt}
                             />
                     </div>
 
@@ -270,7 +269,7 @@ const EditUserProfile = ({
                         Communication Preferences
                     </h4>
                     <TextInput
-                        icon={faEnvelope}
+                        icon={Envelope}
                         value={get(values, 'email', '')}
                         label='Email'
                         error={get(errors, 'email', null)}
@@ -286,7 +285,7 @@ const EditUserProfile = ({
                     </div>
 
                     <TextInput
-                        icon={faMobile}
+                        icon={Mobile}
                         value={get(values, 'phoneNumber', '')}
                         label='Mobile Phone'
                         error={get(errors, 'phoneNumber', null)}

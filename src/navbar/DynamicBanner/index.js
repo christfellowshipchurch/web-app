@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
 import classnames from 'classnames';
-import { faTimes } from '@fortawesome/fontawesome-pro-light';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Times } from '../../ui/Icons';
 
 import { GET_BANNER } from './queries';
 
@@ -51,14 +50,13 @@ const LiveBanner = () => {
           right: 10,
         }}
       >
-        <FontAwesomeIcon
-          className={classnames(
-            'cursor-hover',
-          )}
-          color="white"
-          icon={faTimes}
+        <span
           onClick={() => isClosed(true)}
-        />
+        >
+          <Times
+            fill='white'
+          />
+        </span>
       </div>
     </div>
   );

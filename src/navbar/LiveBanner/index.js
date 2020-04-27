@@ -3,8 +3,8 @@ import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
 import classnames from 'classnames';
 import moment from 'moment';
-import { faTimes } from '@fortawesome/fontawesome-pro-light';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Times } from '../../ui/Icons';
+
 
 import { GET_LIVE_STREAM } from './queries';
 import { redirectTo } from '../../utils';
@@ -103,18 +103,18 @@ const LiveBanner = () => {
           right: 10,
         }}
       >
-        <FontAwesomeIcon
+         <span
+          onClick={() => isClosed(true)}
           className={classnames(
             'cursor-hover',
           )}
-          color={
-            lightBanner
-              ? 'grey'
-              : 'white'
-          }
-          icon={faTimes}
-          onClick={() => isClosed(true)}
-        />
+        >
+          <Times
+            fill={lightBanner
+                    ? 'grey'
+                    : 'white'}
+          />
+        </span>
       </div>
     </div>
   ) : null;

@@ -12,10 +12,10 @@ import {
     uniq
 } from 'lodash'
 import {
-    faChurch,
-    faCalendarAlt,
-    faClock
-} from '@fortawesome/fontawesome-pro-light'
+    Church,
+    CalendarAlt,
+    Clock
+} from '../../../ui/Icons'
 import Loader from '../../../ui/Loader'
 import Dropdown from '../../../ui/inputs/Dropdown'
 
@@ -117,7 +117,7 @@ const VisitForm = ({
             <div className="row mb-4">
                 <div className="col">
                     <Dropdown
-                        icon={faChurch}
+                        icon={Church}
                         value={campusValue}
                         onChange={(e) => setFieldValue('campus', e.target.value)}
                         options={campuses.map(n => get(n, 'name', ''))}
@@ -127,7 +127,7 @@ const VisitForm = ({
             <div className="row mb-4">
                 <div className="col">
                     <Dropdown
-                        icon={faCalendarAlt}
+                        icon={CalendarAlt}
                         value={visitDateValue}
                         onChange={(e) => setFieldValue('visitDate', e.target.value)}
                         options={sortBy(availableServices, n => moment(n))
@@ -142,7 +142,7 @@ const VisitForm = ({
             <div className="row mb-4">
                 <div className="col">
                     <Dropdown
-                        icon={faClock}
+                        icon={Clock}
                         value={visitTimeValue}
                         onChange={(e) => setFieldValue('visitTime', get(e, 'target.value', ''))}
                         options={times.map(n => ({

@@ -5,7 +5,7 @@ import { withFormik } from 'formik'
 import * as Yup from 'yup'
 import { get, has } from 'lodash'
 
-import { faEnvelope } from '@fortawesome/fontawesome-pro-light'
+import { Envelope } from '../../ui/Icons'
 import {
     TextInput,
     Button,
@@ -122,7 +122,7 @@ const EmailCapture = ({
                             <div className='col py-1'>
                                 <TextInput
                                     label='Email Address'
-                                    icon={faEnvelope}
+                                    icon={Envelope}
                                     onChange={(e) => setFieldValue('email', get(e, 'target.value', ''))}
                                     error={has(values, 'email') && has(errors, 'email') ? get(errors, 'email', null) : null}
                                     disabled={isLoading}

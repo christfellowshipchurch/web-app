@@ -6,8 +6,7 @@ import {
     Card,
     Collapse
 } from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from "@fortawesome/pro-light-svg-icons"
+import { AngleDown } from '../Icons'
 
 // Styling and layout for the physical accordion item
 //  that the user interacts with
@@ -56,10 +55,8 @@ const AccordionItem = ({
                 >
                     <span>{title}</span>
                     <span>
-                        <FontAwesomeIcon
-                            icon={faAngleDown}
-                            size="2x"
-                            {...fontAwesomeProps}
+                        <AngleDown
+                            size="48"
                         />
                     </span>
                 </button>

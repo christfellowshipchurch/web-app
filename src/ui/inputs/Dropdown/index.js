@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { get } from 'lodash'
 import {
-  faExclamationCircle,
-  faCheckCircle,
-  faBan,
-  faUser,
-  faAngleDown,
-  faAngleUp
-} from "@fortawesome/pro-light-svg-icons"
+  ExclamationCircle,
+  CheckCircle,
+  Ban,
+  User,
+  AngleDown,
+  AngleUp
+} from "../../Icons"
 
 import InputContainer from '../inputContainer'
 import InputIcon from '../inputIcon'
@@ -35,7 +35,7 @@ const Dropdown = ({
   const color = (focused || hovering) && !disabled
     ? '#00aeef'
     : disabled ? '#e6e6e6' : '#525252'
-  const suffix = focused ? faAngleUp : faAngleDown
+  const suffix = focused ? AngleUp : AngleDown
 
 
   return (
@@ -79,7 +79,7 @@ const Dropdown = ({
 
 Dropdown.defaultProps = {
   onChange: () => { },
-  icon: faUser,
+  icon: User,
   options: []
 }
 

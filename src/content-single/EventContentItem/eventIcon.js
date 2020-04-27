@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const EventIcon = ({
   icon,
@@ -8,14 +7,16 @@ const EventIcon = ({
   size,
   className
 }) => (
-    <span
-      style={{ fontSize: size }}
+    <span 
+      className={className}
     >
-      <FontAwesomeIcon
-        icon={icon}
-        color={color}
-        className={className}
-      />
+      {React.createElement(
+          icon,
+          {
+              fill: color,
+              size: size,
+          },
+      )}
     </span>
   )
 

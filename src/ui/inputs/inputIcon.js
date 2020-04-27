@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from "@fortawesome/pro-light-svg-icons"
+import { User } from "../Icons"
 
 const InputIcon = ({ icon, focused, color }) => (
     <div
@@ -16,16 +15,17 @@ const InputIcon = ({ icon, focused, color }) => (
             minWidth: 30
         }}
     >
-        <FontAwesomeIcon
-            icon={icon}
-            size={'1x'}
-            color={color}
-        />
+        {React.createElement(
+            icon,
+            {
+                fill: color
+            }
+        )}
     </div>
 )
 
 InputIcon.defaultProps = {
-    icon: faUser,
+    icon: User,
     focused: false,
     color: 'black'
 }

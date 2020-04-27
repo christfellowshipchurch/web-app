@@ -8,11 +8,9 @@ import { get, has } from 'lodash'
 import { Redirect } from 'react-router-dom'
 
 import {
-    faLock,
-    faLockAlt,
-    faEnvelope,
-    faKey
-} from '@fortawesome/fontawesome-pro-light'
+    LockAlt,
+    Envelope,
+} from '../../ui/Icons'
 
 import { Card, TextInput, Button  } from '../../ui'
 
@@ -142,7 +140,7 @@ const ResetPassword = ({
                                     <div className="col">
                                         <TextInput
                                             label="Email"
-                                            icon={faEnvelope}
+                                            icon={Envelope}
                                             value={get(values, 'email', '')}
                                             onChange={(e) => setValue('email', get(e, 'target.value', ''))}
                                             error={get(errors, 'email', '')}
@@ -154,7 +152,7 @@ const ResetPassword = ({
                                     <div className="col">
                                         <TextInput
                                             label="Confirmation Code"
-                                            icon={faKey}
+                                            icon={LockAlt}
                                             type="number"
                                             onChange={(e) => setValue('confirmationCode', get(e, 'target.value', ''))}
                                             error={get(errors, 'confirmationCode', '')}
@@ -171,7 +169,7 @@ const ResetPassword = ({
                                     <div className="col">
                                         <TextInput
                                             label="Password"
-                                            icon={faLock}
+                                            icon={LockAlt}
                                             type="password"
                                             onChange={(e) => setValue('password', get(e, 'target.value', ''))}
                                             autoComplete="off"
@@ -184,7 +182,7 @@ const ResetPassword = ({
                                     <div className="col">
                                         <TextInput
                                             label="Confirm Password"
-                                            icon={faLockAlt}
+                                            icon={LockAlt}
                                             type="password"
                                             disabled={!has(values, 'password')}
                                             onChange={(e) => setValue('confirmPassword', get(e, 'target.value', ''))}
