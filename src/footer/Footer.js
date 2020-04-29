@@ -3,7 +3,9 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { toLower } from 'lodash';
 
-import { Facebook, Instagram, Youtube, Twitter } from '../ui/Icons'
+import {
+    Facebook, Instagram, Youtube, Twitter,
+} from '../ui/Icons';
 
 import { useAuth } from '../auth';
 
@@ -174,7 +176,7 @@ const Footer = ({
                                 {React.createElement(
                                     SM_ICONS[toLower(call)],
                                     {
-                                        fill: '#00aeff'
+                                        fill: '#00aeff',
                                     },
                                 )}
                             </a>
@@ -249,7 +251,7 @@ Footer.defaultProps = {
         { call: 'Terms of Use', action: '/terms-of-use' },
     ],
     resourceLinks: [
-        { call: 'Church Online', action: 'https://gochristfellowship.churchonline.org/' },
+        { call: 'Church Online', action: 'https://live.christfellowship.church' },
         { call: 'Past Messages', action: 'https://www.youtube.com/playlist?list=PLUQ7jSnRB_efXMDq9Lka6stS02awWoaz4' },
         { call: 'Ministry Updates', action: '/items/ministry-updates-d5bf6fa745f26bd019ea35882ecab86c' },
         { call: 'Give Online', action: 'https://pushpay.com/g/christfellowship' },
