@@ -6,11 +6,21 @@ const MediaVideo = forwardRef((
     source,
     ...videoProps
   }, ref,
-) => (
-    <video {...videoProps} ref={ref} controlsList="nodownload">
-      <source type="video/mp4" src={source} />
-    </video>
-  ));
+) => {
+
+  return (
+      <video
+            {...videoProps} 
+            ref={ref}
+            controlsList="nodownload"
+            autoPlay={source.includes('m3u8')}
+          >
+            <source  
+              type='video/mp4' 
+              src={source} 
+            />
+        </video>
+  )});
 
 // Default state of the video is to be a silent,
 //  inline, looped video to be used like a background video

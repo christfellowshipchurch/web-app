@@ -1,11 +1,13 @@
 import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { keys } from 'lodash';
+import { keys, includes } from 'lodash';
+import Hls from 'hls.js';
+
 
 import Image from './Image';
 import Video from './Video';
-import { PlayCircle } from '../Icons';
+import { Icon } from '../Icons';
 
 const MediaItem = ({
   ratio,
@@ -26,6 +28,8 @@ const MediaItem = ({
 }) => {
   const showVideoControls = showControls && !children;
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls);
+
+
   const videoProps = showVideoControls
     ? {
       playsInline: false,
@@ -37,8 +41,20 @@ const MediaItem = ({
     : {};
   const videoRef = createRef();
 
+  const createHLSurl = () => {
+    let hls = new Hls({});
+    hls.loadSource(videoUrl);
+    hls.attachMedia(videoRef.current);
+    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          videoRef.current.play();
+    })
+  }
+
+
   const playButtonClick = () => {
-    videoRef.current.play();
+    const isHLS = videoUrl.includes('m3u8')
+     ? createHLSurl()
+     : videoRef.current.play();
     setShowPlayButton(false);
   };
   let ratioClass = typeof ratio === 'string'
@@ -112,7 +128,8 @@ const MediaItem = ({
                   className="btn btn-icon"
                   onClick={playButtonClick}
                 >
-                  <PlayCircle 
+                  <Icon
+                    name='play-circle' 
                     size={playIcon.size} 
                     fill={playIcon.color} 
                   />
