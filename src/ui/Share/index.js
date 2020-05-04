@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  includes, toLower, uniqueId,
+  includes, toLower, uniqueId, merge
 } from 'lodash';
 import {
   FacebookShareButton,
@@ -15,11 +15,31 @@ import {
 import { GoogleAnalytics } from '../../analytics';
 import { Icon } from '../Icons';
 
+const defaultShareMessages = ({title}) => {
+const messages = {  
+    faceBook:`Check out ${title} happening at Christ Fellowship Church!`,
+    twitter:`${title} at Christ Fellowship Church`,
+    email: {
+      subject:`${title} at Christ Fellowship Church`,
+      body:`Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n`,
+    },
+    sms:`Join me for ${title} at Christ Fellowship! ${document.URL}`
+  }
+return messages
+}
+
 const Share = ({
   title,
   shareTitle,
-  variant
+  variant,
+  shareMessages
 }) => {
+
+  const messages = {
+    ...defaultShareMessages({title}),
+    ...shareMessages
+  }
+
   // Google Analytics
   const buttonClick = (label, action) => {
     GoogleAnalytics.trackEvent({
@@ -29,7 +49,6 @@ const Share = ({
     });
   };
 
-
   // Creates URL for SMS
   const smsUrl = (string) => {
     const encodedString = encodeURI(string);
@@ -38,16 +57,6 @@ const Share = ({
   };
 
   const iconSize = '24'
-
-  const shareMessages = {
-      faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
-      twitterShare: `${title} at Christ Fellowship Church`,
-      emailShare: {
-        subject: `${title} at Christ Fellowship Church`,
-        body: `Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n`,
-      },
-      smsShare: `Join me for ${title} at Christ Fellowship! ${document.URL}`,
-    }
 
   return (
     <Dropdown
@@ -79,7 +88,7 @@ const Share = ({
         >
           <FacebookShareButton
             url={document.URL}
-            quote={shareMessages.faceBookShare}
+            quote={messages.faceBook}
           >
             <span className="mr-2">
               <Icon
@@ -97,7 +106,7 @@ const Share = ({
         >
           <TwitterShareButton
             url={document.URL}
-            title={shareMessages.twitterShare}
+            title={messages.twitter}
           >
             <span className="mr-2">
               <Icon
@@ -115,8 +124,8 @@ const Share = ({
         >
           <EmailShareButton
             url={document.URL}
-            subject={shareMessages.emailShare.subject}
-            body={shareMessages.emailShare.body}
+            subject={messages.email.subject}
+            body={messages.email.body}
           >
             <span className="mr-2">
               <Icon
@@ -129,7 +138,7 @@ const Share = ({
         </Dropdown.Item>
 
         <Dropdown.Item
-          href={smsUrl(shareMessages.smsShare)}
+          href={smsUrl(messages.sms)}
           target="_blank"
           className="d-md-none"
           onClick={() => buttonClick(`${title} - SMS Share Button`, 'Shared from Share Sheet')}
@@ -151,11 +160,13 @@ Share.propType = {
   shareTitle: PropTypes.string,
   variant: PropTypes.string,
   title: PropTypes.string.isRequired,
+  shareMessages: PropTypes.func
 };
 
 Share.defaultProps = {
   shareTitle: 'Share',
-  variant: 'ghost-white'
+  variant: 'ghost-white',
+  shareMessages: defaultShareMessages
 };
 
 export default Share;
