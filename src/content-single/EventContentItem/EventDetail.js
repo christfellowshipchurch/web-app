@@ -6,6 +6,7 @@ import { useAuth, useAuthQuery } from '../../auth';
 
 import {
   Card,
+  Share
 } from '../../ui';
 import EventSchedule from './EventSchedule';
 
@@ -54,13 +55,27 @@ const EventDetail = ({
       {(title !== ''
         || summary !== '')
         && (
-          <div className="mt-4 mb-2">
-            <h1 className="mb-2 text-dark">
-              {title}
-            </h1>
-            <h3 className="mt-1 content-subtitle font-weight-light">
-              {summary}
-            </h3>
+          <div
+            className={classnames(
+              'd-md-flex',
+              'justify-content-between',
+              'align-items-center',
+              'pb-3'
+            )}
+          >
+            <div className="mt-4 mb-2 pb-2">
+              <h1 className="mb-2 text-dark">
+                {title}
+              </h1>
+              <h3 className="mt-1 content-subtitle font-weight-light">
+                {summary}
+              </h3>
+            </div>
+            <Share 
+              shareTitle='Invite'
+              title={title}
+              variant={'outline-dark'}
+            />
           </div>
         )}
 

@@ -6,14 +6,11 @@ import {
 } from 'lodash';
 
 import { Media } from '../../ui';
-import Share from './Share';
 
 const Banner = ({
   title,
   coverImage,
-  videos,
-  withShare,
-  shareTitle,
+  videos
 }) => (
     <div className="p-relative">
       <div
@@ -42,22 +39,7 @@ const Banner = ({
           rounded
           showControls
           className="shadow"
-        >
-          {!!withShare
-            && (
-              <div className={classnames(
-                'd-flex',
-                'justify-content-end',
-                'align-items-end',
-                'w-100',
-                'h-100',
-                'p-2',
-              )}
-              >
-                <Share shareTitle={shareTitle} title={title} />
-              </div>
-            )}
-        </Media>
+        />
       </div>
     </div>
   );
@@ -70,17 +52,13 @@ Banner.propTypes = {
   }),
   videos: PropTypes.arrayOf(PropTypes.shape({
     sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
-  })),
-  withShare: PropTypes.bool,
-  shareTitle: PropTypes.string,
+  }))
 };
 
 Banner.defaultProps = {
   title: '',
   coverImage: {},
-  videos: [],
-  withShare: false,
-  shareTitle: 'Share',
+  videos: []
 };
 
 export default Banner;

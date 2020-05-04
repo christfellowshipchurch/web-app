@@ -13,7 +13,7 @@ import {
   Dropdown,
 } from 'react-bootstrap';
 import { GoogleAnalytics } from '../../analytics';
-import { Icon } from '../../ui/Icons';
+import { Icon } from '../Icons';
 
 const Share = ({
   title,
@@ -39,22 +39,7 @@ const Share = ({
 
   const iconSize = '24'
 
-  // TODO: Come up with a different fix for Easter!!!!
-  // If the title is for Easter it will use the specific prewritten messages for that event.
-  // Else it will use the generic messages.
-  const isEaster = includes(toLower(title), 'easter');
-
-  const shareMessages = isEaster
-    ? {
-      faceBookShare: 'An Online Easter Service Just for You',
-      twitterShare: 'I\'ll be watching Easter at Christ Fellowship online! \nWill you? \n',
-      emailShare: {
-        subject: 'An Online Easter Service Just for You',
-        body: 'Hey, \n\n I\'m going to be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out this link to view when the service times are, as well as how you can watch online. \n\n',
-      },
-      smsShare: 'Hey, I\'m going to be watching Easter at Christ Fellowship online. Would you like to watch with me? If so, check out EasteratCF.com to view when the service times are, as well as how you can watch online.',
-    }
-    : {
+  const shareMessages = {
       faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
       twitterShare: `${title} at Christ Fellowship Church`,
       emailShare: {
@@ -62,7 +47,7 @@ const Share = ({
         body: `Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n`,
       },
       smsShare: `Join me for ${title} at Christ Fellowship! ${document.URL}`,
-    };
+    }
 
   return (
     <Dropdown
