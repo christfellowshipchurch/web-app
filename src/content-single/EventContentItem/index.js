@@ -20,7 +20,7 @@ const EventContentItem = ({
 
   return (
     <div>
-      <Banner {...content} withShare shareTitle="Invite" />
+      <Banner {...content} />
       <Detail {...content} />
     </div>
   );

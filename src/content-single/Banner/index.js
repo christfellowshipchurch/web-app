@@ -11,6 +11,7 @@ import Share from './Share';
 const Banner = ({
   title,
   coverImage,
+  videos,
   withShare,
   shareTitle,
 }) => (
@@ -33,11 +34,13 @@ const Banner = ({
       <div className="max-width-1100 mx-auto px-3 pt-6">
         <Media
           imageUrl={get(coverImage, 'sources[0].uri', '')}
+          videoUrl={get(videos[0], 'sources[0].uri', '')}
           imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
           className="max-height-45-vh"
           ratio={{ xs: '1by1', md: '16by9' }}
           forceRatio
           rounded
+          showControls
           className="shadow"
         >
           {!!withShare
@@ -65,6 +68,9 @@ Banner.propTypes = {
     name: PropTypes.string,
     sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
   }),
+  videos: PropTypes.arrayOf(PropTypes.shape({
+    sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
+  })),
   withShare: PropTypes.bool,
   shareTitle: PropTypes.string,
 };
@@ -72,6 +78,7 @@ Banner.propTypes = {
 Banner.defaultProps = {
   title: '',
   coverImage: {},
+  videos: [],
   withShare: false,
   shareTitle: 'Share',
 };
