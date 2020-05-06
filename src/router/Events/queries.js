@@ -41,14 +41,6 @@ export const GET_EVENTS = gql`
         allEvents {
             ...eventsFragment
         }
-
-        featuredEvents {
-            edges {
-                node {
-                   ...eventsFragment
-                }
-            }
-        }
     }
 
     fragment eventsFragment on EventContentItem {
