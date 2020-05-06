@@ -113,9 +113,17 @@ export const CampusTile = ({
                     href={`https://www.google.com/maps/dir/?api=1&destination=${location}`}
                 />
 
-                <h3 className="mt-6">
+                <Button 
+                    className='mt-3'
+                    title='Watch Church Online'
+                    href='https://live.christfellowship.church/'
+                />
+
+                {/* TEMPORARLY HIDING RSVP BUTTONS WHILE CAMPUSES ARE CLOSED */}
+
+                {/* <h3 className="mt-6">
                     Select a service time to RSVP for:
-            </h3>
+                </h3>
                 {uniqBy(serviceTimes, 'time').map((n, i) => {
                     const isDate = moment(`${n.day} ${n.time}`).isValid()
                     const title = isDate
@@ -133,7 +141,7 @@ export const CampusTile = ({
                             })}
                         />
                     )
-                })}
+                })} */}
             </div>
         </div>
     )
