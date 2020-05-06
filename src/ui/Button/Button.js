@@ -18,29 +18,37 @@ const Button = ({
   gradient,
   title,
   className,
+  newTab,
   loading,
   ...buttonProps
 }) => {
   const btnType = get({
     white: 'white',
-    dark: 'outline-dark',
-    light: 'outline-light',
-    link: 'link'
-  }, type, 'primary')
+    dark: 'outline-dark text-dark',
+    light: 'outline-light text-light',
+    link: 'link text-primary'
+  }, type, 'primary text-white')
+
+  const buttonColor = color ? color : btnType
 
   // TODO : clean up
   const classes = classnames(
     'btn',
     size !== '' ? `btn-${size}` : '',
     `btn-${btnType}`,
-    gradient ? `bg-gradient-${color ? color : btnType} border-${color ? color : btnType}` : '',
-    type !== 'link' ? 'text-uppercase' : '',
+    gradient 
+      ? `bg-gradient-${buttonColor} border-${buttonColor}` 
+      : '',
+    type !== 'link' 
+      ? 'text-uppercase' 
+      : '',
     className
   )
 
   return (
-    <button
+    <a
       className={classes}
+      target={newTab ? '_blank' : ''}
       {...buttonProps}
     >
       {loading
@@ -61,7 +69,7 @@ const Button = ({
           </div>
         )
         : title}
-    </button>
+    </a>
   )
 }
 
@@ -70,7 +78,8 @@ Button.defaultProps = {
   type: 'primary',
   title: 'default',
   className: '',
-  loading: false
+  loading: false,
+  newTab: false
 }
 
 Button.propTypes = {
@@ -78,7 +87,8 @@ Button.propTypes = {
   type: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  newTab: PropTypes.bool
 }
 
 
