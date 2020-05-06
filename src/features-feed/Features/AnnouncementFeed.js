@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
+import { useSandbox, AnnouncementFeedSandbox } from '../../sandbox';
 import ContentCardConnected from '../../content-card-connected';
 import { ContentCard, HighlightCard, ContentContainer } from '../../ui';
 
@@ -29,6 +30,7 @@ const StyledHighlightCard = ({ style, ...props }) => <HighlightCard {...props} s
 const AnnouncementFeed = ({
     itemId,
 }) => {
+    const { sandboxEnabled } = useSandbox();
     const {
         loading,
         error,
@@ -52,54 +54,59 @@ const AnnouncementFeed = ({
 
     const content = get(data, 'node.childContentItemsConnection.edges', []);
 
-    return (
-        <div
-            className={classnames(
-                'container-fluid',
-            )}
-        >
-            <div className="row mx-n2">
-                {content.map(({ node }, i) => {
-                    const placement = i === 0
-                        ? 0
-                        : i === content.length - 1 ? 1 : -1;
+    return sandboxEnabled
+        ? <AnnouncementFeedSandbox itemId={itemId} />
+        : (
+            <div
+                className={classnames(
+                    'container-fluid',
+                )}
+            >
+                <div className="row mx-n2">
+                    {content.map(({ node }, i) => {
+                        const placement = i === 0
+                            ? 0
+                            : i === content.length - 1 ? 1 : -1;
 
-                    return (
-                        i === 0
-                        ? <div
-                            key={`AnnouncementFeed:${i}`}
-                            className={classnames(
-                                'p-2',
-                                'col-12'
-                            )}
-                        >
-                            <ContentCardConnected
-                                contentId={node.id}
-                                card={StyledHighlightCard }
-                                ratio={RATIO_MAP[placement]}
-                                mediaProps={{
-                                    gradient: 'dark',
-                                    gradientDirection: 'bottom-top',
-                                }}
-                            />
-                        </div>
+                        return (
+                            i === 0
+                                ? (
+                                    <div
+                                        key={`AnnouncementFeed:${i}`}
+                                        className={classnames(
+                                            'p-2',
+                                            'col-12',
+                                        )}
+                                    >
+                                        <ContentCardConnected
+                                            contentId={node.id}
+                                            card={StyledHighlightCard}
+                                            ratio={RATIO_MAP[placement]}
+                                            mediaProps={{
+                                                gradient: 'dark',
+                                                gradientDirection: 'bottom-top',
+                                            }}
+                                        />
+                                    </div>
+                                )
 
-                        : 
-                            <ContentCardConnected
-                                key={`AnnouncementFeed:${i}`}
-                                contentId={node.id}
-                                card={ContentCard}
-                                ratio={RATIO_MAP[placement]}
-                                mediaProps={{
-                                    gradient: 'dark',
-                                    gradientDirection: 'bottom-top',
-                                }}
-                            />
-                    );
-                })}
+                                : (
+                                    <ContentCardConnected
+                                        key={`AnnouncementFeed:${i}`}
+                                        contentId={node.id}
+                                        card={ContentCard}
+                                        ratio={RATIO_MAP[placement]}
+                                        mediaProps={{
+                                            gradient: 'dark',
+                                            gradientDirection: 'bottom-top',
+                                        }}
+                                    />
+                                )
+                        );
+                    })}
+                </div>
             </div>
-        </div>
-    );
+        );
 };
 
 export default AnnouncementFeed;

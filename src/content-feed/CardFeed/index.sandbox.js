@@ -1,31 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
-import { get, kebabCase } from 'lodash';
+import { get, take } from 'lodash';
 import classnames from 'classnames';
 
-import { useSandbox, ChildrenFeedSandbox } from '../../sandbox';
 import {
     ContentContainer,
     Loader,
 } from '../../ui';
 import ContentCardConnected from '../../content-card-connected';
-import { GET_CONTENT_FEED } from '../../content-feed';
-import { CARD_PADDING, MARGIN_Y, PADDING_X } from '..';
+import { GET_CONTENT_FEED } from '../queries';
 
 const CardFeed = ({
     id,
+    title,
+    connection,
     urlBase,
     first,
+    className,
 }) => {
-    const { sandboxEnabled } = useSandbox();
+    // we want to query at least one additional item just in case we get back the
+    //  original item as a part of the child/sibling collection. Later on, we'll filter
+    //  results to remove the original item from the list
+    const calculatedFirst = first
+        ? first + 1
+        : null;
     const { loading, error, data } = useQuery(GET_CONTENT_FEED, {
         variables: {
             itemId: id,
-            first,
-            child: true,
-            sibling: false,
+            first: calculatedFirst,
+            child: connection === 'child',
+            sibling: connection === 'sibling',
         },
+        fetchPolicy: 'cache-and-network',
     });
 
     if (loading) {
@@ -41,39 +48,40 @@ const CardFeed = ({
         return null;
     }
 
-    const content = get(data, 'node.childContentItemsConnection.edges', []).map(
+    let content = get(data, `node.${connection}ContentItemsConnection.edges`, []).map(
         (edge) => edge.node,
-    );
-    const title = get(data, 'node.title', '');
+    ).filter((n) => n.id !== id);
 
+    if (first) content = take(content, first);
 
-    return sandboxEnabled
-        ? <ChildrenFeedSandbox id={id} urlBase={urlBase} first={first} />
-        : (
-            <div
-                className={classnames(
-                    'container-fluid',
-                )}
+    return content.length > 0
+        ? (
+            <div className={classnames(
+                'container-fluid',
+                'max-width-1100',
+                'my-6',
+                className,
+            )}
             >
                 <div className="row">
                     <div className="col">
                         <h3 className="text-dark align-self-start">
-                            {title}
+                            {`SANDBOX - ${title}`}
                         </h3>
                     </div>
-                    {!!urlBase && urlBase !== '' && title !== 'Most Recent'
+                    {!!urlBase && urlBase !== ''
                         && (
                             <div className="col text-right">
                                 <a
-                                    href={`${urlBase}/${kebabCase(title)}`}
+                                    href={`/${urlBase}`}
                                     className="text-dark align-self-end"
                                 >
-                                    See All
+                                    See More
                           </a>
                             </div>
                         )}
                 </div>
-                <div className="row mx-n1 my-n3">
+                <div className="row mx-n2">
                     {content.map((n, i) => (
                         <ContentCardConnected
                             key={i}
@@ -83,19 +91,26 @@ const CardFeed = ({
                     ))}
                 </div>
             </div>
-        );
+        )
+        : null;
 };
 
 CardFeed.propTypes = {
     id: PropTypes.string,
-    urlBase: PropTypes.string,
+    connection: PropTypes.oneOf([
+        'child',
+        'sibling',
+    ]),
+    title: PropTypes.string,
     first: PropTypes.number,
+    className: PropTypes.string,
 };
 
 CardFeed.defaultProps = {
     id: null,
-    urlBase: '/content/categories',
-    first: 3,
+    connection: 'child',
+    first: null,
+    className: '',
 };
 
 export default CardFeed;
