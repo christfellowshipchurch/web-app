@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_CONTENT_FEED = gql`
   query getContentFeed (
@@ -18,6 +18,12 @@ export const GET_CONTENT_FEED = gql`
             node {
                 id
                 title
+                summary
+                images {
+                  sources {
+                    uri
+                  }
+                }
             }
           }
         }
@@ -36,6 +42,12 @@ export const GET_CONTENT_FEED = gql`
             node {
                 id
                 title
+                summary
+                images {
+                  sources {
+                    uri
+                  }
+                }
             }
           }
         }
@@ -48,6 +60,12 @@ export const GET_CONTENT_FEED = gql`
             node {
                 id
                 title
+                summary
+                images {
+                  sources {
+                    uri
+                  }
+                }
             }
           }
         }
@@ -55,4 +73,4 @@ export const GET_CONTENT_FEED = gql`
       }
     }
   }
-`
+`;
