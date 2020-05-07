@@ -25,12 +25,14 @@ const EventContentItem = ({
     <LiveConsumer contentId={itemId}>
     {(liveStream) => {
     const isLive = !!(liveStream && liveStream.isLive);
+    const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
+
     return(
             <div>
               <Banner {...content} 
                 withShare 
                 shareTitle="Invite" 
-                liveStream={liveStream}
+                liveStreamSource={liveStreamSource}
               />
               <Detail 
                 {...content} 
