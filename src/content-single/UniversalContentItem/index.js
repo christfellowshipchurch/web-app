@@ -8,6 +8,7 @@ import { htmlToReactParser } from '../../utils';
 import {
   Media,
   ErrorBlock,
+  Share
 } from '../../ui';
 import Placeholder from './Placeholder';
 
@@ -15,7 +16,6 @@ import Author from '../Author';
 import RelatedArticles from './RelatedContent';
 import ArticleCategories from './ContentCategories';
 
-import Share from '../Banner/Share'
 
 const UniversalContentItem = ({
   itemId,
