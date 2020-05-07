@@ -10,18 +10,22 @@ const pascalCase = (string) =>
   )(string);
 
 
-const Icon = ({ name, size, fill }) => {
+const Icon = ({ name, size, fill, className }) => {
 
   const IconComponent = Icons[pascalCase(name)];
   
   return (
-    React.createElement(
-      IconComponent,
-      {
-        size: size,
-        fill: fill
-      }
-    )
+    <span
+      className={className}
+    >
+      {React.createElement(
+        IconComponent,
+        {
+          size: size,
+          fill: fill
+        }
+      )}
+    </span>
   )}
 
 export default Icon
@@ -30,9 +34,12 @@ Icon.propTypes = {
   name: PropTypes.string,
   size: PropTypes.number,
   fill: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Icon.defaultProps = {
   name: 'home',
   size: 24,
+  fill: '',
+  className: ''
 }
