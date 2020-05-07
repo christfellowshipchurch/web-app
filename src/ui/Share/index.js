@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import {
-  includes, toLower, uniqueId,
+  includes, toLower, uniqueId, merge
 } from 'lodash';
 import {
   FacebookShareButton,
@@ -13,13 +13,31 @@ import {
   Dropdown,
 } from 'react-bootstrap';
 import { GoogleAnalytics } from '../../analytics';
-import { Icon } from '../../ui/Icons';
+import { Icon } from '../Icons';
+
+
+const defaultShareMessages = {  
+    faceBook:({title}) => `Check out ${title} happening at Christ Fellowship Church!`,
+    twitter:({title}) => `${title} at Christ Fellowship Church`,
+    email:({title}) => ({
+      subject:`${title} at Christ Fellowship Church`,
+      body:`Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n`,
+    }),
+    sms:({title}) => `Join me for ${title} at Christ Fellowship! ${document.URL}`
+  }
 
 const Share = ({
   title,
   shareTitle,
-  variant
+  variant,
+  shareMessages
 }) => {
+
+  const messages = {
+    ...defaultShareMessages,
+    ...shareMessages
+  }
+
   // Google Analytics
   const buttonClick = (label, action) => {
     GoogleAnalytics.trackEvent({
@@ -29,7 +47,6 @@ const Share = ({
     });
   };
 
-
   // Creates URL for SMS
   const smsUrl = (string) => {
     const encodedString = encodeURI(string);
@@ -38,31 +55,6 @@ const Share = ({
   };
 
   const iconSize = '24'
-
-  // TODO: Come up with a different fix for Easter!!!!
-  // If the title is for Easter it will use the specific prewritten messages for that event.
-  // Else it will use the generic messages.
-  const isEaster = includes(toLower(title), 'easter');
-
-  const shareMessages = isEaster
-    ? {
-      faceBookShare: 'An Online Easter Service Just for You',
-      twitterShare: 'I\'ll be watching Easter at Christ Fellowship online! \nWill you? \n',
-      emailShare: {
-        subject: 'An Online Easter Service Just for You',
-        body: 'Hey, \n\n I\'m going to be watching Easter at Christ Fellowship online. Would you like to watch with me? \n\n Check out this link to view when the service times are, as well as how you can watch online. \n\n',
-      },
-      smsShare: 'Hey, I\'m going to be watching Easter at Christ Fellowship online. Would you like to watch with me? If so, check out EasteratCF.com to view when the service times are, as well as how you can watch online.',
-    }
-    : {
-      faceBookShare: `Check out ${title} happening at Christ Fellowship Church!`,
-      twitterShare: `${title} at Christ Fellowship Church`,
-      emailShare: {
-        subject: `${title} at Christ Fellowship Church`,
-        body: `Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n`,
-      },
-      smsShare: `Join me for ${title} at Christ Fellowship! ${document.URL}`,
-    };
 
   return (
     <Dropdown
@@ -94,7 +86,7 @@ const Share = ({
         >
           <FacebookShareButton
             url={document.URL}
-            quote={shareMessages.faceBookShare}
+            quote={messages.faceBook({title})}
           >
             <span className="mr-2">
               <Icon
@@ -112,7 +104,7 @@ const Share = ({
         >
           <TwitterShareButton
             url={document.URL}
-            title={shareMessages.twitterShare}
+            title={messages.twitter({title})}
           >
             <span className="mr-2">
               <Icon
@@ -130,8 +122,8 @@ const Share = ({
         >
           <EmailShareButton
             url={document.URL}
-            subject={shareMessages.emailShare.subject}
-            body={shareMessages.emailShare.body}
+            subject={messages.email({title}).subject}
+            body={messages.email({title}).body}
           >
             <span className="mr-2">
               <Icon
@@ -144,7 +136,7 @@ const Share = ({
         </Dropdown.Item>
 
         <Dropdown.Item
-          href={smsUrl(shareMessages.smsShare)}
+          href={smsUrl(messages.sms({title}))}
           target="_blank"
           className="d-md-none"
           onClick={() => buttonClick(`${title} - SMS Share Button`, 'Shared from Share Sheet')}
@@ -166,11 +158,13 @@ Share.propType = {
   shareTitle: PropTypes.string,
   variant: PropTypes.string,
   title: PropTypes.string.isRequired,
+  shareMessages: PropTypes.func
 };
 
 Share.defaultProps = {
   shareTitle: 'Share',
-  variant: 'ghost-white'
+  variant: 'ghost-white',
+  shareMessages: defaultShareMessages
 };
 
 export default Share;

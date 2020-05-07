@@ -6,6 +6,7 @@ import { useAuth, useAuthQuery } from '../../auth';
 
 import {
   Card,
+  Share
 } from '../../ui';
 import EventSchedule from './EventSchedule';
 
@@ -95,6 +96,11 @@ const EventDetail = ({
             <h3 className="mt-1 content-subtitle font-weight-light">
               {summary}
             </h3>
+            <Share 
+              shareTitle='Invite'
+              title={title}
+              variant={'outline-dark'}
+            />
           </div>
         )}
 
