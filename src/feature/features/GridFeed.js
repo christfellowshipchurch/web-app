@@ -4,12 +4,11 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
-import { useSandbox } from '.';
-import ContentCardConnected from '../content-card-connected';
-import { ContentCard, HighlightCard, ContentContainer } from '../ui';
+import ContentCardConnected from '../../content-card-connected';
+import { ContentCard, HighlightCard, ContentContainer } from '../../ui';
 
-import { GET_CONTENT_FEED } from '../content-feed';
-import { CARD_PADDING, MARGIN_Y, PADDING_X } from '..';
+import { GET_CONTENT_FEED } from '../../content-feed';
+import { CARD_PADDING, MARGIN_Y, PADDING_X } from '.';
 
 const RATIO_MAP = {
     '-1': '4by3',
@@ -22,29 +21,14 @@ const cardLoadingObject = {
     title: '',
     coverImage: [],
     ratio: RATIO_MAP[0],
+
 };
 
 const StyledHighlightCard = ({ style, ...props }) => <HighlightCard {...props} style={{ maxHeight: 450, ...style }} />;
-const ColumnHighlightCard = ({ style, ...props }) => (
-    <div className={classnames('col-12',
-        'col-md-6',
-        'col-lg-4',
-        'px-2',
-        'pt-2')}
-    >
-        <HighlightCard {...props} style={{ ...style, height: '100%' }} ratio="1by1" />
-    </div>
-);
 
-const THEME_CARD_MAP = {
-    default: ContentCard,
-    highlight: ColumnHighlightCard,
-};
-
-export const AnnouncementFeedSandbox = ({
+const AnnouncementFeed = ({
     itemId,
 }) => {
-    const { sandbox } = useSandbox();
     const {
         loading,
         error,
@@ -67,7 +51,6 @@ export const AnnouncementFeedSandbox = ({
     }
 
     const content = get(data, 'node.childContentItemsConnection.edges', []);
-    const borderRadius = sandbox.homeTheme === 'highlight' ? 16 : 8;
 
     return (
         <div
@@ -99,7 +82,6 @@ export const AnnouncementFeedSandbox = ({
                                             gradient: 'dark',
                                             gradientDirection: 'bottom-top',
                                         }}
-                                        style={{ borderRadius }}
                                     />
                                 </div>
                             )
@@ -108,13 +90,12 @@ export const AnnouncementFeedSandbox = ({
                                 <ContentCardConnected
                                     key={`AnnouncementFeed:${i}`}
                                     contentId={node.id}
-                                    card={get(THEME_CARD_MAP, sandbox.homeTheme, ContentCard)}
+                                    card={ContentCard}
                                     ratio={RATIO_MAP[placement]}
                                     mediaProps={{
                                         gradient: 'dark',
                                         gradientDirection: 'bottom-top',
                                     }}
-                                    style={{ borderRadius }}
                                 />
                             )
                     );
@@ -123,3 +104,5 @@ export const AnnouncementFeedSandbox = ({
         </div>
     );
 };
+
+export default AnnouncementFeed;

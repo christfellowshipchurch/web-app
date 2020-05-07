@@ -1,1 +1,1 @@
-export { default as CampusPageBuilder } from './page-builder'
+export { default as CampusPageBuilder } from './page-builder';

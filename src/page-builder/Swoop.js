@@ -8,21 +8,20 @@ import {
 import { get, camelCase, lowerCase } from 'lodash';
 import {
     mapEdgesToNodes,
+    htmlToReactParser,
 } from '../utils';
 
 import { GET_BLOCK_ITEMS } from './queries';
-import Loader from '../ui/Loader'
-import { htmlToReactParser } from '../utils'
-
+import Loader from '../ui/Loader';
 import {
     Block,
     GroupBlock,
     HeroSection,
     Media,
     Swoop as SwoopElement,
-    ErrorBlock
+    ErrorBlock,
 } from '../ui';
-import { Feature } from '../features';
+import { Feature } from '../modules';
 
 const mapItemToVisual = (item, bg) => {
     switch (item.__typename) {
@@ -75,10 +74,10 @@ const mapItemToVisual = (item, bg) => {
             }
             break;
         case 'WebsiteGroupItem':
-            return <GroupBlock {...item} withAnimation />
+            return <GroupBlock {...item} withAnimation />;
         case 'WebsiteHtmlBlockItem':
-            return <div>{htmlToReactParser.parse(item.htmlContent)}</div>
-            break
+            return <div>{htmlToReactParser.parse(item.htmlContent)}</div>;
+            break;
         case 'WebsiteFeature':
             return (
                 <div className={classnames('col', 'px-4')}>
@@ -116,11 +115,11 @@ const Swoop = ({
 
     if (error || data.getWebsitePageContentByTitle === null) {
         console.error('ERROR: ', { error });
-        return <ErrorBlock />
+        return <ErrorBlock />;
     }
 
     let bgIndex = 0;
-    const blockItems = mapEdgesToNodes(get(data, 'getWebsitePageContentByTitle.childContentItemsConnection', []))
+    const blockItems = mapEdgesToNodes(get(data, 'getWebsitePageContentByTitle.childContentItemsConnection', []));
 
     return blockItems.map((item, i) => {
         const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-');

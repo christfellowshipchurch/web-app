@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { get, camelCase, lowerCase } from 'lodash'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { get, camelCase, lowerCase } from 'lodash';
 import {
-    useQuery
-} from 'react-apollo'
+    useQuery,
+} from 'react-apollo';
 
 
-import { Media, Swoop, FloatingCard } from '../ui'
-import { GET_CAMPUS } from './queries'
+import { Media, Swoop, FloatingCard } from '../ui';
+import { GET_CAMPUS } from './queries';
 
-import PastorCallout from './PastorCallout'
-import AtThisLocation from './AtThisLocation'
-import CampusFAQ from './CampusFAQ'
-import CampusBlockItems from './CampusBlockItems'
-import { CampusTile, normalizeDate } from '../features/CampusSelect'
-import RsvpForm from '../features/RsvpForm'
+import PastorCallout from './PastorCallout';
+import AtThisLocation from './AtThisLocation';
+import CampusFAQ from './CampusFAQ';
+import CampusBlockItems from './CampusBlockItems';
+import { CampusTile, normalizeDate } from '../modules/CampusSelect';
+import RsvpForm from '../modules/RsvpForm';
 
 
 const CampusPageBuilder = ({ name: campusName }) => {
-    const [rsvpForm, setRsvpForm] = useState(null)
+    const [rsvpForm, setRsvpForm] = useState(null);
 
     const {
         loading,
@@ -39,18 +39,18 @@ const CampusPageBuilder = ({ name: campusName }) => {
                     lastName,
                     email,
                     photo: {
-                        uri: pastorUri
-                    } = {}
-                } = {}
-            } = {}
-        } = {}
+                        uri: pastorUri,
+                    } = {},
+                } = {},
+            } = {},
+        } = {},
     } = useQuery(
         GET_CAMPUS,
-        { variables: { name: campusName } }
-    )
-    const valueTitle = 'A Place Where You Can Belong'
-    const valueProposition = `At Christ Fellowship Church in ${name}, we have weekend church services where you can experience uplifting worship, powerful messages from our pastors, special programming for your family, and an opportunity to meet other amazing people like you!`
-    
+        { variables: { name: campusName } },
+    );
+    const valueTitle = 'A Place Where You Can Belong';
+    const valueProposition = `At Christ Fellowship Church in ${name}, we have weekend church services where you can experience uplifting worship, powerful messages from our pastors, special programming for your family, and an opportunity to meet other amazing people like you!`;
+
     return (
         <div>
             <div className="row">
@@ -59,12 +59,12 @@ const CampusPageBuilder = ({ name: campusName }) => {
                         ratio={{ xs: '1by1', lg: '21by9' }}
                         imageUrl={get(featuredImage, 'uri', '')}
                         imageAlt={`Christ Fellowship Church - ${name}`}
-                        overlay='black'
+                        overlay="black"
                         mediaItemStyles={{ zIndex: -100 }}
                     >
                         <div
                             className={classnames(
-                                "location-banner",
+                                'location-banner',
                                 'd-flex',
                                 'justify-content-center',
                                 'align-items-center',
@@ -81,18 +81,18 @@ const CampusPageBuilder = ({ name: campusName }) => {
             </div>
             <div
                 className={classnames(
-                    "row",
+                    'row',
                     'justify-content-center',
-                    'bg-white'
+                    'bg-white',
                 )}
             >
                 <div
                     className={classnames(
-                        "col",
-                        "col-lg-8",
-                        "text-center",
-                        "py-6",
-                        "px-3",
+                        'col',
+                        'col-lg-8',
+                        'text-center',
+                        'py-6',
+                        'px-3',
                     )}
                 >
                     <h2>
@@ -104,34 +104,37 @@ const CampusPageBuilder = ({ name: campusName }) => {
                 </div>
             </div>
 
-            {!loading && <div className="w-100 h-100 p-relative overflow-hidden">
-                <Swoop type='bottom' />
-                <CampusTile
-                    className={classnames(
-                        'mx-auto',
-                        'py-6'
-                    )}
-                    name={name}
-                    image={image}
-                    street1={street1}
-                    city={city}
-                    state={state}
-                    postalCode={postalCode}
-                    serviceTimes={serviceTimes}
-                    onClick={({ day, time }) => {
-                        setRsvpForm({
-                            visitDate: normalizeDate(day),
-                            visitTime: time,
-                            campus: name,
-                        })
-                    }}
-                />
-                {rsvpForm &&
-                <FloatingCard onPressExit={() => setRsvpForm(null)}>
-                    <RsvpForm initialValues={rsvpForm} />
-                </FloatingCard>
-                }
-            </div>}
+            {!loading && (
+                <div className="w-100 h-100 p-relative overflow-hidden">
+                    <Swoop type="bottom" />
+                    <CampusTile
+                        className={classnames(
+                            'mx-auto',
+                            'py-6',
+                        )}
+                        name={name}
+                        image={image}
+                        street1={street1}
+                        city={city}
+                        state={state}
+                        postalCode={postalCode}
+                        serviceTimes={serviceTimes}
+                        onClick={({ day, time }) => {
+                            setRsvpForm({
+                                visitDate: normalizeDate(day),
+                                visitTime: time,
+                                campus: name,
+                            });
+                        }}
+                    />
+                    {rsvpForm
+                        && (
+                            <FloatingCard onPressExit={() => setRsvpForm(null)}>
+                                <RsvpForm initialValues={rsvpForm} />
+                            </FloatingCard>
+                        )}
+                </div>
+            )}
 
             <div className="row bg-white">
                 <div className="col">
@@ -147,11 +150,11 @@ const CampusPageBuilder = ({ name: campusName }) => {
                     'overflow-hidden',
                 )}
             >
-                <Swoop type='top' />
+                <Swoop type="top" />
                 <div className="col-12 text-center py-4">
                     <h1>
                         Available at this location
-                    </h1>
+          </h1>
                 </div>
                 <div className="col-12">
                     <AtThisLocation features={campusFeatures} />
@@ -164,30 +167,32 @@ const CampusPageBuilder = ({ name: campusName }) => {
                 </div>
             </div>
 
-            {!loading && <div
-                className={classnames(
-                    "row",
-                    'justify-content-center',
-                )}
-            >
-                <PastorCallout
-                    firstName={firstName}
-                    lastName={lastName}
-                    email={email}
-                    callToAction='Contact'
-                    image={pastorUri}
-                />
-            </div>}
+            {!loading && (
+                <div
+                    className={classnames(
+                        'row',
+                        'justify-content-center',
+                    )}
+                >
+                    <PastorCallout
+                        firstName={firstName}
+                        lastName={lastName}
+                        email={email}
+                        callToAction="Contact"
+                        image={pastorUri}
+                    />
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 CampusPageBuilder.defaultProps = {
     name: '',
-}
+};
 
 CampusPageBuilder.propTypes = {
     name: PropTypes.string,
-}
+};
 
-export default CampusPageBuilder
+export default CampusPageBuilder;

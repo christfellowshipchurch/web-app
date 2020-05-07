@@ -1,18 +1,17 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
-import classnames from 'classnames';
-import { get } from 'lodash';
+import { get, flatten } from 'lodash';
 
+import { Feature } from '../feature';
 import { Loader } from '../ui';
-import ActionMapper from './ActionMapper';
-
-import { GET_FEED_FEATURES } from './queries';
 import { useSandbox } from '../sandbox';
 
-export const FeatureSection = ({ children }) => <div className="max-width-1100 mx-auto my-4 px-2">{children}</div>;
+import { GET_FEED_FEATURES } from './queries';
+
+const mapDataToActions = (data) => flatten(data.map(({ actions }) => actions));
 
 const FeatureFeed = () => {
-    const { sandbox, setSandboxValue, sandboxEnabled } = useSandbox({ homeTheme: 'default' });
+    const { sandboxEnabled, sandbox, setSandboxValue } = useSandbox({ homeTheme: 'hero' });
     const { loading, error, data } = useQuery(GET_FEED_FEATURES, { fetchPolicy: 'cache-and-network' });
 
     if (error) return <h1 className="text-danger">...oops</h1>;
@@ -25,34 +24,35 @@ const FeatureFeed = () => {
         );
     }
 
-    const content = get(data, 'userFeedFeatures', []);
+    const content = mapDataToActions(get(data, 'userFeedFeatures', []));
 
     return (
         <div>
             {content.map((n, i) => (
-                <ActionMapper key={`HomeFeedFeature:${i}`} {...n} />
+                <Feature {...n} index={i} />
             ))}
             {sandboxEnabled && (
-                <div
-                    className={classnames('form-group', 'opacity-65')}
-                    style={{
-                        position: 'fixed',
-                        bottom: 10,
-                        left: 10,
-                        zIndex: 1000,
-                    }}
-                >
-                    <select
-                        value={sandbox.homeFeed}
-                        className={classnames('form-control')}
-                        onChange={(e) => setSandboxValue('homeTheme', e.target.value)}
-                    >
-                        <option value="default">Default Theme</option>
-                        <option value="highlight">Highlight Card Theme</option>
-                        <option value="hero">Hero Theme</option>
-                        <option value="netflix">Netflix Theme</option>
-                    </select>
-                </div>
+                <nav className="navbar fixed-bottom navbar-expand navbar-light bg-primary">
+                    <div className="collapse navbar-collapse" id="navbarText">
+                        <span className="navbar-text">
+                            Select a theme
+            </span>
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item px-3 dropdown">
+                                <select
+                                    value={sandbox.homeTheme}
+                                    className="dropdown-toggle text-white font-weight-bold"
+                                    onChange={(e) => setSandboxValue('homeTheme', e.target.value)}
+                                >
+                                    <option value="default">Default</option>
+                                    <option value="highlight">Highlight Card</option>
+                                    <option value="hero">Hero Image</option>
+                                    <option value="netflix">Netflix</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             )}
         </div>
     );
@@ -68,6 +68,3 @@ FeatureFeed.defaultProps = {
 
 
 export default FeatureFeed;
-export const CARD_PADDING = 'p-0';
-export const MARGIN_Y = 'my-4';
-export const PADDING_X = 'px-3';
