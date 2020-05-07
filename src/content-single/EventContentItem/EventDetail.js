@@ -57,7 +57,15 @@ const EventDetail = ({
       {(title !== ''
         || summary !== '')
         && (
-          <div className="mt-4 mb-2">
+          <div
+            className={classnames(
+              'd-md-flex',
+              'justify-content-between',
+              'align-items-center',
+              'pb-3'
+            )}
+          >
+            <div className="mt-4 mb-2 pb-2">
             {isLive &&
             <div
               className={classnames(
@@ -66,7 +74,6 @@ const EventDetail = ({
                 'p-2',
                 'mb-3',
                 'col-6',
-                'col-md-2', 
                 'flex-row',
                 'align-items-center',
                 'justify-content-center'
@@ -96,6 +103,7 @@ const EventDetail = ({
             <h3 className="mt-1 content-subtitle font-weight-light">
               {summary}
             </h3>
+            </div>
             <Share 
               shareTitle='Invite'
               title={title}
