@@ -7,11 +7,14 @@ import moment from 'moment';
 import { ContentCard } from '../ui';
 import GET_CONTENT_CARD from './queries';
 
+import { LiveConsumer } from '../live/LiveContext';
+
 const ContentCardConnectedWithQuery = ({
     contentId,
     tile,
     card,
     label,
+    isLive,
     hideLabel,
     ...otherProps
 }) => {
@@ -40,6 +43,12 @@ const ContentCardConnectedWithQuery = ({
         labelValue = get(node, 'events', []).length
             ? moment(get(node, 'nextOccurrence', new Date())).format('MMM D')
             : comingSoon;
+    }
+
+    if (isLive) {
+        labelValue='&bull; live now'
+        label.bg='danger'
+        label.textColor='white'
     }
 
     if (hideLabel) {
@@ -97,12 +106,22 @@ const ContentCardConnected = ({
     }
 
     return (
-        <ContentCardConnectedWithQuery
-            contentId={contentId}
-            tile={tile}
-            card={card}
-            {...otherProps}
-        />
+        <LiveConsumer contentId={contentId}>
+            {(liveStream) => {
+
+            const isLive = !!(liveStream && liveStream.isLive);
+
+               return( <ContentCardConnectedWithQuery
+                    contentId={contentId}
+                    tile={tile}
+                    card={card}
+                    isLive={isLive}
+                    {...otherProps}
+                />)
+            }
+
+            }
+        </LiveConsumer>
     );
 };
 

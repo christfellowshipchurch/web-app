@@ -13,6 +13,7 @@ import { CAMPUS_KEY } from '../../keys';
 import { htmlToReactParser } from '../../utils';
 
 import { GET_CURRENT_PERSON_CAMPUS } from './queries';
+import { Icon } from '../../ui/Icons';
 
 const ConnectedEventSchedule = (props) => {
   const { isLoggedIn } = useAuth();
@@ -44,6 +45,7 @@ const EventDetail = ({
   callsToAction,
   openLinksInNewTab,
   events,
+  isLive
 }) => (
     <div className={classnames(
       'container-fluid',
@@ -55,6 +57,38 @@ const EventDetail = ({
         || summary !== '')
         && (
           <div className="mt-4 mb-2">
+            {isLive &&
+            <div
+              className={classnames(
+                'bg-danger', 
+                'card',
+                'p-2',
+                'mb-3',
+                'col-6',
+                'col-md-2', 
+                'flex-row',
+                'align-items-center',
+                'justify-content-center'
+              )}
+            >
+              <Icon 
+                name='live-dot'
+                fill='white'
+                size='8'
+              />
+              <h4
+                className={classnames(
+                  'text-white',
+                  'text-center',
+                  'text-uppercase',
+                  'mb-0',
+                  'ml-2'
+                )}
+              >
+                live now
+              </h4>
+              </div>
+            }
             <h1 className="mb-2 text-dark">
               {title}
             </h1>

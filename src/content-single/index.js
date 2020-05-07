@@ -9,6 +9,7 @@ import UniversalContentItem from './UniversalContentItem';
 import EventContentItem from './EventContentItem';
 import InformationalContentItem from './InformationalContentItem';
 
+
 const ContentSingle = ({ itemId }) => {
     const { loading, error, data } = useQuery(GET_CONTENT_ITEM, {
         variables: {

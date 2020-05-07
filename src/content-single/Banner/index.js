@@ -13,7 +13,14 @@ const Banner = ({
   coverImage,
   withShare,
   shareTitle,
-}) => (
+  liveStream
+}) => {
+  
+  const isLive = !!(liveStream && liveStream.isLive);
+  const liveStreamSource = get(liveStream, 'media.sources[0]');
+
+  
+  return(
     <div className="p-relative">
       <div
         className="p-absolute w-100 h-100 overflow-hidden"
@@ -57,7 +64,7 @@ const Banner = ({
         </Media>
       </div>
     </div>
-  );
+  )};
 
 Banner.propTypes = {
   title: PropTypes.string,
