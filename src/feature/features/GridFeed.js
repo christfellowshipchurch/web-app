@@ -8,7 +8,7 @@ import ContentCardConnected from '../../content-card-connected';
 import { ContentCard, HighlightCard, ContentContainer } from '../../ui';
 
 import { GET_CONTENT_FEED } from '../../content-feed';
-import { CARD_PADDING, MARGIN_Y, PADDING_X } from '..';
+import { CARD_PADDING, MARGIN_Y, PADDING_X } from '.';
 
 const RATIO_MAP = {
     '-1': '4by3',
@@ -66,35 +66,38 @@ const AnnouncementFeed = ({
 
                     return (
                         i === 0
-                        ? <div
-                            key={`AnnouncementFeed:${i}`}
-                            className={classnames(
-                                'p-2',
-                                'col-12'
-                            )}
-                        >
-                            <ContentCardConnected
-                                contentId={node.id}
-                                card={StyledHighlightCard }
-                                ratio={RATIO_MAP[placement]}
-                                mediaProps={{
-                                    gradient: 'dark',
-                                    gradientDirection: 'bottom-top',
-                                }}
-                            />
-                        </div>
+                            ? (
+                                <div
+                                    key={`AnnouncementFeed:${i}`}
+                                    className={classnames(
+                                        'p-2',
+                                        'col-12',
+                                    )}
+                                >
+                                    <ContentCardConnected
+                                        contentId={node.id}
+                                        card={StyledHighlightCard}
+                                        ratio={RATIO_MAP[placement]}
+                                        mediaProps={{
+                                            gradient: 'dark',
+                                            gradientDirection: 'bottom-top',
+                                        }}
+                                    />
+                                </div>
+                            )
 
-                        : 
-                            <ContentCardConnected
-                                key={`AnnouncementFeed:${i}`}
-                                contentId={node.id}
-                                card={ContentCard}
-                                ratio={RATIO_MAP[placement]}
-                                mediaProps={{
-                                    gradient: 'dark',
-                                    gradientDirection: 'bottom-top',
-                                }}
-                            />
+                            : (
+                                <ContentCardConnected
+                                    key={`AnnouncementFeed:${i}`}
+                                    contentId={node.id}
+                                    card={ContentCard}
+                                    ratio={RATIO_MAP[placement]}
+                                    mediaProps={{
+                                        gradient: 'dark',
+                                        gradientDirection: 'bottom-top',
+                                    }}
+                                />
+                            )
                     );
                 })}
             </div>

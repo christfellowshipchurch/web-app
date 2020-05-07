@@ -19,7 +19,7 @@ import {
     Loader,
     ErrorBlock,
 } from '../ui';
-import { Feature } from '../features';
+import { Feature } from '../modules';
 
 const bgColor = {
     true: 'bg-transparent',
@@ -45,7 +45,7 @@ const DefaultPage = ({ title }) => {
 
     if (error) {
         console.error('ERROR: ', { error });
-        return <ErrorBlock />
+        return <ErrorBlock />;
     }
 
     let bgIndex = true;
