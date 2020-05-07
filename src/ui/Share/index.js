@@ -15,18 +15,16 @@ import {
 import { GoogleAnalytics } from '../../analytics';
 import { Icon } from '../Icons';
 
-const defaultShareMessages = ({title}) => {
-const messages = {  
-    faceBook:`Check out ${title} happening at Christ Fellowship Church!`,
-    twitter:`${title} at Christ Fellowship Church`,
-    email: {
+
+const defaultShareMessages = {  
+    faceBook:({title}) => `Check out ${title} happening at Christ Fellowship Church!`,
+    twitter:({title}) => `${title} at Christ Fellowship Church`,
+    email:({title}) => ({
       subject:`${title} at Christ Fellowship Church`,
       body:`Check out ${title} happening at Christ Fellowship Church! I would love for you to join me. \n\n`,
-    },
-    sms:`Join me for ${title} at Christ Fellowship! ${document.URL}`
+    }),
+    sms:({title}) => `Join me for ${title} at Christ Fellowship! ${document.URL}`
   }
-return messages
-}
 
 const Share = ({
   title,
@@ -36,7 +34,7 @@ const Share = ({
 }) => {
 
   const messages = {
-    ...defaultShareMessages({title}),
+    ...defaultShareMessages,
     ...shareMessages
   }
 
@@ -88,7 +86,7 @@ const Share = ({
         >
           <FacebookShareButton
             url={document.URL}
-            quote={messages.faceBook}
+            quote={messages.faceBook({title})}
           >
             <span className="mr-2">
               <Icon
@@ -106,7 +104,7 @@ const Share = ({
         >
           <TwitterShareButton
             url={document.URL}
-            title={messages.twitter}
+            title={messages.twitter({title})}
           >
             <span className="mr-2">
               <Icon
@@ -124,8 +122,8 @@ const Share = ({
         >
           <EmailShareButton
             url={document.URL}
-            subject={messages.email.subject}
-            body={messages.email.body}
+            subject={messages.email({title}).subject}
+            body={messages.email({title}).body}
           >
             <span className="mr-2">
               <Icon
@@ -138,7 +136,7 @@ const Share = ({
         </Dropdown.Item>
 
         <Dropdown.Item
-          href={smsUrl(messages.sms)}
+          href={smsUrl(messages.sms({title}))}
           target="_blank"
           className="d-md-none"
           onClick={() => buttonClick(`${title} - SMS Share Button`, 'Shared from Share Sheet')}
