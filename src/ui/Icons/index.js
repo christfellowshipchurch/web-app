@@ -21,6 +21,7 @@ import Google from './google'
 import Handshake from "./handshake"
 import Home from './home'
 import Instagram from "./instagram"
+import LiveDot from './live-dot'
 import LockAlt from "./lock-alt"
 import Microsoft from './microsoft'
 import Mobile from "./mobile"
@@ -98,6 +99,7 @@ export const Icons = {
   Handshake,
   Home,
   Instagram,
+  LiveDot,
   LockAlt,
   Microsoft,
   Mobile,
