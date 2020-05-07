@@ -27,7 +27,11 @@ const Feature = ({
                 return <NetflixCollection itemId={itemId} />;
             }
 
-            return <FeatureSection><GridFeed itemId={itemId} isLoading={isLoading} /></FeatureSection>;
+            return (
+                <FeatureSection>
+                    <GridFeed itemId={itemId} isLoading={isLoading} />
+                </FeatureSection>
+            );
         case 'VIEW_CHILDREN':
             if (sandbox.homeTheme === 'hero') {
                 return <HeroCollection itemId={itemId} />;
