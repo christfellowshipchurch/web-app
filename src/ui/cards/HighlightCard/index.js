@@ -12,6 +12,7 @@ import {
     Media,
     Loader,
 } from '../..';
+import { Icon } from '../../Icons';
 
 import { generateUrlLink } from '..';
 
@@ -31,6 +32,7 @@ const HighlightCard = ({
     style,
     mediaProps,
     redirectUrl,
+    isLive,
 }) => (
         <a
             className={classnames(
@@ -67,6 +69,18 @@ const HighlightCard = ({
                         ? <Loader />
                         : (
                             <div>
+                                {isLive && (
+                                    <span className="badge badge-danger text-white" style={{ marginLeft: '-0.4em' }}>
+                                        <Icon
+                                            name="live-dot"
+                                            fill="white"
+                                            size="6"
+                                            className="mr-1"
+                                        />
+                LIVE NOW
+                                    </span>
+                                )}
+                                <span className="d-block pt-1" />
                                 <span
                                     className={classnames(
                                         'text-white',
@@ -107,6 +121,7 @@ HighlightCard.propTypes = {
     tile: PropTypes.bool,
     isLoading: PropTypes.bool,
     mediaProps: PropTypes.object,
+    isLive: PropTypes.bool,
 };
 
 HighlightCard.defaultProps = {
@@ -127,6 +142,7 @@ HighlightCard.defaultProps = {
     mediaProps: {
         overlay: 'black',
     },
+    isLive: false,
 };
 
 export default HighlightCard;
