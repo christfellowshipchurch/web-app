@@ -46,9 +46,9 @@ const ContentCardConnectedWithQuery = ({
     }
 
     if (isLive) {
-        labelValue='&bull; live now'
-        label.bg='danger'
-        label.textColor='white'
+        labelValue = 'live now';
+        label.bg = 'danger';
+        label.textColor = 'white';
     }
 
     if (hideLabel) {
@@ -108,19 +108,18 @@ const ContentCardConnected = ({
     return (
         <LiveConsumer contentId={contentId}>
             {(liveStream) => {
+                const isLive = !!(liveStream && liveStream.isLive);
 
-            const isLive = !!(liveStream && liveStream.isLive);
-
-               return( <ContentCardConnectedWithQuery
-                    contentId={contentId}
-                    tile={tile}
-                    card={card}
-                    isLive={isLive}
-                    {...otherProps}
-                />)
-            }
-
-            }
+                return (
+                    <ContentCardConnectedWithQuery
+                        contentId={contentId}
+                        tile={tile}
+                        card={card}
+                        isLive={isLive}
+                        {...otherProps}
+                    />
+                );
+            }}
         </LiveConsumer>
     );
 };
