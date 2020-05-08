@@ -1,16 +1,11 @@
 import React from 'react';
 import { ErrorBlock } from '../../ui';
+import { useSandbox } from '../../sandbox';
 
 const Live = () => {
-    const full = window.location.host;
-    // window.location.host is subdomain.domain.com
-    const parts = full.split('.');
-    const sub = parts[0];
-    const domain = parts[1];
-    const type = parts[2];
-    const show = full.includes('localhost') || sub === 'beta';
+    const { sandboxEnabled } = useSandbox();
 
-    return show
+    return sandboxEnabled
         ? (
             <div className="container-fluid my-6 px-2">
                 <div className="row">

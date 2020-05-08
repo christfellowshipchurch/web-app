@@ -8,6 +8,7 @@
     "@apollosproject/ui-fragments": "^1.3.0",
     "@babel/cli": "^7.4.3",
     "@babel/plugin-transform-runtime": "^7.6.2",
+    "@craco/craco": "^5.6.4",
     "@olavoparno/jest-badges-readme": "^1.3.6",
     "@testing-library/react": "^9.2.0",
     "apollo-boost": "^0.3.1",
@@ -52,10 +53,10 @@
     "zipcodes": "^8.0.0"
   },
   "scripts": {
-    "start": "yarn build-css && react-scripts start",
-    "build": "yarn minify-css && react-scripts build",
+    "start": "yarn build-css && craco start",
+    "build": "yarn minify-css && craco build",
     "test": "jest",
-    "eject": "react-scripts eject",
+    "eject": "craco eject",
     "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
     "prestart": "node ./scripts/get-introspection-data.js",
     "test:coverage": "npm test -- --coverage",
@@ -63,7 +64,8 @@
     "make-badges": "node_modules/.bin/jest-badges-readme",
     "make-readme": "npm run test:coverage && npm run make-badges",
     "build-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css",
-    "minify-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css --output-style compressed"
+    "minify-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css --output-style compressed",
+    "sandbox": "node sandbox.js"
   },
   "eslintConfig": {
     "extends": "react-app"

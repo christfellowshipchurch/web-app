@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-import { Loader } from '../../'
+import { Loader } from '../..';
 
 const EmptyCard = ({
     children,
@@ -11,7 +11,7 @@ const EmptyCard = ({
     shadow,
     fill,
     loading,
-    error
+    error,
 }) => (
         <div
             className={classnames(
@@ -19,34 +19,34 @@ const EmptyCard = ({
                 'border-0',
                 {
                     [`shadow-${shadow}`]: shadow !== '',
-                    [`shadow`]: shadow === ''
+                    shadow: shadow === '',
                 },
-                className
+                className,
             )}
             style={style}
         >
             <div className={`${fill ? '' : 'card-body'}`}>
-                {loading &&
-                    <div className="p-3">
-                        <Loader />
-                    </div>
-                }
-                {error &&
-                    <h5 className="text-danger">There was an error loading this content</h5>
-                }
+                {loading
+                    && (
+                        <div className="p-3">
+                            <Loader />
+                        </div>
+                    )}
+                {error
+                    && <h5 className="text-danger">There was an error loading this content</h5>}
 
                 {!loading && !error && children}
             </div>
         </div>
-    )
+    );
 
 EmptyCard.defaultProps = {
     className: '',
     style: {},
     shadow: '',
     loading: false,
-    error: null
-}
+    error: null,
+};
 
 EmptyCard.propTypes = {
     className: PropTypes.string,
@@ -54,6 +54,6 @@ EmptyCard.propTypes = {
     shadow: PropTypes.oneOf(['', 'sm', 'lg']),
     loading: PropTypes.bool,
     error: PropTypes.string,
-}
+};
 
-export default EmptyCard
+export default EmptyCard;

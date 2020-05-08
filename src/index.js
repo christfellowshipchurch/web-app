@@ -14,14 +14,16 @@ import {
 import {
     AuthProvider,
 } from './auth';
+import { SandboxProvider } from './sandbox';
 
 ReactDOM.render(
     <ClientProvider>
         <BrowserRouter>
             <AuthProvider>
-                {/* <App /> */}
                 <LiveProvider>
+                  <SandboxProvider>
                     <App />
+                  </SandboxProvider>
                 </LiveProvider>
             </AuthProvider>
         </BrowserRouter>
