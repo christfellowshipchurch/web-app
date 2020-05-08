@@ -7,6 +7,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import './styles/css/styles.css';
+import { LiveProvider } from './live';
 import {
     ClientProvider,
 } from './client';
@@ -19,9 +20,11 @@ ReactDOM.render(
     <ClientProvider>
         <BrowserRouter>
             <AuthProvider>
-                <SandboxProvider>
+                <LiveProvider>
+                  <SandboxProvider>
                     <App />
-                </SandboxProvider>
+                  </SandboxProvider>
+                </LiveProvider>
             </AuthProvider>
         </BrowserRouter>
     </ClientProvider>,

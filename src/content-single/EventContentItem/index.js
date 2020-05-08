@@ -8,8 +8,10 @@ import Placeholder from './Placeholder';
 import Banner from '../Banner';
 import Detail from './EventDetail';
 
+import { LiveConsumer } from '../../live/LiveContext';
+
 const EventContentItem = ({
-  itemId, content, loading, error,
+  itemId, content, loading, error, liveStream
 }) => {
   if (loading) { return <Placeholder />; }
 
@@ -18,11 +20,28 @@ const EventContentItem = ({
     return <ErrorBlock />;
   }
 
+
   return (
-    <div>
-      <Banner {...content} />
-      <Detail {...content} />
-    </div>
+    <LiveConsumer contentId={itemId}>
+    {(liveStream) => {
+    const isLive = !!(liveStream && liveStream.isLive);
+    const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
+
+    return(
+            <div>
+              <Banner {...content} 
+                withShare 
+                shareTitle="Invite" 
+                liveStreamSource={liveStreamSource}
+              />
+              <Detail 
+                {...content} 
+                isLive={isLive}
+              />
+            </div>
+          )}
+    }
+</LiveConsumer>
   );
 };
 
