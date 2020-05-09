@@ -83,6 +83,7 @@ const ContentCardConnectedWithQuery = ({
                 ...label,
             },
             urlBase,
+            isLive,
         },
     );
 };
