@@ -12,6 +12,7 @@ import {
     Media,
     Loader,
 } from '../..';
+import { Icon } from '../../Icons';
 
 import { generateUrlLink } from '..';
 
@@ -31,6 +32,7 @@ const HighlightCard = ({
     style,
     mediaProps,
     redirectUrl,
+    isLive,
 }) => (
         <a
             className={classnames(
@@ -57,6 +59,7 @@ const HighlightCard = ({
                         'w-100',
                         'h-100',
                         'p-3',
+                        'p-lg-4',
                         'd-flex',
                         'flex-row',
                         'align-items-end',
@@ -67,6 +70,18 @@ const HighlightCard = ({
                         ? <Loader />
                         : (
                             <div>
+                                {isLive && (
+                                    <span className="badge badge-danger text-white" style={{ marginLeft: '-0.4em' }}>
+                                        <Icon
+                                            name="live-dot"
+                                            fill="white"
+                                            size="6"
+                                            className="mr-1"
+                                        />
+                LIVE NOW
+                                    </span>
+                                )}
+                                <span className="d-block pt-1" />
                                 <span
                                     className={classnames(
                                         'text-white',
@@ -80,7 +95,7 @@ const HighlightCard = ({
                                 >
                                     {title}
                                 </span>
-                                <p className="text-white">
+                                <p className="text-white m-0">
                                     {summary}
                                 </p>
                             </div>
@@ -107,6 +122,7 @@ HighlightCard.propTypes = {
     tile: PropTypes.bool,
     isLoading: PropTypes.bool,
     mediaProps: PropTypes.object,
+    isLive: PropTypes.bool,
 };
 
 HighlightCard.defaultProps = {
@@ -127,6 +143,7 @@ HighlightCard.defaultProps = {
     mediaProps: {
         overlay: 'black',
     },
+    isLive: false,
 };
 
 export default HighlightCard;

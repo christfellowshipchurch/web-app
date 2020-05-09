@@ -1,19 +1,21 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { kebabCase, camelCase, upperFirst, flow } from 'lodash'
-import { Icons } from './index'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  kebabCase, camelCase, upperFirst, flow,
+} from 'lodash';
+import { Icons } from './index';
 
-const pascalCase = (string) =>
-  flow(
-    camelCase,
-    upperFirst
-  )(string);
+const pascalCase = (string) => flow(
+  camelCase,
+  upperFirst,
+)(string);
 
 
-const Icon = ({ name, size, fill, className }) => {
-
+const Icon = ({
+  name, size, fill, className,
+}) => {
   const IconComponent = Icons[pascalCase(name)];
-  
+
   return (
     <span
       className={className}
@@ -21,16 +23,17 @@ const Icon = ({ name, size, fill, className }) => {
       {React.createElement(
         IconComponent,
         {
-          size: size,
-          fill: fill
-        }
+          size,
+          fill,
+        },
       )}
     </span>
-  )}
+  );
+};
 
-export default Icon
+export default Icon;
 
-Icon.propTypes = { 
+Icon.propTypes = {
   name: PropTypes.string,
   size: PropTypes.number,
   fill: PropTypes.string,
@@ -41,5 +44,5 @@ Icon.defaultProps = {
   name: 'home',
   size: 24,
   fill: '',
-  className: ''
-}
+  className: '',
+};
