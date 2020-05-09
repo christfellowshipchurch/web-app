@@ -59,6 +59,7 @@ const HighlightCard = ({
                         'w-100',
                         'h-100',
                         'p-3',
+                        'p-lg-4',
                         'd-flex',
                         'flex-row',
                         'align-items-end',
@@ -94,7 +95,7 @@ const HighlightCard = ({
                                 >
                                     {title}
                                 </span>
-                                <p className="text-white">
+                                <p className="text-white m-0">
                                     {summary}
                                 </p>
                             </div>
