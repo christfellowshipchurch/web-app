@@ -30,21 +30,8 @@ export const getTextColorClass = (backgroundColor) => {
     var o = Math.round(((parseInt(rgb.r) * 299) +
         (parseInt(rgb.g) * 587) +
         (parseInt(rgb.b) * 114)) / 1000);
-    // return (o > 125) ? 'text-dark' : 'text-light';
     return (o > 175) ? 'text-dark' : 'text-light'
 }
-
-// Old button click from Pixel Manager
-// export const buttonClick = ({ call, action, title, openLinksInNewTab }) => {
-//     PixelManager.reportButtonClick({ call: `${title} - ${call}`, action })
-
-//     if (openLinksInNewTab) {
-//         const win = window.open(action, '_blank')
-//         win.focus()
-//     } else {
-//         redirectTo(action)
-//     }
-// }
 
 export const getDirectionsUrl = (address) =>
     `https://www.google.com/maps/search/?api=1&query=${address.replace(' ', '+')}`

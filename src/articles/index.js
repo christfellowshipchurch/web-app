@@ -1,5 +1,0 @@
-export { default as Article } from './ArticleDetail'
-export { default as RelatedArticles } from './RelatedArticles'
-export { default as TopThreeArticles } from './TopThreeArticles'
-export { default as ArticleLinks } from './ArticleLinks'
-export { default as ArticleCategories } from './ArticleCategories'
