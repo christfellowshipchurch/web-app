@@ -13,12 +13,6 @@ import { GET_AUTHOR } from './queries';
 
 const DATE_FORMAT = 'MMMM D, YYYY';
 
-const calculateReadTime = (string) => {
-    const wordCount = string.split(' ').length;
-    const time = Math.round(wordCount / 225);
-    return time < 1 ? '1' : time;
-};
-
 const Author = ({ contentId }) => {
     const { data: { node } = {}, loading, error } = useQuery(GET_AUTHOR, {
         variables: { id: contentId },
@@ -52,7 +46,6 @@ const Author = ({ contentId }) => {
                     {authorName}
                 </p>
                 <p className="my-1">
-                    {/* {`${publishDate}  •  ${calculateReadTime(get(node, 'htmlContent', ''))} min read`} */}
                     {`${publishDate}`}
                 </p>
             </div>

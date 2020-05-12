@@ -97,7 +97,7 @@ const ArticleDetail = ({ match: { params: { articleTitle } } }) => {
                     {`${get(article, 'author.firstName', '')} ${get(article, 'author.lastName', '')}`}
                   </p>
                   <p className="my-1">
-                    {`${publishDate}  •  ${get(article, 'readTime', '2')} min`}
+                    {`${publishDate}`}
                   </p>
                 </div>
               </div>

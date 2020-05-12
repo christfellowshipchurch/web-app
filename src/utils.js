@@ -4,15 +4,6 @@ import { get, split } from 'lodash'
 
 export const htmlToReactParser = new Parser()
 
-export const readTime = (text) => {
-    const wordCount = split(text, ' ').length
-    const time = Math.round(wordCount / 225)
-
-     return time < 1
-      ? '1'
-      : time
-  }
-
 export const mapEdgesToNodes = (data) => data.edges.map(n => n.node)
 export const redirectTo = (uri, newTab) =>
     newTab
