@@ -65,7 +65,7 @@ const RequestEmailPin = () => {
     };
 
     return (
-        <div className="container my-6">
+        <div className="container my-6 px-2">
             <div className="row justify-content-center">
                 <div className="col col-md-6">
                     {pinRequested
