@@ -52,7 +52,8 @@ const Author = ({ contentId }) => {
                     {authorName}
                 </p>
                 <p className="my-1">
-                    {`${publishDate}  •  ${calculateReadTime(get(node, 'htmlContent', ''))} min read`}
+                    {/* {`${publishDate}  •  ${calculateReadTime(get(node, 'htmlContent', ''))} min read`} */}
+                    {`${publishDate}`}
                 </p>
             </div>
         </div>
