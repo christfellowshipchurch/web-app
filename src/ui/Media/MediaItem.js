@@ -25,12 +25,12 @@ const MediaItem = ({
   gradientDirection,
   withHover,
   style,
+  isLive
 }) => {
   const showVideoControls = showControls && !children;
   const [showPlayButton, setShowPlayButton] = useState(showVideoControls);
 
-
-  const videoProps = showVideoControls
+  let videoProps = showVideoControls
     ? {
       playsInline: false,
       autoPlay: false,
@@ -50,19 +50,26 @@ const MediaItem = ({
     })
   }
 
-
   const playButtonClick = () => {
-    const isHLS = videoUrl.includes('m3u8')
+    videoUrl.includes('m3u8')
      ? createHLSurl()
      : videoRef.current.play();
     setShowPlayButton(false);
   };
+
   let ratioClass = typeof ratio === 'string'
     ? `embed-responsive-${ratio}`
     : keys(ratio).map((n) => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''));
 
   if (circle) {
     ratioClass = 'embed-responsive-1by1';
+  }
+
+  if (isLive || videoUrl.includes('m3u8')) {
+      videoProps = {
+        ...videoProps,
+        autoPlay: true
+      }
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
@@ -80,6 +87,10 @@ const MediaItem = ({
         },
       )}
       style={style}
+      onLoad={isLive 
+        ? () => playButtonClick() 
+        : null
+      }
     >
       <Image
         source={imageUrl}
@@ -145,7 +156,7 @@ const MediaItem = ({
 
 MediaItem.defaultProps = {
   ratio: '1by1',
-  videoUrl: null,
+  videoUrl: '',
   className: '',
   style: {},
   showControls: false,
@@ -158,6 +169,7 @@ MediaItem.defaultProps = {
   gradient: null,
   gradientDirection: 'bottom-top',
   withHover: false,
+  isLive: false
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
@@ -179,6 +191,7 @@ MediaItem.propTypes = {
   style: PropTypes.object,
   showControls: PropTypes.bool,
   withHover: PropTypes.bool,
+  isLive: PropTypes.bool,
   playIcon: PropTypes.shape({
     as: PropTypes.element, // TODO : add support
     color: PropTypes.string,

@@ -13,7 +13,6 @@ const MediaVideo = forwardRef((
             {...videoProps} 
             ref={ref}
             controlsList="nodownload"
-            autoPlay={source.includes('m3u8')}
           >
             <source  
               type='video/mp4' 
