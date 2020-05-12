@@ -40,7 +40,7 @@ const Router = () => (
         <Route exact path="/animations" component={Animations} />
 
         {/* TODO : remove this comment when the feature flag is ready to go back on */}
-        {/* <Route path="/login" component={Login} /> */}
+        <Route path="/login" component={Login} />
         <Route path="/events" component={Events} />
         <Route path="/content" component={Content} />
         <Route path="/items" component={Items} />

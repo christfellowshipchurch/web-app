@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { toLower, camelCase } from 'lodash';
 import {
   ExclamationCircle,
   CheckCircle,
   Ban,
   User,
-} from '../../Icons'
-import { toLower, camelCase } from 'lodash'
+} from '../../Icons';
 
-import InputContainer from '../inputContainer'
-import InputIcon from '../inputIcon'
+import InputContainer from '../inputContainer';
+import InputIcon from '../inputIcon';
 
 const TextInput = ({
   label,
@@ -27,23 +27,23 @@ const TextInput = ({
   readOnly,
   ...inputProps
 }) => {
-  const [focused, setFocused] = useState(false)
-  const [hovering, setHovering] = useState(false)
+  const [focused, setFocused] = useState(false);
+  const [hovering, setHovering] = useState(false);
   const prefixColor = (focused || hovering) && !disabled
     ? '#00aeef'
-    : disabled ? '#e6e6e6' : '#525252'
+    : disabled ? '#e6e6e6' : '#525252';
   let suffix = withSuccess
     ? { icon: CheckCircle, color: '#1ec27f' }
-    : null
+    : null;
 
   if (error) {
-    suffix = { icon: ExclamationCircle, color: '#cb045b' }
+    suffix = { icon: ExclamationCircle, color: '#cb045b' };
   }
 
   if (disabled) {
-    suffix = { icon: Ban, color: '#e6e6e6' }
+    suffix = { icon: Ban, color: '#e6e6e6' };
   }
-  const forLabel = toLower(camelCase(label))
+  const forLabel = toLower(camelCase(label));
 
   return (
     <InputContainer
@@ -63,27 +63,28 @@ const TextInput = ({
         className="w-100 py-0"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onMouseEnter={() => { !readOnly && setHovering(true) }}
-        onMouseLeave={() => { !readOnly && setHovering(false) }}
+        onMouseEnter={() => { !readOnly && setHovering(true); }}
+        onMouseLeave={() => { !readOnly && setHovering(false); }}
         onChange={(e) => onChange(e)}
         disabled={disabled || readOnly}
-        {...inputProps} />
+        {...inputProps}
+      />
     </InputContainer>
-  )
-}
+  );
+};
 
 TextInput.defaultProps = {
   onChange: () => { },
   icon: User,
   hideIcon: false,
-  readOnly: false
-}
+  readOnly: false,
+};
 
 TextInput.propTypes = {
   onChange: PropTypes.func,
   icon: PropTypes.object,
   hideIcon: PropTypes.bool,
-  readOnly: PropTypes.bool
-}
+  readOnly: PropTypes.bool,
+};
 
-export default TextInput
+export default TextInput;
