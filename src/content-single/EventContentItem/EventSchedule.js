@@ -257,9 +257,9 @@ const EventSchedule = ({
                 href={n.action}
                 target={n.action.includes('http') ? '_blank' : ''}
                 onClick={() => GoogleAnalytics.trackEvent({
-                  category: 'Event',
-                  action: `${n.call} - Button`,
-                  label: `${title} - Calls to Action`
+                  category: 'Event Item',
+                  action: `${title} Call to Action`,
+                  label: `${title} - ${n.call} Button`
                 })}
               >
                 {n.call}
