@@ -69,25 +69,24 @@ const EventDetail = ({
             {isLive &&
             <div
               className={classnames(
-                'bg-danger', 
-                'card',
-                'p-2',
-                'mb-3',
-                'col-6',
-                'flex-row',
+                'mb-2',
+                'd-flex',
                 'align-items-center',
-                'justify-content-center'
               )}
             >
               <Icon 
+                className={classnames(
+                  'd-flex',
+                  'align-items-center',
+                )}
                 name='live-dot'
-                fill='white'
+                fill='#cb045b'
                 size='8'
               />
               <h4
                 className={classnames(
-                  'text-white',
-                  'text-center',
+                  'text-danger',
+                  'text-left',
                   'text-uppercase',
                   'mb-0',
                   'ml-2'

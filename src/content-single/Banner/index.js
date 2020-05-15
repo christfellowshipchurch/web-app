@@ -35,10 +35,11 @@ const Banner = ({
         <Media
           imageUrl={get(coverImage, 'sources[0].uri', '')}
           videoUrl={
-            liveStreamSource && liveStreamSource !== '' 
+            !!liveStreamSource && liveStreamSource !== '' 
               ? liveStreamSource 
-              : get(videos, '[0].sources[0].uri', null)
+              : get(videos, '[0].sources[0].uri', '')
           }
+          isLive={!!liveStreamSource && liveStreamSource !== ''}
           imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
           className="max-height-45-vh"
           ratio={{ xs: '1by1', md: '16by9' }}
