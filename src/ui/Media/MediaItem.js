@@ -1,13 +1,9 @@
 import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { keys, includes } from 'lodash';
-import Hls from 'hls.js';
-
-
+import { keys } from 'lodash';
 import Image from './Image';
 import Video from './Video';
-import { Icon } from '../Icons';
 
 const MediaItem = ({
   ratio,
@@ -27,35 +23,6 @@ const MediaItem = ({
   style,
   isLive
 }) => {
-  const showVideoControls = showControls && !children;
-  const [showPlayButton, setShowPlayButton] = useState(showVideoControls);
-
-  let videoProps = showVideoControls
-    ? {
-      playsInline: false,
-      autoPlay: false,
-      loop: false,
-      muted: false,
-      controls: !showPlayButton,
-    }
-    : {};
-  const videoRef = createRef();
-
-  const createHLSurl = () => {
-    let hls = new Hls({});
-    hls.loadSource(videoUrl);
-    hls.attachMedia(videoRef.current);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          videoRef.current.play();
-    })
-  }
-
-  const playButtonClick = () => {
-    videoUrl.includes('m3u8')
-     ? createHLSurl()
-     : videoRef.current.play();
-    setShowPlayButton(false);
-  };
 
   let ratioClass = typeof ratio === 'string'
     ? `embed-responsive-${ratio}`
@@ -63,13 +30,6 @@ const MediaItem = ({
 
   if (circle) {
     ratioClass = 'embed-responsive-1by1';
-  }
-
-  if (isLive || videoUrl.includes('m3u8')) {
-      videoProps = {
-        ...videoProps,
-        autoPlay: true
-      }
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
@@ -87,31 +47,27 @@ const MediaItem = ({
         },
       )}
       style={style}
-      onLoad={isLive 
-        ? () => playButtonClick() 
-        : null
-      }
     >
-      <Image
-        source={imageUrl}
-        alt={imageAlt}
-        className={classnames(
-          'embed-responsive-item',
-        )}
-      />
 
       {videoUrl
-        && (
-          <Video
+        ? <Video
             className={classnames(
               'embed-responsive-item',
             )}
             source={videoUrl}
-            {...videoProps}
-            ref={videoRef}
             poster={imageUrl}
+            showControls={showControls}
+            isLive={isLive}
+            playIcon={playIcon}
           />
-        )}
+        : <Image
+            source={imageUrl}
+            alt={imageAlt}
+            className={classnames(
+              'embed-responsive-item',
+            )}
+          />
+      }
 
       {(gradient || overlay)
         && (
@@ -128,28 +84,6 @@ const MediaItem = ({
             )}
           />
         )}
-
-      {
-        (children || (showPlayButton && videoUrl))
-        && (
-          <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
-            {(showVideoControls && videoRef)
-              ? (
-                <button
-                  className="btn btn-icon"
-                  onClick={playButtonClick}
-                >
-                  <Icon
-                    name='play-circle' 
-                    size={playIcon.size} 
-                    fill={playIcon.color} 
-                  />
-                </button>
-              )
-              : children}
-          </div>
-        )
-      }
     </div>
   );
 };
