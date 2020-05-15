@@ -69,6 +69,12 @@ const MediaItem = ({
           />
       }
 
+      {!showControls &&
+        <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
+          {children}
+        </div>
+      }
+
       {(gradient || overlay)
         && (
           <div
