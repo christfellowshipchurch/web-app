@@ -19,7 +19,8 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   if (isLive || source.includes('m3u8')) {
     videoProps = {
       ...videoProps,
-      autoPlay: true
+      autoPlay: true,
+      playsInline: true
     }
   }
 
