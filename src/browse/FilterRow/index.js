@@ -2,6 +2,8 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
+import { GoogleAnalytics } from '../../analytics'
+
 const BrowseFilters = ({
     selected,
     onChange,
@@ -32,6 +34,11 @@ const BrowseFilters = ({
                         onClick={(e) => {
                             e.preventDefault()
                             onChange({ id: n.id })
+                            GoogleAnalytics.trackEvent({
+                                category: 'Browse',
+                                action: 'Filter Click',
+                                label: `${n.title} - Filter`
+                            })
                         }}
                     >
                         {n.title}
