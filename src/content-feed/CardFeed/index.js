@@ -87,6 +87,7 @@ const CardFeed = ({
                             key={i}
                             contentId={n.id}
                             urlBase={urlBase}
+                            hideLabel={n.hideLabel}
                         />
                     ))}
                 </div>
