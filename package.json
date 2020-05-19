@@ -38,6 +38,7 @@
     "react-apollo": "^3.1.1",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-deprecate": "^0.1.0",
+    "react-device-detect": "^1.12.1",
     "react-dom": "^16.8.6",
     "react-facebook-pixel": "^0.1.2",
     "react-ga": "^2.7.0",

@@ -1,10 +1,16 @@
 import React, { createRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames'
 import Hls from 'hls.js';
+import { isMobile, isIOS } from 'react-device-detect'
+
 import { Icon } from '../Icons';
 
 const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
+  const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
+
+
 
   let videoProps = showControls
     ? {
@@ -16,11 +22,21 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
     }
     : {};
 
-  if (isLive || source.includes('m3u8')) {
+  if (isLive || source.includes('m3u8') && !isMobile) {
     videoProps = {
       ...videoProps,
       autoPlay: true,
       playsInline: true
+    }
+  }
+
+  if(isMobile){
+    videoProps = {
+      ...videoProps,
+      muted: isLive,
+      playsInline: true,
+      showControls: false,
+      autoPlay: isLive
     }
   }
 
@@ -35,6 +51,11 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
     })
   }
 
+  const muteButtonClick = () => {
+    setShowMuteButton(false)
+    videoRef.current.muted = false
+  }
+
   const playButtonClick = () => {
     if(source.includes('m3u8')){
       createHLSurl()
@@ -46,7 +67,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   };
 
   useEffect(() => {
-    if (isLive) return playButtonClick()
+    if (isLive || isIOS) return playButtonClick()
   }, [videoRef])
 
   return (
@@ -65,7 +86,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
           src={source}
         />
       </video>
-      {showPlayButton && 
+      {showPlayButton &&
         <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
               <button
                 className="btn btn-icon"
@@ -77,6 +98,34 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
                   fill={playIcon.color}
                 />
               </button>
+        </div>
+      }
+      {showMuteButton &&
+        <div
+          className="fill d-flex justify-content-center align-items-center" 
+          style={{ zIndex: 1000 }}
+        >
+          <h4
+            className={classnames(
+              'card',
+              'bg-dark',
+              'p-1',
+              'text-white'
+            )}
+            onClick={muteButtonClick}
+          >
+            Tap to Unmute
+          </h4>
+          {/* <button
+            className='btn btn-icon p-1'
+            onClick={muteButtonClick}
+          >
+            <Icon
+              name={'ban'} 
+              size={playIcon.size}
+              fill={playIcon.color}
+            />
+          </button> */}
         </div>
       }
     </div>
