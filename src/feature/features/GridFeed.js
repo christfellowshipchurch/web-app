@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
-import { get } from 'lodash';
+import { get, first, kebabCase } from 'lodash';
 import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
@@ -82,6 +82,7 @@ const AnnouncementFeed = ({
                                             gradient: 'dark',
                                             gradientDirection: 'bottom-top',
                                         }}
+                                        hideLabel={node.hideLabel}
                                     />
                                 </div>
                             )
@@ -96,6 +97,7 @@ const AnnouncementFeed = ({
                                         gradient: 'dark',
                                         gradientDirection: 'bottom-top',
                                     }}
+                                    hideLabel={node.hideLabel}
                                 />
                             )
                     );

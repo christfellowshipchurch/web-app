@@ -40,6 +40,9 @@ export const GET_CONTENT_FEED = gql`
           }
           edges {
             node {
+                ... on EventContentItem{
+                  hideLabel
+                }
                 id
                 title
                 summary
@@ -58,6 +61,9 @@ export const GET_CONTENT_FEED = gql`
           }
           edges {
             node {
+                ... on EventContentItem{
+                  hideLabel
+                }
                 id
                 title
                 summary

@@ -45,10 +45,10 @@ const ContentCardConnectedWithQuery = ({
             : comingSoon;
     }
 
-    if (isLive) {
-        labelValue = 'live now';
-        label.bg = 'danger';
-        label.textColor = 'white';
+    const liveLabel = {
+        value: 'live now',
+        bg: 'danger',
+        textColor: 'white'
     }
 
     if (hideLabel) {
@@ -78,7 +78,9 @@ const ContentCardConnectedWithQuery = ({
             metrics,
             tile,
             isLoading: loading,
-            label: {
+            label: isLive
+            ? liveLabel
+            : {
                 value: labelValue,
                 ...label,
             },
