@@ -10,8 +10,6 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
 
-
-
   let videoProps = showControls
     ? {
       playsInline: false,
@@ -78,7 +76,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
         ref={videoRef}
         controlsList="nodownload"
         style={{
-          objectFit: 'cover'
+          objectFit: 'cover',
         }}
       >
         <source  
@@ -116,16 +114,6 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
           >
             Tap to Unmute
           </h4>
-          {/* <button
-            className='btn btn-icon p-1'
-            onClick={muteButtonClick}
-          >
-            <Icon
-              name={'ban'} 
-              size={playIcon.size}
-              fill={playIcon.color}
-            />
-          </button> */}
         </div>
       }
     </div>
