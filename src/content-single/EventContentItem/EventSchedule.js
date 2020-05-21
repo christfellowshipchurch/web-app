@@ -23,6 +23,8 @@ import {
 } from '../../ui'
 import { Icon } from '../../ui/Icons'
 import { getDirectionsUrl } from '../../utils'
+import { GoogleAnalytics } from '../../analytics';
+
 
 const EventTimes = ({ date, times, className }) => {
   const mDate = moment(date)
@@ -254,6 +256,11 @@ const EventSchedule = ({
                 )}
                 href={n.action}
                 target={n.action.includes('http') ? '_blank' : ''}
+                onClick={() => GoogleAnalytics.trackEvent({
+                  category: 'Event Item',
+                  action: `${title} Call to Action`,
+                  label: `${title} - ${n.call} Button`
+                })}
               >
                 {n.call}
               </a>

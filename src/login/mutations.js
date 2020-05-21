@@ -90,15 +90,15 @@ export const REGISTER_WITH_EMAIL = gql`
 `;
 
 export const REQUEST_PASSWORD_CHANGE = gql`
-  mutation requestPasswordChange(
-    $identity:String!, 
-    $passcode:String!, 
-    $newPasscode:String!
+  mutation changePasswordWithPin(
+    $email:String!, 
+    $pin:String!, 
+    $newPassword:String!
   ) {
-    requestPasswordChange(
-      identity:$identity, 
-      passcode:$passcode, 
-      newPasscode:$newPasscode
+    changePasswordWithPin(
+      email:$email, 
+      pin:$pin, 
+      newPassword:$newPassword
     ) {
       token
     }
