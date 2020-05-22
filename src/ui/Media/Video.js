@@ -1,10 +1,14 @@
 import React, { createRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames'
 import Hls from 'hls.js';
+import { isMobile, isIOS } from 'react-device-detect'
+
 import { Icon } from '../Icons';
 
 const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
+  const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
 
   let videoProps = showControls
     ? {
@@ -16,10 +20,21 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
     }
     : {};
 
-  if (isLive || source.includes('m3u8')) {
+  if (isLive || source.includes('m3u8') && !isMobile) {
     videoProps = {
       ...videoProps,
-      autoPlay: true
+      autoPlay: true,
+      playsInline: true
+    }
+  }
+
+  if(isMobile){
+    videoProps = {
+      ...videoProps,
+      muted: isLive,
+      playsInline: true,
+      showControls: false,
+      autoPlay: isLive
     }
   }
 
@@ -34,6 +49,11 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
     })
   }
 
+  const muteButtonClick = () => {
+    setShowMuteButton(false)
+    videoRef.current.muted = false
+  }
+
   const playButtonClick = () => {
     if(source.includes('m3u8')){
       createHLSurl()
@@ -45,18 +65,19 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   };
 
   useEffect(() => {
-    if (isLive) return playButtonClick()
+    if (isLive || isIOS) return playButtonClick()
   }, [videoRef])
 
   return (
     <div>
       <video
+        className='rounded'
         {...videoProps} 
         poster={poster}
         ref={videoRef}
         controlsList="nodownload"
         style={{
-          objectFit: 'cover'
+          objectFit: 'cover',
         }}
       >
         <source  
@@ -64,18 +85,72 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
           src={source}
         />
       </video>
-      {showPlayButton && 
-        <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
-              <button
-                className="btn btn-icon"
+      {showPlayButton &&
+        <div className="fill d-flex justify-content-start align-items-end" style={{ zIndex: 900 }}>
+              <a
+                className={classnames(
+                  'cursor-hover',
+                  'scale-media-up-on-hover',
+                  'ml-3',
+                  'd-flex',
+                  'align-items-center',
+                  'justify-content-center'
+                )}
                 onClick={playButtonClick}
+                style={{
+                  position: 'relative',
+                  top: 20
+                }}
               >
-                <Icon
-                  name='play-circle' 
-                  size={playIcon.size} 
-                  fill={playIcon.color}
+                <img
+                  className='rounded gradient-black'
+                  src={poster}
+                  style={{
+                    height: 60,
+                    width: 'auto',
+                    zIndex: 950
+                  }}
                 />
-              </button>
+                <div
+                  className='p-absolute flex-column'
+                  style={{
+                    zIndex: 1000
+                  }}
+                >
+                  <Icon
+                    className='d-flex justify-content-center'
+                    name='play'
+                    fill='white'
+                    size={20}
+                  />
+                  <p
+                    className='text-white mb-0'
+                    style={{
+                      fontSize: 12,
+                    }}
+                  >
+                    Play
+                  </p>
+                </div>
+              </a>
+        </div>
+      }
+      {showMuteButton &&
+        <div
+          className="fill d-flex justify-content-center align-items-center" 
+          style={{ zIndex: 1000 }}
+        >
+          <h4
+            className={classnames(
+              'card',
+              'bg-dark',
+              'p-1',
+              'text-white'
+            )}
+            onClick={muteButtonClick}
+          >
+            Tap to Unmute
+          </h4>
         </div>
       }
     </div>

@@ -44,6 +44,7 @@ const MediaItem = ({
           rounded: rounded && !circle,
           'rounded-circle': circle,
           'scale-media-up-on-hover': withHover,
+          'overflow-visible': videoUrl
         },
       )}
       style={style}
