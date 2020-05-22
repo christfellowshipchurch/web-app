@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
-import { get } from 'lodash';
+import { get, last } from 'lodash';
 import moment from 'moment';
 
 import { ContentCard } from '../ui';
@@ -32,6 +32,7 @@ const ContentCardConnectedWithQuery = ({
         },
     ];
     const coverImage = get(node, 'coverImage.sources', undefined);
+    
     let labelValue = typeof label.field === 'string'
         ? get(node, label.field, '')
         : label.field(node);
@@ -39,9 +40,21 @@ const ContentCardConnectedWithQuery = ({
     if (typename === 'EventContentItem') {
         const hideLabel = get(node, 'hideLabel', false);
         const comingSoon = hideLabel ? '' : 'Dates Coming Soon';
+        const events = get(node, 'events', [])
+        const startDate = moment(get(events, '[0].start', new Date()))
+        let eventDate = startDate.format('MMM D')
 
-        labelValue = get(node, 'events', []).length
-            ? moment(get(node, 'nextOccurrence', new Date())).format('MMM D')
+        if(events.length > 1){
+            const endDate = moment(get(last(events), 'start', new Date()))
+            const format = startDate.month() === endDate.month()
+                            ? 'D'
+                            : 'MMM D';
+            if(startDate.day() !== endDate.day()){
+                eventDate = `${startDate.format('MMM D')} - ${endDate.format(format)}`;
+            }
+        }
+        labelValue = get(node, 'events', []).length && !hideLabel
+            ? eventDate
             : comingSoon;
     }
 
