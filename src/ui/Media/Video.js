@@ -71,6 +71,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   return (
     <div>
       <video
+        className='rounded'
         {...videoProps} 
         poster={poster}
         ref={videoRef}
@@ -85,17 +86,53 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
         />
       </video>
       {showPlayButton &&
-        <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
-              <button
-                className="btn btn-icon"
+        <div className="fill d-flex justify-content-start align-items-end" style={{ zIndex: 900 }}>
+              <a
+                className={classnames(
+                  'cursor-hover',
+                  'scale-media-up-on-hover',
+                  'ml-3',
+                  'd-flex',
+                  'align-items-center',
+                  'justify-content-center'
+                )}
                 onClick={playButtonClick}
+                style={{
+                  position: 'relative',
+                  top: 20
+                }}
               >
-                <Icon
-                  name='play-circle' 
-                  size={playIcon.size} 
-                  fill={playIcon.color}
+                <img
+                  className='rounded gradient-black'
+                  src={poster}
+                  style={{
+                    height: 60,
+                    width: 'auto',
+                    zIndex: 950
+                  }}
                 />
-              </button>
+                <div
+                  className='p-absolute flex-column'
+                  style={{
+                    zIndex: 1000
+                  }}
+                >
+                  <Icon
+                    className='d-flex justify-content-center'
+                    name='play'
+                    fill='white'
+                    size={20}
+                  />
+                  <p
+                    className='text-white mb-0'
+                    style={{
+                      fontSize: 12,
+                    }}
+                  >
+                    Play
+                  </p>
+                </div>
+              </a>
         </div>
       }
       {showMuteButton &&

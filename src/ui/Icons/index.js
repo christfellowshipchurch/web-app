@@ -26,6 +26,7 @@ import LockAlt from "./lock-alt"
 import Microsoft from './microsoft'
 import Mobile from "./mobile"
 import PhoneAlt from "./phone-alt"
+import Play from "./play"
 import PlayCircle from "./play-circle"
 import Search from "./search"
 import ShareSquare from "./share-square"
@@ -64,6 +65,7 @@ export {
   Microsoft,
   Mobile,
   PhoneAlt,
+  Play,
   PlayCircle,
   Search,
   ShareSquare,
@@ -104,6 +106,7 @@ export const Icons = {
   Microsoft,
   Mobile,
   PhoneAlt,
+  Play,
   PlayCircle,
   Search,
   ShareSquare,
