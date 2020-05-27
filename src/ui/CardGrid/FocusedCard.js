@@ -5,7 +5,7 @@ import classnames from 'classnames'
 
 import { Card } from '../'
 import { htmlToReactParser } from '../../utils'
-import { Times } from '../Icons'
+import { Icon } from '../Icons'
 
 const Title = ({ children }) =>
     <h4 className="mb-4">{children}</h4>
@@ -56,11 +56,12 @@ const FocusedCard = ({
                         style={{
                             height: 32,
                             width: 32,
-                            fontSize: 22,
                             zIndex: 100 // ui hack so the button is always accessible
                         }}
                     >
-                        <Times
+                        <Icon
+                            className='d-flex'
+                            name='times'
                             fill='white'
                         />
                     </button>
