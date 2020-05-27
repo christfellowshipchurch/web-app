@@ -33,6 +33,15 @@ query websiteNavigation($website:String!) {
       }
       name
     }
+
+    navigationLinks {
+      call
+      action
+    }
+    quickAction {
+      call
+      action
+    }
   }
 }
 `
