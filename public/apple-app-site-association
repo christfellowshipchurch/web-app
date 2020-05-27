@@ -4,7 +4,7 @@
       "details": [
            {
              "appID": "com.subsplashconsulting.BSVMPR",
-             "paths": [ "/content/*", "/items/*", "/events/*", ]
+             "paths": [ "/content/*", "/items/*", "/events/*" ]
            },
            {
              "appIDs": [ "com.subsplashconsulting.BSVMPR" ],
