@@ -1,11 +1,26 @@
 {
   "applinks": {
-      "apps": [],
-      "details": [
-           {
-             "appID": "com.subsplashconsulting.BSVMPR",
-             "paths": [ "/content/*", "/items/*", "/events/*" ]
-           }
-       ]
-   }
+    "apps": [],
+    "details": [
+      {
+        "appID": "785979426.com.subsplashconsulting.BSVMPR",
+        "components": [
+          {
+            "/": "/content/*"
+          },
+          {
+            "/": "/items/*"
+          },
+          {
+            "/": "/events/*"
+          }
+        ],
+        "paths": [
+          "/content/*",
+          "/items/*",
+          "/events/*"
+        ]
+      }
+    ]
+  }
 }
