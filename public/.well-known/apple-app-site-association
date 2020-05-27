@@ -1,0 +1,11 @@
+{
+  "applinks": {
+      "apps": [],
+      "details": [
+           {
+             "appID": "com.subsplashconsulting.BSVMPR",
+             "paths": [ "/content/*", "/items/*", "/events/*", ]
+           }
+       ]
+   }
+}
