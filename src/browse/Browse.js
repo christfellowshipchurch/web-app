@@ -65,7 +65,7 @@ const Browse = ({
             'container-fluid',
             'mt-6',
             'mb-0',
-            'px-4',
+            'px-2',
         )}
         >
             <div className="row">
