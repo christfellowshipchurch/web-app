@@ -9,11 +9,7 @@ import { Navbar, Nav, Dropdown } from 'react-bootstrap'
 import {
   Bars,
   Times,
-  Users,
-  Handshake,
-  CalendarAlt,
-  EnvelopeOpenDollar,
-  Search,
+  Icon
 } from '../../ui/Icons'
 
 import { useAuth } from '../../auth'
@@ -66,7 +62,8 @@ const NavbarConnected = ({
   fixed,
   navLinks,
   navIcons,
-  learnMoreLinks
+  learnMoreLinks,
+  quickAction
 }) => {
   const { logout } = useAuth()
 
@@ -132,10 +129,10 @@ const NavbarConnected = ({
           className='mr-2'
         >
           {React.createElement(
-            menuIcon ? Times : Bars,
+            Icon,
             {
               fill:"#525252",
-              size:'lg',
+              name: menuIcon ? 'times' : 'bars'
             }
           )}
         </span>
@@ -190,6 +187,22 @@ const NavbarConnected = ({
           <hr className='d-lg-none w-75' />
          <div className='d-flex align-items-center'>
           <Nav>
+            {quickAction &&
+              <Nav.Link
+                href={quickAction.action}
+                className={classnames(
+                  'mx-4',
+                  'my-2',
+                  'px-3',
+                  'btn-primary',
+                  'nav-link',
+                  'text-white',
+                  'rounded'
+                )}
+              >
+                {quickAction.call}
+              </Nav.Link>
+            }
             {/* Desktop NavLinks */}
             {navLinks.map((link, i) => (
               <Nav.Link
@@ -208,15 +221,7 @@ const NavbarConnected = ({
             ))}
 
             {/* Mobile NavLinks */}
-            <p className={classnames(
-              'font-weight-light',
-              'd-lg-none',
-              'ml-2',
-              'mb-2'
-            )}
-            >
-              Get Involved
-            </p>
+
             {navLinks.map((link, i) => (
               <div
                 key={i}
@@ -229,9 +234,10 @@ const NavbarConnected = ({
                 )}
               >
                 {React.createElement(
-                  navIcons[i],
+                  Icon,
                   {
-                    fill: 'black'
+                    fill: 'black',
+                    name: 'users'
                   }
                 )}
                 <Nav.Link
@@ -267,21 +273,27 @@ const NavbarConnected = ({
           <hr className='d-lg-none w-75' />     
           {/* Mobile Learn More */}
           <div className='d-lg-none'>
-            <p className={classnames(
-              'font-weight-light',
-              'ml-2',
-              'my-1'
-            )}>
-              Learn More
-              </p>
             <div
               className={classnames(
                 'd-flex',
                 'flex-column',
-                'ml-3',
+                'ml-4',
               )}
             >
               {learnMoreLinks.map((link, i) => (
+                <div
+                  className={classnames(
+                    'd-flex',
+                    'align-items-center'
+                  )}
+                >
+                {React.createElement(
+                  Icon,
+                  {
+                    name: navIcons[i],
+                    fill: 'black'
+                  }
+                )}
                 <a
                   key={i}
                   href={link.action}
@@ -294,8 +306,16 @@ const NavbarConnected = ({
                 >
                   {link.call}
                 </a>
+                </div>
               ))}
               {/* Contact Us Button */}
+              <div
+                className={classnames(
+                  'd-flex',
+                  'align-items-center'
+                )}
+              >
+              <Icon name='phone-alt' />
               <ContactUsButton
                 className={classnames(
                   'p-2',
@@ -306,6 +326,7 @@ const NavbarConnected = ({
               >
                 Contact Us
               </ContactUsButton>
+              </div>
             </div>
           </div>
           <hr className='d-lg-none w-75' />
@@ -316,7 +337,7 @@ const NavbarConnected = ({
               'nav-link',
               'text-dark',
               'd-lg-none',
-              'ml-3',
+              'ml-4',
               'mb-5'
             )}
             onClick={(e) => {
@@ -358,18 +379,18 @@ NavbarConnected.defaultProps = {
   brandImageKey: 'brandImage',
   fixed: false,
   navLinks: [
-    { call: 'Content', action: '/browse' },
-    { call: 'Events', action: '/events' },
-    { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
-    { call: 'Community', action: '/community-finder' },
-    { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
+    // { call: 'Content', action: '/browse' },
+    // { call: 'Events', action: '/events' },
+    // { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
+    // { call: 'Community', action: '/community-finder' },
+    // { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
   ],
   navIcons: [
-    Search,
-    CalendarAlt,
-    Handshake,
-    Users,
-    EnvelopeOpenDollar,
+    'search',
+    'book-alt',
+    'handshake',
+    'users',
+    'envelope-open-dollar',
   ],
   learnMoreLinks: [
     { call: 'About Christ Fellowship', action: '/about-page' },

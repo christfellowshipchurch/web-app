@@ -3,10 +3,13 @@ import PropTypes from 'prop-types'
 
 import NavbarConnected from './NavbarConnected'
 
-const AuthNavbar = ({ learnMoreLinks }) => {
+const AuthNavbar = ({ navLinks, quickAction }) => {
 
     return (
-        <NavbarConnected />
+        <NavbarConnected 
+            learnMoreLinks={navLinks}
+            quickAction={quickAction}
+        />
     )
 }
 

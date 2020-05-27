@@ -13,9 +13,7 @@ import { GET_WEBSITE_HEADER } from './queries'
 import DefaultIcon from '../images/default_icon.png'
 
 import { Button } from '../ui'
-import LiveBanner from './LiveBanner'
 import DynamicBanner from './DynamicBanner'
-import { redirectTo } from '../utils'
 import { useAuth } from '../auth'
 import AuthNavbar from './AuthNavbar'
 
@@ -64,7 +62,6 @@ const NavbarConnected = ({
     fetchPolicy: 'cache-and-network',
   })
 
-  if (isLoggedIn) return <AuthNavbar />
 
   // If Query state is loading or there's an error,
   //  return a defaulted header with the CF Icon centered
@@ -76,6 +73,11 @@ const NavbarConnected = ({
 
   // Get the data object from the return data or default to null
   const navigationData = get(data, 'getWebsiteNavigation', null)
+
+  return <AuthNavbar 
+            navLinks={get(navigationData, 'navigationLinks', null)}
+            quickAction={get(navigationData, 'quickAction', null)}
+          />
 
   if (navigationData) {
     const images = imageArrayToObject(get(navigationData, 'images', []))
@@ -168,7 +170,7 @@ const NavbarConnected = ({
               })}
 
               {/* TODO : revert when login gets added back */}
-              {/* <Nav.Link
+              <Nav.Link
                 href="#"
                 className="mx-3 my-2"
                 onSelect={() => {
@@ -177,7 +179,7 @@ const NavbarConnected = ({
                 }}
               >
                 Log In
-              </Nav.Link> */}
+              </Nav.Link>
 
               {quickAction.display
                 && (

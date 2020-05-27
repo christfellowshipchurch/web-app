@@ -7,17 +7,18 @@ import { Dropdown } from 'react-bootstrap'
 import { Bars, Times } from '../../ui/Icons'
 
 import { useAuth, useAuthQuery } from '../../auth'
-import { GET_PROFILE_IMAGE } from '../queries'
+import { GET_PROFILE_IMAGE, GET_WEBSITE_HEADER_LOGGED_IN } from '../queries'
 import ContactUsButton from './ContactUsButton'
 
 import { Media } from '../../ui'
 
-const ProfileConnected = ({ dropDownLinks }) => {
-  const { logout } = useAuth()
-  const { loading, error, data } = useAuthQuery(GET_PROFILE_IMAGE)
-  const [menuIcon, setMenuIcon] = useState(false)
+import { Icon } from '../../ui/Icons'
+import { redirectTo } from '../../utils'
 
-  if (loading) return <i className="fal fa-user-circle fa-2x"></i>
+const ProfileConnected = ({ dropDownLinks }) => {
+  const { logout, logIn, isLoggedIn } = useAuth()
+  const { loading, error, data } = useAuthQuery(GET_PROFILE_IMAGE, GET_WEBSITE_HEADER_LOGGED_IN)
+  const [menuIcon, setMenuIcon] = useState(false)
 
   return (
     <>
@@ -70,6 +71,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 'px-2',
                 'mt-1'
               )}
+              show={menuIcon}
             >
               {dropDownLinks.map((link, i) => (
                 <Dropdown.Item
@@ -111,14 +113,23 @@ const ProfileConnected = ({ dropDownLinks }) => {
                   'text-dark',
                   'no-decoration',
                 )}
-                onClick={() => logout()}
+                onClick={() => isLoggedIn
+                  ? logout()
+                  : logIn()
+                }
               >
-                Logout
+                {isLoggedIn
+                  ? 'Logout'
+                  : 'Login'
+                }
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <a
-            href='/profile'
+            onClick={() => isLoggedIn
+              ? redirectTo('/profile')
+              : logIn()
+            }
             className={classnames(
               'd-flex',
               'align-items-center',
@@ -126,6 +137,7 @@ const ProfileConnected = ({ dropDownLinks }) => {
               'text-dark',
             )}
           >
+            {loading && <Icon name='user-circle' size={30} />}
             {get(data, 'currentUser.profile.photo.uri', '') !== ''
               ? (
                 <div
@@ -140,7 +152,11 @@ const ProfileConnected = ({ dropDownLinks }) => {
                   />
                 </div>
               )
-              : <i className="fal fa-user-circle fa-2x"></i>
+              : <Icon 
+                  name='user-circle'
+                  size={30}
+                  fill='#353535'
+                />
             }
           </a>
 
@@ -158,8 +174,11 @@ const ProfileConnected = ({ dropDownLinks }) => {
           'pl-4'
         )}
       >
-        <a
-          href='/profile'
+        <div
+          onClick={() => isLoggedIn
+            ? redirectTo('/profile')
+            : logIn()
+          }
           className={classnames(
             'd-flex',
             'align-items-center',
@@ -184,34 +203,23 @@ const ProfileConnected = ({ dropDownLinks }) => {
                 />
               </div>
             )
-            : <i className="fal fa-user-circle fa-2x"></i>
+            : <Icon 
+                name='user-circle'
+                size={48}
+                fill='#353535'
+              />
           }
-          {get(data, 'currentUser.profile.firstName')}
-        </a>
-
-        <div
-          className={classnames(
-            'd-flex',
-            'flex-column',
-            'nav-link',
-            'text-dark',
-            'px-0',
-            'py-0',
-            'mt-3'
-          )}
-        >
-          <a
-            href='/profile'
-            className='mb-1 text-dark'
+          <p
+            className={classnames(
+              'mb-0',
+              'ml-2'
+            )}
           >
-            My Profile
-          </a>
-          <a
-            href='/profile'
-            className='mt-1 text-dark'
-          >
-            Preferences
-          </a>
+            {isLoggedIn
+                ? get(data, 'currentUser.profile.firstName')
+                : 'Sign In'
+            }
+          </p>
         </div>
       </div>
     </>
