@@ -4,3 +4,16 @@
   from = "/*"
   to = "/index.html"
   status = 200
+# Custom header values
+[[headers]]
+  # In order to enable Universal Linking in iOS, we need to serve up
+  # this file as a json file, but cannot include a .json extension.
+  # To do this, we adjust the header value for Content Type here, as
+  # well as setting the cache control to not cache
+  for = "/.well-known/apple-app-site-association"
+  [headers.values]
+    Cache-Control = '''
+    public,
+    max-age=0'''
+    Content-Type = "application/json"
+    X-Content-Type-Options = "nosniff"
