@@ -19,7 +19,7 @@ const useAuthQuery = (query) => {
         fetchPolicy: 'network-only',
         onError: () => {
             console.error("Authentication error: logging out")
-            logout()
+            // logout()
         }
     })
 
