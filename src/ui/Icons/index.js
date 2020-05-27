@@ -31,6 +31,7 @@ import Search from "./search"
 import ShareSquare from "./share-square"
 import Times from "./times"
 import Twitter from "./twitter"
+import UserCircle from "./user-circle"
 import User from "./user"
 import Users from "./users"
 import Youtube from "./youtube"
@@ -109,6 +110,7 @@ export const Icons = {
   ShareSquare,
   Times,
   Twitter,
+  UserCircle,
   User,
   Users,
   Youtube,
