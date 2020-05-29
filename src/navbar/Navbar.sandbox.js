@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
-import { Query, useQuery } from 'react-apollo'
+import { useQuery } from 'react-apollo'
 import PropTypes from 'prop-types'
-import gql from 'graphql-tag'
 import classnames from 'classnames'
-import { toLower, get, has, find, camelCase } from 'lodash'
+import { isMobile, isIOS } from 'react-device-detect'
+import { get, includes, camelCase } from 'lodash'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
-import { Navbar, Nav, Dropdown } from 'react-bootstrap'
-import {
-  Bars,
-  Times,
-  Icon
-} from '../ui/Icons'
-
+import { Icon } from '../ui/Icons'
 import { useAuth } from '../auth'
+
 import { GET_WEBSITE_HEADER_LOGGED_IN, GET_PROFILE_IMAGE } from './queries'
 import ProfileConnected from './AuthNavbar/ProfileConnected'
-import ContactUsButton from './AuthNavbar/ContactUsButton'
-
 import DynamicBanner from './DynamicBanner'
 
 
@@ -61,12 +55,12 @@ const NavbarConnected = ({
   brandImageKey,
   onToggle,
   fixed,
-  navLinks,
+  navbarLinks,
   navIcons,
-  learnMoreLinks,
+  dropDownLinks,
   quickAction
 }) => {
-  const { logout, isLoggedIn } = useAuth()
+  const { logout, logIn, isLoggedIn } = useAuth()
   const [menuIcon, setMenuIcon] = useState(false)
   const website = process.env.REACT_APP_WEBSITE_KEY
   const { loading, error, data } = useQuery(GET_WEBSITE_HEADER_LOGGED_IN, {
@@ -74,7 +68,22 @@ const NavbarConnected = ({
     fetchPolicy: "cache-and-network"
   })
 
-  learnMoreLinks = get(data, 'getWebsiteNavigation.navigationLinks', [])
+  dropDownLinks = get(data, 'getWebsiteNavigation.navigationLinks', [])
+
+  //Add 'Profile' link if logged in and desktop view
+  if(isLoggedIn 
+      && !includes(dropDownLinks[0].call, 'Profile')
+      && !includes(navIcons, 'user-circle')
+      && !isMobile
+    ) {
+    dropDownLinks.unshift({call: 'Profile', action: '/profile'})
+    navIcons.unshift('user-circle')
+  }
+
+  if(isMobile && !includes(dropDownLinks[dropDownLinks.length - 1], 'Download App')){
+    dropDownLinks.push({call: 'Download App', action:`${isIOS ? 'https://apps.apple.com/us/app/christ-fellowship-app/id785979426': 'https://play.google.com/store/apps/details?id=com.subsplash.thechurchapp.s_BSVMPR&hl=en_US'}`})
+  }
+
   quickAction = get(data, 'getWebsiteNavigation.quickAction', null)
 
   const images = imageArrayToObject(get(data, 'getWebsiteNavigation.images', []))
@@ -85,10 +94,13 @@ const NavbarConnected = ({
     expand: 'lg'
   }
 
+
   // We use sticky styling as the default so that padding is respected
   //    with the option to override it to use a fixed styling if preferred
   if (fixed) navbarProps.fixed = "top"
   else navbarProps.sticky = "top"
+
+  const dropDownIcon = ( isOpen ) => <Icon name={isOpen ? 'times' : 'bars'} fill="#525252"/>
 
   return (
     <Navbar
@@ -131,13 +143,7 @@ const NavbarConnected = ({
           onClick={() => setMenuIcon(!menuIcon)}
           className='mr-2'
         >
-          {React.createElement(
-            Icon,
-            {
-              fill:"#525252",
-              name: menuIcon ? 'times' : 'bars'
-            }
-          )}
+          {dropDownIcon(menuIcon)}
         </span>
       </Navbar.Toggle>
 
@@ -172,29 +178,30 @@ const NavbarConnected = ({
             }
           </div>
 
-          {/* Mobile Profile */}
-          <div className='d-lg-none'>
-            <div
-              style={{ flex: 1 }}
-              className={classnames(
-                "d-flex",
-                "justify-content-start",
-                "justify-content-lg-end",
-                'py-0'
-              )}
-            >
-              <ProfileConnected />
-            </div>
-          </div>
-
-          <hr className='d-lg-none w-75' />
          <div className='d-flex align-items-center'>
-          <Nav>
+           {/* Desktop Navbar Links */}
+           {navbarLinks.map((link, i) => (
+              <Nav.Link
+                key={i}
+                href={link.action}
+                className={classnames(
+                  'mx-2',
+                  'my-2',
+                  'd-none d-lg-block',
+                  'nav-link',
+                  'text-dark'
+                )}
+              >
+                {link.call}
+              </Nav.Link>
+            ))} 
+     
             {quickAction &&
               <Nav.Link
                 href={quickAction.action}
                 className={classnames(
                   'mx-4',
+                  'mx-lg-2',
                   'my-2',
                   'px-3',
                   'btn-primary',
@@ -206,102 +213,147 @@ const NavbarConnected = ({
                 {quickAction.call}
               </Nav.Link>
             }
-            {/* Desktop NavLinks */}
-            {navLinks.map((link, i) => (
+            {isLoggedIn
+              ? <ProfileConnected 
+                  className='d-none d-lg-block mx-3'
+                />
+              : <Nav.Link
+                  className='d-none d-lg-block'
+                  onClick={() => logIn()}
+                >
+                  <Icon 
+                    name='user-circle' 
+                    fill='#525252'
+                    size={32}
+                  /> 
+                </Nav.Link> 
+            }
+
+          {/* Desktop Dropdown Links */}
+             {dropDownLinks.length > 1 && 
+             <NavDropdown 
+                className='d-none d-lg-block'
+                title={dropDownIcon(menuIcon)}
+                onToggle={() => setMenuIcon(!menuIcon)} 
+                onSelect={() => setMenuIcon(!menuIcon)} 
+                alignRight 
+                id="collasible-nav-dropdown"
+              >
+              {dropDownLinks.map((link, i) => (
+                  <Nav.Link
+                    key={i}
+                    href={link.action}
+                    className={classnames(
+                      'mx-3',
+                      'my-2',
+                      'nav-link',
+                      'text-dark'
+                    )}
+                  >
+                    {link.call}
+                  </Nav.Link>
+                ))}
+              <hr className='mx-2 my-n1'/>
               <Nav.Link
-                key={i}
-                href={link.action}
+                key='Login Button'
                 className={classnames(
                   'mx-3',
                   'my-2',
-                  'd-none d-lg-block',
                   'nav-link',
                   'text-dark'
                 )}
+                onClick={
+                  () => isLoggedIn
+                    ? logout() 
+                    : logIn()
+                }
               >
-                {link.call}
+                {isLoggedIn
+                  ? 'Log Out'
+                  : 'Login'
+                }
               </Nav.Link>
-            ))}
-
-            {/* Mobile NavLinks */}
-
-            {navLinks.map((link, i) => (
-              <div
-                key={i}
-                className={classnames(
-                  'd-flex',
-                  'align-items-center',
-                  'd-lg-none',
-                  'pl-2',
-                  'ml-3',
-                )}
-              >
-                {React.createElement(
-                  Icon,
-                  {
-                    fill: 'black',
-                    name: 'users'
-                  }
-                )}
-                <Nav.Link
-                  href={link.action}
-                  className={classnames(
-                    'pl-2',
-                    'text-dark'
-                  )}
-                >
-                  {link.call}
-                </Nav.Link>
-              </div>
-            ))}
-          </Nav>
-
-
-          {/* Desktop Profile */}
-          <div className='d-none d-lg-block'>
-            <div
-              style={{ flex: 1 }}
-              className={classnames(
-                "d-flex",
-                "justify-content-start",
-                "justify-content-lg-end",
-              )}
-            >
-              <ProfileConnected
-                dropDownLinks={learnMoreLinks}
-              />
-            </div>
-          </div>
+              </NavDropdown>}
           </div>  
-          <hr className='d-lg-none w-75' />     
-          {/* Mobile Learn More */}
+          {/* Mobile Links */}
           <div className='d-lg-none'>
             <div
               className={classnames(
                 'd-flex',
                 'flex-column',
                 'ml-4',
+                'vh-100'
               )}
             >
-              {learnMoreLinks.map((link, i) => (
+              {isLoggedIn
+                ? <div
+                    className={classnames(
+                      'd-flex',
+                      'align-items-center',
+                      'my-3'
+                    )}
+                    >
+                    <ProfileConnected />
+                    <a
+                      href='/profile'
+                      className={classnames(
+                        'p-2',
+                        'pl-3',
+                        'nav-link',
+                        'text-dark',
+                        'no-decoration'
+                      )}
+                    >
+                      My Profile
+                    </a>
+                  </div>
+                : <div
+                    className={classnames(
+                      'd-flex',
+                      'align-items-center',
+                      'my-2'
+                    )}
+                    onClick={() => 
+                      logIn()
+                    }
+                  >
+                    <Icon 
+                      name='user-circle' 
+                      size={24}
+                    /> 
+                    <a 
+                      className={classnames(
+                        'p-2',
+                        'pl-3',
+                        'nav-link',
+                        'text-dark',
+                        'no-decoration'
+                      )}
+                    >
+                      Sign In
+                    </a>
+                  </div> 
+              }
+              {dropDownLinks.map((link, i) => (
                 <div
+                  key={i}
                   className={classnames(
                     'd-flex',
-                    'align-items-center'
+                    'align-items-center',
+                    'mb-2'
                   )}
                 >
                 {React.createElement(
                   Icon,
                   {
                     name: navIcons[i],
-                    fill: 'black'
                   }
                 )}
                 <a
-                  key={i}
                   href={link.action}
                   className={classnames(
                     'p-2',
+                    'pl-3',
                     'nav-link',
                     'text-dark',
                     'no-decoration'
@@ -311,50 +363,35 @@ const NavbarConnected = ({
                 </a>
                 </div>
               ))}
-              {/* Contact Us Button */}
-              <div
-                className={classnames(
-                  'd-flex',
-                  'align-items-center'
-                )}
-              >
-              <Icon name='phone-alt' />
-              <ContactUsButton
-                className={classnames(
-                  'p-2',
-                  'nav-link',
-                  'text-dark',
-                  'no-decoration',
-                  isLoggedIn && 'mb-4',
-                )}
-              >
-                Contact Us
-              </ContactUsButton>
-              </div>
+              {isLoggedIn &&
+                <div
+                  className={classnames(
+                    'd-flex',
+                    'align-items-center',
+                    'mb-2',
+                    'pl-1'
+                  )}
+                >
+                  <Icon
+                    name='sign-out'
+                    size={22}
+                  />
+                  <a
+                    className={classnames(
+                      'p-2',
+                      'pl-3',
+                      'nav-link',
+                      'text-dark',
+                      'no-decoration'
+                    )}
+                    onClick={() => logout()}
+                  >
+                    Log Out
+                  </a>
+                </div>
+              }
             </div>
           </div>
-         {isLoggedIn && 
-         <>
-         <hr className='d-lg-none w-75' />
-         <a
-            href="#"
-            className={classnames(
-              'p-1',
-              'nav-link',
-              'text-dark',
-              'd-lg-none',
-              'ml-4',
-              'mb-5'
-            )}
-            onClick={(e) => {
-              e.preventDefault()
-              logout()
-            }}
-          >
-            Logout
-          </a>
-          </>
-          }
 
         </div>
       </Navbar.Collapse>
@@ -368,13 +405,13 @@ NavbarConnected.propTypes = {
   variant: PropTypes.string,
   brandImageKey: PropTypes.string,
   fixed: PropTypes.bool,
-  navLinks: PropTypes.arrayOf(
+  navbarLinks: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
     })),
   navIcons: PropTypes.array,
-  learnMoreLinks: PropTypes.arrayOf(
+  dropDownLinks: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
@@ -386,7 +423,7 @@ NavbarConnected.defaultProps = {
   variant: 'light',
   brandImageKey: 'brandImage',
   fixed: false,
-  navLinks: [
+  navbarLinks: [
     // { call: 'Content', action: '/browse' },
     // { call: 'Events', action: '/events' },
     // { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
@@ -394,17 +431,18 @@ NavbarConnected.defaultProps = {
     // { call: 'Give', action: 'https://pushpay.com/g/christfellowship' },
   ],
   navIcons: [
-    'search',
     'book-alt',
+    'search',
     'handshake',
     'users',
     'envelope-open-dollar',
+    'mobile'
   ],
-  learnMoreLinks: [
+  dropDownLinks: [
     { call: 'About Christ Fellowship', action: '/about-page' },
     { call: 'Church Locations', action: '/locations' },
     { call: 'Request Prayer', action: 'https://gochristfellowship.com/new-here/contact-us/' },
-  ]
+  ],
 }
 
 export default NavbarConnected

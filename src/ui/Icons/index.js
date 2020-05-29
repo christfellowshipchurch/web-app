@@ -30,8 +30,10 @@ import Play from "./play"
 import PlayCircle from "./play-circle"
 import Search from "./search"
 import ShareSquare from "./share-square"
+import SignOut from './sign-out'
 import Times from "./times"
 import Twitter from "./twitter"
+import UserCircle from "./user-circle"
 import User from "./user"
 import Users from "./users"
 import Youtube from "./youtube"
@@ -110,8 +112,10 @@ export const Icons = {
   PlayCircle,
   Search,
   ShareSquare,
+  SignOut,
   Times,
   Twitter,
+  UserCircle,
   User,
   Users,
   Youtube,

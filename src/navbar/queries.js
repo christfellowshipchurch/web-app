@@ -49,6 +49,7 @@ query websiteNavigation($website:String!) {
 export const GET_PROFILE_IMAGE = gql`
 query {
   currentUser {
+    id
     profile {
       firstName
       photo {
