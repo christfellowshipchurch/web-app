@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import ProfilePage from '../../profile'
-import PageBuilder from '../../page-builder'
+import FeaturesFeed from '../../features-feed';
 
 import { useAuth } from '../../auth'
 
@@ -17,10 +17,7 @@ const Router = () => {
 
     return isLoggedIn
         ? <ProfilePage />
-        : <PageBuilder
-            title="home-page"
-            theme="swoop"
-        />
+        : <FeaturesFeed />
 }
 
 export default Router
