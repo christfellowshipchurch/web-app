@@ -185,19 +185,17 @@ const NavbarConnected = ({
                 </Nav.Link>
               }
               {isLoggedIn
-                ? <ProfileConnected
-                  className='d-none d-lg-block ml-3 mr-2'
-                />
-                : <Nav.Link
-                  className='d-none d-lg-block px-3 mr-n2'
-                  onClick={() => logIn()}
-                >
+                ? <ProfileConnected 
+                    className='d-none d-lg-block ml-2 mr-1'
+                  />
+                : 
                   <Icon
+                    onClick={() => logIn()}
+                    className='d-none d-lg-block ml-2 mr-1'
                     name='user-circle'
                     fill='#525252'
                     size={32}
                   />
-                </Nav.Link>
               }
 
               <DesktopNav

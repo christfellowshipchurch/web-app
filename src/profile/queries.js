@@ -28,6 +28,7 @@ export const GET_CURRENT_PERSON = gql`
         currentUser {
           id
             profile {
+                id
                 firstName
                 lastName
 

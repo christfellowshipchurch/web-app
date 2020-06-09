@@ -5,32 +5,44 @@ import { get } from 'lodash'
 import { useAuth, useAuthQuery } from '../../auth'
 import { GET_PROFILE_IMAGE } from '../queries'
 
-import { Media } from '../../ui'
+import { Media, Loader } from '../../ui'
+import { Icon } from '../../ui/Icons'
 
 const ProfileConnected = ({ className, size }) => {
   const { logout, isLoggedIn } = useAuth()
-  const { error, data } = useAuthQuery(GET_PROFILE_IMAGE)
+  const { error, loading, data } = useAuthQuery(GET_PROFILE_IMAGE)
+
+  const hasPhoto = get(data, 'currentUser.profile.photo.uri', '') 
 
   if(error){
     console.log('Profile Error', error)
   }
 
+  if(loading) return <Loader />
+
   return isLoggedIn && ( 
       <a
         href='/profile'
-        style={{ width: size, height: size }}
+        style={hasPhoto && { width: size, height: size }}
         className={classnames(
           'cursor-hover',
-          className
+          className,
         )}
       >
-        <Media
-          imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
-          imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
-          ratio="1by1"
-          circle
-          className='opacity-hover'
-        />
+        {hasPhoto     
+          ? <Media
+              imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
+              imageAlt={`Christ Fellowship Church - ${get(data, 'currentUser.profile.firstName')}`}
+              ratio="1by1"
+              circle
+              className='opacity-hover'
+            />
+          : <Icon 
+              name='user-circle'
+              fill='#00aeef'
+              size={32}
+            />
+        }
       </a>  
     )
 }
