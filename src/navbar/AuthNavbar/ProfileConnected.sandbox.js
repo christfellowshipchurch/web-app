@@ -38,9 +38,10 @@ const ProfileConnected = ({ className, size }) => {
               className='opacity-hover'
             />
           : <Icon 
+              className='pr-1'
               name='user-circle'
               fill='#00aeef'
-              size={32}
+              size={24}
             />
         }
       </a>  
