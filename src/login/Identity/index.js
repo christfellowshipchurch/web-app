@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useMutation, useLazyQuery } from 'react-apollo';
 import { get, has } from 'lodash';
 import * as Yup from 'yup';
@@ -16,6 +16,7 @@ import {
     TextInput,
     Button,
 } from '../../ui';
+import { Icon } from '../../ui/Icons'
 
 const validation = {
     identity: async (value) => {
@@ -52,6 +53,7 @@ const IdentityForm = ({
             privacyPolicyAgreement: false,
         },
     });
+    const [showAlert, setShowAlert] = useState(false)
     const [requestPin] = useMutation(REQUEST_PIN);
     const [checkIfUserExists] = useLazyQuery(USER_EXISTS, {
         fetchPolicy: 'network-only',
@@ -89,9 +91,14 @@ const IdentityForm = ({
     });
 
     const onClick = async () => {
-        setSubmitting(true);
-        const identity = get(values, 'identity', '');
-        checkIfUserExists({ variables: { identity } });
+        if(get(values, 'privacyPolicyAgreement', false)){
+            setSubmitting(true);
+            const identity = get(values, 'identity', '');
+            checkIfUserExists({ variables: { identity } });
+        }else{
+            //Informs users to agree to terms & conditions
+            setShowAlert(true)
+        }
     };
 
     const disabled = !!get(errors, 'identity', true)
@@ -108,7 +115,7 @@ const IdentityForm = ({
                 </div>
             </div>
 
-            <div className="row my-4 justify-content-center">
+            <div className="row my-3 justify-content-center">
                 <div className={classnames(columns)}>
                     <TextInput
                         label={inputLabel}
@@ -123,6 +130,20 @@ const IdentityForm = ({
 
             <div className="row my-4 text-center justify-content-center">
                 <div className={classnames(columns)}>
+                    {showAlert &&
+                        <div className='d-flex align-items-center ml-1'>
+                            <Icon 
+                                name='exclamation-circle'
+                                fill='#cb045b'
+                            />
+                            <p 
+                                className='mb-0 p-1 font-italic'
+                                style={{fontSize: 13}}
+                            >
+                                Please Agree to the Terms and Conditions
+                            </p>
+                        </div>
+                    }
                     <Checkbox
                         error={has(errors, 'privacyPolicyAgreement') && get(errors, 'privacyPolicyAgreement', '')}
                         label={dislaimerText}
@@ -136,7 +157,7 @@ const IdentityForm = ({
                 </div>
             </div>
 
-            <div className="my-4 text-center">
+            <div className="my-3 text-center">
                 <Button
                     onClick={onClick}
                     disabled={disabled}
@@ -167,7 +188,7 @@ IdentityForm.defaultProps = {
     promptText:
         "Get started by entering in either you phone number or email address. We'll never share your information or contact you (unless you ask!).",
     buttonText: 'Agree and Continue',
-    dislaimerText: 'I understand and agree to the following policies as laid out by Christ Fellowship Church:',
+    dislaimerText: 'I agree to the policies laid out by Christ Fellowship Church',
     update: () => true,
     columns: 'col',
 };
