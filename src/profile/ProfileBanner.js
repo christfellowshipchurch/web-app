@@ -6,6 +6,7 @@ import { useAuthQuery } from '../auth'
 
 import { GET_CURRENT_PERSON } from './queries'
 import { Media, Button, Loader } from '../ui'
+import { Icon } from '../ui/Icons'
 
 const ProfileBanner = ({
   coverImage,
@@ -18,6 +19,8 @@ const ProfileBanner = ({
   onCancel
 }) => {
   const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON)
+
+  profileImage = get(data, 'currentUser.profile.photo.uri', null)
 
   return (
     <div>
@@ -39,7 +42,7 @@ const ProfileBanner = ({
             </div>
             :
             <Media
-              imageUrl={get(data, 'currentUser.profile.campus.featuredImage.uri', '')}
+              imageUrl={get(data, 'currentUser.profile.campus.featuredImage.uri', null)}
               imageAlt='cover-photo'
               ratio={{ xs: "1by1", sm: "16by9", md: '16by9', lg: '21by9' }}
               gradient="black"
@@ -56,13 +59,29 @@ const ProfileBanner = ({
               >
                 {/* Profile Image */}
                 <Media
-                  imageUrl={
-                    get(data, 'currentUser.profile.photo.uri', 'https://i0.wp.com/acaweb.org/wp-content/uploads/2018/12/profile-placeholder.png?fit=300%2C300&ssl=1')
-                  }
+                  imageUrl={profileImage ? profileImage : ''}
                   imageAlt='profile-photo'
                   circle
-                  className='w-75 m-auto shadow-lg'
+                  className={classnames(
+                    'w-75', 
+                    'm-auto',
+                    'shadow-lg',
+                    !profileImage && 'd-none'
+                  )}
                 />
+                
+                {!profileImage &&
+                <div
+                  className='rounded-circle bg-white'
+                >
+                  <Icon
+                    name='user-circle'
+                    size={120}
+                    fill='#00aeef'
+                  />
+                </div>
+                }
+
                 <h1 className={classnames(
                   'text-white',
                   'text-center',

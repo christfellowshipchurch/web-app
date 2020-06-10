@@ -12,13 +12,14 @@ const pascalCase = (string) => flow(
 
 
 const Icon = ({
-  name, size, fill, className,
+  name, size, fill, className, onClick
 }) => {
   const IconComponent = Icons[pascalCase(name)];
 
   return (
     <span
       className={className}
+      onClick={onClick}
     >
       {React.createElement(
         IconComponent,
@@ -38,6 +39,7 @@ Icon.propTypes = {
   size: PropTypes.number,
   fill: PropTypes.string,
   className: PropTypes.string,
+  onClick: PropTypes.func
 };
 
 Icon.defaultProps = {
@@ -45,4 +47,5 @@ Icon.defaultProps = {
   size: 24,
   fill: '',
   className: '',
+  onClick: () => {}
 };

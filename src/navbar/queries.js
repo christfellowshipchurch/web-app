@@ -27,6 +27,7 @@ export const GET_WEBSITE_HEADER = gql`
 export const GET_WEBSITE_HEADER_LOGGED_IN = gql`
 query websiteNavigation($website:String!) {
   getWebsiteNavigation(website:$website) {
+    id
     images {
       sources {
         uri
@@ -51,6 +52,7 @@ query {
   currentUser {
     id
     profile {
+      id
       firstName
       photo {
         uri
