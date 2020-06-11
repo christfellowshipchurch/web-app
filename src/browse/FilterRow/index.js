@@ -10,7 +10,7 @@ const BrowseFilters = ({
 
     return (
         <ul
-            className="list-inline text-nowrap overflow-x-scroll"
+            className="list-inline text-nowrap overflow-x-scroll mb-n4"
         >
             {filters.map((n, i) => (
                 <li
@@ -20,12 +20,13 @@ const BrowseFilters = ({
                     <a
                         href="#"
                         className={classnames(
-                            'h4',
-                            'my-2',
-                            'mr-3',
+                            'h5',
+                            'badge',
+                            'px-3',
+                            'font-weight-normal',
                             {
-                                'font-weight-bold': selected === n.id,
-                                'font-weight-normal': selected !== n.id,
+                                'text-white badge-primary': selected === n.id,
+                                'text-dark badge-light': selected !== n.id,
                             }
                         )}
 
