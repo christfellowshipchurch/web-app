@@ -19,10 +19,14 @@ const BrowseFilters = ({
                 >
                     <a
                         href="#"
+                        style={{
+                            border: selected != n.id ? '1px solid #d6d6d6' : 'none'
+                        }}
                         className={classnames(
                             'h5',
                             'badge',
                             'px-3',
+                            'py-1',
                             'font-weight-normal',
                             {
                                 'text-white badge-primary': selected === n.id,
