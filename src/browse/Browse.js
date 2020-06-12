@@ -16,7 +16,7 @@ import { GET_FILTERS } from './queries';
 
 
 const generatePath = (arr) => {
-    let path = '/browse';
+    let path = '/discover';
 
     forEach(arr, (n) => {
         if (n && n !== '') path = `${path}/${kebabCase(n)}`;

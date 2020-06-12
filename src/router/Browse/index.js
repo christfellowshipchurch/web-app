@@ -18,9 +18,9 @@ const BrowseUrlMapper = ({
 
 const Router = () => (
     <Switch>
-        <Route exact path="/browse/:filter" component={BrowseUrlMapper} />
-        <Route exact path="/browse/:filter/:category" component={BrowseUrlMapper} />
-        <Route exact path="/browse/:filter/:category/:title" component={BrowseUrlMapper} />
+        <Route exact path="/discover/:filter" component={BrowseUrlMapper} />
+        <Route exact path="/discover/:filter/:category" component={BrowseUrlMapper} />
+        <Route exact path="/discover/:filter/:category/:title" component={BrowseUrlMapper} />
 
         <Route path="*" component={Browse} />
     </Switch>

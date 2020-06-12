@@ -358,7 +358,7 @@ NavbarConnected.defaultProps = {
   brandImageKey: 'brandImage',
   fixed: false,
   navLinks: [
-    { call: 'Content', action: '/browse' },
+    { call: 'Content', action: '/discover' },
     { call: 'Events', action: '/events' },
     { call: 'Serve', action: 'https://rock.gocf.org/dreamteam' },
     { call: 'Community', action: '/community-finder' },
