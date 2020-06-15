@@ -27,6 +27,7 @@ const BrowseFilters = ({
                             'badge',
                             'px-3',
                             'py-1',
+                            'focus-indicator-none',
                             'font-weight-normal',
                             {
                                 'text-white badge-primary': selected === n.id,
