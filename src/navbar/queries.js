@@ -20,6 +20,10 @@ export const GET_WEBSITE_HEADER = gql`
         call
         action
       }
+      footerLinks {
+        call
+        action
+      }
     }
   }
 `;
@@ -40,6 +44,10 @@ query websiteNavigation($website:String!) {
       action
     }
     quickAction {
+      call
+      action
+    }
+    footerLinks {
       call
       action
     }

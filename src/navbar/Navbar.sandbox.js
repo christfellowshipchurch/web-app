@@ -57,6 +57,7 @@ const NavbarConnected = ({
   onToggle,
   fixed,
   navLinks,
+  dropDownLinks,
   quickAction
 }) => {
   const { logout, logIn, isLoggedIn } = useAuth()
@@ -67,7 +68,10 @@ const NavbarConnected = ({
     fetchPolicy: "cache-and-network"
   })
 
+  console.log({data})
+
   navLinks = get(data, 'getWebsiteNavigation.navigationLinks', [])
+  dropDownLinks = get(data, 'getWebsiteNavigation.footerLinks', [])
   quickAction = get(data, 'getWebsiteNavigation.quickAction', null)
 
   const images = imageArrayToObject(get(data, 'getWebsiteNavigation.images', []))
@@ -167,6 +171,20 @@ const NavbarConnected = ({
 
             <div className='d-flex align-items-center'>
 
+              {navLinks.map((link, i) =>
+                <Nav.Link
+                  href={link.action}
+                  key={i}
+                  className={classnames(
+                    'text-secondary',
+                    'd-none',
+                    'd-lg-block'
+                  )}
+                >
+                  {link.call}
+                </Nav.Link>
+              )}
+
               {quickAction &&
                 <Nav.Link
                   href={quickAction.action}
@@ -191,7 +209,7 @@ const NavbarConnected = ({
                 : 
                   <Icon
                     onClick={() => logIn()}
-                    className='d-none d-lg-block ml-2 mr-1'
+                    className='d-none d-lg-block ml-2 mr-1 cursor-hover'
                     name='user-circle'
                     fill='#525252'
                     size={32}
@@ -199,7 +217,7 @@ const NavbarConnected = ({
               }
 
               <DesktopNav
-                links={navLinks}
+                links={dropDownLinks}
                 auth={{
                   isLoggedIn: isLoggedIn,
                   logIn: () => logIn(),
