@@ -106,12 +106,19 @@ export const CampusTile = ({
                 <p className="text-dark mb-3">
                     {`${city}, ${state} ${postalCode.substring(0, 5)}`}
                 </p>
-                <Button
+
+                <p className=''>
+                    <i className='pr-1'>Please note:</i> 
+                    Due to COVID-19, this location is currently gathering digitally through Church Online. For the latest information on resuming in-person services, check out our 
+                    <a className='px-1' href='/content/church-family-updates-06673de02b3cef9ed190656386c9de85'>Church Family Updates</a>.
+                </p>
+
+                {/* <Button
                     title={`Get Directions`}
                     type="dark"
                     newTab
                     href={`https://www.google.com/maps/dir/?api=1&destination=${location}`}
-                />
+                /> */}
 
                 <Button 
                     className='mt-3'
