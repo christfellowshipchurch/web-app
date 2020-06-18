@@ -110,7 +110,7 @@ export const CampusTile = ({
                 <p className=''>
                     <i className='pr-1'>Please note:</i> 
                     Due to COVID-19, this location is currently gathering digitally through Church Online. For the latest information on resuming in-person services, check out our 
-                    <a className='px-1' href='/content/church-family-updates-06673de02b3cef9ed190656386c9de85'>Church Family Updates</a>.
+                    <a className='pl-1' href='/content/church-family-updates-06673de02b3cef9ed190656386c9de85'>Church Family Updates</a>.
                 </p>
 
                 {/* <Button
