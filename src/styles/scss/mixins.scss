@@ -82,7 +82,11 @@
   }
 }
 
-//Override badge mixin to remove badge darken on focus
+// Overrides all badges to remove the darkened style from when
+// a badge is used as an <a> and it focused.
+//
+// TODO : add an override class that does this same thing, but leaves
+//        the default state
 @mixin badge-variant($bg) {
   color: color-yiq($bg);
   background-color: $bg;
@@ -92,6 +96,7 @@
     &.focus {
       outline: 0;
       box-shadow: 0 0 0 $badge-focus-width rgba($bg, .5);
+      color: color-yiq($bg) !important;
     }
   }
 }
