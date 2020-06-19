@@ -1,223 +1,164 @@
-import React, { useState } from 'react'
-import { useQuery } from 'react-apollo'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
-import {
-  get, has, camelCase, includes,
-} from 'lodash'
-import { Bars, Times } from '../ui/Icons'
+import React, { useState } from 'react';
+import { useQuery } from 'react-apollo';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { get, camelCase } from 'lodash';
+import { Navbar } from 'react-bootstrap';
 
-import { Navbar, Nav } from 'react-bootstrap'
+import { GET_WEBSITE_HEADER } from './queries';
+import DynamicBanner from './DynamicBanner';
+import DesktopNav from './DesktopNav';
+import MobileNav from './MobileNav';
 
-import { GET_WEBSITE_HEADER } from './queries'
-import DefaultIcon from '../images/default_icon.png'
+import NavbarToggle from './NavbarToggle';
 
-import { Button } from '../ui'
-import LiveBanner from './LiveBanner'
-import DynamicBanner from './DynamicBanner'
-import { redirectTo } from '../utils'
-import { useAuth } from '../auth'
-import AuthNavbar from './AuthNavbar'
-
-// Takes a collection of images from
-//  the API's return data and formats
-//  it to be an array of the following
-//  object structure: { imageKey: { uri, alt } }
+// Takes a collection of images from the API's return data and formats
+//  it to be an array of the following object structure: { imageKey: { uri, alt } }
 const imageArrayToObject = (images) => {
-  const imagesObj = {}
+  const imagesObj = {};
 
   images.forEach((n, i) => {
-    const key = camelCase(get(n, 'name', i))
-    const uri = get(n, 'sources[0].uri', '')
-    const alt = get(n, 'name', 'Christ Fellowship Church')
+    const key = camelCase(get(n, 'name', i));
+    const uri = get(n, 'sources[0].uri', '');
+    const alt = get(n, 'name', 'Christ Fellowship Church');
 
-    imagesObj[key] = { uri, alt }
-  })
+    imagesObj[key] = { uri, alt };
+  });
 
-  return imagesObj
-}
+  return imagesObj;
+};
 
-const DefaultNavbar = () => (
-  <nav className="navbar navbar-default">
-    <a href="/">
+const BrandImg = ({
+  className,
+  uri,
+  alt,
+}) => (
+    <Navbar.Brand
+      href="/"
+      className={classnames(
+        'align-self-start',
+        className,
+      )}
+    >
       <img
-        src={DefaultIcon}
-        alt="Christ Fellowship Church Icon"
+        src={uri}
+        style={{ height: '58px', width: 'auto' }}
+        alt={alt}
       />
-    </a>
-  </nav>
-)
+    </Navbar.Brand>
+  );
 
 const NavbarConnected = ({
   bg,
   variant,
   brandImageKey,
-  onToggle,
-  onSelect,
   fixed,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const { isLoggedIn, logIn } = useAuth()
-  const website = process.env.REACT_APP_WEBSITE_KEY
+  const [menuIcon, setMenuIcon] = useState(false);
+  const website = process.env.REACT_APP_WEBSITE_KEY;
   const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
     variables: { website },
     fetchPolicy: 'cache-and-network',
-  })
+  });
 
-  if (isLoggedIn) return <AuthNavbar />
+  const navLinks = get(data, 'getWebsiteNavigation.navigationLinks', []);
+  const quickAction = get(data, 'getWebsiteNavigation.quickAction', null);
+  const menuLinks = get(data, 'getWebsiteNavigation.menuLinks', []);
 
-  // If Query state is loading or there's an error,
-  //  return a defaulted header with the CF Icon centered
-  if (loading) return <DefaultNavbar />
-  if (error) {
-    console.error({ error })
-    return <DefaultNavbar />
-  }
+  const images = imageArrayToObject(get(data, 'getWebsiteNavigation.images', []));
+  const brandImage = get(images, brandImageKey, null);
+  const navbarProps = {
+    bg,
+    variant,
+    expand: 'lg',
+  };
 
-  // Get the data object from the return data or default to null
-  const navigationData = get(data, 'getWebsiteNavigation', null)
+  // We use sticky styling as the default so that padding is respected
+  //    with the option to override it to use a fixed styling if preferred
+  if (fixed) navbarProps.fixed = 'top';
+  else navbarProps.sticky = 'top';
 
-  if (navigationData) {
-    const images = imageArrayToObject(get(navigationData, 'images', []))
-    const brandImage = get(images, brandImageKey, null)
-    const quickAction = {
-      display: has(navigationData, 'quickAction.call') && has(navigationData, 'quickAction.action'),
-      call: get(navigationData, 'quickAction.call', ''),
-      action: get(navigationData, 'quickAction.action', ''),
-    }
-    const navbarProps = {
-      bg,
-      variant,
-      expand: 'lg',
-      collapseOnSelect: true,
-    }
+  return (
+    <Navbar
+      // eslint-disable-next-line react/jsx-props-no-spreading
+      {...navbarProps}
+      id="user-profile-navbar-connected"
+      className={classnames(
+        'd-flex',
+        'flex-column',
+        'p-0',
+      )}
+    >
 
-    // We use sticky styling as the default so that padding is respected
-    //    with the option to override it to use a fixed styling if preferred
-    if (fixed) navbarProps.fixed = 'top'
-    else navbarProps.sticky = 'top'
+      <div className="row w-100">
+        <DynamicBanner />
+      </div>
 
-
-    return (
-      <Navbar
-        {...navbarProps} // eslint-disable react/jsx-props-no-spreading
+      <div
         className={classnames(
-          'd-flex',
-          'flex-column',
-          'p-0',
-        )}
-      >
-        <div className="row w-100">
-          <DynamicBanner />
-        </div>
-        <div className={classnames(
           'row',
           'w-100',
           'd-flex',
           'justify-content-between',
         )}
-        >
-          {brandImage
-            && (
-              <Navbar.Brand href="/" className="pl-2">
-                <img
-                  src={brandImage.uri}
-                  style={{ height: '100px', width: 'auto' }}
-                  alt={brandImage.alt}
-                />
-              </Navbar.Brand>
+      >
+        {/* { Right aligned Brand Image } */}
+        {brandImage
+          && (
+            <BrandImg
+              uri={brandImage.uri}
+              alt={brandImage.alt}
+              className="p-2 pl-3"
+            />
+          )}
+
+        {/* { Toggle for Mobile } */}
+        <NavbarToggle onClick={() => setMenuIcon(!menuIcon)} isOpen={menuIcon} />
+
+        <Navbar.Collapse>
+          <div
+            className={classnames(
+              'd-flex',
+              'flex-column',
+
+              'flex-lg-row',
+              'justify-content-lg-end',
+
+              'w-100',
+              'px-lg-3',
             )}
-          <Navbar.Toggle
-            aria-controls="basic-navbar-nav"
-            onClick={onToggle, () => setIsExpanded(!isExpanded)}
-            className="border-0 mr-2"
           >
-            {React.createElement(
-              isExpanded
-                ? Times
-                : Bars
-            )}
-          </Navbar.Toggle>
+            {/* { Desktop Navigation } */}
+            <DesktopNav
+              navLinks={navLinks}
+              menuLinks={menuLinks}
+              quickAction={quickAction}
+            />
 
-          <Navbar.Collapse>
-            <Nav
-              className={classnames(
-                'ml-auto',
-                'align-items-start',
-                'align-items-lg-center',
-              )}
-            >
-              {navigationData.navigationLinks.map((link, i) => {
-                let newTab = false
-                if (includes(link.action, 'http')) {
-                  newTab = true
-                }
-                return (
-                  <Nav.Link
-                    key={i}
-                    href={link.action}
-                    target={newTab
-                      ? '_blank'
-                      : ''}
-                    className="mx-3 my-2"
-                    onSelect={onSelect}
-                  >
-                    {link.call}
-                  </Nav.Link>
-                )
-              })}
-
-              {/* TODO : revert when login gets added back */}
-              {/* <Nav.Link
-                href="#"
-                className="mx-3 my-2"
-                onSelect={() => {
-                  onSelect()
-                  logIn()
-                }}
-              >
-                Log In
-              </Nav.Link> */}
-
-              {quickAction.display
-                && (
-                  <div className="mx-3 my-2">
-                    <Button
-                      title={quickAction.call}
-                      href={quickAction.action}
-                      newTab
-                    />
-                  </div>
-                )}
-            </Nav>
-
-          </Navbar.Collapse>
-        </div>
-      </Navbar>
-    )
-  }
-
-  // If the expected data is not returned from the API,
-  //    return the default navbar
-  return <DefaultNavbar />
-}
+            {/* { Mobile Navigation } */}
+            <MobileNav
+              navLinks={[...navLinks, ...menuLinks]}
+              quickAction={quickAction}
+            />
+          </div>
+        </Navbar.Collapse>
+      </div>
+    </Navbar>
+  );
+};
 
 NavbarConnected.propTypes = {
   bg: PropTypes.string,
   variant: PropTypes.string,
   brandImageKey: PropTypes.string,
   fixed: PropTypes.bool,
-  onToggle: PropTypes.func,
-  onSelect: PropTypes.func,
-}
+};
 
 NavbarConnected.defaultProps = {
   bg: 'white',
   variant: 'light',
   brandImageKey: 'brandImage',
   fixed: false,
-  onToggle: () => true,
-  onSelect: () => true,
-}
+};
 
-export default NavbarConnected
+export default NavbarConnected;
