@@ -38,3 +38,7 @@
     @include button-ghost-variant(rgba($value, 0.87));
   }
 }
+
+.btn-like:hover {
+  cursor: pointer;
+}
