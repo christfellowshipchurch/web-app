@@ -56,7 +56,7 @@
   },
   "scripts": {
     "start": "yarn build-css && craco start",
-    "build": "yarn minify-css && craco build",
+    "build": "CI=false yarn minify-css && craco build",
     "test": "jest",
     "eject": "craco eject",
     "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
