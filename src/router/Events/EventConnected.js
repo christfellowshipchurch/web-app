@@ -7,7 +7,6 @@ import {
 } from '../../ui';
 
 import ContentSingle from '../../content-single';
-import { CardFeed } from '../../content-feed';
 
 import { GET_EVENT } from './queries';
 

@@ -123,7 +123,6 @@ const IdentityForm = ({
                         onChange={(e) => setValue('identity', get(e, 'target.value', ''))}
                         value={get(values, 'identity', '')}
                         disabled={submitting}
-                        value={get(values, 'identity', '')}
                     />
                 </div>
             </div>

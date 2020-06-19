@@ -20,7 +20,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
     }
     : {};
 
-  if (isLive || source.includes('m3u8') && !isMobile) {
+  if (isLive || (source.includes('m3u8') && !isMobile)) {
     videoProps = {
       ...videoProps,
       autoPlay: true,

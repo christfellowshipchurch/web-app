@@ -13,9 +13,9 @@ const svgMap = {
 const Swoop = ({
     type,
 }) => <div
-    className={classnames(
-    )}
->
+        className={classnames(
+        )}
+    >
         <img
             src={svgMap[type]}
             className={classnames(
@@ -25,6 +25,7 @@ const Swoop = ({
                     'swoop-bottom': type === 'bottom',
                 }
             )}
+            alt='background-swoop'
         />
     </div>
 

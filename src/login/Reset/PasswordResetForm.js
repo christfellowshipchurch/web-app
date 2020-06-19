@@ -14,8 +14,6 @@ import {
 
 import { Card, TextInput, Button } from '../../ui';
 
-import { redirectTo } from '../../utils';
-import { useAuth } from '../../auth';
 import { useForm } from '../../hooks';
 import { REQUEST_PASSWORD_CHANGE } from '../mutations';
 

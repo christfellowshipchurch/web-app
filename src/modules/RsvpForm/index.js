@@ -23,7 +23,7 @@ const Rsvp = (props) => {
         formDescription,
         formAdditionalText1,
         formAdditionalText2,
-        setSubmitting,
+        // setSubmitting,
         values,
         submitting
     } = props

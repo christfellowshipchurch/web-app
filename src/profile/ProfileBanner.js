@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { get } from 'lodash'
 import { useAuthQuery } from '../auth'
 
 import { GET_CURRENT_PERSON } from './queries'
-import { Media, Button, Loader } from '../ui'
+import { Media, Button, Loader, ErrorBlock } from '../ui'
 import { Icon } from '../ui/Icons'
 
 const ProfileBanner = ({
@@ -21,6 +21,8 @@ const ProfileBanner = ({
   const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON)
 
   profileImage = get(data, 'currentUser.profile.photo.uri', null)
+
+  if(error) return <ErrorBlock/>
 
   return (
     <div>

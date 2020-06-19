@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { AngleLeft } from '../ui/Icons'
 
@@ -19,7 +19,7 @@ const SeeAllCategory = ({
         >
             <div className='row align-content-center mt-3 mb-n6'>
                 <a
-                    href='#'
+                    href='/#'
                     onClick={(e) => {
                         e.preventDefault()
                         onBack()

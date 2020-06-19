@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
-import moment from 'moment';
 
 import { Loader, ErrorBlock } from '../../ui';
 import ContentCardConnected from '../../content-card-connected';

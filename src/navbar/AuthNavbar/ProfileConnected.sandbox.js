@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import { get } from 'lodash'
@@ -9,7 +9,7 @@ import { Media, Loader } from '../../ui'
 import { Icon } from '../../ui/Icons'
 
 const ProfileConnected = ({ className, size }) => {
-  const { logout, isLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth()
   const { error, loading, data } = useAuthQuery(GET_PROFILE_IMAGE)
 
   const hasPhoto = get(data, 'currentUser.profile.photo.uri', '') 

@@ -23,7 +23,7 @@ const Checkbox = ({
     return (
         <div className="text-left">
             <a
-                href='#'
+                href='/#'
                 onClick={(e) => {
                     e.preventDefault()
                     onClick()

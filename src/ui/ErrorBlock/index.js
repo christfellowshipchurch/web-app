@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import {
   bookImage,
@@ -18,6 +17,7 @@ const ErrorLink = ({ icon, call, action }) => (
     'align-items-center'
   )}>
     <img
+      alt={`error link icon - ${call}`}
       src={icon}
       style={{
         height: 40,

@@ -1,24 +1,23 @@
 import React from 'react';
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation } from 'react-apollo';
 import { get, has } from 'lodash';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { Formik } from 'formik';
+// import { Formik } from 'formik';
 import { LockAlt } from '../../ui/Icons';
 
 import {
     TextInput,
     Button,
-    Loader,
 } from '../../ui';
-import { useAuth } from '../../auth';
+// import { useAuth } from '../../auth';
 import { useForm } from '../../hooks';
 
 import {
     AUTHENTICATE_CREDENTIALS, VERIFY_PIN, REGISTER_WITH_SMS, REGISTER_WITH_EMAIL,
 } from '../mutations';
-import { USER_EXISTS } from '../queries';
+// import { USER_EXISTS } from '../queries';
 
 
 import { RequestEmailPin } from '../Reset';

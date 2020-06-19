@@ -18,7 +18,7 @@ const BrowseFilters = ({
                     className="list-inline-item"
                 >
                     <a
-                        href="#"
+                        href="/#"
                         className={classnames(
                             'h4',
                             'my-2',

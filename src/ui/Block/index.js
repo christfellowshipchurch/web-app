@@ -7,9 +7,6 @@ import VisibilitySensor from 'react-visibility-sensor'
 import { htmlToReactParser } from '../../utils'
 import { Layout } from '..'
 
-import ButtonRow from '../ButtonRow'
-import { propTypes } from 'react-image'
-
 const Block = ({
   contentLayout,
   images,

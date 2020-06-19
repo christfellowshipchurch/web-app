@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation } from 'react-apollo'
 import classnames from 'classnames'
 import { withFormik } from 'formik'
@@ -38,7 +38,7 @@ const EmailCapture = ({
         || checkEmptyString(values, 'lastName')
         || checkEmptyString(values, 'email')
 
-    if (get(data, 'submitEmailCapture') == 'Completed') {
+    if (get(data, 'submitEmailCapture') === 'Completed') {
         return (
             <div className='container'>
                 <div className='row'>
@@ -142,7 +142,7 @@ const EmailCapture = ({
                                 />
                             </div>
                         </div>
-                        {mutationError || get(data, 'submitEmailCapture', 'Completed') !== 'Completed' &&
+                        {(mutationError || get(data, 'submitEmailCapture', 'Completed') !== 'Completed') &&
                             <div className='row'>
                                 <div className='col py-3'>
                                     <i className='text-danger'>

@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { get } from 'lodash'
+import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 

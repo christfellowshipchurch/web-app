@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import VisibilitySensor from 'react-visibility-sensor'
@@ -10,13 +10,10 @@ import {
 } from '../Icons'
 
 import {
-  Block,
-  Button,
   Media
 } from '../../ui'
 import {
   htmlToReactParser,
-  redirectTo
 } from '../../utils'
 
 import SwoopImg from '../../images/cyan_hole_punch.svg'
@@ -29,6 +26,7 @@ const Swoop = () => {
         zIndex: 0,
         width: '100%'
       }}
+      alt='hero swoop'
       className={classnames(
         'absolute-center',
         'h-100',

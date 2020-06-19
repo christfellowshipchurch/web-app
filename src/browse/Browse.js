@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useQuery } from 'react-apollo';
@@ -15,16 +15,16 @@ import SeeAllCategory from './SeeAllCategory';
 import { GET_FILTERS } from './queries';
 
 
-const generatePath = (arr) => {
-    let path = '/browse';
+// const generatePath = (arr) => {
+//     let path = '/browse';
 
-    forEach(arr, (n) => {
-        if (n && n !== '') path = `${path}/${kebabCase(n)}`;
-        else return false;
-    });
+//     forEach(arr, (n) => {
+//         if (n && n !== '') path = `${path}/${kebabCase(n)}`;
+//         else return false;
+//     });
 
-    return path;
-};
+//     return path;
+// };
 
 const Browse = ({
     filter: defaultFilter,

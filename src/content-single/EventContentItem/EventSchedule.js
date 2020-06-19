@@ -22,7 +22,7 @@ import {
   AddToCalendar
 } from '../../ui'
 import { Icon } from '../../ui/Icons'
-import { getDirectionsUrl } from '../../utils'
+// import { getDirectionsUrl } from '../../utils'
 import { GoogleAnalytics } from '../../analytics';
 
 

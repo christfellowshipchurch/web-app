@@ -17,7 +17,9 @@ const ResendSMS = ({
         if (requested) {
             setInterval(() => {
                 setRequested(false)
-            }, requestedDelay)
+            //Removed requestedDelay cause wasn't being set as a dependancy in array
+            // }, requestedDelay)
+            })
         }
     }, [requested])
 

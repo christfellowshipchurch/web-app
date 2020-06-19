@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useQuery } from 'react-apollo'
 import moment from 'moment'
 import {
@@ -8,8 +8,7 @@ import {
     forEach,
     sortBy,
     filter,
-    toUpper,
-    uniq
+
 } from 'lodash'
 import {
     Church,

@@ -11,8 +11,8 @@ const sandboxEnabled = () => {
     const full = window.location.host;
     const parts = full.split('.');
     const sub = parts[0];
-    const domain = parts[1];
-    const type = parts[2];
+    // const domain = parts[1];
+    // const type = parts[2];
 
     // Sandbox should be enabled for both the beta site,
     //  but only if specified on a dev environment so you
