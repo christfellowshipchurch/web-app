@@ -19,7 +19,7 @@ const Links = ({ articles, label }) => (
       </div>
       <div className="col text-right">
         <a
-          href="/browse"
+          href="/discover"
           className="text-dark align-self-end"
         >
           See More

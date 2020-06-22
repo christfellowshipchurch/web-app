@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_WEBSITE_HEADER = gql`
   query websiteNavigation($website:String!) {
@@ -17,6 +17,10 @@ export const GET_WEBSITE_HEADER = gql`
         action
       }
       quickAction {
+        call
+        action
+      }
+      menuLinks: footerLinks {
         call
         action
       }
@@ -45,7 +49,7 @@ query websiteNavigation($website:String!) {
     }
   }
 }
-`
+`;
 
 export const GET_PROFILE_IMAGE = gql`
 query {
@@ -60,4 +64,4 @@ query {
     }
   }
 }
-`
+`;

@@ -86,7 +86,7 @@ const Router = () => (
         <Route exact path="/content/collection/:collectionTitle" component={CardFeedWithRouter} />
 
         <Route path="*">
-            <Redirect to="/browse" />
+            <Redirect to="/discover" />
         </Route>
     </Switch>
 )

@@ -1,16 +1,14 @@
-import React from 'react'
-import classnames from 'classnames'
-import PropTypes from 'prop-types'
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
 
 const BrowseFilters = ({
     selected,
     onChange,
-    filters
-}) => {
-
-    return (
+    filters,
+}) => (
         <ul
-            className="list-inline text-nowrap overflow-x-scroll"
+            className="list-inline text-nowrap overflow-x-scroll mb-n4"
         >
             {filters.map((n, i) => (
                 <li
@@ -19,19 +17,26 @@ const BrowseFilters = ({
                 >
                     <a
                         href="#"
+                        style={{
+                            border: selected != n.id ? '1px solid #d6d6d6' : 'none',
+                            ...(selected === n.id ? { color: 'white' } : {}),
+                        }}
                         className={classnames(
-                            'h4',
-                            'my-2',
-                            'mr-3',
+                            'h5',
+                            'badge',
+                            'px-3',
+                            'py-1',
+                            'focus-indicator-none',
+                            'font-weight-normal',
                             {
-                                'font-weight-bold': selected === n.id,
-                                'font-weight-normal': selected !== n.id,
-                            }
+                                'badge-primary': selected === n.id,
+                                'badge-light': selected !== n.id,
+                            },
                         )}
 
                         onClick={(e) => {
-                            e.preventDefault()
-                            onChange({ id: n.id })
+                            e.preventDefault();
+                            onChange({ id: n.id });
                         }}
                     >
                         {n.title}
@@ -39,18 +44,17 @@ const BrowseFilters = ({
                 </li>
             ))}
         </ul>
-    )
-}
+    );
 
 BrowseFilters.propTypes = {
     selected: PropTypes.string,
     onChange: PropTypes.func,
-    filters: PropTypes.array
-}
+    filters: PropTypes.array,
+};
 
 BrowseFilters.defaultProps = {
     filter: null,
     title: null,
-}
+};
 
-export default BrowseFilters
+export default BrowseFilters;
