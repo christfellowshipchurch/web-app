@@ -154,18 +154,22 @@ const CampusPageBuilder = ({ name: campusName }) => {
                 <div className="col-12 text-center py-4">
                     <h1>
                         Available at this location
-          </h1>
+                    </h1>
                 </div>
                 <div className="col-12">
-                    <AtThisLocation features={campusFeatures} />
+                    <AtThisLocation 
+                        features={campusFeatures} 
+                    />
                 </div>
             </div>
 
-            <div className="row max-width-1100 mx-auto my-6">
+            {/* Campus FAQ is temporarily for the time being */}
+
+            {/* <div className="row max-width-1100 mx-auto my-6">
                 <div className="col">
                     <CampusFAQ />
                 </div>
-            </div>
+            </div> */}
 
             {!loading && (
                 <div
