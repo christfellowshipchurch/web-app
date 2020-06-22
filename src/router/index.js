@@ -43,7 +43,7 @@ const Router = () => (
         <Route path="/events" component={Events} />
         <Route path="/content" component={Content} />
         <Route path="/items" component={Items} />
-        <Route path="/browse" component={Browse} />
+        <Route path="/discover" component={Browse} />
         <Route path="/profile" component={Profile} />
         <Route path="/locations" component={Campuses} />
         <Route path="/error" component={ErrorBlock} />

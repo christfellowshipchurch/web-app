@@ -16,7 +16,7 @@ import { GET_FILTERS } from './queries';
 
 
 const generatePath = (arr) => {
-    let path = '/browse';
+    let path = '/discover';
 
     forEach(arr, (n) => {
         if (n && n !== '') path = `${path}/${kebabCase(n)}`;
@@ -63,15 +63,16 @@ const Browse = ({
     return (
         <div className={classnames(
             'container-fluid',
-            'mt-6',
+            'mt-4',
+            'mt-lg-6',
             'mb-0',
             'px-2',
         )}
         >
             <div className="row">
                 <h1 className="mb-3">
-                    Content
-        </h1>
+                    Discover
+                </h1>
             </div>
 
             <Carousel
