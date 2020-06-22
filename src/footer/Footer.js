@@ -258,7 +258,7 @@ Footer.defaultProps = {
         { call: 'Shop Online', action: 'https://resource.gochristfellowship.com/' },
     ],
     connectLinks: [
-        { call: 'New Here? Start Here!', action: 'https://rock.gocf.org/connect' },
+        { call: 'Connect Card', action: 'https://rock.gocf.org/connect' },
         { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
         { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
         { call: 'Subscribe to Updates', action: 'https://gochristfellowship.us11.list-manage.com/subscribe?u=76848e191018191e2e2d01d77&id=528c3363d4'},
