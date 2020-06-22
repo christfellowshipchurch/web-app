@@ -55,21 +55,14 @@ const validation = {
 
 
 const EditUserProfile = ({
-    campus: {
-        id: campusId,
-        name
-    } = {},
-    address: {
-        street1,
-        street2,
-        city,
-        state,
-        postalCode
-    } = {},
-    communicationPreferences: {
-        allowSMS,
-        allowEmail,
-    } = {},
+    id: campusId,
+    street1,
+    street2,
+    city,
+    state,
+    postalCode,
+    allowSMS,
+    allowEmail,
     email,
     phoneNumber,
     gender,
@@ -307,22 +300,6 @@ const EditUserProfile = ({
     ]
 }
 
-EditUserProfile.defaultProps = {
-    states: [],
-    genderList: ['Male', 'Female'],
-    onChange: () => true,
-    street1: '',
-    street2: '',
-    city: '',
-    state: '',
-    postalCode: '',
-    birthDate: '',
-    gender: '',
-    campus: {
-        id: ''
-    },
-}
-
 EditUserProfile.propTypes = {
     states: PropTypes.array,
     genderList: PropTypes.arrayOf(PropTypes.string),
@@ -337,6 +314,22 @@ EditUserProfile.propTypes = {
     campus: PropTypes.shape({
         id: PropTypes.string
     }),
+}
+
+EditUserProfile.defaultProps = {
+    states: [],
+    genderList: ['Male', 'Female'],
+    onChange: () => true,
+    street1: '',
+    street2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    birthDate: '',
+    gender: '',
+    campus: {
+        id: ''
+    },
 }
 
 export default ({ onChange }) => {

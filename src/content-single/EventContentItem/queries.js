@@ -27,8 +27,11 @@ export const GET_EVENT_SCHEDULES = gql`
 export const GET_CURRENT_PERSON_CAMPUS = gql`
     query {
         currentUser {
+            id
             profile {
+                id
                 campus {
+                    id
                     name
                 }
             }

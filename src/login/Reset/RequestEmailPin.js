@@ -14,6 +14,7 @@ const RequestEmailPin = ({
     const [disabled, setDisabled] = useState(false);
 
     return (
+        <>
         <a
             disabled={disabled}
             href="#"
@@ -28,10 +29,12 @@ const RequestEmailPin = ({
                         update();
                     },
                 });
+                window.alert('Password reset form has been sent! \n Please check your email to continue.')
             }}
         >
             {children}
         </a>
+        </>
     );
 };
 

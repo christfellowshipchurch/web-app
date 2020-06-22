@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_WEBSITE_HEADER = gql`
   query websiteNavigation($website:String!) {
@@ -20,6 +20,10 @@ export const GET_WEBSITE_HEADER = gql`
         call
         action
       }
+      menuLinks: footerLinks {
+        call
+        action
+      }
     }
   }
 `;
@@ -27,6 +31,7 @@ export const GET_WEBSITE_HEADER = gql`
 export const GET_WEBSITE_HEADER_LOGGED_IN = gql`
 query websiteNavigation($website:String!) {
   getWebsiteNavigation(website:$website) {
+    id
     images {
       sources {
         uri
@@ -44,13 +49,14 @@ query websiteNavigation($website:String!) {
     }
   }
 }
-`
+`;
 
 export const GET_PROFILE_IMAGE = gql`
 query {
   currentUser {
     id
     profile {
+      id
       firstName
       photo {
         uri
@@ -58,4 +64,4 @@ query {
     }
   }
 }
-`
+`;
