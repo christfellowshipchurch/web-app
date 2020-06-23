@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get, camelCase, lowerCase } from 'lodash';
+import { get } from 'lodash';
 import {
     useQuery,
 } from 'react-apollo';
-
 
 import { Media, Swoop, FloatingCard } from '../ui';
 import { GET_CAMPUS } from './queries';
 
 import PastorCallout from './PastorCallout';
 import AtThisLocation from './AtThisLocation';
-import CampusFAQ from './CampusFAQ';
 import CampusBlockItems from './CampusBlockItems';
 import { CampusTile, normalizeDate } from '../modules/CampusSelect';
 import RsvpForm from '../modules/RsvpForm';
-
 
 const CampusPageBuilder = ({ name: campusName }) => {
     const [rsvpForm, setRsvpForm] = useState(null);
