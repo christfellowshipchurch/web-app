@@ -177,7 +177,7 @@ ProfileInformationForm.defaultProps = {
     genderList: ['Male', 'Female'],
     defaultDate: moment().subtract(13, 'year').toISOString(),
     titleText: "Let's get to know each other better",
-    promptText: "In order for us to get you the blah blah blah. So let's go ahead and bleedidy doopody dee",
+    promptText: 'Help us learn a little more about you so we can connect you with the best ministries and events.',
     buttonText: 'Finish',
     update: () => true,
     columns: 'col',
