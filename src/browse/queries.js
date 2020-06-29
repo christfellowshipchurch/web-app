@@ -55,3 +55,28 @@ export const GET_CATEGORY_PREVIEW = gql`
         }
     }
 `;
+
+
+export const GET_SEARCH_RESULTS = gql`
+  query searchResults($searchText: String!) {
+    search(query: $searchText) {
+      edges {
+        title
+        summary
+        coverImage {
+          name
+          sources {
+            uri
+          }
+        }
+        cursor
+        node {
+          ... on ContentItem {
+            id
+            __typename
+          }
+        }
+      }
+    }
+  }
+`;

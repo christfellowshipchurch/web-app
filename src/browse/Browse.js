@@ -12,6 +12,7 @@ import {
 import FilterRow from './FilterRow';
 import CategoryList from './CategoryList';
 import SeeAllCategory from './SeeAllCategory';
+import Search from './Search'
 import { GET_FILTERS } from './queries';
 
 
@@ -70,9 +71,7 @@ const Browse = ({
         )}
         >
             <div className="row">
-                <h1 className="mb-3">
-                    Discover
-                </h1>
+                <Search />
             </div>
 
             <Carousel
