@@ -25,6 +25,7 @@ const TileRowCard = ({
     urlBase,
     label,
     redirectUrl,
+    isLoading
 }) => {
     const style = onClick
         ? { cursor: 'pointer' }
@@ -73,11 +74,20 @@ const TileRowCard = ({
                             {label.value}
                         </h6>
                     )}
-                <h4 className="mb-0">
+                <h4 
+                    className={classnames(
+                        'mb-0',
+                        isLoading && !title && 'loading-bar w-75'
+                    )}
+                >
                     {title}
                 </h4>
                 <p
-                    className="text-secondary mb-0"
+                    className={classnames(
+                        'text-secondary',
+                        'mb-0',
+                        isLoading && !summary && 'loading-bar w-25'
+                    )}
                     style={{ fontSize: '.8rem' }}
                 >
                     {summary}
