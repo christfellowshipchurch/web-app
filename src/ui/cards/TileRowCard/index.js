@@ -5,12 +5,16 @@ import {
     get,
     has,
     kebabCase,
+    trim,
 } from 'lodash';
+import { isMobile } from 'react-device-detect'
 
 import {
     Card,
     Media,
 } from '../..';
+
+import { trimText } from '../../../utils'
 
 import { generateUrlLink } from '..';
 
@@ -77,21 +81,21 @@ const TileRowCard = ({
                 <h4 
                     className={classnames(
                         'mb-0',
-                        isLoading && !title && 'loading-bar w-75'
+                        {'loading-bar w-75': isLoading && !title}
                     )}
                 >
                     {title}
                 </h4>
-                <p
-                    className={classnames(
-                        'text-secondary',
-                        'mb-0',
-                        isLoading && !summary && 'loading-bar w-25'
-                    )}
-                    style={{ fontSize: '.8rem' }}
-                >
-                    {summary}
-                </p>
+                    <p
+                        className={classnames(
+                            'text-secondary',
+                            'mb-0',
+                            {'loading-bar w-25': isLoading && !summary}
+                        )}
+                        style={{ fontSize: '.8rem' }}
+                    >
+                        {trimText({text: summary, isMobile: isMobile})}
+                    </p>
             </div>
         </a>
     );
@@ -116,6 +120,7 @@ TileRowCard.defaultProps = {
     imageUrl: null,
     title: null,
     onClick: null,
+    summary: '',
     as: 'div',
     icon: null,
     urlBase: 'content',
