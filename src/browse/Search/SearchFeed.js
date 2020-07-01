@@ -13,16 +13,15 @@ const mapSearchData = (data) =>
   get(data, 'search.edges', []).map(({ node }) => ({ ...node }));
   
 
-const SearchFeed = ({ content, isLoading}) => {
+const SearchFeed = ({ content }) => {
 
-  if(isLoading) return <LoadingFeed />
-
+  //splits content into two columns
   const half = Math.ceil(content.length / 2);
   const firstHalf = content.splice(0, half)
   const secondHalf = content.splice(-half)
 
   if(content && firstHalf) return (
-    <div className='row p-1 p-md-4 p-lg-6'>
+    <div className='row p-2'>
         <div className='col-12 col-md-6'>
           {firstHalf.map((n, i) => (
             <ContentCardConnected
@@ -63,10 +62,11 @@ const SearchFeedConnected = ({ searchText }) => {
           searchText={searchText} 
         />
       )
+
+    if(loading) return <LoadingFeed />
   
     return <SearchFeed
               content={content}
-              isLoading={loading}
             />
 
   };

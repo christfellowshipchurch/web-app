@@ -34,6 +34,7 @@ const Browse = ({
 }) => {
     const [activeFilterId, setActiveFilterId] = useState(null);
     const [activeCategory, setActiveCategory] = useState(null);
+    const [searchMode, setSearchMode] = useState(false);
     const [index, setIndex] = useState(0);
 
     const { loading, error, data } = useQuery(GET_FILTERS,
@@ -71,9 +72,16 @@ const Browse = ({
         )}
         >
             <div className="row">
-                <Search />
+                <Search 
+                    onChange={({hide}) => setSearchMode(hide)}
+                />
             </div>
 
+            <div
+                className={classnames({
+                    'd-none': searchMode,
+                })}
+            >
             <Carousel
                 activeIndex={index}
                 onSelect={handleSelect}
@@ -116,6 +124,7 @@ const Browse = ({
                 </Carousel.Item>
                 <Carousel.Item />
             </Carousel>
+            </div>
         </div>
     );
 };

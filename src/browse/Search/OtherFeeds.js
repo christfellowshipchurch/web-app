@@ -1,11 +1,19 @@
 import React from 'react'
+import classnames from 'classnames'
 import { TileRowCard } from '../../ui'
 import ContentCardConnected from '../../content-card-connected';
 
 const blankCards = ['', '', '', '', '', '', '']
 
-export const PreSearchFeed = () => (
-  <div className='text-center p-6'>
+export const PreSearchFeed = ({ hide }) => (
+  <div 
+    className={classnames(
+      'text-center',
+      'p-6', 
+      'vh-100',
+      {'d-none': hide}
+    )}
+  >
       <h3 className='text-secondary'>
           Let's get started!
       </h3>
@@ -14,7 +22,7 @@ export const PreSearchFeed = () => (
 )
 
 export const LoadingFeed = () => (
-    <div className='row p-1 p-md-4 p-lg-6'>
+    <div className='row p-2'>
         <div className='col-12 col-md-6'>
             {blankCards.map((n, i) => (
               <ContentCardConnected
@@ -37,7 +45,13 @@ export const LoadingFeed = () => (
   )
 
 export const ErrorFeed = ({ searchText }) => (
-  <div className='text-center p-6'>
+  <div 
+    className={classnames(
+      'text-center',
+      'p-6', 
+      'vh-100',
+    )}
+  >
       <h3 className='text-secondary'>
           Uh Oh!
       </h3>
