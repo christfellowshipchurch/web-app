@@ -21,7 +21,7 @@ const SearchFeed = ({ content }) => {
   const secondHalf = content.splice(-half)
 
   if(content && firstHalf) return (
-    <div className='row p-2'>
+    <div className='row'>
         <div className='col-12 col-md-6'>
           {firstHalf.map((n, i) => (
             <ContentCardConnected
@@ -57,13 +57,13 @@ const SearchFeedConnected = ({ searchText }) => {
 
     const content = mapSearchData(data)
 
+    if(loading) return <LoadingFeed />
+
     if(error || data === undefined || content.length < 1 ) return (
         <ErrorFeed 
           searchText={searchText} 
         />
       )
-
-    if(loading) return <LoadingFeed />
   
     return <SearchFeed
               content={content}

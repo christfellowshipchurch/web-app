@@ -35,7 +35,7 @@ const Search = ({ onChange }) => {
                 'align-items-center', 
                 'border-bottom', 
                 'mb-2',
-                'px-3',
+                'px-2',
                 'pb-1',
             )}>
                 <Icon 
