@@ -298,3 +298,13 @@ $md-breakpoint: map-get($grid-breakpoints, md);
     max-width: 1100px,
 }
 //
+
+//Loading Text
+.loading-bar {
+    height: 12px;
+    background: $secondary;
+    border-radius: 0.3rem;
+    margin: 1rem;
+    animation: fadeInAndOut 1.5s infinite forwards;
+}
+//

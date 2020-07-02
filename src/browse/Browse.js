@@ -12,6 +12,7 @@ import {
 import FilterRow from './FilterRow';
 import CategoryList from './CategoryList';
 import SeeAllCategory from './SeeAllCategory';
+import Search from './Search'
 import { GET_FILTERS } from './queries';
 
 
@@ -33,6 +34,7 @@ const Browse = ({
 }) => {
     const [activeFilterId, setActiveFilterId] = useState(null);
     const [activeCategory, setActiveCategory] = useState(null);
+    const [searchMode, setSearchMode] = useState(false);
     const [index, setIndex] = useState(0);
 
     const { loading, error, data } = useQuery(GET_FILTERS,
@@ -70,11 +72,16 @@ const Browse = ({
         )}
         >
             <div className="row">
-                <h1 className="mb-3">
-                    Discover
-                </h1>
+                <Search 
+                    onChange={({hide}) => setSearchMode(hide)}
+                />
             </div>
 
+            <div
+                className={classnames({
+                    'd-none': searchMode,
+                })}
+            >
             <Carousel
                 activeIndex={index}
                 onSelect={handleSelect}
@@ -117,6 +124,7 @@ const Browse = ({
                 </Carousel.Item>
                 <Carousel.Item />
             </Carousel>
+            </div>
         </div>
     );
 };

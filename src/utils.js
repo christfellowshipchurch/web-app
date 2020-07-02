@@ -63,3 +63,13 @@ export const getStartDateFromEvents = (props) => {
 
     return moment(get(sorted, '[0].start', mStart)).format('MMM D')
 }
+
+export const trimText = ( { text, isMobile} ) => {
+    const maxCharacters = isMobile 
+        ? 30
+        : 100
+    if(typeof(text) === 'string' && text.length > maxCharacters){
+        return `${text.substring(0, maxCharacters)}...`
+    }
+    return text
+}
