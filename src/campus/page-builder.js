@@ -41,9 +41,10 @@ const CampusPageBuilder = ({ name: campusName }) => {
                 } = {},
             } = {},
         } = {},
-    } = useQuery(
-        GET_CAMPUS,
-        { variables: { name: campusName } },
+    } = useQuery( GET_CAMPUS, { 
+            variables: { name: campusName },
+            fetchPolicy: 'cache-and-network',
+        },
     );
     const valueTitle = 'A Place Where You Can Belong';
     const valueProposition = `At Christ Fellowship Church in ${name}, we have weekend church services where you can experience uplifting worship, powerful messages from our pastors, special programming for your family, and an opportunity to meet other amazing people like you!`;

@@ -99,32 +99,63 @@ export const CampusTile = ({
                 />
             </div>
             <div className="col px-3 py-4">
-                <h3>{name}</h3>
-                <p className="text-dark mt-3 mb-2">
+                <h2>{name}</h2>
+
+                {serviceTimes.length > 0 && 
+                    <>
+                        <h3 className="mt-4">
+                            Service Times
+                        </h3>
+                        {uniqBy(serviceTimes, 'time').map((n, i) => {
+                            const isDate = moment(`${n.day} ${n.time}`).isValid()
+                            const title = isDate
+                                ? n.time
+                                : `${n.day.substring(0, 3)} - ${n.time}`
+
+                            return (
+                                <h4 
+                                    key={i}
+                                    className='pl-2'
+                                >
+                                    {title}
+                                </h4>
+                            )
+                        })}
+                    </>
+                }
+
+                <p className="text-dark mt-4 mb-2">
                     {`${street1}`}
                 </p>
                 <p className="text-dark mb-3">
                     {`${city}, ${state} ${postalCode.substring(0, 5)}`}
                 </p>
 
-                <p className=''>
-                    <i className='pr-1'>Please note:</i> 
-                    Due to COVID-19, this location is currently gathering digitally through Church Online. For the latest information on resuming in-person services, check out our 
-                    <a className='pl-1' href='/content/church-family-updates-06673de02b3cef9ed190656386c9de85'>Church Family Updates</a>.
-                </p>
+                {serviceTimes.length < 1 && 
+                    <>
+                        <p className=''>
+                            <i className='pr-1'>Please note:</i> 
+                            Due to COVID-19, this location is currently gathering digitally through Church Online. For the latest information on resuming in-person services, check out our 
+                            <a className='pl-1' href='/content/church-family-updates-06673de02b3cef9ed190656386c9de85'>Church Family Updates</a>.
+                        </p>
+                        <Button 
+                            className='mt-3'
+                            title='Watch Church Online'
+                            href='https://live.christfellowship.church/'
+                        />
+                    </>
+                }     
 
-                {/* <Button
-                    title={`Get Directions`}
-                    type="dark"
-                    newTab
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${location}`}
-                /> */}
-
-                <Button 
-                    className='mt-3'
-                    title='Watch Church Online'
-                    href='https://live.christfellowship.church/'
-                />
+               {serviceTimes.length > 0 && 
+                <>
+                    <Button
+                        title={`Get Directions`}
+                        type="dark"
+                        newTab
+                        href={`https://www.google.com/maps/dir/?api=1&destination=${location}`}
+                    />
+                </>
+                }
 
                 {/* TEMPORARLY HIDING RSVP BUTTONS WHILE CAMPUSES ARE CLOSED */}
 
