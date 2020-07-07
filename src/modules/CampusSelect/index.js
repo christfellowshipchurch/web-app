@@ -103,6 +103,10 @@ export const CampusTile = ({
 
                 {serviceTimes.length > 0 && 
                     <>
+                        <p className='mt-3'>
+                        <i className='pr-1'>Please note:</i> 
+                        While many locations are still gathering digitally, this location has resumed in-person services. We look forward to seeing you!
+                        </p>
                         <h3 className="mt-4">
                             Service Times
                         </h3>
