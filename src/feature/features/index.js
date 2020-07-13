@@ -1,1 +1,1 @@
-export { default as GridFeed } from './GridFeed';
+export { default as VerticalCardListFeed } from './VerticalCardListFeed';

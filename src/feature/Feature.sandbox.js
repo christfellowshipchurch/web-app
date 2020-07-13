@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import ContentCardConnected from '../content-card-connected';
 import { CardFeed } from '../content-feed';
-import { GridFeed } from './features';
+import { VerticalCardListFeed } from './features';
 import {
     useSandbox, HeroCollection, NetflixCollection, NetflixCardFeed,
 } from '../sandbox';
@@ -29,7 +29,7 @@ const Feature = ({
 
             return (
                 <FeatureSection>
-                    <GridFeed itemId={itemId} isLoading={isLoading} />
+                    <VerticalCardListFeed itemId={itemId} isLoading={isLoading} />
                 </FeatureSection>
             );
         case 'VIEW_CHILDREN':

@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import ContentCardConnected from '../content-card-connected';
 import { CardFeed } from '../content-feed';
-import { GridFeed } from './features';
+import { VerticalCardListFeed } from './features';
 
 export const FeatureSection = ({ children }) => <div className="max-width-1100 mx-auto my-4 px-2">{children}</div>;
 
@@ -14,7 +14,7 @@ const Feature = ({
     const itemId = get(relatedNode, 'id');
     switch (action) {
         case 'READ_GLOBAL_CONTENT':
-            return <FeatureSection><GridFeed itemId={itemId} isLoading={isLoading} /></FeatureSection>;
+            return <FeatureSection><VerticalCardListFeed itemId={itemId} isLoading={isLoading} /></FeatureSection>;
         case 'VIEW_CHILDREN':
             return (
                 <FeatureSection>
