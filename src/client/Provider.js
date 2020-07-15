@@ -35,6 +35,7 @@ export default ({ children }) => {
             const client = new ApolloClient({
                 link: ApolloLink.from([authLink, httpLink]),
                 cache,
+                version: `web-${process.env.REACT_APP_VERSION}`
             });
             const initData = {};
 
