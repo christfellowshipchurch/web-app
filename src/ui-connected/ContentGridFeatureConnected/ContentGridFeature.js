@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-
+import ContentGridFocusCard from './ContentGridFocusCard'
+import ContentGridPreviewCard from './ContentGridPreviewCard'
 
 // TODO : make sure that the properties are all being passed/handled
 //        correctly for this component. All that was done was a copy/
 //        paste from the `ui/CardGrid` component.
-const ContentGridFeature = ({ blocks }) => {
+const ContentGridFeature = ({ 
+    blocks, 
+    PreviewComponent, 
+    FocusedComponent 
+}) => {
     const [activeCard, setActiveCard] = useState(-1);
     const [cardHeight, setCardHeight] = useState();
-
 
     return (
         <div
@@ -30,10 +34,21 @@ const ContentGridFeature = ({ blocks }) => {
                         'opacity-0': activeCard >= 0,
                         'opacity-100': activeCard < 0,
                     },
+                    'mb-5',
+                    'justify-content-center'
                 )}
             >
                 {blocks.map((n, i) => (
-                    <CardContainer key={`CardContainer:${i}`}>
+                    <div 
+                        className={classnames(
+                            'col-12',
+                            'col-md-6', 
+                            'px-1', 
+                            'py-2',
+                        )}
+                        key={`CardContainer:${i}`}
+                        size={{ xs: '6' }}
+                    >
                         {React.createElement(
                             PreviewComponent,
                             {
@@ -41,7 +56,7 @@ const ContentGridFeature = ({ blocks }) => {
                                 onClick: () => setActiveCard(i),
                             },
                         )}
-                    </CardContainer>
+                    </div>
                 ))}
             </div>
             <div
@@ -64,10 +79,11 @@ const ContentGridFeature = ({ blocks }) => {
                         'opacity-100': activeCard >= 0,
                         'opacity-0': activeCard < 0,
                     },
+                    'w-100'
                 )}
             >
                 {activeCard >= 0 && React.createElement(
-                    ActiveComponent,
+                    FocusedComponent,
                     {
                         ...blocks[activeCard],
                         onCancel: () => setActiveCard(-1),
@@ -104,12 +120,12 @@ ContentGridFeature.propTypes = {
     FocusedComponent: PropTypes.func,
 };
 
-ContentGridFeature.propTypes = {
+ContentGridFeature.defaultProps = {
     primaryAction: {
         title: 'Learn More',
     },
-    PreviewComponent: PropTypes.func,
-    FocusedComponent: PropTypes.func,
+    PreviewComponent: ContentGridPreviewCard,
+    FocusedComponent: ContentGridFocusCard,
 };
 
 export default ContentGridFeature;

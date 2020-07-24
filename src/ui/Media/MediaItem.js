@@ -32,9 +32,7 @@ const MediaItem = ({
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
-
-  console.log({ imageUrl });
-
+  
   return (
     <div
       className={classnames(

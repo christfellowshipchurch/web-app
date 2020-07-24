@@ -2,24 +2,21 @@ import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
-import { Card } from '..';
-import { AngleRight } from '../Icons';
+import { Card } from 'ui';
 
 // TODO : * clean up and confirm that it's working
 //        * make the cards `col-6` for all device sizes
 //        * add images? need to confirm that with Josh
 const ContentGridPreviewCard = ({
     title,
-    summary,
-    icon,
+    subtitle,
     callToAction,
-    onClick,
-    ...props
+    onClick
 }) => (
-        <Card className="h-100">
+        <Card className="h-100 m-2">
             <div className="d-flex flex-column h-100">
                 <div style={{ flex: 1 }}>
-                    <h4
+                    <h3
                         className={classnames(
                             'd-flex',
                             'flex-column',
@@ -27,16 +24,10 @@ const ContentGridPreviewCard = ({
                             'm-0',
                         )}
                     >
-                        <span
-                            className="text-success mr-2 mb-2"
-                            style={{ fontSize: 22 }}
-                        >
-                            {React.createElement(icon)}
-                        </span>
                         <span className="mb-2 mt-1">
                             {title}
                         </span>
-                    </h4>
+                    </h3>
                 </div>
                 <div
                     className={classnames(
@@ -45,15 +36,16 @@ const ContentGridPreviewCard = ({
                     )}
                     style={{ flex: 1 }}
                 >
-                    <p className="text-dark">
-                        {summary}
-                    </p>
+                    <h4 className="text-dark font-weight-normal">
+                        {subtitle}
+                    </h4>
                 </div>
                 <div
                     className={classnames(
                         'd-flex',
                         'align-items-end',
                         'mt-4',
+                        'justify-content-end'
                     )}
                     style={{ flex: 1 }}
                 >
@@ -77,18 +69,16 @@ const ContentGridPreviewCard = ({
     );
 
 ContentGridPreviewCard.defaultProps = {
-    icon: AngleRight,
+    title: '',
+    subtitle: '',
     callToAction: 'Learn More',
-    Component: null,
     onClick: () => true,
 };
 
 ContentGridPreviewCard.propTypes = {
     title: PropTypes.string,
-    summary: PropTypes.string,
-    icon: PropTypes.string,
+    subtitle: PropTypes.string,
     callToAction: PropTypes.string,
-    Component: PropTypes.func,
     onClick: PropTypes.func,
 };
 
