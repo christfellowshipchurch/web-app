@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import CampusContentFeatureConnected from '../CampusContentFeatureConnected';
 import ContentBlockFeatureConnected from '../ContentBlockFeatureConnected';
 import ContentGridFeatureConnected from '../ContentGridFeatureConnected';
+import MetadataFeatureConnected from '../MetadataFeatureConnected';
 
 const MAPPINGS = {
     CampusContentFeature: CampusContentFeatureConnected,
     ContentBlockFeature: ContentBlockFeatureConnected,
     ContentGridFeature: ContentGridFeatureConnected,
+    MetadataFeature: MetadataFeatureConnected,
 };
 
 const pageBuilderComponentMapper = ({
