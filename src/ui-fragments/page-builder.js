@@ -56,11 +56,22 @@ const CONTENT_GRID_FEATURE_FRAGMENT = gql`
     }
 `;
 
+const METADATA_FEATURE_FRAGMENT = gql`
+    fragment MetadataFeatureFragment on MetadataFeature {
+        title
+        meta {
+            content
+            name
+        }
+    }
+`
+
 const PAGE_BUILDER_FEATURE_FRAGMENT = gql`
     fragment PageBuilderFeatureFragment on PageBuilderFeature {
         ...CampusContentFeatureFragment
         ...ContentBlockFeatureFragment
         ...ContentGridFeatureFragment
+        ...MetadataFeatureFragment
     }
 `;
 
@@ -70,4 +81,5 @@ export {
     CAMPUS_CONTENT_FEATURE_FRAGMENT,
     CONTENT_GRID_FEATURE_FRAGMENT,
     PAGE_BUILDER_FEATURE_FRAGMENT,
+    METADATA_FEATURE_FRAGMENT
 };

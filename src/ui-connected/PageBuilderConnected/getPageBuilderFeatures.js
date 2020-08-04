@@ -13,4 +13,5 @@ export default gql`
   ${Fragments.CONTENT_BLOCK_ITEM_FRAGMENT}
   ${Fragments.CONTENT_GRID_FEATURE_FRAGMENT}
   ${Fragments.PAGE_BUILDER_FEATURE_FRAGMENT}
+  ${Fragments.METADATA_FEATURE_FRAGMENT}
 `;

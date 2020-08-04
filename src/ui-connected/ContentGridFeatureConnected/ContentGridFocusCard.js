@@ -24,8 +24,6 @@ const FocusedCard = ({
 
     const imageUrl = get(image, 'sources[0].uri', null)
 
-    console.log({image})
-
     return (
         <div 
             ref={ref}
@@ -64,6 +62,7 @@ const FocusedCard = ({
                         <Media
                             className='col-12 col-md-6'
                             imageUrl={imageUrl}
+                            imageAlt='Focused Card Image'
                             ratio='4by3'
                             rounded
                         />  

@@ -52,12 +52,6 @@ const Metadata = ({
         </MetaTags>
     );
 
-const defaultItems = {
-    title: 'Christ Fellowship Church',
-    description: "Christ Fellowship is a church in South Florida that helps you thrive in every area of life. Christ Fellowship Church's passion is to help you know God, grow in your relationship with God & others, and discover your purpose so that you can impact the world.",
-    url: 'https://christfellowship.church',
-};
-
 Metadata.propTypes = {
     tags: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
