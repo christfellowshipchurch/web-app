@@ -11,6 +11,11 @@ export default gql`
           }
         }
 
+        callsToAction {
+          call
+          action
+        }
+
         contentItem {
           id
         }

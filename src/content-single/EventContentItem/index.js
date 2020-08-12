@@ -26,6 +26,7 @@ const EventContentItem = ({
     {(liveStream) => {
     const isLive = !!(liveStream && liveStream.isLive);
     const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
+    const liveCallsToAction = get(liveStream, 'callsToAction', null)
 
     return(
             <div>
@@ -37,6 +38,7 @@ const EventContentItem = ({
               <Detail 
                 {...content} 
                 isLive={isLive}
+                liveCallsToAction={liveCallsToAction}
               />
             </div>
           )}

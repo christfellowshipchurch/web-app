@@ -6,7 +6,8 @@ import { useAuth, useAuthQuery } from '../../auth';
 
 import {
   Card,
-  Share
+  Share,
+  Button
 } from '../../ui';
 import EventSchedule from './EventSchedule';
 
@@ -46,7 +47,8 @@ const EventDetail = ({
   callsToAction,
   openLinksInNewTab,
   events,
-  isLive
+  isLive,
+  liveCallsToAction
 }) => (
     <div className={classnames(
       'container-fluid',
@@ -54,6 +56,38 @@ const EventDetail = ({
       'px-3',
     )}
     >
+      {(isLive && !!liveCallsToAction) &&
+        <div className={classnames(
+          'mt-3',
+          'd-md-flex',
+          'justify-content-center',
+          'row',
+        )}>
+          {liveCallsToAction.map((n, i) => {
+                return(
+                  <div
+                    className={classnames(
+                      'mb-2',
+                      {
+                        'col-md-6': liveCallsToAction.length < 3,
+                        'col-md-4': liveCallsToAction.length > 2,
+                        //no padding for every third button
+                        'pr-md-2': !((i + 1) % 3 === 0),
+                      }
+                    )}
+                  >
+                    <Button
+                      className='w-100 h-100'
+                      type='dark'
+                      key={i}
+                      title={n.call}
+                      action={n.action}
+                    />
+                  </div>
+            )}) 
+          }
+        </div>
+      }
       {(title !== ''
         || summary !== '')
         && (
