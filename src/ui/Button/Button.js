@@ -47,7 +47,12 @@ const Button = ({
 
   return (
     <a
-      className={classes}
+      className={classnames(
+        classes,
+        'd-flex',
+        'align-items-center',
+        'justify-content-center'
+      )}
       target={newTab ? '_blank' : ''}
       {...buttonProps}
     >
