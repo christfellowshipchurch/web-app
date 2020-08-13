@@ -78,10 +78,11 @@ const EventDetail = ({
                   >
                     <Button
                       className='w-100 h-100'
+                      newTab
                       type='dark'
                       key={i}
                       title={n.call}
-                      action={n.action}
+                      href={n.action}
                     />
                   </div>
             )}) 
