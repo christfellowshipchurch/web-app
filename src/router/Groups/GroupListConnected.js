@@ -14,15 +14,22 @@ const GroupCollection = ({ title, groups }) => [
     </div>
   </div>,
   <div key={`GroupCollection:${title}`} className="row mx-n2">
-    {groups.map((n) => (
+    {groups.map(
+      (n) => console.log(n) || (
       <ContentCard
         key={n.id}
         urlBase="groups"
         className="my-4"
         coverImage={get(n, 'coverImage.sources', '')}
         title={get(n, 'title', '')}
+        label={{
+          bg: 'dark',
+          textColor: 'white',
+          value: get(n, 'schedule.friendlyScheduleText'),
+        }}
       />
-    ))}
+      ),
+    )}
   </div>,
 ];
 
@@ -45,7 +52,6 @@ const GroupListConnected = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  console.log(data);
   if (loading) {
     return (
       <div style={{ position: 'relative', height: '50vh' }}>
