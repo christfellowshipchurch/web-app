@@ -14,17 +14,15 @@ const GroupCollection = ({ title, groups }) => [
     </div>
   </div>,
   <div key={`GroupCollection:${title}`} className="row mx-n2">
-    {groups.map(
-      (n) => console.log(get(n, 'coverImage.sources', '')) || (
+    {groups.map((n) => (
       <ContentCard
         key={n.id}
         urlBase="groups"
         className="my-4"
-        imageUrl={get(n, 'coverImage.sources[0].uri', '')}
+        coverImage={get(n, 'coverImage.sources', '')}
         title={get(n, 'title', '')}
       />
-      ),
-    )}
+    ))}
   </div>,
 ];
 
