@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 // import GroupConnected from './GroupConnected';
-import GroupListConnected from './GroupListConnected';
+import { Groups } from '../../groups';
 
 // import redirects from '../../redirects.json';
 
@@ -28,7 +28,7 @@ const Router = () => (
   <Switch>
     {/* <Route exact path="/groups/:groupName" component={GroupDetailLayout} /> */}
 
-    <Route path="*" component={GroupListConnected} />
+    <Route path="*" component={Groups} />
   </Switch>
 );
 
