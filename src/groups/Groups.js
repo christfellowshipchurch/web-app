@@ -1,18 +1,18 @@
 import React from 'react';
 
 import { useAuth } from '../auth';
-import { Button, Media } from '../ui';
+import { Media } from '../ui';
 
 import GroupListConnected from './GroupListConnected';
 
-const Groups = ({ title }) => {
+const Groups = () => {
   const { isLoggedIn } = useAuth();
 
   return (
     <div className="container-fluid my-6 px-4">
       <div className="row pt-2">
         <div className="col">
-          <h1 className="mb-0">Groups</h1>
+          <h1 className="mb-0">{isLoggedIn ? 'Groups' : 'Find Your Group'}</h1>
         </div>
       </div>
       {isLoggedIn ? (
