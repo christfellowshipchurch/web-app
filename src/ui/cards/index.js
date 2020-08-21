@@ -8,27 +8,26 @@ export { default as RowCard } from './RowCard';
 export { default as HighlightCard } from './HighlightCard';
 
 export const generateUrlLink = ({
-    urlBase, title, id, redirectUrl,
+  urlBase, title, id, redirectUrl,
 }) => {
-    const href = {
-        target: '',
-        href: '#',
-    };
+  const href = {
+    target: '',
+    href: '#',
+    id,
+  };
 
-    if (!title || title === '') return href;
+  if (!title || title === '') return href;
 
-    if (redirectUrl) {
-        href.href = redirectUrl;
-    } else {
-        const prefix = kebabCase(title.toUpperCase());
-        const suffix = urlBase === 'content' || urlBase === 'items'
-            ? `-${get(id.split(':'), '[1]', '')}`
-            : '';
+  if (redirectUrl) {
+    href.href = redirectUrl;
+  } else {
+    const prefix = kebabCase(title.toUpperCase());
+    const suffix = urlBase === 'content' || urlBase === 'items' ? `-${get(id.split(':'), '[1]', '')}` : '';
 
-        href.href = `/${urlBase}/${prefix}${suffix}`;
-    }
+    href.href = `/${urlBase}/${prefix}${suffix}`;
+  }
 
-    if (href.href.includes('http')) href.target = '_blank';
+  if (href.href.includes('http')) href.target = '_blank';
 
-    return href;
+  return href;
 };
