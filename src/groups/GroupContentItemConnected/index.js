@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
 
-import { useAuthQuery } from '../../auth';
+// import { useAuthQuery } from '../../auth';
 import { Loader, ErrorBlock } from '../../ui';
 
 import GET_GROUP from '../getGroup';
@@ -28,7 +28,7 @@ const GroupContentItemConnected = ({ itemId }) => {
 
   if (error || (!loading && !content)) {
     console.log({ error }); // eslint-disable-line no-console
-    return null;
+    return <ErrorBlock />;
   }
 
   console.log(data);
