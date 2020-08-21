@@ -8,8 +8,9 @@ import { Loader, ErrorBlock } from '../../ui';
 
 import GET_GROUP from '../getGroup';
 
-const GroupContentItemConnected = ({ itemId, title }) => {
-  console.log(itemId);
+import GroupContentItem from './GroupContentItem';
+
+const GroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
     fetchPolicy: 'cache-and-network',
@@ -26,12 +27,18 @@ const GroupContentItemConnected = ({ itemId, title }) => {
   }
 
   console.log(data);
-  return 'Hello World';
+  return (
+    <GroupContentItem
+      coverImage={get(content, 'coverImage')}
+      date={get(content, 'schedule.friendlyScheduleText')}
+      title={get(content, 'name')}
+      videoCall={get(content, 'videoCall')}
+    />
+  );
 };
 
 GroupContentItemConnected.propTypes = {
   itemId: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
 };
 
 export default GroupContentItemConnected;
