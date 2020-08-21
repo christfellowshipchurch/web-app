@@ -16,15 +16,13 @@ const GroupContentItemConnected = ({ itemId, title }) => {
   });
 
   if (loading) return <Loader />;
-  if (error) {
-    console.log({ error }); // eslint-disable-line no-console
-    return null;
   }
 
   const content = get(data, 'node', {});
 
-  if (!content) {
-    return <ErrorBlock />;
+  if (error || (!loading && !content)) {
+    console.log({ error }); // eslint-disable-line no-console
+    return null;
   }
 
   console.log(data);
