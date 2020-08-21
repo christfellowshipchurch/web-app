@@ -34,10 +34,13 @@ const GroupContentItemConnected = ({ itemId }) => {
   console.log(data);
   return (
     <GroupContentItem
-      coverImage={get(content, 'coverImage')}
-      date={get(content, 'schedule.friendlyScheduleText')}
+      {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
+      dateText={get(content, 'schedule.friendlyScheduleText')}
+      dateTimes={get(content, 'dateTime')}
+      summary={get(content, 'summary')}
       title={get(content, 'name')}
       videoCall={get(content, 'videoCall')}
+      groupResources={get(content, 'groupResources')}
     />
   );
 };
