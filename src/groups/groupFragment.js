@@ -30,6 +30,7 @@ export default gql`
       }
     }
     avatars
+    phoneNumbers
     groupResources {
       title
       url
@@ -40,6 +41,11 @@ export default gql`
       end
     }
     videoCall {
+      link
+      meetingId
+      passcode
+    }
+    parentVideoCall {
       link
       meetingId
       passcode
