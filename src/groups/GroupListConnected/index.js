@@ -31,6 +31,7 @@ const GroupListConnected = () => {
           key={n.id}
           urlBase="groups"
           className="my-4"
+          id={n.id}
           coverImage={get(n, 'coverImage.sources', '')}
           title={get(n, 'title', '')}
           label={{
