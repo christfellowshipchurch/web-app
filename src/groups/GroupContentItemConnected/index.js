@@ -16,7 +16,12 @@ const GroupContentItemConnected = ({ itemId }) => {
     fetchPolicy: 'cache-and-network',
   });
 
-  if (loading) return <Loader />;
+  if (loading) {
+    return (
+      <div style={{ height: '50vh', width: '100vw', position: 'relative' }}>
+        <Loader />
+      </div>
+    );
   }
 
   const content = get(data, 'node', {});
