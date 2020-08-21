@@ -19,7 +19,7 @@ const GroupSingle = ({
   }
 
   // if no redirect, proceed to the Router
-  return <GroupContentItemConnected itemId={contentId} title={groupName} />;
+  return <GroupContentItemConnected itemId={contentId} />;
 };
 
 const Router = () => (
