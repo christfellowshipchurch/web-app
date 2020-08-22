@@ -37,6 +37,7 @@ const GroupContentItemConnected = ({ itemId }) => {
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
       dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
+      parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
       title={get(content, 'name')}
       videoCall={get(content, 'videoCall')}
