@@ -12,6 +12,7 @@ const GroupContentItem = ({
   dateText,
   dateTimes,
   groupResources,
+  parentVideoCall,
   summary,
   title,
   videoCall,
@@ -19,23 +20,32 @@ const GroupContentItem = ({
   <>
     <Banner coverImage={coverImage} shareTitle="Invite" title={title} />
     <div className="container-fluid mb-4 px-3">
-      <div
-        className={classnames('d-md-flex', 'justify-content-between', 'align-items-center', 'pb-3')}
-      >
-        <div className="mt-4 mb-2 pb-2">
-          <h1 className="mb-2 text-dark">{title}</h1>
-          <h3 className="mt-1 content-subtitle font-weight-light">{dateText}</h3>
-        </div>
-        {get(videoCall, 'link') && (
-          <a className="btn btn-primary my-3" href={get(videoCall, 'link')} target="_blank">
-            Join Meeting
-          </a>
-        )}
-      </div>
+      <hgroup className="mt-4 mb-3 pb-3">
+        <h1 className="mb-2 text-dark">{title}</h1>
+        <h3 className="mt-1 content-subtitle font-weight-light">{dateText}</h3>
+      </hgroup>
 
       <section className="row mx-n2">
         <aside className="col-12 col-lg-4 p-2">
           <Card key="EventOccurences" className={classnames('mb-3')}>
+            {get(parentVideoCall, 'link') && (
+              <a
+                className="btn btn-primary btn-block my-3"
+                href={get(parentVideoCall, 'link')}
+                target="_blank"
+              >
+                Join Meeting
+              </a>
+            )}
+            {get(videoCall, 'link') && (
+              <a
+                className="btn btn-primary btn-block my-3"
+                href={get(videoCall, 'link')}
+                target="_blank"
+              >
+                {parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
+              </a>
+            )}
             {groupResources.map((resource, i) => (
               <a
                 key={resource.url}
@@ -62,8 +72,8 @@ const GroupContentItem = ({
                 event={{
                   title,
                   summary,
-                  // Location is the webUrl for now
-                  address: get(videoCall, 'link'),
+                  // Location is the webUrl for now because we have multiple potential video calls endpoints
+                  address: document.URL,
                   startTime: dateTimes.state,
                   endTime: dateTimes.end,
                 }}
@@ -73,9 +83,11 @@ const GroupContentItem = ({
             </div>
           </Card>
         </aside>
-        <div className="col-12 col-lg-8 p-2">
-          <Card>{summary}</Card>
-        </div>
+        {summary ? (
+          <div className="col-12 col-lg-8 p-2">
+            <Card>{summary}</Card>
+          </div>
+        ) : null}
       </section>
     </div>
   </>
@@ -97,6 +109,11 @@ GroupContentItem.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  parentVideoCall: PropTypes.shape({
+    link: PropTypes.string,
+    meetingId: PropTypes.string,
+    passcode: PropTypes.string,
+  }),
   summary: PropTypes.string,
   title: PropTypes.string.isRequired,
   videoCall: PropTypes.shape({
