@@ -25,23 +25,33 @@ const GroupListConnected = () => {
   const currentUserGroups = get(data, 'currentUser.profile.groups', []);
 
   return (
-    <div className="row mx-n2">
-      {currentUserGroups.map((n) => (
-        <ContentCard
-          key={n.id}
-          urlBase="groups"
-          className="my-4"
-          id={n.id}
-          coverImage={get(n, 'coverImage.sources', '')}
-          title={get(n, 'title', '')}
-          label={{
-            bg: 'dark',
-            textColor: 'white',
-            value: get(n, 'schedule.friendlyScheduleText'),
-          }}
-        />
-      ))}
-    </div>
+    <>
+      <section className="row mx-n2">
+        {currentUserGroups.map((n) => (
+          <ContentCard
+            key={n.id}
+            urlBase="groups"
+            className="my-4"
+            id={n.id}
+            coverImage={get(n, 'coverImage.sources', '')}
+            title={get(n, 'title', '')}
+            label={{
+              bg: 'dark',
+              textColor: 'white',
+              value: get(n, 'schedule.friendlyScheduleText'),
+            }}
+          />
+        ))}
+      </section>
+      <section className="d-flex justify-content-lg-center">
+        <a
+          className="btn btn-primary btn-block my-3 col-lg-7"
+          href="https://rock.christfellowship.church/groups"
+        >
+          Find A New Group
+        </a>
+      </section>
+    </>
   );
 };
 
