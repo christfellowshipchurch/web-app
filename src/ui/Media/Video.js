@@ -9,6 +9,8 @@ import { Icon } from '../Icons';
 const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
+  const [played, setPlayed] = useState(false);
+
 
   let videoProps = showControls
     ? {
@@ -55,6 +57,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   }
 
   const playButtonClick = () => {
+
     if(source.includes('m3u8')){
       createHLSurl()
     }
@@ -68,6 +71,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
     if (isLive || isIOS) return playButtonClick()
   }, [videoRef])
 
+
   return (
     <div>
       <video
@@ -77,8 +81,9 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
         ref={videoRef}
         controlsList="nodownload"
         style={{
-          objectFit: 'cover',
+          objectFit: played ? 'contain' : 'cover',
         }}
+        onPlay={() => setPlayed(true)}
       >
         <source  
           type='video/mp4' 
