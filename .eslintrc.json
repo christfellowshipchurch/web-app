@@ -23,7 +23,7 @@
     "react/jsx-curly-brace-presence": 0,
     "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
     "react/require-default-props": 0,
-    "react/prop-types": 2,
+    "react/prop-types": 1,
     "react-hooks/exhaustive-deps": 1,
     "import/order": [
       "error",
