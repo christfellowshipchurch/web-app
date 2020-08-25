@@ -1,35 +1,34 @@
-import React from 'react'
-import {
-    Switch, Route, Redirect,
-} from 'react-router-dom'
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import EventConnected from './EventConnected'
-import EventListConnected from './EventListConnected'
+import redirects from '../../redirects.json';
+import EventConnected from './EventConnected';
+import EventListConnected from './EventListConnected';
 
-import redirects from '../../redirects.json'
+const EventDetailLayout = ({
+  match: {
+    params: { eventName },
+  },
+}) => {
+  const page = eventName;
+  const redirect = redirects[decodeURI(page)];
 
-const EventDetailLayout = ({ match: { params: { eventName } } }) => {
-    const page = eventName
-    const redirect = redirects[decodeURI(page)]
+  // check if the redirects.json file has a redirect for this page
+  if (!!redirect && redirect !== '') {
+    window.location.href = redirect;
+    return null; // return null so nothing is rendered while the redirect is happening
+  }
 
-    // check if the redirects.json file has a redirect for this page
-    if (!!redirect && redirect !== '') {
-        window.location.href = redirect
-        return null // return null so nothing is rendered while the redirect is happening
-    }
-
-    // if no redirect, proceed to the Router
-    return <EventConnected title={eventName} />
-}
-
+  // if no redirect, proceed to the Router
+  return <EventConnected title={eventName} />;
+};
 
 const Router = () => (
-    <Switch>
-        <Route exact path="/events/:eventName" component={EventDetailLayout} />
+  <Switch>
+    <Route exact path="/events/:eventName" component={EventDetailLayout} />
 
-        <Route path="*" component={EventListConnected} />
+    <Route path="*" component={EventListConnected} />
+  </Switch>
+);
 
-    </Switch>
-)
-
-export default Router
+export default Router;

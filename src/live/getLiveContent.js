@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 export default gql`
   query getLiveContent {
     liveStreams {
-      ...on LiveStream {
+      ... on LiveStream {
         isLive
         media {
           sources {

@@ -1,29 +1,25 @@
 import React from 'react';
-import {
-    Switch, Route, Redirect,
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { get } from 'lodash';
 
 import { Browse } from '../../browse';
 
-const BrowseUrlMapper = ({
-    match: { params },
-}) => (
-        <Browse
-            filter={get(params, 'filter', null)}
-            category={get(params, 'category', null)}
-            title={get(params, 'title', null)}
-        />
-    );
+const BrowseUrlMapper = ({ match: { params } }) => (
+  <Browse
+    filter={get(params, 'filter', null)}
+    category={get(params, 'category', null)}
+    title={get(params, 'title', null)}
+  />
+);
 
 const Router = () => (
-    <Switch>
-        <Route exact path="/discover/:filter" component={BrowseUrlMapper} />
-        <Route exact path="/discover/:filter/:category" component={BrowseUrlMapper} />
-        <Route exact path="/discover/:filter/:category/:title" component={BrowseUrlMapper} />
+  <Switch>
+    <Route exact path="/discover/:filter" component={BrowseUrlMapper} />
+    <Route exact path="/discover/:filter/:category" component={BrowseUrlMapper} />
+    <Route exact path="/discover/:filter/:category/:title" component={BrowseUrlMapper} />
 
-        <Route path="*" component={Browse} />
-    </Switch>
+    <Route path="*" component={Browse} />
+  </Switch>
 );
 
 export default Router;

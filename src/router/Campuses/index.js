@@ -1,29 +1,30 @@
-import React from 'react'
-import {
-    Switch, Route, Redirect
-} from 'react-router-dom'
-import { capitalize, join } from 'lodash'
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { capitalize, join } from 'lodash';
 
-import { CampusPageBuilder } from '../../campus'
-import PageBuilder from '../../page-builder'
+import { CampusPageBuilder } from '../../campus';
+import PageBuilder from '../../page-builder';
 
-const PropertyMapper = ({ match: { params: { name } } }) =>{
+const PropertyMapper = ({
+  match: {
+    params: { name },
+  },
+}) => {
+  const formattedName = join(
+    name.split('-').map((n) => capitalize(n)),
+    ' '
+  );
 
-    const formattedName = join(name.split('-').map( n => capitalize(n)), ' ')
-
-    return <CampusPageBuilder name={formattedName} />
-}
-const LocationsPage = () => <PageBuilder
-    title="locations"
-    theme="swoop"
-/>
+  return <CampusPageBuilder name={formattedName} />;
+};
+const LocationsPage = () => <PageBuilder title="locations" theme="swoop" />;
 
 const Router = () => (
-    <Switch>
-        <Route exact path="/locations/:name" component={PropertyMapper} />
+  <Switch>
+    <Route exact path="/locations/:name" component={PropertyMapper} />
 
-        <Route path="*" component={LocationsPage} />
-    </Switch>
-)
+    <Route path="*" component={LocationsPage} />
+  </Switch>
+);
 
-export default Router
+export default Router;

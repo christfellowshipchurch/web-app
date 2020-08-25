@@ -1,21 +1,19 @@
-import React from 'react'
-import { act, render } from '@testing-library/react'
-import wait from 'waait'
+import React from 'react';
+import { act, render } from '@testing-library/react';
+import wait from 'waait';
 
-import EventBanner from '../EventBanner'
-import { Events } from '../../data-mocks'
+import EventBanner from '../EventBanner';
+import { Events } from '../../data-mocks';
 
-const { TEST_EVENT_JSON } = Events
+const { TEST_EVENT_JSON } = Events;
 
-let component = null
+let component = null;
 
 describe('EventBanner', () => {
-    it("renders an Event Banner image", async () => {
-        component = render(
-            <EventBanner {...TEST_EVENT_JSON} />
-        )
+  it('renders an Event Banner image', async () => {
+    component = render(<EventBanner {...TEST_EVENT_JSON} />);
 
-        const { container } = component
-        expect(container).toMatchSnapshot()
-    })
-})
+    const { container } = component;
+    expect(container).toMatchSnapshot();
+  });
+});

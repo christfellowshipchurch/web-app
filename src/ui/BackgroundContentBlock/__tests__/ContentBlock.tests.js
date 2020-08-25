@@ -1,9 +1,9 @@
-import React from 'react'
-import {Block, Media} from '../../../ui'
-import renderer from "react-test-renderer"
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { Block, Media } from '../../../ui';
 
-describe("ContentBlock Renderer", () => {
-  it("Displays ContentBlock with Media displaying in the background", () => {
+describe('ContentBlock Renderer', () => {
+  it('Displays ContentBlock with Media displaying in the background', () => {
     const tree = renderer.create(
       <Media imageUrl="" imageAlt="">
         <Block>
@@ -12,22 +12,22 @@ describe("ContentBlock Renderer", () => {
           <Block.Body />
         </Block>
       </Media>
-    )
-    expect(tree).toMatchSnapshot()
-  })
+    );
+    expect(tree).toMatchSnapshot();
+  });
 
-  it("Displays ContentBlock with normal layout", () => {
+  it('Displays ContentBlock with normal layout', () => {
     const tree = renderer.create(
       <div className="container">
         <div className="row">
-          <Block imageUrl='' imageAlt=''>
+          <Block imageUrl="" imageAlt="">
             <Block.Subtitle />
             <Block.Title />
             <Block.Body />
           </Block>
         </div>
       </div>
-    )
-    expect(tree).toMatchSnapshot()
-  })
-})
+    );
+    expect(tree).toMatchSnapshot();
+  });
+});
