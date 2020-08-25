@@ -55,16 +55,13 @@ const Groups = () => {
         <section className="container-fluid py-md-5 py-4 px-4">
           <div className="row justify-content-center align-items-center">
             <a
-              className="btn btn-blk btn-primary col-md-4 my-2"
+              className="btn btn-blk btn-primary col-md-4 my-2 mr-md-3"
               href="https://rock.christfellowship.church/groups"
             >
               Find A Group
             </a>
 
-            <a
-              className="col-md-4 offset-md-1 btn btn-blk btn-outline-dark"
-              onClick={() => logIn()}
-            >
+            <a className="col-md-4 btn btn-blk btn-outline-dark" onClick={() => logIn()}>
               Login For Your Groups
             </a>
           </div>
