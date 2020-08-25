@@ -27,10 +27,10 @@ const GroupContentItem = ({
 
       <section className="row mx-n2">
         <aside className="col-12 col-lg-4 p-2">
-          <Card key="EventOccurences" className={classnames('mb-3')}>
+          <Card key="EventOccurences" className="mb-3">
             {get(parentVideoCall, 'link') && (
               <a
-                className="btn btn-primary btn-block my-3"
+                className="btn btn-primary btn-block mb-3"
                 href={get(parentVideoCall, 'link')}
                 target="_blank"
               >
@@ -39,7 +39,7 @@ const GroupContentItem = ({
             )}
             {get(videoCall, 'link') && (
               <a
-                className="btn btn-primary btn-block my-3"
+                className="btn btn-primary btn-block mb-3"
                 href={get(videoCall, 'link')}
                 target="_blank"
               >
@@ -49,7 +49,7 @@ const GroupContentItem = ({
             {groupResources.map((resource, i) => (
               <a
                 key={resource.url}
-                className={classnames('btn', 'btn-secondary', 'btn-block', 'my-3')}
+                className={classnames('btn', 'btn-outline-dark', 'btn-block', 'my-3')}
                 href={resource.url}
                 target={resource.url.includes('http') ? '_blank' : ''}
                 // onClick={() => GoogleAnalytics.trackEvent({
