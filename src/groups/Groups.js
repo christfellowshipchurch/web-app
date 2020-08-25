@@ -61,7 +61,7 @@ const Groups = () => {
               Find A Group
             </a>
 
-            <a className="col-md-4 btn btn-blk btn-outline-dark" onClick={() => logIn()}>
+            <a className="col-md-4 btn btn-blk btn-outline-black" onClick={() => logIn()}>
               Login For Your Groups
             </a>
           </div>
