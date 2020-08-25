@@ -82,6 +82,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
         controlsList="nodownload"
         style={{
           objectFit: played ? 'contain' : 'cover',
+          backgroundColor: 'black'
         }}
         onPlay={() => setPlayed(true)}
       >
