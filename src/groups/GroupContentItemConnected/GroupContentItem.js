@@ -7,6 +7,22 @@ import Banner from '../../content-single/Banner';
 import { AddToCalendar, Card } from '../../ui';
 import { Icon } from '../../ui/Icons';
 
+// add any additional parameters to the video urls
+const videoCallURLWithParameters = (videoURL, parameters) => {
+  const isMSIE = /*@cc_on!@*/ false || !!document.documentMode; //eslint-disable-line spaced-comment
+  let urlWithParams = videoURL;
+
+  if (!isMSIE) {
+    urlWithParams = new URL(videoURL);
+
+    Object.entries(parameters).map(([key, value]) => urlWithParams.searchParams.set(key, value));
+
+    urlWithParams = urlWithParams.href;
+  }
+
+  return urlWithParams;
+};
+
 const GroupContentItem = ({
   coverImage,
   dateText,
@@ -31,7 +47,9 @@ const GroupContentItem = ({
             {get(parentVideoCall, 'link') && (
               <a
                 className="btn btn-primary btn-block mb-3"
-                href={get(parentVideoCall, 'link')}
+                href={videoCallURLWithParameters(get(parentVideoCall, 'link'), {
+                  uname: 'Marty McFly',
+                })}
                 target="_blank"
               >
                 Join Meeting
@@ -40,7 +58,7 @@ const GroupContentItem = ({
             {get(videoCall, 'link') && (
               <a
                 className="btn btn-primary btn-block mb-3"
-                href={get(videoCall, 'link')}
+                href={videoCallURLWithParameters(get(videoCall, 'link'), { uname: 'Marty McFly' })}
                 target="_blank"
               >
                 {parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
@@ -52,11 +70,6 @@ const GroupContentItem = ({
                 className={classnames('btn', 'btn-outline-dark', 'btn-block', 'my-3')}
                 href={resource.url}
                 target={resource.url.includes('http') ? '_blank' : ''}
-                // onClick={() => GoogleAnalytics.trackEvent({
-                //   category: 'Event Item',
-                //   action: `${title} Call to Action`,
-                //   label: `${title} - ${n.call} Button`
-                // })}
               >
                 {resource.title}
               </a>
