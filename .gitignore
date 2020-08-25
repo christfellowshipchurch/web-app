@@ -67,7 +67,7 @@ env
 .next
 
 # vscode
-.vscode
+.vscode/settings.json
 
 # xcode
 build/
