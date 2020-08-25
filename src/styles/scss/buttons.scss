@@ -42,7 +42,3 @@
 .btn-like:hover {
   cursor: pointer;
 }
-
-.btn-outline-black {
-  @include button-outline-variant($black);
-}

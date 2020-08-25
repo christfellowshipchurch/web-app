@@ -61,9 +61,9 @@ const Groups = () => {
               Find A Group
             </a>
 
-            <a className="col-md-4 btn btn-blk btn-outline-black" onClick={() => logIn()}>
+            <button className="col-md-4 btn btn-blk btn-outline-dark" onClick={() => logIn()}>
               Login For Your Groups
-            </a>
+            </button>
           </div>
         </section>
       )}
