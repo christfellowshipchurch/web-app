@@ -9,6 +9,13 @@ export default gql`
         ...groupFragment
       }
     }
+    currentUser {
+      id
+        profile {
+            id
+            firstName
+        }
+    }
   }
   ${GROUP_FRAGMENT}
 `;
