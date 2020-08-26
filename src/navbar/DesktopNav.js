@@ -23,10 +23,10 @@ const NavLink = ({ link, onClick }) => (
   </Nav.Link>
 );
 
-const dropDownIcon = (isOpen) => (
+const dropDownIcon = (isOpen, isDark) => (
   <Icon
     name={isOpen ? 'times' : 'bars'}
-    fill="#525252"
+    fill={isDark ? '#ffffff' : '#525252'}
   />
 );
 
@@ -34,6 +34,7 @@ const DesktopNav = ({
   navLinks,
   menuLinks,
   quickAction,
+  isDark
 }) => {
   const { logout, logIn, isLoggedIn } = useAuth();
   const [menuIcon, setMenuIcon] = useState(false);
@@ -47,7 +48,10 @@ const DesktopNav = ({
           className={classnames(
             'p-3',
             'nav-link',
-            'text-secondary',
+            {
+              'text-dark': !isDark,
+              'text-white': isDark
+            }
           )}
         >
           {link.call}
@@ -74,10 +78,11 @@ const DesktopNav = ({
 
       <ProfileConnected
         className="d-none d-lg-block ml-2 mr-1 btn-like"
+        isDark={isDark}
       />
 
       <NavDropdown
-        title={dropDownIcon(menuIcon)}
+        title={dropDownIcon(menuIcon, isDark)}
         onToggle={() => setMenuIcon(!menuIcon)}
         onSelect={() => setMenuIcon(!menuIcon)}
         alignRight
@@ -133,12 +138,14 @@ DesktopNav.propTypes = {
     call: PropTypes.string,
     action: PropTypes.string,
   }),
+  isDark: PropTypes.bool
 };
 
 DesktopNav.defaultProps = {
   navLinks: [],
   menuLinks: [],
   quickAction: [],
+  isDark: false
 };
 
 export default DesktopNav;

@@ -8,6 +8,7 @@ import ProfileConnected from './ProfileConnected';
 const MobileNav = ({
   navLinks,
   quickAction,
+  isDark
 }) => {
   const { isLoggedIn, logout } = useAuth();
   const mobileNavLinkClass = {
@@ -20,7 +21,10 @@ const MobileNav = ({
       'p-2',
       'pl-3',
       'nav-link',
-      'text-dark',
+      {
+        'text-dark': !isDark,
+        'text-white': isDark
+      },
       'no-decoration',
     ),
   };
@@ -45,13 +49,17 @@ const MobileNav = ({
         >
           <ProfileConnected
             size={30}
+            isDark={isDark}
           />
 
           <a
             className={classnames(
               'p-2',
               'nav-link',
-              'text-dark',
+              {
+                'text-dark': !isDark,
+                'text-white': isDark
+              },
               'no-decoration',
             )}
             href="/profile"
@@ -132,11 +140,13 @@ MobileNav.propTypes = {
     call: PropTypes.string,
     action: PropTypes.string,
   }),
+  isDark: PropTypes.bool
 };
 
 MobileNav.defaultProps = {
   navLinks: [],
   quickAction: [],
+  isDark: false
 };
 
 export default MobileNav;

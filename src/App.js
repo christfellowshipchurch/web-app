@@ -12,7 +12,7 @@ import { useAuth } from './auth';
 const opaqueNavbarPages = ['', '/', '/animations'];
 
 const App = () => {
-  const { triggerLogIn } = useAuth();
+  const { triggerLogIn, isLoggedin } = useAuth();
   const page = window.location.pathname;
 
   window.scrollTo(0, 0);
@@ -21,7 +21,10 @@ const App = () => {
     <div>
       <Metadata />
 
-      <Navbar />
+      {!isLoggedin && (opaqueNavbarPages.includes(page))
+        ? <NavbarWithOpacity />
+        : <Navbar />
+      }
 
       <div className="mt-0">
         <Router />

@@ -17,4 +17,4 @@ const HomeRouter = () => {
         );
 };
 
-export default FeaturesFeed;
+export default HomeRouter;

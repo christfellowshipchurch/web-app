@@ -4,20 +4,22 @@ import { Navbar } from 'react-bootstrap';
 
 import { Icon } from '../ui/Icons';
 
-const NavbarToggle = () => {
+const NavbarToggle = ({ isDark, onClick }) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Navbar.Toggle
       aria-controls="basic-navbar-nav"
-      onClick={() => setIsOpen(!isOpen)}
+      onClick={() => {setIsOpen(!isOpen)}}
       className="border-0"
     >
       <span
         className="mr-2"
       >
         <Icon
+          onClick={onClick}
           name={isOpen ? 'times' : 'bars'}
-          fill="#525252"
+          fill={isDark ? '#ffffff' : "#525252"}
         />
       </span>
     </Navbar.Toggle>
@@ -25,9 +27,11 @@ const NavbarToggle = () => {
 };
 
 NavbarToggle.propTypes = {
+  isDark: PropTypes.bool
 };
 
 NavbarToggle.defaultProps = {
+  isDark: false
 };
 
 export default NavbarToggle;
