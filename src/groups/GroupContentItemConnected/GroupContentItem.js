@@ -15,7 +15,9 @@ const videoCallURLWithParameters = (videoURL, parameters) => {
   if (!isMSIE) {
     urlWithParams = new URL(videoURL);
 
-    Object.entries(parameters).map(([key, value]) => urlWithParams.searchParams.set(key, value));
+    if (parameters) {
+      Object.entries(parameters).map(([key, value]) => urlWithParams.searchParams.set(key, value));
+    }
 
     urlWithParams = urlWithParams.href;
   }
@@ -31,6 +33,7 @@ const GroupContentItem = ({
   parentVideoCall,
   summary,
   title,
+  userName,
   videoCall,
 }) => (
   <>
@@ -47,9 +50,14 @@ const GroupContentItem = ({
             {get(parentVideoCall, 'link') && (
               <a
                 className="btn btn-primary btn-block mb-3"
-                href={videoCallURLWithParameters(get(parentVideoCall, 'link'), {
-                  uname: 'Marty McFly',
-                })}
+                href={videoCallURLWithParameters(
+                  get(parentVideoCall, 'link'),
+                  userName
+                    ? {
+                      uname: userName,
+                    }
+                    : null,
+                )}
                 target="_blank"
               >
                 Join Meeting
@@ -58,7 +66,14 @@ const GroupContentItem = ({
             {get(videoCall, 'link') && (
               <a
                 className="btn btn-primary btn-block mb-3"
-                href={videoCallURLWithParameters(get(videoCall, 'link'), { uname: 'Marty McFly' })}
+                href={videoCallURLWithParameters(
+                  get(videoCall, 'link'),
+                  userName
+                    ? {
+                      uname: userName,
+                    }
+                    : null,
+                )}
                 target="_blank"
               >
                 {parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
