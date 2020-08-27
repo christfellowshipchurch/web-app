@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 export default gql`
   fragment groupFragment on Group {
     id
-    name
     title
     groupType
     summary
