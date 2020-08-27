@@ -40,7 +40,7 @@ const GroupContentItemConnected = ({ itemId }) => {
       groupResources={get(content, 'groupResources')}
       parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
-      title={get(content, 'name')}
+      title={get(content, 'title')}
       userName={get(data, 'currentUser.profile.firstName')}
       videoCall={get(content, 'videoCall')}
     />
