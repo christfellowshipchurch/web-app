@@ -45,7 +45,7 @@ const GroupContentItem = ({
       </hgroup>
 
       <section className="row mx-n2">
-        <aside className="col-12 col-lg-4 p-2">
+        <aside className={classnames('col-12', { 'col-lg-4': summary }, 'p-2')}>
           <Card key="EventOccurences" className="mb-3">
             {get(parentVideoCall, 'link') && (
               <a
@@ -156,7 +156,8 @@ GroupContentItem.defaultProps = {
   coverImage: {
     sources: [
       {
-        uri: 'https://rock.christfellowship.church/Content/ExternalSite/Banners/GroupsHeader.jpg',
+        uri:
+          'https://rock.christfellowship.church/Content/ExternalSite/Banners/GroupsHeader.jpg',
       },
     ],
   },
