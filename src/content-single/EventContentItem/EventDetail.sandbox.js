@@ -40,16 +40,9 @@ const EventDetail = ({
   isLive,
 }) => (
   <div className={classnames("container-fluid", "mb-4", "px-3")}>
-    {(title !== "" || summary !== "") && (
-      <div
-        className={classnames(
-          "d-md-flex",
-          "justify-content-between",
-          "align-items-center",
-          "pb-3"
-        )}
-      >
-        <div className="mt-4 mb-2 pb-2">
+    <div className={classnames("d-md-flex", "col-12 col-lg-8", "pb-3")}>
+      {(title !== "" || summary !== "") && (
+        <div className="row mt-4 mb-2 pb-2">
           {isLive && (
             <div className={classnames("mb-2", "d-flex", "align-items-center")}>
               <Icon
@@ -71,25 +64,28 @@ const EventDetail = ({
               </h4>
             </div>
           )}
-          <h1 className="mb-2 text-dark">{title}</h1>
-          <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
+
+          <div className="row">
+            <h1 className="mb-2 text-dark">{title}</h1>
+            <h3 className="mt-1 content-subtitle font-weight-light">
+              {summary}
+            </h3>
+          </div>
+
+          <div className="row flex-grow-1 mt-4 justify-content-between">
+            <div
+              className="d-flex align-items-center px-4"
+              style={{ background: "rgba(0, 255, 255, 0.3)" }}
+            >
+              <code>{`<AttendanceInfo />`}</code>
+            </div>
+            <Share shareTitle="Invite" title={title} variant={"outline-dark"} />
+          </div>
         </div>
-        <Share shareTitle="Invite" title={title} variant={"outline-dark"} />
-      </div>
-    )}
+      )}
+    </div>
 
     <div className="row mx-n2">
-      <div className="col-12 col-lg-4 p-2">
-        <ConnectedEventSchedule
-          id={id}
-          callsToAction={callsToAction}
-          openLinksInNewTab={openLinksInNewTab}
-          events={events}
-          title={title}
-          description={htmlContent}
-        />
-      </div>
-
       <div className="col-12 col-lg-8 p-2">
         <Card>
           <div className="">{htmlToReactParser.parse(htmlContent)}</div>
