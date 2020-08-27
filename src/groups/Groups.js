@@ -21,13 +21,14 @@ const Groups = () => {
             <div className="max-width-800 mx-auto">
               <h1 className="font-wieight-bold text-white">Groups</h1>
               <p className="text-white">
-                Groups help you find community and build the kind of friendships we all need to live
-                out our faith. During this season, we have online study groups as well as groups
-                meeting in person (with social distancing in place) that will encourage you to grow
-                stronger in your relationship with God and discover your purpose so you can impact
-                your world. We have groups for everyone where you can grow together and build
-                friendships. Not sure which one? Click here for assistance. We'd love to help you
-                find a group that's right for you!
+                Groups help you find community and build the kind of friendships we all
+                need to live out our faith. During this season, we have online study
+                groups as well as groups meeting in person (with social distancing in
+                place) that will encourage you to grow stronger in your relationship with
+                God and discover your purpose so you can impact your world. We have groups
+                for everyone where you can grow together and build friendships. Not sure
+                which one? Click here for assistance. We'd love to help you find a group
+                that's right for you!
               </p>
             </div>
             {isLoggedIn ? (
@@ -61,7 +62,10 @@ const Groups = () => {
               Find A Group
             </a>
 
-            <button className="col-md-4 btn btn-blk btn-outline-dark" onClick={() => logIn()}>
+            <button
+              className="col-md-4 btn btn-blk btn-outline-dark"
+              onClick={() => logIn()}
+            >
               Login For Your Groups
             </button>
           </div>
