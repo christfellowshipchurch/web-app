@@ -6,8 +6,7 @@ import { get } from 'lodash';
 // import { useAuthQuery } from '../../auth';
 import { Loader, ErrorBlock } from '../../ui';
 
-import GET_GROUP from '../getGroup';
-
+import GET_GROUP from './getGroup';
 import GroupContentItem from './GroupContentItem';
 
 const GroupContentItemConnected = ({ itemId }) => {

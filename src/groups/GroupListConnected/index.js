@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import { ContentCard, ErrorBlock, Loader } from '../../ui';
 
-import GET_CURRENT_USER_GROUPS from '../getCurrentUserGroups';
+import GET_CURRENT_USER_GROUPS from './getCurrentUserGroups';
 
 const GroupListConnected = () => {
   const { loading, error, data } = useQuery(GET_CURRENT_USER_GROUPS, {
