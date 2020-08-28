@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 import { get } from 'lodash';
 
 // import { useAuthQuery } from '../../auth';
 import { Loader, ErrorBlock } from '../../ui';
 
+import ATTEND_MEETING from './attendMeeting';
 import GET_GROUP from './getGroup';
 import GroupContentItem from './GroupContentItem';
 
@@ -14,6 +15,8 @@ const GroupContentItemConnected = ({ itemId }) => {
     variables: { itemId },
     fetchPolicy: 'cache-and-network',
   });
+
+  const [handleAttend] = useMutation(ATTEND_MEETING);
 
   if (loading) {
     return (
