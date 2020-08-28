@@ -79,11 +79,6 @@ export const CampusTile = ({
 
         {serviceTimes.length > 0 && (
           <>
-            <p className="mt-3">
-              <i className="pr-1">Please note:</i>
-              While many locations are still gathering digitally, this location has
-              resumed in-person services. We look forward to seeing you!
-            </p>
             <h3 className="mt-4">Service Times</h3>
             {uniqBy(serviceTimes, 'time').map((n, i) => {
               const isDate = moment(`${n.day} ${n.time}`).isValid();
@@ -105,19 +100,6 @@ export const CampusTile = ({
 
         {serviceTimes.length < 1 && (
           <>
-            <p className="">
-              <i className="pr-1">Please note:</i>
-              Due to COVID-19, this location is currently gathering digitally through
-              Church Online. For the latest information on resuming in-person services,
-              check out our
-              <a
-                className="pl-1"
-                href="/content/church-family-updates-06673de02b3cef9ed190656386c9de85"
-              >
-                Church Family Updates
-              </a>
-              .
-            </p>
             <Button
               className="mt-3"
               title="Watch Church Online"
@@ -129,7 +111,7 @@ export const CampusTile = ({
         {serviceTimes.length > 0 && (
           <>
             <Button
-              title={`Get Directions`}
+              title="Get Directions"
               type="dark"
               newTab
               href={`https://www.google.com/maps/dir/?api=1&destination=${location}`}
@@ -174,12 +156,13 @@ const CampusSelect = ({ background }) => {
   const [activeCampus, setActiveCampus] = useState(null);
   const { loading, error, data: campusesData } = useQuery(GET_CAMPUSES);
 
-  if (loading)
+  if (loading) {
     return (
       <div className="vh-100 vw-100 d-flex justify-content-center align-items-center bg-light">
         <Loader />
       </div>
     );
+  }
 
   let campuses = null;
 
@@ -235,7 +218,7 @@ const CampusSelect = ({ background }) => {
               placeholder="Or Enter Your Zip Code"
               maxLength="5"
               onChange={(e) => {
-                const value = e.target.value;
+                const { value } = e.target;
 
                 if (value.length === 5) {
                   setDisabled(true);

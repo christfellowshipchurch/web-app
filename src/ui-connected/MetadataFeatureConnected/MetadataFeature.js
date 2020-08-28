@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MetaTags from 'react-meta-tags';
 
-const Metadata = ({ tags }) => (
+const MetadataFeature = ({ title, meta }) => (
   <MetaTags>
-    {tags.map((tag, i) => {
+    {meta.map((tag, i) => {
       switch (tag.name) {
         case 'title':
           return [
@@ -85,8 +85,9 @@ const Metadata = ({ tags }) => (
   </MetaTags>
 );
 
-Metadata.propTypes = {
-  tags: PropTypes.arrayOf(
+MetadataFeature.propTypes = {
+  title: PropTypes.string,
+  meta: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       content: PropTypes.string,
@@ -94,27 +95,8 @@ Metadata.propTypes = {
   ),
 };
 
-Metadata.defaultProps = {
-  tags: [
-    { name: 'title', content: 'Christ Fellowship Church' },
-    {
-      name: 'keywords',
-      content:
-        'Church,Christ Fellowship,Christ Fellowship Church,Churches in South Florida',
-    },
-    {
-      name: 'description',
-      content:
-        "Christ Fellowship is a church in South Florida that helps you thrive in every area of life. Christ Fellowship Church's passion is to help you know God, grow in your relationship with God & others, and discover your purpose so that you can impact the world.",
-    },
-    { name: 'url', content: 'https://christfellowship.church' },
-    { name: 'og:type', content: 'website' },
-    {
-      name: 'image',
-      content:
-        'https://rock.christfellowship.church/Content/images/CF-Worship-Generic.jpg',
-    },
-  ],
+MetadataFeature.defaultProps = {
+  meta: [],
 };
 
-export default Metadata;
+export default MetadataFeature;
