@@ -30,6 +30,8 @@ const GroupContentItem = ({
   dateText,
   dateTimes,
   groupResources,
+  onClickVideoCall,
+  onClickParentVideoCall,
   parentVideoCall,
   summary,
   title,
@@ -58,6 +60,7 @@ const GroupContentItem = ({
                     }
                     : null,
                 )}
+                onClick={() => onClickParentVideoCall}
                 target="_blank"
               >
                 Join Meeting
@@ -74,6 +77,7 @@ const GroupContentItem = ({
                     }
                     : null,
                 )}
+                onClick={() => onClickVideoCall}
                 target="_blank"
               >
                 {parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
@@ -137,6 +141,8 @@ GroupContentItem.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  onClickParentVideoCall: PropTypes.func,
+  onClickVideoCall: PropTypes.func,
   parentVideoCall: PropTypes.shape({
     link: PropTypes.string,
     meetingId: PropTypes.string,
