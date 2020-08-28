@@ -33,6 +33,8 @@ const GroupContentItemConnected = ({ itemId }) => {
     return <ErrorBlock />;
   }
 
+  const handleOnClickVideo = () => handleAttend({ variables: { id: itemId } });
+
   console.log(data);
   return (
     <GroupContentItem
@@ -40,6 +42,8 @@ const GroupContentItemConnected = ({ itemId }) => {
       dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
       groupResources={get(content, 'groupResources')}
+      onClickParentVideoCall={handleOnClickVideo}
+      onClickVideoCall={handleOnClickVideo}
       parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
       title={get(content, 'title')}
