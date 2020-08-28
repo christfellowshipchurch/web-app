@@ -21,9 +21,8 @@ const MediaItem = ({
   gradientDirection,
   withHover,
   style,
-  isLive
+  isLive,
 }) => {
-
   let ratioClass = typeof ratio === 'string'
     ? `embed-responsive-${ratio}`
     : keys(ratio).map((n) => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''));
@@ -33,7 +32,7 @@ const MediaItem = ({
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
-
+  
   return (
     <div
       className={classnames(
@@ -44,14 +43,15 @@ const MediaItem = ({
           rounded: rounded && !circle,
           'rounded-circle': circle,
           'scale-media-up-on-hover': withHover,
-          'overflow-visible': videoUrl
+          'overflow-visible': videoUrl,
         },
       )}
       style={style}
     >
 
       {videoUrl
-        ? <Video
+        ? (
+          <Video
             className={classnames(
               'embed-responsive-item',
             )}
@@ -61,20 +61,23 @@ const MediaItem = ({
             isLive={isLive}
             playIcon={playIcon}
           />
-        : <Image
+        )
+        : (
+          <Image
             source={imageUrl}
             alt={imageAlt}
             className={classnames(
               'embed-responsive-item',
             )}
           />
-      }
+        )}
 
-      {!showControls &&
+      {!showControls
+        && (
         <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
           {children}
         </div>
-      }
+        )}
 
       {(gradient || overlay)
         && (
@@ -110,7 +113,7 @@ MediaItem.defaultProps = {
   gradient: null,
   gradientDirection: 'bottom-top',
   withHover: false,
-  isLive: false
+  isLive: false,
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
