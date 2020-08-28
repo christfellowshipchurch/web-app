@@ -2,16 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { get } from "lodash";
-import { useAuth, useAuthQuery } from "../../auth";
+import { useAuth, useAuthQuery } from "../../../auth";
 
-import { Card, Share } from "../../ui";
-import EventSchedule from "./EventSchedule";
+import { Card, Share } from "ui";
+import { Icon } from "ui/Icons";
 
-import { CAMPUS_KEY } from "../../keys";
-import { htmlToReactParser } from "../../utils";
+import { CAMPUS_KEY } from "../../../keys";
+import { htmlToReactParser } from "../../../utils";
 
-import { GET_CURRENT_PERSON_CAMPUS } from "./queries";
-import { Icon } from "../../ui/Icons";
+import { GET_CURRENT_PERSON_CAMPUS } from "../queries";
+
+import EventSchedule from "../EventSchedule";
 
 const ConnectedEventSchedule = (props) => {
   const { isLoggedIn } = useAuth();
@@ -39,10 +40,10 @@ const EventDetail = ({
   events,
   isLive,
 }) => (
-  <div className={classnames("container-fluid", "mb-4", "px-3")}>
-    <div className={classnames("d-md-flex", "col-12 col-lg-8", "pb-3")}>
+  <div className="w-100 mb-4 px-3">
+    <div className="container bg-info">
       {(title !== "" || summary !== "") && (
-        <div className="row mt-4 mb-2 pb-2">
+        <div className="row mb-2 pb-2">
           {isLive && (
             <div className={classnames("mb-2", "d-flex", "align-items-center")}>
               <Icon

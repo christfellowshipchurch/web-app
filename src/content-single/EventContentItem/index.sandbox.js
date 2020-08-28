@@ -3,12 +3,15 @@ import PropTypes from "prop-types";
 import { get } from "lodash";
 
 import { ErrorBlock } from "../../ui";
+import { LiveConsumer } from "../../live/LiveContext";
 
 import Placeholder from "./Placeholder";
-import EventBanner from "./EventBanner";
-import Detail from "./EventDetail";
-
-import { LiveConsumer } from "../../live/LiveContext";
+import {
+  EventBannerBackground,
+  EventDetail,
+  EventMedia,
+  EventPanel,
+} from "./components";
 
 const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
   if (loading) {
@@ -27,14 +30,20 @@ const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
         const liveStreamSource = get(liveStream, "media.sources[0].uri", null);
 
         return (
-          <div style={{ minHeight: "60vh" }}>
-            <EventBanner
-              {...content}
-              withShare
-              shareTitle="Invite"
-              liveStreamSource={liveStreamSource}
-            />
-            <Detail {...content} isLive={isLive} />
+          <div style={{ minHeight: "75vh" }}>
+            <EventBannerBackground {...content} />
+
+            <div className="container-fluid max-width-1100 mx-auto">
+              <div className="row pt-4">
+                {/* Main Column */}
+                <div className="col-lg-8">
+                  <EventMedia {...content} />
+                  <EventDetail {...content} isLive={isLive} />
+                </div>
+                {/* Side Column */}
+                <EventPanel />
+              </div>
+            </div>
           </div>
         );
       }}
