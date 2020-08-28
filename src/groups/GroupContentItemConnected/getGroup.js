@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import GROUP_FRAGMENT from './groupFragment';
+import GROUP_FRAGMENT from '../groupFragment';
 
 export default gql`
   query getGroup($itemId: ID!) {
@@ -11,10 +11,10 @@ export default gql`
     }
     currentUser {
       id
-        profile {
-            id
-            firstName
-        }
+      profile {
+        id
+        firstName
+      }
     }
   }
   ${GROUP_FRAGMENT}

@@ -1,5 +1,5 @@
 import gql from 'graphql-tag';
-import GROUP_FRAGMENT from './groupFragment';
+import GROUP_FRAGMENT from '../groupFragment';
 
 export default gql`
   query getCurrentUserGroups {
