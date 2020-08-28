@@ -4,14 +4,14 @@ import classnames from "classnames";
 import { get } from "lodash";
 import { useAuth, useAuthQuery } from "../../../auth";
 
-import { Card, Share } from "ui";
+import { Share } from "ui";
 import { Icon } from "ui/Icons";
 
 import { CAMPUS_KEY } from "../../../keys";
-import { htmlToReactParser } from "../../../utils";
 
 import { GET_CURRENT_PERSON_CAMPUS } from "../queries";
 
+import EventDescriptionCard from './EventDescriptionCard';
 import EventSchedule from "../EventSchedule";
 
 const ConnectedEventSchedule = (props) => {
@@ -40,79 +40,53 @@ const EventDetail = ({
   events,
   isLive,
 }) => (
-  <div className="w-100 mb-4 px-3">
-    <div className="container bg-info">
-      {(title !== "" || summary !== "") && (
-        <div className="row mb-2 pb-2">
-          {isLive && (
-            <div className={classnames("mb-2", "d-flex", "align-items-center")}>
-              <Icon
-                className={classnames("d-flex", "align-items-center")}
-                name="live-dot"
-                fill="#cb045b"
-                size="8"
-              />
-              <h4
-                className={classnames(
-                  "text-danger",
-                  "text-left",
-                  "text-uppercase",
-                  "mb-0",
-                  "ml-2"
-                )}
-              >
-                live now
-              </h4>
+    <div className="w-100 px-3">
+      <div className="container">
+        {(title !== "" || summary !== "") && (
+          <div className="row mt-2">
+            {isLive && (
+              <div className={classnames("mt-2", "mb-2", "d-flex", "align-items-center")}>
+                <Icon
+                  className={classnames("d-flex", "align-items-center")}
+                  name="live-dot"
+                  fill="#cb045b"
+                  size="8"
+                />
+                <h4
+                  className={classnames(
+                    "text-danger",
+                    "text-left",
+                    "text-uppercase",
+                    "mb-0",
+                    "ml-2"
+                  )}
+                >
+                  live now
+                </h4>
+              </div>
+            )}
+
+            <div className="row">
+              <h1 className="mb-2 text-dark">{title}</h1>
+              <h3 className="mt-1 content-subtitle font-weight-light">
+                {summary}
+              </h3>
             </div>
-          )}
 
-          <div className="row">
-            <h1 className="mb-2 text-dark">{title}</h1>
-            <h3 className="mt-1 content-subtitle font-weight-light">
-              {summary}
-            </h3>
-          </div>
-
-          <div className="row flex-grow-1 mt-4 justify-content-between">
-            <div
-              className="d-flex align-items-center px-4"
-              style={{ background: "rgba(0, 255, 255, 0.3)" }}
-            >
-              <code>{`<AttendanceInfo />`}</code>
-            </div>
-            <Share shareTitle="Invite" title={title} variant={"outline-dark"} />
-          </div>
-        </div>
-      )}
-    </div>
-
-    <div className="row mx-n2">
-      <div className="col-12 col-lg-8 p-2">
-        <Card>
-          <div className="">{htmlToReactParser.parse(htmlContent)}</div>
-
-          <div className="mx-n1">
-            {tags.map((n, i) => (
-              <span
-                key={i}
-                className={classnames(
-                  "badge",
-                  "badge-light",
-                  "font-weight-normal",
-                  "py-2",
-                  "px-3",
-                  "mx-1"
-                )}
+            <div className="row flex-grow-1 mt-4 justify-content-between">
+              <div
+                className="d-flex align-items-center px-4"
+                style={{ background: "rgba(0, 255, 255, 0.3)" }}
               >
-                {n}
-              </span>
-            ))}
+                <code>{`<AttendanceInfo />`}</code>
+              </div>
+              <Share shareTitle="Invite" title={title} variant={"outline-dark"} />
+            </div>
           </div>
-        </Card>
+        )}
       </div>
     </div>
-  </div>
-);
+  );
 
 EventDetail.propTypes = {
   htmlContent: PropTypes.string,

@@ -8,6 +8,7 @@ import { LiveConsumer } from "../../live/LiveContext";
 import Placeholder from "./Placeholder";
 import {
   EventBannerBackground,
+  EventDescriptionCard,
   EventDetail,
   EventMedia,
   EventPanel,
@@ -34,20 +35,25 @@ const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
             <EventBannerBackground {...content} />
 
             <div className="container-fluid max-width-1100 mx-auto">
-              <div className="row pt-4">
+              <div className="row pt-4 mb-4">
                 {/* Main Column */}
                 <div className="col-lg-8">
-                  <EventMedia {...content} />
+                  <EventMedia {...content} liveStreamSource={"https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=m3u8-aapl-v3)"} />
                   <EventDetail {...content} isLive={isLive} />
                 </div>
+
                 {/* Side Column */}
-                <EventPanel />
+                <div className="col-lg-4">
+                  <EventPanel />
+                </div>
               </div>
+
+              <EventDescriptionCard {...content} />
             </div>
           </div>
         );
       }}
-    </LiveConsumer>
+    </LiveConsumer >
   );
 };
 
