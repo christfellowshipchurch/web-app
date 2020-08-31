@@ -1,22 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
 import VisibilitySensor from 'react-visibility-sensor'
 import { get } from 'lodash'
-import { 
-  Users, 
-  BookAlt,
-  Search
-} from '../Icons'
 
 import {
-  Block,
-  Button,
   Media
 } from '../../ui'
 import {
   htmlToReactParser,
-  redirectTo
 } from '../../utils'
 
 import SwoopImg from '../../images/cyan_hole_punch.svg'
@@ -48,8 +40,10 @@ const HeroSection = ({
   openLinksInNewTab,
   image,
   video,
-  icons
+  children,
+  swoop
 }) => {
+
   return (
     <VisibilitySensor
       active
@@ -74,7 +68,9 @@ const HeroSection = ({
               "align-items-center",
             )}
           >
-            <Swoop />
+            {swoop &&
+              <Swoop />
+            }
 
             <div
               className={classnames(
@@ -107,6 +103,8 @@ const HeroSection = ({
                   {htmlToReactParser.parse(htmlContent)}
                 </p>
 
+                {children}
+                
                 <div className="my-3">
                   {callToAction && <a
                     href={get(callToAction, 'action', '#')}
@@ -121,7 +119,7 @@ const HeroSection = ({
                   </a>}
                 </div>
 
-                <div className="my-3">
+                 <div className="my-3">
                   {secondaryCallToAction && <a
                     href={get(secondaryCallToAction, 'action', '#')}
                     target={openLinksInNewTab ? '_blank' : ''}
@@ -136,6 +134,8 @@ const HeroSection = ({
               </div>
             </div>
           </Media>
+
+          {swoop &&
           <div 
             className={classnames(
               'width-100', 
@@ -144,56 +144,8 @@ const HeroSection = ({
             style={{
               height: 70,
             }}
-          />
-          {/* <div 
-            className={classnames(
-              'width-100', 
-              'bg-primary',
-              'd-flex',
-              'justify-content-center'
-            )}
-          >
-             <div 
-              className={classnames(
-                'row',
-                'container-fluid',
-                'mb-4'
-              )}
-            >
-             {icons.map((n, i) => (
-               <div 
-                className={classnames(
-                  'col-12',
-                  'col-md-4',
-                  'd-flex',
-                  'flex-column',
-                  'align-items-center',
-                  'mt-4'
-                )}
-                key={i}
-              >
-                <Media
-                  imageUrl={n.icon}
-                  rounded
-                  circle
-                  style={{
-                    height: 100,
-                    width: 100
-                  }}
-                />
-                <h4
-                  className={classnames(
-                    'text-white',
-                    'pt-3',
-                    'mb-0',
-                  )}
-                >
-                  {n.title}
-                </h4>
-               </div>
-              ))}
-              </div>   
-          </div> */}
+          />}
+
           </>
         )
       }}
@@ -219,12 +171,8 @@ HeroSection.propTypes = {
   video: PropTypes.shape({
     uri: PropTypes.string.isRequired,
   }),
-  icons: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.string,
-      title: PropTypes.string
-    })
-  )
+  children: PropTypes.object,
+  swoop: PropTypes.bool
 }
 
 HeroSection.defaultProps = {
@@ -233,20 +181,8 @@ HeroSection.defaultProps = {
   secondaryCallToAction: null,
   image: null,
   video: null,
-  icons: [
-    {
-      icon: Users,
-      title: 'Find Community'
-    },
-    {
-      icon: BookAlt,
-      title: 'Grow in Your Faith'
-    },
-    {
-      icon: Search,
-      title: 'Discover Your Purpose'
-    },
-  ]
+  children: null,
+  swoop: true,
 }
 
 export default HeroSection
