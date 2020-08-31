@@ -1,6 +1,7 @@
 import React from 'react';
-import PageBuilder from '../../page-builder';
 import FeaturesFeed from '../../features-feed';
+
+import ExternalHome from './ExternalHome.js'
 
 import { useAuth } from '../../auth';
 
@@ -9,12 +10,7 @@ const HomeRouter = () => {
 
     return isLoggedIn
         ? <FeaturesFeed />
-        : (
-            <PageBuilder
-                title="home-page"
-                theme="swoop"
-            />
-        );
+        : <ExternalHome />
 };
 
 export default HomeRouter;
