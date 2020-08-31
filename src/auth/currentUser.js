@@ -29,7 +29,7 @@ const useAuthQuery = (query) => {
         //  specifically in regards to the refetch.
         // In this case, there's no need to make that
         //  error visible, so we're overwriting it with
-        //  our own.
+        //  our own
         if (isLoggedIn) refetch().catch(() => console.error('Authentication error'));
     }, [token]);
 
