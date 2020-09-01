@@ -1,19 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-import PageBuilder from '../../page-builder'
+import PageBuilder from '../../page-builder';
 
-const DefaultHome = (props) =>
-    <PageBuilder
-        title='home'
-        theme="swoop"
-        backgroundColors={['transparent', 'white', 'primary']}
-        {...props}
-    />
+const DefaultHome = (props) => (
+  <PageBuilder
+    title="home"
+    theme="swoop"
+    backgroundColors={['transparent', 'white', 'primary']}
+    {...props}
+  />
+);
 
-DefaultHome.propTypes = {
-}
+DefaultHome.propTypes = {};
 
-DefaultHome.defaultProps = {
-}
+DefaultHome.defaultProps = {};
 
-export default DefaultHome
+export default DefaultHome;

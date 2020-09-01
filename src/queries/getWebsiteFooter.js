@@ -1,17 +1,17 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export default gql`
-  query websiteNavigation($website:String!) {
-    getWebsiteNavigation(website:$website) {
+  query websiteNavigation($website: String!) {
+    getWebsiteNavigation(website: $website) {
       id
-    
+
       images {
         sources {
           uri
         }
         name
       }
-      
+
       footerLinks {
         call
         action
@@ -23,4 +23,4 @@ export default gql`
       }
     }
   }
-`
+`;

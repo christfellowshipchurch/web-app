@@ -1,5 +1,5 @@
-import FormattedCarousel from './Carousel'
+import FormattedCarousel from './Carousel';
 
-const Carousel = FormattedCarousel
+const Carousel = FormattedCarousel;
 
-export default Carousel
+export default Carousel;

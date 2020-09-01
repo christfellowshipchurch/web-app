@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { toLower, camelCase } from 'lodash';
-import {
-  ExclamationCircle,
-  CheckCircle,
-  Ban,
-  User,
-} from '../../Icons';
+import { ExclamationCircle, CheckCircle, Ban, User } from '../../Icons';
 
 import InputContainer from '../inputContainer';
 import InputIcon from '../inputIcon';
@@ -29,12 +24,9 @@ const TextInput = ({
 }) => {
   const [focused, setFocused] = useState(false);
   const [hovering, setHovering] = useState(false);
-  const prefixColor = (focused || hovering) && !disabled
-    ? '#00aeef'
-    : disabled ? '#e6e6e6' : '#525252';
-  let suffix = withSuccess
-    ? { icon: CheckCircle, color: '#1ec27f' }
-    : null;
+  const prefixColor =
+    (focused || hovering) && !disabled ? '#00aeef' : disabled ? '#e6e6e6' : '#525252';
+  let suffix = withSuccess ? { icon: CheckCircle, color: '#1ec27f' } : null;
 
   if (error) {
     suffix = { icon: ExclamationCircle, color: '#cb045b' };
@@ -52,7 +44,9 @@ const TextInput = ({
       description={error && !disabled ? error : description}
       focused={readOnly ? false : focused || !!value}
       hasValue={!!value && value !== ''}
-      prefix={!!icon && <InputIcon icon={icon} color={hideIcon ? 'transparent' : prefixColor} />}
+      prefix={
+        !!icon && <InputIcon icon={icon} color={hideIcon ? 'transparent' : prefixColor} />
+      }
       suffix={suffix && <InputIcon icon={suffix.icon} color={suffix.color} />}
     >
       <input
@@ -63,8 +57,12 @@ const TextInput = ({
         className="w-100 py-0"
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        onMouseEnter={() => { !readOnly && setHovering(true); }}
-        onMouseLeave={() => { !readOnly && setHovering(false); }}
+        onMouseEnter={() => {
+          !readOnly && setHovering(true);
+        }}
+        onMouseLeave={() => {
+          !readOnly && setHovering(false);
+        }}
         onChange={(e) => onChange(e)}
         disabled={disabled || readOnly}
         {...inputProps}
@@ -74,7 +72,7 @@ const TextInput = ({
 };
 
 TextInput.defaultProps = {
-  onChange: () => { },
+  onChange: () => {},
   icon: User,
   hideIcon: false,
   readOnly: false,

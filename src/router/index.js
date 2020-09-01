@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
+import { ErrorBlock } from '../ui';
+import redirects from '../redirects.json';
 import PageBuilder from './PageBuilder';
 import HomePage from './Home';
 import Login from './Login';
@@ -13,10 +15,6 @@ import Profile from './Profile';
 import Animations from './Animations';
 import Campuses from './Campuses';
 import Live from './Live';
-
-import { ErrorBlock } from '../ui';
-
-import redirects from '../redirects.json';
 
 const RedirectMapper = (props) => {
   // get page title from props

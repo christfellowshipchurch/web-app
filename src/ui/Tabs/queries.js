@@ -1,9 +1,7 @@
-import gql from 'graphql-tag'
-
+import gql from 'graphql-tag';
 
 export const GET_CONTENT_BY_ID = gql`
   query getContentById($id: ID!) {
-
     node(id: $id) {
       ...WebsitePageParts
       ...ContentParts
@@ -35,7 +33,7 @@ export const GET_CONTENT_BY_ID = gql`
   fragment BlockParts on WebsiteBlockItem {
     title
     subtitle
-    
+
     contentLayout
     callToAction {
       call
@@ -64,7 +62,7 @@ export const GET_CONTENT_BY_ID = gql`
     id
     title
     htmlContent
-    
+
     groupLayout
     accordionType
   }
@@ -72,7 +70,7 @@ export const GET_CONTENT_BY_ID = gql`
   fragment WebsitePageParts on WebsitePagesContentItem {
     title
     icon
-    
+
     childContentItemsConnection {
       edges {
         node {
@@ -84,4 +82,4 @@ export const GET_CONTENT_BY_ID = gql`
       }
     }
   }
-`
+`;

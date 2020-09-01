@@ -16,7 +16,9 @@ const videoCallURLWithParameters = (videoURL, parameters) => {
     urlWithParams = new URL(videoURL);
 
     if (parameters) {
-      Object.entries(parameters).map(([key, value]) => urlWithParams.searchParams.set(key, value));
+      Object.entries(parameters).map(([key, value]) =>
+        urlWithParams.searchParams.set(key, value)
+      );
     }
 
     urlWithParams = urlWithParams.href;
@@ -57,9 +59,9 @@ const GroupContentItem = ({
                   get(parentVideoCall, 'link'),
                   userName
                     ? {
-                      uname: userName,
-                    }
-                    : null,
+                        uname: userName,
+                      }
+                    : null
                 )}
                 onClick={() => onClickParentVideoCall('parent')}
                 target="_blank"
@@ -74,9 +76,9 @@ const GroupContentItem = ({
                   get(videoCall, 'link'),
                   userName
                     ? {
-                      uname: userName,
-                    }
-                    : null,
+                        uname: userName,
+                      }
+                    : null
                 )}
                 onClick={() => onClickVideoCall()}
                 target="_blank"
@@ -89,9 +91,11 @@ const GroupContentItem = ({
                 key={resource.url}
                 className={classnames('btn', 'btn-outline-dark', 'btn-block', 'my-3')}
                 href={resource.url}
-                onClick={() => onClickGroupResource({
-                  resourceTitle: resource.title,
-                })}
+                onClick={() =>
+                  onClickGroupResource({
+                    resourceTitle: resource.title,
+                  })
+                }
                 target={resource.url.includes('http') ? '_blank' : ''}
               >
                 {resource.title}
@@ -143,7 +147,7 @@ GroupContentItem.propTypes = {
     PropTypes.shape({
       title: PropTypes.string,
       url: PropTypes.string,
-    }),
+    })
   ),
   onClickGroupResource: PropTypes.func,
   onClickParentVideoCall: PropTypes.func,

@@ -1,23 +1,16 @@
 import React from 'react';
-import {
-  useQuery,
-} from 'react-apollo';
-import {
-  get,
-} from 'lodash';
+import { useQuery } from 'react-apollo';
+import { get } from 'lodash';
 
 import { Loader } from '../../ui';
 
+import { GET_TOP_THREE_ARTICLES } from '../queries';
 import ContentLinks from './ContentLinks';
-import {
-  GET_TOP_THREE_ARTICLES,
-} from '../queries';
 
 const TopThreeContent = () => {
-  const { loading, error, data } = useQuery(GET_TOP_THREE_ARTICLES,
-    {
-      fetchPolicy: 'cache-and-network',
-    });
+  const { loading, error, data } = useQuery(GET_TOP_THREE_ARTICLES, {
+    fetchPolicy: 'cache-and-network',
+  });
 
   if (loading) return <Loader />;
 
@@ -30,18 +23,14 @@ const TopThreeContent = () => {
   const content = get(
     data,
     'getBrowseFilters.childContentItemsConnection.edges[0].node.childContentItemsConnection.edges[0].node',
-    [],
+    []
   );
 
-  return content.length
-    ? <ContentLinks content={content} />
-    : null;
+  return content.length ? <ContentLinks content={content} /> : null;
 };
 
-TopThreeContent.propTypes = {
-};
+TopThreeContent.propTypes = {};
 
-TopThreeContent.defaultProps = {
-};
+TopThreeContent.defaultProps = {};
 
 export default TopThreeContent;

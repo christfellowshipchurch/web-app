@@ -8,19 +8,21 @@ import { Card, Media } from '../..';
 
 import { generateUrlLink } from '..';
 
-const ContentCardWrapper = ({ element, children }) => React.createElement(
-  element,
-  {
-    className: classnames('col-12', 'col-md-6', 'col-lg-4', 'p-2', 'mb-2'),
-  },
-  children,
-);
+const ContentCardWrapper = ({ element, children }) =>
+  React.createElement(
+    element,
+    {
+      className: classnames('col-12', 'col-md-6', 'col-lg-4', 'p-2', 'mb-2'),
+    },
+    children
+  );
 
-const parseId = ({ urlBase, id }) => (urlBase === 'content' ? `-${get(id.split(':'), '[1]', '')}` : '');
+const parseId = ({ urlBase, id }) =>
+  urlBase === 'content' ? `-${get(id.split(':'), '[1]', '')}` : '';
 
 const CardLink = ({ children, className, to: { id, href: pathname, target } = {} }) =>
   // if we have a target it's an external link so render an anchor `a`
-  (target ? (
+  target ? (
     <a className={className} href={pathname} target={target}>
       {children}
     </a>
@@ -35,7 +37,7 @@ const CardLink = ({ children, className, to: { id, href: pathname, target } = {}
     >
       {children}
     </Link>
-  ));
+  );
 
 const ContentCard = ({
   __typename,
@@ -69,7 +71,7 @@ const ContentCard = ({
         'pt-2',
         'scale-media-up-on-hover',
         'no-decoration',
-        'my-3',
+        'my-3'
       )}
       to={href}
     >
@@ -79,7 +81,7 @@ const ContentCard = ({
           {
             'h-100': !row,
           },
-          'overflow-hidden',
+          'overflow-hidden'
         )}
         style={style}
       >
@@ -112,7 +114,7 @@ const ContentCard = ({
                   'py-2',
                   [`bg-${label.bg}`],
                   [`text-${label.textColor}`],
-                  'text-uppercase',
+                  'text-uppercase'
                 )}
               >
                 <small className="font-weight-bold">{label.value}</small>

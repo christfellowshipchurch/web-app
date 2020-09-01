@@ -5,16 +5,9 @@ import FeaturesFeed from '../../features-feed';
 import { useAuth } from '../../auth';
 
 const HomeRouter = () => {
-    const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-    return isLoggedIn
-        ? <FeaturesFeed />
-        : (
-            <PageBuilder
-                title="home-page"
-                theme="swoop"
-            />
-        );
+  return isLoggedIn ? <FeaturesFeed /> : <PageBuilder title="home-page" theme="swoop" />;
 };
 
 export default FeaturesFeed;

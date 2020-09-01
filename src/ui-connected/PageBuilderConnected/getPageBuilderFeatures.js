@@ -3,8 +3,8 @@ import Fragments from 'ui-fragments';
 
 export default gql`
   query getPageBuilderFeatures($url: String!) {
-    pageBuilderFeatures(url:$url) {
-        ...PageBuilderFeatureFragment
+    pageBuilderFeatures(url: $url) {
+      ...PageBuilderFeatureFragment
     }
   }
   ${Fragments.CAMPUS_PARTS_FRAGMENT}

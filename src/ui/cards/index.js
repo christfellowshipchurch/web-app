@@ -7,9 +7,7 @@ export { default as TileRowCard } from './TileRowCard';
 export { default as RowCard } from './RowCard';
 export { default as HighlightCard } from './HighlightCard';
 
-export const generateUrlLink = ({
-  urlBase, title, id, redirectUrl,
-}) => {
+export const generateUrlLink = ({ urlBase, title, id, redirectUrl }) => {
   const href = {
     target: '',
     href: '#',
@@ -22,7 +20,10 @@ export const generateUrlLink = ({
     href.href = redirectUrl;
   } else {
     const prefix = kebabCase(title.toUpperCase());
-    const suffix = urlBase === 'content' || urlBase === 'items' ? `-${get(id.split(':'), '[1]', '')}` : '';
+    const suffix =
+      urlBase === 'content' || urlBase === 'items'
+        ? `-${get(id.split(':'), '[1]', '')}`
+        : '';
 
     href.href = `/${urlBase}/${prefix}${suffix}`;
   }
