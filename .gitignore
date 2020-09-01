@@ -66,6 +66,9 @@ env
 # next.js build output
 .next
 
+# vscode
+.vscode/settings.json
+
 # xcode
 build/
 

@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {
-  get,
-  toLower,
-  kebabCase,
-} from 'lodash';
+import { get, toLower, kebabCase } from 'lodash';
 
 import { Media } from '../../ui';
 
@@ -13,15 +9,10 @@ const Links = ({ articles, label }) => (
   <div className="container-fluid my-6 px-3">
     <div className="row">
       <div className="col">
-        <h3 className="text-dark align-self-start">
-          {label}
-        </h3>
+        <h3 className="text-dark align-self-start">{label}</h3>
       </div>
       <div className="col text-right">
-        <a
-          href="/discover"
-          className="text-dark align-self-end"
-        >
+        <a href="/discover" className="text-dark align-self-end">
           See More
         </a>
       </div>
@@ -31,12 +22,7 @@ const Links = ({ articles, label }) => (
         <a
           key={i}
           href={`/content/${kebabCase(toLower(get(n, 'title', '')))}`}
-          className={classnames(
-            'col-12',
-            'col-md-4',
-            'p-1',
-            'text-white',
-          )}
+          className={classnames('col-12', 'col-md-4', 'p-1', 'text-white')}
         >
           <Media
             ratio="1by1"
@@ -53,14 +39,12 @@ const Links = ({ articles, label }) => (
                 'p-3',
                 'd-flex',
                 'flex-row',
-                'align-items-end',
+                'align-items-end'
               )}
               style={{ zIndex: 2 }}
             >
               <div>
-                <h3 className="text-light">
-                  {get(n, 'title', '')}
-                </h3>
+                <h3 className="text-light">{get(n, 'title', '')}</h3>
               </div>
             </div>
             <div

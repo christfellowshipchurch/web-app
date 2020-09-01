@@ -24,14 +24,7 @@ const MediaContainer = ({
   }
 
   return (
-    <div
-      style={style}
-      className={classnames(
-        'overflow-hidden',
-        'p-relative',
-        className,
-      )}
-    >
+    <div style={style} className={classnames('overflow-hidden', 'p-relative', className)}>
       <MediaItem
         {...mediaItemProps}
         className="fill"

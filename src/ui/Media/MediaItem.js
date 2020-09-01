@@ -23,77 +23,78 @@ const MediaItem = ({
   style,
   isLive,
 }) => {
-  let ratioClass = typeof ratio === 'string'
-    ? `embed-responsive-${ratio}`
-    : keys(ratio).map((n) => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''));
+  let ratioClass =
+    typeof ratio === 'string'
+      ? `embed-responsive-${ratio}`
+      : keys(ratio).map((n) => `embed-responsive-${n}-${ratio[n]}`.replace('-xs', ''));
 
   if (circle) {
     ratioClass = 'embed-responsive-1by1';
   }
 
   // TODO : test where the showControls is passed in, but no value URL exists
-  
+
   return (
     <div
-      className={classnames(
-        className,
-        'embed-responsive',
-        ratioClass,
-        {
-          rounded: rounded && !circle,
-          'rounded-circle': circle,
-          'scale-media-up-on-hover': withHover,
-          'overflow-visible': videoUrl,
-        },
-      )}
+      className={classnames(className, 'embed-responsive', ratioClass, {
+        rounded: rounded && !circle,
+        'rounded-circle': circle,
+        'scale-media-up-on-hover': withHover,
+        'overflow-visible': videoUrl,
+      })}
       style={style}
     >
+      {videoUrl ? (
+        <Video
+          className={classnames('embed-responsive-item')}
+          source={videoUrl}
+          poster={imageUrl}
+          showControls={showControls}
+          isLive={isLive}
+          playIcon={playIcon}
+        />
+      ) : (
+        <Image
+          source={imageUrl}
+          alt={imageAlt}
+          className={classnames('embed-responsive-item')}
+        />
+      )}
 
-      {videoUrl
-        ? (
-          <Video
-            className={classnames(
-              'embed-responsive-item',
-            )}
-            source={videoUrl}
-            poster={imageUrl}
-            showControls={showControls}
-            isLive={isLive}
-            playIcon={playIcon}
-          />
-        )
-        : (
-          <Image
-            source={imageUrl}
-            alt={imageAlt}
-            className={classnames(
-              'embed-responsive-item',
-            )}
-          />
-        )}
+      {videoUrl ? (
+        <Video
+          className={classnames('embed-responsive-item')}
+          source={videoUrl}
+          poster={imageUrl}
+          showControls={showControls}
+          isLive={isLive}
+          playIcon={playIcon}
+        />
+      ) : (
+        <Image
+          source={imageUrl}
+          alt={imageAlt}
+          className={classnames('embed-responsive-item')}
+        />
+      )}
 
-      {!showControls
-        && (
-        <div className="fill d-flex justify-content-center align-items-center" style={{ zIndex: 1000 }}>
+      {!showControls && (
+        <div
+          className="fill d-flex justify-content-center align-items-center"
+          style={{ zIndex: 1000 }}
+        >
           {children}
         </div>
-        )}
+      )}
 
-      {(gradient || overlay)
-        && (
-          <div
-            className={classnames(
-              'w-100',
-              'h-100',
-              'absolute-center',
-              'opacity-65',
-              {
-                [`bg-${overlay}`]: !!overlay,
-                [`gradient-${gradient}-${gradientDirection}`]: !!gradient,
-              },
-            )}
-          />
-        )}
+      {(gradient || overlay) && (
+        <div
+          className={classnames('w-100', 'h-100', 'absolute-center', 'opacity-65', {
+            [`bg-${overlay}`]: !!overlay,
+            [`gradient-${gradient}-${gradientDirection}`]: !!gradient,
+          })}
+        />
+      )}
     </div>
   );
 };
@@ -139,10 +140,7 @@ MediaItem.propTypes = {
   playIcon: PropTypes.shape({
     as: PropTypes.element, // TODO : add support
     color: PropTypes.string,
-    size: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
+    size: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   }),
   overlay: PropTypes.oneOf([
     'primary',
@@ -166,9 +164,7 @@ MediaItem.propTypes = {
     'dark',
     'black',
   ]),
-  gradientDirection: PropTypes.oneOf([
-    'bottom-top',
-  ]),
+  gradientDirection: PropTypes.oneOf(['bottom-top']),
 };
 
 export default MediaItem;

@@ -12,8 +12,8 @@ import { useAuth } from './auth';
 import {
   load as loadIntercom,
   boot as bootIntercom,
-  update as updateIntercom
-} from "./intercom"
+  update as updateIntercom,
+} from './intercom';
 
 const opaqueNavbarPages = ['', '/', '/animations'];
 
@@ -24,8 +24,8 @@ const App = () => {
   window.scrollTo(0, 0);
 
   //initialize Intercom
-  loadIntercom()
-  bootIntercom()
+  loadIntercom();
+  bootIntercom();
 
   return (
     <div>

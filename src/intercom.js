@@ -1,6 +1,5 @@
-  
 // Set your APP_ID
-export const APP_ID = "fyiyfv5h"
+export const APP_ID = 'fyiyfv5h';
 
 // Loads Intercom with the snippet
 // This must be run before boot, it initializes window.Intercom
@@ -11,20 +10,18 @@ export const load = () => {
 
 // Initializes Intercom
 export const boot = (options = {}) => {
-  window &&
-    window.Intercom &&
-    window.Intercom("boot", { app_id: APP_ID, ...options })
-}
+  window && window.Intercom && window.Intercom('boot', { app_id: APP_ID, ...options });
+};
 
 // This method just calls Intercom('update'), which should be run on every page
 // change. This does two things:
 // 1. Send an update to Intercom to create an impression on the current URL
 // 2. Fetch any messages that should be delivered based on the URL and user
 export const update = () => {
-  window && window.Intercom && window.Intercom("update")
-}
+  window && window.Intercom && window.Intercom('update');
+};
 
 // Clears user session and unloads messages
 export const shutdown = () => {
-  window && window.Intercom && window.Intercom("shutdown")
-}
+  window && window.Intercom && window.Intercom('shutdown');
+};

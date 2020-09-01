@@ -1,14 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { get } from "lodash";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
-import { ErrorBlock } from "../../ui";
+import { ErrorBlock } from '../../ui';
 
-import Placeholder from "./Placeholder";
-import Banner from "../Banner";
-import Detail from "./EventDetail";
-
-import { LiveConsumer } from "../../live/LiveContext";
+import Banner from '../Banner';
+import { LiveConsumer } from '../../live/LiveContext';
+import Placeholder from './Placeholder';
+import Detail from './EventDetail';
 
 const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
   if (loading) {
@@ -24,7 +23,7 @@ const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
         const isLive = !!(liveStream && liveStream.isLive);
-        const liveStreamSource = get(liveStream, "media.sources[0].uri", null);
+        const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
 
         return (
           <div>

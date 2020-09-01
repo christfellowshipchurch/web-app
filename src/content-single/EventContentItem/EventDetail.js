@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import { get } from "lodash";
-import { useAuth, useAuthQuery } from "../../auth";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { get } from 'lodash';
+import { useAuth, useAuthQuery } from '../../auth';
 
-import { Card, Share } from "../../ui";
-import EventSchedule from "./EventSchedule";
+import { Card, Share } from '../../ui';
 
-import { CAMPUS_KEY } from "../../keys";
-import { htmlToReactParser } from "../../utils";
+import { CAMPUS_KEY } from '../../keys';
+import { htmlToReactParser } from '../../utils';
 
-import { GET_CURRENT_PERSON_CAMPUS } from "./queries";
-import { Icon } from "../../ui/Icons";
+import { Icon } from '../../ui/Icons';
+import { GET_CURRENT_PERSON_CAMPUS } from './queries';
+import EventSchedule from './EventSchedule';
 
 const ConnectedEventSchedule = (props) => {
   const { isLoggedIn } = useAuth();
@@ -21,11 +21,11 @@ const ConnectedEventSchedule = (props) => {
 
   const fetchedCampus = get(
     data,
-    "currentUser.profile.campus.name",
+    'currentUser.profile.campus.name',
     localStorage.getItem(CAMPUS_KEY)
   );
 
-  return <EventSchedule {...props} defaultCampus={fetchedCampus || ""} />;
+  return <EventSchedule {...props} defaultCampus={fetchedCampus || ''} />;
 };
 
 const EventDetail = ({
@@ -39,32 +39,32 @@ const EventDetail = ({
   events,
   isLive,
 }) => (
-  <div className={classnames("container-fluid", "mb-4", "px-3")}>
-    {(title !== "" || summary !== "") && (
+  <div className={classnames('container-fluid', 'mb-4', 'px-3')}>
+    {(title !== '' || summary !== '') && (
       <div
         className={classnames(
-          "d-md-flex",
-          "justify-content-between",
-          "align-items-center",
-          "pb-3"
+          'd-md-flex',
+          'justify-content-between',
+          'align-items-center',
+          'pb-3'
         )}
       >
         <div className="mt-4 mb-2 pb-2">
           {isLive && (
-            <div className={classnames("mb-2", "d-flex", "align-items-center")}>
+            <div className={classnames('mb-2', 'd-flex', 'align-items-center')}>
               <Icon
-                className={classnames("d-flex", "align-items-center")}
+                className={classnames('d-flex', 'align-items-center')}
                 name="live-dot"
                 fill="#cb045b"
                 size="8"
               />
               <h4
                 className={classnames(
-                  "text-danger",
-                  "text-left",
-                  "text-uppercase",
-                  "mb-0",
-                  "ml-2"
+                  'text-danger',
+                  'text-left',
+                  'text-uppercase',
+                  'mb-0',
+                  'ml-2'
                 )}
               >
                 live now
@@ -74,7 +74,7 @@ const EventDetail = ({
           <h1 className="mb-2 text-dark">{title}</h1>
           <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
         </div>
-        <Share shareTitle="Invite" title={title} variant={"outline-dark"} />
+        <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
       </div>
     )}
 
@@ -99,12 +99,12 @@ const EventDetail = ({
               <span
                 key={i}
                 className={classnames(
-                  "badge",
-                  "badge-light",
-                  "font-weight-normal",
-                  "py-2",
-                  "px-3",
-                  "mx-1"
+                  'badge',
+                  'badge-light',
+                  'font-weight-normal',
+                  'py-2',
+                  'px-3',
+                  'mx-1'
                 )}
               >
                 {n}
@@ -129,7 +129,7 @@ EventDetail.propTypes = {
 };
 
 EventDetail.defaultProps = {
-  htmlContent: "",
+  htmlContent: '',
   tags: [],
   callsToAction: [],
 };

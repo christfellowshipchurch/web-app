@@ -11,100 +11,78 @@ import { GET_CONTENT_FEED } from '../../content-feed';
 import { CARD_PADDING, MARGIN_Y, PADDING_X } from '.';
 
 const RATIO_MAP = {
-    '-1': '4by3',
-    0: { xs: '1by1', lg: '16by9' },
-    1: '21by9',
+  '-1': '4by3',
+  0: { xs: '1by1', lg: '16by9' },
+  1: '21by9',
 };
 
 const cardLoadingObject = {
-    id: 'fake_id',
-    title: '',
-    coverImage: [],
-    ratio: RATIO_MAP[0],
-
+  id: 'fake_id',
+  title: '',
+  coverImage: [],
+  ratio: RATIO_MAP[0],
 };
 
-const StyledHighlightCard = ({ style, ...props }) => <HighlightCard {...props} style={{ maxHeight: 450, ...style }} />;
+const StyledHighlightCard = ({ style, ...props }) => (
+  <HighlightCard {...props} style={{ maxHeight: 450, ...style }} />
+);
 
-const AnnouncementFeed = ({
-    itemId,
-}) => {
-    const {
-        loading,
-        error,
-        data,
-    } = useQuery(GET_CONTENT_FEED, {
-        fetchPolicy: 'cache-and-network',
-        variables: {
-            itemId,
-            child: true,
-            sibling: false,
-        },
-    });
+const AnnouncementFeed = ({ itemId }) => {
+  const { loading, error, data } = useQuery(GET_CONTENT_FEED, {
+    fetchPolicy: 'cache-and-network',
+    variables: {
+      itemId,
+      child: true,
+      sibling: false,
+    },
+  });
 
-    if (loading) {
-        return (
-            <ContentContainer className="max-width-800">
-                <StyledHighlightCard isLoading {...cardLoadingObject} />
-            </ContentContainer>
-        );
-    }
-
-    const content = get(data, 'node.childContentItemsConnection.edges', []);
-
+  if (loading) {
     return (
-        <div
-            className={classnames(
-                'container-fluid',
-            )}
-        >
-            <div className="row mx-n2">
-                {content.map(({ node }, i) => {
-                    const placement = i === 0
-                        ? 0
-                        : i === content.length - 1 ? 1 : -1;
-
-                    return (
-                        i === 0
-                            ? (
-                                <div
-                                    key={`AnnouncementFeed:${i}`}
-                                    className={classnames(
-                                        'p-2',
-                                        'col-12',
-                                    )}
-                                >
-                                    <ContentCardConnected
-                                        contentId={node.id}
-                                        card={StyledHighlightCard}
-                                        ratio={RATIO_MAP[placement]}
-                                        mediaProps={{
-                                            gradient: 'dark',
-                                            gradientDirection: 'bottom-top',
-                                        }}
-                                        hideLabel={node.hideLabel}
-                                    />
-                                </div>
-                            )
-
-                            : (
-                                <ContentCardConnected
-                                    key={`AnnouncementFeed:${i}`}
-                                    contentId={node.id}
-                                    card={ContentCard}
-                                    ratio={RATIO_MAP[placement]}
-                                    mediaProps={{
-                                        gradient: 'dark',
-                                        gradientDirection: 'bottom-top',
-                                    }}
-                                    hideLabel={node.hideLabel}
-                                />
-                            )
-                    );
-                })}
-            </div>
-        </div>
+      <ContentContainer className="max-width-800">
+        <StyledHighlightCard isLoading {...cardLoadingObject} />
+      </ContentContainer>
     );
+  }
+
+  const content = get(data, 'node.childContentItemsConnection.edges', []);
+
+  return (
+    <div className={classnames('container-fluid')}>
+      <div className="row mx-n2">
+        {content.map(({ node }, i) => {
+          const placement = i === 0 ? 0 : i === content.length - 1 ? 1 : -1;
+
+          return i === 0 ? (
+            <div key={`AnnouncementFeed:${i}`} className={classnames('p-2', 'col-12')}>
+              <ContentCardConnected
+                contentId={node.id}
+                card={StyledHighlightCard}
+                ratio={RATIO_MAP[placement]}
+                mediaProps={{
+                  gradient: 'dark',
+                  gradientDirection: 'bottom-top',
+                }}
+                hideLabel={node.hideLabel}
+              />
+            </div>
+          ) : (
+            <ContentCardConnected
+              key={`AnnouncementFeed:${i}`}
+              contentId={node.id}
+              card={ContentCard}
+              ratio={RATIO_MAP[placement]}
+              mediaProps={{
+                gradient: 'dark',
+                gradientDirection: 'bottom-top',
+              }}
+              hideLabel={node.hideLabel}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default AnnouncementFeed;

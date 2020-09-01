@@ -1,23 +1,23 @@
-import React from 'react'
-import Loader from '../../Loader'
-import renderer from 'react-test-renderer'
+import React from 'react';
+import renderer from 'react-test-renderer';
+import Loader from '../../Loader';
 
 describe('Loader', () => {
-    it('renders the ring loader as the default loader', () => {
-        const tree = renderer.create(<Loader />)
+  it('renders the ring loader as the default loader', () => {
+    const tree = renderer.create(<Loader />);
 
-        expect(tree).toMatchSnapshot()
-    })
+    expect(tree).toMatchSnapshot();
+  });
 
-    it('renders an accordion styled loader', () => {
-        const tree = renderer.create(<Loader.Accordion />)
+  it('renders an accordion styled loader', () => {
+    const tree = renderer.create(<Loader.Accordion />);
 
-        expect(tree).toMatchSnapshot()
-    })
+    expect(tree).toMatchSnapshot();
+  });
 
-    it('renders a content styled loader', () => {
-        const tree = renderer.create(<Loader.Content />)
+  it('renders a content styled loader', () => {
+    const tree = renderer.create(<Loader.Content />);
 
-        expect(tree).toMatchSnapshot()
-    })
-})
+    expect(tree).toMatchSnapshot();
+  });
+});
