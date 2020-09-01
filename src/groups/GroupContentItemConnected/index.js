@@ -34,10 +34,18 @@ const GroupContentItemConnected = ({ itemId }) => {
     return <ErrorBlock />;
   }
 
+  const handleOnClickGroupResource = ({ resourceTitle }) => {
+    GoogleAnalytics.trackEvent({
+      category: 'Groups',
+      action: 'Resource',
+      label: `${get(content, 'title')} - ${resourceTitle}`,
+    });
+  };
+
   const handleOnClickVideoCall = (action) => () => {
     GoogleAnalytics.trackEvent({
       category: 'Groups',
-      action: action ? `${action} Video Call` : 'Video Call Button',
+      action: action ? `${action} Video Call` : 'Video Call',
       label: `${get(content, 'title')}`,
     });
 
@@ -50,6 +58,7 @@ const GroupContentItemConnected = ({ itemId }) => {
       dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
       groupResources={get(content, 'groupResources')}
+      onClickGroupResource={handleOnClickGroupResource}
       onClickParentVideoCall={handleOnClickVideoCall('parent')}
       onClickVideoCall={handleOnClickVideoCall()}
       parentVideoCall={get(content, 'parentVideoCall')}

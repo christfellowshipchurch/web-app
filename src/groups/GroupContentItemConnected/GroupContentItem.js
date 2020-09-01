@@ -30,6 +30,7 @@ const GroupContentItem = ({
   dateText,
   dateTimes,
   groupResources,
+  onClickGroupResource,
   onClickVideoCall,
   onClickParentVideoCall,
   parentVideoCall,
@@ -60,7 +61,7 @@ const GroupContentItem = ({
                     }
                     : null,
                 )}
-                onClick={() => onClickParentVideoCall}
+                onClick={() => onClickParentVideoCall()}
                 target="_blank"
               >
                 Join Meeting
@@ -77,7 +78,7 @@ const GroupContentItem = ({
                     }
                     : null,
                 )}
-                onClick={() => onClickVideoCall}
+                onClick={() => onClickVideoCall()}
                 target="_blank"
               >
                 {parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
@@ -88,6 +89,9 @@ const GroupContentItem = ({
                 key={resource.url}
                 className={classnames('btn', 'btn-outline-dark', 'btn-block', 'my-3')}
                 href={resource.url}
+                onClick={() => onClickGroupResource({
+                  resourceTitle: resource.title,
+                })}
                 target={resource.url.includes('http') ? '_blank' : ''}
               >
                 {resource.title}
@@ -141,6 +145,7 @@ GroupContentItem.propTypes = {
       url: PropTypes.string,
     }),
   ),
+  onClickGroupResource: PropTypes.func,
   onClickParentVideoCall: PropTypes.func,
   onClickVideoCall: PropTypes.func,
   parentVideoCall: PropTypes.shape({
