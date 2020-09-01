@@ -1,23 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
-import { get } from "lodash";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
-import { Media } from "../../../ui";
+import { Media } from '../../../ui';
 
 const EventBannerBackground = ({ title, coverImage }) => (
   <div className="p-absolute w-100">
-    <div
-      className="p-absolute w-100 h-100 overflow-hidden"
-      style={{ bottom: 50 }}
-    >
+    <div className="p-absolute w-100 h-100 overflow-hidden" style={{ bottom: 50 }}>
       <Media
-        imageUrl={get(coverImage, "sources[0].uri", "")}
-        imageAlt={`${title} - ${get(coverImage, "name", "")}`}
-        ratio={{ xs: "1by1", md: "16by9" }}
+        imageUrl={get(coverImage, 'sources[0].uri', '')}
+        imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
+        ratio={{ xs: '1by1', md: '16by9' }}
         forceRatio
         className="absolute-center"
-        style={{ filter: "blur(50px)", height: "150%", width: "150%" }}
+        style={{ filter: 'blur(50px)', height: '150%', width: '150%' }}
       />
       <div className="fill bg-black opacity-30" />
     </div>
@@ -33,10 +29,10 @@ const EventBannerBackground = ({ title, coverImage }) => (
         <div className="col-lg-8">
           <div className="max-width-1100 mx-auto pt-4 px-3 invisible">
             <Media
-              imageUrl={get(coverImage, "sources[0].uri", "")}
-              imageAlt={`${title} - ${get(coverImage, "name", "")}`}
+              imageUrl={get(coverImage, 'sources[0].uri', '')}
+              imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
               className="max-height-45-vh"
-              ratio={{ xs: "1by1", md: "16by9" }}
+              ratio={{ xs: '1by1', md: '16by9' }}
               forceRatio
               rounded
               showControls
@@ -64,7 +60,7 @@ EventBannerBackground.propTypes = {
 };
 
 EventBannerBackground.defaultProps = {
-  title: "",
+  title: '',
   coverImage: {},
   videos: [],
 };
