@@ -61,7 +61,7 @@ const GroupContentItem = ({
                     }
                     : null,
                 )}
-                onClick={() => onClickParentVideoCall()}
+                onClick={() => onClickParentVideoCall('parent')}
                 target="_blank"
               >
                 Join Meeting

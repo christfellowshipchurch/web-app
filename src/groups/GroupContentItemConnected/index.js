@@ -42,7 +42,7 @@ const GroupContentItemConnected = ({ itemId }) => {
     });
   };
 
-  const handleOnClickVideoCall = (action) => () => {
+  const handleOnClickVideoCall = (action) => {
     GoogleAnalytics.trackEvent({
       category: 'Groups',
       action: action ? `${action} Video Call` : 'Video Call',
@@ -59,8 +59,8 @@ const GroupContentItemConnected = ({ itemId }) => {
       dateTimes={get(content, 'dateTime')}
       groupResources={get(content, 'groupResources')}
       onClickGroupResource={handleOnClickGroupResource}
-      onClickParentVideoCall={handleOnClickVideoCall('parent')}
-      onClickVideoCall={handleOnClickVideoCall()}
+      onClickParentVideoCall={handleOnClickVideoCall}
+      onClickVideoCall={handleOnClickVideoCall}
       parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
       title={get(content, 'title')}
