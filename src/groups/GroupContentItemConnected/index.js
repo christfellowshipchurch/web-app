@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useMutation, useQuery } from 'react-apollo';
 import { get } from 'lodash';
 
+import { GoogleAnalytics } from '../../analytics';
 // import { useAuthQuery } from '../../auth';
 import { Loader, ErrorBlock } from '../../ui';
 
@@ -33,17 +34,24 @@ const GroupContentItemConnected = ({ itemId }) => {
     return <ErrorBlock />;
   }
 
-  const handleOnClickVideo = () => handleAttend({ variables: { id: itemId } });
+  const handleOnClickVideoCall = (action) => () => {
+    GoogleAnalytics.trackEvent({
+      category: 'Groups',
+      action: action ? `${action} Video Call` : 'Video Call Button',
+      label: `${get(content, 'title')}`,
+    });
 
-  console.log(data);
+    handleAttend({ variables: { id: itemId } });
+  };
+
   return (
     <GroupContentItem
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
       dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
       groupResources={get(content, 'groupResources')}
-      onClickParentVideoCall={handleOnClickVideo}
-      onClickVideoCall={handleOnClickVideo}
+      onClickParentVideoCall={handleOnClickVideoCall('parent')}
+      onClickVideoCall={handleOnClickVideoCall()}
       parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
       title={get(content, 'title')}
