@@ -28,32 +28,13 @@ const imageArrayToObject = (images) => {
   return imagesObj;
 };
 
-const BrandImg = ({
-  className,
-  uri,
-  alt,
-}) => (
-    <Navbar.Brand
-      href="/"
-      className={classnames(
-        'align-self-start',
-        className,
-      )}
-    >
-      <img
-        src={uri}
-        style={{ height: '58px', width: 'auto' }}
-        alt={alt}
-      />
-    </Navbar.Brand>
-  );
+const BrandImg = ({ className, uri, alt }) => (
+  <Navbar.Brand href="/" className={classnames('align-self-start', className)}>
+    <img src={uri} style={{ height: '58px', width: 'auto' }} alt={alt} />
+  </Navbar.Brand>
+);
 
-const NavbarConnected = ({
-  bg,
-  variant,
-  brandImageKey,
-  fixed,
-}) => {
+const NavbarConnected = ({ bg, variant, brandImageKey, fixed }) => {
   const [menuIcon, setMenuIcon] = useState(false);
   const website = process.env.REACT_APP_WEBSITE_KEY;
   const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
@@ -83,34 +64,17 @@ const NavbarConnected = ({
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...navbarProps}
       id="user-profile-navbar-connected"
-      className={classnames(
-        'd-flex',
-        'flex-column',
-        'p-0',
-      )}
+      className={classnames('d-flex', 'flex-column', 'p-0')}
     >
-
       <div className="row w-100">
         <DynamicBanner />
       </div>
 
-      <div
-        className={classnames(
-          'row',
-          'w-100',
-          'd-flex',
-          'justify-content-between',
-        )}
-      >
+      <div className={classnames('row', 'w-100', 'd-flex', 'justify-content-between')}>
         {/* { Right aligned Brand Image } */}
-        {brandImage
-          && (
-            <BrandImg
-              uri={brandImage.uri}
-              alt={brandImage.alt}
-              className="p-2 pl-3"
-            />
-          )}
+        {brandImage && (
+          <BrandImg uri={brandImage.uri} alt={brandImage.alt} className="p-2 pl-3" />
+        )}
 
         {/* { Toggle for Mobile } */}
         <NavbarToggle onClick={() => setMenuIcon(!menuIcon)} isOpen={menuIcon} />
@@ -125,7 +89,7 @@ const NavbarConnected = ({
               'justify-content-lg-end',
 
               'w-100',
-              'px-lg-3',
+              'px-lg-3'
             )}
           >
             {/* { Desktop Navigation } */}
@@ -136,10 +100,7 @@ const NavbarConnected = ({
             />
 
             {/* { Mobile Navigation } */}
-            <MobileNav
-              navLinks={[...navLinks, ...menuLinks]}
-              quickAction={quickAction}
-            />
+            <MobileNav navLinks={[...navLinks, ...menuLinks]} quickAction={quickAction} />
           </div>
         </Navbar.Collapse>
       </div>

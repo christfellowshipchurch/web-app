@@ -1,60 +1,52 @@
-import React from 'react'
-import ButtonRow from '..'
-import renderer from 'react-test-renderer'
-import { configure, mount, shallow } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import React from 'react';
+import renderer from 'react-test-renderer';
+import { configure, mount, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import ButtonRow from '..';
 
-import { Button } from '../../../ui'
+import { Button } from '../../../ui';
 
-configure({ adapter: new Adapter() })
+configure({ adapter: new Adapter() });
 
 describe('Button', () => {
-    it('renders a ButtonRow without crashing', () => {
-        const tree = renderer.create(
-            <ButtonRow
-                callToAction={{ call: 'Title', action: '/action' }}
-                secondaryCallToAction={{ call: 'Title', action: '/action' }}
-            />
-        )
+  it('renders a ButtonRow without crashing', () => {
+    const tree = renderer.create(
+      <ButtonRow
+        callToAction={{ call: 'Title', action: '/action' }}
+        secondaryCallToAction={{ call: 'Title', action: '/action' }}
+      />
+    );
 
-        expect(tree).toMatchSnapshot()
-    })
+    expect(tree).toMatchSnapshot();
+  });
 
-    it('renders a ButtonRow without a callToAction', () => {
-        const tree = renderer.create(
-            <ButtonRow
-                secondaryCallToAction={{ call: 'Title', action: '/action' }}
-            />
-        )
+  it('renders a ButtonRow without a callToAction', () => {
+    const tree = renderer.create(
+      <ButtonRow secondaryCallToAction={{ call: 'Title', action: '/action' }} />
+    );
 
-        expect(tree).toMatchSnapshot()
-    })
+    expect(tree).toMatchSnapshot();
+  });
 
-    it('renders a ButtonRow without secondaryCallToAction', () => {
-        const tree = renderer.create(
-            <ButtonRow
-                callToAction={{ call: 'Title', action: '/action' }}
-            />
-        )
+  it('renders a ButtonRow without secondaryCallToAction', () => {
+    const tree = renderer.create(
+      <ButtonRow callToAction={{ call: 'Title', action: '/action' }} />
+    );
 
-        expect(tree).toMatchSnapshot()
-    })
+    expect(tree).toMatchSnapshot();
+  });
 
-    it('renders a ButtonRow with an incomplete callToAction object', () => {
-        const treeCall = renderer.create(
-            <ButtonRow
-                callToAction={{ call: 'Title', action: '' }}
-            />
-        )
+  it('renders a ButtonRow with an incomplete callToAction object', () => {
+    const treeCall = renderer.create(
+      <ButtonRow callToAction={{ call: 'Title', action: '' }} />
+    );
 
-        expect(treeCall).toMatchSnapshot()
+    expect(treeCall).toMatchSnapshot();
 
-        const treeAction = renderer.create(
-            <ButtonRow
-                callToAction={{ call: '', action: '/action' }}
-            />
-        )
+    const treeAction = renderer.create(
+      <ButtonRow callToAction={{ call: '', action: '/action' }} />
+    );
 
-        expect(treeAction).toMatchSnapshot()
-    })
-})
+    expect(treeAction).toMatchSnapshot();
+  });
+});

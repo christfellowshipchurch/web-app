@@ -5,12 +5,7 @@ import Img from 'react-image';
 import Loaders from '../Loader';
 
 const MediaImage = ({ className, source, alt }) => (
-  <Img
-    src={source}
-    alt={alt}
-    className={className}
-    loader={<Loaders />}
-  />
+  <Img src={source} alt={alt} className={className} loader={<Loaders />} />
 );
 
 const defaultProps = {

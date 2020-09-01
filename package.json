@@ -2,6 +2,59 @@
   "name": "christ-fellowship-react-dom",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "start": "yarn build-css && craco start",
+    "build": "yarn minify-css && craco build",
+    "test": "jest",
+    "eject": "craco eject",
+    "fixlint": "eslint --fix --ext .js,.jsx src/",
+    "fix-code": "npm run fix-lint && npm run fix-prettier",
+    "fix-prettier": "prettier --write \"src/**/*.js\"",
+    "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
+    "lint": "eslint --ext .js,.jsx src/",
+    "prestart": "node ./scripts/get-introspection-data.js",
+    "prettier": "prettier --check \"src/**/*.js\"",
+    "test:coverage": "npm test -- --coverage",
+    "test:badges": "npm run test:coverage  && jest-coverage-badges",
+    "make-badges": "node_modules/.bin/jest-badges-readme",
+    "make-readme": "npm run test:coverage && npm run make-badges",
+    "build-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css",
+    "minify-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css --output-style compressed",
+    "sandbox": "node sandbox.js"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss|svg|png)$": "babel-jest"
+    },
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/src/**/?(*.)(spec|test|tests).{js,jsx,mjs}"
+    ],
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>src/setupTests.js"
+    ]
+  },
+  "lint-staged": {
+    "*.+(js|jsx)": [
+      "eslint --fix"
+    ]
+  },
   "dependencies": {
     "@apollo/react-testing": "^3.1.1",
     "@apollosproject/config": "^1.3.0",
@@ -54,30 +107,6 @@
     "yup": "^0.27.0",
     "zipcodes": "^8.0.0"
   },
-  "scripts": {
-    "start": "yarn build-css && craco start",
-    "build": "yarn minify-css && craco build",
-    "test": "jest",
-    "eject": "craco eject",
-    "fix-react": "(cd node_modules/react && yarn link) && (cd ./node_modules/react-dom && yarn link react)",
-    "prestart": "node ./scripts/get-introspection-data.js",
-    "test:coverage": "npm test -- --coverage",
-    "test:badges": "npm run test:coverage  && jest-coverage-badges",
-    "make-badges": "node_modules/.bin/jest-badges-readme",
-    "make-readme": "npm run test:coverage && npm run make-badges",
-    "build-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css",
-    "minify-css": "node-sass --include-path scss ./src/styles/scss/styles.scss ./src/styles/css/styles.css --output-style compressed",
-    "sandbox": "node sandbox.js"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.5",
@@ -87,28 +116,16 @@
     "enzyme-adapter-react-16": "^1.13.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "husky": "^4.2.5",
     "jest": "^24.8.0",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.1.0",
     "react-test-renderer": "^16.8.6"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "src/**/*.{js,jsx}"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.(css|less|scss|svg|png)$": "babel-jest"
-    },
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/src/**/?(*.)(spec|test|tests).{js,jsx,mjs}"
-    ],
-    "testEnvironment": "jsdom",
-    "setupFilesAfterEnv": [
-      "<rootDir>src/setupTests.js"
-    ]
   }
 }

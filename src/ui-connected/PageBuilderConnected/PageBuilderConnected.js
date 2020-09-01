@@ -7,24 +7,25 @@ import pageBuilderComponentMapper from './pageBuilderComponentMapper';
 import GET_PAGE_BUILDER_FEATURES from './getPageBuilderFeatures';
 
 const PageBuilderConnected = ({ url, additionalFeatures }) => {
-    const { loading, error, data } = useQuery(GET_PAGE_BUILDER_FEATURES, {
-        fetchPolicy: 'cache-and-network',
-        variables: { url },
+  const { loading, error, data } = useQuery(GET_PAGE_BUILDER_FEATURES, {
+    fetchPolicy: 'cache-and-network',
+    variables: { url },
+  });
+
+  const renderFeature = ({ item }) =>
+    pageBuilderComponentMapper({
+      feature: item,
+      additionalFeatures,
     });
 
-    const renderFeature = ({ item }) => pageBuilderComponentMapper({
-        feature: item,
-        additionalFeatures,
-    });
+  const features = get(data, 'pageBuilderFeatures', []);
 
-    const features = get(data, 'pageBuilderFeatures', []);
-
-    return features.map((item) => renderFeature({ item }));
+  return features.map((item) => renderFeature({ item }));
 };
 
 PageBuilderConnected.propTypes = {
-    additionalFeatures: PropTypes.shape({}),
-    url: PropTypes.string.isRequired,
+  additionalFeatures: PropTypes.shape({}),
+  url: PropTypes.string.isRequired,
 };
 
 export default PageBuilderConnected;

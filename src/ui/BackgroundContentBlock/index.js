@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import { camelCase, get } from 'lodash'
-import { htmlToReactParser } from '../../utils'
-import { ButtonRow, Layout, Media } from '../../ui'
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import { camelCase, get } from 'lodash';
+import { htmlToReactParser } from '../../utils';
+import { ButtonRow, Layout, Media } from '../../ui';
 
 const BackgroundContentBlock = ({
   contentLayout,
@@ -17,24 +17,27 @@ const BackgroundContentBlock = ({
   callToAction,
   secondaryCallToAction,
   openLinksInNewTab,
-  className
+  className,
 }) => {
-  const lg = camelCase(contentLayout).includes('Large')
-  const titleSize = lg ? 'display-3' : 'h1'
-  const fontSize = lg ? 'bg-body-text' : ''
+  const lg = camelCase(contentLayout).includes('Large');
+  const titleSize = lg ? 'display-3' : 'h1';
+  const fontSize = lg ? 'bg-body-text' : '';
 
   return (
-    <div className={classnames(
-      'col',
-      lg ? 'py-6' : '',
-      className,
-      lg ? 'min-vh-100' : '',
-      'd-flex',
-      'align-items-center'
-    )}>
+    <div
+      className={classnames(
+        'col',
+        lg ? 'py-6' : '',
+        className,
+        lg ? 'min-vh-100' : '',
+        'd-flex',
+        'align-items-center'
+      )}
+    >
       <div
         className="p-absolute w-100 h-100"
-        style={{ top: 0, left: 0, overflow: 'hidden' }}>
+        style={{ top: 0, left: 0, overflow: 'hidden' }}
+      >
         <Media
           imageUrl={get(images, '[0].sources[0].uri', '')}
           imageAlt={imageAlt}
@@ -50,28 +53,16 @@ const BackgroundContentBlock = ({
           top: 0,
           left: 0,
           overflow: 'hidden',
-          background: 'rgba(0, 0, 0, 0.4)'
-        }}>
-      </div>
+          background: 'rgba(0, 0, 0, 0.4)',
+        }}
+      ></div>
 
-      <Layout
-        contentLayout="default"
-        className="text-white max-width-800 py-6">
-        <div className={classnames(
-          titleSize,
-          'text-white',
-          { 'mb-4': lg }
-        )}>
-          {title}
-        </div>
+      <Layout contentLayout="default" className="text-white max-width-800 py-6">
+        <div className={classnames(titleSize, 'text-white', { 'mb-4': lg })}>{title}</div>
 
-        <div>
-          {subtitle}
-        </div>
+        <div>{subtitle}</div>
 
-        <p className={`pb-4 ${fontSize}`}>
-          {htmlToReactParser.parse(htmlContent)}
-        </p>
+        <p className={`pb-4 ${fontSize}`}>{htmlToReactParser.parse(htmlContent)}</p>
 
         <ButtonRow
           callToAction={callToAction}
@@ -80,15 +71,11 @@ const BackgroundContentBlock = ({
         />
       </Layout>
     </div>
-  )
-}
+  );
+};
 
-BackgroundContentBlock.propTypes = {
+BackgroundContentBlock.propTypes = {};
 
-}
+BackgroundContentBlock.defaultProps = {};
 
-BackgroundContentBlock.defaultProps = {
-
-}
-
-export default BackgroundContentBlock
+export default BackgroundContentBlock;

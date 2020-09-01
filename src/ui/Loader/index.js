@@ -1,3 +1,3 @@
-import Ring from './RingLoader'
+import Ring from './RingLoader';
 
-export default Ring
+export default Ring;

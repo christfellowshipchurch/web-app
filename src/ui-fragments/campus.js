@@ -15,8 +15,8 @@ const CAMPUS_PARTS_FRAGMENT = gql`
       uri
     }
     serviceTimes {
-        day
-        time
+      day
+      time
     }
   }
 `;

@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  useQuery,
-} from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types';
-import {
-  lowerCase, get, camelCase,
-} from 'lodash';
-import {
-  mapEdgesToNodes,
-} from '../../utils';
-import GET_GROUP_BLOCK from './queries';
+import { lowerCase, get, camelCase } from 'lodash';
+import { mapEdgesToNodes } from '../../utils';
 
 import Loader from '../Loader';
 import Block from '../Block';
@@ -18,15 +11,9 @@ import Carousel from '../Carousel';
 import Accordion from '../Accordion';
 import Tabs, { TabContent } from '../Tabs';
 import { Feature } from '../../modules';
+import GET_GROUP_BLOCK from './queries';
 
-
-const GroupBlock = ({
-  id,
-  title,
-  groupLayout,
-  accordionType,
-  withAnimation,
-}) => {
+const GroupBlock = ({ id, title, groupLayout, accordionType, withAnimation }) => {
   const { loading, error, data } = useQuery(GET_GROUP_BLOCK, { variables: { id } });
 
   if (loading) {
@@ -39,7 +26,9 @@ const GroupBlock = ({
 
   if (error) {
     console.error('ERROR: ', error);
-    return <h1 className="text-center">There was an error loading block. Please try again.</h1>;
+    return (
+      <h1 className="text-center">There was an error loading block. Please try again.</h1>
+    );
   }
 
   const groupTitle = get(data, 'node.title', '');
@@ -54,14 +43,13 @@ const GroupBlock = ({
     case 'row':
       return (
         <div className="container-fluid py-4">
-          {multipleBlocks
-            && (
-              <div className="row py-4">
-                <div className="col">
-                  <h2 className="text-center mb-0 mx-4">{title}</h2>
-                </div>
+          {multipleBlocks && (
+            <div className="row py-4">
+              <div className="col">
+                <h2 className="text-center mb-0 mx-4">{title}</h2>
               </div>
-            )}
+            </div>
+          )}
           <div className="row">
             {blockItems.map((n, i) => {
               switch (get(n, '__typename', '')) {
@@ -70,7 +58,9 @@ const GroupBlock = ({
                     return (
                       <BackgroundContentBlock
                         {...n}
-                        className={`col-12 col-md-${multipleBlocks ? '6' : '4'} d-flex align-items-center`}
+                        className={`col-12 col-md-${
+                          multipleBlocks ? '6' : '4'
+                        } d-flex align-items-center`}
                         key={i}
                         withAnimation={withAnimation}
                       />
@@ -107,9 +97,7 @@ const GroupBlock = ({
         <div className="row py-6">
           <div className="col-12 text-center mb-2">
             <div className="max-width-800 mx-auto">
-              <h2>
-                {groupTitle}
-              </h2>
+              <h2>{groupTitle}</h2>
               {groupBody}
             </div>
           </div>
@@ -127,13 +115,7 @@ const GroupBlock = ({
                         />
                       );
                     }
-                    return (
-                      <Block
-                        {...n}
-                        contentLayout="default"
-                        key={i}
-                      />
-                    );
+                    return <Block {...n} contentLayout="default" key={i} />;
 
                   case 'WebsiteFeature':
                     return (
@@ -150,11 +132,7 @@ const GroupBlock = ({
         </div>
       );
     case 'carousel':
-      return (
-        <Carousel>
-          {blockItems}
-        </Carousel>
-      );
+      return <Carousel>{blockItems}</Carousel>;
     case 'tabs':
       return (
         <Tabs className="py-4">
@@ -175,8 +153,14 @@ const GroupBlock = ({
 
 GroupBlock.propTypes = {
   groupLayout: PropTypes.oneOf([
-    'row', 'accordion', 'carousel', 'tabs',
-    'Row', 'Accordion', 'Carousel', 'Tabs',
+    'row',
+    'accordion',
+    'carousel',
+    'tabs',
+    'Row',
+    'Accordion',
+    'Carousel',
+    'Tabs',
     'none',
   ]),
   accordionType: PropTypes.oneOf(['default', 'paginate']),

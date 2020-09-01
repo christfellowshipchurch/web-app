@@ -1,76 +1,76 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_CAMPUS = gql`
-    query getCampus($name:String!) {
-        campus(name:$name) {
-            id
-            name
-            
-            image {
-                uri
-            }
-            
-            featuredImage {
-                uri
-            }
+  query getCampus($name: String!) {
+    campus(name: $name) {
+      id
+      name
 
-            pastor {
-                firstName
-                lastName
-                email
-                photo {
-                    uri
-                }
-            }
+      image {
+        uri
+      }
 
-            campusFeatures {
-                title
-                summary
-                icon
-                options
-                htmlContent
-            }
-            
-            street1
-            city
-            state
-            postalCode
-            
-            serviceTimes {
-                day
-                time
-            }
+      featuredImage {
+        uri
+      }
+
+      pastor {
+        firstName
+        lastName
+        email
+        photo {
+          uri
         }
+      }
+
+      campusFeatures {
+        title
+        summary
+        icon
+        options
+        htmlContent
+      }
+
+      street1
+      city
+      state
+      postalCode
+
+      serviceTimes {
+        day
+        time
+      }
     }
-`
+  }
+`;
 
 export const GET_CAMPUS_FAQ = gql`
-    query getFAQ($name:String) {
-        campusFAQ(name:$name) {
-            id
-            title
-            htmlContent
-        }
+  query getFAQ($name: String) {
+    campusFAQ(name: $name) {
+      id
+      title
+      htmlContent
     }
-`
+  }
+`;
 
 export const GET_CAMPUS_BLOCKS = gql`
-    query getCampusBlocks($name:String!) {
-        campusContentItems(name:$name) {
-            id
-            title
-            htmlContent
-            coverImage {
-                sources {
-                    uri
-                }
-            }
-
-            videos {
-                sources {
-                    uri
-                }
-            }
+  query getCampusBlocks($name: String!) {
+    campusContentItems(name: $name) {
+      id
+      title
+      htmlContent
+      coverImage {
+        sources {
+          uri
         }
+      }
+
+      videos {
+        sources {
+          uri
+        }
+      }
     }
-`
+  }
+`;

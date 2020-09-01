@@ -1,5 +1,3 @@
 import MetaTags from './MetaTags';
 
-export {
-    MetaTags,
-}
+export { MetaTags };
