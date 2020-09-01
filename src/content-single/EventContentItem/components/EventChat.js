@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 // Stream Chat
-import { StreamChat } from 'stream-chat';
 import {
   Chat,
   Channel,
@@ -14,10 +13,8 @@ import {
   MessageLivestream,
 } from 'stream-chat-react';
 
-import 'stream-chat-react/dist/css/index.css';
-import '../../../styles/css/stream-chat-react.overrides.css';
+import { StreamChatClient, Streami18n } from 'stream-chat-client';
 
-const chatClient = new StreamChat(process.env.REACT_APP_STREAM_API_KEY);
 const users = {
   ryan: [
     {
@@ -38,12 +35,12 @@ const users = {
   ],
 };
 
-chatClient.setUser(...users.yoda);
+StreamChatClient.setUser(...users.yoda);
 
 // const channelId = "ryan-test-channel";
 const channelId = '1e07e4f2e1b52807e43b2338c73d88ba';
 
-const channel = chatClient.channel('livestream', channelId, {
+const channel = StreamChatClient.channel('livestream', channelId, {
   image:
     'https://cloudfront.christfellowship.church/GetImage.ashx?guid=3588831c-d389-4b7a-98ca-9476b8be2066',
   name: "Ryan's Livestream Chat Test",
@@ -52,7 +49,7 @@ const channel = chatClient.channel('livestream', channelId, {
 console.log('[rkd] channel:', channel);
 
 const EventChat = ({}) => (
-  <Chat client={chatClient} theme="livestream">
+  <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel channel={channel} Message={MessageLivestream}>
       <Window>
         <ChannelHeader live />
