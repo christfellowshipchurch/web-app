@@ -39,7 +39,7 @@ const Share = ({ title, shareTitle, variant, shareMessages }) => {
     return url;
   };
 
-  const iconSize = '24';
+  const iconSize = 24;
 
   return (
     <Dropdown drop="up" alignRight={false}>
