@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useQuery, useApolloClient } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
 
-// Stream Chat components
+// Stream Chat
 import {
   Chat,
   Channel,
@@ -25,6 +25,7 @@ const getStreamUser = (user) => ({
   name: `${user.profile.firstName} ${user.profile.lastName}`,
   image: get(user, 'profile.photo.uri', ''),
 });
+
 const ChatInterface = ({ channel }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel channel={channel} Message={MessageLivestream}>
@@ -37,93 +38,72 @@ const ChatInterface = ({ channel }) => (
   </Chat>
 );
 
-const EventChat = ({ event }) => {
-  const { logIn, isLoggedIn } = useAuth();
-  const client = useApolloClient();
+ChatInterface.propTypes = {
+  channel: Channel.type.propTypes.channel,
+};
 
-  const [channel, setChannel] = useState(null);
-  const channelId = event.id.split(':')[1];
-
+const EventChat = ({ channelId }) => {
+  // User data
+  const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT_CHANNEL, {
     skip: !isLoggedIn,
   });
 
+  // Stream channel data
+  const [channel, setChannel] = useState(null);
+
+  console.log('[rkd] 💬%c EventChat', 'color: #777', {
+    channelId,
+    isLoggedIn,
+    loading,
+    data,
+    error,
+    channel,
+  });
+
+  if (error) console.log('[rkd]%c❌ Error...', 'color: #F00');
+
   useEffect(() => {
     const handleUserConnection = async () => {
-      console.group('[rkd] handleUserConnection()');
-      console.log('[rkd] ', {
-        channel,
-        channelId,
-        client,
-        data,
-        error,
-        event,
-        isLoggedIn,
-        loading,
-      });
+      if (isLoggedIn && !loading && data && !StreamChatClient.userId) {
+        // Init user
+        const streamUser = getStreamUser(data.currentUser);
+        await StreamChatClient.setUser(streamUser, data.currentUser.streamChatToken);
 
-      if (loading || !isLoggedIn || error) {
-        if (loading) console.log('[rkd] %c⏳ Loading...', 'color: #777');
-        if (!isLoggedIn) console.log('[rkd] %c🙅‍♂️ Not logged in', 'color: #777');
-        if (error) console.log('[rkd] %c❌ Error...', 'color: #777');
-
-        if (channel) {
-          console.log('[rkd] ✂️🔌 Disconnecting...');
-          StreamChatClient.disconnect();
-          setChannel(null);
-        }
-
-        console.groupEnd();
-        return;
+        // Init channel
+        setChannel(
+          StreamChatClient.channel('livestream', channelId, {
+            name: 'Stream Chat Demo',
+            uploads: false,
+          })
+        );
       }
 
-      // Initialize user and channel
-      console.log('[rkd] ⭐ Initializing Channel...');
-      const { currentUser } = data;
-      console.log('[rkd] currentUser:', currentUser);
-      const streamUser = getStreamUser(currentUser);
-
-      await StreamChatClient.setUser(streamUser, currentUser.streamChatToken);
-
-      setChannel(
-        StreamChatClient.channel('livestream', channelId, {
-          image:
-            'https://cloudfront.christfellowship.church/GetImage.ashx?guid=68c423ac-5cb9-4d0d-95ac-76b1e56d4c0f',
-          name: 'Stream Chat Demo', // Derive from Event Name and Date?
-          // Attach Rock data ids like schedule etc for correlation later?
-          uploads: false,
-        })
-      );
-
-      console.groupEnd();
+      return () => {
+        StreamChatClient.disconnect();
+        setChannel(null);
+      };
     };
 
     handleUserConnection();
-  }, [data, error, isLoggedIn, loading]);
+  }, [isLoggedIn, loading, data]);
 
   if (!isLoggedIn) {
-    return (
-      <button className={'btn btn-primary'} onClick={logIn}>
-        Log In to Join Chat
-      </button>
-    );
+    return <p>Guest view (logged out)</p>;
   }
 
-  if (loading) return <h1 className="text-light">Loading...</h1>;
-
+  if (loading || !channel) return <h1 className="text-light">Loading...</h1>;
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
 
-  return channel && !error ? (
+  return (
     <div className="bg-white">
       <ChatInterface channel={channel} />
     </div>
-  ) : null;
+  );
 };
 
 EventChat.propTypes = {
-  event: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-  }).isRequired,
+  channelId: PropTypes.string.isRequired,
 };
 
 EventChat.defaultProps = {};

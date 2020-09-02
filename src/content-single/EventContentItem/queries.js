@@ -55,3 +55,12 @@ export const GET_CURRENT_USER_FOR_CHAT_CHANNEL = gql`
     }
   }
 `;
+
+export const GET_CURRENT_USER_ROLE_FOR_CHAT_CHANNEL = gql`
+  query currentUserRoleForChatChannel($channelId: ID!) {
+    currentUser {
+      id
+      streamChatRole(id: $channelId)
+    }
+  }
+`;

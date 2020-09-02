@@ -8,16 +8,22 @@ import { LiveConsumer } from 'live/LiveContext';
 import {
   EventBannerBackground,
   EventDescriptionCard,
-  EventDetail,
   EventMedia,
   EventPanel,
 } from './components';
 
 import EventChat from './EventChat';
+import EventDetail from './EventDetail';
 import Placeholder from './Placeholder';
 
-const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
-  if (loading) {
+const EventContentItem = ({ itemId, content, loading, error }) => {
+  // console.groupCollapsed('[rkd]%c EventContentItem', 'color: cyan');
+  // console.log('[rkd] loading:', loading);
+  // console.log('[rkd] itemId:', itemId);
+  // console.log('[rkd] content:', content);
+  // console.groupEnd();
+
+  if (loading && !content) {
     return <Placeholder />;
   }
 
@@ -26,11 +32,14 @@ const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
     return <ErrorBlock />;
   }
 
+  const channelId = content.id.split(':')[1];
+
   return (
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
         const isLive = !!(liveStream && liveStream.isLive);
         const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
+        // const liveStreamSource = 'https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=m3u8-aapl-v3)';
 
         return (
           <div style={{ minHeight: '75vh' }}>
@@ -40,19 +49,14 @@ const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
               <div className="row pt-4 mb-4">
                 {/* Main Column */}
                 <div className="col-lg-8">
-                  <EventMedia
-                    {...content}
-                    liveStreamSource={
-                      'https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=m3u8-aapl-v3)'
-                    }
-                  />
+                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
                   <EventDetail {...content} isLive={isLive} />
                 </div>
 
                 {/* Side Column */}
                 <div className="col-lg-4">
                   <EventPanel>
-                    <EventChat event={content} />
+                    <EventChat channelId={channelId} />
                   </EventPanel>
                 </div>
               </div>
