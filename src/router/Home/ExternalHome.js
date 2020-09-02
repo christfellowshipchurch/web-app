@@ -1,53 +1,77 @@
-import React from 'react'
-import classnames from 'classnames'
+/* eslint-disable import/no-unresolved */
+import React from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { HeroSection } from 'ui';
 import { useAuth } from '../../auth';
 
-import { HeroSection, Button } from 'ui'
-import backgroundImage from './home-background.jpg'
+import backgroundImage from './home-background.jpg';
 
+const CustomButton = ({ call, action, onClick }) => (
+  <a
+    className={classnames(
+      'mx-2',
+      'my-2',
+      'min-width-250',
+      'btn',
+      'btn-primary',
+    )}
+    href={action}
+    onClick={onClick}
+  >
+    {call}
+  </a>
+);
 
-const ExternalHome = () =>{
+CustomButton.propTypes = {
+  call: PropTypes.string,
+  action: PropTypes.string,
+  onClick: PropTypes.func,
 
-    const { logIn } = useAuth();
+};
 
-    const buttonClass = classnames(
-        'mx-2',
-        'my-2',
-    )
+CustomButton.defaultProps = {
+  action: '#',
+  call: '',
+  onClick: null,
+};
 
-    const customPrimaryButtons = (
-        <div className="my-6">
-            <Button
-                className={buttonClass}
-                call="I'm new here"
-                href='/about'
-            />
-            <Button
-                className={buttonClass}
-                call="I attend Christ Fellowship"
-                onClick={() => logIn()}
-            />
-        </div>
-    )
+const ExternalHome = () => {
+  const { logIn } = useAuth();
 
-    return(
-        <HeroSection
-            title='Live Your Best Life'
-            htmlContent='A church in South Florida that helps you thrive in every area of life.'
-            image={{
-                uri: backgroundImage,
-            }}
-            children={customPrimaryButtons}
-            swoop={false}
-        />
-    )
-}
-    
+  const customPrimaryButtons = (
+    <div className="my-6">
+      <CustomButton
+        call="I'm New Here"
+        action="/new"
+      />
+      <CustomButton
+        call="I Attend CF"
+        action="#login"
+        onClick={() => logIn()}
+      />
+    </div>
+  );
+
+  return (
+    <HeroSection
+      title="Live Your Best Life"
+      htmlContent="A church in South Florida that helps you thrive in every area of life."
+      image={{
+        uri: backgroundImage,
+      }}
+      swoop={false}
+    >
+      {customPrimaryButtons}
+    </HeroSection>
+  );
+};
+
 
 ExternalHome.propTypes = {
-}
+};
 
 ExternalHome.defaultProps = {
-}
+};
 
-export default ExternalHome
+export default ExternalHome;
