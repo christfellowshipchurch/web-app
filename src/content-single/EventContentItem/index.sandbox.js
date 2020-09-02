@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
-import { ErrorBlock } from '../../ui';
-import { LiveConsumer } from '../../live/LiveContext';
+import { ErrorBlock } from 'ui';
+import { LiveConsumer } from 'live/LiveContext';
 
-import Placeholder from './Placeholder';
 import {
   EventBannerBackground,
   EventDescriptionCard,
@@ -13,6 +12,9 @@ import {
   EventMedia,
   EventPanel,
 } from './components';
+
+import EventChat from './EventChat';
+import Placeholder from './Placeholder';
 
 const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
   if (loading) {
@@ -49,7 +51,9 @@ const EventContentItem = ({ itemId, content, loading, error, liveStream }) => {
 
                 {/* Side Column */}
                 <div className="col-lg-4">
-                  <EventPanel />
+                  <EventPanel>
+                    <EventChat event={content} />
+                  </EventPanel>
                 </div>
               </div>
 
