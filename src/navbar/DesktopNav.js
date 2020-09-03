@@ -47,10 +47,8 @@ const DesktopNav = ({ navLinks, menuLinks, quickAction, isDark }) => {
             'px-3',
             'btn-primary',
             'nav-link',
-            {
-              'text-dark': !isDark,
-              'text-white': isDark,
-            }
+            'text-white',
+            'rounded'
           )}
         >
           {quickAction.call}

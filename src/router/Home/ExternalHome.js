@@ -9,13 +9,7 @@ import backgroundImage from './home-background.jpg';
 
 const CustomButton = ({ call, action, onClick }) => (
   <a
-    className={classnames(
-      'mx-2',
-      'my-2',
-      'min-width-250',
-      'btn',
-      'btn-primary',
-    )}
+    className={classnames('mx-2', 'my-2', 'min-width-250', 'btn', 'btn-primary')}
     href={action}
     onClick={onClick}
   >
@@ -27,7 +21,6 @@ CustomButton.propTypes = {
   call: PropTypes.string,
   action: PropTypes.string,
   onClick: PropTypes.func,
-
 };
 
 CustomButton.defaultProps = {
@@ -41,15 +34,8 @@ const ExternalHome = () => {
 
   const customPrimaryButtons = (
     <div className="my-6">
-      <CustomButton
-        call="I'm New Here"
-        action="/new"
-      />
-      <CustomButton
-        call="I Attend CF"
-        action="#login"
-        onClick={() => logIn()}
-      />
+      <CustomButton call="I'm New Here" action="/new" />
+      <CustomButton call="I Attend CF" action="#login" onClick={() => logIn()} />
     </div>
   );
 
@@ -67,11 +53,8 @@ const ExternalHome = () => {
   );
 };
 
+ExternalHome.propTypes = {};
 
-ExternalHome.propTypes = {
-};
-
-ExternalHome.defaultProps = {
-};
+ExternalHome.defaultProps = {};
 
 export default ExternalHome;
