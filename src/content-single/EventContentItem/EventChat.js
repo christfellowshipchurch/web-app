@@ -49,10 +49,9 @@ const EventChat = ({ channelId }) => {
     skip: !isLoggedIn,
   });
 
-  // Stream channel data
+  // Stream management
   const [channel, setChannel] = useState(null);
 
-  // Stream initialization
   useEffect(() => {
     const initChannel = () => {
       setChannel(
@@ -74,8 +73,6 @@ const EventChat = ({ channelId }) => {
       } else if (!isLoggedIn) {
         user = await StreamChatClient.setGuestUser({ id: 'guest' });
       }
-
-      console.log('[rkd] user:', user);
 
       if (user) {
         initChannel();
