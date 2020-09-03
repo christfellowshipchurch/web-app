@@ -17,12 +17,6 @@ import EventDetail from './EventDetail';
 import Placeholder from './Placeholder';
 
 const EventContentItem = ({ itemId, content, loading, error }) => {
-  // console.groupCollapsed('[rkd]%c EventContentItem', 'color: cyan');
-  // console.log('[rkd] loading:', loading);
-  // console.log('[rkd] itemId:', itemId);
-  // console.log('[rkd] content:', content);
-  // console.groupEnd();
-
   if (loading && !content) {
     return <Placeholder />;
   }

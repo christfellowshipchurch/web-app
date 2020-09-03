@@ -52,17 +52,6 @@ const EventChat = ({ channelId }) => {
   // Stream channel data
   const [channel, setChannel] = useState(null);
 
-  console.log('[rkd] 💬%c EventChat', 'color: #777', {
-    channelId,
-    isLoggedIn,
-    loading,
-    data,
-    error,
-    channel,
-  });
-
-  if (error) console.log('[rkd]%c❌ Error...', 'color: #F00');
-
   const initChannel = () => {
     setChannel(
       StreamChatClient.channel('livestream', channelId, {
@@ -98,10 +87,6 @@ const EventChat = ({ channelId }) => {
       setChannel(null);
     };
   }, [isLoggedIn, loading, data]);
-
-  // if (!isLoggedIn) {
-  //   return <p>Guest view (logged out)</p>;
-  // }
 
   if (loading || !channel) return <h1 className="text-light">Loading...</h1>;
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
