@@ -40,11 +40,13 @@ export default gql`
       end
     }
     videoCall {
+      labelText
       link
       meetingId
       passcode
     }
     parentVideoCall {
+      labelText
       link
       meetingId
       passcode
