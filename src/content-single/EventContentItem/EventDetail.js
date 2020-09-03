@@ -9,9 +9,10 @@ import { Card, Share } from '../../ui';
 import { CAMPUS_KEY } from '../../keys';
 import { htmlToReactParser } from '../../utils';
 
-import { Icon } from '../../ui/Icons';
 import { GET_CURRENT_PERSON_CAMPUS } from './queries';
 import EventSchedule from './EventSchedule';
+
+import LiveIndicator from './LiveIndicator';
 
 const ConnectedEventSchedule = (props) => {
   const { isLoggedIn } = useAuth();
@@ -50,27 +51,7 @@ const EventDetail = ({
         )}
       >
         <div className="mt-4 mb-2 pb-2">
-          {isLive && (
-            <div className={classnames('mb-2', 'd-flex', 'align-items-center')}>
-              <Icon
-                className={classnames('d-flex', 'align-items-center')}
-                name="live-dot"
-                fill="#cb045b"
-                size="8"
-              />
-              <h4
-                className={classnames(
-                  'text-danger',
-                  'text-left',
-                  'text-uppercase',
-                  'mb-0',
-                  'ml-2'
-                )}
-              >
-                live now
-              </h4>
-            </div>
-          )}
+          {isLive && <LiveIndicator />}
           <h1 className="mb-2 text-dark">{title}</h1>
           <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
         </div>
@@ -118,6 +99,9 @@ const EventDetail = ({
 );
 
 EventDetail.propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  summary: PropTypes.string,
   htmlContent: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
   callsToAction: PropTypes.arrayOf(
@@ -126,12 +110,21 @@ EventDetail.propTypes = {
       action: PropTypes.string,
     })
   ),
+  openLinksInNewTab: PropTypes.bool,
+  events: PropTypes.object,
+  isLive: PropTypes.bool,
 };
 
 EventDetail.defaultProps = {
+  id: '',
+  title: '',
+  summary: '',
   htmlContent: '',
   tags: [],
   callsToAction: [],
+  openLinksInNewTab: false,
+  events: {},
+  isLive: false,
 };
 
 export default EventDetail;
