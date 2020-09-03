@@ -1,12 +1,42 @@
 import gql from 'graphql-tag';
-import GROUP_FRAGMENT from '../groupFragment';
 
 export default gql`
   query getGroup($itemId: ID!) {
     node(id: $itemId) {
       __typename
       ... on Group {
-        ...groupFragment
+        id
+        title
+        summary
+        schedule {
+          friendlyScheduleText
+        }
+        coverImage {
+          sources {
+            uri
+          }
+        }
+        groupResources {
+          title
+          url
+          contentChannelItem
+        }
+        dateTime {
+          start
+          end
+        }
+        videoCall {
+          labelText
+          link
+          meetingId
+          passcode
+        }
+        parentVideoCall {
+          labelText
+          link
+          meetingId
+          passcode
+        }
       }
     }
     currentUser {
@@ -17,5 +47,4 @@ export default gql`
       }
     }
   }
-  ${GROUP_FRAGMENT}
 `;

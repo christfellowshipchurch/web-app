@@ -1,5 +1,4 @@
 import gql from 'graphql-tag';
-import GROUP_FRAGMENT from '../groupFragment';
 
 export default gql`
   query getCurrentUserGroups {
@@ -9,11 +8,19 @@ export default gql`
         id
         groups {
           ... on Group {
-            ...groupFragment
+            id
+            title
+            schedule {
+              friendlyScheduleText
+            }
+            coverImage {
+              sources {
+                uri
+              }
+            }
           }
         }
       }
     }
   }
-  ${GROUP_FRAGMENT}
 `;
