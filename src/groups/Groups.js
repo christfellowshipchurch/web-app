@@ -44,7 +44,10 @@ const Groups = () => {
       </Media>
 
       {isLoggedIn ? (
-        <div className="container-fluid mt-md-6 mt-4 mb-6 px-4">
+        <div
+          className="container-fluid mt-md-6 mt-4 mb-6 px-4"
+          style={{ minHeight: '30vh' }}
+        >
           <div className="row pt-2">
             <div className="col">
               <h1 className="mb-0">Your Groups</h1>
