@@ -66,7 +66,7 @@ const GroupContentItem = ({
                 onClick={() => onClickParentVideoCall('parent')}
                 target="_blank"
               >
-                Join Meeting
+                {get(parentVideoCall, 'label') || `Join Meeting`}
               </a>
             )}
             {get(videoCall, 'link') && (
@@ -83,7 +83,9 @@ const GroupContentItem = ({
                 onClick={() => onClickVideoCall()}
                 target="_blank"
               >
-                {parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
+                {get(videoCall, 'label') || parentVideoCall
+                  ? 'Join Breakout'
+                  : 'Join Meeting'}
               </a>
             )}
             {groupResources.map((resource, i) => (
@@ -161,6 +163,7 @@ GroupContentItem.propTypes = {
   title: PropTypes.string.isRequired,
   userName: PropTypes.string,
   videoCall: PropTypes.shape({
+    lableText: PropTypes.shape,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
