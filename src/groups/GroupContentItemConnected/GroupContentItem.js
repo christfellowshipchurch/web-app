@@ -116,7 +116,7 @@ const GroupContentItem = ({
                   summary,
                   // Location is the webUrl for now because we have multiple potential video calls endpoints
                   address: document.URL,
-                  startTime: dateTimes.state,
+                  startTime: dateTimes.start,
                   endTime: dateTimes.end,
                 }}
                 alternateDescription={`Join us for ${title} at Christ Fellowship!`}
