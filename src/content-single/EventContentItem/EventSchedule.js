@@ -82,7 +82,7 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   );
 
   // when the selection changes, call the onChange method
-  useEffect(() => onChange(selected), [onChange, selected]);
+  useEffect(() => onChange(selected), [selected]);
 
   return (
     <Card className="mb-3">

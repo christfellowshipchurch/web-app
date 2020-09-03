@@ -6,7 +6,7 @@ import { isMobile, isIOS } from 'react-device-detect';
 
 import { Icon } from '../Icons';
 
-const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
+const MediaVideo = ({ source, poster, isLive, showControls }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
 
@@ -65,7 +65,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
 
   useEffect(() => {
     if (isLive || isIOS) return playButtonClick();
-  }, [isLive, playButtonClick, videoRef]);
+  }, [videoRef]);
 
   return (
     <div>
@@ -151,26 +151,26 @@ const MediaVideo = ({ source, poster, isLive, showControls, playIcon }) => {
   );
 };
 
+MediaVideo.propTypes = {
+  className: PropTypes.string,
+  source: PropTypes.string.isRequired,
+  playsInline: PropTypes.bool,
+  poster: PropTypes.string,
+  autoPlay: PropTypes.bool,
+  isLive: PropTypes.bool,
+  showControls: PropTypes.bool,
+  loop: PropTypes.bool,
+  muted: PropTypes.bool,
+};
+
 // Default state of the video is to be a silent,
 //  inline, looped video to be used like a background video
-const defaultProps = {
+MediaVideo.defaultProps = {
   className: '',
   playsInline: true,
   autoPlay: true,
   loop: true,
   muted: true,
 };
-
-const propTypes = {
-  className: PropTypes.string,
-  source: PropTypes.string.isRequired,
-  playsInline: PropTypes.bool,
-  autoPlay: PropTypes.bool,
-  loop: PropTypes.bool,
-  muted: PropTypes.bool,
-};
-
-MediaVideo.defaultProps = defaultProps;
-MediaVideo.propTypes = propTypes;
 
 export default MediaVideo;
