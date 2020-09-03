@@ -306,7 +306,7 @@ EventSchedule.propTypes = {
       action: PropTypes.string,
     })
   ).isRequired,
-  events: PropTypes.object,
+  events: PropTypes.arrayOf(PropTypes.any),
   title: PropTypes.string,
   description: PropTypes.string,
 };
@@ -314,7 +314,7 @@ EventSchedule.propTypes = {
 EventSchedule.defaultProps = {
   defaultCampus: '',
   callsToAction: [],
-  events: {},
+  events: [],
   title: '',
   description: '',
 };
