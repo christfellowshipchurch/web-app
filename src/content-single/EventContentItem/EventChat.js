@@ -52,16 +52,17 @@ const EventChat = ({ channelId }) => {
   // Stream channel data
   const [channel, setChannel] = useState(null);
 
-  const initChannel = () => {
-    setChannel(
-      StreamChatClient.channel('livestream', channelId, {
-        name: 'Stream Chat Demo',
-        uploads: false,
-      })
-    );
-  };
-
+  // Stream initialization
   useEffect(() => {
+    const initChannel = () => {
+      setChannel(
+        StreamChatClient.channel('livestream', channelId, {
+          name: 'Stream Chat Demo',
+          uploads: false,
+        })
+      );
+    };
+
     const handleUserConnection = async () => {
       let user = null;
 
@@ -82,11 +83,12 @@ const EventChat = ({ channelId }) => {
     };
 
     handleUserConnection();
+
     return () => {
       StreamChatClient.disconnect();
       setChannel(null);
     };
-  }, [isLoggedIn, loading, data]);
+  }, [isLoggedIn, loading, data, channelId]);
 
   if (loading || !channel) return <h1 className="text-light">Loading...</h1>;
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
