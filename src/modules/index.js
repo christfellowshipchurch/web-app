@@ -7,22 +7,19 @@ import CampusSelect from './CampusSelect';
 import RsvpForm from './RsvpForm';
 
 const featureMap = {
-    emailCaptureForm: EmailCapture,
-    locationFinderWithRsvpForm: CampusSelect,
-    rsvpForm: RsvpForm,
+  emailCaptureForm: EmailCapture,
+  locationFinderWithRsvpForm: CampusSelect,
+  rsvpForm: RsvpForm,
 };
 
 const EmptyFragment = ({ children }) => <div>{children}</div>;
 
-export const Feature = ({
-    name,
-    ...featureProps
-}) => {
-    const Element = get(featureMap, name, EmptyFragment);
+export const Feature = ({ name, ...featureProps }) => {
+  const Element = get(featureMap, name, EmptyFragment);
 
-    return <Element {...featureProps} />;
+  return <Element {...featureProps} />;
 };
 
 Feature.propTypes = {
-    name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
 };

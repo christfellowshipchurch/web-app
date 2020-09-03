@@ -8,7 +8,7 @@ const NavbarWithOpacity = ({ offset }) => {
   const [bgColor, setBgColor] = useState('transparent');
 
   useScrollPosition(({ currPos }) => {
-    const opaque = currPos.y > (-1 * offset);
+    const opaque = currPos.y > -1 * offset;
 
     setBgColor(opaque ? 'transparent' : 'dark');
   });

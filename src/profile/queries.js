@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 //Queries for dropdown selectors
 export const GET_CAMPUSES = gql`
@@ -8,7 +8,7 @@ export const GET_CAMPUSES = gql`
       name
     }
   }
-`
+`;
 
 export const GET_STATES = gql`
   query {
@@ -20,53 +20,53 @@ export const GET_STATES = gql`
       }
     }
   }
-`
+`;
 
 //Queries for current person attributes
 export const GET_CURRENT_PERSON = gql`
-    query {
-        currentUser {
-          id
-            profile {
-                id
-                firstName
-                lastName
+  query {
+    currentUser {
+      id
+      profile {
+        id
+        firstName
+        lastName
 
-                email
-                phoneNumber
+        email
+        phoneNumber
 
-                gender
-                ethnicity
-                birthDate
+        gender
+        ethnicity
+        birthDate
 
-                communicationPreferences {
-                  allowPushNotification
-                  allowSMS
-                  allowEmail
-                }
-
-                campus {
-                  id
-                  featuredImage {
-                      uri
-                  }
-                  name
-                }
-
-                photo {
-                    uri
-                }
-                
-                address {
-                    street1
-                    city
-                    state
-                    postalCode
-                }
-            }      
+        communicationPreferences {
+          allowPushNotification
+          allowSMS
+          allowEmail
         }
+
+        campus {
+          id
+          featuredImage {
+            uri
+          }
+          name
+        }
+
+        photo {
+          uri
+        }
+
+        address {
+          street1
+          city
+          state
+          postalCode
+        }
+      }
     }
-`
+  }
+`;
 
 export const GET_CURRENT_CAMPUS = gql`
   query getAllCampuses($latitude: Float!, $longitude: Float!) {
@@ -82,4 +82,5 @@ export const GET_CURRENT_CAMPUS = gql`
         }
       }
     }
-  }`
+  }
+`;

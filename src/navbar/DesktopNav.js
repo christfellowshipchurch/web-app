@@ -11,12 +11,7 @@ import ProfileConnected from './ProfileConnected';
 const NavLink = ({ link, onClick }) => (
   <Nav.Link
     href={link.action}
-    className={classnames(
-      'mx-3',
-      'my-2',
-      'nav-link',
-      'text-dark',
-    )}
+    className={classnames('mx-3', 'my-2', 'nav-link', 'text-dark')}
     onClick={onClick}
   >
     {link.call}
@@ -24,18 +19,10 @@ const NavLink = ({ link, onClick }) => (
 );
 
 const dropDownIcon = (isOpen, isDark) => (
-  <Icon
-    name={isOpen ? 'times' : 'bars'}
-    fill={isDark ? '#ffffff' : '#525252'}
-  />
+  <Icon name={isOpen ? 'times' : 'bars'} fill={isDark ? '#ffffff' : '#525252'} />
 );
 
-const DesktopNav = ({
-  navLinks,
-  menuLinks,
-  quickAction,
-  isDark
-}) => {
+const DesktopNav = ({ navLinks, menuLinks, quickAction, isDark }) => {
   const { logout, logIn, isLoggedIn } = useAuth();
   const [menuIcon, setMenuIcon] = useState(false);
 
@@ -45,36 +32,30 @@ const DesktopNav = ({
         <Nav.Link
           key={`${link.call}${i}`}
           href={link.action}
-          className={classnames(
-            'p-3',
-            'nav-link',
-            {
-              'text-dark': !isDark,
-              'text-white': isDark
-            }
-          )}
+          className={classnames('p-3', 'nav-link', 'text-secondary')}
         >
           {link.call}
         </Nav.Link>
       ))}
-      {quickAction
-        && (
-          <Nav.Link
-            href={quickAction.action}
-            className={classnames(
-              'mx-lg-3',
-              'mx-4',
-              'my-2',
-              'px-3',
-              'btn-primary',
-              'nav-link',
-              'text-white',
-              'rounded',
-            )}
-          >
-            {quickAction.call}
-          </Nav.Link>
-        )}
+      {quickAction && (
+        <Nav.Link
+          href={quickAction.action}
+          className={classnames(
+            'mx-lg-3',
+            'mx-4',
+            'my-2',
+            'px-3',
+            'btn-primary',
+            'nav-link',
+            {
+              'text-dark': !isDark,
+              'text-white': isDark,
+            }
+          )}
+        >
+          {quickAction.call}
+        </Nav.Link>
+      )}
 
       <ProfileConnected
         className="d-none d-lg-block ml-2 mr-1 btn-like"
@@ -88,32 +69,22 @@ const DesktopNav = ({
         alignRight
         id="collasible-nav-dropdown"
       >
-        {isLoggedIn
-          && (
-            <NavLink
-              link={{
-                call: 'Profile',
-                action: '/profile',
-              }}
-            />
-          )}
-        {menuLinks.map((link, i) => (
+        {isLoggedIn && (
           <NavLink
-            key={`${link.call}${i}`}
-            link={link}
+            link={{
+              call: 'Profile',
+              action: '/profile',
+            }}
           />
+        )}
+        {menuLinks.map((link, i) => (
+          <NavLink key={`${link.call}${i}`} link={link} />
         ))}
         <hr className="mx-2" />
         <NavLink
-          onClick={
-            () => (isLoggedIn
-              ? logout()
-              : logIn())
-          }
+          onClick={() => (isLoggedIn ? logout() : logIn())}
           link={{
-            call: isLoggedIn
-              ? 'Log Out'
-              : 'Login',
+            call: isLoggedIn ? 'Log Out' : 'Login',
           }}
         />
       </NavDropdown>
@@ -126,26 +97,26 @@ DesktopNav.propTypes = {
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
-    }),
+    })
   ),
   menuLinks: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
-    }),
+    })
   ),
   quickAction: PropTypes.shape({
     call: PropTypes.string,
     action: PropTypes.string,
   }),
-  isDark: PropTypes.bool
+  isDark: PropTypes.bool,
 };
 
 DesktopNav.defaultProps = {
   navLinks: [],
   menuLinks: [],
   quickAction: [],
-  isDark: false
+  isDark: false,
 };
 
 export default DesktopNav;

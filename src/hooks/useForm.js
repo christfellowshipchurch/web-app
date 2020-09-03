@@ -1,71 +1,62 @@
-import {
-    useState,
-    useEffect,
-    useReducer
-} from 'react'
-import {
-    get,
-    keys,
-    forEach
-} from 'lodash'
+import { useState, useEffect, useReducer } from 'react';
+import { get, keys, forEach } from 'lodash';
 
-const valuesReducer = (values, newValue) =>
-    ({ ...values, ...newValue })
+const valuesReducer = (values, newValue) => ({ ...values, ...newValue });
 
 export const useForm = (props) => {
-    // Deconstruct Properties
-    const defaultValues = get(props, 'defaultValues', {})
-    const validation = get(props, 'validation', {})
+  // Deconstruct Properties
+  const defaultValues = get(props, 'defaultValues', {});
+  const validation = get(props, 'validation', {});
 
-    // States
-    const [values, setValue] = useReducer(valuesReducer, defaultValues)
-    const [errors, setError] = useReducer(valuesReducer, {})
-    const [submitting, setSubmitting] = useState(false)
+  // States
+  const [values, setValue] = useReducer(valuesReducer, defaultValues);
+  const [errors, setError] = useReducer(valuesReducer, {});
+  const [submitting, setSubmitting] = useState(false);
 
-    // Effects
+  // Effects
 
-    // Methods
-    const validateValue = async (key, value) => {
-        let error = false
-        const validate = get(validation, key, null)
+  // Methods
+  const validateValue = async (key, value) => {
+    let error = false;
+    const validate = get(validation, key, null);
 
-        if (validate) {
-            const validationResponse = await validate(value, values)
+    if (validate) {
+      const validationResponse = await validate(value, values);
 
-            if (validationResponse) {
-                error = validationResponse
-            }
-        }
-
-        return error
+      if (validationResponse) {
+        error = validationResponse;
+      }
     }
 
-    const setValueByKey = async (key, value) => {
-        const errorMsg = await validateValue(key, value)
-        const errorObj = {}
-        const keyValue = {}
+    return error;
+  };
 
-        keyValue[key] = value
-        errorObj[key] = errorMsg
+  const setValueByKey = async (key, value) => {
+    const errorMsg = await validateValue(key, value);
+    const errorObj = {};
+    const keyValue = {};
 
-        setValue(keyValue)
-        setError(errorObj)
-    }
+    keyValue[key] = value;
+    errorObj[key] = errorMsg;
 
-    const setErrorByKey = async (key, value) => {
-        const errorObj = {}
-        errorObj[key] = value
+    setValue(keyValue);
+    setError(errorObj);
+  };
 
-        setError(errorObj)
-    }
+  const setErrorByKey = async (key, value) => {
+    const errorObj = {};
+    errorObj[key] = value;
 
-    // Return Values
-    return {
-        values,
-        setValue: setValueByKey,
-        errors,
-        setError: setErrorByKey,
-        submitting,
-        setSubmitting,
-    }
-}
+    setError(errorObj);
+  };
+
+  // Return Values
+  return {
+    values,
+    setValue: setValueByKey,
+    errors,
+    setError: setErrorByKey,
+    submitting,
+    setSubmitting,
+  };
+};

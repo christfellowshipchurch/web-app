@@ -10,16 +10,16 @@ const NavbarToggle = ({ isDark, onClick }) => {
   return (
     <Navbar.Toggle
       aria-controls="basic-navbar-nav"
-      onClick={() => {setIsOpen(!isOpen)}}
+      onClick={() => {
+        setIsOpen(!isOpen);
+      }}
       className="border-0"
     >
-      <span
-        className="mr-2"
-      >
+      <span className="mr-2">
         <Icon
           onClick={onClick}
           name={isOpen ? 'times' : 'bars'}
-          fill={isDark ? '#ffffff' : "#525252"}
+          fill={isDark ? '#ffffff' : '#525252'}
         />
       </span>
     </Navbar.Toggle>
@@ -27,11 +27,11 @@ const NavbarToggle = ({ isDark, onClick }) => {
 };
 
 NavbarToggle.propTypes = {
-  isDark: PropTypes.bool
+  isDark: PropTypes.bool,
 };
 
 NavbarToggle.defaultProps = {
-  isDark: false
+  isDark: false,
 };
 
 export default NavbarToggle;

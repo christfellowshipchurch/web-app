@@ -1,1 +1,1 @@
-export { default as CardGrid } from './GridContainer'
+export { default as CardGrid } from './GridContainer';

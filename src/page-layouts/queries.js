@@ -1,8 +1,8 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const GET_BLOCK_ITEMS = gql`
-  query getBlockItems($website:String!, $title:String!) {
-    getWebsitePageContentByTitle(website:$website, title:$title) {
+  query getBlockItems($website: String!, $title: String!) {
+    getWebsitePageContentByTitle(website: $website, title: $title) {
       id
       title
       childContentItemsConnection {
@@ -45,17 +45,16 @@ export const GET_BLOCK_ITEMS = gql`
                 call
                 action
               }
-      
+
               imageAlt
               imageRatio
 
               openLinksInNewTab
             }
-            
 
             ... on WebsiteGroupItem {
               groupLayout
-              accordionType 
+              accordionType
               title
             }
 
@@ -63,10 +62,10 @@ export const GET_BLOCK_ITEMS = gql`
               feature
               title
               subtitle
-            } 
+            }
           }
         }
       }
     }
   }
-`
+`;

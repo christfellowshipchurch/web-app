@@ -2,17 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
-import {
-  Dropdown,
-} from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
-import {
-  googleCalLink,
-  icsLink,
-} from './utils';
 import { Apple, Google, Microsoft } from '../Icons';
+import { googleCalLink, icsLink } from './utils';
 
-const iconSize = '20'
+const iconSize = '20';
 
 const AddToCalendar = ({
   event,
@@ -23,55 +18,49 @@ const AddToCalendar = ({
   style,
   alternateDescription,
 }) => (
-    <Dropdown>
-      <Dropdown.Toggle
-        id={uniqueId('add-to-calendar-')}
-        variant={type}
-        className={className}
-        style={style}
-      >
-        {title}
-      </Dropdown.Toggle>
+  <Dropdown>
+    <Dropdown.Toggle
+      id={uniqueId('add-to-calendar-')}
+      variant={type}
+      className={className}
+      style={style}
+    >
+      {title}
+    </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-        {/* Apple Calendar */}
-        <Dropdown.Item
-          href={icsLink({ ...event, description: alternateDescription }, allDay)}
-          target="_blank"
-          className='d-flex align-items-center'
-        >
-          <Apple 
-            size='22'
-          />
+    <Dropdown.Menu>
+      {/* Apple Calendar */}
+      <Dropdown.Item
+        href={icsLink({ ...event, description: alternateDescription }, allDay)}
+        target="_blank"
+        className="d-flex align-items-center"
+      >
+        <Apple size="22" />
         Apple
       </Dropdown.Item>
 
-        {/* Google Calendar */}
-        <Dropdown.Item
-          href={googleCalLink(event, allDay)}
-          target="_blank"
-          className='d-flex align-items-center'
-        >
-          <Google 
-            size={iconSize}
-          />
+      {/* Google Calendar */}
+      <Dropdown.Item
+        href={googleCalLink(event, allDay)}
+        target="_blank"
+        className="d-flex align-items-center"
+      >
+        <Google size={iconSize} />
         Google
       </Dropdown.Item>
 
-        {/* Outlook */}
-        <Dropdown.Item
-          href={icsLink({ ...event, description: alternateDescription }, allDay)}
-          target="_blank"
-          className='d-flex align-items-center'
-        >
-          <Microsoft 
-            size={iconSize}
-          />
+      {/* Outlook */}
+      <Dropdown.Item
+        href={icsLink({ ...event, description: alternateDescription }, allDay)}
+        target="_blank"
+        className="d-flex align-items-center"
+      >
+        <Microsoft size={iconSize} />
         Outlook
       </Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  );
+    </Dropdown.Menu>
+  </Dropdown>
+);
 
 AddToCalendar.propTypes = {
   event: PropTypes.shape({

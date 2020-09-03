@@ -1,8 +1,8 @@
 {
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -19,10 +19,23 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
+    "sourceType": "module",
+    "plugins": ["react"],
     "rules": {
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+      "react/jsx-filename-extension": 0,
+      "react/jsx-handler-names": 2,
+      "react/jsx-curly-brace-presence": 0,
+      "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
+      "react/require-default-props": 0,
+      "react/prop-types": 1,
+      "react-hooks/exhaustive-deps": 1,
+      "import/order": [
+        "error",
+        {
+          "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+          "newlines-between": "ignore" // off until https://github.com/benmosher/eslint-plugin-import/issues/512 is fixed
+        }
+      ]
     }
+ }
 }
