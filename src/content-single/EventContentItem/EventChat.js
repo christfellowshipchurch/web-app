@@ -63,34 +63,45 @@ const EventChat = ({ channelId }) => {
 
   if (error) console.log('[rkd]%c❌ Error...', 'color: #F00');
 
+  const initChannel = () => {
+    setChannel(
+      StreamChatClient.channel('livestream', channelId, {
+        name: 'Stream Chat Demo',
+        uploads: false,
+      })
+    );
+  };
+
   useEffect(() => {
     const handleUserConnection = async () => {
-      if (isLoggedIn && !loading && data && !StreamChatClient.userId) {
-        // Init user
-        const streamUser = getStreamUser(data.currentUser);
-        await StreamChatClient.setUser(streamUser, data.currentUser.streamChatToken);
+      let user = null;
 
-        // Init channel
-        setChannel(
-          StreamChatClient.channel('livestream', channelId, {
-            name: 'Stream Chat Demo',
-            uploads: false,
-          })
-        );
+      // Init user or guest
+      if (isLoggedIn && !loading && data) {
+        const streamUser = getStreamUser(data.currentUser);
+        const { streamChatToken } = data.currentUser;
+        user = await StreamChatClient.setUser(streamUser, streamChatToken);
+      } else if (!isLoggedIn) {
+        user = await StreamChatClient.setGuestUser({ id: 'guest' });
       }
 
-      return () => {
-        StreamChatClient.disconnect();
-        setChannel(null);
-      };
+      console.log('[rkd] user:', user);
+
+      if (user) {
+        initChannel();
+      }
     };
 
     handleUserConnection();
+    return () => {
+      StreamChatClient.disconnect();
+      setChannel(null);
+    };
   }, [isLoggedIn, loading, data]);
 
-  if (!isLoggedIn) {
-    return <p>Guest view (logged out)</p>;
-  }
+  // if (!isLoggedIn) {
+  //   return <p>Guest view (logged out)</p>;
+  // }
 
   if (loading || !channel) return <h1 className="text-light">Loading...</h1>;
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
