@@ -9,6 +9,10 @@ export default gql`
         groups {
           ... on Group {
             id
+            dateTime {
+              start
+              end
+            }
             title
             schedule {
               friendlyScheduleText
