@@ -69,7 +69,7 @@ const GroupContentItem = ({
                 {get(parentVideoCall, 'label') || `Join Meeting`}
               </a>
             )}
-            {get(videoCall, 'link') && (
+            {get(videoCall, 'link') ? (
               <a
                 className="btn btn-primary btn-block mb-3"
                 href={videoCallURLWithParameters(
@@ -86,6 +86,15 @@ const GroupContentItem = ({
                 {get(videoCall, 'label') || parentVideoCall
                   ? 'Join Breakout'
                   : 'Join Meeting'}
+              </a>
+            ) : (
+              <a
+                // allow to just checkin for in person groups
+                className="btn btn-primary btn-block mb-3"
+                href={''}
+                onClick={() => onClickVideoCall()}
+              >
+                Check In
               </a>
             )}
             {groupResources.map((resource, i) => (
