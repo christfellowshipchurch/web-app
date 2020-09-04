@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 import { ErrorBlock } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
@@ -17,16 +17,16 @@ import EventDetail from './EventDetail';
 import Placeholder from './Placeholder';
 
 const EventContentItem = ({ itemId, content, loading, error }) => {
-  if (loading && !content) {
+  if (loading && isEmpty(content)) {
     return <Placeholder />;
   }
 
-  if (error || (!loading && !content)) {
+  if (error || (!loading && isEmpty(content))) {
     console.log({ error });
     return <ErrorBlock />;
   }
 
-  const channelId = content.id.split(':')[1];
+  const channelId = content ? content.id.split(':')[1] : null;
 
   return (
     <LiveConsumer contentId={itemId}>
@@ -66,6 +66,9 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
 
 EventContentItem.propTypes = {
   itemId: PropTypes.string,
+  content: PropTypes.shape({
+    id: PropTypes.string,
+  }),
 };
 
 EventContentItem.defaultProps = {};
