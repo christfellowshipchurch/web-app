@@ -11,7 +11,7 @@ const EventDetail = ({ title, summary, isLive }) => (
       {(title !== '' || summary !== '') && (
         <div className="row mt-2">
           {isLive && (
-            <div className={classnames('mt-2', 'mb-2', 'd-flex', 'align-items-center')}>
+            <div className={classnames('mt-2', 'd-flex', 'align-items-center')}>
               <Icon
                 className={classnames('d-flex', 'align-items-center')}
                 name="live-dot"
@@ -33,17 +33,11 @@ const EventDetail = ({ title, summary, isLive }) => (
           )}
 
           <div className="row">
-            <h1 className="mb-2 text-dark">{title}</h1>
+            <h1 className="mt-2 mb-2 text-dark">{title}</h1>
             <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
           </div>
 
-          <div className="row flex-grow-1 mt-4 justify-content-between">
-            <div
-              className="d-flex align-items-center px-4"
-              style={{ background: 'rgba(0, 255, 255, 0.3)' }}
-            >
-              <code>{`<AttendanceInfo />`}</code>
-            </div>
+          <div className="row flex-grow-1 mt-4 justify-content-end">
             <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
           </div>
         </div>

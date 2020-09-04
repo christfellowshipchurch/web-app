@@ -38,3 +38,29 @@ export const GET_CURRENT_PERSON_CAMPUS = gql`
     }
   }
 `;
+
+export const GET_CURRENT_USER_FOR_CHAT = gql`
+  query getCurrentUserForChat {
+    currentUser {
+      id
+      streamChatToken
+      profile {
+        id
+        firstName
+        lastName
+        photo {
+          uri
+        }
+      }
+    }
+  }
+`;
+
+export const GET_CURRENT_USER_ROLE_FOR_CHANNEL = gql`
+  query getCurrentUserRoleForChannel($channelId: ID!) {
+    currentUser {
+      id
+      streamChatRole(id: $channelId)
+    }
+  }
+`;
