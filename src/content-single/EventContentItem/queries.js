@@ -39,8 +39,8 @@ export const GET_CURRENT_PERSON_CAMPUS = gql`
   }
 `;
 
-export const GET_CURRENT_USER_FOR_CHAT_CHANNEL = gql`
-  query currentUserForChatChannel {
+export const GET_CURRENT_USER_FOR_CHAT = gql`
+  query getCurrentUserForChat {
     currentUser {
       id
       streamChatToken
@@ -56,8 +56,8 @@ export const GET_CURRENT_USER_FOR_CHAT_CHANNEL = gql`
   }
 `;
 
-export const GET_CURRENT_USER_ROLE_FOR_CHAT_CHANNEL = gql`
-  query currentUserRoleForChatChannel($channelId: ID!) {
+export const GET_CURRENT_USER_ROLE_FOR_CHANNEL = gql`
+  query getCurrentUserRoleForChannel($channelId: ID!) {
     currentUser {
       id
       streamChatRole(id: $channelId)
