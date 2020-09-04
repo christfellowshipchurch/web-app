@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import EventChat from './EventChat';
+const EventPanel = ({ children }) => <div className="h-100 bg-white">{children}</div>;
 
-const EventPanel = ({}) => (
-  <div className="h-100 bg-white">
-    <EventChat />
-  </div>
-);
-
-EventPanel.propTypes = {};
+EventPanel.propTypes = {
+  children: PropTypes.node,
+};
 
 EventPanel.defaultProps = {};
 
