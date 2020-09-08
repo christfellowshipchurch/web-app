@@ -7,7 +7,7 @@ import { GoogleAnalytics } from '../../analytics';
 // import { useAuthQuery } from '../../auth';
 import { Loader, ErrorBlock } from '../../ui';
 
-import ATTEND_MEETING from './attendMeeting';
+import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
 import GroupContentItem from './GroupContentItem';
 
@@ -17,7 +17,7 @@ const GroupContentItemConnected = ({ itemId }) => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const [handleAttend] = useMutation(ATTEND_MEETING);
+  const [handleAttend] = useMutation(ADD_ATTENDANCE);
 
   if (loading) {
     return (
