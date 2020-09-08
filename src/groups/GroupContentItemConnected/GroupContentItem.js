@@ -66,7 +66,7 @@ const GroupContentItem = ({
                 onClick={() => onClickParentVideoCall('parent')}
                 target="_blank"
               >
-                {get(parentVideoCall, 'label') || `Join Meeting`}
+                {get(parentVideoCall, 'labelText') || `Join Meeting`}
               </a>
             )}
             {get(videoCall, 'link') ? (
@@ -172,7 +172,7 @@ GroupContentItem.propTypes = {
   title: PropTypes.string.isRequired,
   userName: PropTypes.string,
   videoCall: PropTypes.shape({
-    lableText: PropTypes.shape,
+    labelText: PropTypes.shape,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
