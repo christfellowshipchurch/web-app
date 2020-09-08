@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useMutation, useQuery } from 'react-apollo';
 import { get } from 'lodash';
+import moment from 'moment';
 
 import { GoogleAnalytics } from '../../analytics';
 // import { useAuthQuery } from '../../auth';
@@ -49,7 +50,13 @@ const GroupContentItemConnected = ({ itemId }) => {
       label: `${get(content, 'title')}`,
     });
 
-    handleAttend({ variables: { id: itemId } });
+    // Check to see if the current date is the date of the meeting before taking attendance.
+    if (
+      moment(get(content, 'dateTime.start', null)).format('MMDDYYYY') ===
+      moment().format('MMDDYYYY')
+    ) {
+      handleAttend({ variables: { id: itemId } });
+    }
   };
 
   return (
