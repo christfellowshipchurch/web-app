@@ -42,7 +42,9 @@ const ChatInterface = ({ channel }) => (
       <Window>
         <ChannelHeader live />
         <MessageList />
-        <MessageInput Input={MessageInputSmall} focus />
+        <div className="bg-white">
+          <MessageInput Input={MessageInputSmall} focus />
+        </div>
       </Window>
     </Channel>
   </Chat>
@@ -117,7 +119,7 @@ const EventChat = ({ channelId }) => {
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
 
   return (
-    <div className="bg-white">
+    <div style={{ height: '100%' }}>
       <ChatInterface channel={channel} />
       <DebugInfo>
         <p className="px-2 small">

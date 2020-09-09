@@ -55,6 +55,8 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
                 </div>
               </div>
 
+              <hr />
+
               <EventDescriptionCard {...content} />
             </div>
           </div>
