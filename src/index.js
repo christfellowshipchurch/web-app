@@ -4,10 +4,15 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components/macro';
+
+import { theme } from 'styles/config';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 import './styles/css/styles.css';
+
 import { LiveProvider } from './live';
 import { ClientProvider } from './client';
 import { AuthProvider } from './auth';
@@ -19,7 +24,9 @@ ReactDOM.render(
       <AuthProvider>
         <LiveProvider>
           <SandboxProvider>
-            <App />
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
           </SandboxProvider>
         </LiveProvider>
       </AuthProvider>
