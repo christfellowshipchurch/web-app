@@ -47,7 +47,6 @@ export const colors = Object.freeze({
 
 export const theme = Object.freeze({
   brand: colors.cyan,
-  liveEvent: colors.red,
   body: {
     background: colors.gray[50],
   },
@@ -58,6 +57,8 @@ export const theme = Object.freeze({
   font: {
     ...colors.gray, // Hypothetically, this could be reversed for dark mode
   },
+  link: colors.cyan,
+  liveEvent: colors.red,
 });
 
 /**

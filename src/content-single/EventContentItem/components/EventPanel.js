@@ -6,21 +6,28 @@ import { baseUnit } from 'styles/config';
 
 import { Icon } from 'ui/Icons';
 
+import EventChat from './EventChat';
+
 // :: Styled Components
 // ------------------------
 
 const EventPanelContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
   background: ${({ theme }) => theme.body.background};
 `;
 
-const Tabs = styled.div`
+const PanelHeader = styled.div`
   position: relative;
   display: flex;
   background: ${({ theme }) => theme.card.background};
+  z-index: 1;
 `;
 
 const TabContainer = styled.div`
@@ -28,7 +35,7 @@ const TabContainer = styled.div`
   flex: 1;
   justify-content: center;
   align-items: center;
-  padding: ${baseUnit(2)} ${baseUnit(3)}};
+  padding: ${baseUnit(3)} ${baseUnit(3)} ${baseUnit(2)};
 `;
 
 const TabButton = styled.button`
@@ -50,12 +57,26 @@ const TabLabel = styled.span`
   color: ${({ active, theme }) => (active ? theme.font[900] : theme.card.color)};
 `;
 
-const TabContent = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  overflow-y: scroll;
+const PanelBody = styled.div`
+  position: relative;
+  /* border: 3px cyan solid; */
+  box-sizing: border-box;
   z-index: 0;
+  width: 100%;
+  height: 100%;
+`;
+
+const TabContent = styled.div`
+  ${({ active }) => !active && 'display: none;'}
+  /* height: 100%; */
+  /* max-height: 100%; */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  /* border: 2px red solid; */
 `;
 
 // ---
@@ -83,12 +104,13 @@ Tab.defaultProps = {
 
 // :: Main Component
 // ------------------------
-const EventPanel = ({ children }) => {
+const EventPanel = ({ event }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
+  const channelId = event ? event.id.split(':')[1] : null;
 
   return (
     <EventPanelContainer className="rounded shadow">
-      <Tabs className="shadow">
+      <PanelHeader className="shadow">
         <Tab
           id="chat"
           label="Chat Room"
@@ -103,17 +125,25 @@ const EventPanel = ({ children }) => {
           active={activeTab === 'schedule'}
           onPress={() => setActiveTabIndex('schedule')}
         />
-      </Tabs>
-      <TabContent>
-        <div style={{ display: activeTab === 'chat' ? 'block' : 'none' }}>{children}</div>
-        <p style={{ display: activeTab === 'schedule' ? 'block' : 'none' }}>Schedule</p>
-      </TabContent>
+      </PanelHeader>
+      <PanelBody>
+        <TabContent active={activeTab === 'chat'}>
+          <EventChat channelId={channelId} />
+        </TabContent>
+
+        <TabContent active={activeTab === 'schedule'}>
+          <p>Schedule</p>
+        </TabContent>
+      </PanelBody>
     </EventPanelContainer>
   );
 };
 
 EventPanel.propTypes = {
   children: PropTypes.node,
+  event: PropTypes.shape({
+    id: PropTypes.string,
+  }),
 };
 
 EventPanel.defaultProps = {};
