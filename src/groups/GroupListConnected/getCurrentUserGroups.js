@@ -14,9 +14,6 @@ export default gql`
               end
             }
             title
-            schedule {
-              friendlyScheduleText
-            }
             coverImage {
               sources {
                 uri
