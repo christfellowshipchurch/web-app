@@ -73,7 +73,7 @@ const GroupContentItemConnected = ({ itemId }) => {
       const { href } = generateUrlLink({
         urlBase,
         id: resource.relatedNode.id,
-        title: '',
+        title: resource.title,
       });
 
       resourceURL = href;
