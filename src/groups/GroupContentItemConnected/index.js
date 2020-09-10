@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import { GoogleAnalytics } from '../../analytics';
 // import { useAuthQuery } from '../../auth';
-import { Loader, ErrorBlock } from '../../ui';
+import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
 
 import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
@@ -59,12 +59,40 @@ const GroupContentItemConnected = ({ itemId }) => {
     }
   };
 
+  const getGroupResources = get(content, 'groupResources', []).map((resource) => {
+    let resourceURL = get(resource, 'relatedNode.url', '');
+
+    console.log('Boom', resourceURL);
+
+    if (resource.action === 'READ_CONTENT') {
+      const urlBase =
+        resource.relatedNode.__typename === 'InformationalContentItem'
+          ? 'items'
+          : 'content';
+
+      const { href } = generateUrlLink({
+        urlBase,
+        id: resource.relatedNode.id,
+        title: '',
+      });
+
+      resourceURL = href;
+    }
+
+    return {
+      title: resource.title,
+      url: resourceURL,
+    };
+  });
+
+  console.log(getGroupResources);
+
   return (
     <GroupContentItem
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
       dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
-      groupResources={get(content, 'groupResources')}
+      groupResources={getGroupResources}
       onClickGroupResource={handleOnClickGroupResource}
       onClickParentVideoCall={handleOnClickVideoCall}
       onClickVideoCall={handleOnClickVideoCall}
