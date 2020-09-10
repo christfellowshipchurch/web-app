@@ -62,8 +62,6 @@ const GroupContentItemConnected = ({ itemId }) => {
   const getGroupResources = get(content, 'groupResources', []).map((resource) => {
     let resourceURL = get(resource, 'relatedNode.url', '');
 
-    console.log('Boom', resourceURL);
-
     if (resource.action === 'READ_CONTENT') {
       const urlBase =
         resource.relatedNode.__typename === 'InformationalContentItem'
@@ -84,8 +82,6 @@ const GroupContentItemConnected = ({ itemId }) => {
       url: resourceURL,
     };
   });
-
-  console.log(getGroupResources);
 
   return (
     <GroupContentItem
