@@ -18,8 +18,13 @@ export default gql`
         }
         groupResources {
           title
-          url
-          contentChannelItem
+          action
+          relatedNode {
+            id
+            ... on Url {
+              url
+            }
+          }
         }
         dateTime {
           start
