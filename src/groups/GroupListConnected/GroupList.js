@@ -1,6 +1,6 @@
 import React from 'react';
 import { get } from 'lodash';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { ContentCard, Loader } from '../../ui';
 
@@ -16,8 +16,8 @@ const LoadingState = ({ children, isLoading }) =>
   );
 
 LoadingState.propTypes = {
-  children: Proptypes.node,
-  isLoading: Proptypes.bool,
+  children: PropTypes.node,
+  isLoading: PropTypes.bool,
 };
 
 const GroupList = ({ isLoading, groups }) =>
@@ -54,13 +54,16 @@ const GroupList = ({ isLoading, groups }) =>
   );
 
 GroupList.propTypes = {
-  isLoading: Proptypes.bool,
-  groups: Proptypes.arrayOf(
-    Proptypes.shape({
-      id: Proptypes.string,
-      coverImage: Proptypes.shape({ sources: Proptypes.array }),
-      title: Proptypes.string,
-      schedule: Proptypes.shape({ friendlyScheduleText: Proptypes.string }),
+  isLoading: PropTypes.bool,
+  groups: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      coverImage: PropTypes.shape({ sources: PropTypes.array }),
+      title: PropTypes.string,
+      dateTime: PropTypes.shape({
+        end: PropTypes.string,
+        start: PropTypes.string,
+      }),
     })
   ),
 };
