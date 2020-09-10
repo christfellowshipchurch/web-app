@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -11,7 +11,6 @@ const FocusedCard = ({
   title,
   subtitle,
   htmlContent,
-  callsToAction,
   image,
   onCancel,
   onResize, // calls this function when this card changes size
@@ -76,7 +75,13 @@ FocusedCard.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   icon: PropTypes.string,
-  callsToAction: PropTypes.string,
+  image: PropTypes.shape({
+    sources: PropTypes.arrayOf(
+      PropTypes.shape({
+        uri: PropTypes.string,
+      })
+    ),
+  }),
   htmlContent: PropTypes.string,
   onCancel: PropTypes.func,
   onResize: PropTypes.func,

@@ -14,7 +14,7 @@ const ResendSMS = ({ children, phoneNumber, requestedPrompt, requestedDelay }) =
         setRequested(false);
       }, requestedDelay);
     }
-  }, [requested, requestedDelay]);
+  }, [requested]);
 
   return requested ? (
     <p>{requestedPrompt}</p>

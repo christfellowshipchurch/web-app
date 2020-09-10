@@ -105,7 +105,6 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   );
 
   // when the selection changes, call the onChange method
-  // eslint-disable-next-line
   useEffect(() => onChange(selected), [selected]);
 
   return (

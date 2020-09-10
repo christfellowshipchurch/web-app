@@ -61,23 +61,6 @@ const MediaItem = ({
         />
       )}
 
-      {videoUrl ? (
-        <Video
-          className={classnames('embed-responsive-item')}
-          source={videoUrl}
-          poster={imageUrl}
-          showControls={showControls}
-          isLive={isLive}
-          playIcon={playIcon}
-        />
-      ) : (
-        <Image
-          source={imageUrl}
-          alt={imageAlt}
-          className={classnames('embed-responsive-item')}
-        />
-      )}
-
       {!showControls && (
         <div
           className="fill d-flex justify-content-center align-items-center"
