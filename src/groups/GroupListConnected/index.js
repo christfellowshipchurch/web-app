@@ -17,7 +17,7 @@ const GroupListConnected = () => {
     return <ErrorBlock />;
   }
 
-  // TDOD: move this to the API
+  // Sort groups by date. TDOD: move this to the API
   const groups = get(data, 'currentUser.profile.groups', []).sort((a, b) =>
     moment(a.dateTime.start).diff(b.dateTime.start)
   );
