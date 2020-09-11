@@ -17,7 +17,7 @@ import moment from 'moment';
 
 import { Card, AddToCalendar } from '../../ui';
 import { Icon } from '../../ui/Icons';
-import { getDirectionsUrl } from '../../utils';
+// import { getDirectionsUrl } from '../../utils';
 import { GoogleAnalytics } from '../../analytics';
 
 const EventTimes = ({ date, times, className }) => {
@@ -51,6 +51,18 @@ const EventTimes = ({ date, times, className }) => {
   );
 };
 
+EventTimes.propTypes = {
+  date: PropTypes.string,
+  times: PropTypes.arrayOf(PropTypes.object),
+  className: PropTypes.string,
+};
+
+EventTimes.defaultProps = {
+  date: '',
+  times: [],
+  className: '',
+};
+
 const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
     className="w-100"
@@ -71,10 +83,21 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   </div>
 ));
 
+CampusSelectToggle.propTypes = {
+  children: PropTypes.object,
+  onClick: PropTypes.func,
+};
+
+CampusSelectToggle.defaultProps = {
+  children: {},
+  onClick: () => {},
+};
+
 const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   const id = 'event-campus-selection';
-  const selectLocation = 'Select Location';
+  // const selectLocation = 'Select Location';
   // const options = [selectLocation, ...campuses]
+
   // Defaults to first Campus for now
   const options = [...campuses];
   const [selected, setSelected] = useState(
@@ -82,7 +105,7 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   );
 
   // when the selection changes, call the onChange method
-  useEffect(() => onChange(selected), [onChange, selected]);
+  useEffect(() => onChange(selected), [selected]);
 
   return (
     <Card className="mb-3">
@@ -114,10 +137,22 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   );
 };
 
+CampusSelection.propTypes = {
+  campuses: PropTypes.object,
+  onChange: PropTypes.func,
+  defaultCampus: PropTypes.object,
+};
+
+CampusSelection.defaultProps = {
+  campuses: {},
+  onChange: () => {},
+  defaultCampus: {},
+};
+
 const EventSchedule = ({
   defaultCampus,
   callsToAction,
-  openLinksInNewTab,
+  // openLinksInNewTab,
   events,
   title,
   description,
@@ -168,7 +203,8 @@ const EventSchedule = ({
       <Card key="EventOccurences" className={classnames('mb-3')}>
         <div className="">
           {groupByLocationDate.map((event, i) => {
-            const { location, dateTimes } = event;
+            // const { location, dateTimes } = event;
+            const { dateTimes } = event;
             return (
               <div
                 key={`EventOccurence:${i}`}
@@ -269,11 +305,17 @@ EventSchedule.propTypes = {
       action: PropTypes.string,
     })
   ).isRequired,
+  events: PropTypes.arrayOf(PropTypes.any),
+  title: PropTypes.string,
+  description: PropTypes.string,
 };
 
 EventSchedule.defaultProps = {
   defaultCampus: '',
   callsToAction: [],
+  events: [],
+  title: '',
+  description: '',
 };
 
 export default EventSchedule;
