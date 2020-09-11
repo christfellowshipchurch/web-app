@@ -20,38 +20,37 @@ LoadingState.propTypes = {
   isLoading: PropTypes.bool,
 };
 
-const GroupList = ({ isLoading, groups }) =>
-  console.log(groups) || (
-    <LoadingState isLoading={isLoading}>
-      {groups.length() ? (
-        <section className="row mx-n2">
-          {groups.map(
-            (n) =>
-              console.log(get(n, 'dateTime.start')) || (
-                <ContentCard
-                  key={n.id}
-                  urlBase="groups"
-                  className="my-4"
-                  id={n.id}
-                  coverImage={get(n, 'coverImage.sources', '')}
-                  title={get(n, 'title', '')}
-                  label={{
-                    bg: 'dark',
-                    textColor: 'white',
-                    value: dateLabel(get(n, 'dateTime.start')),
-                  }}
-                />
-              )
-          )}
-        </section>
-      ) : (
-        <p className="pt-2">
-          {`You're not currently in any groups. `}
-          <a href="https://rock.christfellowship.church/groups">Find a new group</a>!
-        </p>
-      )}
-    </LoadingState>
-  );
+const GroupList = ({ isLoading, groups }) => (
+  <LoadingState isLoading={isLoading}>
+    {groups.length ? (
+      <section className="row mx-n2">
+        {groups.map(
+          (n) =>
+            console.log(get(n, 'dateTime.start')) || (
+              <ContentCard
+                key={n.id}
+                urlBase="groups"
+                className="my-4"
+                id={n.id}
+                coverImage={get(n, 'coverImage.sources', '')}
+                title={get(n, 'title', '')}
+                label={{
+                  bg: 'dark',
+                  textColor: 'white',
+                  value: dateLabel(get(n, 'dateTime.start')),
+                }}
+              />
+            )
+        )}
+      </section>
+    ) : (
+      <p className="pt-2">
+        {`You're not currently in any groups. `}
+        <a href="https://rock.christfellowship.church/groups">Find a new group</a>!
+      </p>
+    )}
+  </LoadingState>
+);
 
 GroupList.propTypes = {
   isLoading: PropTypes.bool,
