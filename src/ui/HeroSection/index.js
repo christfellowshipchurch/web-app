@@ -64,8 +64,6 @@ const HeroSection = ({
                   'align-items-center'
                 )}
               >
-                <Swoop />
-
                 <div
                   className={classnames(
                     'w-100',
