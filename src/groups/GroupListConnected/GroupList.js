@@ -23,7 +23,7 @@ LoadingState.propTypes = {
 const GroupList = ({ isLoading, groups }) =>
   console.log(groups) || (
     <LoadingState isLoading={isLoading}>
-      {groups ? (
+      {groups.length() ? (
         <section className="row mx-n2">
           {groups.map(
             (n) =>
