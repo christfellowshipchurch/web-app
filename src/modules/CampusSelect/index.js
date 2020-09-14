@@ -66,6 +66,7 @@ export const CampusTile = ({
   serviceTimes,
   onClick,
   className,
+  isRsvp,
 }) => {
   const location = `${street1}+${city}+${state}+${postalCode}`;
 
@@ -74,26 +75,29 @@ export const CampusTile = ({
       <div className="col-12 col-md px-3">
         <Media ratio="1by1" imageUrl={get(image, 'uri', '')} imageAlt={name} rounded />
       </div>
-      <div className="col px-3 py-4">
+      <div className="col px-3">
         <h2>{name}</h2>
+        {!isRsvp && (
+          <div>
+            {serviceTimes.length > 0 && (
+              <div className="mb-4">
+                <h3 className="mt-4">Service Times</h3>
+                {uniqBy(serviceTimes, 'time').map((n, i) => {
+                  const isDate = moment(`${n.day} ${n.time}`).isValid();
+                  const title = isDate ? n.time : `${n.day.substring(0, 3)} - ${n.time}`;
 
-        {serviceTimes.length > 0 && (
-          <>
-            <h3 className="mt-4">Service Times</h3>
-            {uniqBy(serviceTimes, 'time').map((n, i) => {
-              const isDate = moment(`${n.day} ${n.time}`).isValid();
-              const title = isDate ? n.time : `${n.day.substring(0, 3)} - ${n.time}`;
-
-              return (
-                <h4 key={i} className="pl-2">
-                  {title}
-                </h4>
-              );
-            })}
-          </>
+                  return (
+                    <h4 key={i} className="pl-2">
+                      {title}
+                    </h4>
+                  );
+                })}
+              </div>
+            )}
+          </div>
         )}
 
-        <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
+        <p className="text-dark mb-2">{`${street1}`}</p>
         <p className="text-dark mb-3">
           {`${city}, ${state} ${postalCode.substring(0, 5)}`}
         </p>
@@ -121,27 +125,33 @@ export const CampusTile = ({
 
         {/* TEMPORARLY HIDING RSVP BUTTONS WHILE CAMPUSES ARE CLOSED */}
 
-        {/* <h3 className="mt-6">
-                    Select a service time to RSVP for:
-                </h3>
-                {uniqBy(serviceTimes, 'time').map((n, i) => {
-                    const isDate = moment(`${n.day} ${n.time}`).isValid()
-                    const title = isDate
-                        ? n.time
-                        : `${n.day.substring(0, 3)} ${n.time}`
+        {isRsvp && (
+          <>
+            <h2 className="mt-3">Select a service time to RSVP for:</h2>
+            <div className="row mx-n2">
+              {uniqBy(serviceTimes, 'time').map((n, i) => {
+                const isDate = moment(`${n.day} ${n.time}`).isValid();
+                const title = isDate ? n.time : `${n.day.substring(0, 3)} ${n.time}`;
 
-                    return (
-                        <Button
-                            title={title}
-                            className="m-1 min-width-250"
-                            key={i}
-                            onClick={() => onClick({
-                                day: moment().add(1, 'week').isoWeekday(n.day),
-                                time: n.time
-                            })}
-                        />
-                    )
-                })} */}
+                return (
+                  <div className="col-sm-4 px-1 m-0">
+                    <Button
+                      title={title}
+                      className="m-1 px-1 w-100"
+                      key={i}
+                      onClick={() =>
+                        onClick({
+                          day: moment().add(1, 'week').isoWeekday(n.day),
+                          time: n.time,
+                        })
+                      }
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -152,7 +162,7 @@ CampusTile.defaultProps = {
   postalCode: '',
 };
 
-const CampusSelect = ({ background }) => {
+const CampusSelect = ({ background, isRsvp }) => {
   const [rsvpForm, setRsvpForm] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [activeCampus, setActiveCampus] = useState(null);
@@ -178,7 +188,7 @@ const CampusSelect = ({ background }) => {
   const inputBackground = background === 'bg-white' ? 'bg-light' : 'bg-white';
 
   return (
-    <div className="container py-6">
+    <div className="container-fluid py-6">
       <div className="row">
         <div className="col text-center">
           <h2>Choose a Location Near You</h2>
@@ -253,15 +263,17 @@ const CampusSelect = ({ background }) => {
                 campus: get(visibleCampus, 'name', ''),
               });
             }}
+            isRsvp={isRsvp}
           />
-          {visibleCampus.campusFeatures.length ? (
+          {/* Removing What's available at this location, will be completely deprecated soon */}
+          {/* {visibleCampus.campusFeatures.length ? (
             <>
               <h1 className={classnames('pt-6', 'pb-5', 'mb-0', 'text-center')}>
                 What's Available at this Location
               </h1>
               <CardGrid data={visibleCampus.campusFeatures} />
             </>
-          ) : null}
+          ) : null} */}
         </>
       )}
 
@@ -284,10 +296,12 @@ CampusTile.propTypes = {
 
 CampusSelect.defaultProps = {
   background: 'bg-white',
+  isRsvp: false,
 };
 
 CampusSelect.propTypes = {
   background: PropTypes.oneOf(['bg-white', 'bg-light', 'bg-transparent']),
+  isRsvp: PropTypes.bool,
 };
 
 export default CampusSelect;

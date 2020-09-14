@@ -76,7 +76,7 @@ const mapItemToVisual = (item, bg) => {
     case 'WebsiteFeature':
       return (
         <div className={classnames('col', 'px-4')}>
-          <Feature name={get(item, 'feature', '')} background={bg} {...item} />
+          <Feature name={get(item, 'feature', '')} background={bg} {...item} isRsvp />
         </div>
       );
     default:
