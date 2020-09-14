@@ -15,6 +15,11 @@ const MessageContainer = styled.div`
   border-radius: ${baseUnit(2)};
   padding: ${baseUnit(1)};
   margin: ${baseUnit(1)} ${baseUnit(2)};
+
+  /* Last message in a list */
+  li:last-child > & {
+    margin-bottom: ${baseUnit(3)};
+  }
 `;
 
 const Body = styled.div`

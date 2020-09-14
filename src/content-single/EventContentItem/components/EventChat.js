@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useQuery, useLazyQuery } from 'react-apollo';
-import styled from 'styled-components/macro';
 import { get } from 'lodash';
-
-import { baseUnit } from 'styles/config';
 
 import {
   Chat,
@@ -17,7 +14,8 @@ import {
 
 import { useAuth } from 'auth';
 import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
-import { Message } from 'ui/chat';
+import { Loader } from 'ui';
+import { Message, MessageInputLoggedOut } from 'ui/chat';
 
 import { GET_CURRENT_USER_FOR_CHAT, GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
 
@@ -38,40 +36,18 @@ const DebugInfo = ({ children }) =>
   window.location.search.indexOf('debug') >= 0 ? children : null;
 // ✂️ -------------------------------------------
 
-const LoginButton = styled.button`
-  color: ${({ theme }) => theme.link};
-  background: none;
-  border: none;
-  padding: 0;
-`;
-
-const LoginPrompt = styled.p`
-  position: relative;
-  width: 100%;
-  padding: ${baseUnit(2)};
-  margin-top: ${baseUnit(2)};
-  margin-bottom: 0;
-  text-align: center;
-  background: ${({ theme }) => theme.card.background};
-  box-shadow: 0 -${baseUnit(3)} ${baseUnit(4)} ${({ theme }) => theme.body.background};
-`;
-
-// ----------------
-
 const ChatInterface = ({ channel, isLoggedIn, onLogIn }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
-    <Channel channel={channel} Message={Message}>
+    <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
       <Window>
         {/* <ChannelHeader live /> */}
         <MessageList />
         {isLoggedIn ? (
-          <div className="bg-white mt-2">
+          <div className="bg-white">
             <MessageInput Input={MessageInputSmall} noFiles />
           </div>
         ) : (
-          <LoginPrompt>
-            <LoginButton onClick={onLogIn}>Log in</LoginButton> to chat with the community
-          </LoginPrompt>
+          <MessageInputLoggedOut />
         )}
       </Window>
     </Channel>
@@ -148,7 +124,7 @@ const EventChat = ({ channelId }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
-  if (loading || !channel) return <h1 className="text-light">Loading...</h1>;
+  if (loading || !channel) return <Loader />;
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
 
   return (
