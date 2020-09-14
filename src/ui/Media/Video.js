@@ -4,9 +4,9 @@ import classnames from 'classnames';
 import Hls from 'hls.js';
 import { isMobile, isIOS } from 'react-device-detect';
 
-import { Icon } from '../Icons';
+import { CenterPlayButton, ImagePlayButton } from './PlayButtons';
 
-const MediaVideo = ({ source, poster, isLive, showControls }) => {
+const MediaVideo = ({ source, poster, isLive, showControls, altPlayButton }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
 
@@ -82,56 +82,12 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
         <source type="video/mp4" src={source} />
       </video>
       {showPlayButton && (
-        <div
-          className="fill d-flex justify-content-start align-items-end"
-          style={{ zIndex: 900 }}
-        >
-          <a
-            className={classnames(
-              'cursor-hover',
-              'scale-media-up-on-hover',
-              'ml-3',
-              'd-flex',
-              'align-items-center',
-              'justify-content-center'
-            )}
-            onClick={playButtonClick}
-            style={{
-              position: 'relative',
-              top: 20,
-            }}
-          >
-            <img
-              className="rounded gradient-black"
-              src={poster}
-              style={{
-                height: 60,
-                width: 'auto',
-                zIndex: 950,
-              }}
-            />
-            <div
-              className="p-absolute flex-column"
-              style={{
-                zIndex: 1000,
-              }}
-            >
-              <Icon
-                className="d-flex justify-content-center"
-                name="play"
-                fill="white"
-                size={20}
-              />
-              <p
-                className="text-white mb-0"
-                style={{
-                  fontSize: 12,
-                }}
-              >
-                Play
-              </p>
-            </div>
-          </a>
+        <div>
+          {altPlayButton ? (
+            <CenterPlayButton onClick={playButtonClick} />
+          ) : (
+            <ImagePlayButton onClick={playButtonClick} image={poster} />
+          )}
         </div>
       )}
       {showMuteButton && (
@@ -161,6 +117,7 @@ MediaVideo.propTypes = {
   showControls: PropTypes.bool,
   loop: PropTypes.bool,
   muted: PropTypes.bool,
+  altPlayButton: PropTypes.bool,
 };
 
 // Default state of the video is to be a silent,
@@ -171,6 +128,7 @@ MediaVideo.defaultProps = {
   autoPlay: true,
   loop: true,
   muted: true,
+  altPlayButton: false,
 };
 
 export default MediaVideo;

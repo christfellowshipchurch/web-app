@@ -22,6 +22,7 @@ const MediaItem = ({
   withHover,
   style,
   isLive,
+  altPlayButton,
 }) => {
   let ratioClass =
     typeof ratio === 'string'
@@ -52,6 +53,7 @@ const MediaItem = ({
           showControls={showControls}
           isLive={isLive}
           playIcon={playIcon}
+          altPlayButton={altPlayButton}
         />
       ) : (
         <Image
@@ -98,6 +100,9 @@ MediaItem.defaultProps = {
   gradientDirection: 'bottom-top',
   withHover: false,
   isLive: false,
+  altPlayButton: false,
+  rounded: false,
+  circle: false,
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
@@ -148,6 +153,9 @@ MediaItem.propTypes = {
     'black',
   ]),
   gradientDirection: PropTypes.oneOf(['bottom-top']),
+  altPlayButton: PropTypes.bool,
+  circle: PropTypes.bool,
+  rounded: PropTypes.bool,
 };
 
 export default MediaItem;
