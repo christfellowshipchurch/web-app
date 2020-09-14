@@ -42,6 +42,7 @@ const HeroSection = ({
               ratio="16by9"
               overlay="black"
               videoUrl={get(video, 'uri', null)}
+              playVidInBackground
               imageUrl={get(image, 'uri', '')}
               imageAlt={get(image, 'alt', '')}
               fill="screen"

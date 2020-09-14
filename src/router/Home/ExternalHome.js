@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { HeroSection } from 'ui';
 import { useAuth } from '../../auth';
 
-import backgroundImage from './home-background.jpg';
+import backgroundVideo from './home-background-vid.mp4';
 
 const CustomButton = ({ call, action, onClick }) => (
   <a
@@ -43,8 +43,8 @@ const ExternalHome = () => {
     <HeroSection
       title="Live Your Best Life"
       htmlContent="A church in South Florida that helps you thrive in every area of life."
-      image={{
-        uri: backgroundImage,
+      video={{
+        uri: backgroundVideo,
       }}
       swoop={false}
     >

@@ -23,6 +23,7 @@ const MediaItem = ({
   style,
   isLive,
   altPlayButton,
+  playVidInBackground,
 }) => {
   let ratioClass =
     typeof ratio === 'string'
@@ -48,6 +49,7 @@ const MediaItem = ({
       {videoUrl ? (
         <Video
           className={classnames('embed-responsive-item')}
+          playInBackground={playVidInBackground}
           source={videoUrl}
           poster={imageUrl}
           showControls={showControls}
@@ -103,6 +105,7 @@ MediaItem.defaultProps = {
   altPlayButton: false,
   rounded: false,
   circle: false,
+  playVidInBackground: false,
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
@@ -156,6 +159,7 @@ MediaItem.propTypes = {
   altPlayButton: PropTypes.bool,
   circle: PropTypes.bool,
   rounded: PropTypes.bool,
+  playVidInBackground: PropTypes.bool,
 };
 
 export default MediaItem;

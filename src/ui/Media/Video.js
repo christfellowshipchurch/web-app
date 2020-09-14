@@ -6,7 +6,14 @@ import { isMobile, isIOS } from 'react-device-detect';
 
 import { CenterPlayButton, ImagePlayButton } from './PlayButtons';
 
-const MediaVideo = ({ source, poster, isLive, showControls, altPlayButton }) => {
+const MediaVideo = ({
+  source,
+  poster,
+  isLive,
+  showControls,
+  altPlayButton,
+  playInBackground,
+}) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
 
@@ -18,7 +25,11 @@ const MediaVideo = ({ source, poster, isLive, showControls, altPlayButton }) => 
         muted: false,
         controls: !showPlayButton,
       }
-    : {};
+    : {
+        autoPlay: playInBackground,
+        loop: playInBackground,
+        muted: playInBackground,
+      };
 
   if (isLive || (source.includes('m3u8') && !isMobile)) {
     videoProps = {
@@ -118,6 +129,7 @@ MediaVideo.propTypes = {
   loop: PropTypes.bool,
   muted: PropTypes.bool,
   altPlayButton: PropTypes.bool,
+  playInBackground: PropTypes.bool,
 };
 
 // Default state of the video is to be a silent,
@@ -129,6 +141,7 @@ MediaVideo.defaultProps = {
   loop: true,
   muted: true,
   altPlayButton: false,
+  playInBackground: false,
 };
 
 export default MediaVideo;
