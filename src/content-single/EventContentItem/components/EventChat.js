@@ -9,17 +9,15 @@ import { baseUnit } from 'styles/config';
 import {
   Chat,
   Channel,
-  ChannelHeader,
   Window,
   MessageList,
   MessageInput,
   MessageInputSmall,
-  MessageInputFlat,
-  MessageLivestream,
 } from 'stream-chat-react';
 
-import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 import { useAuth } from 'auth';
+import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { Message } from 'ui/chat';
 
 import { GET_CURRENT_USER_FOR_CHAT, GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
 
@@ -51,61 +49,23 @@ const LoginPrompt = styled.p`
   position: relative;
   width: 100%;
   padding: ${baseUnit(2)};
+  margin-top: ${baseUnit(2)};
   margin-bottom: 0;
   text-align: center;
   background: ${({ theme }) => theme.card.background};
   box-shadow: 0 -${baseUnit(3)} ${baseUnit(4)} ${({ theme }) => theme.body.background};
 `;
 
-const Message = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  background: ${({ theme }) => theme.card.background};
-  border-radius: ${baseUnit(2)};
-  padding: ${baseUnit(1)};
-  margin: ${baseUnit(1)} ${baseUnit(2)};
-`;
-
-const MessageBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding-left: ${baseUnit(1)};
-`;
-
-const MessageAvatar = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 3rem;
-  margin-top: 0.2rem;
-`;
-
 // ----------------
-const MyMessageComponent = ({ message }) => {
-  const {
-    text,
-    user: { image, name = 'Unknown User' },
-  } = message;
-
-  return (
-    <Message>
-      <div>{image ? <MessageAvatar src={image} alt={name} /> : <p>No image</p>}</div>
-      <MessageBody>
-        <b>{name}</b>
-        <span>{text}</span>
-      </MessageBody>
-    </Message>
-  );
-};
 
 const ChatInterface = ({ channel, isLoggedIn, onLogIn }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
-    <Channel channel={channel} Message={MyMessageComponent}>
+    <Channel channel={channel} Message={Message}>
       <Window>
         {/* <ChannelHeader live /> */}
         <MessageList />
         {isLoggedIn ? (
-          <div className="bg-white">
+          <div className="bg-white mt-2">
             <MessageInput Input={MessageInputSmall} noFiles />
           </div>
         ) : (

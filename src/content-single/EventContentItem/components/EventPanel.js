@@ -104,6 +104,7 @@ Tab.defaultProps = {
 
 // :: Main Component
 // ------------------------
+
 const EventPanel = ({ event }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
   const channelId = event ? event.id.split(':')[1] : null;
