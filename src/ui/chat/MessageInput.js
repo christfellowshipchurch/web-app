@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { MessageInput, MessageInputSmall } from 'stream-chat-react';
 
 import { baseUnit } from 'styles/config';
 import { useAuth } from 'auth';
 
 // :: Styled Components
-const Container = styled.p`
+const LoggedInContainer = styled.div`
+  background-color: ${({ theme }) => theme.card.background};
+`;
+
+const LoggedOutContainer = styled.p`
   position: relative;
   width: 100%;
   padding: ${baseUnit(2)};
@@ -25,12 +30,20 @@ const LoginLink = styled.button`
 
 // :: Main Component
 const MessageInputLoggedOut = () => {
-  const { logIn } = useAuth();
+  const { isLoggedIn, logIn } = useAuth();
+
+  if (isLoggedIn) {
+    return (
+      <LoggedInContainer>
+        <MessageInput Input={MessageInputSmall} noFiles />
+      </LoggedInContainer>
+    );
+  }
 
   return (
-    <Container>
+    <LoggedOutContainer>
       <LoginLink onClick={logIn}>Log in</LoginLink> to chat with the community
-    </Container>
+    </LoggedOutContainer>
   );
 };
 

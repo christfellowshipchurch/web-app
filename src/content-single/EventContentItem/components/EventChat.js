@@ -3,19 +3,12 @@ import PropTypes from 'prop-types';
 import { useQuery, useLazyQuery } from 'react-apollo';
 import { get } from 'lodash';
 
-import {
-  Chat,
-  Channel,
-  Window,
-  MessageList,
-  MessageInput,
-  MessageInputSmall,
-} from 'stream-chat-react';
+import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
 
 import { useAuth } from 'auth';
 import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 import { Loader } from 'ui';
-import { Message, MessageInputLoggedOut } from 'ui/chat';
+import { Message, MessageInput } from 'ui/chat';
 
 import { GET_CURRENT_USER_FOR_CHAT, GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
 
@@ -36,19 +29,12 @@ const DebugInfo = ({ children }) =>
   window.location.search.indexOf('debug') >= 0 ? children : null;
 // ✂️ -------------------------------------------
 
-const ChatInterface = ({ channel, isLoggedIn, onLogIn }) => (
+const ChatInterface = ({ channel }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
       <Window>
-        {/* <ChannelHeader live /> */}
         <MessageList />
-        {isLoggedIn ? (
-          <div className="bg-white">
-            <MessageInput Input={MessageInputSmall} noFiles />
-          </div>
-        ) : (
-          <MessageInputLoggedOut />
-        )}
+        <MessageInput />
       </Window>
     </Channel>
   </Chat>

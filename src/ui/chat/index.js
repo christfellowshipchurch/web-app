@@ -1,4 +1,4 @@
 import Message from './Message';
-import MessageInputLoggedOut from './MessageInputLoggedOut';
+import MessageInput from './MessageInput';
 
-export { Message, MessageInputLoggedOut };
+export { Message, MessageInput };
