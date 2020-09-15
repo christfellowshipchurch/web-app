@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import { MessageInput, MessageInputSmall } from 'stream-chat-react';
 
-import { baseUnit } from 'styles/config';
+import { baseUnit } from 'styles/theme';
 import { useAuth } from 'auth';
 
 // :: Styled Components

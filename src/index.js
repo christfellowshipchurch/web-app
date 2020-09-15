@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components/macro';
 
-import { theme } from 'styles/config';
+import { theme } from 'styles/theme';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';

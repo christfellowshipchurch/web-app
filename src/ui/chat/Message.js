@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { useTheme } from 'styled-components/macro';
 
-import { baseUnit } from 'styles/config';
+import { baseUnit } from 'styles/theme';
 
 import { Icon } from 'ui';
 
