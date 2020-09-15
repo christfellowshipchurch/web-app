@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { Icon } from '../../Icons';
 
 const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonProps }) => {
   const types =
@@ -14,7 +15,7 @@ const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonPro
   return (
     <div className="text-left">
       <a
-        href="#"
+        href="/#"
         onClick={(e) => {
           e.preventDefault();
           onClick();
@@ -31,12 +32,14 @@ const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonPro
         )}
         {...buttonProps}
       >
-        <i
-          className={classnames('fal', 'pl-1', {
-            'fa-check-square': checked,
-            'fa-square': !checked,
-          })}
-        ></i>
+        {/*
+         * Replaced FontAwesome Icons with custom Icon component,
+         * still need to clean up rest of Checkbox Component
+         */}
+        <Icon
+          name={checked ? 'check-square' : 'square'}
+          fill={checked ? types.checked : types.default}
+        />
       </a>
       {error && (
         <label className={classnames('ml-2', 'input-label-sm', 'text-danger')}>
@@ -67,9 +70,9 @@ Checkbox.defaultProps = {
   checked: false,
   onClick: () => true,
   type: {
-    default: 'dark',
-    hover: 'primary',
-    checked: 'primary',
+    default: '#353535',
+    hover: '#00aeff',
+    checked: '#00aeff',
   },
   label: null,
   disabled: false,
