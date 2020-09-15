@@ -7,6 +7,7 @@ import PageBuilder from './PageBuilder';
 import HomePage from './Home';
 import Login from './Login';
 import Events from './Events';
+import Groups from './Groups';
 import Browse from './Browse';
 import Content from './Content';
 import Items from './Items';
@@ -37,6 +38,7 @@ const Router = () => (
     {/* TODO : remove this comment when the feature flag is ready to go back on */}
     <Route path="/login" component={Login} />
     <Route path="/events" component={Events} />
+    <Route path="/groups" component={Groups} />
     <Route path="/content" component={Content} />
     <Route path="/items" component={Items} />
     <Route path="/discover" component={Browse} />
