@@ -4,16 +4,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /* width: 100%; */
   height: auto;
   max-height: initial;
   box-sizing: border-box;
-  /* border: 2px yellow solid; */
 }
 
 .livestream.str-chat .str-chat__list {
   padding: 0;
-}
-
-.str-chat__list {
 }

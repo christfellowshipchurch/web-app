@@ -59,7 +59,6 @@ const TabLabel = styled.span`
 
 const PanelBody = styled.div`
   position: relative;
-  /* border: 3px cyan solid; */
   box-sizing: border-box;
   z-index: 0;
   width: 100%;
@@ -68,15 +67,12 @@ const PanelBody = styled.div`
 
 const TabContent = styled.div`
   ${({ active }) => !active && 'display: none;'}
-  /* height: 100%; */
-  /* max-height: 100%; */
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   box-sizing: border-box;
-  /* border: 2px red solid; */
 `;
 
 // ---
