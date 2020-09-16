@@ -30,6 +30,9 @@ const Body = styled.div`
 
 const AVATAR_SIZE = 46;
 const AvatarContainer = styled.div`
+  min-width: ${AVATAR_SIZE}px;
+  width: ${AVATAR_SIZE}px;
+  height: ${AVATAR_SIZE}px;
   margin-top: 0.2rem;
   background-color: ${({ theme }) => theme.body.background};
   border-radius: ${AVATAR_SIZE}px;

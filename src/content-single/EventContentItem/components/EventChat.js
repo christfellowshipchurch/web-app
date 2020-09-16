@@ -30,16 +30,27 @@ const ChatContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  border: 1px red dashed;
+  /* border: 1px red dashed; */
 `;
 
-const DirectMessages = styled.div`
+const DirectMessagesContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  left: 50%;
-  border: 2px cyan solid;
+  left: 0;
+  transform: translateX(${({ visible }) => (visible ? 0 : '100%')});
+  /* border: 2px cyan solid; */
   background: rgba(255, 255, 255, 0.33);
+  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  box-shadow: ${({ theme }) => theme.shadow.small};
+`;
+
+const ChatHeader = styled.div`
+  position: absolute;
+  width: '100%';
+  top: 0;
+  left: 0;
+  background: ${({ theme }) => theme.card.background};
 `;
 
 const LiveStreamChat = ({ channel }) => (
@@ -66,6 +77,9 @@ const DirectMessagesChat = ({ channel }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="messaging">
     <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
       <Window>
+        <p style={{ textAlign: 'center', fontWeight: 'bold', paddingTop: '1rem' }}>
+          Direct Messages with Yoda
+        </p>
         <MessageList />
         <MessageInput />
       </Window>
@@ -100,6 +114,7 @@ const EventChat = ({ channelId }) => {
     ? get(userRoleQueryData, 'currentUser.streamChatRole', ChatRoles.USER)
     : ChatRoles.USER;
 
+  const [isViewingDms, setIsViewingDms] = useState(false);
   const [channel, setChannel] = useState(null);
   const [dmChannel, setDmChannel] = useState(null);
   console.log('[rkd] data:', data);
@@ -132,7 +147,6 @@ const EventChat = ({ channelId }) => {
           'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
           'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
         ].map(stripPrefix);
-        console.log('[rkd] members:', members);
 
         const newDmChannel = StreamChatClient.channel('messaging', {
           members,
@@ -161,9 +175,14 @@ const EventChat = ({ channelId }) => {
   return (
     <ChatContainer>
       <LiveStreamChat channel={channel} isLoggedIn={isLoggedIn} onLogIn={logIn} />
-      <DirectMessages>
+      <DirectMessagesContainer visible={isViewingDms}>
         <DirectMessagesChat channel={dmChannel} />
-      </DirectMessages>
+      </DirectMessagesContainer>
+      <ChatHeader>
+        <button onClick={() => setIsViewingDms(!isViewingDms)}>
+          {isViewingDms ? '< Back to Chat' : 'View Direct Messages >'}
+        </button>
+      </ChatHeader>
     </ChatContainer>
   );
 };
