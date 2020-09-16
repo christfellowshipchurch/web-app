@@ -22,7 +22,7 @@ const ProfileConnected = ({ size }) => {
 
   return isLoggedIn ? (
     <a href="/profile" style={hasPhoto && { width: size, height: size }}>
-      <span className="d-flex">
+      <span className="d-flex cursor-hover">
         {hasPhoto ? (
           <Media
             imageUrl={get(data, 'currentUser.profile.photo.uri', '')}
@@ -46,7 +46,13 @@ const ProfileConnected = ({ size }) => {
       </span>
     </a>
   ) : (
-    <Icon onClick={() => logIn()} name="user-circle" fill="#525252" size={32} />
+    <Icon
+      onClick={() => logIn()}
+      name="user-circle"
+      fill="#525252"
+      size={32}
+      className="cursor-hover"
+    />
   );
 };
 

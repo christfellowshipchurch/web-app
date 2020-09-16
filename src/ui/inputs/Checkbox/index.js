@@ -7,9 +7,9 @@ const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonPro
   const types =
     typeof type === 'string' ? { default: type, hover: type, checked: type } : type;
 
-  if (disabled) {
-    types.checked = 'dark';
-    types.hover = 'dark';
+  if (!!disabled) {
+    types.checked = '#353535';
+    types.hover = '#353535';
   }
 
   return (
@@ -20,25 +20,14 @@ const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonPro
           e.preventDefault();
           onClick();
         }}
-        className={classnames(
-          'btn-checkbox',
-          {
-            disable: disabled,
-          },
-          {
-            [`text-${types.default}`]: !checked,
-            [`text-${types.checked}`]: checked,
-          }
-        )}
+        disabled={disabled}
+        className={classnames('btn-checkbox')}
         {...buttonProps}
       >
-        {/*
-         * Replaced FontAwesome Icons with custom Icon component,
-         * still need to clean up rest of Checkbox Component
-         */}
         <Icon
           name={checked ? 'check-square' : 'square'}
           fill={checked ? types.checked : types.default}
+          size={22}
         />
       </a>
       {error && (
@@ -70,7 +59,7 @@ Checkbox.defaultProps = {
   checked: false,
   onClick: () => true,
   type: {
-    default: '#353535',
+    default: '#828282',
     hover: '#00aeff',
     checked: '#00aeff',
   },
