@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { withTheme } from 'styled-components/macro';
-
-import { baseUnit } from 'styles/theme';
-
-import { Icon } from 'ui/Icons';
+import styled from 'styled-components/macro';
 
 import EventChat from './EventChat';
+import Tab from './Tab';
 
 // :: Styled Components
 // ------------------------
@@ -30,33 +27,6 @@ const PanelHeader = styled.div`
   z-index: 1;
 `;
 
-const TabContainer = styled.div`
-  display: inline-flex;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  padding: ${baseUnit(3)} ${baseUnit(3)} ${baseUnit(2)};
-`;
-
-const TabButton = styled.button`
-  background: none;
-  border: none;
-  text-align: center;
-  opacity: ${({ active }) => (active ? 1 : 0.7)};
-  transition: opacity 0.15s ease-out;
-
-  &:hover {
-    opacity: 1;
-  }
-`;
-
-const TabLabel = styled.span`
-  display: block;
-  margin-top: ${baseUnit(1)};
-  font-weight: bold;
-  color: ${({ active, theme }) => (active ? theme.font[900] : theme.card.color)};
-`;
-
 const PanelBody = styled.div`
   position: relative;
   box-sizing: border-box;
@@ -75,29 +45,6 @@ const TabContent = styled.div`
   box-sizing: border-box;
 `;
 
-// ---
-const Tab = withTheme(({ theme, label, iconName, active, onPress }) => (
-  <TabContainer>
-    <TabButton type="button" active={active} onClick={onPress}>
-      <Icon name={iconName} fill={active ? theme.brand : theme.card.color} size="36" />
-      <TabLabel className="small" active={active}>
-        {label}
-      </TabLabel>
-    </TabButton>
-  </TabContainer>
-));
-
-Tab.propTypes = {
-  label: PropTypes.string.isRequired,
-  iconName: PropTypes.string.isRequired,
-  active: PropTypes.bool,
-  onPress: PropTypes.func,
-};
-
-Tab.defaultProps = {
-  active: false,
-};
-
 // :: Main Component
 // ------------------------
 
@@ -109,14 +56,12 @@ const EventPanel = ({ event }) => {
     <EventPanelContainer className="rounded shadow">
       <PanelHeader className="shadow">
         <Tab
-          id="chat"
           label="Chat Room"
           iconName="chat-conversation"
           active={activeTab === 'chat'}
           onPress={() => setActiveTabIndex('chat')}
         />
         <Tab
-          id="schedule"
           label="Schedule"
           iconName="calendar-alt"
           active={activeTab === 'schedule'}
