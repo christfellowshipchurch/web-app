@@ -18,12 +18,15 @@ const EventPanelContainer = styled.div`
   bottom: 0;
   overflow: hidden;
   background: ${({ theme }) => theme.body.background};
+  box-shadow: ${({ theme }) => theme.shadow.medium};
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
 `;
 
 const PanelHeader = styled.div`
   position: relative;
   display: flex;
   background: ${({ theme }) => theme.card.background};
+  box-shadow: ${({ theme }) => theme.shadow.small};
   z-index: 1;
 `;
 
@@ -53,8 +56,8 @@ const EventPanel = ({ event }) => {
   const channelId = event ? event.id.split(':')[1] : null;
 
   return (
-    <EventPanelContainer className="rounded shadow">
-      <PanelHeader className="shadow">
+    <EventPanelContainer>
+      <PanelHeader>
         <Tab
           label="Chat Room"
           iconName="chat-conversation"

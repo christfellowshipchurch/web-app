@@ -63,4 +63,17 @@ export const theme = Object.freeze({
   },
   link: colors.cyan,
   liveEvent: colors.red,
+  shadow: {
+    small: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)',
+    medium: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
+    large: '0 1rem 3rem rgba(0, 0, 0, 0.175)',
+  },
+  borderRadius: {
+    none: 0,
+    small: '0.2rem',
+    medium: '0.25rem',
+    large: '0.3rem',
+    circle: '50%',
+    pill: '50rem',
+  },
 });

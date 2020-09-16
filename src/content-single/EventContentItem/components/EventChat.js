@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
 import { useQuery, useLazyQuery } from 'react-apollo';
 import { get } from 'lodash';
 
@@ -25,11 +26,23 @@ const ChatRoles = Object.freeze({
   MODERATOR: 'MODERATOR',
 });
 
-const DebugInfo = ({ children }) =>
-  window.location.search.indexOf('debug') >= 0 ? children : null;
-// ✂️ -------------------------------------------
+const ChatContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 1px red dashed;
+`;
 
-const ChatInterface = ({ channel }) => (
+const DirectMessages = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 50%;
+  border: 2px cyan solid;
+  background: rgba(255, 255, 255, 0.33);
+`;
+
+const LiveStreamChat = ({ channel }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
       <Window>
@@ -40,13 +53,28 @@ const ChatInterface = ({ channel }) => (
   </Chat>
 );
 
-ChatInterface.propTypes = {
+LiveStreamChat.propTypes = {
   channel: Channel.type.propTypes.channel.isRequired,
   isLoggedIn: PropTypes.bool,
   onLogIn: PropTypes.func,
 };
-ChatInterface.defaultProps = {
+LiveStreamChat.defaultProps = {
   isLoggedIn: false,
+};
+
+const DirectMessagesChat = ({ channel }) => (
+  <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="messaging">
+    <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
+      <Window>
+        <MessageList />
+        <MessageInput />
+      </Window>
+    </Channel>
+  </Chat>
+);
+
+DirectMessagesChat.propTypes = {
+  channel: Channel.type.propTypes.channel.isRequired,
 };
 
 const EventChat = ({ channelId }) => {
@@ -73,6 +101,8 @@ const EventChat = ({ channelId }) => {
     : ChatRoles.USER;
 
   const [channel, setChannel] = useState(null);
+  const [dmChannel, setDmChannel] = useState(null);
+  console.log('[rkd] data:', data);
 
   useEffect(() => {
     const handleUserConnection = async () => {
@@ -96,6 +126,21 @@ const EventChat = ({ channelId }) => {
       await newChannel.create();
       setChannel(newChannel);
 
+      if (isLoggedIn) {
+        const stripPrefix = (id) => id.split(':')[1];
+        const members = [
+          'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
+          'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
+        ].map(stripPrefix);
+        console.log('[rkd] members:', members);
+
+        const newDmChannel = StreamChatClient.channel('messaging', {
+          members,
+        });
+        await newDmChannel.create();
+        setDmChannel(newDmChannel);
+      }
+
       // Now that we're sure the channel exists, we can request the user's role for it
       if (canConnectAsUser) {
         getUserRole();
@@ -114,23 +159,12 @@ const EventChat = ({ channelId }) => {
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
 
   return (
-    <>
-      <ChatInterface channel={channel} isLoggedIn={isLoggedIn} onLogIn={logIn} />
-      <DebugInfo>
-        <p className="px-2 small">
-          <code className="d-block">
-            <b>Channel ID:</b> {channelId}
-          </code>
-          <code className="d-block">
-            <b>User ID: </b>{' '}
-            {isLoggedIn ? get(data, 'currentUser.id').split(':')[1] : 'guest'}
-          </code>
-          <code className="d-block">
-            <b>User role:</b> {userRole}
-          </code>
-        </p>
-      </DebugInfo>
-    </>
+    <ChatContainer>
+      <LiveStreamChat channel={channel} isLoggedIn={isLoggedIn} onLogIn={logIn} />
+      <DirectMessages>
+        <DirectMessagesChat channel={dmChannel} />
+      </DirectMessages>
+    </ChatContainer>
   );
 };
 
