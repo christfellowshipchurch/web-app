@@ -8,7 +8,7 @@ const LiveIndicator = () => (
       className={classnames('d-flex', 'align-items-center')}
       name="live-dot"
       fill="#cb045b"
-      size="8"
+      size={8}
     />
     <h4
       className={classnames('text-danger', 'text-left', 'text-uppercase', 'mb-0', 'ml-2')}

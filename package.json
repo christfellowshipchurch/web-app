@@ -105,6 +105,7 @@
     "reactstrap": "^7.1.0",
     "stream-chat": "^2.0.0",
     "stream-chat-react": "^2.2.2",
+    "styled-components": "^5.2.0",
     "waait": "^1.0.5",
     "yup": "^0.27.0",
     "zipcodes": "^8.0.0"

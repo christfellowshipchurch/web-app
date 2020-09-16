@@ -9,6 +9,7 @@ import Bars from './bars';
 import BookAlt from './book-alt';
 import CalendarAlt from './calendar-alt';
 import CalendarPlus from './calendar-plus';
+import ChatConversation from './chat-conversation';
 import CheckCircle from './check-circle';
 import CheckSquare from './check-square';
 import Church from './church';
@@ -55,6 +56,7 @@ export {
   BookAlt,
   CalendarAlt,
   CalendarPlus,
+  ChatConversation,
   CheckCircle,
   CheckSquare,
   Church,
@@ -97,6 +99,7 @@ export const Icons = {
   BookAlt,
   CalendarAlt,
   CalendarPlus,
+  ChatConversation,
   CheckCircle,
   CheckSquare,
   Church,
