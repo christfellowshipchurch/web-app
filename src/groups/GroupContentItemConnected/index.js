@@ -5,7 +5,6 @@ import { get } from 'lodash';
 import moment from 'moment';
 
 import { GoogleAnalytics } from '../../analytics';
-// import { useAuthQuery } from '../../auth';
 import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
 
 import ADD_ATTENDANCE from './addAttendance';
@@ -86,7 +85,6 @@ const GroupContentItemConnected = ({ itemId }) => {
   return (
     <GroupContentItem
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
-      dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
       groupResources={getGroupResources}
       onClickGroupResource={handleOnClickGroupResource}
