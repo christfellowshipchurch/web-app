@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Times } from '../../Icons';
+import { Icon } from '../../Icons';
 
 const FloatingCard = ({ children, overlay, onPressExit }) => (
   <div
@@ -38,8 +38,8 @@ const FloatingCard = ({ children, overlay, onPressExit }) => (
           'sticky-top'
         )}
       >
-        <button className="border-0" onClick={onPressExit}>
-          <Times />
+        <button className="border-0 bg-white" onClick={onPressExit}>
+          <Icon name="times" size={30} />
         </button>
       </div>
       <div className="card-body px-4 pt-0 pb-4">{children}</div>
