@@ -2,14 +2,14 @@
   letter-spacing: $letter-spacing-lg;
 
   &:not([class*='outline']):not(:disabled):not(.disabled) {
-      box-shadow: $btn-box-shadow;
+    box-shadow: $btn-box-shadow;
   }
 }
 
 .btn:focus,
 .btn:active {
-    outline: none !important;
-    box-shadow: none;
+  outline: none !important;
+  box-shadow: none;
 }
 
 .btn-sm {

@@ -1,70 +1,70 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export default gql`
-query getGroupBlockItems($id: ID!) {
-  node(id: $id) {
-    ... on WebsiteGroupItem {
-      id
-      title
-      htmlContent
-      
-      childContentItemsConnection {
-        edges {
-          node {
-            id
-            title
+  query getGroupBlockItems($id: ID!) {
+    node(id: $id) {
+      ... on WebsiteGroupItem {
+        id
+        title
+        htmlContent
 
-            htmlContent
-
-            videos {
-              sources {
-                uri
-              }
-            }
-
-            images {
-              sources {
-                uri
-              }
-            }
-
-            ... on WebsiteBlockItem {
+        childContentItemsConnection {
+          edges {
+            node {
+              id
               title
-              subtitle
-              
-              contentLayout
-              callToAction {
-                call
-                action
-              }
-              secondaryCallToAction {
-                call
-                action
-              }
-      
-              coverImage {
-                name
+
+              htmlContent
+
+              videos {
                 sources {
                   uri
                 }
               }
-              imageAlt
-              imageRatio
 
-              openLinksInNewTab
-            }
+              images {
+                sources {
+                  uri
+                }
+              }
 
-            ... on WebsiteFeature {
-              feature
-            }
+              ... on WebsiteBlockItem {
+                title
+                subtitle
 
-            ... on WebsitePagesContentItem {
-              icon
+                contentLayout
+                callToAction {
+                  call
+                  action
+                }
+                secondaryCallToAction {
+                  call
+                  action
+                }
+
+                coverImage {
+                  name
+                  sources {
+                    uri
+                  }
+                }
+                imageAlt
+                imageRatio
+
+                openLinksInNewTab
+              }
+
+              ... on WebsiteFeature {
+                feature
+              }
+
+              ... on WebsitePagesContentItem {
+                icon
+              }
             }
           }
         }
       }
     }
   }
-}
-`
+`;

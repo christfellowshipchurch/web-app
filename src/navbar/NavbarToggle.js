@@ -12,22 +12,15 @@ const NavbarToggle = () => {
       onClick={() => setIsOpen(!isOpen)}
       className="border-0"
     >
-      <span
-        className="mr-2"
-      >
-        <Icon
-          name={isOpen ? 'times' : 'bars'}
-          fill="#525252"
-        />
+      <span className="mr-2">
+        <Icon name={isOpen ? 'times' : 'bars'} fill="#525252" />
       </span>
     </Navbar.Toggle>
   );
 };
 
-NavbarToggle.propTypes = {
-};
+NavbarToggle.propTypes = {};
 
-NavbarToggle.defaultProps = {
-};
+NavbarToggle.defaultProps = {};
 
 export default NavbarToggle;

@@ -29,18 +29,10 @@ const LiveBanner = () => {
         {
           'd-none': closed,
           'd-flex': !closed,
-        },
+        }
       )}
     >
-      <a
-        className={classnames(
-          'h4',
-          'mb-0',
-          'text-white',
-        )}
-        href={action}
-        target="_blank"
-      >
+      <a className={classnames('h4', 'mb-0', 'text-white')} href={action} target="_blank">
         {call}
       </a>
       <div
@@ -50,12 +42,8 @@ const LiveBanner = () => {
           right: 10,
         }}
       >
-        <span
-          onClick={() => isClosed(true)}
-        >
-          <Times
-            fill='white'
-          />
+        <span onClick={() => isClosed(true)}>
+          <Times fill="white" />
         </span>
       </div>
     </div>

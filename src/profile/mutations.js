@@ -1,13 +1,12 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
 
 export const UPDATE_CURRENT_USER = gql`
   mutation updateCurrentUserProfile(
-    $profileFields: [UpdateProfileInput]!,
-    $address: AddressInput!,
-    $campusId: String!,
+    $profileFields: [UpdateProfileInput]!
+    $address: AddressInput!
+    $campusId: String!
     $communicationPreferences: [UpdateCommunicationPreferenceInput]!
-    ) {
-
+  ) {
     updateProfileFields(input: $profileFields) {
       id
       firstName
@@ -16,7 +15,7 @@ export const UPDATE_CURRENT_USER = gql`
       birthDate
     }
 
-    updateAddress(address:$address) {
+    updateAddress(address: $address) {
       street1
       street2
       city
@@ -29,7 +28,7 @@ export const UPDATE_CURRENT_USER = gql`
       campus {
         id
         featuredImage {
-            uri
+          uri
         }
         name
       }
@@ -42,7 +41,7 @@ export const UPDATE_CURRENT_USER = gql`
       }
     }
   }
-  `
+`;
 
 export const UPDATE_CAMPUS = gql`
   mutation campusChange($campusId: String!) {
@@ -53,18 +52,18 @@ export const UPDATE_CAMPUS = gql`
       }
     }
   }
-`
-
+`;
 
 export const UPDATE_COMMUNCATION_PREFERENCE = gql`
-mutation updateCommunciationPreference(
-  $type: UPDATEABLE_COMMUNICATION_PREFERENCES!, 
-  $allow: Boolean!) {
-    updateCommunicationPreference(type:$type, allow:$allow) {
+  mutation updateCommunciationPreference(
+    $type: UPDATEABLE_COMMUNICATION_PREFERENCES!
+    $allow: Boolean!
+  ) {
+    updateCommunicationPreference(type: $type, allow: $allow) {
       communicationPreferences {
         allowEmail
         allowSMS
       }
     }
-}
-`
+  }
+`;

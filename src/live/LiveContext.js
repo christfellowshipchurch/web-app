@@ -18,10 +18,7 @@ const LiveProvider = (props) => (
 const LiveConsumer = ({ contentId, children }) => (
   <Consumer>
     {(liveStreams) => {
-
-      const stream = liveStreams.find(
-        (s) => get(s, 'contentItem.id') === contentId
-      );
+      const stream = liveStreams.find((s) => get(s, 'contentItem.id') === contentId);
       return children(stream);
     }}
   </Consumer>

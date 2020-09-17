@@ -47,11 +47,7 @@ export const REGISTER_WITH_SMS = gql`
     $password: String!
     $userProfile: [UpdateProfileInput]
   ) {
-    registerWithSms(
-      phoneNumber: $identity
-      pin: $password
-      userProfile: $userProfile
-    ) {
+    registerWithSms(phoneNumber: $identity, pin: $password, userProfile: $userProfile) {
       token
       user {
         id
@@ -71,11 +67,7 @@ export const REGISTER_WITH_EMAIL = gql`
     $password: String!
     $userProfile: [UpdateProfileInput]
   ) {
-    registerPerson(
-      email: $identity
-      password: $password
-      userProfile: $userProfile
-    ) {
+    registerPerson(email: $identity, password: $password, userProfile: $userProfile) {
       token
       user {
         id
@@ -90,23 +82,15 @@ export const REGISTER_WITH_EMAIL = gql`
 `;
 
 export const REQUEST_PASSWORD_CHANGE = gql`
-  mutation changePasswordWithPin(
-    $email:String!, 
-    $pin:String!, 
-    $newPassword:String!
-  ) {
-    changePasswordWithPin(
-      email:$email, 
-      pin:$pin, 
-      newPassword:$newPassword
-    ) {
+  mutation changePasswordWithPin($email: String!, $pin: String!, $newPassword: String!) {
+    changePasswordWithPin(email: $email, pin: $pin, newPassword: $newPassword) {
       token
     }
   }
 `;
 
 export const REQUEST_EMAIL_PIN = gql`
-  mutation requestEmailLoginPin($email:String!) {
-    requestEmailLoginPin(email:$email)
+  mutation requestEmailLoginPin($email: String!) {
+    requestEmailLoginPin(email: $email)
   }
 `;

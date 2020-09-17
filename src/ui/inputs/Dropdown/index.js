@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import { get } from 'lodash'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import {
   ExclamationCircle,
   CheckCircle,
   Ban,
   User,
   AngleDown,
-  AngleUp
-} from "../../Icons"
+  AngleUp,
+} from '../../Icons';
 
-import InputContainer from '../inputContainer'
-import InputIcon from '../inputIcon'
+import InputContainer from '../inputContainer';
+import InputIcon from '../inputIcon';
 
 const Dropdown = ({
   label,
@@ -29,14 +29,12 @@ const Dropdown = ({
   options,
   ...selectProps
 }) => {
-  const [focused, setFocused] = useState(false)
-  const [hovering, setHovering] = useState(false)
-  const [inputValue, setInputValue] = useState(value)
-  const color = (focused || hovering) && !disabled
-    ? '#00aeef'
-    : disabled ? '#e6e6e6' : '#525252'
-  const suffix = focused ? AngleUp : AngleDown
-
+  const [focused, setFocused] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [inputValue, setInputValue] = useState(value);
+  const color =
+    (focused || hovering) && !disabled ? '#00aeef' : disabled ? '#e6e6e6' : '#525252';
+  const suffix = focused ? AngleUp : AngleDown;
 
   return (
     <InputContainer
@@ -55,33 +53,33 @@ const Dropdown = ({
         onBlur={() => setFocused(false)}
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
-        onChange={(e) => { setInputValue(e.target.value); onChange(e) }}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          onChange(e);
+        }}
         disabled={disabled}
         {...selectProps}
       >
         {options.map((n, i) => {
-          const value = get(n, 'value', n)
-          const label = get(n, 'label', n)
+          const value = get(n, 'value', n);
+          const label = get(n, 'label', n);
 
           return (
-            <option
-              value={value}
-              key={i}
-            >
+            <option value={value} key={i}>
               {label}
             </option>
-          )
+          );
         })}
       </select>
     </InputContainer>
-  )
-}
+  );
+};
 
 Dropdown.defaultProps = {
-  onChange: () => { },
+  onChange: () => {},
   icon: User,
-  options: []
-}
+  options: [],
+};
 
 Dropdown.propTypes = {
   onChange: PropTypes.func,
@@ -94,11 +92,11 @@ Dropdown.propTypes = {
     PropTypes.oneOfType([
       PropTypes.shape({
         value: PropTypes.string,
-        label: PropTypes.string
+        label: PropTypes.string,
       }),
-      PropTypes.string
+      PropTypes.string,
     ])
   ),
-}
+};
 
-export default Dropdown
+export default Dropdown;

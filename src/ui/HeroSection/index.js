@@ -1,25 +1,14 @@
-import React, { useState } from 'react'
-import PropTypes from 'prop-types'
-import classnames from 'classnames'
-import VisibilitySensor from 'react-visibility-sensor'
-import { get } from 'lodash'
-import { 
-  Users, 
-  BookAlt,
-  Search
-} from '../Icons'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import VisibilitySensor from 'react-visibility-sensor';
+import { get } from 'lodash';
+import { Users, BookAlt, Search } from '../Icons';
 
-import {
-  Block,
-  Button,
-  Media
-} from '../../ui'
-import {
-  htmlToReactParser,
-  redirectTo
-} from '../../utils'
+import { Block, Button, Media } from '../../ui';
+import { htmlToReactParser, redirectTo } from '../../utils';
 
-import SwoopImg from '../../images/cyan_hole_punch.svg'
+import SwoopImg from '../../images/cyan_hole_punch.svg';
 
 const Swoop = () => {
   return (
@@ -27,18 +16,12 @@ const Swoop = () => {
       src={SwoopImg}
       style={{
         zIndex: 0,
-        width: '100%'
+        width: '100%',
       }}
-      className={classnames(
-        'absolute-center',
-        'h-100',
-        'large-background-swoop'
-      )}
+      className={classnames('absolute-center', 'h-100', 'large-background-swoop')}
     />
-  )
-}
-
-
+  );
+};
 
 const HeroSection = ({
   title,
@@ -48,104 +31,87 @@ const HeroSection = ({
   openLinksInNewTab,
   image,
   video,
-  icons
+  icons,
 }) => {
   return (
-    <VisibilitySensor
-      active
-      partialVisibility
-      minTopValue={0}
-    >
+    <VisibilitySensor active partialVisibility minTopValue={0}>
       {({ isVisible }) => {
         return (
           <>
-          <Media
-            ratio="16by9"
-            overlay='black'
-            videoUrl={get(video, 'uri', null)}
-            imageUrl={get(image, 'uri', '')}
-            imageAlt={get(image, 'alt', '')}
-            fill="screen"
-            className={classnames(
-              'vw-100',
-              'vh-100',
-              "d-flex",
-              "justify-content-center",
-              "align-items-center",
-            )}
-          >
-            <Swoop />
-
-            <div
+            <Media
+              ratio="16by9"
+              overlay="black"
+              videoUrl={get(video, 'uri', null)}
+              imageUrl={get(image, 'uri', '')}
+              imageAlt={get(image, 'alt', '')}
+              fill="screen"
               className={classnames(
-                'w-100',
-                'max-width-1100',
-                'text-center',
+                'vw-100',
+                'vh-100',
                 'd-flex',
-                'justify-content-center'
+                'justify-content-center',
+                'align-items-center'
               )}
-              style={{ zIndex: 1000 }}
             >
+              <Swoop />
+
               <div
                 className={classnames(
-                  'hero',
-                  "max-width-800",
-                  'p-3',
-                  'pt-5',
-                  {
+                  'w-100',
+                  'max-width-1100',
+                  'text-center',
+                  'd-flex',
+                  'justify-content-center'
+                )}
+                style={{ zIndex: 1000 }}
+              >
+                <div
+                  className={classnames('hero', 'max-width-800', 'p-3', 'pt-5', {
                     'opacity-0': !isVisible,
                     'opacity-100': isVisible,
                     'animate-slide-left-right': isVisible,
-                  }
-                )}
-              >
-                <h1 className="text-white">
-                  {title}
-                </h1>
+                  })}
+                >
+                  <h1 className="text-white">{title}</h1>
 
-                <p className="my-2 pl-0 text-white font-weight-light">
-                  {htmlToReactParser.parse(htmlContent)}
-                </p>
+                  <p className="my-2 pl-0 text-white font-weight-light">
+                    {htmlToReactParser.parse(htmlContent)}
+                  </p>
 
-                <div className="my-3">
-                  {callToAction && <a
-                    href={get(callToAction, 'action', '#')}
-                    target={openLinksInNewTab ? '_blank' : ''}
-                    className={classnames(
-                      "btn",
-                      'btn-primary',
-                      "min-width-250",
+                  <div className="my-3">
+                    {callToAction && (
+                      <a
+                        href={get(callToAction, 'action', '#')}
+                        target={openLinksInNewTab ? '_blank' : ''}
+                        className={classnames('btn', 'btn-primary', 'min-width-250')}
+                      >
+                        {get(callToAction, 'call', '')}
+                      </a>
                     )}
-                  >
-                    {get(callToAction, 'call', '')}
-                  </a>}
-                </div>
+                  </div>
 
-                <div className="my-3">
-                  {secondaryCallToAction && <a
-                    href={get(secondaryCallToAction, 'action', '#')}
-                    target={openLinksInNewTab ? '_blank' : ''}
-                    className={classnames(
-                      "text-white",
+                  <div className="my-3">
+                    {secondaryCallToAction && (
+                      <a
+                        href={get(secondaryCallToAction, 'action', '#')}
+                        target={openLinksInNewTab ? '_blank' : ''}
+                        className={classnames('text-white')}
+                        style={{ fontSize: 16 }}
+                      >
+                        {get(secondaryCallToAction, 'call', '')}
+                      </a>
                     )}
-                    style={{ fontSize: 16 }}
-                  >
-                    {get(secondaryCallToAction, 'call', '')}
-                  </a>}
+                  </div>
                 </div>
               </div>
-            </div>
-          </Media>
-          <div 
-            className={classnames(
-              'width-100', 
-              'bg-primary'
-            )}
-            style={{
-              height: 70,
-            }}
-          />
-          {/* <div 
+            </Media>
+            <div
+              className={classnames('width-100', 'bg-primary')}
+              style={{
+                height: 70,
+              }}
+            />
+            {/* <div 
             className={classnames(
               'width-100', 
               'bg-primary',
@@ -195,11 +161,11 @@ const HeroSection = ({
               </div>   
           </div> */}
           </>
-        )
+        );
       }}
     </VisibilitySensor>
-  )
-}
+  );
+};
 
 HeroSection.propTypes = {
   title: PropTypes.string.isRequired,
@@ -222,10 +188,10 @@ HeroSection.propTypes = {
   icons: PropTypes.arrayOf(
     PropTypes.shape({
       icon: PropTypes.string,
-      title: PropTypes.string
+      title: PropTypes.string,
     })
-  )
-}
+  ),
+};
 
 HeroSection.defaultProps = {
   htmlContent: '',
@@ -236,17 +202,17 @@ HeroSection.defaultProps = {
   icons: [
     {
       icon: Users,
-      title: 'Find Community'
+      title: 'Find Community',
     },
     {
       icon: BookAlt,
-      title: 'Grow in Your Faith'
+      title: 'Grow in Your Faith',
     },
     {
       icon: Search,
-      title: 'Discover Your Purpose'
+      title: 'Discover Your Purpose',
     },
-  ]
-}
+  ],
+};
 
-export default HeroSection
+export default HeroSection;
