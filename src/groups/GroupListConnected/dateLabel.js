@@ -19,7 +19,7 @@ const dateLabel = (date) => {
     label = mDate.format('MMM DD, YYYY');
   } else {
     /** If the date is within this year: January 1 */
-    label = mDate.format('MMMM DD');
+    label = mDate.format('MMMM DD [at] h:mm A');
   }
 
   return label;
