@@ -11,9 +11,12 @@ import CalendarAlt from './calendar-alt';
 import CalendarPlus from './calendar-plus';
 import ChatConversation from './chat-conversation';
 import CheckCircle from './check-circle';
+import CheckSquare from './check-square';
 import Church from './church';
+import Circle from './circle';
 import Clock from './clock';
 import Comments from './comments';
+import DotCircle from './dot-circle';
 import EnvelopeOpenDollar from './envelope-open-dollar';
 import Envelope from './envelope';
 import ExclamationCircle from './exclamation-circle';
@@ -31,6 +34,7 @@ import Play from './play';
 import PlayCircle from './play-circle';
 import Search from './search';
 import ShareSquare from './share-square';
+import Square from './square';
 import SignOut from './sign-out';
 import Times from './times';
 import Twitter from './twitter';
@@ -54,6 +58,7 @@ export {
   CalendarPlus,
   ChatConversation,
   CheckCircle,
+  CheckSquare,
   Church,
   Clock,
   Comments,
@@ -73,6 +78,7 @@ export {
   PlayCircle,
   Search,
   ShareSquare,
+  Square,
   Times,
   Twitter,
   User,
@@ -95,9 +101,12 @@ export const Icons = {
   CalendarPlus,
   ChatConversation,
   CheckCircle,
+  CheckSquare,
   Church,
+  Circle,
   Clock,
   Comments,
+  DotCircle,
   EnvelopeOpenDollar,
   Envelope,
   ExclamationCircle,
@@ -115,6 +124,7 @@ export const Icons = {
   PlayCircle,
   Search,
   ShareSquare,
+  Square,
   SignOut,
   Times,
   Twitter,
