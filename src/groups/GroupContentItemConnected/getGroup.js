@@ -49,6 +49,7 @@ export default gql`
       profile {
         id
         firstName
+        nickName
       }
     }
   }

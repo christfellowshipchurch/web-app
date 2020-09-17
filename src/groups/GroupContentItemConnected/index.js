@@ -95,7 +95,10 @@ const GroupContentItemConnected = ({ itemId }) => {
       parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
       title={get(content, 'title')}
-      userName={get(data, 'currentUser.profile.firstName')}
+      userName={
+        get(data, 'currentUser.profile.nickName') ||
+        get(data, 'currentUser.profile.firstName')
+      }
       videoCall={get(content, 'videoCall')}
     />
   );
