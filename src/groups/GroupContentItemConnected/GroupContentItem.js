@@ -193,15 +193,4 @@ GroupContentItem.propTypes = {
   }),
 };
 
-GroupContentItem.defaultProps = {
-  coverImage: {
-    sources: [
-      {
-        uri:
-          'https://rock.christfellowship.church/Content/ExternalSite/Banners/GroupsHeader.jpg',
-      },
-    ],
-  },
-};
-
 export default GroupContentItem;
