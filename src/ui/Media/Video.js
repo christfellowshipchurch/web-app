@@ -90,7 +90,6 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
           style={{ zIndex: 900 }}
         >
           <a
-            href="/#"
             className={classnames(
               'cursor-hover',
               'scale-media-up-on-hover',
