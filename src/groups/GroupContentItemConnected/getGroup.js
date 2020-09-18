@@ -8,9 +8,6 @@ export default gql`
         id
         title
         summary
-        schedule {
-          friendlyScheduleText
-        }
         coverImage {
           sources {
             uri
@@ -49,6 +46,7 @@ export default gql`
       profile {
         id
         firstName
+        nickName
       }
     }
   }

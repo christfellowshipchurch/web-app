@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { ContentCard, Loader } from '../../ui';
 
-import dateLabel from './dateLabel';
+import dateTextFormat from '../dateTextFormat';
 
 const LoadingState = ({ children, isLoading }) =>
   isLoading ? (
@@ -35,7 +35,7 @@ const GroupList = ({ isLoading, groups }) => (
             label={{
               bg: 'dark',
               textColor: 'white',
-              value: dateLabel(get(n, 'dateTime.start')),
+              value: dateTextFormat(get(n, 'dateTime.start')),
             }}
           />
         ))}

@@ -5,7 +5,6 @@ import { get } from 'lodash';
 import moment from 'moment';
 
 import { GoogleAnalytics } from '../../analytics';
-// import { useAuthQuery } from '../../auth';
 import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
 
 import ADD_ATTENDANCE from './addAttendance';
@@ -86,7 +85,6 @@ const GroupContentItemConnected = ({ itemId }) => {
   return (
     <GroupContentItem
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
-      dateText={get(content, 'schedule.friendlyScheduleText')}
       dateTimes={get(content, 'dateTime')}
       groupResources={getGroupResources}
       onClickGroupResource={handleOnClickGroupResource}
@@ -95,7 +93,10 @@ const GroupContentItemConnected = ({ itemId }) => {
       parentVideoCall={get(content, 'parentVideoCall')}
       summary={get(content, 'summary')}
       title={get(content, 'title')}
-      userName={get(data, 'currentUser.profile.firstName')}
+      userName={
+        get(data, 'currentUser.profile.nickName') ||
+        get(data, 'currentUser.profile.firstName')
+      }
       videoCall={get(content, 'videoCall')}
     />
   );
