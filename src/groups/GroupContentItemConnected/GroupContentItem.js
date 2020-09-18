@@ -7,6 +7,8 @@ import Banner from '../../content-single/Banner';
 import { AddToCalendar, Card } from '../../ui';
 import { Icon } from '../../ui/Icons';
 
+import dateTextFormat from '../dateTextFormat';
+
 // add any additional parameters to the video urls
 const videoCallURLWithParameters = (videoURL, parameters) => {
   const isMSIE = /*@cc_on!@*/ false || !!document.documentMode; //eslint-disable-line spaced-comment
@@ -29,7 +31,6 @@ const videoCallURLWithParameters = (videoURL, parameters) => {
 
 const GroupContentItem = ({
   coverImage,
-  dateText,
   dateTimes,
   groupResources,
   onClickGroupResource,
@@ -59,7 +60,9 @@ const GroupContentItem = ({
       <div className="container-fluid mb-4 px-3">
         <hgroup className="mt-4 mb-3 pb-3">
           <h1 className="mb-2 text-dark">{title}</h1>
-          <h3 className="mt-1 content-subtitle font-weight-light">{dateText}</h3>
+          <h3 className="mt-1 content-subtitle font-weight-light">
+            {dateTextFormat(get(dateTimes, 'start'))}
+          </h3>
         </hgroup>
 
         <section className="row mx-n2">
@@ -163,7 +166,6 @@ GroupContentItem.propTypes = {
     name: PropTypes.string,
     sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
   }).isRequired,
-  dateText: PropTypes.string,
   dateTimes: PropTypes.shape({
     end: PropTypes.string,
     start: PropTypes.string,
