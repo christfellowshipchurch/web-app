@@ -91,6 +91,31 @@ DirectMessagesChat.propTypes = {
   channel: Channel.type.propTypes.channel.isRequired,
 };
 
+const getOtherUser = (currentUserId, channel) => {
+  const otherUser = Object.values(channel.state.members).find(
+    (member) => member.user.id !== currentUserId
+  );
+
+  return get(otherUser, 'user.name', 'Unknown User');
+};
+
+const DirectMessagesSelect = ({ currentUserId, channels }) => {
+  return (
+    <select placeholder="Direct Messages">
+      <option value="" disabled selected>
+        Direct Messages...
+      </option>
+      {channels.map((channel) => (
+        <option key={channel.id}>{getOtherUser(currentUserId, channel)}</option>
+      ))}
+    </select>
+  );
+};
+DirectMessagesSelect.propTypes = {
+  currentUserId: PropTypes.string,
+  channels: PropTypes.arrayOf(Channel.type.propTypes.channel),
+};
+
 const EventChat = ({ channelId }) => {
   // User data
   const { isLoggedIn, logIn } = useAuth();
@@ -114,17 +139,21 @@ const EventChat = ({ channelId }) => {
     ? get(userRoleQueryData, 'currentUser.streamChatRole', ChatRoles.USER)
     : ChatRoles.USER;
 
-  const [isViewingDms, setIsViewingDms] = useState(false);
   const [channel, setChannel] = useState(null);
+  const [isViewingDms, setIsViewingDms] = useState(false);
+  const [dmChannels, setDmChannels] = useState([]);
   const [dmChannel, setDmChannel] = useState(null);
-  console.log('[rkd] data:', data);
+
+  const stripPrefix = (id) => id.split(':')[1];
 
   useEffect(() => {
     const handleUserConnection = async () => {
       // Initialize user first
-      let canConnectAsUser = isLoggedIn && !loading && data;
+      const canConnectAsUser = isLoggedIn && !loading && data;
+      const streamUserMismatch =
+        get(StreamChatClient, 'user.id') !== get(data, 'currentUser.id');
 
-      if (canConnectAsUser) {
+      if (canConnectAsUser && streamUserMismatch) {
         await StreamChatClient.setUser(
           getStreamUser(data.currentUser),
           data.currentUser.streamChatToken
@@ -142,7 +171,6 @@ const EventChat = ({ channelId }) => {
       setChannel(newChannel);
 
       if (isLoggedIn) {
-        const stripPrefix = (id) => id.split(':')[1];
         const members = [
           'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
           'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
@@ -153,6 +181,23 @@ const EventChat = ({ channelId }) => {
         });
         await newDmChannel.create();
         setDmChannel(newDmChannel);
+
+        console.group('[rkd] Getting list of DMs a user is participating in');
+        const filter = {
+          type: 'messaging',
+          members: { $in: [stripPrefix(data.currentUser.id)] },
+        };
+        const sort = { last_message_at: -1 };
+        const options = { limit: 30 };
+
+        const dmChannelsResponse = await StreamChatClient.queryChannels(
+          filter,
+          sort,
+          options
+        );
+        setDmChannels(dmChannelsResponse);
+        console.log('[rkd] dmChannelsResponse:', dmChannelsResponse);
+        console.groupEnd();
       }
 
       // Now that we're sure the channel exists, we can request the user's role for it
@@ -175,14 +220,22 @@ const EventChat = ({ channelId }) => {
   return (
     <ChatContainer>
       <LiveStreamChat channel={channel} isLoggedIn={isLoggedIn} onLogIn={logIn} />
+
       <DirectMessagesContainer visible={isViewingDms}>
         <DirectMessagesChat channel={dmChannel} />
       </DirectMessagesContainer>
-      <ChatHeader>
-        <button onClick={() => setIsViewingDms(!isViewingDms)}>
-          {isViewingDms ? '< Back to Chat' : 'View Direct Messages >'}
-        </button>
-      </ChatHeader>
+
+      {isLoggedIn && (
+        <ChatHeader>
+          <button onClick={() => setIsViewingDms(!isViewingDms)}>
+            {isViewingDms ? '< Back to Chat' : 'View Direct Messages >'}
+          </button>
+          <DirectMessagesSelect
+            currentUserId={stripPrefix(data.currentUser.id)}
+            channels={dmChannels}
+          />
+        </ChatHeader>
+      )}
     </ChatContainer>
   );
 };
