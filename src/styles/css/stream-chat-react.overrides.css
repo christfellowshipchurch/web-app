@@ -8,7 +8,8 @@
   max-height: initial;
   box-sizing: border-box;
 }
-
-.livestream.str-chat .str-chat__list {
+.str-chat .str-chat__list,
+.str-chat-channel.messaging .str-chat__main-panel,
+.messaging.str-chat .str-chat__list {
   padding: 0;
 }

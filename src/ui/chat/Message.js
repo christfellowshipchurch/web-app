@@ -11,10 +11,9 @@ const MessageContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: stretch;
-  background: ${({ theme }) => theme.card.background};
   border-radius: ${baseUnit(2)};
-  padding: ${baseUnit(1)};
-  margin: ${baseUnit(1)} ${baseUnit(2)};
+  margin: ${baseUnit(1)};
+  margin-bottom: ${baseUnit(2)};
 
   /* Last message in a list */
   li:last-child > & {
@@ -26,6 +25,15 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: ${baseUnit(1)};
+`;
+
+const Name = styled.span`
+  color: ${({ theme }) => theme.chat.message.name};
+  font-weight: bold;
+`;
+
+const MessageText = styled.span`
+  color: ${({ theme }) => theme.chat.message.text};
 `;
 
 const AVATAR_SIZE = 46;
@@ -65,8 +73,8 @@ const Message = ({ message }) => {
         )}
       </AvatarContainer>
       <Body>
-        <b>{name}</b>
-        <span>{text}</span>
+        <Name>{name}</Name>
+        <MessageText>{text}</MessageText>
       </Body>
     </MessageContainer>
   );

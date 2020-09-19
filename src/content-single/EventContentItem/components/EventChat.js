@@ -7,16 +7,19 @@ import classnames from 'classnames';
 
 import { baseUnit } from 'styles/theme';
 
-import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
+import { Channel } from 'stream-chat-react';
+import { StreamChatClient } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { useAuth } from 'auth';
-import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 // UI
 import { Loader, Icon } from 'ui';
-import { Message, MessageInput } from 'ui/chat';
 
 import { GET_CURRENT_USER_FOR_CHAT, GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
+
+import LiveStreamChat from './LiveStreamChat';
+import DirectMessagesChat from './DirectMessagesChat';
+import DirectMessagesDropdown from './DirectMessagesDropdown';
 
 // TODO: Find better home for these
 // ✂️ -----------------------------------------------------------
@@ -26,14 +29,6 @@ const getStreamUser = (user) => ({
   name: `${user.profile.firstName} ${user.profile.lastName}`,
   image: get(user, 'profile.photo.uri', ''),
 });
-
-const getOtherUser = (currentUserId, channel) => {
-  const otherUser = Object.values(channel.state.members).find(
-    (member) => member.user.id !== currentUserId
-  );
-
-  return get(otherUser, 'user.name', 'Unknown User');
-};
 
 const ChatRoles = Object.freeze({
   USER: 'USER',
@@ -49,46 +44,23 @@ const ChatContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  background: ${({ theme }) => theme.card.background};
 `;
-
-// ::
-
-const LiveStreamChat = ({ channel }) => (
-  <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
-    <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
-      <Window>
-        <MessageList />
-        <MessageInput />
-      </Window>
-    </Channel>
-  </Chat>
-);
-
-LiveStreamChat.propTypes = {
-  channel: Channel.type.propTypes.channel.isRequired,
-  isLoggedIn: PropTypes.bool,
-  onLogIn: PropTypes.func,
-};
-
-LiveStreamChat.defaultProps = {
-  isLoggedIn: false,
-};
-
-// ✂️ -----------------------------------------------------------
-
-// :: Styled Components
-// ------------------------
 
 const DirectMessagesContainer = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
-  transform: translateX(${({ visible }) => (visible ? 0 : '100%')});
+  transform: translateX(${({ visible }) => (visible ? 0 : '130%')});
   background: rgba(255, 255, 255, 0.8);
-  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.15s;
+  transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)
+    ${({ visible }) => (visible ? '0s' : '0.15s')};
   box-shadow: ${({ theme }) => theme.shadow.medium};
 `;
+
+// :: Styled Components
+// ------------------------
 
 const ChatHeader = styled.div`
   position: absolute;
@@ -97,11 +69,13 @@ const ChatHeader = styled.div`
   left: 0;
   display: flex;
   justify-content: space-between;
-  background: ${({ theme }) => theme.card.background};
   padding: ${baseUnit(1)} ${baseUnit(2)};
-  border-bottom: 1px ${({ theme }) => theme.card.color} solid;
+  background: ${({ theme }) => theme.chat.dmsHeader};
+  border-bottom: 1px ${({ theme }) => theme.font[100]} solid;
+  box-shadow: ${({ theme }) => theme.shadow.small};
 `;
 
+// Warning: Duplicated in DirectMessagesDropdown
 const HeaderButton = styled.button`
   padding: ${baseUnit(1)};
   border: none;
@@ -114,73 +88,6 @@ const HeaderIcon = styled(Icon).attrs(({ theme, name }) => ({
   fill: theme.brand,
   size: 22,
 }))``;
-
-const DirectMessagesSelect = styled.select`
-  padding: ${baseUnit(1)};
-`;
-
-const DirectMessagesChat = ({ channel }) => (
-  <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="messaging">
-    <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
-      <Window>
-        <MessageList />
-        <MessageInput />
-      </Window>
-    </Channel>
-  </Chat>
-);
-
-DirectMessagesChat.propTypes = {
-  channel: Channel.type.propTypes.channel.isRequired,
-};
-
-// :: Main Component
-// ------------------------
-
-const DirectMessagesList = ({ currentUserId, channels, selectedChannelId, onSelect }) => {
-  if (isEmpty(channels) || (channels.length === 1 && selectedChannelId)) {
-    return null;
-  }
-
-  if (channels.length === 1) {
-    return (
-      <HeaderButton onClick={() => onSelect(channels[0])}>
-        <span>DM with {getOtherUser(currentUserId, channels[0])}</span>
-        <HeaderIcon name="angle-right" />
-      </HeaderButton>
-    );
-  }
-
-  const handleValueChange = (event) => {
-    const value = event.target.value;
-    const selectedChannel = channels.find((channel) => channel.id === value);
-    onSelect(selectedChannel);
-  };
-
-  return (
-    <DirectMessagesSelect value={selectedChannelId} onChange={handleValueChange}>
-      <option value="" disabled selected>
-        Direct Messages...
-      </option>
-      {channels.map((channel) => (
-        <option key={channel.id} value={channel.id}>
-          {getOtherUser(currentUserId, channel)}
-        </option>
-      ))}
-    </DirectMessagesSelect>
-  );
-};
-
-DirectMessagesList.propTypes = {
-  currentUserId: PropTypes.string,
-  channels: PropTypes.arrayOf(Channel.type.propTypes.channel),
-  selectedChannelId: PropTypes.string,
-  onSelect: PropTypes.func,
-};
-
-DirectMessagesList.defaultProps = {
-  selectedChannelId: '',
-};
 
 // Main Component
 // ------------------------
@@ -314,7 +221,7 @@ const EventChat = ({ channelId }) => {
             </HeaderButton>
           )}
 
-          <DirectMessagesList
+          <DirectMessagesDropdown
             currentUserId={stripPrefix(data.currentUser.id)}
             channels={dmChannels}
             selectedChannelId={activeDmChannel ? activeDmChannel.id : undefined}
