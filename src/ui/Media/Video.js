@@ -9,6 +9,7 @@ import { Icon } from '../Icons';
 const MediaVideo = ({ source, poster, isLive, showControls }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
+  const [played, setPlayed] = useState(false);
 
   let videoProps = showControls
     ? {
@@ -76,8 +77,10 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
         ref={videoRef}
         controlsList="nodownload"
         style={{
-          objectFit: 'cover',
+          objectFit: played ? 'contain' : 'cover',
+          backgroundColor: 'black',
         }}
+        onPlay={() => setPlayed(true)}
       >
         <source type="video/mp4" src={source} />
       </video>
@@ -102,6 +105,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
             }}
           >
             <img
+              alt="play button"
               className="rounded gradient-black"
               src={poster}
               style={{
