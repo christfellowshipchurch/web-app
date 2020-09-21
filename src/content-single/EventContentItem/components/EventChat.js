@@ -125,10 +125,8 @@ const EventChat = ({ channelId }) => {
 
       // Initialize user first
       const canConnectAsUser = isLoggedIn && !loading && data;
-      const streamUserMismatch =
-        get(StreamChatClient, 'user.id') !== get(data, 'currentUser.id');
 
-      if (canConnectAsUser && streamUserMismatch) {
+      if (canConnectAsUser && !get(StreamChatClient, 'userID')) {
         await StreamChatClient.setUser(
           getStreamUser(data.currentUser),
           data.currentUser.streamChatToken
@@ -144,9 +142,10 @@ const EventChat = ({ channelId }) => {
       });
       await newChannel.create();
       setChannel(newChannel);
-      console.log('[rkd] newChannel:', newChannel);
+      console.log('[rkd] livestream channel (newChannel):', newChannel);
 
       if (isLoggedIn) {
+        // :: Use code below to force-create a 1:1 DM channel
         // const members = [
         //   'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
         //   //   'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
@@ -172,6 +171,7 @@ const EventChat = ({ channelId }) => {
           options
         );
         setDmChannels(dmChannelsResponse);
+
         console.log('[rkd] dmChannelsResponse:', dmChannelsResponse);
         console.groupEnd();
       }
