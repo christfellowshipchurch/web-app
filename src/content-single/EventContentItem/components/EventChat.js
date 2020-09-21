@@ -7,7 +7,6 @@ import classnames from 'classnames';
 
 import { baseUnit } from 'styles/theme';
 
-import { Channel } from 'stream-chat-react';
 import { StreamChatClient } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { useAuth } from 'auth';
@@ -76,14 +75,14 @@ const ChatHeader = styled.div`
 `;
 
 // Warning: Duplicated in DirectMessagesDropdown
-const HeaderButton = styled.button`
+const BackButton = styled.button`
   padding: ${baseUnit(1)};
   border: none;
   background: none;
   color: ${({ theme }) => theme.link};
 `;
 
-const HeaderIcon = styled(Icon).attrs(({ theme, name }) => ({
+const BackIcon = styled(Icon).attrs(({ theme, name }) => ({
   name,
   fill: theme.brand,
   size: 22,
@@ -150,8 +149,8 @@ const EventChat = ({ channelId }) => {
       if (isLoggedIn) {
         // const members = [
         //   'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
-        //   'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
-        //   // 'AuthenticatedUser:095eeb4c77024b09efce0a59d38caeef', // Gerard Hey
+        //   //   'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
+        //   'AuthenticatedUser:095eeb4c77024b09efce0a59d38caeef', // Gerard Hey
         // ].map(stripPrefix);
 
         // const newDmChannel = StreamChatClient.channel('messaging', {
@@ -211,14 +210,14 @@ const EventChat = ({ channelId }) => {
         <ChatHeader>
           {!activeDmChannel && <div />}
           {activeDmChannel && (
-            <HeaderButton onClick={() => setActiveDmChannel(null)}>
-              <HeaderIcon name="angle-left" />
+            <BackButton onClick={() => setActiveDmChannel(null)}>
+              <BackIcon name="angle-left" />
               <span
                 className={classnames({ 'd-none': get(dmChannels, 'length', 0) !== 1 })}
               >
                 {'Back to Chat'}
               </span>
-            </HeaderButton>
+            </BackButton>
           )}
 
           <DirectMessagesDropdown

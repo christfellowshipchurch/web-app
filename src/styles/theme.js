@@ -80,7 +80,7 @@ export const theme = Object.freeze({
     color: colors.gray[500],
   },
   chat: {
-    dmsHeader: color(colors.white).alpha(0.9).rgb(),
+    dmsHeader: color(colors.white).alpha(0.95).rgb(),
     message: {
       name: colors.gray[700],
       text: colors.gray[600],

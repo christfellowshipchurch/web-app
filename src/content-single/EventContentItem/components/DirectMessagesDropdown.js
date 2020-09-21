@@ -47,10 +47,13 @@ const DirectMessagesDropdown = ({
   selectedChannelId,
   onSelect,
 }) => {
+  // Hide the dropdown if there are no channels OR there is only one
+  // channel, and we're currently viewing it (small assumption)
   if (isEmpty(channels) || (channels.length === 1 && selectedChannelId)) {
     return null;
   }
 
+  // When there's only 1 active DM channel
   if (channels.length === 1) {
     return (
       <HeaderButton onClick={() => onSelect(channels[0])}>
@@ -60,6 +63,7 @@ const DirectMessagesDropdown = ({
     );
   }
 
+  // When there is more than one active DM channel
   const handleValueChange = (event) => {
     const value = event.target.value;
     const selectedChannel = channels.find((channel) => channel.id === value);
