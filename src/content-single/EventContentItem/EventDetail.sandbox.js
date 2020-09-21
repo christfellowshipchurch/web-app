@@ -6,10 +6,10 @@ import { Share } from 'ui';
 import LiveIndicator from './LiveIndicator';
 
 const EventDetail = ({ title, summary, isLive }) => (
-  <div className="w-100 px-3">
+  <div className="pr-3">
     <div className="container">
       {(title !== '' || summary !== '') && (
-        <div className="row mt-3">
+        <div className="row mt-3 pl-3">
           {isLive && <LiveIndicator />}
 
           <div className="row">
