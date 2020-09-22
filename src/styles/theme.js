@@ -62,6 +62,7 @@ export const theme = Object.freeze({
     ...colors.gray, // Hypothetically, this could be reversed for dark mode
   },
   shadow: {
+    card: '0 10px 9px -4px rgba(0, 0, 0, 0.07)',
     small: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)',
     medium: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
     large: '0 1rem 3rem rgba(0, 0, 0, 0.175)',
