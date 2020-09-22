@@ -187,78 +187,78 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
           defaultCampus={defaultCampus}
         />
       )}
-      <Card key="EventOccurrences" className={classnames('mb-3')}>
-        <div className="">
-          {groupByLocationDate.map((event, i) => {
-            const { dateTimes } = event;
-            return (
-              <div
-                key={`EventOccurence:${i}`}
-                className={classnames({
-                  'border-bottom': i < groupByLocationDate.length - 1,
-                  'border-light': i < groupByLocationDate.length - 1,
-                  'mb-3': i < groupByLocationDate.length - 1,
-                })}
-              >
-                {keys(dateTimes).map((date) => (
-                  <EventTimes
-                    key={`EventOccurrenceDate:${date}`}
-                    date={date}
-                    times={dateTimes[date]}
-                    className={classnames({
-                      'mb-4': keys(dateTimes).length > 1,
-                    })}
-                  />
-                ))}
-              </div>
-            );
-          })}
 
-          {!!noEvents && callsToAction.length > 0 && <h3>Get Started</h3>}
-
-          <div>
-            {callsToAction.map((n, i) => (
-              <a
-                key={i}
-                className={classnames('btn', 'btn-primary', 'btn-block', 'my-3')}
-                href={n.action}
-                target={n.action.includes('http') ? '_blank' : ''}
-                onClick={() =>
-                  GoogleAnalytics.trackEvent({
-                    category: 'Event Item',
-                    action: `${title} Call to Action`,
-                    label: `${title} - ${n.call} Button`,
-                  })
-                }
-              >
-                {n.call}
-              </a>
-            ))}
-          </div>
-          {!noEvents && (
-            <div className="d-flex align-items-center">
-              <Icon name="calendar-plus" className="mr-2" />
-              <AddToCalendar
-                className={classnames('p-0', 'text-dark', 'font-weight-bold')}
-                style={{
-                  fontSize: '1.125rem',
-                  letterSpacing: 'normal',
-                }}
-                event={{
-                  title,
-                  description,
-                  // Location is the webUrl for now
-                  address: document.URL,
-                  startTime,
-                  endTime,
-                }}
-                alternateDescription={`Join us for ${title} at Christ Fellowship!`}
-                allDay
-              />
+      <div className="p-2 px-3">
+        {groupByLocationDate.map((event, i) => {
+          const { dateTimes } = event;
+          return (
+            <div
+              key={`EventOccurence:${i}`}
+              className={classnames({
+                'border-bottom': i < groupByLocationDate.length - 1,
+                'border-light': i < groupByLocationDate.length - 1,
+                'mb-3': i < groupByLocationDate.length - 1,
+              })}
+            >
+              {keys(dateTimes).map((date) => (
+                <EventTimes
+                  key={`EventOccurrenceDate:${date}`}
+                  date={date}
+                  times={dateTimes[date]}
+                  className={classnames({
+                    'mb-4': keys(dateTimes).length > 1,
+                  })}
+                />
+              ))}
             </div>
-          )}
+          );
+        })}
+
+        {!!noEvents && callsToAction.length > 0 && <h3>Get Started</h3>}
+
+        <div>
+          {callsToAction.map((n, i) => (
+            <a
+              key={i}
+              className={classnames('btn', 'btn-primary', 'btn-block', 'my-3')}
+              href={n.action}
+              target={n.action.includes('http') ? '_blank' : ''}
+              onClick={() =>
+                GoogleAnalytics.trackEvent({
+                  category: 'Event Item',
+                  action: `${title} Call to Action`,
+                  label: `${title} - ${n.call} Button`,
+                })
+              }
+            >
+              {n.call}
+            </a>
+          ))}
         </div>
-      </Card>
+
+        {!noEvents && (
+          <div className="d-flex align-items-center">
+            <Icon name="calendar-plus" className="mr-2" />
+            <AddToCalendar
+              className={classnames('p-0', 'text-dark', 'font-weight-bold')}
+              style={{
+                fontSize: '1.125rem',
+                letterSpacing: 'normal',
+              }}
+              event={{
+                title,
+                description,
+                // Location is the webUrl for now
+                address: document.URL,
+                startTime,
+                endTime,
+              }}
+              alternateDescription={`Join us for ${title} at Christ Fellowship!`}
+              allDay
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

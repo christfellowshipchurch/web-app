@@ -45,7 +45,7 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
 
                 {/* Side Column */}
                 <div className="col-lg-4">
-                  <EventPanel event={content} />
+                  <EventPanel event={content} isLive={isLive} />
                 </div>
               </div>
 

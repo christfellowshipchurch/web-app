@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 
 import EventScheduleConnected from './EventScheduleConnected';
 import EventChat from './EventChat';
+import EventChatOffline from './EventChatOffline';
 import Tab from './Tab';
 
 // :: Styled Components
@@ -19,7 +20,7 @@ const EventPanelContainer = styled.div`
   bottom: 0;
   overflow: hidden;
   background: ${({ theme }) => theme.body.background};
-  box-shadow: ${({ theme }) => theme.shadow.medium};
+  box-shadow: ${({ theme }) => theme.shadow.card};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
 `;
 
@@ -47,36 +48,35 @@ const TabContent = styled.div`
   right: 0;
   bottom: 0;
   box-sizing: border-box;
+  overflow-y: scroll;
 `;
 
 // :: Main Component
 // ------------------------
 
-const EventPanel = ({ event }) => {
-  const [activeTab, setActiveTabIndex] = useState('schedule');
+const EventPanel = ({ event, isLive }) => {
+  const [activeTab, setActiveTabIndex] = useState(isLive ? 'chat' : 'schedule');
+
+  // TODO: Resolve from API
   const channelId = event ? event.id.split(':')[1] : null;
 
   return (
     <EventPanelContainer>
       <PanelHeader>
         <Tab
-          label="Chat Room"
-          iconName="chat-conversation"
-          active={activeTab === 'chat'}
-          onPress={() => setActiveTabIndex('chat')}
-        />
-        <Tab
           label="Schedule"
           iconName="calendar-alt"
           active={activeTab === 'schedule'}
           onPress={() => setActiveTabIndex('schedule')}
         />
+        <Tab
+          label="Chat Room"
+          iconName="chat-conversation"
+          active={activeTab === 'chat'}
+          onPress={() => setActiveTabIndex('chat')}
+        />
       </PanelHeader>
       <PanelBody>
-        <TabContent active={activeTab === 'chat'}>
-          <EventChat channelId={channelId} />
-        </TabContent>
-
         <TabContent active={activeTab === 'schedule'}>
           <EventScheduleConnected
             id={event.id}
@@ -87,6 +87,9 @@ const EventPanel = ({ event }) => {
             description={event.htmlContent}
           />
         </TabContent>
+        <TabContent active={activeTab === 'chat'}>
+          {!isLive ? <EventChat channelId={channelId} /> : <EventChatOffline />}
+        </TabContent>
       </PanelBody>
     </EventPanelContainer>
   );
@@ -94,6 +97,7 @@ const EventPanel = ({ event }) => {
 
 EventPanel.propTypes = {
   children: PropTypes.node,
+  isLive: PropTypes.bool,
   event: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
@@ -109,6 +113,8 @@ EventPanel.propTypes = {
   }),
 };
 
-EventPanel.defaultProps = {};
+EventPanel.defaultProps = {
+  isLive: false,
+};
 
 export default EventPanel;
