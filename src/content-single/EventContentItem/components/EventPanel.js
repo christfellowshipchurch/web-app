@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
+import EventScheduleConnected from './EventScheduleConnected';
 import EventChat from './EventChat';
 import Tab from './Tab';
 
@@ -52,7 +53,7 @@ const TabContent = styled.div`
 // ------------------------
 
 const EventPanel = ({ event }) => {
-  const [activeTab, setActiveTabIndex] = useState('chat');
+  const [activeTab, setActiveTabIndex] = useState('schedule');
   const channelId = event ? event.id.split(':')[1] : null;
 
   return (
@@ -77,7 +78,14 @@ const EventPanel = ({ event }) => {
         </TabContent>
 
         <TabContent active={activeTab === 'schedule'}>
-          <p>Schedule</p>
+          <EventScheduleConnected
+            id={event.id}
+            callsToAction={event.callsToAction}
+            openLinksInNewTab={event.openLinksInNewTab}
+            events={event.events}
+            title={event.title}
+            description={event.htmlContent}
+          />
         </TabContent>
       </PanelBody>
     </EventPanelContainer>
@@ -88,6 +96,16 @@ EventPanel.propTypes = {
   children: PropTypes.node,
   event: PropTypes.shape({
     id: PropTypes.string,
+    title: PropTypes.string,
+    htmlContent: PropTypes.string,
+    callsToAction: PropTypes.arrayOf(
+      PropTypes.shape({
+        call: PropTypes.string,
+        action: PropTypes.string,
+      })
+    ),
+    openLinksInNewTab: PropTypes.bool,
+    events: PropTypes.object,
   }),
 };
 
