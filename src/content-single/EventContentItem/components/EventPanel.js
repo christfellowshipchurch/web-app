@@ -88,7 +88,7 @@ const EventPanel = ({ event, isLive }) => {
           />
         </TabContent>
         <TabContent active={activeTab === 'chat'}>
-          {!isLive ? <EventChat channelId={channelId} /> : <EventChatOffline />}
+          {isLive ? <EventChat channelId={channelId} /> : <EventChatOffline />}
         </TabContent>
       </PanelBody>
     </EventPanelContainer>

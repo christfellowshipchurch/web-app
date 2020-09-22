@@ -65,7 +65,7 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
     }}
   >
     <span className="h4">
-      {children}
+      {JSON.stringify(children)}
       <Icon className="ml-2 float-right" name="angle-down" size="22" />
     </span>
   </div>
