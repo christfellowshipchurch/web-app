@@ -54,6 +54,10 @@ const colors = Object.freeze({
 export const theme = Object.freeze({
   // Globals
   brand: colors.cyan,
+  brandForeground: colors.white,
+  fontFamily: {
+    sans: '"Gotham A", "Gotham B"',
+  },
   font: {
     ...colors.gray, // Hypothetically, this could be reversed for dark mode
   },
