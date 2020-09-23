@@ -40,9 +40,12 @@ const EventMedia = ({ id, coverImage, isLive, liveStreamSource, title, videos })
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
 
   useEffect(() => {
-    if (isLive && checkin && !checkin.isCheckedIn) {
-      handleAttend({ variables: { id: checkin.id } });
-    }
+    const timer = setTimeout(() => {
+      if (isLive && checkin && !checkin.isCheckedIn) {
+        handleAttend({ variables: { id: checkin.id } });
+      }
+    }, 10000);
+    return () => clearTimeout(timer);
   }, [checkin]);
 
   return (
