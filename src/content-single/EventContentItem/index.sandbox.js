@@ -35,7 +35,7 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
           <div style={{ minHeight: '75vh' }}>
             <EventBannerBackground {...content} />
 
-            <div className="container-fluid max-width-1100 mx-auto">
+            <div className="container-fluid max-width-1100 mx-auto mb-5">
               <div className="row pt-4 mb-4">
                 {/* Main Column */}
                 <div className="col-lg-8">

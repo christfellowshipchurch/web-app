@@ -14,7 +14,7 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
   return (
     <div className="col-12 col-lg-8 p-2">
       <Card>
-        <div className="">{htmlToReactParser.parse(htmlContent)}</div>
+        <div>{htmlToReactParser.parse(htmlContent)}</div>
 
         <div className="mx-n1">
           {tags.map((n, i) => (
