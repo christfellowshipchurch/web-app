@@ -65,6 +65,8 @@ EventContentItem.propTypes = {
   content: PropTypes.shape({
     id: PropTypes.string,
   }),
+  loading: PropTypes.bool,
+  error: PropTypes.any,
 };
 
 EventContentItem.defaultProps = {};

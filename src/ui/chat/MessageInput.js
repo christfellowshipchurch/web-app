@@ -14,7 +14,6 @@ const LoggedOutContainer = styled.p`
   position: relative;
   width: 100%;
   padding: ${baseUnit(2)};
-  margin-top: ${baseUnit(2)};
   margin-bottom: 0;
   text-align: center;
   background: ${({ theme }) => theme.card.background};

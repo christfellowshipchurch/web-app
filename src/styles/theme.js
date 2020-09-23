@@ -1,3 +1,5 @@
+import color from 'color';
+
 // Corresponds to bootstrap's values for styles like p-1, mr-2, px-3, etc.
 // Notice the values are not linear.
 const baseUnitMap = Object.freeze([
@@ -50,7 +52,26 @@ const colors = Object.freeze({
  * the color mapping exists, doesn't mean it always makes sense to use it.
  */
 export const theme = Object.freeze({
+  // Globals
   brand: colors.cyan,
+  font: {
+    ...colors.gray, // Hypothetically, this could be reversed for dark mode
+  },
+  shadow: {
+    small: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.075)',
+    medium: '0 0.5rem 1rem rgba(0, 0, 0, 0.15)',
+    large: '0 1rem 3rem rgba(0, 0, 0, 0.175)',
+  },
+  borderRadius: {
+    none: 0,
+    small: '0.2rem',
+    medium: '0.25rem',
+    large: '0.3rem',
+    circle: '50%',
+    pill: '50rem',
+  },
+
+  // UI Elements
   body: {
     background: colors.gray[50],
   },
@@ -58,8 +79,12 @@ export const theme = Object.freeze({
     background: colors.white,
     color: colors.gray[500],
   },
-  font: {
-    ...colors.gray, // Hypothetically, this could be reversed for dark mode
+  chat: {
+    dmsHeader: color(colors.white).alpha(0.95).rgb(),
+    message: {
+      name: colors.gray[700],
+      text: colors.gray[600],
+    },
   },
   link: colors.cyan,
   liveEvent: colors.red,

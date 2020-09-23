@@ -74,6 +74,7 @@
     "awesome-phonenumber": "^2.18.1",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "color": "^3.1.2",
     "formik": "^1.5.8",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.3",
