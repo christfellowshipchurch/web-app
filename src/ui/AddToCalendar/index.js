@@ -29,7 +29,7 @@ const AddToCalendar = ({
     <Dropdown.Menu>
       {/* Apple Calendar */}
       <Dropdown.Item
-        href={icsLink({ ...event, description: alternateDescription }, allDay)}
+        href={icsLink({ ...event, description: alternateDescription })}
         target="_blank"
         className="d-flex align-items-center"
       >
@@ -39,7 +39,7 @@ const AddToCalendar = ({
 
       {/* Google Calendar */}
       <Dropdown.Item
-        href={googleCalLink(event, allDay)}
+        href={googleCalLink(event)}
         target="_blank"
         className="d-flex align-items-center"
       >
@@ -49,7 +49,7 @@ const AddToCalendar = ({
 
       {/* Outlook */}
       <Dropdown.Item
-        href={icsLink({ ...event, description: alternateDescription }, allDay)}
+        href={icsLink({ ...event, description: alternateDescription })}
         target="_blank"
         className="d-flex align-items-center"
       >
