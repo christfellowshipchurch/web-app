@@ -26,19 +26,12 @@ const GET_CHECK_IN = gql`
   }
 `;
 
-const EventMedia = ({
-  contentId,
-  coverImage,
-  isLive,
-  liveStreamSource,
-  title,
-  videos,
-}) => {
+const EventMedia = ({ id, coverImage, isLive, liveStreamSource, title, videos }) => {
   const { loading, error, data } = useQuery(GET_CHECK_IN, {
     fetchPolicy: 'network-only',
-    skip: !contentId || contentId === '',
+    skip: !id || id === '',
     variables: {
-      itemId: contentId,
+      itemId: id,
       key: 'CHECK_IN',
     },
   });

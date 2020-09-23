@@ -42,7 +42,6 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
                   <EventMedia
                     {...content}
                     liveStreamSource={liveStreamSource}
-                    contentId={itemId}
                     isLive={isLive}
                   />
                   <EventDetail {...content} isLive={isLive} />
