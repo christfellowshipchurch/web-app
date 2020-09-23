@@ -39,7 +39,12 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
               <div className="row pt-4 mb-4">
                 {/* Main Column */}
                 <div className="col-lg-8">
-                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
+                  <EventMedia
+                    {...content}
+                    liveStreamSource={liveStreamSource}
+                    contentId={itemId}
+                    isLive={isLive}
+                  />
                   <EventDetail {...content} isLive={isLive} />
                 </div>
 
