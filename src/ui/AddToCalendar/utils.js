@@ -1,4 +1,4 @@
-import { get, has } from 'lodash';
+import { get, has, includes, replace } from 'lodash';
 import moment from 'moment';
 
 const formatEvent = (event) => ({
@@ -20,6 +20,16 @@ const formatTime = (date, allDay) => {
   return formattedDate.replace('+00:00', 'Z');
 };
 
+export const replaceAndSymbol = (string) => {
+  const includesAndSymbol = includes(string, '&');
+
+  if (includesAndSymbol) {
+    string = replace(string, '&', 'and');
+  }
+
+  return string;
+};
+
 export const googleCalLink = (event, allDay) => {
   let { title, description, address, startTime, endTime } = formatEvent(event);
 
@@ -29,6 +39,8 @@ export const googleCalLink = (event, allDay) => {
   if (allDay) {
     endTime = moment(endTime).add(1, 'day');
   }
+
+  title = replaceAndSymbol(title);
 
   return encodeURI(
     [
