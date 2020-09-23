@@ -10,7 +10,7 @@ import Tab from './Tab';
 // :: Styled Components
 // ------------------------
 
-const EventPanelContainer = styled.div`
+const PanelContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -61,7 +61,7 @@ const EventPanel = ({ event, isLive }) => {
   const channelId = event ? event.id.split(':')[1] : null;
 
   return (
-    <EventPanelContainer>
+    <PanelContainer>
       <PanelHeader>
         <Tab
           label="Schedule"
@@ -77,6 +77,7 @@ const EventPanel = ({ event, isLive }) => {
         />
       </PanelHeader>
       <PanelBody>
+        {/* Schedule */}
         <TabContent active={activeTab === 'schedule'}>
           <EventScheduleConnected
             id={event.id}
@@ -87,11 +88,12 @@ const EventPanel = ({ event, isLive }) => {
             description={event.htmlContent}
           />
         </TabContent>
+        {/* Chat */}
         <TabContent active={activeTab === 'chat'}>
           {isLive ? <EventChat channelId={channelId} /> : <EventChatOffline />}
         </TabContent>
       </PanelBody>
-    </EventPanelContainer>
+    </PanelContainer>
   );
 };
 

@@ -1,55 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { flatMapDepth, identity, uniq, uniqBy, groupBy, keys, get } from 'lodash';
+import { flatMapDepth, identity, uniq, groupBy, keys, get } from 'lodash';
 import { Dropdown } from 'react-bootstrap';
 import moment from 'moment';
 
 import { Card, AddToCalendar, Icon } from 'ui';
 import { GoogleAnalytics } from 'analytics';
 
-const EventTimes = ({ date, times, className }) => {
-  const mDate = moment(date);
-  const currentUtcOffset = moment().format('ZZ');
-
-  return (
-    <div className={classnames('d-flex', 'flex-column', className)}>
-      <div>
-        <h3 className="d-flex align-items-center">
-          <Icon name="calendar-alt" className="mr-2" />
-          {mDate.format('ddd MMM D')}
-        </h3>
-      </div>
-      {uniqBy(times, 'start')
-        .sort((a, b) => moment(a.start).diff(moment(b.start)))
-        .map((t) => {
-          const utc = moment.utc(t.start);
-          const local = moment(utc).utcOffset(currentUtcOffset);
-
-          return (
-            <div key={`${date}:${t.start}`}>
-              <h4 className="font-weight-normal d-flex align-items-center">
-                <Icon name="clock" className="mr-2" />
-                {local.format('LT')}
-              </h4>
-            </div>
-          );
-        })}
-    </div>
-  );
-};
-
-EventTimes.propTypes = {
-  date: PropTypes.string,
-  times: PropTypes.arrayOf(PropTypes.object),
-  className: PropTypes.string,
-};
-
-EventTimes.defaultProps = {
-  date: '',
-  times: [],
-  className: '',
-};
+import EventScheduleTimes from './EventScheduleTimes';
 
 const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
@@ -83,8 +42,6 @@ CampusSelectToggle.defaultProps = {
 
 const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   const id = 'event-campus-selection';
-  // const selectLocation = 'Select Location';
-  // const options = [selectLocation, ...campuses]
 
   // Defaults to first Campus for now
   const options = [...campuses];
@@ -110,13 +67,13 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {options.map((c, i) => (
+          {options.map((campus, i) => (
             <Dropdown.Item
               key={`CampusSelection:${i}`}
               eventKey={i}
-              active={c === selected}
+              active={campus === selected}
             >
-              {c}
+              {campus}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
@@ -191,23 +148,24 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
       <div className="p-2 px-3">
         {groupByLocationDate.map((event, i) => {
           const { dateTimes } = event;
+          const dateTimesKeys = keys(dateTimes);
+          const isLastGroup = i >= groupByLocationDate.length - 1;
+
           return (
             <div
-              key={`EventOccurence:${i}`}
+              key={`EventOccurrence:${i}`}
               className={classnames({
-                'border-bottom': i < groupByLocationDate.length - 1,
-                'border-light': i < groupByLocationDate.length - 1,
-                'mb-3': i < groupByLocationDate.length - 1,
+                'border-bottom': isLastGroup,
+                'border-light': isLastGroup,
+                'mb-3': isLastGroup,
               })}
             >
-              {keys(dateTimes).map((date) => (
-                <EventTimes
+              {dateTimesKeys.map((date) => (
+                <EventScheduleTimes
                   key={`EventOccurrenceDate:${date}`}
                   date={date}
                   times={dateTimes[date]}
-                  className={classnames({
-                    'mb-4': keys(dateTimes).length > 1,
-                  })}
+                  isOnlyEventTime={dateTimesKeys.length === 1}
                 />
               ))}
             </div>
