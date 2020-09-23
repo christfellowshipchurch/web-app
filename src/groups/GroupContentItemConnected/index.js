@@ -4,10 +4,10 @@ import { useMutation, useQuery } from 'react-apollo';
 import { get } from 'lodash';
 import moment from 'moment';
 
+import ADD_ATTENDANCE from 'mutations/addAttendance';
+
 import { GoogleAnalytics } from '../../analytics';
 import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
-
-import ADD_ATTENDANCE from '../../mutations/addAttendance';
 
 import GET_GROUP from './getGroup';
 import GroupContentItem from './GroupContentItem';

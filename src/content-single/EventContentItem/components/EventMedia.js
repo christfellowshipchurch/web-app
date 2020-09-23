@@ -7,7 +7,7 @@ import { get } from 'lodash';
 
 import { Media } from 'ui';
 
-import ADD_ATTENDANCE from '../../../mutations/addAttendance';
+import ADD_ATTENDANCE from 'mutations/addAttendance';
 
 const GET_CHECK_IN = gql`
   query getCheckIn($itemId: ID!) {
