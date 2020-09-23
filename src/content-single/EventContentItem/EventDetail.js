@@ -111,7 +111,7 @@ EventDetail.propTypes = {
     })
   ),
   openLinksInNewTab: PropTypes.bool,
-  events: PropTypes.object,
+  events: PropTypes.array,
   isLive: PropTypes.bool,
 };
 
