@@ -7,7 +7,8 @@ import moment from 'moment';
 import { GoogleAnalytics } from '../../analytics';
 import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
 
-import ADD_ATTENDANCE from './addAttendance';
+import ADD_ATTENDANCE from '../../mutations/addAttendance';
+
 import GET_GROUP from './getGroup';
 import GroupContentItem from './GroupContentItem';
 
