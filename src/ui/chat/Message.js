@@ -22,6 +22,8 @@ const MessageContainer = styled.div`
 `;
 
 const Body = styled.div`
+  position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding-left: ${baseUnit(1)};
@@ -54,6 +56,21 @@ const AvatarImage = styled.div`
   background-size: cover;
 `;
 
+const ActionsButton = styled.button`
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: ${baseUnit(1)} ${baseUnit(2)} 0;
+  border: none;
+  background: none;
+
+  /* Selector for when the parent MessageContainer is hovered */
+  ${MessageContainer}:hover & {
+    display: block;
+  }
+`;
+
 // :: Main Component
 const Message = ({ message }) => {
   const theme = useTheme();
@@ -75,6 +92,9 @@ const Message = ({ message }) => {
       <Body>
         <Name>{name}</Name>
         <MessageText>{text}</MessageText>
+        <ActionsButton>
+          <Icon name="three-dots" fill={theme.font[700]} size={18} />
+        </ActionsButton>
       </Body>
     </MessageContainer>
   );
