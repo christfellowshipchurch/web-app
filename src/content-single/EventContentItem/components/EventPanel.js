@@ -51,9 +51,8 @@ const TabContent = styled.div`
 // :: Main Component
 // ------------------------
 
-const EventPanel = ({ event }) => {
+const EventPanel = ({ event, channelId }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
-  const channelId = event ? event.id.split(':')[1] : null;
 
   return (
     <EventPanelContainer>
@@ -73,7 +72,7 @@ const EventPanel = ({ event }) => {
       </PanelHeader>
       <PanelBody>
         <TabContent active={activeTab === 'chat'}>
-          <EventChat channelId={channelId} />
+          <EventChat event={event} channelId={channelId} />
         </TabContent>
 
         <TabContent active={activeTab === 'schedule'}>
@@ -88,7 +87,15 @@ EventPanel.propTypes = {
   children: PropTypes.node,
   event: PropTypes.shape({
     id: PropTypes.string,
+    name: PropTypes.string,
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        start: PropTypes.string,
+        end: PropTypes.string,
+      })
+    ),
   }),
+  channelId: PropTypes.string,
 };
 
 EventPanel.defaultProps = {};

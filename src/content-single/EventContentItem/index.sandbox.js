@@ -28,8 +28,9 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
   return (
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
-        const isLive = !!(liveStream && liveStream.isLive);
+        const isLive = get(liveStream, 'isLive', false);
         const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
+        const channelId = get(liveStream, 'chatChannelId');
 
         return (
           <div style={{ minHeight: '75vh' }}>
@@ -45,7 +46,7 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
 
                 {/* Side Column */}
                 <div className="col-lg-4">
-                  <EventPanel event={content} />
+                  <EventPanel event={content} channelId={channelId} />
                 </div>
               </div>
 
