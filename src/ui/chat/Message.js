@@ -115,7 +115,7 @@ const Date = styled.span`
 const MessageText = styled.span`
   color: ${({ theme }) => theme.chat.message.text};
   font-size: ${({ theme }) => theme.fontSize.small};
-  padding-right: ${baseUnit(2)};
+  padding-right: ${baseUnit(3)};
 `;
 
 const AVATAR_SIZE = 42;
@@ -153,7 +153,7 @@ const Message = (props) => {
   // State
   const [hovered, setHovered] = useState(false);
 
-  console.log('[rkd] props:', props);
+  // Props
   const { channel, message } = props;
   const {
     text,
