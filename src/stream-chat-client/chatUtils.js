@@ -3,6 +3,14 @@ import { isString, get } from 'lodash';
 import StreamChatClient from './client';
 import ChatRoles from './chatRoles';
 
+function stripPrefix(string) {
+  if (!isString) {
+    return string;
+  }
+
+  return string.split(':')[1];
+}
+
 function channelIncludesUser(channel, userId) {
   return Object.keys(get(channel, 'state.members', {})).includes(userId);
 }
@@ -23,7 +31,7 @@ function getRoleFromMembership(channel) {
 
 function getStreamUser(user) {
   return {
-    id: user.id.split(':')[1],
+    id: stripPrefix(user.id),
     name: `${user.profile.firstName} ${user.profile.lastName}`,
     image: get(user, 'profile.photo.uri', ''),
   };
@@ -51,14 +59,6 @@ async function getUserDirectMessageChannels() {
   }
 
   return [];
-}
-
-function stripPrefix(string) {
-  if (!isString) {
-    return string;
-  }
-
-  return string.split(':')[1];
 }
 
 export default {
