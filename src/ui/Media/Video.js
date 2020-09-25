@@ -16,7 +16,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
         playsInline: false,
         autoPlay: false,
         loop: false,
-        muted: false,
+        muted: true,
         controls: !showPlayButton,
       }
     : {};
@@ -32,10 +32,10 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
   if (isMobile) {
     videoProps = {
       ...videoProps,
-      muted: isLive,
+      muted: true,
       playsInline: true,
       showControls: false,
-      autoPlay: isLive,
+      autoPlay: false,
     };
   }
 
