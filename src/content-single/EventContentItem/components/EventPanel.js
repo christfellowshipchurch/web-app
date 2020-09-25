@@ -54,11 +54,8 @@ const TabContent = styled.div`
 // :: Main Component
 // ------------------------
 
-const EventPanel = ({ event, isLive }) => {
+const EventPanel = ({ event, isLive, channelId }) => {
   const [activeTab, setActiveTabIndex] = useState(isLive ? 'chat' : 'schedule');
-
-  // TODO: Resolve from API
-  const channelId = event ? event.id.split(':')[1] : null;
 
   return (
     <PanelContainer>
@@ -77,7 +74,6 @@ const EventPanel = ({ event, isLive }) => {
         />
       </PanelHeader>
       <PanelBody>
-        {/* Schedule */}
         <TabContent active={activeTab === 'schedule'}>
           <EventScheduleConnected
             id={event.id}
@@ -90,7 +86,11 @@ const EventPanel = ({ event, isLive }) => {
         </TabContent>
         {/* Chat */}
         <TabContent active={activeTab === 'chat'}>
-          {isLive ? <EventChat channelId={channelId} /> : <EventChatOffline />}
+          {isLive ? (
+            <EventChat event={event} channelId={channelId} />
+          ) : (
+            <EventChatOffline />
+          )}
         </TabContent>
       </PanelBody>
     </PanelContainer>
@@ -111,8 +111,14 @@ EventPanel.propTypes = {
       })
     ),
     openLinksInNewTab: PropTypes.bool,
-    events: PropTypes.object,
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        start: PropTypes.string,
+        end: PropTypes.string,
+      })
+    ),
   }),
+  channelId: PropTypes.string,
 };
 
 EventPanel.defaultProps = {
