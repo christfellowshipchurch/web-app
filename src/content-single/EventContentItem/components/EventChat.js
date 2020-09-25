@@ -79,7 +79,7 @@ const BackLabel = styled.span`
 // Main Component
 // ------------------------
 
-const EventChat = ({ channelId }) => {
+const EventChat = ({ event, channelId }) => {
   // User data
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
@@ -130,7 +130,10 @@ const EventChat = ({ channelId }) => {
 
       // Initialize channel
       const newChannel = StreamChatClient.channel('livestream', channelId, {
-        name: 'Stream Chat Demo',
+        parentId: get(event, 'id'),
+        name: get(event, 'title'),
+        startsAt: get(event, 'events[0].start'),
+        endsAt: get(event, 'events[0].end'),
         uploads: false,
       });
       await newChannel.create();
@@ -214,6 +217,16 @@ const EventChat = ({ channelId }) => {
 };
 
 EventChat.propTypes = {
+  event: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    events: PropTypes.arrayOf(
+      PropTypes.shape({
+        start: PropTypes.string,
+        end: PropTypes.string,
+      })
+    ),
+  }),
   channelId: PropTypes.string.isRequired,
 };
 
