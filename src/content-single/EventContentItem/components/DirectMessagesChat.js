@@ -8,7 +8,12 @@ import { Message, MessageInput } from 'ui/chat';
 
 const DirectMessagesChat = ({ channel }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="messaging">
-    <Channel channel={channel} Message={Message} LoadingIndicator={Loader}>
+    <Channel
+      channel={channel}
+      Message={Message}
+      LoadingIndicator={Loader}
+      maxNumberOfFiles={0}
+    >
       <Window>
         <MessageList />
         <MessageInput />
