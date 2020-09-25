@@ -138,22 +138,8 @@ const EventChat = ({ channelId }) => {
       console.log('[chat] livestream channel (newChannel):', newChannel);
 
       if (isLoggedIn) {
-        console.groupCollapsed('[chat] Getting list of DMs a user is participating in');
-        const filter = {
-          type: 'messaging',
-          members: { $in: [currentUserId] },
-        };
-        const sort = { last_message_at: -1 };
-        const options = { limit: 30 };
-
-        const dmChannelsResponse = await StreamChatClient.queryChannels(
-          filter,
-          sort,
-          options
-        );
+        const dmChannelsResponse = await ChatUtils.getUserDirectMessageChannels();
         setDmChannels(dmChannelsResponse);
-
-        console.log('[chat] dmChannelsResponse:', dmChannelsResponse);
         console.groupEnd();
       }
 
@@ -176,11 +162,10 @@ const EventChat = ({ channelId }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
+  // Handle "Send a Direct Message"
   const handleInitiateDm = async (recipientUserId) => {
-    console.log('[chat] handleInitiateDm:', recipientUserId);
-
     let recipientDmChannel = dmChannels.find((dm) =>
-      Object.keys(get(dm, 'state.members', {})).includes(currentUserId)
+      ChatUtils.channelIncludesUser(dm, recipientUserId)
     );
 
     if (!recipientDmChannel) {

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
-import { isString } from 'lodash';
+import { Dropdown } from 'react-bootstrap';
 
 import { baseUnit } from 'styles/theme';
 
@@ -18,7 +17,6 @@ const Container = styled.div`
 `;
 
 const ActionsButton = styled.button`
-  /* display: none; */
   padding: 0 ${baseUnit(2)} ${baseUnit(1)};
   border: none;
   background: none;
@@ -45,6 +43,9 @@ const MessageActionsToggle = React.forwardRef(({ onClick }, ref) => (
     <ThreeDotsIcon />
   </ActionsButton>
 ));
+MessageActionsToggle.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 // :: Main Component
 // ------------------------
@@ -61,10 +62,7 @@ const MessageActionsDropdown = ({ options }) => {
   return (
     <Container>
       <Dropdown id={id} onSelect={handleSelect}>
-        <Dropdown.Toggle variant="link" id={id} as={MessageActionsToggle}>
-          Actions
-        </Dropdown.Toggle>
-
+        <Dropdown.Toggle variant="link" id={id} as={MessageActionsToggle} />
         <Dropdown.Menu>
           {options.map((option, i) =>
             option.divider ? (
