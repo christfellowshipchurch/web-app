@@ -12,7 +12,9 @@ const LiveStreamChat = ({ channel, onInitiateDm }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel
       channel={channel}
-      Message={withProps({ onInitiateDm })(Message)}
+      Message={withProps({
+        onInitiateDm,
+      })(Message)}
       LoadingIndicator={Loader}
       maxNumberOfFiles={0}
     >

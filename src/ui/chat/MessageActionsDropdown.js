@@ -68,13 +68,13 @@ const defaultOptions = [
   },
 ];
 
-const MessageActionsDropdown = ({ options = defaultOptions, userRole }) => {
+const MessageActionsDropdown = ({ options = defaultOptions }) => {
   const id = 'message-actions-indicator';
 
   const handleSelect = (key, e) => {
     e.preventDefault();
     const index = parseInt(key, 10);
-    options[index].callback();
+    options[index].callback(e);
   };
 
   return (

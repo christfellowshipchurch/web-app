@@ -6,40 +6,57 @@ import moment from 'moment';
 
 import { baseUnit } from 'styles/theme';
 
+import { Channel } from 'stream-chat-react';
 import { ChatRoles, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { Icon } from 'ui';
 
 import MessageActionsDropdown from './MessageActionsDropdown';
 
-function getOptions({ client, message, isMyMessage, userRole, onInitiateDm }) {
-  console.log('[rkd] isMyMessage:', isMyMessage);
+function getOptions({
+  message,
+  isMyMessage,
+  userRole,
+  onInitiateDm,
+  handleDelete,
+  handleFlag,
+}) {
+  const isModerator = userRole === ChatRoles.MODERATOR;
+  const isMine = isMyMessage();
 
   return [
-    !isMyMessage && {
+    {
       label: 'Send a Direct Message',
+      showWhen: !isMine,
       callback: () => {
         onInitiateDm(message.user.id);
       },
     },
     {
       divider: true,
+      showWhen: !isMine,
     },
-    // {
-    //   label: 'Mute User',
-    //   callback: () => alert('Mute User'),
-    // },
+    {
+      label: 'Flag Message',
+      showWhen: !isMine,
+      callback: handleFlag,
+    },
+    {
+      label: 'Mute User',
+      showWhen: !isMine,
+      callback: () => alert('Mute User'),
+    },
     {
       label: 'Delete Message',
-      callback: () => {
-        alert('Delete Message');
-      },
+      showWhen: isMyMessage || isModerator,
+      callback: handleDelete,
     },
     {
       label: 'Ban User',
+      showWhen: !isMine && isModerator,
       callback: () => alert('Ban User'),
     },
-  ];
+  ].filter((option) => get(option, 'showWhen', true));
 }
 
 // :: Styled Components
@@ -117,13 +134,23 @@ const AvatarIcon = styled(Icon).attrs(({ theme }) => ({
 // :: Main Component
 // ------------------------
 
-const Message = ({ client, channel, message, isMyMessage, onInitiateDm }) => {
+const Message = (props) => {
+  // State
   const [hovered, setHovered] = useState(false);
+
+  console.log('[rkd] props:', props);
+  const { channel, message } = props;
   const {
     text,
     user: { image, name = 'Unknown Person' },
-    created_at,
+    created_at: createdAt,
+    deleted_at: deletedAt,
   } = message;
+
+  // Don't render deleted messages at all
+  if (deletedAt) {
+    return null;
+  }
 
   const userRole = ChatUtils.getRoleFromMembership(channel);
   const canPerformActions = userRole !== ChatRoles.GUEST;
@@ -143,20 +170,11 @@ const Message = ({ client, channel, message, isMyMessage, onInitiateDm }) => {
       <Body>
         <div>
           <Name>{name}</Name>
-          <Date>{moment(created_at).format('LT')}</Date>
+          <Date>{moment(createdAt).format('LT')}</Date>
         </div>
         <MessageText>{text}</MessageText>
         {canPerformActions && hovered && (
-          <MessageActionsDropdown
-            userRole={userRole}
-            options={getOptions({
-              client,
-              message,
-              isMyMessage: isMyMessage(),
-              userRole,
-              onInitiateDm,
-            })}
-          />
+          <MessageActionsDropdown userRole={userRole} options={getOptions(props)} />
         )}
       </Body>
     </MessageContainer>
@@ -164,16 +182,20 @@ const Message = ({ client, channel, message, isMyMessage, onInitiateDm }) => {
 };
 
 Message.propTypes = {
+  channel: Channel.type.propTypes.channel.isRequired,
   message: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string,
     created_at: PropTypes.instanceOf(Date),
+    deleted_at: PropTypes.instanceOf(Date),
     user: PropTypes.shape({
       image: PropTypes.string,
       name: PropTypes.string,
     }),
   }),
   isMyMessage: PropTypes.func,
+  handleDelete: PropTypes.func,
+  handleFlag: PropTypes.func,
   onInitiateDm: PropTypes.func,
 };
 
