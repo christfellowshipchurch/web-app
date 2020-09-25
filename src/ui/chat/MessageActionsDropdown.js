@@ -30,6 +30,10 @@ const ThreeDotsIcon = styled(Icon).attrs(({ theme }) => ({
   size: 18,
 }))``;
 
+const OptionLabel = styled.span`
+  ${({ theme, destructive }) => (destructive ? `color: ${theme.font.destructive};` : '')}
+`;
+
 const MessageActionsToggle = React.forwardRef(({ onClick }, ref) => (
   <ActionsButton
     ref={ref}
@@ -44,31 +48,8 @@ const MessageActionsToggle = React.forwardRef(({ onClick }, ref) => (
 
 // :: Main Component
 // ------------------------
-const defaultOptions = [
-  {
-    label: 'Send a Direct Message',
-    callback: (client, params) => {
-      alert('Send a DM');
-    },
-  },
-  {
-    divider: true,
-  },
-  // {
-  //   label: 'Mute User',
-  //   callback: () => alert('Mute User'),
-  // },
-  {
-    label: 'Delete Message',
-    callback: () => alert('Delete Message'),
-  },
-  {
-    label: 'Ban User',
-    callback: () => alert('Ban User'),
-  },
-];
 
-const MessageActionsDropdown = ({ options = defaultOptions }) => {
+const MessageActionsDropdown = ({ options }) => {
   const id = 'message-actions-indicator';
 
   const handleSelect = (key, e) => {
@@ -90,7 +71,7 @@ const MessageActionsDropdown = ({ options = defaultOptions }) => {
               <Dropdown.Divider />
             ) : (
               <Dropdown.Item key={`MessageActions:${i}`} eventKey={i} active={false}>
-                {option.label}
+                <OptionLabel destructive={option.destructive}>{option.label}</OptionLabel>
               </Dropdown.Item>
             )
           )}
@@ -109,8 +90,6 @@ MessageActionsDropdown.propTypes = {
   ),
 };
 
-MessageActionsDropdown.defaultProps = {
-  // options: [],
-};
+MessageActionsDropdown.defaultProps = {};
 
 export default MessageActionsDropdown;

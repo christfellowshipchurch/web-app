@@ -60,6 +60,7 @@ export const theme = Object.freeze({
   },
   font: {
     ...colors.gray, // Hypothetically, this could be reversed for dark mode
+    destructive: colors.red,
   },
   fontSize: {
     xsmall: '0.75rem', // ~12px
