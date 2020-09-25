@@ -47,15 +47,15 @@ const ChatContainer = styled.div`
 `;
 
 const DirectMessagesContainer = styled.div`
-  position: absolute;
   width: 100%;
   height: 100%;
+  position: absolute;
   left: 0;
+  background: ${({ theme }) => theme.card.background};
+  box-shadow: ${({ theme }) => theme.shadow.medium};
   transform: translateX(${({ visible }) => (visible ? 0 : '130%')});
-  background: rgba(255, 255, 255, 0.8);
   transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)
     ${({ visible }) => (visible ? '0s' : '0.15s')};
-  box-shadow: ${({ theme }) => theme.shadow.medium};
 `;
 
 // :: Styled Components

@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { htmlToReactParser } from '../../../utils';
+import { htmlToReactParser } from 'utils';
+
+import { Card } from 'ui';
 
 const EventDescriptionCard = ({ htmlContent, tags }) => {
   if (!htmlContent) {
@@ -10,8 +12,8 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
   }
 
   return (
-    <div className="row mb-6">
-      <div className="col-12 col-lg-8 p-2">
+    <div className="col-12 col-lg-8 p-2">
+      <Card>
         <div>{htmlToReactParser.parse(htmlContent)}</div>
 
         <div className="mx-n1">
@@ -31,7 +33,7 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
             </span>
           ))}
         </div>
-      </div>
+      </Card>
     </div>
   );
 };
