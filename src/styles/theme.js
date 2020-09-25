@@ -60,6 +60,12 @@ export const theme = Object.freeze({
   },
   font: {
     ...colors.gray, // Hypothetically, this could be reversed for dark mode
+    destructive: colors.red,
+  },
+  fontSize: {
+    xsmall: '0.75rem', // ~12px
+    small: '0.875rem', // ~14px
+    medium: '1rem', // ~16px
   },
   shadow: {
     card: '0 10px 9px -4px rgba(0, 0, 0, 0.07)',
@@ -88,6 +94,7 @@ export const theme = Object.freeze({
     dmsHeader: color(colors.white).alpha(0.95).rgb(),
     message: {
       name: colors.gray[700],
+      date: colors.gray[400],
       text: colors.gray[600],
     },
   },

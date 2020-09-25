@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { useQuery, useLazyQuery } from 'react-apollo';
 import { get, isEmpty } from 'lodash';
-import classnames from 'classnames';
 
 import { baseUnit } from 'styles/theme';
 
-import { StreamChatClient } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { StreamChatClient, ChatUtils, ChatRoles } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { useAuth } from 'auth';
 
@@ -20,22 +19,6 @@ import LiveStreamChat from './LiveStreamChat';
 import DirectMessagesChat from './DirectMessagesChat';
 import DirectMessagesDropdown from './DirectMessagesDropdown';
 
-// TODO: Find better home for these
-// ✂️ -----------------------------------------------------------
-
-const getStreamUser = (user) => ({
-  id: user.id.split(':')[1],
-  name: `${user.profile.firstName} ${user.profile.lastName}`,
-  image: get(user, 'profile.photo.uri', ''),
-});
-
-const ChatRoles = Object.freeze({
-  USER: 'USER',
-  MODERATOR: 'MODERATOR',
-});
-
-// ✂️ -----------------------------------------------------------
-
 // :: Styled Components
 // ------------------------
 
@@ -43,6 +26,7 @@ const ChatContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
   background: ${({ theme }) => theme.card.background};
 `;
 
@@ -88,19 +72,23 @@ const BackIcon = styled(Icon).attrs(({ theme, name }) => ({
   size: 22,
 }))``;
 
+const BackLabel = styled.span`
+  ${({ hidden }) => (hidden ? 'display: none;' : '')}
+`;
+
 // Main Component
 // ------------------------
 
 const EventChat = ({ event, channelId }) => {
   // User data
-  const { isLoggedIn, logIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
     skip: !isLoggedIn,
   });
 
   // The user role query is separate and invoked manually at the right time, since
   // the channel must exist first before we can request our role in it.
-  // That problem only affects the first user for the Event's chat.
+  // That problem only affects the *first* user for the Event's chat.
   const [getUserRole, { data: userRoleQueryData }] = useLazyQuery(
     GET_CURRENT_USER_ROLE_FOR_CHANNEL,
     {
@@ -110,25 +98,31 @@ const EventChat = ({ event, channelId }) => {
       },
     }
   );
-  const userRole = isLoggedIn
-    ? get(userRoleQueryData, 'currentUser.streamChatRole', ChatRoles.USER)
-    : ChatRoles.USER;
 
+  const userRole = isLoggedIn
+    ? get(userRoleQueryData, 'currentUser.streamChatRole', null)
+    : ChatRoles.GUEST;
+  console.log('[chat] 🔸 userRole:', userRole);
+
+  // State Data
   const [channel, setChannel] = useState(null);
   const [dmChannels, setDmChannels] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
-  const stripPrefix = (id) => id.split(':')[1];
+  const currentUserId =
+    isLoggedIn && data ? ChatUtils.stripPrefix(data.currentUser.id) : undefined;
 
+  // Effects and Event Listeners
   useEffect(() => {
     const handleUserConnection = async () => {
-      console.group('[rkd] handleUserConnection()');
+      console.group('[chat] 🟢 handleUserConnection()');
 
       // Initialize user first
-      const canConnectAsUser = isLoggedIn && !loading && data;
+      const canConnectAsUser =
+        isLoggedIn && !loading && data && get(data, 'currentUser.streamChatToken');
 
       if (canConnectAsUser && !get(StreamChatClient, 'userID')) {
         await StreamChatClient.setUser(
-          getStreamUser(data.currentUser),
+          ChatUtils.getStreamUser(data.currentUser),
           data.currentUser.streamChatToken
         );
       } else if (!isLoggedIn) {
@@ -145,43 +139,17 @@ const EventChat = ({ event, channelId }) => {
       });
       await newChannel.create();
       setChannel(newChannel);
-      console.log('[rkd] livestream channel (newChannel):', newChannel);
+      console.log('[chat] livestream channel (newChannel):', newChannel);
 
       if (isLoggedIn) {
-        // :: Use code below to force-create a 1:1 DM channel
-        // const members = [
-        //   'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
-        //   //   'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
-        //   'AuthenticatedUser:095eeb4c77024b09efce0a59d38caeef', // Gerard Hey
-        // ].map(stripPrefix);
-
-        // const newDmChannel = StreamChatClient.channel('messaging', {
-        //   members,
-        // });
-        // await newDmChannel.create();
-
-        console.group('[rkd] Getting list of DMs a user is participating in');
-        const filter = {
-          type: 'messaging',
-          members: { $in: [stripPrefix(data.currentUser.id)] },
-        };
-        const sort = { last_message_at: -1 };
-        const options = { limit: 30 };
-
-        const dmChannelsResponse = await StreamChatClient.queryChannels(
-          filter,
-          sort,
-          options
-        );
+        const dmChannelsResponse = await ChatUtils.getUserDirectMessageChannels();
         setDmChannels(dmChannelsResponse);
-
-        console.log('[rkd] dmChannelsResponse:', dmChannelsResponse);
         console.groupEnd();
       }
 
       // Now that we're sure the channel exists, we can request the user's role for it
       if (canConnectAsUser) {
-        getUserRole();
+        await getUserRole();
       }
 
       console.groupEnd();
@@ -190,7 +158,7 @@ const EventChat = ({ event, channelId }) => {
     handleUserConnection();
 
     return () => {
-      console.log('[rkd] Cleanup handleUserConnection 🧹');
+      console.log('[chat] 🔴 Cleanup handleUserConnection 🧹');
       StreamChatClient.disconnect();
       setChannel(null);
       setDmChannels(null);
@@ -198,12 +166,28 @@ const EventChat = ({ event, channelId }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
-  if (loading || !channel) return <Loader />;
-  if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
+  // Handle "Send a Direct Message"
+  const handleInitiateDm = async (recipientUserId) => {
+    let recipientDmChannel = dmChannels.find((dm) =>
+      ChatUtils.channelIncludesUser(dm, recipientUserId)
+    );
+
+    if (!recipientDmChannel) {
+      recipientDmChannel = StreamChatClient.channel('messaging', {
+        members: [currentUserId, recipientUserId],
+      });
+      await recipientDmChannel.create();
+    }
+
+    setActiveDmChannel(recipientDmChannel);
+  };
+
+  if (loading || !channel || !userRole) return <Loader />;
+  if (error) return <p>Something went wrong! Please reload the page and try again.</p>;
 
   return (
     <ChatContainer>
-      <LiveStreamChat channel={channel} isLoggedIn={isLoggedIn} onLogIn={logIn} />
+      <LiveStreamChat channel={channel} onInitiateDm={handleInitiateDm} />
 
       <DirectMessagesContainer visible={!!activeDmChannel}>
         <DirectMessagesChat channel={activeDmChannel} />
@@ -215,16 +199,14 @@ const EventChat = ({ event, channelId }) => {
           {activeDmChannel && (
             <BackButton onClick={() => setActiveDmChannel(null)}>
               <BackIcon name="angle-left" />
-              <span
-                className={classnames({ 'd-none': get(dmChannels, 'length', 0) !== 1 })}
-              >
+              <BackLabel hidden={get(dmChannels, 'length', 0) !== 1}>
                 {'Back to Chat'}
-              </span>
+              </BackLabel>
             </BackButton>
           )}
 
           <DirectMessagesDropdown
-            currentUserId={stripPrefix(data.currentUser.id)}
+            currentUserId={currentUserId}
             channels={dmChannels}
             selectedChannelId={activeDmChannel ? activeDmChannel.id : undefined}
             onSelect={setActiveDmChannel}

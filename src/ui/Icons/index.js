@@ -29,13 +29,15 @@ import LiveDot from './live-dot';
 import LockAlt from './lock-alt';
 import Microsoft from './microsoft';
 import Mobile from './mobile';
+import PaperAirplane from './paper-airplane';
 import PhoneAlt from './phone-alt';
 import Play from './play';
 import PlayCircle from './play-circle';
 import Search from './search';
 import ShareSquare from './share-square';
-import Square from './square';
 import SignOut from './sign-out';
+import Square from './square';
+import ThreeDots from './three-dots';
 import Times from './times';
 import Twitter from './twitter';
 import UserCircle from './user-circle';
@@ -79,6 +81,7 @@ export {
   Search,
   ShareSquare,
   Square,
+  ThreeDots,
   Times,
   Twitter,
   User,
@@ -119,13 +122,15 @@ export const Icons = {
   LockAlt,
   Microsoft,
   Mobile,
+  PaperAirplane,
   PhoneAlt,
   Play,
   PlayCircle,
   Search,
   ShareSquare,
-  Square,
   SignOut,
+  Square,
+  ThreeDots,
   Times,
   Twitter,
   UserCircle,

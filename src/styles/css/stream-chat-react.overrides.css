@@ -14,14 +14,20 @@
 .livestream.str-chat .str-chat__list,
 .messaging.str-chat .str-chat__list {
   padding: 0;
+  padding-top: 3rem;
 }
 
+/* Messages List */
 .str-chat span,
 .str-chat textarea,
 .str-chat__date-separator-date {
   font-family: 'Gotham A', 'Gotham B', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.str-chat__date-separator {
+  margin: 20px;
 }
 
 /* Message Input */
