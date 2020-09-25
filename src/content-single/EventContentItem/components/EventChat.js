@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { useQuery, useLazyQuery } from 'react-apollo';
-import { withProps } from 'recompose';
 import { get, isEmpty } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
@@ -13,7 +12,6 @@ import { useAuth } from 'auth';
 
 // UI
 import { Loader, Icon } from 'ui';
-import { Message } from 'ui/chat';
 
 import { GET_CURRENT_USER_FOR_CHAT, GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
 
@@ -110,12 +108,13 @@ const EventChat = ({ channelId }) => {
   const [channel, setChannel] = useState(null);
   const [dmChannels, setDmChannels] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
-  const currentUserId = ChatUtils.stripPrefix(data.currentUser.id);
+  const currentUserId =
+    isLoggedIn && data ? ChatUtils.stripPrefix(data.currentUser.id) : undefined;
 
   // Effects and Event Listeners
   useEffect(() => {
     const handleUserConnection = async () => {
-      console.group('[chat] handleUserConnection()');
+      console.group('[chat] 🟢 handleUserConnection()');
 
       // Initialize user first
       const canConnectAsUser = isLoggedIn && !loading && data;
@@ -139,18 +138,6 @@ const EventChat = ({ channelId }) => {
       console.log('[chat] livestream channel (newChannel):', newChannel);
 
       if (isLoggedIn) {
-        // :: Use code below to force-create a 1:1 DM channel
-        // const members = [
-        //   'AuthenticatedUser:3a4a20f0828c592f7f366dfce8d1f9ab', // Ryan
-        //   //   'AuthenticatedUser:3fd1595b8f555c2e1c2f1a57d2947898', // Yoda
-        //   'AuthenticatedUser:095eeb4c77024b09efce0a59d38caeef', // Gerard Hey
-        // ].map(ChatUtils.stripPrefix);
-
-        // const newDmChannel = StreamChatClient.channel('messaging', {
-        //   members,
-        // });
-        // await newDmChannel.create();
-
         console.groupCollapsed('[chat] Getting list of DMs a user is participating in');
         const filter = {
           type: 'messaging',
@@ -181,7 +168,7 @@ const EventChat = ({ channelId }) => {
     handleUserConnection();
 
     return () => {
-      console.log('[chat] Cleanup handleUserConnection 🧹');
+      console.log('[chat] 🔴 Cleanup handleUserConnection 🧹');
       StreamChatClient.disconnect();
       setChannel(null);
       setDmChannels(null);
@@ -197,7 +184,6 @@ const EventChat = ({ channelId }) => {
     );
 
     if (!recipientDmChannel) {
-      console.log('[rkd] no DM channel with user:', recipientUserId);
       recipientDmChannel = StreamChatClient.channel('messaging', {
         members: [currentUserId, recipientUserId],
       });
@@ -208,7 +194,7 @@ const EventChat = ({ channelId }) => {
   };
 
   if (loading || !channel || !userRole) return <Loader />;
-  if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
+  if (error) return <p>Something went wrong! Please reload the page and try again.</p>;
 
   return (
     <ChatContainer>
@@ -229,8 +215,6 @@ const EventChat = ({ channelId }) => {
               </BackLabel>
             </BackButton>
           )}
-
-          {`${userRole}`}
 
           <DirectMessagesDropdown
             currentUserId={currentUserId}

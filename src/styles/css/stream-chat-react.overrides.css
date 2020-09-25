@@ -14,6 +14,7 @@
 .livestream.str-chat .str-chat__list,
 .messaging.str-chat .str-chat__list {
   padding: 0;
+  padding-top: 3rem;
 }
 
 /* Messages List */
