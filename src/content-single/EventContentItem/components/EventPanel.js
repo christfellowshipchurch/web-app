@@ -74,9 +74,6 @@ const EventPanel = ({ event, isLive, channelId }) => {
         />
       </PanelHeader>
       <PanelBody>
-        <TabContent active={activeTab === 'chat'}>
-          <EventChat event={event} channelId={channelId} />
-        </TabContent>
         <TabContent active={activeTab === 'schedule'}>
           <EventScheduleConnected
             id={event.id}
@@ -89,7 +86,11 @@ const EventPanel = ({ event, isLive, channelId }) => {
         </TabContent>
         {/* Chat */}
         <TabContent active={activeTab === 'chat'}>
-          {isLive ? <EventChat channelId={channelId} /> : <EventChatOffline />}
+          {isLive ? (
+            <EventChat event={event} channelId={channelId} />
+          ) : (
+            <EventChatOffline />
+          )}
         </TabContent>
       </PanelBody>
     </PanelContainer>
