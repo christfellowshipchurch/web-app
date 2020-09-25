@@ -1,13 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { useTheme } from 'styled-components/macro';
+import styled from 'styled-components/macro';
+import { get } from 'lodash';
 import moment from 'moment';
 
 import { baseUnit } from 'styles/theme';
 
+import { ChatRoles, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+
 import { Icon } from 'ui';
 
+import MessageActionsDropdown from './MessageActionsDropdown';
+
+function getOptions({ client, message, isMyMessage, userRole, onInitiateDm }) {
+  console.log('[rkd] isMyMessage:', isMyMessage);
+
+  return [
+    !isMyMessage && {
+      label: 'Send a Direct Message',
+      callback: () => {
+        onInitiateDm(message.user.id);
+      },
+    },
+    {
+      divider: true,
+    },
+    // {
+    //   label: 'Mute User',
+    //   callback: () => alert('Mute User'),
+    // },
+    {
+      label: 'Delete Message',
+      callback: () => {
+        alert('Delete Message');
+      },
+    },
+    {
+      label: 'Ban User',
+      callback: () => alert('Ban User'),
+    },
+  ];
+}
+
 // :: Styled Components
+// ------------------------
+
 const MessageContainer = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -71,36 +108,36 @@ const AvatarImage = styled.div`
   background-size: cover;
 `;
 
-const ActionsButton = styled.button`
-  display: none;
-  position: absolute;
-  top: 8px;
-  right: 0;
-  padding: 0 ${baseUnit(2)} ${baseUnit(1)};
-  border: none;
-  background: none;
-
-  /* Selector for when the parent MessageContainer is hovered */
-  ${MessageContainer}:hover & {
-    display: block;
-  }
-`;
+const AvatarIcon = styled(Icon).attrs(({ theme }) => ({
+  name: 'user-circle',
+  fill: theme.font[300],
+  size: AVATAR_SIZE,
+}))``;
 
 // :: Main Component
-const Message = ({ message, isModerator }) => {
-  const theme = useTheme();
-  // console.log('[rkd] message:', message);
+// ------------------------
 
+const Message = ({ client, channel, message, isMyMessage, onInitiateDm }) => {
+  const [hovered, setHovered] = useState(false);
   const {
     text,
     user: { image, name = 'Unknown Person' },
     created_at,
   } = message;
 
+  const userRole = ChatUtils.getRoleFromMembership(channel);
+  const canPerformActions = userRole !== ChatRoles.GUEST;
+  const hoverEventListeners = canPerformActions
+    ? {
+        onMouseEnter: () => setHovered(true),
+        onMouseLeave: () => setHovered(false),
+      }
+    : {};
+
   return (
-    <MessageContainer>
+    <MessageContainer {...hoverEventListeners}>
       <AvatarContainer>
-        <Icon name="user-circle" fill={theme.font[300]} size={AVATAR_SIZE} />
+        <AvatarIcon />
         {image && <AvatarImage image={image} />}
       </AvatarContainer>
       <Body>
@@ -109,10 +146,17 @@ const Message = ({ message, isModerator }) => {
           <Date>{moment(created_at).format('LT')}</Date>
         </div>
         <MessageText>{text}</MessageText>
-        {isModerator && (
-          <ActionsButton>
-            <Icon name="three-dots" fill={theme.font[700]} size={18} />
-          </ActionsButton>
+        {canPerformActions && hovered && (
+          <MessageActionsDropdown
+            userRole={userRole}
+            options={getOptions({
+              client,
+              message,
+              isMyMessage: isMyMessage(),
+              userRole,
+              onInitiateDm,
+            })}
+          />
         )}
       </Body>
     </MessageContainer>
@@ -120,7 +164,6 @@ const Message = ({ message, isModerator }) => {
 };
 
 Message.propTypes = {
-  isModerator: PropTypes.bool,
   message: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string,
@@ -130,10 +173,10 @@ Message.propTypes = {
       name: PropTypes.string,
     }),
   }),
+  isMyMessage: PropTypes.func,
+  onInitiateDm: PropTypes.func,
 };
 
-Message.defaultProps = {
-  isModerator: false,
-};
+Message.defaultProps = {};
 
 export default Message;
