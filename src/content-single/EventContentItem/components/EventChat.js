@@ -138,7 +138,7 @@ const EventChat = ({ event, channelId }) => {
       // Initialize channel
       const newChannel = StreamChatClient.channel('livestream', channelId, {
         parentId: get(event, 'id'),
-        name: get(event, 'name'),
+        name: get(event, 'title'),
         startsAt: get(event, 'events[0].start'),
         endsAt: get(event, 'events[0].end'),
         uploads: false,
@@ -238,7 +238,7 @@ const EventChat = ({ event, channelId }) => {
 EventChat.propTypes = {
   event: PropTypes.shape({
     id: PropTypes.string,
-    name: PropTypes.string,
+    title: PropTypes.string,
     events: PropTypes.arrayOf(
       PropTypes.shape({
         start: PropTypes.string,
