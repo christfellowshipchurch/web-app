@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withProps } from 'recompose';
 
 import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
 import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { Loader } from 'ui';
-import { Message, MessageModerator, MessageInput } from 'ui/chat';
+import { Message, MessageInput } from 'ui/chat';
 
-const LiveStreamChat = ({ channel, isModerator }) => (
+const LiveStreamChat = ({ channel, onInitiateDm }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel
       channel={channel}
-      Message={isModerator ? MessageModerator : Message}
+      Message={withProps({ onInitiateDm })(Message)}
       LoadingIndicator={Loader}
       maxNumberOfFiles={0}
     >
@@ -25,7 +26,9 @@ const LiveStreamChat = ({ channel, isModerator }) => (
 
 LiveStreamChat.propTypes = {
   channel: Channel.type.propTypes.channel.isRequired,
-  isModerator: PropTypes.bool,
+  onInitiateDm: PropTypes.func,
 };
+
+LiveStreamChat.defaultProps = {};
 
 export default LiveStreamChat;

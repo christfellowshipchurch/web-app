@@ -11,11 +11,11 @@ import CampusSelector from './CampusSelector';
 import CallsToAction from './CallsToAction';
 
 function getScheduleByLocation(events) {
-  console.group('[rkd] getScheduleByLocation()');
-  console.log('[rkd] events:', events);
+  console.group('[schedule] getScheduleByLocation()');
+  console.log('[schedule] events:', events);
 
   if (!events || isEmpty(events)) {
-    console.log('[rkd] Empty events... returning []');
+    console.log('[schedule] Empty events... returning []');
     console.groupEnd();
     return [];
   }
@@ -29,7 +29,7 @@ function getScheduleByLocation(events) {
     return { location, dateTimes };
   });
 
-  console.log('[rkd] groupByLocationDates:', groupByLocationDates);
+  console.log('[schedule] groupByLocationDates:', groupByLocationDates);
   console.groupEnd();
   return groupByLocationDates;
 }
@@ -39,13 +39,13 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const hasEvents = !isEmpty(events);
   const scheduleByLocation = getScheduleByLocation(campusEvents);
 
-  console.groupCollapsed('[rkd] EventSchedule render()');
-  console.log('[rkd] events:', events);
-  console.log('[rkd] callsToAction:', callsToAction);
-  console.log('[rkd] defaultCampus:', defaultCampus);
-  console.log('[rkd] ---');
-  console.log('[rkd] campusEvents:', campusEvents);
-  console.log('[rkd] scheduleByLocation:', scheduleByLocation);
+  console.groupCollapsed('[schedule] EventSchedule render()');
+  console.log('[schedule] events:', events);
+  console.log('[schedule] callsToAction:', callsToAction);
+  console.log('[schedule] defaultCampus:', defaultCampus);
+  console.log('[schedule] ---');
+  console.log('[schedule] campusEvents:', campusEvents);
+  console.log('[schedule] scheduleByLocation:', scheduleByLocation);
 
   const campusOptions = uniq(
     flatMapDepth(
@@ -54,7 +54,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
       2
     )
   );
-  console.log('[rkd] campusOptions:', campusOptions);
+  console.log('[schedule] campusOptions:', campusOptions);
 
   const handleChangeCampus = (campus) => {
     const campusEvents = events.filter((e) => e.campuses.find((c) => c.name === campus));
@@ -67,9 +67,9 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const lastEvent = hasEvents ? events.length - 1 : 0;
   const endTime = get(events, `[${lastEvent}].end`, null);
 
-  console.log('[rkd] ---');
-  console.log('[rkd] startTime:', startTime);
-  console.log('[rkd] endTime:', endTime);
+  console.log('[schedule] ---');
+  console.log('[schedule] startTime:', startTime);
+  console.log('[schedule] endTime:', endTime);
   console.groupEnd();
 
   return (
