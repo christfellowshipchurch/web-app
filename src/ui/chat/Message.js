@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { get } from 'lodash';
 import moment from 'moment';
 
 import { baseUnit } from 'styles/theme';
@@ -12,67 +11,7 @@ import { ChatRoles, ChatUtils } from 'stream-chat-client'; // really: 'src/strea
 import { Icon } from 'ui';
 
 import MessageActionsDropdown from './MessageActionsDropdown';
-
-// Used to decide what action sheet options are available on a message, given
-// a bunch of factors like if it's a users' own message, their role, etc.
-// These input args are a subset of the <Message> component props, mostly
-// provided under-the-hood via Stream.io context.
-function getOptions({
-  channel,
-  message,
-  isMyMessage,
-  userRole,
-  onInitiateDm,
-  handleDelete,
-  handleFlag,
-  handleMute,
-}) {
-  const isModerator = userRole === ChatRoles.MODERATOR;
-  const isMine = isMyMessage();
-
-  return [
-    {
-      label: 'Send a Direct Message',
-      showWhen: !isMine,
-      callback: () => {
-        onInitiateDm(message.user.id);
-      },
-    },
-    {
-      divider: true,
-      showWhen: !isMine,
-    },
-    {
-      label: 'Flag Message',
-      showWhen: !isMine,
-      callback: handleFlag,
-    },
-    {
-      label: 'Mute User',
-      showWhen: !isMine,
-      callback: handleMute,
-    },
-    {
-      label: 'Delete Message',
-      showWhen: isMyMessage || isModerator,
-      destructive: true,
-      callback: handleDelete,
-    },
-    {
-      label: 'Ban User',
-      showWhen: !isMine && isModerator,
-      destructive: true,
-      callback: async () => {
-        // eslint-disable-next-line no-restricted-globals
-        if (confirm('Are you sure you want to ban this user for 1 minute?')) {
-          await channel.banUser(message.user.id, {
-            timeout: 1,
-          });
-        }
-      },
-    },
-  ].filter((option) => get(option, 'showWhen', true));
-}
+import getMessageActionOptions from './getMessageActionOptions';
 
 // :: Styled Components
 // ------------------------
@@ -189,7 +128,9 @@ const Message = (props) => {
         </div>
         <MessageText>{text}</MessageText>
         {canPerformActions && hovered && (
-          <MessageActionsDropdown options={getOptions({ ...props, userRole })} />
+          <MessageActionsDropdown
+            options={getMessageActionOptions({ ...props, userRole })}
+          />
         )}
       </Body>
     </MessageContainer>
