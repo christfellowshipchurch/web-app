@@ -43,6 +43,7 @@ const ChatContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  overflow-x: hidden;
   background: ${({ theme }) => theme.card.background};
 `;
 
@@ -93,7 +94,7 @@ const BackIcon = styled(Icon).attrs(({ theme, name }) => ({
 
 const EventChat = ({ channelId }) => {
   // User data
-  const { isLoggedIn, logIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
     skip: !isLoggedIn,
   });
@@ -110,9 +111,11 @@ const EventChat = ({ channelId }) => {
       },
     }
   );
+
   const userRole = isLoggedIn
-    ? get(userRoleQueryData, 'currentUser.streamChatRole', ChatRoles.USER)
+    ? get(userRoleQueryData, 'currentUser.streamChatRole', null)
     : ChatRoles.USER;
+  console.log('[rkd] userRole:', userRole);
 
   const [channel, setChannel] = useState(null);
   const [dmChannels, setDmChannels] = useState([]);
@@ -157,7 +160,7 @@ const EventChat = ({ channelId }) => {
         // });
         // await newDmChannel.create();
 
-        console.group('[rkd] Getting list of DMs a user is participating in');
+        console.groupCollapsed('[rkd] Getting list of DMs a user is participating in');
         const filter = {
           type: 'messaging',
           members: { $in: [stripPrefix(data.currentUser.id)] },
@@ -178,7 +181,7 @@ const EventChat = ({ channelId }) => {
 
       // Now that we're sure the channel exists, we can request the user's role for it
       if (canConnectAsUser) {
-        getUserRole();
+        await getUserRole();
       }
 
       console.groupEnd();
@@ -195,12 +198,16 @@ const EventChat = ({ channelId }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
-  if (loading || !channel) return <Loader />;
+  if (loading || !channel || !userRole) return <Loader />;
   if (error) return <pre>{JSON.stringify({ error }, null, 2)}</pre>;
 
+  console.log(
+    `[rkd] 🟧  ${userRole} === ChatRoles.MODERATOR:`,
+    userRole === ChatRoles.MODERATOR
+  );
   return (
     <ChatContainer>
-      <LiveStreamChat channel={channel} isLoggedIn={isLoggedIn} onLogIn={logIn} />
+      <LiveStreamChat channel={channel} isModerator={userRole === ChatRoles.MODERATOR} />
 
       <DirectMessagesContainer visible={!!activeDmChannel}>
         <DirectMessagesChat channel={activeDmChannel} />
@@ -219,6 +226,8 @@ const EventChat = ({ channelId }) => {
               </span>
             </BackButton>
           )}
+
+          {`${userRole}`}
 
           <DirectMessagesDropdown
             currentUserId={stripPrefix(data.currentUser.id)}

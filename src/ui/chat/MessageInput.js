@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { MessageInput, MessageInputSmall } from 'stream-chat-react';
 
@@ -40,14 +41,14 @@ const SendButton = styled.button`
 `;
 
 const SendIcon = styled(Icon).attrs(({ theme }) => ({
-  name: 'angle-right',
+  name: 'paper-airplane',
   fill: theme.brandForeground,
   size: 20,
 }))`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(calc(-50% + 1px), calc(-50% - 1px));
+  transform: translate(-50%, -50%);
 `;
 
 const SendButtonComponent = ({ sendMessage }) => (
@@ -55,6 +56,9 @@ const SendButtonComponent = ({ sendMessage }) => (
     <SendIcon />
   </SendButton>
 );
+SendButtonComponent.propTypes = {
+  sendMessage: PropTypes.func.isRequired,
+};
 
 // :: Main Component
 const MessageInputLoggedOut = () => {
