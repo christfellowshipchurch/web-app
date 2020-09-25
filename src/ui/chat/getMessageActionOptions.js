@@ -20,18 +20,19 @@ export default function getMessageActionOptions({
 }) {
   const isModerator = userRole === ChatRoles.MODERATOR;
   const isMine = isMyMessage();
+  const showSendDirectMessage = !isMine && !!onInitiateDm;
 
   return [
     {
       label: 'Send a Direct Message',
-      showWhen: !isMine,
+      showWhen: showSendDirectMessage,
       callback: () => {
         onInitiateDm(message.user.id);
       },
     },
     {
       divider: true,
-      showWhen: !isMine,
+      showWhen: showSendDirectMessage,
     },
     {
       label: 'Flag Message',

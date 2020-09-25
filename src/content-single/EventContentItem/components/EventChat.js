@@ -117,7 +117,8 @@ const EventChat = ({ event, channelId }) => {
       console.group('[chat] 🟢 handleUserConnection()');
 
       // Initialize user first
-      const canConnectAsUser = isLoggedIn && !loading && data;
+      const canConnectAsUser =
+        isLoggedIn && !loading && data && get(data, 'currentUser.streamChatToken');
 
       if (canConnectAsUser && !get(StreamChatClient, 'userID')) {
         await StreamChatClient.setUser(
