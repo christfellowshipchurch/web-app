@@ -29,6 +29,7 @@ import LiveDot from './live-dot';
 import LockAlt from './lock-alt';
 import Microsoft from './microsoft';
 import Mobile from './mobile';
+import PaperAirplane from './paper-airplane';
 import PhoneAlt from './phone-alt';
 import Play from './play';
 import PlayCircle from './play-circle';
@@ -121,6 +122,7 @@ export const Icons = {
   LockAlt,
   Microsoft,
   Mobile,
+  PaperAirplane,
   PhoneAlt,
   Play,
   PlayCircle,
