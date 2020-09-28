@@ -26,12 +26,7 @@ const EventChatOffline = () => {
   return (
     <Container>
       <h4>Stay Tuned!</h4>
-      <Blurb>
-        Event is not live yet. It will go live at [start date and time].
-        <br />
-        <br />
-        [Add to Calendar CTA?]
-      </Blurb>
+      <Blurb>You can chat with the community when this event goes live.</Blurb>
     </Container>
   );
 };
