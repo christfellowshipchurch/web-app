@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Blurb = styled.p`
-  width: 75%;
+  width: 80%;
   text-align: center;
 `;
 
