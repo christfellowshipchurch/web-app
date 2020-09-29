@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
+import { breakpoint } from 'styles/theme';
+
 import EventScheduleConnected from './EventScheduleConnected';
 import EventChat from './EventChat';
 import EventChatOffline from './EventChatOffline';
@@ -13,15 +15,16 @@ import Tab from './Tab';
 const PanelContainer = styled.div`
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  flex: 1;
+  height: 75vh;
   overflow: hidden;
   background: ${({ theme }) => theme.body.background};
   box-shadow: ${({ theme }) => theme.shadow.card};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
+
+  ${breakpoint('lg')} {
+    height: 100%;
+  }
 `;
 
 const PanelHeader = styled.div`

@@ -102,7 +102,6 @@ const EventChat = ({ event, channelId }) => {
   const userRole = isLoggedIn
     ? get(userRoleQueryData, 'currentUser.streamChatRole', null)
     : ChatRoles.GUEST;
-  console.log('[chat] 🔸 userRole:', userRole);
 
   // State Data
   const [channel, setChannel] = useState(null);

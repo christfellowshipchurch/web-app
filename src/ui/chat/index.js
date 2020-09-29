@@ -1,4 +1,5 @@
+import ChatAvatar from './ChatAvatar';
 import Message from './Message';
 import MessageInput from './MessageInput';
 
-export { Message, MessageInput };
+export { ChatAvatar, Message, MessageInput };

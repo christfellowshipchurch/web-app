@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { get, isEmpty } from 'lodash';
 
-import { Channel } from 'stream-chat-react';
+import { Channel } from 'stream-chat';
 
 import { baseUnit } from 'styles/theme';
 
@@ -72,7 +72,7 @@ const DirectMessagesDropdown = ({
 
   return (
     <DirectMessagesSelect value={selectedChannelId} onChange={handleValueChange}>
-      <option value="" disabled selected>
+      <option value="" disabled>
         Direct Messages...
       </option>
       {channels.map((channel) => (
@@ -86,7 +86,7 @@ const DirectMessagesDropdown = ({
 
 DirectMessagesDropdown.propTypes = {
   currentUserId: PropTypes.string,
-  channels: PropTypes.arrayOf(Channel.type.propTypes.channel),
+  channels: PropTypes.arrayOf(PropTypes.instanceOf(Channel)),
   selectedChannelId: PropTypes.string,
   onSelect: PropTypes.func,
 };

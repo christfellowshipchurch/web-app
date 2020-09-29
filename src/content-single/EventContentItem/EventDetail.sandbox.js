@@ -6,20 +6,20 @@ import { Share } from 'ui';
 import LiveIndicator from './LiveIndicator';
 
 const EventDetail = ({ title, summary, isLive }) => (
-  <div className="pr-3">
-    <div className="container">
-      {(title !== '' || summary !== '') && (
-        <div className="row mt-3 pl-3">
-          {isLive && <LiveIndicator />}
+  <div className="row  pt-2 pt-md-3 px-1 pl-lg-2 pl-xl-0">
+    {(title !== '' || summary !== '') && (
+      <div className="col-12">
+        {isLive && <LiveIndicator />}
 
-          <div className="col-12">
-            <h1 className="mt-2 mb-2 text-dark">{title}</h1>
-            <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
-          </div>
+        <div className="w-100">
+          <h1 className="my-2 text-dark">{title}</h1>
+          <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
         </div>
-      )}
+      </div>
+    )}
 
-      <div className="row pl-3 flex-grow-1 mt-2 justify-content-end">
+    <div className="col-12 mt-2">
+      <div className="d-flex flex-grow-1 justify-content-end">
         <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
       </div>
     </div>

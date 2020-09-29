@@ -7,7 +7,7 @@ import { Dropdown } from 'react-bootstrap';
 import { Apple, Google, Microsoft } from '../Icons';
 import { googleCalLink, icsLink } from './utils';
 
-const iconSize = '20';
+const iconSize = 20;
 
 const AddToCalendar = ({
   event,
@@ -35,7 +35,7 @@ const AddToCalendar = ({
         target="_blank"
         className="d-flex align-items-center"
       >
-        <Apple size="22" />
+        <Apple size={22} />
         Apple
       </Dropdown.Item>
 

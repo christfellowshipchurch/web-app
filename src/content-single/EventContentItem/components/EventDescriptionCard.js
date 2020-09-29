@@ -12,24 +12,17 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
   }
 
   return (
-    <div className="col-12 col-lg-8 p-2">
+    <div className="col-12 col-lg-8  p-2 pl-lg-3 pl-xl-0">
       <Card>
         <div>{htmlToReactParser.parse(htmlContent)}</div>
 
         <div className="mx-n1">
-          {tags.map((n, i) => (
+          {tags.map((tag, i) => (
             <span
               key={i}
-              className={classnames(
-                'badge',
-                'badge-light',
-                'font-weight-normal',
-                'py-2',
-                'px-3',
-                'mx-1'
-              )}
+              className={'badge badge-light font-weight-normal py-2 px-3 mx-1'}
             >
-              {n}
+              {tag}
             </span>
           ))}
         </div>

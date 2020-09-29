@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import color from 'color';
 
 // Corresponds to bootstrap's values for styles like p-1, mr-2, px-3, etc.
@@ -55,6 +56,12 @@ export const theme = Object.freeze({
   // Globals
   brand: colors.cyan,
   brandForeground: colors.white,
+  breakpoints: {
+    sm: `@media (min-width: 576px)`,
+    md: `@media (min-width: 768px)`,
+    lg: `@media (min-width: 992px)`,
+    xl: `@media (min-width: 1200px)`,
+  },
   fontFamily: {
     sans: '"Gotham A", "Gotham B"',
   },
@@ -101,3 +108,5 @@ export const theme = Object.freeze({
   link: colors.cyan,
   liveEvent: colors.red,
 });
+
+export const breakpoint = (key) => ({ theme }) => get(theme, `breakpoints.${key}`);
