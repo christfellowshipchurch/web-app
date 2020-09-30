@@ -1,4 +1,3 @@
-import { get } from 'lodash';
 import color from 'color';
 
 // Corresponds to bootstrap's values for styles like p-1, mr-2, px-3, etc.
@@ -21,6 +20,8 @@ export const baseUnit = (n = 1) => {
   return 0;
 };
 
+export const breakpoint = (key) => ({ theme }) => theme.breakpoints[key];
+
 /**
  * A definition of colors, simple named color values. This is *not* the place to
  * assign usage or imply where in the app a color is intended.
@@ -41,7 +42,8 @@ const colors = Object.freeze({
     900: '#1a1a1a',
   },
   black: '#000',
-  red: '#cb045b',
+  ruby: '#cb045b',
+  red: '#dc3545',
   green: '#1ec27f',
   cyan: '#00aeef',
 });
@@ -106,7 +108,5 @@ export const theme = Object.freeze({
     },
   },
   link: colors.cyan,
-  liveEvent: colors.red,
+  liveEvent: colors.ruby,
 });
-
-export const breakpoint = (key) => ({ theme }) => get(theme, `breakpoints.${key}`);

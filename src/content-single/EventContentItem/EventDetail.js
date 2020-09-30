@@ -12,7 +12,7 @@ import { htmlToReactParser } from '../../utils';
 import { GET_CURRENT_PERSON_CAMPUS } from './queries';
 import EventSchedule from './EventSchedule';
 
-import LiveIndicator from './LiveIndicator';
+import LiveIndicator from './components/LiveIndicator';
 
 const ConnectedEventSchedule = (props) => {
   const { isLoggedIn } = useAuth();
@@ -51,7 +51,7 @@ const EventDetail = ({
         )}
       >
         <div className="mt-4 mb-2 pb-2">
-          {isLive && <LiveIndicator />}
+          <LiveIndicator isLive={isLive} />
           <h1 className="mb-2 text-dark">{title}</h1>
           <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
         </div>

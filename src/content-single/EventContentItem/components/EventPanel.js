@@ -22,6 +22,10 @@ const PanelContainer = styled.div`
   box-shadow: ${({ theme }) => theme.shadow.card};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
 
+  ${breakpoint('sm')} {
+    height: 50vh;
+  }
+
   ${breakpoint('lg')} {
     height: 100%;
   }

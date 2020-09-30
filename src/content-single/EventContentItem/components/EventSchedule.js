@@ -8,10 +8,9 @@ import { AddToCalendar, Icon } from 'ui';
 
 import EventScheduleTimes from './EventScheduleTimes';
 import CampusSelector from './CampusSelector';
-import CallsToAction from './CallsToAction';
 
 function getScheduleByLocation(events) {
-  console.group('[schedule] getScheduleByLocation()');
+  console.groupCollapsed('[schedule] 📍 getScheduleByLocation()');
   console.log('[schedule] events:', events);
 
   if (!events || isEmpty(events)) {
@@ -39,7 +38,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const hasEvents = !isEmpty(events);
   const scheduleByLocation = getScheduleByLocation(campusEvents);
 
-  console.groupCollapsed('[schedule] EventSchedule render()');
+  console.groupCollapsed('[schedule] 🗓️ EventSchedule render()');
   console.log('[schedule] events:', events);
   console.log('[schedule] callsToAction:', callsToAction);
   console.log('[schedule] defaultCampus:', defaultCampus);
@@ -109,10 +108,6 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
             </div>
           );
         })}
-
-        {hasEvents && !isEmpty(callsToAction) && <h3>Get Started</h3>}
-
-        <CallsToAction eventTitle={title} items={callsToAction} />
 
         {hasEvents && (
           <div className="d-flex align-items-center">
