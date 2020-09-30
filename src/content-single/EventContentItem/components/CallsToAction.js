@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/macro';
 import { isEmpty } from 'lodash';
 
 import { GoogleAnalytics } from 'analytics';
 
 import { Row, Col } from 'ui';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
 
 const CallsToAction = ({ eventTitle, items }) => {
   if (isEmpty(items)) {
