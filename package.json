@@ -104,6 +104,7 @@
     "react-share": "^3.0.1",
     "react-visibility-sensor": "^5.1.1",
     "reactstrap": "^7.1.0",
+    "recompose": "^0.30.0",
     "stream-chat": "^2.0.0",
     "stream-chat-react": "^2.2.2",
     "styled-components": "^5.2.0",
