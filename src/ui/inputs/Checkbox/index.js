@@ -1,42 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { Icon } from '../../Icons';
 
 const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonProps }) => {
   const types =
     typeof type === 'string' ? { default: type, hover: type, checked: type } : type;
 
-  if (disabled) {
-    types.checked = 'dark';
-    types.hover = 'dark';
+  if (!!disabled) {
+    types.checked = '#353535';
+    types.hover = '#353535';
   }
 
   return (
     <div className="text-left">
       <a
-        href="#"
+        href="/#"
         onClick={(e) => {
           e.preventDefault();
           onClick();
         }}
-        className={classnames(
-          'btn-checkbox',
-          {
-            disable: disabled,
-          },
-          {
-            [`text-${types.default}`]: !checked,
-            [`text-${types.checked}`]: checked,
-          }
-        )}
+        disabled={disabled}
+        className={classnames('btn-checkbox')}
         {...buttonProps}
       >
-        <i
-          className={classnames('fal', 'pl-1', {
-            'fa-check-square': checked,
-            'fa-square': !checked,
-          })}
-        ></i>
+        <Icon
+          name={checked ? 'check-square' : 'square'}
+          fill={checked ? types.checked : types.default}
+          size={22}
+        />
       </a>
       {error && (
         <label className={classnames('ml-2', 'input-label-sm', 'text-danger')}>
@@ -67,9 +59,9 @@ Checkbox.defaultProps = {
   checked: false,
   onClick: () => true,
   type: {
-    default: 'dark',
-    hover: 'primary',
-    checked: 'primary',
+    default: '#828282',
+    hover: '#00aeff',
+    checked: '#00aeff',
   },
   label: null,
   disabled: false,

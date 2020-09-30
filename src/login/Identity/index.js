@@ -29,14 +29,7 @@ const validation = {
   },
 };
 
-const IdentityForm = ({
-  promptText,
-  buttonText,
-  dislaimerText,
-  inputLabel,
-  update,
-  columns,
-}) => {
+const IdentityForm = ({ promptText, buttonText, inputLabel, update, columns }) => {
   const { values, errors, submitting, setValue, setSubmitting } = useForm({
     validation,
     defaultValues: {
@@ -119,7 +112,6 @@ const IdentityForm = ({
             onChange={(e) => setValue('identity', get(e, 'target.value', ''))}
             value={get(values, 'identity', '')}
             disabled={submitting}
-            value={get(values, 'identity', '')}
           />
         </div>
       </div>
@@ -134,21 +126,30 @@ const IdentityForm = ({
               </p>
             </div>
           )}
-          <Checkbox
-            error={
-              has(errors, 'privacyPolicyAgreement') &&
-              get(errors, 'privacyPolicyAgreement', '')
-            }
-            label={dislaimerText}
-            onClick={() =>
-              setValue(
-                'privacyPolicyAgreement',
-                !get(values, 'privacyPolicyAgreement', true)
-              )
-            }
-            checked={get(values, 'privacyPolicyAgreement', false)}
-            disabled={submitting}
-          />
+          <div className="d-flex align-items-center">
+            <Checkbox
+              error={
+                has(errors, 'privacyPolicyAgreement') &&
+                get(errors, 'privacyPolicyAgreement', '')
+              }
+              onClick={() =>
+                setValue(
+                  'privacyPolicyAgreement',
+                  !get(values, 'privacyPolicyAgreement', true)
+                )
+              }
+              checked={get(values, 'privacyPolicyAgreement', false)}
+              disabled={submitting}
+            />
+            {/* Disclaimer Text with Privacy Policy Link */}
+            <p className="mb-0 mt-2 ml-2 text-left" style={{ fontSize: 14 }}>
+              I agree to the &nbsp;
+              <a href="/privacy-policy" target="_blank">
+                policy
+              </a>
+              &nbsp; laid out by Christ Fellowship Church.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -180,7 +181,6 @@ IdentityForm.defaultProps = {
   promptText:
     "Get started by entering in either your phone number or email address. We'll never share your information or contact you (unless you ask!).",
   buttonText: 'Agree and Continue',
-  dislaimerText: 'I agree to the policies laid out by Christ Fellowship Church',
   update: () => true,
   columns: 'col',
 };

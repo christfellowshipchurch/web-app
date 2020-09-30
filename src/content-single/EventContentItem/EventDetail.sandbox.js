@@ -1,66 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 import { Share } from 'ui';
-import { Icon } from 'ui/Icons';
+
+import LiveIndicator from './LiveIndicator';
 
 const EventDetail = ({ title, summary, isLive }) => (
-  <div className="w-100 px-3">
+  <div className="pr-3">
     <div className="container">
       {(title !== '' || summary !== '') && (
-        <div className="row mt-2">
-          {isLive && (
-            <div className={classnames('mt-2', 'd-flex', 'align-items-center')}>
-              <Icon
-                className={classnames('d-flex', 'align-items-center')}
-                name="live-dot"
-                fill="#cb045b"
-                size="8"
-              />
-              <h4
-                className={classnames(
-                  'text-danger',
-                  'text-left',
-                  'text-uppercase',
-                  'mb-0',
-                  'ml-2'
-                )}
-              >
-                live now
-              </h4>
-            </div>
-          )}
+        <div className="row mt-3 pl-3">
+          {isLive && <LiveIndicator />}
 
-          <div className="row">
+          <div className="col-12">
             <h1 className="mt-2 mb-2 text-dark">{title}</h1>
             <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
           </div>
-
-          <div className="row flex-grow-1 mt-4 justify-content-end">
-            <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
-          </div>
         </div>
       )}
+
+      <div className="row pl-3 flex-grow-1 mt-2 justify-content-end">
+        <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
+      </div>
     </div>
   </div>
 );
 
 EventDetail.propTypes = {
-  htmlContent: PropTypes.string,
-  tags: PropTypes.arrayOf(PropTypes.string),
-  callsToAction: PropTypes.arrayOf(
-    PropTypes.shape({
-      call: PropTypes.string,
-      action: PropTypes.string,
-    })
-  ),
+  id: PropTypes.string,
+  title: PropTypes.string,
+  summary: PropTypes.string,
+  isLive: PropTypes.bool,
 };
 
 EventDetail.defaultProps = {
-  htmlContent: '',
-  tags: [],
-  callsToAction: [],
+  isLive: false,
 };
 
 export default EventDetail;

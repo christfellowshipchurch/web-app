@@ -11,6 +11,7 @@ export const generateUrlLink = ({ urlBase, title, id, redirectUrl }) => {
   const href = {
     target: '',
     href: '#',
+    id,
   };
 
   if (!title || title === '') return href;

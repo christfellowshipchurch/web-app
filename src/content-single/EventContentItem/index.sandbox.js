@@ -12,7 +12,6 @@ import {
   EventPanel,
 } from './components';
 
-import EventChat from './EventChat';
 import EventDetail from './EventDetail';
 import Placeholder from './Placeholder';
 
@@ -26,20 +25,18 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
     return <ErrorBlock />;
   }
 
-  const channelId = content ? content.id.split(':')[1] : null;
-
   return (
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
-        const isLive = !!(liveStream && liveStream.isLive);
+        const isLive = get(liveStream, 'isLive', false);
         const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
-        // const liveStreamSource = 'https://b028.wpc.azureedge.net/80B028/Samples/0e8848ca-1db7-41a3-8867-fe911144c045/d34d8807-5597-47a1-8408-52ec5fc99027.ism/Manifest(format=m3u8-aapl-v3)';
+        const channelId = get(liveStream, 'chatChannelId');
 
         return (
           <div style={{ minHeight: '75vh' }}>
             <EventBannerBackground {...content} />
 
-            <div className="container-fluid max-width-1100 mx-auto">
+            <div className="container-fluid max-width-1100 mx-auto mb-5">
               <div className="row pt-4 mb-4">
                 {/* Main Column */}
                 <div className="col-lg-8">
@@ -49,11 +46,11 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
 
                 {/* Side Column */}
                 <div className="col-lg-4">
-                  <EventPanel>
-                    <EventChat channelId={channelId} />
-                  </EventPanel>
+                  <EventPanel event={content} isLive={isLive} channelId={channelId} />
                 </div>
               </div>
+
+              <hr />
 
               <EventDescriptionCard {...content} />
             </div>
@@ -69,6 +66,8 @@ EventContentItem.propTypes = {
   content: PropTypes.shape({
     id: PropTypes.string,
   }),
+  loading: PropTypes.bool,
+  error: PropTypes.any,
 };
 
 EventContentItem.defaultProps = {};

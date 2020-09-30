@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get, has, kebabCase } from 'lodash';
 
@@ -18,6 +19,25 @@ const ContentCardWrapper = ({ element, children }) =>
 
 const parseId = ({ urlBase, id }) =>
   urlBase === 'content' ? `-${get(id.split(':'), '[1]', '')}` : '';
+
+const CardLink = ({ children, className, to: { id, href: pathname, target } = {} }) =>
+  // if we have a target it's an external link so render an anchor `a`
+  target ? (
+    <a className={className} href={pathname} target={target}>
+      {children}
+    </a>
+  ) : (
+    // else render with react-routers internal Link.
+    <Link
+      to={{
+        pathname,
+        state: { contentId: id },
+      }}
+      className={className}
+    >
+      {children}
+    </Link>
+  );
 
 const ContentCard = ({
   __typename,
@@ -42,7 +62,7 @@ const ContentCard = ({
   });
 
   return (
-    <a
+    <CardLink
       className={classnames(
         'col-12',
         'col-md-6',
@@ -53,7 +73,7 @@ const ContentCard = ({
         'no-decoration',
         'my-3'
       )}
-      {...href}
+      to={href}
     >
       <Card
         fill
@@ -118,7 +138,7 @@ const ContentCard = ({
           </div>
         </div>
       </Card>
-    </a>
+    </CardLink>
   );
 };
 

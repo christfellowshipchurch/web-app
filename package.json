@@ -74,6 +74,7 @@
     "awesome-phonenumber": "^2.18.1",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "color": "^3.1.2",
     "formik": "^1.5.8",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.3",
@@ -103,8 +104,10 @@
     "react-share": "^3.0.1",
     "react-visibility-sensor": "^5.1.1",
     "reactstrap": "^7.1.0",
+    "recompose": "^0.30.0",
     "stream-chat": "^2.0.0",
     "stream-chat-react": "^2.2.2",
+    "styled-components": "^5.2.0",
     "waait": "^1.0.5",
     "yup": "^0.27.0",
     "zipcodes": "^8.0.0"

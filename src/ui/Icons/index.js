@@ -9,10 +9,14 @@ import Bars from './bars';
 import BookAlt from './book-alt';
 import CalendarAlt from './calendar-alt';
 import CalendarPlus from './calendar-plus';
+import ChatConversation from './chat-conversation';
 import CheckCircle from './check-circle';
+import CheckSquare from './check-square';
 import Church from './church';
+import Circle from './circle';
 import Clock from './clock';
 import Comments from './comments';
+import DotCircle from './dot-circle';
 import EnvelopeOpenDollar from './envelope-open-dollar';
 import Envelope from './envelope';
 import ExclamationCircle from './exclamation-circle';
@@ -25,12 +29,15 @@ import LiveDot from './live-dot';
 import LockAlt from './lock-alt';
 import Microsoft from './microsoft';
 import Mobile from './mobile';
+import PaperAirplane from './paper-airplane';
 import PhoneAlt from './phone-alt';
 import Play from './play';
 import PlayCircle from './play-circle';
 import Search from './search';
 import ShareSquare from './share-square';
 import SignOut from './sign-out';
+import Square from './square';
+import ThreeDots from './three-dots';
 import Times from './times';
 import Twitter from './twitter';
 import UserCircle from './user-circle';
@@ -51,7 +58,9 @@ export {
   BookAlt,
   CalendarAlt,
   CalendarPlus,
+  ChatConversation,
   CheckCircle,
+  CheckSquare,
   Church,
   Clock,
   Comments,
@@ -71,6 +80,8 @@ export {
   PlayCircle,
   Search,
   ShareSquare,
+  Square,
+  ThreeDots,
   Times,
   Twitter,
   User,
@@ -91,10 +102,14 @@ export const Icons = {
   BookAlt,
   CalendarAlt,
   CalendarPlus,
+  ChatConversation,
   CheckCircle,
+  CheckSquare,
   Church,
+  Circle,
   Clock,
   Comments,
+  DotCircle,
   EnvelopeOpenDollar,
   Envelope,
   ExclamationCircle,
@@ -107,12 +122,15 @@ export const Icons = {
   LockAlt,
   Microsoft,
   Mobile,
+  PaperAirplane,
   PhoneAlt,
   Play,
   PlayCircle,
   Search,
   ShareSquare,
   SignOut,
+  Square,
+  ThreeDots,
   Times,
   Twitter,
   UserCircle,

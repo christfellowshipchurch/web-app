@@ -9,6 +9,7 @@ import ContentContainer from './ContentContainer';
 import ErrorBlock from './ErrorBlock';
 import GroupBlock from './GroupBlock';
 import HeroSection from './HeroSection';
+import { Icon } from './Icons';
 import Layout from './Layout';
 import Loader from './Loader';
 import Media from './Media';
@@ -28,6 +29,7 @@ export {
   ErrorBlock,
   GroupBlock,
   HeroSection,
+  Icon,
   Layout,
   Loader,
   Media,

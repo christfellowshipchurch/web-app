@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { get } from 'lodash';
 
 import { Media } from 'ui';
 
 const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
-  <div className="mb-2 px-3">
+  <div className="mb-2 pr-3">
     <Media
       imageUrl={get(coverImage, 'sources[0].uri', '')}
       videoUrl={
@@ -37,6 +36,7 @@ EventMedia.propTypes = {
       sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
     })
   ),
+  liveStreamSource: PropTypes.string,
 };
 
 EventMedia.defaultProps = {

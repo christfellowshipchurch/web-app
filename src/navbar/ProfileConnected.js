@@ -22,7 +22,7 @@ const ProfileConnected = ({ size, isDark }) => {
 
   return isLoggedIn ? (
     <a href="/profile" style={hasPhoto && { width: size, height: size }}>
-      <span className="d-flex">
+      <span className="d-flex cursor-hover">
         {hasPhoto ? (
           <Media
             imageUrl={get(data, 'currentUser.profile.photo.uri', '')}

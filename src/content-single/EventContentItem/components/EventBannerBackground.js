@@ -34,9 +34,6 @@ const EventBannerBackground = ({ title, coverImage }) => (
               className="max-height-45-vh"
               ratio={{ xs: '1by1', md: '16by9' }}
               forceRatio
-              rounded
-              showControls
-              className="shadow"
             />
           </div>
         </div>
