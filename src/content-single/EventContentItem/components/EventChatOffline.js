@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { baseUnit } from 'styles/theme';
+import { baseUnit, breakpoint } from 'styles/theme';
 
 // :: Styled Components
 // ------------------------
@@ -16,8 +16,12 @@ const Container = styled.div`
 `;
 
 const Blurb = styled.p`
-  width: 80%;
+  width: 90%;
   text-align: center;
+
+  ${breakpoint('lg')} {
+    width: 80%;
+  }
 `;
 
 // :: Main Component
