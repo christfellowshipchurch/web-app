@@ -134,11 +134,10 @@ export const CampusTile = ({
                 const title = isDate ? n.time : `${n.day.substring(0, 3)} ${n.time}`;
 
                 return (
-                  <div className="col-sm-4 px-1 m-0">
+                  <div key={i} className="col-sm-4 px-1 m-0">
                     <Button
                       title={title}
                       className="m-1 px-1 w-100"
-                      key={i}
                       onClick={() =>
                         onClick({
                           day: moment().add(1, 'week').isoWeekday(n.day),

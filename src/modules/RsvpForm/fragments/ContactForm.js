@@ -22,7 +22,8 @@ const ContactForm = ({ errors, setFieldValue, values, loading }) => (
         />
       </div>
     </div>
-    <div className="row mb-4">
+    {/* Temporarily removed phone number from RSVP */}
+    {/* <div className="row mb-4">
       <div className="col">
         <TextInput
           type="phone"
@@ -38,7 +39,7 @@ const ContactForm = ({ errors, setFieldValue, values, loading }) => (
           }
         />
       </div>
-    </div>
+    </div> */}
   </React.Fragment>
 );
 

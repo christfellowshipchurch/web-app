@@ -83,7 +83,7 @@ Dropdown.defaultProps = {
 
 Dropdown.propTypes = {
   onChange: PropTypes.func,
-  icon: PropTypes.object,
+  icon: PropTypes.func,
 
   // Options allow an array of:
   //  strings: where the value and label are the same

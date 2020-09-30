@@ -10,7 +10,6 @@ export const SUBMIT_RSVP = gql`
     $visitDate: String!
     $visitTime: String!
     $email: String!
-    $phoneNumber: String!
   ) {
     submitRsvp(
       input: [
@@ -22,7 +21,6 @@ export const SUBMIT_RSVP = gql`
         { field: "visitDate", value: $visitDate }
         { field: "visitTime", value: $visitTime }
         { field: "email", value: $email }
-        { field: "phoneNumber", value: $phoneNumber }
       ]
     )
   }

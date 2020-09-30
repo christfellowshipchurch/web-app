@@ -37,7 +37,19 @@ const VisitForm = ({ setFieldValue, values }) => {
   // Set the campus value to the current value of a campus
   //  or the the first result of the return data from the
   //  campuses object, or just default to an empty object
-  const campuses = get(data, 'campuses', []);
+  let campuses = get(data, 'campuses', []);
+
+  // checks for valid campus with service times
+  const validCampuses = campuses.filter((campus) => {
+    const serviceTime = get(campus, 'serviceTimes', []);
+    if (serviceTime.length > 0) {
+      return campus;
+    }
+    return null;
+  });
+  //sets campuses to valid ones
+  campuses = validCampuses;
+
   const campusValue = get(values, 'campus', get(campuses, '[0]', {}));
   const visitDateValue = normalizeDate(get(values, 'visitDate', ''));
   const visitTimeValue = get(values, 'visitTime', '');

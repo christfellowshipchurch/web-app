@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useMutation } from 'react-apollo';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import AwesomePhoneNumber from 'awesome-phonenumber';
+// import AwesomePhoneNumber from 'awesome-phonenumber';
 import { get, filter, has, keys } from 'lodash';
 import { Button } from '../../ui';
 import { ContactForm, DemographicForm, VisitForm } from './fragments';
@@ -10,6 +11,8 @@ import { ContactForm, DemographicForm, VisitForm } from './fragments';
 import { SUBMIT_RSVP } from './mutations';
 
 const DO_NOT_SHOW_ERROR = '!! DO NOT SHOW THIS ERROR !!';
+
+const currentPage = window.location.href;
 
 const Rsvp = (props) => {
   const {
@@ -35,7 +38,7 @@ const Rsvp = (props) => {
     return (
       <div className="text-success text-center">
         <h3>We can't wait to see you!</h3>
-        <small>Check your email for more information</small>
+        <p>Check your email for more information</p>
       </div>
     );
   }
@@ -44,8 +47,14 @@ const Rsvp = (props) => {
   if ((has(data, 'submitRsvp') && data.submitRsvp !== 'Completed') || error) {
     return (
       <div className="text-danger text-center">
-        <h3>There was an error submitting your information.</h3>
-        <small>Please try again</small>
+        <h3>Oops!</h3>
+        <h4 className="font-weight-normal p-3">
+          It looks like there was an error submitting your information. Please make sure
+          all the fields are filled in correctly.
+        </h4>
+        <a className="btn btn-primary" href={currentPage}>
+          try again
+        </a>
       </div>
     );
   }
@@ -89,11 +98,22 @@ const Rsvp = (props) => {
             disabled={disabled}
             loading={submitting || loading}
             onClick={() => submitRsvp({ variables: values })}
+            // onClick={() => console.log({ values })}
           />
         </div>
       </div>
     </div>
   );
+};
+
+Rsvp.propTypes = {
+  formTitle: PropTypes.string,
+  formDescription: PropTypes.string,
+  formAdditionalText1: PropTypes.string,
+  formAdditionalText2: PropTypes.string,
+  setSubmitting: PropTypes.func,
+  values: PropTypes.objectOf(PropTypes.string),
+  submitting: PropTypes.bool,
 };
 
 Rsvp.defaultProps = {
@@ -110,23 +130,21 @@ const RsvpForm = ({ initialValues }) => (
     initialValues={{
       firstName: get(initialValues, 'firstName', ''),
       lastName: get(initialValues, 'lastName', ''),
-      adults: get(initialValues, 'adults', 1),
-      children: get(initialValues, 'children', 0),
+      adults: get(initialValues, 'adults', '1'),
+      children: get(initialValues, 'children', '0'),
 
       campus: get(initialValues, 'campus', ''),
       visitDate: get(initialValues, 'visitDate', ''),
       visitTime: get(initialValues, 'visitTime', ''),
 
       email: get(initialValues, 'email', ''),
-      phoneNumber: get(initialValues, 'phoneNumber', ''),
+      // phoneNumber: get(initialValues, 'phoneNumber', ''),
     }}
     validationSchema={Yup.object().shape({
       firstName: Yup.string().required(DO_NOT_SHOW_ERROR),
       lastName: Yup.string().required(DO_NOT_SHOW_ERROR),
-      adults: Yup.number()
-        .min(1, 'Please make sure you have at least 1 adult registered')
-        .required(DO_NOT_SHOW_ERROR),
-      children: Yup.number().required(DO_NOT_SHOW_ERROR),
+      adults: Yup.string().required(DO_NOT_SHOW_ERROR),
+      children: Yup.string().required(DO_NOT_SHOW_ERROR),
 
       campus: Yup.string().required(DO_NOT_SHOW_ERROR),
       visitDate: Yup.string().required(DO_NOT_SHOW_ERROR),
@@ -135,21 +153,24 @@ const RsvpForm = ({ initialValues }) => (
       email: Yup.string()
         .email('Please make sure you entered a valid email address')
         .required(DO_NOT_SHOW_ERROR),
-      phoneNumber: Yup.string()
-        .test(
-          'phoneNumber',
-          'Please make sure you entered a valid phone number',
-          (value) => {
-            if (value) {
-              const phoneNumber = new AwesomePhoneNumber(`+1 ${value}`);
 
-              return phoneNumber.isValid();
-            }
+      //--- Temporarily removed phone number for RSVP ---//
 
-            return true;
-          }
-        )
-        .required(DO_NOT_SHOW_ERROR),
+      // phoneNumber: Yup.string()
+      //   .test(
+      //     'phoneNumber',
+      //     'Please make sure you entered a valid phone number',
+      //     (value) => {
+      //       if (value) {
+      //         const phoneNumber = new AwesomePhoneNumber(`+1 ${value}`);
+
+      //         return phoneNumber.isValid();
+      //       }
+
+      //       return true;
+      //     }
+      //   )
+      //   .required(DO_NOT_SHOW_ERROR),
     })}
     render={(props) => <Rsvp {...props} />}
   />
