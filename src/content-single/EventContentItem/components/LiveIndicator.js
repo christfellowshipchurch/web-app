@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 
 import { baseUnit } from 'styles/theme';
 
@@ -12,6 +12,21 @@ const Container = styled.div`
   margin-bottom: ${baseUnit(2)};
 `;
 
+// Create the keyframes
+const blink = keyframes`
+    0% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.1;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  `;
+
 const LiveDot = styled(Icon).attrs(({ theme }) => ({
   name: 'live-dot',
   fill: theme.liveEvent,
@@ -19,6 +34,7 @@ const LiveDot = styled(Icon).attrs(({ theme }) => ({
 }))`
   display: flex;
   align-items: center;
+  animation: ${blink} 2.5s ease-in-out infinite;
 `;
 
 const Label = styled.h4`
@@ -26,7 +42,7 @@ const Label = styled.h4`
   text-align: left;
   text-transform: uppercase;
   margin-bottom: 0;
-  margin-left: ${baseUnit(2)};
+  margin-left: ${baseUnit(1)};
 `;
 
 // :: Styled Components

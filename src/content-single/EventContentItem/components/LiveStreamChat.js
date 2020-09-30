@@ -7,9 +7,9 @@ import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
 import { StreamChatClient, Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { Loader } from 'ui';
-import { Message, MessageInput } from 'ui/chat';
+import { Message, MessageInput, EmptyMessagesList } from 'ui/chat';
 
-const LiveStreamChat = ({ channel, userImage, onInitiateDm }) => (
+const LiveStreamChat = ({ channel, onInitiateDm }) => (
   <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="livestream">
     <Channel
       channel={channel}
@@ -20,8 +20,8 @@ const LiveStreamChat = ({ channel, userImage, onInitiateDm }) => (
       maxNumberOfFiles={0}
     >
       <Window>
-        <MessageList noGroupByUser />
-        <MessageInput userImage={userImage} />
+        <MessageList EmptyStateIndicator={EmptyMessagesList} noGroupByUser />
+        <MessageInput />
       </Window>
     </Channel>
   </Chat>
@@ -29,7 +29,6 @@ const LiveStreamChat = ({ channel, userImage, onInitiateDm }) => (
 
 LiveStreamChat.propTypes = {
   channel: PropTypes.instanceOf(ChannelType),
-  userImage: PropTypes.string,
   onInitiateDm: PropTypes.func,
 };
 

@@ -129,7 +129,7 @@ const EventChat = ({ event, channelId }) => {
       }
 
       // Initialize channel
-      const newChannel = StreamChatClient.channel('livestream', channelId, {
+      const newChannel = StreamChatClient.channel('livestream', 'dev-empty-channel', {
         parentId: get(event, 'id'),
         name: get(event, 'title'),
         startsAt: get(event, 'events[0].start'),

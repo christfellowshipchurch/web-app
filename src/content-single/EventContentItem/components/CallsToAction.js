@@ -12,14 +12,14 @@ const CallsToAction = ({ eventTitle, items }) => {
   }
 
   return (
-    <Row className="px-3 px-lg-0">
+    <Row className="px-3 px-xl-0">
       <Col className="mb-2">
         <h3>Get Started</h3>
       </Col>
-      <Col>
+      <Col className="col-12 px-lg-2">
         <Row>
           {items.map(({ call, action }, index) => (
-            <Col className="col-12 col-sm-6 col-md-4 col-lg-3  px-1 pb-2">
+            <Col className="col-12 col-sm-6 col-lg-4  px-1 pb-2 px-lg-2 pb-lg-3">
               <a
                 key={`cta-${index}`}
                 className={'btn btn-primary btn-block h-100  px-2 px-lg-3'}
