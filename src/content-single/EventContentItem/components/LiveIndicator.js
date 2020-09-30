@@ -38,7 +38,7 @@ const LiveDot = styled(Icon).attrs(({ theme }) => ({
 `;
 
 const Label = styled.h4`
-  color: ${({ theme }) => theme.font.destructive};
+  color: ${({ theme }) => theme.liveEvent};
   text-align: left;
   text-transform: uppercase;
   margin-bottom: 0;
