@@ -27,12 +27,12 @@ const EventBannerBackground = ({ title, coverImage }) => (
     <div className="container-fluid">
       <div className="row">
         <div className="col-lg-8">
-          <div className="max-width-1100 mx-auto pt-4 px-3 invisible">
+          <div className="max-width-1100 mx-auto pt-3 pt-md-4 invisible">
             <Media
               imageUrl={get(coverImage, 'sources[0].uri', '')}
               imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
               className="max-height-45-vh"
-              ratio={{ xs: '1by1', md: '16by9' }}
+              ratio={{ xs: '16by9' }}
               forceRatio
             />
           </div>

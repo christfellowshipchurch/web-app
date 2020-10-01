@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { Media } from 'ui';
 
 const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
-  <div className="mb-2 pr-3">
+  <div className="mb-2">
     <Media
       imageUrl={get(coverImage, 'sources[0].uri', '')}
       videoUrl={
@@ -15,12 +15,11 @@ const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
       }
       isLive={!!liveStreamSource && liveStreamSource !== ''}
       imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
-      className="max-height-45-vh"
-      ratio={{ xs: '1by1', md: '16by9' }}
+      className="max-height-45-vh shadow"
+      ratio={{ xs: '16by9' }}
       forceRatio
       rounded
       showControls
-      className="shadow"
     />
   </div>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { baseUnit, breakpoint } from 'styles/theme';
+import { baseUnit } from 'styles/theme';
 
 // :: Styled Components
 // ------------------------
@@ -16,23 +16,22 @@ const Container = styled.div`
 `;
 
 const Blurb = styled.p`
-  width: 90%;
+  width: 80%;
   text-align: center;
-
-  ${breakpoint('lg')} {
-    width: 80%;
-  }
 `;
 
 // :: Main Component
 // ------------------------
-const EventChatOffline = () => {
+const EmptyMessagesList = () => {
   return (
     <Container>
-      <h4>Stay Tuned!</h4>
-      <Blurb>You can chat with the community when this event goes live.</Blurb>
+      <Blurb>
+        No messages yet.
+        <br />
+        Be the first to share your thoughts!
+      </Blurb>
     </Container>
   );
 };
 
-export default EventChatOffline;
+export default EmptyMessagesList;

@@ -1,4 +1,6 @@
+import ChatAvatar from './ChatAvatar';
+import EmptyMessagesList from './EmptyMessagesList';
 import Message from './Message';
 import MessageInput from './MessageInput';
 
-export { Message, MessageInput };
+export { ChatAvatar, EmptyMessagesList, Message, MessageInput };

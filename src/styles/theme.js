@@ -20,6 +20,8 @@ export const baseUnit = (n = 1) => {
   return 0;
 };
 
+export const breakpoint = (key) => ({ theme }) => theme.breakpoints[key];
+
 /**
  * A definition of colors, simple named color values. This is *not* the place to
  * assign usage or imply where in the app a color is intended.
@@ -40,7 +42,8 @@ const colors = Object.freeze({
     900: '#1a1a1a',
   },
   black: '#000',
-  red: '#cb045b',
+  ruby: '#cb045b',
+  red: '#dc3545',
   green: '#1ec27f',
   cyan: '#00aeef',
 });
@@ -55,6 +58,12 @@ export const theme = Object.freeze({
   // Globals
   brand: colors.cyan,
   brandForeground: colors.white,
+  breakpoints: {
+    sm: `@media (min-width: 576px)`,
+    md: `@media (min-width: 768px)`,
+    lg: `@media (min-width: 992px)`,
+    xl: `@media (min-width: 1200px)`,
+  },
   fontFamily: {
     sans: '"Gotham A", "Gotham B"',
   },
@@ -99,5 +108,5 @@ export const theme = Object.freeze({
     },
   },
   link: colors.cyan,
-  liveEvent: colors.red,
+  liveEvent: colors.ruby,
 });

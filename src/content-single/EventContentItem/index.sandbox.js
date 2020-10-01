@@ -2,17 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get, isEmpty } from 'lodash';
 
-import { ErrorBlock } from 'ui';
+import { ErrorBlock, GridContainer, Row, Col } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
 
 import {
+  CallsToAction,
   EventBannerBackground,
   EventDescriptionCard,
+  EventHeading,
   EventMedia,
   EventPanel,
 } from './components';
 
-import EventDetail from './EventDetail';
 import Placeholder from './Placeholder';
 
 const EventContentItem = ({ itemId, content, loading, error }) => {
@@ -33,28 +34,36 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
         const channelId = get(liveStream, 'chatChannelId');
 
         return (
-          <div style={{ minHeight: '75vh' }}>
+          <main style={{ minHeight: '75vh' }}>
             <EventBannerBackground {...content} />
 
-            <div className="container-fluid max-width-1100 mx-auto mb-5">
-              <div className="row pt-4 mb-4">
+            <GridContainer fluid className="max-width-1100  mx-auto mb-5">
+              <Row
+                className="flex-column flex-md-row  pt-3 pt-lg-4 mb-4"
+                style={{ minHeight: '30vh' }}
+              >
                 {/* Main Column */}
-                <div className="col-lg-8">
+                <Col className="col-12 col-lg-8  px-2 px-xl-0 pr-xl-3">
                   <EventMedia {...content} liveStreamSource={liveStreamSource} />
-                  <EventDetail {...content} isLive={isLive} />
-                </div>
+                  <EventHeading {...content} isLive={isLive} />
+                </Col>
 
                 {/* Side Column */}
-                <div className="col-lg-4">
+                <Col className="col-12 col-lg-4  mt-3 mt-4-sm mt-lg-0  pr-lg-2 pr-xl-0">
                   <EventPanel event={content} isLive={isLive} channelId={channelId} />
-                </div>
-              </div>
+                </Col>
+              </Row>
+
+              <CallsToAction
+                eventTitle={get(content, 'title')}
+                items={get(content, 'callsToAction')}
+              />
 
               <hr />
 
               <EventDescriptionCard {...content} />
-            </div>
-          </div>
+            </GridContainer>
+          </main>
         );
       }}
     </LiveConsumer>
