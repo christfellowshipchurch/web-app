@@ -16,6 +16,10 @@ function channelIncludesUser(channel, userId) {
   return Object.keys(get(channel, 'state.members', {})).includes(userId);
 }
 
+function getChannelUnreadCount(channel, userId) {
+  return get(channel, `state.read[${userId}].unread_messages`, 0);
+}
+
 function getRoleFromMembership(channel) {
   const role = get(channel, 'state.membership.role');
 
@@ -68,7 +72,7 @@ function filterRecentDmChannels(channels) {
     return channels;
   }
 
-  const recentDate = moment().subtract(12, 'minutes');
+  const recentDate = moment().subtract(12, 'hours');
   return channels.filter(
     (channel) => !!moment(get(channel, 'state.last_message_at')).isAfter(recentDate)
   );
@@ -77,6 +81,7 @@ function filterRecentDmChannels(channels) {
 export default {
   stripPrefix,
   channelIncludesUser,
+  getChannelUnreadCount,
   getRoleFromMembership,
   getStreamUser,
   getUserDmChannels,

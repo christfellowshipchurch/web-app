@@ -6,6 +6,7 @@ import { get, isEmpty } from 'lodash';
 import { Channel } from 'stream-chat';
 
 import { baseUnit } from 'styles/theme';
+import { ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 // UI
 import { Icon } from 'ui';
@@ -48,7 +49,8 @@ const DirectMessagesDropdown = ({
   onSelect,
 }) => {
   // Hide the dropdown if there are no channels OR there is only one
-  // channel, and we're currently viewing it (small assumption)
+  // channel, and we're currently viewing it.
+  // Note: Logic assumes selectedChannelId value matches channels[0].cid
   if (isEmpty(channels) || (channels.length === 1 && selectedChannelId)) {
     return null;
   }
@@ -70,14 +72,21 @@ const DirectMessagesDropdown = ({
     onSelect(selectedChannel);
   };
 
+  const hasUnreads = !!channels.find((channel) =>
+    ChatUtils.getChannelUnreadCount(channel, currentUserId)
+  );
+
+  console.log('[rkd] hasUnreads:', hasUnreads);
+
   return (
     <DirectMessagesSelect value={selectedChannelId} onChange={handleValueChange}>
       <option value="" disabled>
-        Direct Messages...
+        {`Direct Messages...${hasUnreads ? ' *' : ''}`}
       </option>
       {channels.map((channel) => (
         <option key={channel.id} value={channel.id}>
           {getOtherUser(currentUserId, channel)}
+          {ChatUtils.getChannelUnreadCount(channel, currentUserId) >= 1 ? ' *' : ''}
         </option>
       ))}
     </DirectMessagesSelect>
