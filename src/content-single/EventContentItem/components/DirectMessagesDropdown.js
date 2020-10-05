@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Dropdown } from 'react-bootstrap';
 import styled from 'styled-components/macro';
 import { get, isEmpty } from 'lodash';
 
@@ -10,14 +11,6 @@ import { ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-clie
 
 // UI
 import { Icon } from 'ui';
-
-const getOtherUser = (currentUserId, channel) => {
-  const otherUser = Object.values(channel.state.members).find(
-    (member) => member.user.id !== currentUserId
-  );
-
-  return get(otherUser, 'user.name', 'Unknown User');
-};
 
 // :: Styled Components
 // ------------------------
@@ -35,9 +28,43 @@ const HeaderIcon = styled(Icon).attrs(({ theme, name }) => ({
   size: 22,
 }))``;
 
-const DirectMessagesSelect = styled.select`
+const DirectMessagesToggleContainer = styled.div`
   padding: ${baseUnit(1)};
+  color: ${({ theme }) => theme.font[800]};
 `;
+
+const ToggleIcon = styled(Icon).attrs({
+  name: 'angle-down',
+  size: 18,
+})`
+  margin-left: ${baseUnit(1)};
+  float: right;
+`;
+
+// :: Sub Components
+// ------------------------
+const DirectMessageToggle = React.forwardRef(({ children, onClick }, ref) => (
+  <DirectMessagesToggleContainer
+    ref={ref}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {children}
+    <ToggleIcon />
+  </DirectMessagesToggleContainer>
+));
+
+DirectMessageToggle.propTypes = {
+  children: PropTypes.string,
+  onClick: PropTypes.func,
+};
+
+DirectMessageToggle.defaultProps = {
+  children: {},
+  onClick: () => {},
+};
 
 // :: Main Component
 // ------------------------
@@ -45,13 +72,17 @@ const DirectMessagesSelect = styled.select`
 const DirectMessagesDropdown = ({
   currentUserId,
   channels,
-  selectedChannelId,
+  selectedChannel,
   onSelect,
 }) => {
+  const id = 'dm-selector';
+  const getOtherUserName = (channel) =>
+    get(ChatUtils.getOtherUser(channel, currentUserId), 'user.name', 'Unknown Person');
+
   // Hide the dropdown if there are no channels OR there is only one
   // channel, and we're currently viewing it.
-  // Note: Logic assumes selectedChannelId value matches channels[0].cid
-  if (isEmpty(channels) || (channels.length === 1 && selectedChannelId)) {
+  // Note: Logic assumes selectedChannel value matches channels[0].cid
+  if (isEmpty(channels) || (channels.length === 1 && selectedChannel)) {
     return null;
   }
 
@@ -59,49 +90,71 @@ const DirectMessagesDropdown = ({
   if (channels.length === 1) {
     return (
       <HeaderButton onClick={() => onSelect(channels[0])}>
-        <span>DM with {getOtherUser(currentUserId, channels[0])}</span>
+        <span>{getOtherUserName(channels[0])}</span>
         <HeaderIcon name="angle-right" />
       </HeaderButton>
     );
   }
 
-  // When there is more than one active DM channel
-  const handleValueChange = (event) => {
-    const value = event.target.value;
-    const selectedChannel = channels.find((channel) => channel.id === value);
-    onSelect(selectedChannel);
+  const handleDropdownSelect = (key, e) => {
+    e.preventDefault();
+    const index = parseInt(key, 10);
+    onSelect(channels[index]);
   };
 
   const hasUnreads = !!channels.find((channel) =>
     ChatUtils.getChannelUnreadCount(channel, currentUserId)
   );
-
   console.log('[rkd] hasUnreads:', hasUnreads);
 
+  const toggleLabel = selectedChannel
+    ? getOtherUserName(selectedChannel)
+    : 'Direct Messages';
+
   return (
-    <DirectMessagesSelect value={selectedChannelId} onChange={handleValueChange}>
-      <option value="" disabled>
-        {`Direct Messages...${hasUnreads ? ' *' : ''}`}
-      </option>
-      {channels.map((channel) => (
-        <option key={channel.id} value={channel.id}>
-          {getOtherUser(currentUserId, channel)}
-          {ChatUtils.getChannelUnreadCount(channel, currentUserId) >= 1 ? ' *' : ''}
-        </option>
-      ))}
-    </DirectMessagesSelect>
+    <Dropdown id={id} onSelect={handleDropdownSelect}>
+      <Dropdown.Toggle variant="link" id={id} as={DirectMessageToggle}>
+        {toggleLabel}
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        {channels.map((channel, i) => (
+          <Dropdown.Item
+            key={`DmSelector:${i}`}
+            eventKey={i}
+            active={selectedChannel ? channel.id === selectedChannel.id : false}
+          >
+            {getOtherUserName(channel)}
+          </Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
   );
+
+  // return (
+  //   <DirectMessagesSelect value={selectedChannel} onChange={handleValueChange}>
+  //     <option value="" disabled>
+  //       {`Direct Messages...${hasUnreads ? ' *' : ''}`}
+  //     </option>
+  //     {channels.map((channel) => (
+  //       <option key={channel.id} value={channel.id}>
+  //         {getOtherUser(currentUserId, channel)}
+  //         {ChatUtils.getChannelUnreadCount(channel, currentUserId) >= 1 ? ' *' : ''}
+  //       </option>
+  //     ))}
+  //   </DirectMessagesSelect>
+  // );
 };
 
 DirectMessagesDropdown.propTypes = {
   currentUserId: PropTypes.string,
   channels: PropTypes.arrayOf(PropTypes.instanceOf(Channel)),
-  selectedChannelId: PropTypes.string,
+  selectedChannel: PropTypes.instanceOf(Channel),
   onSelect: PropTypes.func,
 };
 
 DirectMessagesDropdown.defaultProps = {
-  selectedChannelId: '',
+  selectedChannel: null,
 };
 
 export default DirectMessagesDropdown;

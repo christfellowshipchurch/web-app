@@ -52,7 +52,7 @@ const ChatHeader = styled.div`
   left: 0;
   display: flex;
   justify-content: space-between;
-  padding: ${baseUnit(1)} ${baseUnit(2)};
+  padding: ${baseUnit(1)};
   background: ${({ theme }) => theme.chat.dmsHeader};
   border-bottom: 1px ${({ theme }) => theme.font[100]} solid;
   box-shadow: ${({ theme }) => theme.shadow.small};
@@ -60,20 +60,26 @@ const ChatHeader = styled.div`
 
 // Warning: Duplicated in DirectMessagesDropdown
 const BackButton = styled.button`
-  padding: ${baseUnit(1)};
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 0.15rem;
   border: none;
   background: none;
-  color: ${({ theme }) => theme.link};
 `;
 
 const BackIcon = styled(Icon).attrs(({ theme, name }) => ({
-  name,
+  name: 'angle-left',
   fill: theme.brand,
   size: 22,
-}))``;
+}))`
+  margin-bottom: 1px;
+`;
 
 const BackLabel = styled.span`
-  ${({ hidden }) => (hidden ? 'display: none;' : '')}
+  /* Micro-alignment with the icon */
+  color: ${({ theme }) => theme.link};
 `;
 
 // Main Component
@@ -228,17 +234,15 @@ const EventChat = ({ event, channelId }) => {
           {!activeDmChannel && <div />}
           {activeDmChannel && (
             <BackButton onClick={() => setActiveDmChannel(null)}>
-              <BackIcon name="angle-left" />
-              <BackLabel hidden={get(dmChannelsVisible, 'length', 0) !== 1}>
-                {'Back to Chat'}
-              </BackLabel>
+              <BackIcon />
+              <BackLabel>Back</BackLabel>
             </BackButton>
           )}
 
           <DirectMessagesDropdown
             currentUserId={currentUserId}
             channels={dmChannelsVisible}
-            selectedChannelId={activeDmChannel ? activeDmChannel.id : undefined}
+            selectedChannel={activeDmChannel}
             onSelect={setActiveDmChannel}
           />
         </ChatHeader>
