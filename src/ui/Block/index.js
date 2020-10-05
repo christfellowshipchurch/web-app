@@ -96,7 +96,7 @@ const Block = ({
                   'mt-3',
                   'subtitle',
                   'text-secondary',
-                  textColorClass
+                  'text-uppercase'
                 )}
               >
                 {subtitle}
