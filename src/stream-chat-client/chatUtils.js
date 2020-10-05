@@ -1,11 +1,12 @@
-import { isString, get } from 'lodash';
+import { isString, get, isEmpty } from 'lodash';
+import moment from 'moment';
 
 import StreamChatClient from './client';
 import ChatRoles from './chatRoles';
 
 function stripPrefix(string) {
-  if (!isString) {
-    return string;
+  if (!isString(string)) {
+    return undefined;
   }
 
   return string.split(':')[1];
@@ -37,9 +38,9 @@ function getStreamUser(user) {
   };
 }
 
-async function getUserDirectMessageChannels() {
+async function getUserDmChannels() {
   const currentUserId = get(StreamChatClient, 'user.id');
-  console.log('[rkd] getUserDirectMessageChannels() currentUserId:', currentUserId);
+  console.group('[rkd] 👥 getUserDmChannels() currentUserId:', currentUserId);
 
   if (currentUserId) {
     const filter = {
@@ -55,16 +56,29 @@ async function getUserDirectMessageChannels() {
       options
     );
     console.log('[rkd] ---> dmChannelsResponse:', dmChannelsResponse);
+    console.groupEnd();
     return dmChannelsResponse;
   }
 
   return [];
 }
 
+function filterRecentDmChannels(channels) {
+  if (isEmpty(channels)) {
+    return channels;
+  }
+
+  const recentDate = moment().subtract(12, 'minutes');
+  return channels.filter(
+    (channel) => !!moment(get(channel, 'state.last_message_at')).isAfter(recentDate)
+  );
+}
+
 export default {
+  stripPrefix,
   channelIncludesUser,
   getRoleFromMembership,
   getStreamUser,
-  getUserDirectMessageChannels,
-  stripPrefix,
+  getUserDmChannels,
+  filterRecentDmChannels,
 };

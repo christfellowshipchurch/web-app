@@ -99,27 +99,33 @@ const EventChat = ({ event, channelId }) => {
     }
   );
 
+  const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
   const userRole = isLoggedIn
     ? get(userRoleQueryData, 'currentUser.streamChatRole', null)
     : ChatRoles.GUEST;
 
   // State Data
   const [channel, setChannel] = useState(null);
+
+  // Direct Messages
   const [dmChannels, setDmChannels] = useState([]);
+  const [dmChannelsVisible, setDmChannelsVisible] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
-  const currentUserId =
-    isLoggedIn && data ? ChatUtils.stripPrefix(data.currentUser.id) : undefined;
 
   const getDmChannels = async () => {
-    const dmChannelsResponse = await ChatUtils.getUserDirectMessageChannels();
+    const dmChannelsResponse = await ChatUtils.getUserDmChannels();
     setDmChannels(dmChannelsResponse);
+
+    const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
+    console.log('[rkd] 🕑 recentDmChannels:', recentDmChannels);
+    setDmChannelsVisible(recentDmChannels);
     console.groupEnd();
   };
 
   // Effects and Event Listeners
   useEffect(() => {
     const handleUserConnection = async () => {
-      console.group('[chat] 🟢 handleUserConnection()');
+      console.group('[chat]%c 🟢 handleUserConnection()', 'color: limegreen;');
 
       // Initialize user first
       const shouldConnectAsUser =
@@ -149,7 +155,7 @@ const EventChat = ({ event, channelId }) => {
         });
         await newChannel.create();
         setChannel(newChannel);
-        console.log('[chat] livestream channel (newChannel):', newChannel);
+        console.log('[chat] 🔴💬 LiveStream channel (newChannel):', newChannel);
       }
 
       // Now that we're sure the channel exists, we can request the user's role for it
@@ -163,9 +169,10 @@ const EventChat = ({ event, channelId }) => {
     handleUserConnection();
 
     return async () => {
-      console.log('[chat] 🔴 Cleanup handleUserConnection 🧹');
+      console.log('[chat] 🔴%c Cleanup handleUserConnection 🧹', 'color: red');
       setChannel(null);
-      setDmChannels(null);
+      setDmChannels([]);
+      setDmChannelsVisible([]);
       setActiveDmChannel(null);
       await StreamChatClient.disconnect();
     };
@@ -173,15 +180,32 @@ const EventChat = ({ event, channelId }) => {
 
   // Handle "Send a Direct Message"
   const handleInitiateDm = async (recipientUserId) => {
+    // Do we already have a DM channel with this user?
     let recipientDmChannel = dmChannels.find((dm) =>
       ChatUtils.channelIncludesUser(dm, recipientUserId)
     );
 
+    // If not, create one.
     if (!recipientDmChannel) {
       recipientDmChannel = StreamChatClient.channel('messaging', {
         members: [currentUserId, recipientUserId],
       });
       await recipientDmChannel.create();
+    }
+
+    // Is the DM channel visible? (I.e. has a recent message)
+    const isChannelVisible = !!dmChannelsVisible.find(
+      (dm) => dm.cid === recipientDmChannel.cid
+    );
+
+    // If not, force it to be for now.
+    if (!isChannelVisible) {
+      // Have to invoke with a function, since this handler is async
+      // and will reference old/stale data otherwise.
+      setDmChannelsVisible((prevDmChannelsVisible) => [
+        ...prevDmChannelsVisible,
+        recipientDmChannel,
+      ]);
     }
 
     setActiveDmChannel(recipientDmChannel);
@@ -190,6 +214,7 @@ const EventChat = ({ event, channelId }) => {
   if (loading || !channel || !userRole) return <Loader />;
   if (error) return <p>Something went wrong! Please reload the page and try again.</p>;
 
+  console.log('[rkd] dmChannelsVisible:', dmChannelsVisible);
   return (
     <ChatContainer>
       <LiveStreamChat channel={channel} onInitiateDm={handleInitiateDm} />
@@ -198,13 +223,13 @@ const EventChat = ({ event, channelId }) => {
         <DirectMessagesChat channel={activeDmChannel} />
       </DirectMessagesContainer>
 
-      {isLoggedIn && !isEmpty(dmChannels) && (
+      {isLoggedIn && (!isEmpty(dmChannelsVisible) || activeDmChannel) && (
         <ChatHeader>
           {!activeDmChannel && <div />}
           {activeDmChannel && (
             <BackButton onClick={() => setActiveDmChannel(null)}>
               <BackIcon name="angle-left" />
-              <BackLabel hidden={get(dmChannels, 'length', 0) !== 1}>
+              <BackLabel hidden={get(dmChannelsVisible, 'length', 0) !== 1}>
                 {'Back to Chat'}
               </BackLabel>
             </BackButton>
@@ -212,7 +237,7 @@ const EventChat = ({ event, channelId }) => {
 
           <DirectMessagesDropdown
             currentUserId={currentUserId}
-            channels={dmChannels}
+            channels={dmChannelsVisible}
             selectedChannelId={activeDmChannel ? activeDmChannel.id : undefined}
             onSelect={setActiveDmChannel}
           />
