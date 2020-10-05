@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { useQuery, useLazyQuery } from 'react-apollo';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, isNil } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
@@ -110,16 +110,26 @@ const EventChat = ({ event, channelId }) => {
   const currentUserId =
     isLoggedIn && data ? ChatUtils.stripPrefix(data.currentUser.id) : undefined;
 
+  const getDmChannels = async () => {
+    const dmChannelsResponse = await ChatUtils.getUserDirectMessageChannels();
+    setDmChannels(dmChannelsResponse);
+    console.groupEnd();
+  };
+
   // Effects and Event Listeners
   useEffect(() => {
     const handleUserConnection = async () => {
       console.group('[chat] 🟢 handleUserConnection()');
 
       // Initialize user first
-      const canConnectAsUser =
-        isLoggedIn && !loading && data && get(data, 'currentUser.streamChatToken');
+      const shouldConnectAsUser =
+        isLoggedIn &&
+        !loading &&
+        data &&
+        !isNil(get(data, 'currentUser.streamChatToken')) &&
+        !get(StreamChatClient, 'userID');
 
-      if (canConnectAsUser && !get(StreamChatClient, 'userID')) {
+      if (shouldConnectAsUser) {
         await StreamChatClient.setUser(
           ChatUtils.getStreamUser(data.currentUser),
           data.currentUser.streamChatToken
@@ -128,40 +138,36 @@ const EventChat = ({ event, channelId }) => {
         await StreamChatClient.setGuestUser({ id: 'guest' });
       }
 
-      // Initialize channel
-      const newChannel = StreamChatClient.channel('livestream', channelId, {
-        parentId: get(event, 'id'),
-        name: get(event, 'title'),
-        startsAt: get(event, 'events[0].start'),
-        endsAt: get(event, 'events[0].end'),
-        uploads: false,
-      });
-      await newChannel.create();
-      setChannel(newChannel);
-      console.log('[chat] livestream channel (newChannel):', newChannel);
-
-      if (isLoggedIn) {
-        const dmChannelsResponse = await ChatUtils.getUserDirectMessageChannels();
-        setDmChannels(dmChannelsResponse);
-        console.groupEnd();
+      // Initialize channel, if we properly connected as user or guest
+      if (get(StreamChatClient, 'userID')) {
+        const newChannel = StreamChatClient.channel('livestream', channelId, {
+          parentId: get(event, 'id'),
+          name: get(event, 'title'),
+          startsAt: get(event, 'events[0].start'),
+          endsAt: get(event, 'events[0].end'),
+          uploads: false,
+        });
+        await newChannel.create();
+        setChannel(newChannel);
+        console.log('[chat] livestream channel (newChannel):', newChannel);
       }
 
       // Now that we're sure the channel exists, we can request the user's role for it
-      if (canConnectAsUser) {
+      if (shouldConnectAsUser) {
         await getUserRole();
+        await getDmChannels();
       }
-
       console.groupEnd();
     };
 
     handleUserConnection();
 
-    return () => {
+    return async () => {
       console.log('[chat] 🔴 Cleanup handleUserConnection 🧹');
-      StreamChatClient.disconnect();
       setChannel(null);
       setDmChannels(null);
       setActiveDmChannel(null);
+      await StreamChatClient.disconnect();
     };
   }, [isLoggedIn, loading, data, channelId]);
 
