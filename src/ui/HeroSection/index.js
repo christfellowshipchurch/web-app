@@ -45,8 +45,15 @@ const HeroSection = ({
               playVidInBackground
               imageUrl={get(image, 'uri', '')}
               imageAlt={get(image, 'alt', '')}
-              fill="screen"
+              // override 'fill' CSS class so background vid fits entire screen
+              // on larger devices
+              fill={false}
+              mediaItemStyles={{
+                width: '100%',
+                position: 'absolute',
+              }}
               className={classnames(
+                'w-100',
                 'vw-100',
                 'vh-100',
                 'd-flex',

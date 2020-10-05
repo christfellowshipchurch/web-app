@@ -10,6 +10,7 @@ const MediaContainer = ({
   className,
   mediaItemStyles,
   forceRatio,
+  fill,
   ...mediaItemProps
 }) => {
   if (!children || children.length === 0 || forceRatio) {
@@ -27,7 +28,7 @@ const MediaContainer = ({
     <div style={style} className={classnames('overflow-hidden', 'p-relative', className)}>
       <MediaItem
         {...mediaItemProps}
-        className="fill"
+        className={fill && 'fill'}
         style={{ zIndex: 0, ...mediaItemStyles }}
       />
       {children}
@@ -40,6 +41,7 @@ MediaContainer.defaultProps = {
   mediaItemStyles: {},
   className: '',
   forceRatio: false,
+  fill: true,
 };
 
 MediaContainer.propTypes = {
@@ -47,6 +49,7 @@ MediaContainer.propTypes = {
   mediaItemStyles: PropTypes.object,
   className: PropTypes.string,
   forceRatio: PropTypes.bool,
+  fill: PropTypes.bool,
 };
 
 export default MediaContainer;
