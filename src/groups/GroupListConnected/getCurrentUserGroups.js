@@ -6,18 +6,17 @@ export default gql`
       id
       profile {
         id
-        groups {
+        groups(input: { excludeTypes: [DreamTeam] }) {
           ... on Group {
             id
             dateTime {
               start
-              end
             }
-            title
-            coverImage {
-              sources {
-                uri
-              }
+          }
+          title
+          coverImage {
+            sources {
+              uri
             }
           }
         }
