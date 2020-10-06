@@ -76,6 +76,7 @@ const MessageInput = () => {
           SendButton={SendButtonComponent}
           noFiles
           publishTypingEvent={false}
+          autocompleteTriggers={{}}
         />
       </LoggedInContainer>
     );
