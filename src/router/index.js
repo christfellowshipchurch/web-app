@@ -8,6 +8,7 @@ import HomePage from './Home';
 import Login from './Login';
 import Events from './Events';
 import Groups from './Groups';
+import DreamTeams from './DreamTeams';
 import Browse from './Browse';
 import Content from './Content';
 import Items from './Items';
@@ -39,6 +40,7 @@ const Router = () => (
     <Route path="/login" component={Login} />
     <Route path="/events" component={Events} />
     <Route path="/groups" component={Groups} />
+    <Route path="/dream-teams" component={DreamTeams} />
     <Route path="/content" component={Content} />
     <Route path="/items" component={Items} />
     <Route path="/discover" component={Browse} />

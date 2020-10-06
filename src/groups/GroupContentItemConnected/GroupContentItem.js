@@ -60,15 +60,17 @@ const GroupContentItem = ({
       <div className="container-fluid mb-4 px-3">
         <hgroup className="mt-4 mb-3 pb-3">
           <h1 className="mb-2 text-dark">{title}</h1>
-          <h3 className="mt-1 content-subtitle font-weight-light">
-            {dateTextFormat(get(dateTimes, 'start'))}
-          </h3>
+          {get(dateTimes, 'start', null) && (
+            <h3 className="mt-1 content-subtitle font-weight-light">
+              {dateTextFormat(get(dateTimes, 'start'))}
+            </h3>
+          )}
         </hgroup>
 
         <section className="row mx-n2">
           <aside className={classnames('col-12', { 'col-lg-4': summary }, 'p-2')}>
             <Card key="EventOccurences" className="mb-3">
-              {get(parentVideoCall, 'link') && (
+              {get(parentVideoCall, 'link', null) && (
                 <a
                   className="btn btn-primary btn-block mb-3"
                   href={videoCallURLWithParameters(
@@ -128,26 +130,28 @@ const GroupContentItem = ({
                   {resource.title}
                 </a>
               ))}
-              <div className="d-flex align-items-center">
-                <Icon name="calendar-plus" className="mr-2" />
-                <AddToCalendar
-                  className={classnames('p-0', 'text-dark', 'font-weight-bold')}
-                  style={{
-                    fontSize: '1.125rem',
-                    letterSpacing: 'normal',
-                  }}
-                  event={{
-                    title,
-                    summary,
-                    // Location is the webUrl for now because we have multiple potential video calls endpoints
-                    address: document.URL,
-                    startTime: dateTimes.start,
-                    endTime: dateTimes.end,
-                    description: calendarLinkDescription,
-                  }}
-                  alternateDescription={calendarLinkDescription}
-                />
-              </div>
+              {get(dateTimes, 'start', null) && (
+                <div className="d-flex align-items-center">
+                  <Icon name="calendar-plus" className="mr-2" />
+                  <AddToCalendar
+                    className={classnames('p-0', 'text-dark', 'font-weight-bold')}
+                    style={{
+                      fontSize: '1.125rem',
+                      letterSpacing: 'normal',
+                    }}
+                    event={{
+                      title,
+                      summary,
+                      // Location is the webUrl for now because we have multiple potential video calls endpoints
+                      address: document.URL,
+                      startTime: dateTimes.start,
+                      endTime: dateTimes.end,
+                      description: calendarLinkDescription,
+                    }}
+                    alternateDescription={calendarLinkDescription}
+                  />
+                </div>
+              )}
             </Card>
           </aside>
           {summary ? (

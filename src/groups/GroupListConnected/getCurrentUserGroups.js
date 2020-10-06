@@ -1,17 +1,20 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query getCurrentUserGroups {
+  query getCurrentUserGroups($inputTypes: GroupFilterInput) {
     currentUser {
       id
       profile {
         id
-        groups(input: { excludeTypes: [DreamTeam] }) {
+        groups(input: $inputTypes) {
           ... on Group {
             id
             dateTime {
               start
             }
+          }
+          ... on VolunteerGroup {
+            id
           }
           title
           coverImage {

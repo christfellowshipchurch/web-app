@@ -20,14 +20,14 @@ LoadingState.propTypes = {
   isLoading: PropTypes.bool,
 };
 
-const GroupList = ({ isLoading, groups }) => (
+const GroupList = ({ isLoading, groups, urlBase }) => (
   <LoadingState isLoading={isLoading}>
     {groups.length ? (
       <section className="row mx-n2">
         {groups.map((n) => (
           <ContentCard
             key={n.id}
-            urlBase="groups"
+            urlBase={urlBase}
             className="my-4"
             id={n.id}
             coverImage={get(n, 'coverImage.sources', '')}
@@ -62,6 +62,7 @@ GroupList.propTypes = {
       }),
     })
   ),
+  urlBase: PropTypes.string,
 };
 
 export default GroupList;
