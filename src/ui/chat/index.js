@@ -1,6 +1,5 @@
-import ChatAvatar from './ChatAvatar';
-import EmptyMessagesList from './EmptyMessagesList';
-import Message from './Message';
-import MessageInput from './MessageInput';
-
-export { ChatAvatar, EmptyMessagesList, Message, MessageInput };
+export { default as ChatAvatar } from './ChatAvatar';
+export { default as ChatError } from './ChatError';
+export { default as EmptyMessagesList } from './EmptyMessagesList';
+export { default as Message } from './Message';
+export { default as MessageInput } from './MessageInput';

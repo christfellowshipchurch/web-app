@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import styled from 'styled-components/macro';
+import { withProps } from 'recompose';
 import { get, isEmpty } from 'lodash';
 
 import { Channel } from 'stream-chat';
@@ -15,29 +16,35 @@ import { Icon } from 'ui';
 // :: Styled Components
 // ------------------------
 
-const HeaderButton = styled.button`
-  padding: ${baseUnit(1)};
-  border: none;
-  background: none;
-  color: ${({ theme }) => theme.link};
-`;
-
-const HeaderIcon = styled(Icon).attrs(({ theme, name }) => ({
-  name,
-  fill: theme.brand,
-  size: 22,
-}))``;
-
 const DirectMessagesToggleContainer = styled.div`
+  position: relative;
   padding: ${baseUnit(1)};
   color: ${({ theme }) => theme.font[800]};
 `;
 
+const ToggleLabelText = styled.span`
+  position: relative;
+`;
+
+const UnreadIndicator = styled.span`
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -5px;
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  line-height: 0;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.chat.unreadIndicator};
+`;
+
 const ToggleIcon = styled(Icon).attrs({
   name: 'angle-down',
-  size: 18,
+  size: 20,
 })`
   margin-left: ${baseUnit(1)};
+  margin-bottom: 2px;
   float: right;
 `;
 
@@ -76,25 +83,17 @@ const DirectMessagesDropdown = ({
   onSelect,
 }) => {
   const id = 'dm-selector';
-  const getOtherUserName = (channel) =>
-    get(ChatUtils.getOtherUser(channel, currentUserId), 'user.name', 'Unknown Person');
 
-  // Hide the dropdown if there are no channels OR there is only one
-  // channel, and we're currently viewing it.
-  // Note: Logic assumes selectedChannel value matches channels[0].cid
-  if (isEmpty(channels) || (channels.length === 1 && selectedChannel)) {
+  if (isEmpty(channels)) {
     return null;
   }
 
-  // When there's only 1 active DM channel
-  if (channels.length === 1) {
-    return (
-      <HeaderButton onClick={() => onSelect(channels[0])}>
-        <span>{getOtherUserName(channels[0])}</span>
-        <HeaderIcon name="angle-right" />
-      </HeaderButton>
-    );
-  }
+  // Shortcut utilities
+  const getOtherUserName = (channel) =>
+    get(ChatUtils.getOtherUser(channel, currentUserId), 'user.name', 'Unknown Person');
+
+  const channelHasUnread = (channel) =>
+    ChatUtils.getChannelUnreadCount(channel, currentUserId) >= 1;
 
   const handleDropdownSelect = (key, e) => {
     e.preventDefault();
@@ -102,10 +101,9 @@ const DirectMessagesDropdown = ({
     onSelect(channels[index]);
   };
 
-  const hasUnreads = !!channels.find((channel) =>
+  const hasUnread = !!channels.find((channel) =>
     ChatUtils.getChannelUnreadCount(channel, currentUserId)
   );
-  console.log('[rkd] hasUnreads:', hasUnreads);
 
   const toggleLabel = selectedChannel
     ? getOtherUserName(selectedChannel)
@@ -114,7 +112,10 @@ const DirectMessagesDropdown = ({
   return (
     <Dropdown id={id} onSelect={handleDropdownSelect}>
       <Dropdown.Toggle variant="link" id={id} as={DirectMessageToggle}>
-        {toggleLabel}
+        <ToggleLabelText>
+          {toggleLabel}
+          {hasUnread && !selectedChannel && <UnreadIndicator />}
+        </ToggleLabelText>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
@@ -124,26 +125,15 @@ const DirectMessagesDropdown = ({
             eventKey={i}
             active={selectedChannel ? channel.id === selectedChannel.id : false}
           >
-            {getOtherUserName(channel)}
+            <ToggleLabelText>
+              {getOtherUserName(channel)}
+              {channelHasUnread(channel) && <UnreadIndicator />}
+            </ToggleLabelText>
           </Dropdown.Item>
         ))}
       </Dropdown.Menu>
     </Dropdown>
   );
-
-  // return (
-  //   <DirectMessagesSelect value={selectedChannel} onChange={handleValueChange}>
-  //     <option value="" disabled>
-  //       {`Direct Messages...${hasUnreads ? ' *' : ''}`}
-  //     </option>
-  //     {channels.map((channel) => (
-  //       <option key={channel.id} value={channel.id}>
-  //         {getOtherUser(currentUserId, channel)}
-  //         {ChatUtils.getChannelUnreadCount(channel, currentUserId) >= 1 ? ' *' : ''}
-  //       </option>
-  //     ))}
-  //   </DirectMessagesSelect>
-  // );
 };
 
 DirectMessagesDropdown.propTypes = {

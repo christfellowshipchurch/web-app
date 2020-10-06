@@ -68,7 +68,7 @@ export async function getUserDmChannels() {
       members: { $in: [currentUserId] },
     };
     const sort = { last_message_at: -1 };
-    const options = { limit: 30 };
+    const options = { limit: 30, watch: true };
 
     const dmChannelsResponse = await StreamChatClient.queryChannels(
       filter,
