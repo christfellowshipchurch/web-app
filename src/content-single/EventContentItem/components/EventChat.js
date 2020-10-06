@@ -79,7 +79,6 @@ const BackIcon = styled(Icon).attrs(({ theme, name }) => ({
 `;
 
 const BackLabel = styled.span`
-  /* Micro-alignment with the icon */
   color: ${({ theme }) => theme.link};
 `;
 
@@ -200,14 +199,14 @@ const EventChat = ({ event, channelId }) => {
 
     handleUserConnection();
 
-    return () => {
+    return async () => {
       console.log('[chat] 🟠%c Cleanup handleUserConnection 🧹', 'color: orange');
       setChannel(null);
       setDmChannels([]);
       setDmChannelsVisible([]);
       setActiveDmChannel(null);
       StreamChatClient.off(handleClientEvent);
-      StreamChatClient.disconnect();
+      await StreamChatClient.disconnect();
     };
   }, [isLoggedIn, loading, data, channelId]);
 
