@@ -106,6 +106,7 @@ export const theme = Object.freeze({
       date: colors.gray[400],
       text: colors.gray[600],
     },
+    unreadIndicator: colors.red,
   },
   link: colors.cyan,
   liveEvent: colors.ruby,

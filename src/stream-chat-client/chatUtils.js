@@ -1,21 +1,28 @@
-import { isString, get } from 'lodash';
+import { isString, get, isEmpty } from 'lodash';
+import moment from 'moment';
 
 import StreamChatClient from './client';
 import ChatRoles from './chatRoles';
 
-function stripPrefix(string) {
-  if (!isString) {
-    return string;
+// :: General
+export function stripPrefix(string) {
+  if (!isString(string)) {
+    return undefined;
   }
 
   return string.split(':')[1];
 }
 
-function channelIncludesUser(channel, userId) {
-  return Object.keys(get(channel, 'state.members', {})).includes(userId);
+// User
+export function getStreamUser(user) {
+  return {
+    id: stripPrefix(user.id),
+    name: `${user.profile.firstName} ${user.profile.lastName}`,
+    image: get(user, 'profile.photo.uri', ''),
+  };
 }
 
-function getRoleFromMembership(channel) {
+export function getRoleFromMembership(channel) {
   const role = get(channel, 'state.membership.role');
 
   if (!role) {
@@ -29,17 +36,31 @@ function getRoleFromMembership(channel) {
   return ChatRoles[role.toUpperCase()];
 }
 
-function getStreamUser(user) {
-  return {
-    id: stripPrefix(user.id),
-    name: `${user.profile.firstName} ${user.profile.lastName}`,
-    image: get(user, 'profile.photo.uri', ''),
-  };
+// :: Channel
+export function getChannelById(channels, channelId) {
+  return channels.find((channel) => channel.cid === channelId);
 }
 
-async function getUserDirectMessageChannels() {
+export function channelIncludesUser(channel, userId) {
+  return Object.keys(get(channel, 'state.members', {})).includes(userId);
+}
+
+export function getChannelUnreadCount(channel, userId) {
+  return get(channel, `state.read[${userId}].unread_messages`, 0);
+}
+
+export function getOtherUser(channel, currentUserId) {
+  const otherUser = Object.values(get(channel, 'state.members', [])).find(
+    (member) => member.user.id !== currentUserId
+  );
+
+  return otherUser || null;
+}
+
+// :: Direct Messages
+export async function getUserDmChannels() {
   const currentUserId = get(StreamChatClient, 'user.id');
-  console.log('[rkd] getUserDirectMessageChannels() currentUserId:', currentUserId);
+  console.group('[rkd] 👥 getUserDmChannels() currentUserId:', currentUserId);
 
   if (currentUserId) {
     const filter = {
@@ -55,16 +76,21 @@ async function getUserDirectMessageChannels() {
       options
     );
     console.log('[rkd] ---> dmChannelsResponse:', dmChannelsResponse);
+    console.groupEnd();
     return dmChannelsResponse;
   }
 
   return [];
 }
 
-export default {
-  channelIncludesUser,
-  getRoleFromMembership,
-  getStreamUser,
-  getUserDirectMessageChannels,
-  stripPrefix,
-};
+export function filterRecentDmChannels(channels) {
+  if (isEmpty(channels)) {
+    return channels;
+  }
+
+  // This is where we define what "recent" means for direct messages
+  const recentDate = moment().subtract(12, 'hours');
+  return channels.filter(
+    (channel) => !!moment(get(channel, 'state.last_message_at')).isAfter(recentDate)
+  );
+}
