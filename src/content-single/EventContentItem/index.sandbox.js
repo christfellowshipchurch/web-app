@@ -72,14 +72,10 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
           <main style={{ minHeight: '75vh' }}>
             <EventBannerBackground {...content} />
 
-            <GridContainer fluid className="max-width-1100  mx-auto mb-5">
-              <Row className="pt-6 px-3">
-                <Col>
-                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
-                </Col>
-              </Row>
+            <GridContainer fluid className="max-width-1100  mx-auto mb-5  pt-6 px-3">
               <Row>
                 <Col>
+                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
                   <EventHeading {...content} isLive={isLive} />
                 </Col>
               </Row>
