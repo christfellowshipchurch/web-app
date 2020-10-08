@@ -12,12 +12,16 @@ import { Icon } from 'ui/Icons';
 const TabContainer = styled.div`
   display: inline-flex;
   flex: 1;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
-  padding: ${baseUnit(3)} ${baseUnit(3)} ${baseUnit(2)};
+  padding: ${baseUnit(2)};
 `;
 
 const TabButton = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   text-align: center;
@@ -42,10 +46,11 @@ const TabIcon = styled(Icon).attrs(({ name, active, theme }) => ({
 }))``;
 
 const TabLabel = styled.span`
-  display: block;
-  margin-top: ${baseUnit(1)};
-  font-weight: bold;
-  color: ${({ active, theme }) => (active ? theme.font[900] : theme.card.color)};
+  display: inline-block;
+  margin-left: ${baseUnit(2)};
+  font-weight: ${({ theme }) => theme.fontWeight.semiBold};
+  font-size: ${({ theme }) => theme.fontSize.h5};
+  color: ${({ active, theme }) => (active ? theme.font.coolGray[800] : theme.card.color)};
 `;
 
 // :: Main Component
@@ -55,9 +60,7 @@ const Tab = ({ label, iconName, active, onPress }) => (
   <TabContainer>
     <TabButton type="button" active={active} onClick={onPress}>
       <TabIcon name={iconName} active={active} />
-      <TabLabel className="small" active={active}>
-        {label}
-      </TabLabel>
+      <TabLabel active={active}>{label}</TabLabel>
     </TabButton>
   </TabContainer>
 );

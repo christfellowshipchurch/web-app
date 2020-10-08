@@ -8,7 +8,11 @@ import { Share, Col, Row } from 'ui';
 import LiveIndicator from './LiveIndicator';
 
 const EventHeading = ({ title, summary, isLive }) => (
-  <Row className="pt-2 pt-md-3 px-1 px-lg-2 px-xl-0">
+  <Row
+    className={classnames('pt-2 pt-md-3', {
+      'px-1 px-lg-2 px-xl-0': isLive,
+    })}
+  >
     {(!isEmpty(title) || !isEmpty(summary)) && (
       <Col
         className={classnames({

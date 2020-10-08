@@ -6,7 +6,7 @@ import { get, isEmpty, isNil } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
-import { StreamChatClient, ChatUtils, ChatRoles } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { StreamChatClient, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { useAuth } from 'auth';
 
@@ -95,20 +95,21 @@ const EventChat = ({ event, channelId }) => {
   // The user role query is separate and invoked manually at the right time, since
   // the channel must exist first before we can request our role in it.
   // That problem only affects the *first* user for the Event's chat.
-  const [getUserRole, { data: roleQueryData, loadingRole }] = useLazyQuery(
-    GET_CURRENT_USER_ROLE_FOR_CHANNEL,
-    {
-      fetchPolicy: 'network-only',
-      variables: {
-        channelId,
-      },
-    }
-  );
+  const [getUserRole, { loadingRole }] = useLazyQuery(GET_CURRENT_USER_ROLE_FOR_CHANNEL, {
+    fetchPolicy: 'network-only',
+    variables: {
+      channelId,
+    },
+  });
+
+  // Unused for now, since the Stream SDK provides a `role` on user objects.
+  // Leaving this in but commented out for now, but we can remove if nothing
+  // in the UI needs to change at this level according to role.
+  // const userRole = isLoggedIn
+  //   ? get(roleQueryData, 'currentUser.streamChatRole', null)
+  //   : ChatRoles.GUEST;
 
   const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
-  const userRole = isLoggedIn
-    ? get(roleQueryData, 'currentUser.streamChatRole', null)
-    : ChatRoles.GUEST;
 
   // State Data
   const [channel, setChannel] = useState(null);
@@ -129,14 +130,14 @@ const EventChat = ({ event, channelId }) => {
     console.groupEnd();
   };
 
-  const handleClientEvent = (event) => {
-    if (event.type === 'message.new' && event.channel_type === 'messaging') {
+  const handleClientEvent = (clientEvent) => {
+    if (clientEvent.type === 'message.new' && clientEvent.channel_type === 'messaging') {
       setActiveDmChannel((currentActiveDmChannel) => {
         // Heavy handed, but just re-fetch a users' DM channels altogether when
         // we receive a message and are *not currently viewing a conversation*.
         if (!currentActiveDmChannel) {
           console.log('[dm]%c 📫 Received a new DM', 'color: #00aeef');
-          console.log('[dm] --> event: ', event);
+          console.log('[dm] --> clientEvent: ', clientEvent);
           getDmChannels();
         }
 

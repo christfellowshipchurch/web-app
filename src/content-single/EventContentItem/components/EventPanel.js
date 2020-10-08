@@ -4,9 +4,7 @@ import styled from 'styled-components/macro';
 
 import { breakpoint } from 'styles/theme';
 
-import EventScheduleConnected from './EventScheduleConnected';
 import EventChat from './EventChat';
-import EventChatOffline from './EventChatOffline';
 import Tab from './Tab';
 
 // :: Styled Components
@@ -61,18 +59,12 @@ const TabContent = styled.div`
 // :: Main Component
 // ------------------------
 
-const EventPanel = ({ event, isLive, channelId }) => {
-  const [activeTab, setActiveTabIndex] = useState(isLive ? 'chat' : 'schedule');
+const EventPanel = ({ event, channelId }) => {
+  const [activeTab, setActiveTabIndex] = useState('chat');
 
   return (
     <PanelContainer>
       <PanelHeader>
-        <Tab
-          label="Schedule"
-          iconName="calendar-alt"
-          active={activeTab === 'schedule'}
-          onPress={() => setActiveTabIndex('schedule')}
-        />
         <Tab
           label="Chat Room"
           iconName="chat-conversation"
@@ -81,23 +73,9 @@ const EventPanel = ({ event, isLive, channelId }) => {
         />
       </PanelHeader>
       <PanelBody>
-        <TabContent active={activeTab === 'schedule'}>
-          <EventScheduleConnected
-            id={event.id}
-            callsToAction={event.callsToAction}
-            openLinksInNewTab={event.openLinksInNewTab}
-            events={event.events}
-            title={event.title}
-            description={event.htmlContent}
-          />
-        </TabContent>
         {/* Chat */}
         <TabContent active={activeTab === 'chat'}>
-          {isLive ? (
-            <EventChat event={event} channelId={channelId} />
-          ) : (
-            <EventChatOffline />
-          )}
+          <EventChat event={event} channelId={channelId} />
         </TabContent>
       </PanelBody>
     </PanelContainer>

@@ -4,10 +4,11 @@ import classnames from 'classnames';
 import { isEmpty, flatMapDepth, identity, uniq, groupBy, keys, get } from 'lodash';
 import moment from 'moment';
 
-import { AddToCalendar, Icon } from 'ui';
+import { AddToCalendar, Icon, Col, Card } from 'ui';
 
-import EventScheduleTimes from './EventScheduleTimes';
+import CallsToAction from './CallsToAction';
 import CampusSelector from './CampusSelector';
+import EventScheduleTimes from './EventScheduleTimes';
 
 function getScheduleByLocation(events) {
   // console.groupCollapsed('[schedule] 📍 getScheduleByLocation()');
@@ -72,7 +73,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   // console.groupEnd();
 
   return (
-    <section>
+    <Col className="col-12 col-lg-4 pr-lg-3">
       {hasEvents && (
         <CampusSelector
           key="CampusSelector"
@@ -82,7 +83,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
         />
       )}
 
-      <div className="p-2 px-3">
+      <Card className="mb-3">
         {scheduleByLocation.map((event, i) => {
           const { dateTimes } = event;
           const dateTimesKeys = keys(dateTimes);
@@ -109,6 +110,8 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
           );
         })}
 
+        <CallsToAction eventTitle={title} items={callsToAction} />
+
         {hasEvents && (
           <div className="d-flex align-items-center">
             <Icon name="calendar-plus" className="mr-2" />
@@ -131,8 +134,8 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
             />
           </div>
         )}
-      </div>
-    </section>
+      </Card>
+    </Col>
   );
 };
 

@@ -72,8 +72,8 @@
 
 /* DEBUG FOR BOOTSTRAP GRID */
 /* [class^='col'] {
-  background-color: rgba(255, 225, 0, 0.33) !important;
+  background-color: rgba(255, 0, 0, 0.33) !important;
 }
 [class^='row'] {
-  background-color: rgba(0, 200, 255, 0.25) !important;
+  background-color: rgba(0, 200, 255, 0.1) !important;
 } */
