@@ -56,16 +56,18 @@ const TabLabel = styled.span`
 const TabSubLabel = styled.span`
   display: inline-block;
   margin-left: auto;
-  font-size: ${({ theme }) => theme.fontSize.small};
+  font-size: ${({ theme }) => theme.fontSize.medium};
   color: ${({ theme }) => theme.font[500]};
 `;
 
 const UsersIcon = styled(Icon).attrs(({ theme }) => ({
   name: 'users',
   fill: theme.font[500],
-  size: 16,
+  size: 18,
 }))`
+  display: inline-block;
   margin-left: ${baseUnit(1)};
+  transform: translateY(-2px);
 `;
 
 // :: Main Component
