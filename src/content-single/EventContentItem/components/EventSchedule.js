@@ -11,16 +11,17 @@ import CampusSelector from './CampusSelector';
 import EventScheduleTimes from './EventScheduleTimes';
 
 function getScheduleByLocation(events) {
-  // console.groupCollapsed('[schedule] 📍 getScheduleByLocation()');
-  // console.log('[schedule] events:', events);
+  console.groupCollapsed('[schedule] 📍 getScheduleByLocation()');
+  console.log('[schedule] events:', events);
 
   if (!events || isEmpty(events)) {
-    // console.log('[schedule] Empty events... returning []');
-    // console.groupEnd();
+    console.log('[schedule] Empty events... returning []');
+    console.groupEnd();
     return [];
   }
 
   const groupByLocations = groupBy(events, 'location');
+  console.log('[rkd] groupByLocations:', groupByLocations);
   const groupByLocationDates = keys(groupByLocations).map((location) => {
     const dateTimes = groupBy(groupByLocations[location], (o) =>
       moment(o.start).format('YYYY-MM-DD')
@@ -29,23 +30,24 @@ function getScheduleByLocation(events) {
     return { location, dateTimes };
   });
 
-  // console.log('[schedule] groupByLocationDates:', groupByLocationDates);
-  // console.groupEnd();
+  console.log('[schedule] groupByLocationDates:', groupByLocationDates);
+  console.groupEnd();
   return groupByLocationDates;
 }
 
 const EventSchedule = ({ defaultCampus, callsToAction, events, title, description }) => {
+  return null;
   const [campusEvents, setCampusEvents] = useState([]);
   const hasEvents = !isEmpty(events);
   const scheduleByLocation = getScheduleByLocation(campusEvents);
 
-  // console.groupCollapsed('[schedule] 🗓️ EventSchedule render()');
-  // console.log('[schedule] events:', events);
-  // console.log('[schedule] callsToAction:', callsToAction);
-  // console.log('[schedule] defaultCampus:', defaultCampus);
-  // console.log('[schedule] ---');
-  // console.log('[schedule] campusEvents:', campusEvents);
-  // console.log('[schedule] scheduleByLocation:', scheduleByLocation);
+  console.groupCollapsed('[schedule] 🗓️ EventSchedule render()');
+  console.log('[schedule] events:', events);
+  console.log('[schedule] callsToAction:', callsToAction);
+  console.log('[schedule] defaultCampus:', defaultCampus);
+  console.log('[schedule] ---');
+  console.log('[schedule] campusEvents:', campusEvents);
+  console.log('[schedule] scheduleByLocation:', scheduleByLocation);
 
   const campusOptions = uniq(
     flatMapDepth(
@@ -54,7 +56,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
       2
     )
   );
-  // console.log('[schedule] campusOptions:', campusOptions);
+  console.log('[schedule] campusOptions:', campusOptions);
 
   const handleChangeCampus = (campus) => {
     const campusEvents = events.filter((e) => e.campuses.find((c) => c.name === campus));
@@ -67,10 +69,10 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const lastEvent = hasEvents ? events.length - 1 : 0;
   const endTime = get(events, `[${lastEvent}].end`, null);
 
-  // console.log('[schedule] ---');
-  // console.log('[schedule] startTime:', startTime);
-  // console.log('[schedule] endTime:', endTime);
-  // console.groupEnd();
+  console.log('[schedule] ---');
+  console.log('[schedule] startTime:', startTime);
+  console.log('[schedule] endTime:', endTime);
+  console.groupEnd();
 
   return (
     <Col className="col-12 col-lg-4 pr-lg-3">
