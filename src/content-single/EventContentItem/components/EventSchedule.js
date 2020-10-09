@@ -36,7 +36,6 @@ function getScheduleByLocation(events) {
 }
 
 const EventSchedule = ({ defaultCampus, callsToAction, events, title, description }) => {
-  return null;
   const [campusEvents, setCampusEvents] = useState([]);
   const hasEvents = !isEmpty(events);
   const scheduleByLocation = getScheduleByLocation(campusEvents);
