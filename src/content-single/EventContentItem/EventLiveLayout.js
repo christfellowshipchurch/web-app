@@ -14,6 +14,7 @@ import {
 } from './components';
 
 const EventLiveLayout = ({ content, liveStream }) => {
+  console.log('[rkd] liveStream:', liveStream);
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'chatChannelId');
 
@@ -59,11 +60,13 @@ EventLiveLayout.propTypes = {
     id: PropTypes.string,
   }),
   liveStream: PropTypes.shape({
-    media: PropTypes.arrayOf(
-      PropTypes.shape({
-        uri: PropTypes.string,
-      })
-    ),
+    media: PropTypes.shape({
+      sources: PropTypes.arrayOf(
+        PropTypes.shape({
+          uri: PropTypes.string,
+        })
+      ),
+    }),
     chatChannelId: PropTypes.string,
   }),
 };
