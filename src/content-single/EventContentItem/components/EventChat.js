@@ -84,8 +84,7 @@ const BackLabel = styled.span`
 
 // Main Component
 // ------------------------
-
-const EventChat = ({ event, channelId }) => {
+const EventChat = ({ event, channelId, onWatcherCountChange }) => {
   // User data
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
@@ -120,6 +119,7 @@ const EventChat = ({ event, channelId }) => {
   const [dmChannelsVisible, setDmChannelsVisible] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
 
+  // Fetches DMs and filters by most recent
   const getDmChannels = async () => {
     const dmChannelsResponse = await ChatUtils.getUserDmChannels();
     setDmChannels(dmChannelsResponse);
@@ -130,8 +130,11 @@ const EventChat = ({ event, channelId }) => {
     console.groupEnd();
   };
 
+  // Listener for events on the Stream Chat client
   const handleClientEvent = (clientEvent) => {
-    if (clientEvent.type === 'message.new' && clientEvent.channel_type === 'messaging') {
+    const { type: eventType, channel_type: channelType, user } = clientEvent;
+
+    if (eventType === 'message.new' && channelType === 'messaging') {
       setActiveDmChannel((currentActiveDmChannel) => {
         // Heavy handed, but just re-fetch a users' DM channels altogether when
         // we receive a message and are *not currently viewing a conversation*.
@@ -145,9 +148,18 @@ const EventChat = ({ event, channelId }) => {
         // doing a state update on activeDmChannel but return the current value.
         return currentActiveDmChannel;
       });
+    } else if (
+      (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
+      user.id !== currentUserId
+    ) {
+      console.log('[dm]%c 👀 Watch count change', 'color: #00aeef');
+      const watcherCount = get(clientEvent, 'watcher_count', 1);
+      console.log('[dm] --> watcherCount: ', clientEvent);
+      onWatcherCountChange(watcherCount);
     }
   };
-  // Effects and Event Listeners
+
+  // Stream Chat Connection management
   useEffect(() => {
     const handleUserConnection = async () => {
       console.group('[chat]%c 🟢 handleUserConnection()', 'color: limegreen;');
@@ -178,7 +190,11 @@ const EventChat = ({ event, channelId }) => {
           uploads: false,
         });
         await newChannel.create();
+        await newChannel.watch();
         setChannel(newChannel);
+
+        // Initialize value for number of people watching
+        onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
         console.log('[chat] 🔴💬 LiveStream channel (newChannel):', newChannel);
 
         // Now that we're sure the channel exists, we can request the user's role for it
@@ -289,6 +305,7 @@ EventChat.propTypes = {
     ),
   }),
   channelId: PropTypes.string.isRequired,
+  onWatcherCountChange: PropTypes.func.isRequired,
 };
 
 EventChat.defaultProps = {};

@@ -13,7 +13,7 @@ import {
   EventSchedule,
 } from './components';
 
-const EventContentItem = ({ content, liveStream }) => {
+const EventLiveLayout = ({ content, liveStream }) => {
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'chatChannelId');
 
@@ -34,7 +34,7 @@ const EventContentItem = ({ content, liveStream }) => {
 
           {/* Side Column */}
           <Col className="col-12 col-lg-4  mt-3 mt-4-sm mt-lg-0  pr-lg-2 pr-xl-0">
-            <EventPanel event={content} isLive channelId={channelId} />
+            <EventPanel event={content} channelId={channelId} />
           </Col>
         </Row>
 
@@ -44,6 +44,7 @@ const EventContentItem = ({ content, liveStream }) => {
           </Col>
         </Row>
 
+        {/* Bottom Half of Page */}
         <Row className="px-3 pr-lg-2 px-xl-0">
           <EventSchedule {...content} />
           <EventDescriptionCard {...content} />
@@ -53,7 +54,7 @@ const EventContentItem = ({ content, liveStream }) => {
   );
 };
 
-EventContentItem.propTypes = {
+EventLiveLayout.propTypes = {
   content: PropTypes.shape({
     id: PropTypes.string,
   }),
@@ -67,6 +68,6 @@ EventContentItem.propTypes = {
   }),
 };
 
-EventContentItem.defaultProps = {};
+EventLiveLayout.defaultProps = {};
 
-export default EventContentItem;
+export default EventLiveLayout;

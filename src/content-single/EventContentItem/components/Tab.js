@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-
 import { baseUnit } from 'styles/theme';
 
 import { Icon } from 'ui/Icons';
@@ -20,7 +19,8 @@ const TabContainer = styled.div`
 
 const TabButton = styled.button`
   display: inline-flex;
-  justify-content: center;
+  flex: 1;
+  justify-content: flex-start;
   align-items: center;
   background: none;
   border: none;
@@ -47,26 +47,48 @@ const TabIcon = styled(Icon).attrs(({ name, active, theme }) => ({
 
 const TabLabel = styled.span`
   display: inline-block;
-  margin-left: ${baseUnit(2)};
+  margin-left: ${baseUnit(1)};
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   font-size: ${({ theme }) => theme.fontSize.h5};
   color: ${({ active, theme }) => (active ? theme.font.coolGray[800] : theme.card.color)};
 `;
 
+const TabSubLabel = styled.span`
+  display: inline-block;
+  margin-left: auto;
+  font-size: ${({ theme }) => theme.fontSize.small};
+  color: ${({ theme }) => theme.font[500]};
+`;
+
+const UsersIcon = styled(Icon).attrs(({ theme }) => ({
+  name: 'users',
+  fill: theme.font[500],
+  size: 16,
+}))`
+  margin-left: ${baseUnit(1)};
+`;
+
 // :: Main Component
 // ------------------------
 
-const Tab = ({ label, iconName, active, onPress }) => (
+const Tab = ({ label, subLabel, iconName, active, onPress }) => (
   <TabContainer>
     <TabButton type="button" active={active} onClick={onPress}>
       <TabIcon name={iconName} active={active} />
       <TabLabel active={active}>{label}</TabLabel>
+      {subLabel && (
+        <TabSubLabel>
+          {subLabel}
+          <UsersIcon />
+        </TabSubLabel>
+      )}
     </TabButton>
   </TabContainer>
 );
 
 Tab.propTypes = {
   label: PropTypes.string.isRequired,
+  subLabel: PropTypes.string,
   iconName: PropTypes.string.isRequired,
   active: PropTypes.bool,
   onPress: PropTypes.func,

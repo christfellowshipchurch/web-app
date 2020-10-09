@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import numeral from 'numeral';
 
 import { breakpoint } from 'styles/theme';
 
@@ -61,12 +62,18 @@ const TabContent = styled.div`
 
 const EventPanel = ({ event, channelId }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
+  const [watcherCount, setWatcherCount] = useState(null);
+
+  const handleWatcherCountChange = (num) => {
+    setWatcherCount(numeral(num).format('0,0'));
+  };
 
   return (
     <PanelContainer>
       <PanelHeader>
         <Tab
           label="Chat Room"
+          subLabel={watcherCount}
           iconName="chat-conversation"
           active={activeTab === 'chat'}
           onPress={() => setActiveTabIndex('chat')}
@@ -75,7 +82,11 @@ const EventPanel = ({ event, channelId }) => {
       <PanelBody>
         {/* Chat */}
         <TabContent active={activeTab === 'chat'}>
-          <EventChat event={event} channelId={channelId} />
+          <EventChat
+            event={event}
+            channelId={channelId}
+            onWatcherCountChange={handleWatcherCountChange}
+          />
         </TabContent>
       </PanelBody>
     </PanelContainer>
@@ -84,7 +95,6 @@ const EventPanel = ({ event, channelId }) => {
 
 EventPanel.propTypes = {
   children: PropTypes.node,
-  isLive: PropTypes.bool,
   event: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
@@ -106,8 +116,6 @@ EventPanel.propTypes = {
   channelId: PropTypes.string,
 };
 
-EventPanel.defaultProps = {
-  isLive: false,
-};
+EventPanel.defaultProps = {};
 
 export default EventPanel;

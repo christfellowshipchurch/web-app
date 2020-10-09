@@ -85,6 +85,7 @@
     "moment": "^2.24.0",
     "node-fetch": "^2.6.0",
     "node-sass": "^4.11.0",
+    "numeral": "^2.0.6",
     "popper.js": "^1.14.7",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
