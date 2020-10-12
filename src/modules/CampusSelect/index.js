@@ -125,7 +125,7 @@ export const CampusTile = ({
 
         {/* TEMPORARLY HIDING RSVP BUTTONS WHILE CAMPUSES ARE CLOSED */}
 
-        {isRsvp && (
+        {isRsvp && serviceTimes.length > 0 && (
           <>
             <h2 className="mt-3">Select a service time to RSVP for:</h2>
             <div className="row mx-n2">
