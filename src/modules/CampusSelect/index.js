@@ -175,13 +175,7 @@ const CampusSelect = ({ background, isRsvp }) => {
     );
   }
 
-  let campuses = null;
-
-  if (campusesData) {
-    campuses = get(campusesData, 'campuses', []);
-
-    if (campuses.length) campuses = sortBy(campuses, ['name']);
-  }
+  const campuses = get(campusesData, 'campuses', []);
 
   const visibleCampus = activeCampus || campuses[0];
   const inputBackground = background === 'bg-white' ? 'bg-light' : 'bg-white';
