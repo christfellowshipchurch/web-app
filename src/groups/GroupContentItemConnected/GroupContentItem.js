@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Banner from '../../content-single/Banner';
 import { AddToCalendar, Card } from '../../ui';
 import { Icon } from '../../ui/Icons';
+import EventChat from '../../content-single/EventContentItem/components/EventChat';
 
 import dateTextFormat from '../dateTextFormat';
 
@@ -41,6 +42,7 @@ const GroupContentItem = ({
   title,
   userName,
   videoCall,
+  channelId,
 }) => {
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
 
@@ -153,6 +155,7 @@ const GroupContentItem = ({
           {summary ? (
             <div className="col-12 col-lg-8 p-2">
               <Card>{summary}</Card>
+              <EventChat channelId={channelId} />
             </div>
           ) : null}
         </section>
@@ -193,6 +196,7 @@ GroupContentItem.propTypes = {
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
   }),
+  channelId: PropTypes.string,
 };
 
 export default GroupContentItem;
