@@ -51,6 +51,10 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const lastEvent = hasEvents ? events.length - 1 : 0;
   const endTime = get(events, `[${lastEvent}].end`, null);
 
+  if (!hasEvents && isEmpty(callsToAction)) {
+    return null;
+  }
+
   return (
     <Col className="col-12 col-lg-4 pr-lg-3">
       {hasEvents && (
