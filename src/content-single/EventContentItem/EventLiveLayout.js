@@ -14,7 +14,6 @@ import {
 } from './components';
 
 const EventLiveLayout = ({ content, liveStream }) => {
-  console.log('[rkd] liveStream:', liveStream);
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'chatChannelId');
 
