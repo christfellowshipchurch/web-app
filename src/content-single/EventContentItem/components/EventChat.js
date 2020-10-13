@@ -121,11 +121,12 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
 
   // Fetches DMs and filters by most recent
   const getDmChannels = async () => {
+    // All DM channels, whether recent or not
     const dmChannelsResponse = await ChatUtils.getUserDmChannels();
     setDmChannels(dmChannelsResponse);
 
+    // Only recently active DM channels
     const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
-    console.log('[rkd] 🕑 recentDmChannels:', recentDmChannels);
     setDmChannelsVisible(recentDmChannels);
     console.groupEnd();
   };
@@ -134,13 +135,12 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
   const handleClientEvent = (clientEvent) => {
     const { type: eventType, channel_type: channelType, user } = clientEvent;
 
+    // :: New DM messages
     if (eventType === 'message.new' && channelType === 'messaging') {
       setActiveDmChannel((currentActiveDmChannel) => {
         // Heavy handed, but just re-fetch a users' DM channels altogether when
         // we receive a message and are *not currently viewing a conversation*.
         if (!currentActiveDmChannel) {
-          console.log('[dm]%c 📫 Received a new DM', 'color: #00aeef');
-          console.log('[dm] --> clientEvent: ', clientEvent);
           getDmChannels();
         }
 
@@ -148,13 +148,14 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
         // doing a state update on activeDmChannel but return the current value.
         return currentActiveDmChannel;
       });
-    } else if (
+    }
+
+    // :: User watching count
+    if (
       (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
-      user.id !== currentUserId
+      (user.role === 'guest' || user.id !== currentUserId)
     ) {
-      console.log('[dm]%c 👀 Watch count change', 'color: #00aeef');
       const watcherCount = get(clientEvent, 'watcher_count', 1);
-      console.log('[dm] --> watcherCount: ', clientEvent);
       onWatcherCountChange(watcherCount);
     }
   };
@@ -162,7 +163,6 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
   // Stream Chat Connection management
   useEffect(() => {
     const handleUserConnection = async () => {
-      console.group('[chat]%c 🟢 handleUserConnection()', 'color: limegreen;');
       try {
         // Initialize user first
         const shouldConnectAsUser =
@@ -195,7 +195,6 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
 
         // Initialize value for number of people watching
         onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
-        console.log('[chat] 🔴💬 LiveStream channel (newChannel):', newChannel);
 
         // Now that we're sure the channel exists, we can request the user's role for it
         if (shouldConnectAsUser) {
@@ -206,18 +205,14 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
           StreamChatClient.on(handleClientEvent);
         }
       } catch (err) {
-        console.log('❌%c Chat connection error ❌', 'color: red');
         console.error(err);
         setConnectionError(true);
       }
-
-      console.groupEnd();
     };
 
     handleUserConnection();
 
     return async () => {
-      console.log('[chat] 🟠%c Cleanup handleUserConnection 🧹', 'color: orange');
       setChannel(null);
       setDmChannels([]);
       setDmChannelsVisible([]);
