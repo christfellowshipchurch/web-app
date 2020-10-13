@@ -38,7 +38,6 @@ const GroupItem = ({
   }
 
   if (videoCall) {
-    console.log(videoCall);
     let label = 'Check In';
     if (get(videoCall, 'labelText')) {
       label = get(videoCall, 'labelText');
