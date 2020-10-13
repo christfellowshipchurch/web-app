@@ -40,9 +40,9 @@ const GroupItem = ({
   if (videoCall) {
     console.log(videoCall);
     let label = 'Check In';
-    // There is never a `label` property on `videoCall`
-    // There's only a `labelText` property
-    if (get(videoCall, 'label') || parentVideoCall) {
+    if (get(videoCall, 'labelText')) {
+      label = get(videoCall, 'labelText');
+    } else if (parentVideoCall) {
       label = 'Join Breakout';
     } else if (get(videoCall, 'link')) {
       label = 'Join Meeting';
@@ -55,13 +55,6 @@ const GroupItem = ({
       calendarLinkDescription += `\n${get(videoCall, 'link', '')}`;
     }
 
-    videos.push({
-      label,
-      userName,
-      videoCall,
-      onClick: () => onClickVideoCall(),
-      link: get(videoCall, 'link', ''),
-    });
     videos.push({
       label,
       userName,
