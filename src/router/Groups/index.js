@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
 import { useAuth } from '../../auth';
-import { Groups, GroupContentItemConnected } from '../../groups';
+import { Groups, GroupItemConnected } from '../../groups';
 
 import redirects from '../../redirects.json';
 
@@ -30,7 +30,7 @@ const GroupSingle = ({
   }
 
   // if no redirect, proceed to the Router
-  return <GroupContentItemConnected itemId={contentId} />;
+  return <GroupItemConnected itemId={contentId} />;
 };
 
 const Router = () => (

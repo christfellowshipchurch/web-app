@@ -9,9 +9,9 @@ import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
 
 import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
-import GroupContentItem from './GroupContentItem';
+import Group from './Group';
 
-const GroupContentItemConnected = ({ itemId }) => {
+const GroupItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
     fetchPolicy: 'cache-and-network',
@@ -83,7 +83,7 @@ const GroupContentItemConnected = ({ itemId }) => {
   });
 
   return (
-    <GroupContentItem
+    <Group
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
       dateTimes={get(content, 'dateTime')}
       groupResources={getGroupResources}
@@ -99,12 +99,14 @@ const GroupContentItemConnected = ({ itemId }) => {
       }
       videoCall={get(content, 'videoCall')}
       channelId={get(content, 'chatChannelId')}
+      groupId={get(content, 'id')}
+      avatars={get(content, 'avatars')}
     />
   );
 };
 
-GroupContentItemConnected.propTypes = {
+GroupItemConnected.propTypes = {
   itemId: PropTypes.string.isRequired,
 };
 
-export default GroupContentItemConnected;
+export default GroupItemConnected;

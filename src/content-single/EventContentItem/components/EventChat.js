@@ -129,14 +129,14 @@ const EventChat = ({ event, channelId }) => {
     console.groupEnd();
   };
 
-  const handleClientEvent = (event) => {
-    if (event.type === 'message.new' && event.channel_type === 'messaging') {
+  const handleClientEvent = (evt) => {
+    if (evt.type === 'message.new' && evt.channel_type === 'messaging') {
       setActiveDmChannel((currentActiveDmChannel) => {
         // Heavy handed, but just re-fetch a users' DM channels altogether when
         // we receive a message and are *not currently viewing a conversation*.
         if (!currentActiveDmChannel) {
           console.log('[dm]%c 📫 Received a new DM', 'color: #00aeef');
-          console.log('[dm] --> event: ', event);
+          console.log('[dm] --> event: ', evt);
           getDmChannels();
         }
 
