@@ -6,7 +6,8 @@ import { get, isEmpty } from 'lodash';
 import { ErrorBlock, GridContainer, Row, Col } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
 
-import { useLocalStorage } from '../../hooks';
+import { breakpoint } from 'styles/theme';
+import { useLocalStorage } from 'hooks';
 
 import {
   CallsToAction,
@@ -22,19 +23,35 @@ import Placeholder from './Placeholder';
 const TheaterContainer = styled.div`
   padding: 16px;
   display: grid;
-  grid-template-columns: 1fr 400px;
-  grid-template-rows: minmax(500px, auto) auto;
+  grid-template-rows: minmax(450px, auto) auto;
   gap: 8px;
 
-  grid-template-areas:
-    'stream chat'
-    'heading chat'
-    'social chat'
-    'cta chat';
+  grid-template-columns: 1fr 300px;
+  ${breakpoint('lg')} {
+    grid-template-columns: 1fr 350px;
+  }
+  ${breakpoint('xl')} {
+    grid-template-columns: 1fr 400px;
+  }
 
-  @media (max-width: 1300px) {
+  ${breakpoint('sm')} {
     grid-template-areas:
       'stream stream'
+      'heading chat'
+      'social chat'
+      'cta chat';
+  }
+
+  grid-template-areas:
+    'stream stream'
+    'heading heading'
+    'chat chat'
+    'social social'
+    'cta cta';
+
+  ${breakpoint('xl')} {
+    grid-template-areas:
+      'stream chat'
       'heading chat'
       'social chat'
       'cta chat';
@@ -67,22 +84,18 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
                 <Area area="stream">
                   <EventMedia {...content} liveStreamSource={liveStreamSource} />
                 </Area>
-
                 <Area area="heading">
                   <EventHeading {...content} isLive={isLive} />
                 </Area>
-
                 <Area area="chat">
                   <EventPanel event={content} isLive={isLive} channelId={channelId} />
                 </Area>
-
                 <Area area="cta">
                   <CallsToAction
                     eventTitle={get(content, 'title')}
                     items={get(content, 'callsToAction')}
                   />
                 </Area>
-
                 <Area area="social">
                   <EventDescriptionCard {...content} />
                 </Area>
