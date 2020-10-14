@@ -1,15 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import classnames from 'classnames';
 
 import { Share, Col, Row } from 'ui';
 
 import LiveIndicator from './LiveIndicator';
 
 const EventHeading = ({ title, summary, isLive }) => (
-  <Row className="pt-2 pt-md-3 px-1 pl-lg-2 pl-xl-0">
+  <Row
+    className={classnames('pt-2 pt-md-3', {
+      'px-1 px-lg-2 px-xl-0': isLive,
+    })}
+  >
     {(!isEmpty(title) || !isEmpty(summary)) && (
-      <Col>
+      <Col
+        className={classnames({
+          'col-8': !isLive,
+          'col-12': isLive,
+        })}
+      >
         <LiveIndicator isLive={isLive} />
 
         <hgroup className="w-100">
@@ -21,8 +31,13 @@ const EventHeading = ({ title, summary, isLive }) => (
       </Col>
     )}
 
-    <Col className="col-12 mt-2">
-      <div className="d-flex flex-grow-1 justify-content-end">
+    <Col
+      className={classnames({
+        'col-4': !isLive,
+        'col-12 mt-2': isLive,
+      })}
+    >
+      <div className="d-flex flex-grow-1 h-100 justify-content-end align-items-center">
         <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
       </div>
     </Col>
