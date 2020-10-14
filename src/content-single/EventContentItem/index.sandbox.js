@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
 import { get, isEmpty } from 'lodash';
 
 import { ErrorBlock, GridContainer, Row, Col } from 'ui';
@@ -17,6 +18,32 @@ import {
 } from './components';
 
 import Placeholder from './Placeholder';
+
+const TheaterContainer = styled.div`
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  grid-template-rows: minmax(500px, auto) auto;
+  gap: 8px;
+
+  grid-template-areas:
+    'stream chat'
+    'heading chat'
+    'social chat'
+    'cta chat';
+
+  @media (max-width: 1300px) {
+    grid-template-areas:
+      'stream stream'
+      'heading chat'
+      'social chat'
+      'cta chat';
+  }
+`;
+
+const Area = styled.div`
+  grid-area: ${({ area }) => area};
+`;
 
 const EventContentItem = ({ itemId, content, loading, error }) => {
   const { storedValue: theaterMode } = useLocalStorage('theaterMode', false);
@@ -36,31 +63,30 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
             <EventBannerBackground {...content} />
 
             {theaterMode ? (
-              // TODO: edit css for theater mode
-              <GridContainer fluid className="max-width-1100  mx-auto mb-5">
-                <Row
-                  className="flex-column flex-md-row  pt-3 pt-lg-4 mb-4"
-                  style={{ minHeight: '30vh' }}
-                >
-                  {/* Main Column */}
-                  <Col className="col-12 col-lg-8  px-2 px-xl-0 pr-xl-3">
-                    <EventMedia {...content} liveStreamSource={liveStreamSource} />
-                    <EventHeading {...content} isLive={isLive} />
-                  </Col>
+              <TheaterContainer>
+                <Area area="stream">
+                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
+                </Area>
 
-                  {/* Side Column */}
-                  <Col className="col-12 col-lg-4  mt-3 mt-4-sm mt-lg-0  pr-lg-2 pr-xl-0">
-                    <EventPanel event={content} isLive={isLive} channelId={channelId} />
-                  </Col>
-                </Row>
+                <Area area="heading">
+                  <EventHeading {...content} isLive={isLive} />
+                </Area>
 
-                <CallsToAction
-                  eventTitle={get(content, 'title')}
-                  items={get(content, 'callsToAction')}
-                />
+                <Area area="chat">
+                  <EventPanel event={content} isLive={isLive} channelId={channelId} />
+                </Area>
 
-                <EventDescriptionCard {...content} />
-              </GridContainer>
+                <Area area="cta">
+                  <CallsToAction
+                    eventTitle={get(content, 'title')}
+                    items={get(content, 'callsToAction')}
+                  />
+                </Area>
+
+                <Area area="social">
+                  <EventDescriptionCard {...content} />
+                </Area>
+              </TheaterContainer>
             ) : (
               <GridContainer fluid className="max-width-1100  mx-auto mb-5">
                 <Row
