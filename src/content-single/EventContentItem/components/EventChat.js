@@ -6,7 +6,7 @@ import { get, isEmpty, isNil } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
-import { StreamChatClient, ChatUtils, ChatRoles } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { StreamChatClient, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { useAuth } from 'auth';
 
@@ -84,8 +84,7 @@ const BackLabel = styled.span`
 
 // Main Component
 // ------------------------
-
-const EventChat = ({ event, channelId }) => {
+const EventChat = ({ event, channelId, onWatcherCountChange }) => {
   // User data
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
@@ -95,20 +94,21 @@ const EventChat = ({ event, channelId }) => {
   // The user role query is separate and invoked manually at the right time, since
   // the channel must exist first before we can request our role in it.
   // That problem only affects the *first* user for the Event's chat.
-  const [getUserRole, { data: roleQueryData, loadingRole }] = useLazyQuery(
-    GET_CURRENT_USER_ROLE_FOR_CHANNEL,
-    {
-      fetchPolicy: 'network-only',
-      variables: {
-        channelId,
-      },
-    }
-  );
+  const [getUserRole, { loadingRole }] = useLazyQuery(GET_CURRENT_USER_ROLE_FOR_CHANNEL, {
+    fetchPolicy: 'network-only',
+    variables: {
+      channelId,
+    },
+  });
+
+  // Unused for now, since the Stream SDK provides a `role` on user objects.
+  // Leaving this in but commented out for now, but we can remove if nothing
+  // in the UI needs to change at this level according to role.
+  // const userRole = isLoggedIn
+  //   ? get(roleQueryData, 'currentUser.streamChatRole', null)
+  //   : ChatRoles.GUEST;
 
   const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
-  const userRole = isLoggedIn
-    ? get(roleQueryData, 'currentUser.streamChatRole', null)
-    : ChatRoles.GUEST;
 
   // State Data
   const [channel, setChannel] = useState(null);
@@ -119,24 +119,28 @@ const EventChat = ({ event, channelId }) => {
   const [dmChannelsVisible, setDmChannelsVisible] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
 
+  // Fetches DMs and filters by most recent
   const getDmChannels = async () => {
+    // All DM channels, whether recent or not
     const dmChannelsResponse = await ChatUtils.getUserDmChannels();
     setDmChannels(dmChannelsResponse);
 
+    // Only recently active DM channels
     const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
-    console.log('[rkd] 🕑 recentDmChannels:', recentDmChannels);
     setDmChannelsVisible(recentDmChannels);
     console.groupEnd();
   };
 
-  const handleClientEvent = (evt) => {
-    if (evt.type === 'message.new' && evt.channel_type === 'messaging') {
+  // Listener for events on the Stream Chat client
+  const handleClientEvent = (clientEvent) => {
+    const { type: eventType, channel_type: channelType, user } = clientEvent;
+
+    // :: New DM messages
+    if (eventType === 'message.new' && channelType === 'messaging') {
       setActiveDmChannel((currentActiveDmChannel) => {
         // Heavy handed, but just re-fetch a users' DM channels altogether when
         // we receive a message and are *not currently viewing a conversation*.
         if (!currentActiveDmChannel) {
-          console.log('[dm]%c 📫 Received a new DM', 'color: #00aeef');
-          console.log('[dm] --> event: ', evt);
           getDmChannels();
         }
 
@@ -145,11 +149,20 @@ const EventChat = ({ event, channelId }) => {
         return currentActiveDmChannel;
       });
     }
+
+    // :: User watching count
+    if (
+      (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
+      (user.role === 'guest' || user.id !== currentUserId)
+    ) {
+      const watcherCount = get(clientEvent, 'watcher_count', 1);
+      onWatcherCountChange(watcherCount);
+    }
   };
-  // Effects and Event Listeners
+
+  // Stream Chat Connection management
   useEffect(() => {
     const handleUserConnection = async () => {
-      console.group('[chat]%c 🟢 handleUserConnection()', 'color: limegreen;');
       try {
         // Initialize user first
         const shouldConnectAsUser =
@@ -177,8 +190,11 @@ const EventChat = ({ event, channelId }) => {
           uploads: false,
         });
         await newChannel.create();
+        await newChannel.watch();
         setChannel(newChannel);
-        console.log('[chat] 🔴💬 LiveStream channel (newChannel):', newChannel);
+
+        // Initialize value for number of people watching
+        onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
 
         // Now that we're sure the channel exists, we can request the user's role for it
         if (shouldConnectAsUser) {
@@ -189,18 +205,14 @@ const EventChat = ({ event, channelId }) => {
           StreamChatClient.on(handleClientEvent);
         }
       } catch (err) {
-        console.log('❌%c Chat connection error ❌', 'color: red');
         console.error(err);
         setConnectionError(true);
       }
-
-      console.groupEnd();
     };
 
     handleUserConnection();
 
     return async () => {
-      console.log('[chat] 🟠%c Cleanup handleUserConnection 🧹', 'color: orange');
       setChannel(null);
       setDmChannels([]);
       setDmChannelsVisible([]);
@@ -288,6 +300,7 @@ EventChat.propTypes = {
     ),
   }),
   channelId: PropTypes.string.isRequired,
+  onWatcherCountChange: PropTypes.func.isRequired,
 };
 
 EventChat.defaultProps = {};
