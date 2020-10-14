@@ -23,7 +23,7 @@ export function getStreamUser(user) {
 }
 
 export function getRoleFromMembership(channel) {
-  const role = get(channel, 'state.membership.role');
+  const role = get(channel, 'state.user.role');
 
   if (!role) {
     return ChatRoles.GUEST;
