@@ -60,7 +60,6 @@ export function getOtherUser(channel, currentUserId) {
 // :: Direct Messages
 export async function getUserDmChannels() {
   const currentUserId = get(StreamChatClient, 'user.id');
-  console.group('[rkd] 👥 getUserDmChannels() currentUserId:', currentUserId);
 
   if (currentUserId) {
     const filter = {
@@ -70,14 +69,7 @@ export async function getUserDmChannels() {
     const sort = { last_message_at: -1 };
     const options = { limit: 30 };
 
-    const dmChannelsResponse = await StreamChatClient.queryChannels(
-      filter,
-      sort,
-      options
-    );
-    console.log('[rkd] ---> dmChannelsResponse:', dmChannelsResponse);
-    console.groupEnd();
-    return dmChannelsResponse;
+    return StreamChatClient.queryChannels(filter, sort, options);
   }
 
   return [];

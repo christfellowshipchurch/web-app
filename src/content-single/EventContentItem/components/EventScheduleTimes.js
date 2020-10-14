@@ -39,10 +39,10 @@ const EventTimes = ({ date, times, isOnlyEventTime }) => {
 
           return (
             <div key={`${date}:${t.start}`}>
-              <h5 className="font-weight-normal d-flex align-items-center">
+              <h4 className="font-weight-normal d-flex align-items-center">
                 <Icon name="clock" className="mr-2" size={18} />
                 {local.format('LT')}
-              </h5>
+              </h4>
             </div>
           );
         })}
