@@ -83,7 +83,7 @@
     "jest-coverage-badges": "^1.1.2",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-sass": "^4.11.0",
     "numeral": "^2.0.6",
     "popper.js": "^1.14.7",
