@@ -23,16 +23,15 @@ import Placeholder from './Placeholder';
 const TheaterContainer = styled.div`
   padding: 16px;
   display: grid;
-  grid-template-rows: minmax(450px, auto) auto;
   gap: 8px;
-
+  grid-template-rows: minmax(450px, auto) auto;
   grid-template-columns: 1fr 300px;
-  ${breakpoint('lg')} {
-    grid-template-columns: 1fr 350px;
-  }
-  ${breakpoint('xl')} {
-    grid-template-columns: 1fr 400px;
-  }
+  grid-template-areas:
+    'stream stream'
+    'heading heading'
+    'chat chat'
+    'social social'
+    'cta cta';
 
   ${breakpoint('sm')} {
     grid-template-areas:
@@ -42,14 +41,12 @@ const TheaterContainer = styled.div`
       'cta chat';
   }
 
-  grid-template-areas:
-    'stream stream'
-    'heading heading'
-    'chat chat'
-    'social social'
-    'cta cta';
+  ${breakpoint('lg')} {
+    grid-template-columns: 1fr 350px;
+  }
 
   ${breakpoint('xl')} {
+    grid-template-columns: 1fr 400px;
     grid-template-areas:
       'stream chat'
       'heading chat'
