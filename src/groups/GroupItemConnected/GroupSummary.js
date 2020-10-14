@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const GroupSummary = ({ summary }) =>
   summary ? (
-    <div className="mb-2 text-dark" style={{ maxHeight: '7.5rem', overflowY: 'scroll' }}>
+    <div className="mb-2 text-dark" style={{ maxHeight: '3rem', overflowY: 'scroll' }}>
       {summary}
     </div>
   ) : null;

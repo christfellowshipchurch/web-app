@@ -1,20 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
 import { Media } from '../../ui';
 
-const GroupMembers = ({ avatars }) => {
+const GroupMembers = ({ members }) => {
   return (
     <div className="my-3">
       <h3>Members</h3>
       <div className="row my-2" style={{ overflowX: 'auto', flexWrap: 'nowrap' }}>
-        {avatars.map((avatar) => (
-          <Media
-            className="mx-1"
-            imageUrl={avatar}
-            forceRatio
-            style={{ height: 42, minWidth: 42 }}
-          />
+        {members.map((member) => (
+          <div
+            className="mx-1 d-flex align-items-center"
+            style={{ flexDirection: 'column' }}
+          >
+            <Media
+              key={member.id}
+              imageUrl={get(member, 'photo.uri')}
+              forceRatio
+              style={{ height: 42, minWidth: 42, maxWidth: 42 }}
+            />
+            <div style={{ fontSize: '0.75rem' }}>
+              {get(member, 'nickName') || get(member, 'firstName')}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -22,11 +31,20 @@ const GroupMembers = ({ avatars }) => {
 };
 
 GroupMembers.propTypes = {
-  avatars: PropTypes.arrayOf(PropTypes.string),
+  members: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      firstName: PropTypes.string,
+      nickName: PropTypes.string,
+      photo: PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+    })
+  ),
 };
 
 GroupMembers.defaultProps = {
-  avatars: [],
+  members: [],
 };
 
 export default GroupMembers;

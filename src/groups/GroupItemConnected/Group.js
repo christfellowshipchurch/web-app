@@ -19,7 +19,7 @@ const GroupItem = ({
   videoCall,
   channelId,
   groupId,
-  avatars,
+  members,
 }) => {
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
 
@@ -77,7 +77,7 @@ const GroupItem = ({
         groupId={groupId}
         coverImage={coverImage}
         videos={videos}
-        avatars={avatars}
+        members={members}
       ></GroupContent>
     </>
   );
@@ -117,7 +117,16 @@ GroupItem.propTypes = {
   }),
   channelId: PropTypes.string,
   groupId: PropTypes.string,
-  avatars: PropTypes.arrayOf(PropTypes.string),
+  members: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      firstName: PropTypes.string,
+      nickName: PropTypes.string,
+      photo: PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+    })
+  ),
 };
 
 export default GroupItem;

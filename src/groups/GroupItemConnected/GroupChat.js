@@ -119,7 +119,7 @@ const GroupChat = ({ event, channelId }) => {
 
   return (
     <ChatContainer>
-      <LiveStreamChat channel={channel} style={{ position: 'relative' }} />
+      <LiveStreamChat channel={channel} />
     </ChatContainer>
   );
 };

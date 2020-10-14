@@ -21,14 +21,14 @@ const GroupContent = ({
   groupId,
   calendarLinkDescription,
   coverImage,
-  avatars,
+  members,
 }) => {
   return (
     <div className="container-fluid mb-4 pt-6 px-3">
       <div className="row">
         <div className="col-6 bg-white p-3">
           <GroupImage coverImage={coverImage} title={title} />
-          <GroupMembers avatars={avatars} />
+          <GroupMembers members={members} />
           <GroupResources
             groupResources={groupResources}
             onClick={onClickGroupResource}
@@ -85,7 +85,16 @@ GroupContent.propTypes = {
       link: PropTypes.string,
     })
   ),
-  avatars: PropTypes.arrayOf(PropTypes.string),
+  members: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      firstName: PropTypes.string,
+      nickName: PropTypes.string,
+      photo: PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+    })
+  ),
 };
 
 export default GroupContent;
