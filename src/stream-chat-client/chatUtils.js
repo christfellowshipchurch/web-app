@@ -24,16 +24,17 @@ export function getStreamUser(user) {
 
 export function getRoleFromMembership(channel) {
   const role = get(channel, 'state.user.role');
+  const membership = get(channel, 'state.membership.user.role');
 
-  if (!role) {
+  if (!(role || membership)) {
     return ChatRoles.GUEST;
   }
 
   // ⚠️ Warning
   // There is an assumption that stream's role names will map 1:1
-  // with the ones we use in our graphql API's enum.
+  // with the ones we use in our graphql API enum.
   // i.e. "moderator" in Stream is "MODERATOR" in our API.
-  return ChatRoles[role.toUpperCase()];
+  return ChatRoles[(role || membership).toUpperCase()];
 }
 
 // :: Channel
