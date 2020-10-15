@@ -4,15 +4,15 @@ import styled from 'styled-components/macro';
 import { useQuery, useLazyQuery } from 'react-apollo';
 import { get, isNil } from 'lodash';
 
-import { StreamChatClient, ChatUtils, ChatRoles } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { Streami18n, StreamChatClient, ChatUtils, ChatRoles } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
 
 import { useAuth } from 'auth';
 
 // UI
 import { Loader } from 'ui';
-import { ChatError } from 'ui/chat';
+import { Message, MessageInput, ChatError } from 'ui/chat';
 
-import LiveStreamChat from '../../content-single/EventContentItem/components/LiveStreamChat';
 import {
   GET_CURRENT_USER_FOR_CHAT,
   GET_CURRENT_USER_ROLE_FOR_CHANNEL,
@@ -81,16 +81,10 @@ const GroupChat = ({ event, channelId }) => {
         }
 
         // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel('livestream', channelId, {
-          parentId: get(event, 'id'),
-          name: get(event, 'title'),
-          startsAt: get(event, 'events[0].start'),
-          endsAt: get(event, 'events[0].end'),
-          uploads: false,
-        });
+        const newChannel = StreamChatClient.channel('messaging', channelId);
         await newChannel.create();
         setChannel(newChannel);
-        console.log('[chat] 🔴💬 LiveStream channel (newChannel):', newChannel);
+        console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
 
         // Now that we're sure the channel exists, we can request the user's role for it
         if (shouldConnectAsUser) {
@@ -119,7 +113,19 @@ const GroupChat = ({ event, channelId }) => {
 
   return (
     <ChatContainer>
-      <LiveStreamChat channel={channel} />
+      <Chat client={StreamChatClient} i18nInstance={Streami18n} theme="group">
+        <Channel
+          channel={channel}
+          Message={Message}
+          LoadingIndicator={Loader}
+          maxNumberOfFiles={0}
+        >
+          <Window>
+            <MessageList />
+            <MessageInput />
+          </Window>
+        </Channel>
+      </Chat>
     </ChatContainer>
   );
 };
