@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Hls from 'hls.js';
 import { isMobile, isIOS } from 'react-device-detect';
+import { useLocalStorage } from 'hooks';
 
 import { Icon } from '../Icons';
 
 const MediaVideo = ({ source, poster, isLive, showControls }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
+  const { storedValue: theaterMode, setValue: setTheaterMode } = useLocalStorage(
+    'theaterMode',
+    false
+  );
+  const showTheaterButton = isLive;
   const [played, setPlayed] = useState(false);
 
   let videoProps = showControls
@@ -68,8 +74,12 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
     if (isLive || isIOS) return playButtonClick();
   }, [videoRef]);
 
+  const handleToggleTheater = () => {
+    setTheaterMode(!theaterMode);
+  };
+
   return (
-    <div>
+    <>
       <video
         className="rounded"
         {...videoProps}
@@ -89,7 +99,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
           className="fill d-flex justify-content-start align-items-end"
           style={{ zIndex: 900 }}
         >
-          <a
+          <button
             className={classnames(
               'cursor-hover',
               'scale-media-up-on-hover',
@@ -123,7 +133,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
               <Icon
                 className="d-flex justify-content-center"
                 name="play"
-                fill="white"
+                fill="gray"
                 size={20}
               />
               <p
@@ -135,7 +145,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
                 Play
               </p>
             </div>
-          </a>
+          </button>
         </div>
       )}
       {showMuteButton && (
@@ -151,7 +161,19 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
           </h4>
         </div>
       )}
-    </div>
+      {showTheaterButton && (
+        <div
+          className="fill d-flex flex-column justify-content-end align-items-center"
+          style={{
+            zIndex: 1000,
+            paddingBottom: '2.1rem',
+          }}
+          onClick={handleToggleTheater}
+        >
+          <Icon name="tv" fill={theaterMode ? 'white' : 'gray'} size={20} />
+        </div>
+      )}
+    </>
   );
 };
 

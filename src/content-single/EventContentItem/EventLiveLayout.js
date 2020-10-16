@@ -35,7 +35,7 @@ const TheaterContainer = styled.div`
       'stream stream'
       'heading chat'
       'social chat'
-      'cta chat';
+      'cta cta';
   }
 
   ${breakpoint('lg')} {
@@ -47,8 +47,8 @@ const TheaterContainer = styled.div`
     grid-template-areas:
       'stream chat'
       'heading chat'
-      'social chat'
-      'cta chat';
+      'social social'
+      'cta cta';
   }
 `;
 
