@@ -10,8 +10,8 @@ const Icon = ({ size, fill }) => {
       viewBox="0 0 24 24"
       aria-labelledby="title"
     >
-      <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-      <polyline points="17 2 12 7 7 2"></polyline>
+      <rect x="2" y="7" width="20" height="15" rx="2" ry="2" fill={fill}></rect>
+      <polyline points="17 2 12 7 7 2" stroke={fill}></polyline>
     </svg>
   );
 };
