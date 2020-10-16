@@ -18,7 +18,6 @@ const GroupContent = ({
   title,
   videos,
   channelId,
-  groupId,
   calendarLinkDescription,
   coverImage,
   members,
@@ -45,10 +44,7 @@ const GroupContent = ({
             calendarLinkDescription={calendarLinkDescription}
           ></GroupCalendarData>
           <GroupEventOccurrences videos={videos} />
-          <GroupChat
-            event={{ events: [dateTimes], title, id: groupId }}
-            channelId={channelId}
-          />
+          <GroupChat channelId={channelId} />
         </div>
       </div>
     </div>
@@ -71,7 +67,6 @@ GroupContent.propTypes = {
   title: PropTypes.string.isRequired,
   userName: PropTypes.string,
   channelId: PropTypes.string,
-  groupId: PropTypes.string,
   calendarLinkDescription: PropTypes.string,
   coverImage: PropTypes.shape({
     name: PropTypes.string,

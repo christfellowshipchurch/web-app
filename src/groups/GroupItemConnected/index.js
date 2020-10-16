@@ -99,7 +99,6 @@ const GroupItemConnected = ({ itemId }) => {
       }
       videoCall={get(content, 'videoCall')}
       channelId={get(content, 'chatChannelId')}
-      groupId={get(content, 'id')}
       members={get(content, 'members')}
     />
   );

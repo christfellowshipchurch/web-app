@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { useQuery, useLazyQuery } from 'react-apollo';
 import { get, isNil } from 'lodash';
 
-import { Streami18n, StreamChatClient, ChatUtils, ChatRoles } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { Streami18n, StreamChatClient, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
 
 import { useAuth } from 'auth';
@@ -29,7 +29,7 @@ const ChatContainer = styled.div`
 // Main Component
 // ------------------------
 
-const GroupChat = ({ event, channelId }) => {
+const GroupChat = ({ channelId }) => {
   // User data
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
@@ -39,20 +39,14 @@ const GroupChat = ({ event, channelId }) => {
   // The user role query is separate and invoked manually at the right time, since
   // the channel must exist first before we can request our role in it.
   // That problem only affects the *first* user for the Event's chat.
-  const [getUserRole, { data: roleQueryData, loadingRole }] = useLazyQuery(
-    GET_CURRENT_USER_ROLE_FOR_CHANNEL,
-    {
-      fetchPolicy: 'network-only',
-      variables: {
-        channelId,
-      },
-    }
-  );
+  const [getUserRole, { loadingRole }] = useLazyQuery(GET_CURRENT_USER_ROLE_FOR_CHANNEL, {
+    fetchPolicy: 'network-only',
+    variables: {
+      channelId,
+    },
+  });
 
   const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
-  const userRole = isLoggedIn
-    ? get(roleQueryData, 'currentUser.streamChatRole', null)
-    : ChatRoles.GUEST;
 
   // State Data
   const [channel, setChannel] = useState(null);
@@ -81,8 +75,7 @@ const GroupChat = ({ event, channelId }) => {
         }
 
         // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel('messaging', channelId);
-        await newChannel.create();
+        const newChannel = StreamChatClient.channel('group', channelId);
         setChannel(newChannel);
         console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
 
@@ -131,16 +124,6 @@ const GroupChat = ({ event, channelId }) => {
 };
 
 GroupChat.propTypes = {
-  event: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    events: PropTypes.arrayOf(
-      PropTypes.shape({
-        start: PropTypes.string,
-        end: PropTypes.string,
-      })
-    ),
-  }),
   channelId: PropTypes.string.isRequired,
 };
 

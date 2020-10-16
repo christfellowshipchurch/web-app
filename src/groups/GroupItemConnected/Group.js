@@ -18,7 +18,6 @@ const GroupItem = ({
   userName,
   videoCall,
   channelId,
-  groupId,
   members,
 }) => {
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
@@ -74,7 +73,6 @@ const GroupItem = ({
         summary={summary}
         title={title}
         channelId={channelId}
-        groupId={groupId}
         coverImage={coverImage}
         videos={videos}
         members={members}
@@ -116,7 +114,6 @@ GroupItem.propTypes = {
     passcode: PropTypes.string,
   }),
   channelId: PropTypes.string,
-  groupId: PropTypes.string,
   members: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string,

@@ -13,6 +13,7 @@ const GroupMembers = ({ members }) => {
           <div
             className="mx-1 d-flex align-items-center"
             style={{ flexDirection: 'column' }}
+            key={member.id}
           >
             <Media
               key={member.id}
