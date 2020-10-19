@@ -20,7 +20,7 @@ export default function getMessageActionOptions({
 }) {
   const isModerator = userRole === ChatRoles.MODERATOR;
   const isMine = isMyMessage();
-  const showSendDirectMessage = !isMine && !!onInitiateDm;
+  const showSendDirectMessage = isModerator && !isMine && !!onInitiateDm;
 
   return [
     {
@@ -46,7 +46,7 @@ export default function getMessageActionOptions({
     },
     {
       label: 'Delete Message',
-      showWhen: isMyMessage || isModerator,
+      showWhen: isMine || isModerator,
       destructive: true,
       callback: handleDelete,
     },
