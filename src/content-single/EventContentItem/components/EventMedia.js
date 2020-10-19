@@ -15,7 +15,7 @@ const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
       }
       isLive={!!liveStreamSource && liveStreamSource !== ''}
       imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
-      className="max-height-45-vh shadow"
+      className="shadow"
       ratio={{ xs: '16by9' }}
       forceRatio
       rounded

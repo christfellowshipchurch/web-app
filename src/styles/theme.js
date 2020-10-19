@@ -41,6 +41,9 @@ const colors = Object.freeze({
     800: '#353535',
     900: '#1a1a1a',
   },
+  coolGray: {
+    800: '#343a40',
+  },
   black: '#000',
   ruby: '#cb045b',
   red: '#dc3545',
@@ -68,13 +71,26 @@ export const theme = Object.freeze({
     sans: '"Gotham A", "Gotham B"',
   },
   font: {
-    ...colors.gray, // Hypothetically, this could be reversed for dark mode
+    // Hypothetically, the spread key values could be reversed for dark mode
+    ...colors.gray,
+    coolGray: colors.coolGray,
     destructive: colors.red,
   },
   fontSize: {
     xsmall: '0.75rem', // ~12px
     small: '0.875rem', // ~14px
     medium: '1rem', // ~16px
+    h1: '2.5rem', // ~40px
+    h2: '2rem', // ~32px
+    h3: '1.75rem', // ~28px
+    h4: '1.5rem', // ~24px
+    h5: '1.25rem', // ~20px
+    h6: '1rem', // ~16px
+  },
+  fontWeight: {
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
   },
   shadow: {
     card: '0 10px 9px -4px rgba(0, 0, 0, 0.07)',
@@ -102,9 +118,9 @@ export const theme = Object.freeze({
   chat: {
     dmsHeader: color(colors.white).alpha(0.95).rgb(),
     message: {
-      name: colors.gray[700],
+      name: colors.coolGray[800],
       date: colors.gray[400],
-      text: colors.gray[600],
+      text: colors.coolGray[800],
     },
     unreadIndicator: colors.red,
   },

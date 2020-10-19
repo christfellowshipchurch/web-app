@@ -23,17 +23,32 @@ export function getStreamUser(user) {
 }
 
 export function getRoleFromMembership(channel) {
-  const role = get(channel, 'state.membership.role');
+  // Not ideal, but it seems like Stream Chat provides this info in a few inconsistent ways.
+  // In an abundance of (ugly) caution, exhaust the options. Some of this logic borrowed from
+  // stream component internals.
+  const isModerator = get(channel, 'state.membership.is_moderator');
 
-  if (!role) {
-    return ChatRoles.GUEST;
+  if (isModerator === true) {
+    return ChatRoles.MODERATOR;
   }
 
-  // ⚠️ Warning
-  // There is an assumption that stream's role names will map 1:1
-  // with the ones we use in our graphql API's enum.
-  // i.e. "moderator" in Stream is "MODERATOR" in our API.
-  return ChatRoles[role.toUpperCase()];
+  const userRole = get(channel, 'state.user.role');
+  const membership = get(channel, 'state.membership.role');
+  const membershipUserRole = get(channel, 'state.membership.user.role');
+  const value = userRole || membership || membershipUserRole;
+
+  switch (value) {
+    case 'channel_moderator':
+    case 'moderator':
+      return ChatRoles.MODERATOR;
+
+    case 'member':
+    case 'user':
+      return ChatRoles.USER;
+
+    default:
+      return ChatRoles.GUEST;
+  }
 }
 
 // :: Channel
@@ -60,7 +75,6 @@ export function getOtherUser(channel, currentUserId) {
 // :: Direct Messages
 export async function getUserDmChannels() {
   const currentUserId = get(StreamChatClient, 'user.id');
-  console.group('[rkd] 👥 getUserDmChannels() currentUserId:', currentUserId);
 
   if (currentUserId) {
     const filter = {
@@ -70,14 +84,7 @@ export async function getUserDmChannels() {
     const sort = { last_message_at: -1 };
     const options = { limit: 30 };
 
-    const dmChannelsResponse = await StreamChatClient.queryChannels(
-      filter,
-      sort,
-      options
-    );
-    console.log('[rkd] ---> dmChannelsResponse:', dmChannelsResponse);
-    console.groupEnd();
-    return dmChannelsResponse;
+    return StreamChatClient.queryChannels(filter, sort, options);
   }
 
   return [];
