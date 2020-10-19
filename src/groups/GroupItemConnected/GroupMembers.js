@@ -8,7 +8,7 @@ const GroupMembers = ({ members }) => {
   return (
     <div className="my-3">
       <h3>Members</h3>
-      <div className="row my-2" style={{ overflowX: 'auto', flexWrap: 'nowrap' }}>
+      <div className="row my-2" style={{ overflowY: 'auto', maxHeight: 120 }}>
         {members.map((member) => (
           <div
             className="mx-1 d-flex align-items-center"
