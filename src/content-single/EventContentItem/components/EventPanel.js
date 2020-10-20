@@ -64,8 +64,8 @@ const EventPanel = ({ event, channelId }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
   const [watcherCount, setWatcherCount] = useState(null);
 
-  const handleWatcherCountChange = (num) => {
-    setWatcherCount(numeral(num).format('0,0'));
+  const handleWatcherCountChange = (num = 0) => {
+    setWatcherCount(numeral(num + 1).format('0,0'));
   };
 
   return (
