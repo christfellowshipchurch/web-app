@@ -41,11 +41,10 @@ export function getRoleFromMembership(channel) {
     case 'channel_moderator':
     case 'moderator':
       return ChatRoles.MODERATOR;
-
     case 'member':
     case 'user':
+    case 'owner':
       return ChatRoles.USER;
-
     default:
       return ChatRoles.GUEST;
   }

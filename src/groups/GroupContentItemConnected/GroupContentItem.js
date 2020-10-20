@@ -3,11 +3,10 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
-import Banner from '../../content-single/Banner';
-import { AddToCalendar, Card } from '../../ui';
-import { Icon } from '../../ui/Icons';
+import Banner from 'content-single/Banner';
+import { AddToCalendar, Card, Icon } from 'ui';
 
-import dateTextFormat from '../dateTextFormat';
+import dateTextFormat from 'groups/dateTextFormat';
 
 // add any additional parameters to the video urls
 const videoCallURLWithParameters = (videoURL, parameters) => {
