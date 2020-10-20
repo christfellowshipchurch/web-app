@@ -166,9 +166,13 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
             zIndex: 1000,
             paddingBottom: '2.1rem',
           }}
-          onClick={handleToggleTheater}
         >
-          <Icon name="tv" fill={theaterMode ? 'white' : 'gray'} size={20} />
+          <Icon
+            name="tv"
+            fill={theaterMode ? 'white' : 'gray'}
+            size={20}
+            onClick={handleToggleTheater}
+          />
         </div>
       )}
     </>
