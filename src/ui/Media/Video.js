@@ -10,10 +10,10 @@ import { Icon } from '../Icons';
 const MediaVideo = ({ source, poster, isLive, showControls }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
+  const [played, setPlayed] = useState(false);
   const [theaterMode, dispatch] = useTheaterMode();
 
   const showTheaterButton = isLive;
-  const [played, setPlayed] = useState(false);
 
   let videoProps = showControls
     ? {

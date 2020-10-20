@@ -35,6 +35,7 @@ const TheaterContainer = styled.div`
     grid-template-areas:
       'stream stream'
       'heading chat'
+      'hr chat'
       'social chat'
       'cta cta';
   }
@@ -48,6 +49,7 @@ const TheaterContainer = styled.div`
     grid-template-areas:
       'stream chat'
       'heading chat'
+      'hr hr'
       'social social'
       'cta cta';
   }
@@ -76,6 +78,9 @@ const EventLiveLayout = ({ content, liveStream }) => {
           </Area>
           <Area area="chat">
             <EventPanel event={content} isLive channelId={channelId} />
+          </Area>
+          <Area area="hr">
+            <hr />
           </Area>
           <Area area="cta">
             <CallsToAction
