@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTheaterModeState } from 'providers/TheaterModeProvider';
+
 import { get } from 'lodash';
 import styled from 'styled-components/macro';
 import { breakpoint } from 'styles/theme';
-import { useLocalStorage } from 'hooks';
 
 import { GridContainer, Row, Col } from 'ui';
 
@@ -57,7 +58,7 @@ const Area = styled.div`
 `;
 
 const EventLiveLayout = ({ content, liveStream }) => {
-  const { storedValue: theaterMode } = useLocalStorage('theaterMode', false);
+  const theaterMode = useTheaterModeState();
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'chatChannelId');
 

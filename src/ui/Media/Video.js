@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Hls from 'hls.js';
 import { isMobile, isIOS } from 'react-device-detect';
-import { useLocalStorage } from 'hooks';
+import { useTheaterMode, toggleTheaterMode } from 'providers/TheaterModeProvider';
 
 import { Icon } from '../Icons';
 
 const MediaVideo = ({ source, poster, isLive, showControls }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
-  const { storedValue: theaterMode, setValue: setTheaterMode } = useLocalStorage(
-    'theaterMode',
-    false
-  );
+  const [theaterMode, dispatch] = useTheaterMode();
+
   const showTheaterButton = isLive;
   const [played, setPlayed] = useState(false);
 
@@ -75,7 +73,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
   }, [videoRef]);
 
   const handleToggleTheater = () => {
-    setTheaterMode(!theaterMode);
+    dispatch(toggleTheaterMode());
   };
 
   return (
