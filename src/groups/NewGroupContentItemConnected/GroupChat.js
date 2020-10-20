@@ -16,7 +16,7 @@ import { Message, MessageInput, ChatError } from 'ui/chat';
 import {
   GET_CURRENT_USER_FOR_CHAT,
   GET_CURRENT_USER_ROLE_FOR_CHANNEL,
-} from '../../content-single/EventContentItem/queries';
+} from 'content-single/EventContentItem/queries';
 
 const ChatContainer = styled.div`
   position: relative;

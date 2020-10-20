@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
-import { useAuth } from '../../auth';
-import { Groups, GroupItemConnected } from '../../groups';
+import { useAuth } from 'auth';
+import { Groups, GroupContentItemConnected } from 'groups';
 
-import redirects from '../../redirects.json';
+import redirects from 'redirects.json';
 
 const GroupSingle = ({
   match: { params: { groupName } = {} } = {},
@@ -30,7 +30,7 @@ const GroupSingle = ({
   }
 
   // if no redirect, proceed to the Router
-  return <GroupItemConnected itemId={contentId} />;
+  return <GroupContentItemConnected itemId={contentId} />;
 };
 
 const Router = () => (

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
-import { Media } from '../../ui';
+import { Media } from 'ui';
 
 const GroupMembers = ({ members }) => {
   return (

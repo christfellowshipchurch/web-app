@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
-import dateTextFormat from '../dateTextFormat';
-import { AddToCalendar } from '../../ui';
-import { Icon } from '../../ui/Icons';
+import { AddToCalendar, Icon } from 'ui';
+
+import dateTextFormat from 'groups/dateTextFormat';
 
 const GroupCalendarData = ({
   title,
