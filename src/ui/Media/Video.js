@@ -161,18 +161,21 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
       )}
       {showTheaterButton && (
         <div
-          className="fill d-flex flex-column justify-content-end align-items-center"
+          className="fill d-flex flex-column justify-content-end align-items-end"
           style={{
-            zIndex: 1000,
-            paddingBottom: '2.1rem',
+            paddingBottom: '2.33rem',
+            paddingRight: '7rem',
+            pointerEvents: 'none',
           }}
         >
-          <Icon
-            name="tv"
-            fill={theaterMode ? 'white' : 'gray'}
-            size={20}
-            onClick={handleToggleTheater}
-          />
+          <span style={{ pointerEvents: 'auto', opacity: 0.85 }}>
+            <Icon
+              name="tv"
+              fill={theaterMode ? 'white' : 'gray'}
+              size={16}
+              onClick={handleToggleTheater}
+            />
+          </span>
         </div>
       )}
     </>
