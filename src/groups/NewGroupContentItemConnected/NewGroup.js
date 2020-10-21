@@ -1,13 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import moment from 'moment';
 import { get } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
+import dateTextFormat from 'groups/dateTextFormat';
+
 import GroupBannerBackground from './GroupBannerBackground';
 import GroupContent from './GroupContent';
+
+// Cast, in order of appearance
 import GroupImage from './GroupImage';
+import GroupMasthead from './GroupMasthead';
+import GroupCTAs from './GroupCTAs';
 
 // :: Styled Components
 // ------------------------
@@ -18,39 +25,62 @@ const Container = styled.div`
   min-height: 75vh;
   max-width: ${({ theme }) => theme.sizing.maxPageWidth};
   margin: 0 auto;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+    'cover-image cover-image'
+    'masthead ctas'
+    'members members'
+    'tabs tabs'
+    'content content';
 `;
 
 const Row = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  width: 100%;
   max-width: 100%;
+`;
+
+const Area = styled.div`
+  grid-area: ${({ area }) => area};
 `;
 
 // :: Main Component
 // ------------------------
 const NewGroup = ({
   coverImage,
-  dateTimes,
+  title,
+  summary,
+  userName,
+  dateTime,
+  members,
+  parentVideoCall,
+  videoCall,
   groupResources,
+  channelId,
   onClickGroupResource,
   onClickVideoCall,
   onClickParentVideoCall,
-  parentVideoCall,
-  summary,
-  title,
-  userName,
-  videoCall,
-  channelId,
-  members,
 }) => {
+  console.log('[rkd] dateTime:', dateTime);
+  const groupMeetingTime = dateTextFormat(get(dateTime, 'start'));
+
   return (
     <>
       <Container>
-        <Row>
+        <Area area="cover-image">
           <GroupImage coverImage={coverImage} title={title} />
-        </Row>
-        <Row>Masthead</Row>
-        <Row>Members</Row>
-        <Row>Tabs</Row>
-        <Row>Tab Content</Row>
+        </Area>
+        <Area area="masthead">
+          <GroupMasthead headline={title} subHeadline={groupMeetingTime} />
+        </Area>
+        <Area area="ctas">
+          <GroupCTAs parentVideoCall={parentVideoCall} videoCall={videoCall} />
+        </Area>
+        <Area area="members">Members</Area>
+        <Area area="tabs">Tabs</Area>
+        <Area area="content">Content</Area>
       </Container>
     </>
   );
@@ -64,7 +94,7 @@ NewGroup.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   userName: PropTypes.string,
-  dateTimes: PropTypes.shape({
+  dateTime: PropTypes.shape({
     start: PropTypes.string,
     end: PropTypes.string,
   }),

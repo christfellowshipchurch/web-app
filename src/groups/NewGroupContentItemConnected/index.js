@@ -85,12 +85,13 @@ const NewGroupContentItemConnected = ({ itemId }) => {
   };
 
   const resources = getGroupResources(get(content, 'groupResources', []));
-
+  console.log('[rkd] content:', content);
   return (
     <NewGroup
       coverImage={get(content, 'coverImage')}
       title={get(content, 'title')}
       members={get(content, 'members', [])}
+      dateTime={get(content, 'dateTime')}
     />
   );
   // return (

@@ -76,7 +76,9 @@ export const theme = Object.freeze({
   font: {
     // Hypothetically, the spread key values could be reversed for dark mode
     ...colors.gray,
-    coolGray: colors.coolGray,
+    h1: colors.coolGray,
+    h2: colors.coolGray,
+    h5: colors.coolGray,
     destructive: colors.red,
   },
   fontSize: {
@@ -91,6 +93,7 @@ export const theme = Object.freeze({
     h6: '1rem', // ~16px
   },
   fontWeight: {
+    light: 300,
     medium: 500,
     semiBold: 600,
     bold: 700,
