@@ -9,12 +9,38 @@ import { ErrorBlock, generateUrlLink, Loader } from 'ui';
 
 import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
-import Group from './Group';
+import NewGroup from './NewGroup';
 
-const GroupContentItemConnected = ({ itemId }) => {
+function getGroupResources(resources) {
+  return resources.map((resource) => {
+    let resourceURL = get(resource, 'relatedNode.url', '');
+
+    if (resource.action === 'READ_CONTENT') {
+      const urlBase =
+        resource.relatedNode.__typename === 'InformationalContentItem'
+          ? 'items'
+          : 'content';
+
+      const { href } = generateUrlLink({
+        urlBase,
+        id: resource.relatedNode.id,
+        title: resource.title,
+      });
+
+      resourceURL = href;
+    }
+
+    return {
+      title: resource.title,
+      url: resourceURL,
+    };
+  });
+}
+
+const NewGroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
-    fetchPolicy: 'cache-and-network',
+    // fetchPolicy: 'cache-and-network',
   });
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
@@ -58,54 +84,41 @@ const GroupContentItemConnected = ({ itemId }) => {
     }
   };
 
-  const getGroupResources = get(content, 'groupResources', []).map((resource) => {
-    let resourceURL = get(resource, 'relatedNode.url', '');
-
-    if (resource.action === 'READ_CONTENT') {
-      const urlBase =
-        resource.relatedNode.__typename === 'InformationalContentItem'
-          ? 'items'
-          : 'content';
-
-      const { href } = generateUrlLink({
-        urlBase,
-        id: resource.relatedNode.id,
-        title: resource.title,
-      });
-
-      resourceURL = href;
-    }
-
-    return {
-      title: resource.title,
-      url: resourceURL,
-    };
-  });
+  const resources = getGroupResources(get(content, 'groupResources', []));
 
   return (
-    <Group
-      {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
-      dateTimes={get(content, 'dateTime')}
-      groupResources={getGroupResources}
-      onClickGroupResource={handleOnClickGroupResource}
-      onClickParentVideoCall={handleOnClickVideoCall}
-      onClickVideoCall={handleOnClickVideoCall}
-      parentVideoCall={get(content, 'parentVideoCall')}
-      summary={get(content, 'summary')}
+    <NewGroup
+      coverImage={get(content, 'coverImage')}
       title={get(content, 'title')}
-      userName={
-        get(data, 'currentUser.profile.nickName') ||
-        get(data, 'currentUser.profile.firstName')
-      }
-      videoCall={get(content, 'videoCall')}
-      channelId={get(content, 'chatChannelId')}
-      members={get(content, 'members')}
+      members={get(content, 'members', [])}
     />
   );
+  // return (
+  //   <Group
+  //     {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
+  //     dateTimes={get(content, 'dateTime')}
+  //     groupResources={getGroupResources}
+  //     onClickGroupResource={handleOnClickGroupResource}
+  //     onClickParentVideoCall={handleOnClickVideoCall}
+  //     onClickVideoCall={handleOnClickVideoCall}
+  //     parentVideoCall={get(content, 'parentVideoCall')}
+  //     summary={get(content, 'summary')}
+  //     title={get(content, 'title')}
+  //     userName={
+  //       get(data, 'currentUser.profile.nickName') ||
+  //       get(data, 'currentUser.profile.firstName')
+  //     }
+  //     videoCall={get(content, 'videoCall')}
+  //     channelId={get(content, 'chatChannelId')}
+  //     members={get(content, 'members')}
+  //   />
+  // );
+
+  return <h1>hey</h1>;
 };
 
-GroupContentItemConnected.propTypes = {
+NewGroupContentItemConnected.propTypes = {
   itemId: PropTypes.string.isRequired,
 };
 
-export default GroupContentItemConnected;
+export default NewGroupContentItemConnected;

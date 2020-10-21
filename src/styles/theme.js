@@ -67,6 +67,9 @@ export const theme = Object.freeze({
     lg: `@media (min-width: 992px)`,
     xl: `@media (min-width: 1200px)`,
   },
+  sizing: {
+    maxPageWidth: '1100px',
+  },
   fontFamily: {
     sans: '"Gotham A", "Gotham B"',
   },
