@@ -9,17 +9,43 @@ const DEFAULT_GROUP_IMAGE =
 // :: Styled Components
 // ------------------------
 
-const Image = styled.img`
+const OuterContainer = styled.div`
+  position: relative;
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  flex: 1;
+  height: 0;
+  padding-top: 36%; // Enforces aspect ratio
+  overflow: hidden;
+`;
+
+const InnerContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
 
 // :: Main Component
 // ------------------------
 const GroupImage = ({ coverImage, title }) => {
   const src = get(coverImage, 'sources[0].uri', DEFAULT_GROUP_IMAGE);
-  return <img src={src} alt={title} />;
+  return (
+    <OuterContainer>
+      <InnerContainer>
+        <Image src={src} alt={title} />
+      </InnerContainer>
+    </OuterContainer>
+  );
 };
 
 GroupImage.propTypes = {
