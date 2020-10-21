@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import { useLocalStorage } from 'hooks';
+import { THEATER_MODE } from 'keys';
 
 const TheaterModeStateContext = createContext(null);
 const TheaterModeDispatchContext = createContext(null);
@@ -26,7 +27,7 @@ function reducer(state, action) {
 }
 
 const TheaterModeProvider = ({ children }) => {
-  const { storedValue: theaterMode, setValue } = useLocalStorage('theaterMode', false);
+  const { storedValue: theaterMode, setValue } = useLocalStorage(THEATER_MODE, false);
   const [state, dispatch] = useReducer(reducer, theaterMode);
 
   useEffect(() => {
