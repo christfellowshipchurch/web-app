@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import { baseUnit } from 'styles/theme';
-
 // :: Styled Components
 // ------------------------
 
@@ -22,8 +20,7 @@ const SubHeadline = styled.h3`
 const GroupCTAs = ({ headline, subHeadline }) => {
   return (
     <div>
-      <Headline>h1</Headline>
-      <SubHeadline>h2</SubHeadline>
+      <a className="btn btn-primary mb-3 text-white w-100">Join Meeting</a>
     </div>
   );
 };

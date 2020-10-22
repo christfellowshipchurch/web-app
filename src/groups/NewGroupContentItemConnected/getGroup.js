@@ -43,6 +43,7 @@ export default gql`
           id
           nickName
           firstName
+          lastName
           photo {
             uri
           }

@@ -132,4 +132,7 @@ export const theme = Object.freeze({
   },
   link: colors.cyan,
   liveEvent: colors.ruby,
+  placeholder: {
+    image: colors.gray[200],
+  },
 });

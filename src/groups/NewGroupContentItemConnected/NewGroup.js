@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import moment from 'moment';
 import { get } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
@@ -15,16 +14,16 @@ import GroupContent from './GroupContent';
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
 import GroupCTAs from './GroupCTAs';
+import GroupMembers from './GroupMembers';
 
 // :: Styled Components
 // ------------------------
 
 const Container = styled.div`
   display: grid;
-  background: cyan;
   min-height: 75vh;
   max-width: ${({ theme }) => theme.sizing.maxPageWidth};
-  margin: 0 auto;
+  margin: 3rem auto 7rem;
   grid-template-columns: 2fr 1fr;
   grid-template-areas:
     'cover-image cover-image'
@@ -78,7 +77,9 @@ const NewGroup = ({
         <Area area="ctas">
           <GroupCTAs parentVideoCall={parentVideoCall} videoCall={videoCall} />
         </Area>
-        <Area area="members">Members</Area>
+        <Area area="members">
+          <GroupMembers members={members} />
+        </Area>
         <Area area="tabs">Tabs</Area>
         <Area area="content">Content</Area>
       </Container>
