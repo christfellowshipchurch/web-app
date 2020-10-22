@@ -30,6 +30,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
       ...videoProps,
       autoPlay: true,
       playsInline: true,
+      disablePictureInPicture: true,
     };
   }
 
@@ -163,7 +164,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
         <div
           className="fill d-flex flex-column justify-content-end align-items-end"
           style={{
-            paddingBottom: '2.33rem',
+            paddingBottom: '2.35rem',
             paddingRight: '7rem',
             pointerEvents: 'none',
           }}
