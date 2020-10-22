@@ -24,13 +24,21 @@ const Container = styled.div`
   min-height: 75vh;
   max-width: ${({ theme }) => theme.sizing.maxPageWidth};
   margin: 3rem auto 7rem;
+  grid-template-rows: max-content;
   grid-template-columns: 2fr 1fr;
+  grid-gap: ${baseUnit(2)};
+  /* justify-items: stretch; */
   grid-template-areas:
     'cover-image cover-image'
     'masthead ctas'
     'members members'
     'tabs tabs'
     'content content';
+  /* background: rgba(255, 32, 200, 0.6); */
+
+  & > * {
+    /* background: rgba(0, 255, 255, 0.8); */
+  }
 `;
 
 const Row = styled.div`

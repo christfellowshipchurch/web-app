@@ -5,23 +5,17 @@ import styled from 'styled-components/macro';
 // :: Styled Components
 // ------------------------
 
-const Headline = styled.h1`
-  color: ${({ theme }) => theme.font.h1};
-`;
-
-const SubHeadline = styled.h3`
-  font-weight: ${({ theme }) => theme.fontWeight.light};
-  font-size: ${({ theme }) => theme.fontSize.h3};
-  color: ${({ theme }) => theme.font.h3};
+const Container = styled.div`
+  background: cyan;
 `;
 
 // :: Main Component
 // ------------------------
 const GroupCTAs = ({ headline, subHeadline }) => {
   return (
-    <div>
-      <a className="btn btn-primary mb-3 text-white w-100">Join Meeting</a>
-    </div>
+    <Container>
+      <a className="btn btn-primary text-white w-100">Join Meeting</a>
+    </Container>
   );
 };
 
