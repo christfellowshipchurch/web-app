@@ -39,6 +39,7 @@ export default gql`
           meetingId
           passcode
         }
+        chatChannelId
       }
     }
     currentUser {

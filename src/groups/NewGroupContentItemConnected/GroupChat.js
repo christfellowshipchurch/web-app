@@ -101,8 +101,21 @@ const GroupChat = ({ channelId }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
-  if (loading || loadingRole || !channel) return <Loader />;
-  if (error || connectionError) return <ChatError />;
+  if (loading || loadingRole || !channel) {
+    return (
+      <ChatContainer>
+        <Loader />
+      </ChatContainer>
+    );
+  }
+
+  if (error || connectionError) {
+    return (
+      <ChatContainer>
+        <ChatError />
+      </ChatContainer>
+    );
+  }
 
   return (
     <ChatContainer>

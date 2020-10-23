@@ -11,6 +11,8 @@ import { AddToCalendar, Card, Icon } from 'ui';
 
 import dateTextFormat from 'groups/dateTextFormat';
 
+import GroupChat from '../NewGroupContentItemConnected/GroupChat';
+
 // :: Styled Components
 // ------------------------
 
@@ -73,9 +75,11 @@ const GroupContentItem = ({
   title,
   userName,
   videoCall,
+  chatChannelId,
 }) => {
   const [activeTab, setActiveTab] = useState('about');
 
+  console.log('[rkd] chatChannelId:', chatChannelId);
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
 
   if (parentVideoCall) {
@@ -185,20 +189,29 @@ const GroupContentItem = ({
               </div>
             </Card>
           </aside>
-          {summary ? (
-            <div className="col-12 col-lg-8 p-2" style={{ minHeight: '50vh' }}>
-              <TabsContainer>
-                <Tab active={activeTab === 'about'} onClick={() => setActiveTab('about')}>
-                  About
-                </Tab>
+          <div className="col-12 col-lg-8 p-2" style={{ minHeight: '50vh' }}>
+            <TabsContainer>
+              <Tab
+                active={chatChannelId && activeTab === 'about'}
+                onClick={() => setActiveTab('about')}
+              >
+                About
+              </Tab>
+              {chatChannelId && (
                 <Tab active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
                   Chat
                 </Tab>
-              </TabsContainer>
-              {activeTab === 'about' && <Card>{summary}</Card>}
-              {activeTab === 'chat' && <Card>Chat</Card>}
-            </div>
-          ) : null}
+              )}
+            </TabsContainer>
+            {activeTab === 'about' && (
+              <Card>{summary || 'Group summary unavailable'}</Card>
+            )}
+            {chatChannelId && activeTab === 'chat' && (
+              <Card>
+                <GroupChat channelId={chatChannelId} />
+              </Card>
+            )}
+          </div>
         </section>
       </div>
     </>
