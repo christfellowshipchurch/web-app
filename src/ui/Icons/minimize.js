@@ -8,10 +8,17 @@ const Icon = ({ size, fill }) => {
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      aria-labelledby="title"
+      fill="none"
+      stroke={fill}
+      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      class="feather feather-maximize-2"
     >
-      <rect x="2" y="7" width="20" height="15" rx="2" ry="2" fill={fill}></rect>
-      <polyline points="17 2 12 7 7 2" stroke={fill} fill="none"></polyline>
+      <polyline points="4 14 10 14 10 20"></polyline>
+      <polyline points="20 10 14 10 14 4"></polyline>
+      <line x1="14" y1="10" x2="21" y2="3"></line>
+      <line x1="3" y1="21" x2="10" y2="14"></line>
     </svg>
   );
 };

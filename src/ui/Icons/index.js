@@ -40,7 +40,8 @@ import SignOut from './sign-out';
 import Square from './square';
 import ThreeDots from './three-dots';
 import Times from './times';
-import Tv from './tv';
+import Maximize from './maximize';
+import Minimize from './minimize';
 import Twitter from './twitter';
 import User from './user';
 import UserCircle from './user-circle';
@@ -85,7 +86,7 @@ export {
   Square,
   ThreeDots,
   Times,
-  Tv,
+  Maximize,
   Twitter,
   User,
   Users,
@@ -134,7 +135,8 @@ export const Icons = {
   Square,
   ThreeDots,
   Times,
-  Tv,
+  Maximize,
+  Minimize,
   Twitter,
   User,
   UserCircle,
