@@ -132,7 +132,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
               <Icon
                 className="d-flex justify-content-center"
                 name="play"
-                fill="gray"
+                fill="white"
                 size={20}
               />
               <p
