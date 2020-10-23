@@ -120,6 +120,7 @@ const GroupContentItem = ({
                   )}
                   onClick={() => onClickParentVideoCall('parent')}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {get(parentVideoCall, 'labelText') || `Join Meeting`}
                 </a>
@@ -250,6 +251,7 @@ GroupContentItem.propTypes = {
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
   }),
+  chatChannelId: PropTypes.string,
 };
 
 export default GroupContentItem;
