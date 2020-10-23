@@ -100,3 +100,26 @@ export function filterRecentDmChannels(channels) {
     (channel) => !!moment(get(channel, 'state.last_message_at')).isAfter(recentDate)
   );
 }
+
+// :: Development Utils
+
+export async function logChannelMembers(channel) {
+  console.group('logChannelMembers()');
+
+  console.log('[rkd] channel:', channel);
+  console.group('•••••  👮‍♀️ Moderators  ••••••••••••••••••••••••••••••••••••••');
+  const moderators = await channel.queryMembers({ is_moderator: true });
+  moderators.members.forEach(({ user }) => {
+    console.log(user);
+  });
+  console.groupEnd();
+
+  console.group('•••••  👤 Users  ••••••••••••••••••••••••••••••••••••••');
+  const users = await channel.queryMembers({ is_moderator: false });
+  users.members.forEach(({ user }) => {
+    console.log(user);
+  });
+  console.groupEnd();
+
+  console.groupEnd();
+}

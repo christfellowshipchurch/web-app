@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { useQuery, useLazyQuery } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import { get, isNil } from 'lodash';
 
 import { Streami18n, StreamChatClient, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
@@ -13,10 +13,7 @@ import { useAuth } from 'auth';
 import { Loader } from 'ui';
 import { Message, MessageInput, ChatError } from 'ui/chat';
 
-import {
-  GET_CURRENT_USER_FOR_CHAT,
-  GET_CURRENT_USER_ROLE_FOR_CHANNEL,
-} from 'content-single/EventContentItem/queries';
+import { GET_CURRENT_USER_FOR_CHAT } from 'content-single/EventContentItem/queries';
 
 const ChatContainer = styled.div`
   position: relative;
@@ -34,16 +31,6 @@ const GroupChat = ({ channelId }) => {
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
     skip: !isLoggedIn,
-  });
-
-  // The user role query is separate and invoked manually at the right time, since
-  // the channel must exist first before we can request our role in it.
-  // That problem only affects the *first* user for the Event's chat.
-  const [getUserRole, { loadingRole }] = useLazyQuery(GET_CURRENT_USER_ROLE_FOR_CHANNEL, {
-    fetchPolicy: 'network-only',
-    variables: {
-      channelId,
-    },
   });
 
   const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
@@ -79,10 +66,10 @@ const GroupChat = ({ channelId }) => {
         setChannel(newChannel);
         console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
 
-        // Now that we're sure the channel exists, we can request the user's role for it
-        if (shouldConnectAsUser) {
-          await getUserRole();
-        }
+        // ⚠️ Temporary/to be removed prior to end-user release
+        setTimeout(() => {
+          ChatUtils.logChannelMembers(newChannel);
+        }, 1000);
       } catch (err) {
         console.log('❌%c Chat connection error ❌', 'color: red');
         console.error(err);
@@ -101,7 +88,7 @@ const GroupChat = ({ channelId }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
-  if (loading || loadingRole || !channel) {
+  if (loading || !channel) {
     return (
       <ChatContainer>
         <Loader />
