@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { keys } from 'lodash';
@@ -116,6 +116,8 @@ MediaItem.propTypes = {
   imageAlt: PropTypes.string.isRequired,
   videoUrl: PropTypes.string,
   className: PropTypes.string,
+  rounded: PropTypes.bool,
+  circle: PropTypes.bool,
   style: PropTypes.object,
   showControls: PropTypes.bool,
   withHover: PropTypes.bool,
