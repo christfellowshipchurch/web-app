@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Hls from 'hls.js';
 import { isMobile, isIOS } from 'react-device-detect';
+import { useTheaterMode, toggleTheaterMode } from 'providers/TheaterModeProvider';
 
 import { Icon } from '../Icons';
 
@@ -10,6 +11,9 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
   const [played, setPlayed] = useState(false);
+  const [theaterMode, dispatch] = useTheaterMode();
+
+  const showTheaterButton = isLive;
 
   let videoProps = showControls
     ? {
@@ -26,6 +30,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
       ...videoProps,
       autoPlay: true,
       playsInline: true,
+      disablePictureInPicture: true,
     };
   }
 
@@ -68,8 +73,12 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
     if (isLive || isIOS) return playButtonClick();
   }, [videoRef]);
 
+  const handleToggleTheater = () => {
+    dispatch(toggleTheaterMode());
+  };
+
   return (
-    <div>
+    <>
       <video
         className="rounded"
         {...videoProps}
@@ -89,7 +98,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
           className="fill d-flex justify-content-start align-items-end"
           style={{ zIndex: 900 }}
         >
-          <a
+          <button
             className={classnames(
               'cursor-hover',
               'scale-media-up-on-hover',
@@ -135,7 +144,7 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
                 Play
               </p>
             </div>
-          </a>
+          </button>
         </div>
       )}
       {showMuteButton && (
@@ -151,7 +160,24 @@ const MediaVideo = ({ source, poster, isLive, showControls }) => {
           </h4>
         </div>
       )}
-    </div>
+      {showTheaterButton && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            padding: '0.75rem',
+          }}
+        >
+          <Icon
+            name={theaterMode ? 'minimize' : 'maximize'}
+            fill={'white'}
+            size={16}
+            onClick={handleToggleTheater}
+          />
+        </div>
+      )}
+    </>
   );
 };
 
