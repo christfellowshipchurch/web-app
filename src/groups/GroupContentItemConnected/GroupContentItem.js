@@ -79,7 +79,6 @@ const GroupContentItem = ({
 }) => {
   const [activeTab, setActiveTab] = useState('about');
 
-  console.log('[rkd] chatChannelId:', chatChannelId);
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
 
   if (parentVideoCall) {

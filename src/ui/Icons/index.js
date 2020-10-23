@@ -17,13 +17,14 @@ import Circle from './circle';
 import Clock from './clock';
 import Comments from './comments';
 import DotCircle from './dot-circle';
-import EnvelopeOpenDollar from './envelope-open-dollar';
 import Envelope from './envelope';
+import EnvelopeOpenDollar from './envelope-open-dollar';
 import ExclamationCircle from './exclamation-circle';
 import Facebook from './facebook';
 import Google from './google';
 import Handshake from './handshake';
 import Home from './home';
+import Icon from './Icon';
 import Instagram from './instagram';
 import LiveDot from './live-dot';
 import LockAlt from './lock-alt';
@@ -39,12 +40,13 @@ import SignOut from './sign-out';
 import Square from './square';
 import ThreeDots from './three-dots';
 import Times from './times';
+import Maximize from './maximize';
+import Minimize from './minimize';
 import Twitter from './twitter';
-import UserCircle from './user-circle';
 import User from './user';
+import UserCircle from './user-circle';
 import Users from './users';
 import Youtube from './youtube';
-import Icon from './Icon';
 
 export {
   AngleDown,
@@ -64,13 +66,14 @@ export {
   Church,
   Clock,
   Comments,
-  EnvelopeOpenDollar,
   Envelope,
+  EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
   Google,
   Handshake,
   Home,
+  Icon,
   Instagram,
   LockAlt,
   Microsoft,
@@ -83,11 +86,11 @@ export {
   Square,
   ThreeDots,
   Times,
+  Maximize,
   Twitter,
   User,
   Users,
   Youtube,
-  Icon,
 };
 
 export const Icons = {
@@ -110,8 +113,8 @@ export const Icons = {
   Clock,
   Comments,
   DotCircle,
-  EnvelopeOpenDollar,
   Envelope,
+  EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
   Google,
@@ -132,9 +135,11 @@ export const Icons = {
   Square,
   ThreeDots,
   Times,
+  Maximize,
+  Minimize,
   Twitter,
-  UserCircle,
   User,
+  UserCircle,
   Users,
   Youtube,
 };
