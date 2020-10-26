@@ -1,59 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, isNil } from 'lodash';
 
 import { ErrorBlock } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
 
-import {
-  EventBannerBackground,
-  EventDescriptionCard,
-  EventMedia,
-  EventPanel,
-} from './components';
-
-import EventDetail from './EventDetail';
+import { TheaterModeProvider } from 'providers';
+import EventLayout from './EventLayout';
+import EventLiveLayout from './EventLiveLayout';
 import Placeholder from './Placeholder';
 
 const EventContentItem = ({ itemId, content, loading, error }) => {
-  if (loading && isEmpty(content)) {
-    return <Placeholder />;
-  }
+  const missingContent = isEmpty(content) || isNil(content);
 
-  if (error || (!loading && isEmpty(content))) {
-    console.log({ error });
-    return <ErrorBlock />;
-  }
+  if (loading && missingContent) return <Placeholder />;
+  if (error || (!loading && missingContent)) return <ErrorBlock />;
 
   return (
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
-        const isLive = !!(liveStream && liveStream.isLive);
-        const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
-
-        return (
-          <div style={{ minHeight: '75vh' }}>
-            <EventBannerBackground {...content} />
-
-            <div className="container-fluid max-width-1100 mx-auto">
-              <div className="row pt-4 mb-4">
-                {/* Main Column */}
-                <div className="col-lg-8">
-                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
-                  <EventDetail {...content} isLive={isLive} />
-                </div>
-
-                {/* Side Column */}
-                <div className="col-lg-4">
-                  <EventPanel event={content} />
-                </div>
-              </div>
-
-              <hr />
-
-              <EventDescriptionCard {...content} />
-            </div>
-          </div>
+        const isLive = get(liveStream, 'isLive', false);
+        return isLive ? (
+          <TheaterModeProvider>
+            <EventLiveLayout content={content} liveStream={liveStream} />
+          </TheaterModeProvider>
+        ) : (
+          <EventLayout content={content} />
         );
       }}
     </LiveConsumer>
@@ -65,6 +37,8 @@ EventContentItem.propTypes = {
   content: PropTypes.shape({
     id: PropTypes.string,
   }),
+  loading: PropTypes.bool,
+  error: PropTypes.any,
 };
 
 EventContentItem.defaultProps = {};

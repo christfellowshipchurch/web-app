@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import { htmlToReactParser } from '../../../utils';
+import { htmlToReactParser } from 'utils';
+
+import { Card, Col } from 'ui';
+
+import Tags from './Tags';
 
 const EventDescriptionCard = ({ htmlContent, tags }) => {
   if (!htmlContent) {
@@ -10,29 +13,12 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
   }
 
   return (
-    <div className="row mb-6">
-      <div className="col-12 col-lg-8 p-2">
+    <Col className="col-12 col-lg-8">
+      <Card>
         <div>{htmlToReactParser.parse(htmlContent)}</div>
-
-        <div className="mx-n1">
-          {tags.map((n, i) => (
-            <span
-              key={i}
-              className={classnames(
-                'badge',
-                'badge-light',
-                'font-weight-normal',
-                'py-2',
-                'px-3',
-                'mx-1'
-              )}
-            >
-              {n}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
+        <Tags tags={tags} />
+      </Card>
+    </Col>
   );
 };
 

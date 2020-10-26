@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { get } from 'lodash';
 
 import { Media } from 'ui';
 
 const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
-  <div className="mb-2 px-3">
+  <div className="mb-2">
     <Media
       imageUrl={get(coverImage, 'sources[0].uri', '')}
       videoUrl={
@@ -16,12 +15,11 @@ const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
       }
       isLive={!!liveStreamSource && liveStreamSource !== ''}
       imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
-      className="max-height-45-vh"
-      ratio={{ xs: '1by1', md: '16by9' }}
+      className="shadow"
+      ratio={{ xs: '16by9' }}
       forceRatio
       rounded
       showControls
-      className="shadow"
     />
   </div>
 );
@@ -37,6 +35,7 @@ EventMedia.propTypes = {
       sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
     })
   ),
+  liveStreamSource: PropTypes.string,
 };
 
 EventMedia.defaultProps = {

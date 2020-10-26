@@ -1,11 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { MessageInput, MessageInputSmall } from 'stream-chat-react';
+import { MessageInput as StreamMessageInput, MessageInputSmall } from 'stream-chat-react';
 
 import { baseUnit } from 'styles/theme';
 import { useAuth } from 'auth';
 
+import { Icon } from 'ui';
+
 // :: Styled Components
+// ------------------------
+
 const LoggedInContainer = styled.div`
   background-color: ${({ theme }) => theme.card.background};
 `;
@@ -14,7 +19,6 @@ const LoggedOutContainer = styled.p`
   position: relative;
   width: 100%;
   padding: ${baseUnit(2)};
-  margin-top: ${baseUnit(2)};
   margin-bottom: 0;
   text-align: center;
   background: ${({ theme }) => theme.card.background};
@@ -28,14 +32,52 @@ const LoginLink = styled.button`
   padding: 0;
 `;
 
+const SendButton = styled.button`
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  padding: 0;
+  background: ${({ theme }) => theme.brand};
+  border-radius: ${({ theme }) => theme.borderRadius.circle};
+`;
+
+const SendIcon = styled(Icon).attrs(({ theme }) => ({
+  name: 'paper-airplane',
+  fill: theme.brandForeground,
+  size: 20,
+}))`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const SendButtonComponent = ({ sendMessage }) => (
+  <SendButton onClick={sendMessage}>
+    <SendIcon />
+  </SendButton>
+);
+SendButtonComponent.propTypes = {
+  sendMessage: PropTypes.func.isRequired,
+};
+
 // :: Main Component
-const MessageInputLoggedOut = () => {
+// ------------------------
+
+const MessageInput = () => {
   const { isLoggedIn, logIn } = useAuth();
 
   if (isLoggedIn) {
     return (
       <LoggedInContainer>
-        <MessageInput Input={MessageInputSmall} noFiles />
+        <StreamMessageInput
+          Input={MessageInputSmall}
+          SendButton={SendButtonComponent}
+          noFiles
+          publishTypingEvent={false}
+          autocompleteTriggers={{}}
+        />
       </LoggedInContainer>
     );
   }
@@ -47,4 +89,4 @@ const MessageInputLoggedOut = () => {
   );
 };
 
-export default MessageInputLoggedOut;
+export default MessageInput;

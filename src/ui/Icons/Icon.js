@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { kebabCase, camelCase, upperFirst, flow } from 'lodash';
+import { camelCase, upperFirst, flow } from 'lodash';
 import { Icons } from './index';
 
 const pascalCase = (string) => flow(camelCase, upperFirst)(string);
@@ -10,10 +10,7 @@ const Icon = ({ name, size, fill, className, onClick }) => {
 
   return (
     <span className={className} onClick={onClick}>
-      {React.createElement(IconComponent, {
-        size,
-        fill,
-      })}
+      <IconComponent size={size} fill={fill} />
     </span>
   );
 };

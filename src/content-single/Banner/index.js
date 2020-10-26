@@ -1,50 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { get } from 'lodash';
+import BannerBackground from './BannerBackground';
+import BannerMain from './BannerMain';
 
-import { Media } from '../../ui';
+export const BannerContainer = ({ children }) => (
+  <div className="p-relative">{children}</div>
+);
 
-const Banner = ({
-  title,
-  coverImage,
-  videos,
-  withShare,
-  shareTitle,
-  liveStreamSource,
-}) => (
-  <div className="p-relative">
-    <div className="p-absolute w-100 h-100 overflow-hidden" style={{ bottom: 50 }}>
-      <Media
-        imageUrl={get(coverImage, 'sources[0].uri', '')}
-        imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
-        ratio={{ xs: '1by1', md: '16by9' }}
-        forceRatio
-        className="absolute-center"
-        style={{ filter: 'blur(50px)', height: '150%', width: '150%' }}
-      />
-      <div className="fill bg-black opacity-30" />
-    </div>
-
-    <div className="max-width-1100 mx-auto px-3 pt-6">
-      <Media
-        imageUrl={get(coverImage, 'sources[0].uri', '')}
-        videoUrl={
-          !!liveStreamSource && liveStreamSource !== ''
-            ? liveStreamSource
-            : get(videos, '[0].sources[0].uri', '')
-        }
-        isLive={!!liveStreamSource && liveStreamSource !== ''}
-        imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
-        className="max-height-45-vh"
-        ratio={{ xs: '1by1', md: '16by9' }}
-        forceRatio
-        rounded
-        showControls
-        className="shadow"
-      />
-    </div>
-  </div>
+const Banner = ({ title, coverImage, videos, liveStreamSource }) => (
+  <BannerContainer>
+    <BannerBackground title={title} coverImage={coverImage} />
+    <BannerMain
+      title={title}
+      coverImage={coverImage}
+      liveStreamSource={liveStreamSource}
+      videos={videos}
+    />
+  </BannerContainer>
 );
 
 Banner.propTypes = {
@@ -58,12 +30,14 @@ Banner.propTypes = {
       sources: PropTypes.arrayOf(PropTypes.shape({ uri: PropTypes.string })),
     })
   ),
+  liveStreamSource: PropTypes.string,
 };
 
 Banner.defaultProps = {
   title: '',
   coverImage: {},
   videos: [],
+  liveStreamSource: '',
 };
 
 export default Banner;
