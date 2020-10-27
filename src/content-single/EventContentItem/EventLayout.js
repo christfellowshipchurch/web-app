@@ -11,7 +11,11 @@ import {
   EventSchedule,
 } from './components';
 
-const EventLayout = ({ content }) => {
+import EventGroupings from './EventGroupings';
+
+const EventLayout = ({ contentId, content }) => {
+  console.log({ content });
+
   return (
     <main style={{ minHeight: '75vh' }}>
       <EventBannerBackground {...content} />
@@ -25,7 +29,7 @@ const EventLayout = ({ content }) => {
         </Row>
 
         <Row className="mt-4">
-          <EventSchedule {...content} />
+          <EventGroupings contentId={contentId} />
           <EventDescriptionCard {...content} />
         </Row>
       </GridContainer>

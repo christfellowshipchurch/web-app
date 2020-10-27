@@ -18,6 +18,8 @@ import {
   CallsToAction,
 } from './components';
 
+import EventGroupings from './EventGroupings';
+
 const TheaterContainer = styled.div`
   padding: 16px;
   display: grid;
@@ -59,7 +61,7 @@ const Area = styled.div`
   grid-area: ${({ area }) => area};
 `;
 
-const EventLiveLayout = ({ content, liveStream }) => {
+const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const theaterMode = useTheaterModeState();
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'chatChannelId');
@@ -118,7 +120,7 @@ const EventLiveLayout = ({ content, liveStream }) => {
 
           {/* Bottom Half of Page */}
           <Row className="px-3 pr-lg-2 px-xl-0">
-            <EventSchedule {...content} />
+            <EventGroupings contentId={contentId} />
             <EventDescriptionCard {...content} />
           </Row>
         </GridContainer>

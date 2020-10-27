@@ -11,6 +11,7 @@ import { htmlToReactParser } from '../../utils';
 
 import { GET_CURRENT_PERSON_CAMPUS } from './queries';
 import EventSchedule from './EventSchedule';
+import EventGroupings from './EventGroupings';
 
 import LiveIndicator from './components/LiveIndicator';
 
@@ -39,64 +40,58 @@ const EventDetail = ({
   openLinksInNewTab,
   events,
   isLive,
-}) => (
-  <div className={classnames('container-fluid', 'mb-4', 'px-3')}>
-    {(title !== '' || summary !== '') && (
-      <div
-        className={classnames(
-          'd-md-flex',
-          'justify-content-between',
-          'align-items-center',
-          'pb-3'
-        )}
-      >
-        <div className="mt-4 mb-2 pb-2">
-          <LiveIndicator isLive={isLive} />
-          <h1 className="mb-2 text-dark">{title}</h1>
-          <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
-        </div>
-        <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
-      </div>
-    )}
-
-    <div className="row mx-n2">
-      <div className="col-12 col-lg-4 p-2">
-        <ConnectedEventSchedule
-          id={id}
-          callsToAction={callsToAction}
-          openLinksInNewTab={openLinksInNewTab}
-          events={events}
-          title={title}
-          description={htmlContent}
-        />
-      </div>
-
-      <div className="col-12 col-lg-8 p-2">
-        <Card>
-          <div className="">{htmlToReactParser.parse(htmlContent)}</div>
-
-          <div className="mx-n1">
-            {tags.map((n, i) => (
-              <span
-                key={i}
-                className={classnames(
-                  'badge',
-                  'badge-light',
-                  'font-weight-normal',
-                  'py-2',
-                  'px-3',
-                  'mx-1'
-                )}
-              >
-                {n}
-              </span>
-            ))}
+}) =>
+  console.log({ id }) || (
+    <div className={classnames('container-fluid', 'mb-4', 'px-3')}>
+      {(title !== '' || summary !== '') && (
+        <div
+          className={classnames(
+            'd-md-flex',
+            'justify-content-between',
+            'align-items-center',
+            'pb-3'
+          )}
+        >
+          <div className="mt-4 mb-2 pb-2">
+            <LiveIndicator isLive={isLive} />
+            <h1 className="mb-2 text-dark">{title}</h1>
+            <h3 className="mt-1 content-subtitle font-weight-light">{summary}</h3>
           </div>
-        </Card>
+          <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
+        </div>
+      )}
+
+      <div className="row mx-n2">
+        <div className="col-12 col-lg-4 p-2">
+          <EventGroupings id={id} />
+        </div>
+
+        <div className="col-12 col-lg-8 p-2">
+          <Card>
+            <div className="">{htmlToReactParser.parse(htmlContent)}</div>
+
+            <div className="mx-n1">
+              {tags.map((n, i) => (
+                <span
+                  key={i}
+                  className={classnames(
+                    'badge',
+                    'badge-light',
+                    'font-weight-normal',
+                    'py-2',
+                    'px-3',
+                    'mx-1'
+                  )}
+                >
+                  {n}
+                </span>
+              ))}
+            </div>
+          </Card>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 
 EventDetail.propTypes = {
   id: PropTypes.string,
