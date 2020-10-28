@@ -63,35 +63,37 @@ const EventGroupings = ({ groupings, defaultSelection, callsToAction, title }) =
 
   return (
     <div className={classnames('col-12', 'col-lg-4')}>
-      <Card className="mb-3">
-        <Dropdown
-          id={id}
-          onSelect={(key, e) => {
-            e.preventDefault();
-            setSelected(key);
-          }}
-        >
-          <Dropdown.Toggle variant="link" id={id} as={CampusSelectToggle}>
-            {selected}
-          </Dropdown.Toggle>
+      {groupings.length > 0 && (
+        <Card className="mb-3">
+          <Dropdown
+            id={id}
+            onSelect={(key, e) => {
+              e.preventDefault();
+              setSelected(key);
+            }}
+          >
+            <Dropdown.Toggle variant="link" id={id} as={CampusSelectToggle}>
+              {selected}
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            {groupings.map(({ name }, i) => (
-              <Dropdown.Item
-                key={`CampusSelection:${i}`}
-                eventKey={name}
-                active={name === selected}
-              >
-                {name}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-      </Card>
+            <Dropdown.Menu>
+              {groupings.map(({ name }, i) => (
+                <Dropdown.Item
+                  key={`CampusSelection:${i}`}
+                  eventKey={name}
+                  active={name === selected}
+                >
+                  {name}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Card>
+      )}
 
       <Card key="EventOccurences" className={classnames('mb-3')}>
         <div className="">
-          {selectedGroup.instances.length &&
+          {get(selectedGroup, 'instances', []).length > 0 &&
             selectedGroup.instances.map(({ id, start, end }) => (
               <DateTime
                 key={id}
@@ -168,8 +170,6 @@ const EventGroupingsConnected = ({ contentId }) => {
   const defaultSelection = groupings.filter((i) => i.name === myCampus).length
     ? myCampus
     : get(groupings, '[0].name');
-
-  if (!groupings.length) return null;
 
   return (
     <EventGroupings
