@@ -17,6 +17,7 @@ const AddToCalendar = ({
   className,
   style,
   alternateDescription,
+  children,
 }) => (
   <Dropdown>
     <Dropdown.Toggle
@@ -25,7 +26,7 @@ const AddToCalendar = ({
       className={className}
       style={style}
     >
-      {title}
+      {title || children}
     </Dropdown.Toggle>
 
     <Dropdown.Menu>

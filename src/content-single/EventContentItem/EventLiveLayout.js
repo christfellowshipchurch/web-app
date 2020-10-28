@@ -14,9 +14,10 @@ import {
   EventHeading,
   EventMedia,
   EventPanel,
-  EventSchedule,
   CallsToAction,
 } from './components';
+
+import EventGroupings from './EventGroupings';
 
 const TheaterContainer = styled.div`
   padding: 16px;
@@ -59,7 +60,7 @@ const Area = styled.div`
   grid-area: ${({ area }) => area};
 `;
 
-const EventLiveLayout = ({ content, liveStream }) => {
+const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const theaterMode = useTheaterModeState();
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'chatChannelId');
@@ -100,7 +101,11 @@ const EventLiveLayout = ({ content, liveStream }) => {
           >
             {/* Main Column */}
             <Col className="col-12 col-lg-8  px-2 px-xl-0 pr-xl-3">
-              <EventMedia {...content} liveStreamSource={liveStreamSource} />
+              <EventMedia
+                {...content}
+                liveStreamSource={liveStreamSource}
+                showTheaterMode
+              />
               <EventHeading {...content} isLive />
             </Col>
 
@@ -118,7 +123,7 @@ const EventLiveLayout = ({ content, liveStream }) => {
 
           {/* Bottom Half of Page */}
           <Row className="px-3 pr-lg-2 px-xl-0">
-            <EventSchedule {...content} />
+            <EventGroupings contentId={contentId} />
             <EventDescriptionCard {...content} />
           </Row>
         </GridContainer>

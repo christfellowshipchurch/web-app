@@ -22,10 +22,14 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
         const isLive = get(liveStream, 'isLive', false);
         return isLive ? (
           <TheaterModeProvider>
-            <EventLiveLayout content={content} liveStream={liveStream} />
+            <EventLiveLayout
+              contentId={itemId}
+              content={content}
+              liveStream={liveStream}
+            />
           </TheaterModeProvider>
         ) : (
-          <EventLayout content={content} />
+          <EventLayout contentId={itemId} content={content} />
         );
       }}
     </LiveConsumer>
