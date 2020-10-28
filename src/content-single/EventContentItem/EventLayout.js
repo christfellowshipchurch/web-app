@@ -8,14 +8,11 @@ import {
   EventDescriptionCard,
   EventHeading,
   EventMedia,
-  EventSchedule,
 } from './components';
 
 import EventGroupings from './EventGroupings';
 
 const EventLayout = ({ contentId, content }) => {
-  console.log({ content });
-
   return (
     <main style={{ minHeight: '75vh' }}>
       <EventBannerBackground {...content} />
@@ -38,6 +35,7 @@ const EventLayout = ({ contentId, content }) => {
 };
 
 EventLayout.propTypes = {
+  contentId: PropTypes.string,
   content: PropTypes.shape({
     id: PropTypes.string,
   }),

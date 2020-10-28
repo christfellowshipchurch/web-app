@@ -14,7 +14,6 @@ import {
   EventHeading,
   EventMedia,
   EventPanel,
-  EventSchedule,
   CallsToAction,
 } from './components';
 
@@ -102,7 +101,11 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
           >
             {/* Main Column */}
             <Col className="col-12 col-lg-8  px-2 px-xl-0 pr-xl-3">
-              <EventMedia {...content} liveStreamSource={liveStreamSource} />
+              <EventMedia
+                {...content}
+                liveStreamSource={liveStreamSource}
+                showTheaterMode
+              />
               <EventHeading {...content} isLive />
             </Col>
 

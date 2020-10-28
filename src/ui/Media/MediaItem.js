@@ -22,6 +22,7 @@ const MediaItem = ({
   withHover,
   style,
   isLive,
+  showTheaterMode,
 }) => {
   let ratioClass =
     typeof ratio === 'string'
@@ -52,6 +53,7 @@ const MediaItem = ({
           showControls={showControls}
           isLive={isLive}
           playIcon={playIcon}
+          showTheaterMode={showTheaterMode}
         />
       ) : (
         <Image
@@ -98,6 +100,7 @@ MediaItem.defaultProps = {
   gradientDirection: 'bottom-top',
   withHover: false,
   isLive: false,
+  showTheaterMode: false,
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
@@ -122,6 +125,7 @@ MediaItem.propTypes = {
   showControls: PropTypes.bool,
   withHover: PropTypes.bool,
   isLive: PropTypes.bool,
+  showTheaterMode: PropTypes.bool,
   playIcon: PropTypes.shape({
     as: PropTypes.element, // TODO : add support
     color: PropTypes.string,

@@ -161,8 +161,6 @@ const EventGroupingsConnected = ({ contentId }) => {
     skip: !contentId || contentId === '',
   });
 
-  console.log({ data });
-
   if (error || loading) return null;
 
   const groupings = get(data, 'node.eventGroupings', []);
