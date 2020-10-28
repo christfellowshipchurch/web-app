@@ -38,8 +38,6 @@ const ContentCardConnectedWithQuery = ({
     typeof label.field === 'string' ? get(node, label.field, '') : label.field(node);
 
   if (typename === 'EventContentItem') {
-    const hideLabel = get(node, 'hideLabel', false);
-    const comingSoon = hideLabel ? '' : 'Dates Coming Soon';
     const events = get(node, 'events', []);
     const startDate = moment(get(events, '[0].start', new Date()));
     let eventDate = startDate.format('MMM D');
@@ -51,7 +49,7 @@ const ContentCardConnectedWithQuery = ({
         eventDate = `${startDate.format('MMM D')} - ${endDate.format(format)}`;
       }
     }
-    labelValue = get(node, 'events', []).length && !hideLabel ? eventDate : comingSoon;
+    labelValue = get(node, 'events', []).length ? eventDate : '';
   }
 
   const liveLabel = {
