@@ -62,7 +62,7 @@ const EventGroupings = ({ groupings, defaultSelection, callsToAction, title }) =
   const selectedGroup = groupings.find((i) => i.name === selected);
 
   return (
-    <div className={classnames('col-12', 'col-md-4')}>
+    <div className={classnames('col-12', 'col-lg-4')}>
       <Card className="mb-3">
         <Dropdown
           id={id}

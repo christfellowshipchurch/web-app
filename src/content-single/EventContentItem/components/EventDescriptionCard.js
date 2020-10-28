@@ -13,7 +13,7 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
   }
 
   return (
-    <Col className="col-12 col-lg-8">
+    <Col className="col-12 col-lg-8 pl-lg-3">
       <Card>
         <div>{htmlToReactParser.parse(htmlContent)}</div>
         <Tags tags={tags} />

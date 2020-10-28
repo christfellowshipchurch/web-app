@@ -29,10 +29,10 @@ const EventDetail = ({ id, title, summary, htmlContent, tags, isLive }) => (
       </div>
     )}
 
-    <div className="row mx-n2">
+    <div className="row">
       <EventGroupings contentId={id} />
 
-      <div className="col-12 col-lg-8 px-2">
+      <div className="col-12 col-lg-8 pl-lg-3 ">
         <Card>
           <div className="">{htmlToReactParser.parse(htmlContent)}</div>
 
