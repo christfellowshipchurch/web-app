@@ -163,8 +163,6 @@ const EventGroupingsConnected = ({ contentId }) => {
     skip: !contentId || contentId === '',
   });
 
-  if (error || loading) return null;
-
   const groupings = get(data, 'node.eventGroupings', []);
   const myCampus = get(data, 'currentUser.profile.campus.name', '');
   const defaultSelection = groupings.filter((i) => i.name === myCampus).length
