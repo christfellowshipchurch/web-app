@@ -8,7 +8,7 @@ import classnames from 'classnames';
 import { Dropdown } from 'react-bootstrap';
 import { GoogleAnalytics } from '../../../analytics';
 
-import { Card, AddToCalendar } from '../../../ui';
+import { Card, AddToCalendar, Loader } from '../../../ui';
 import { Icon } from '../../../ui/Icons';
 import { Row, CampusSelectToggle, TextIconRow } from './components';
 
@@ -161,7 +161,18 @@ const EventGroupingsConnected = ({ contentId }) => {
   const { data, loading, error } = useQuery(GET_EVENT_GROUPINGS, {
     variables: { id: contentId },
     skip: !contentId || contentId === '',
+    errorPolicy: 'all',
+    fetchPolicy: 'network-only',
   });
+
+  if (loading)
+    return (
+      <div className="col">
+        <Card className="mb-3 p-2">
+          <Loader />
+        </Card>
+      </div>
+    );
 
   const groupings = get(data, 'node.eventGroupings', []);
   const myCampus = get(data, 'currentUser.profile.campus.name', '');
