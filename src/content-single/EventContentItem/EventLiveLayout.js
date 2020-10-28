@@ -62,7 +62,7 @@ const Area = styled.div`
 const EventLiveLayout = ({ content, liveStream }) => {
   const theaterMode = useTheaterModeState();
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
-  const channelId = get(liveStream, 'chatChannelId');
+  const channelId = get(liveStream, 'streamChatChannel.channelId', null);
 
   return (
     <main style={{ minHeight: '75vh' }}>

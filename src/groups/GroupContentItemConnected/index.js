@@ -98,7 +98,7 @@ const GroupContentItemConnected = ({ itemId }) => {
         get(data, 'currentUser.profile.firstName')
       }
       videoCall={get(content, 'videoCall')}
-      chatChannelId={get(content, 'streamChatChannel.channelId')}
+      chatChannelId={get(content, 'streamChatChannel.channelId', null)}
     />
   );
 };
