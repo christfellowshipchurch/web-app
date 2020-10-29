@@ -4,12 +4,12 @@ import { useMutation, useQuery } from 'react-apollo';
 import { get } from 'lodash';
 import moment from 'moment';
 
-import { GoogleAnalytics } from '../../analytics';
-import { ErrorBlock, generateUrlLink, Loader } from '../../ui';
+import { GoogleAnalytics } from 'analytics';
+import { ErrorBlock, generateUrlLink, Loader } from 'ui';
 
 import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
-import GroupContentItem from './GroupContentItem';
+import Group from './Group';
 
 const GroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
@@ -83,7 +83,7 @@ const GroupContentItemConnected = ({ itemId }) => {
   });
 
   return (
-    <GroupContentItem
+    <Group
       {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
       dateTimes={get(content, 'dateTime')}
       groupResources={getGroupResources}
@@ -98,7 +98,8 @@ const GroupContentItemConnected = ({ itemId }) => {
         get(data, 'currentUser.profile.firstName')
       }
       videoCall={get(content, 'videoCall')}
-      chatChannelId={get(content, 'chatChannelId')}
+      channelId={get(content, 'chatChannelId')}
+      members={get(content, 'members')}
     />
   );
 };

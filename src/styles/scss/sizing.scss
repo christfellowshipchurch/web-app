@@ -8,15 +8,17 @@ $max-widths: map-merge(
     250: 250px,
     600: 600px,
     800: 800px,
-    1100: 1100px
+    1100: 1100px,
   ),
   $max-widths
 );
 
 @each $label, $width in $max-widths {
-    @media screen and (min-width: $width) {
-        .max-width-#{$label} { max-width: $width; }
-    }    
+  @media screen and (min-width: $width) {
+    .max-width-#{$label} {
+      max-width: $width;
+    }
+  }
 }
 
 // This variable affects the `.max-width-*` classes.
@@ -32,20 +34,29 @@ $min-widths: map-merge(
 
 @each $label, $width in $min-widths {
   @media screen and (min-width: $width) {
-      .min-width-#{$label} { min-width: $width; }
-  }    
+    .min-width-#{$label} {
+      min-width: $width;
+    }
+  }
 }
 
-.min-height-75-vh { min-height: 75vh !important; }
-.max-height-45-vh { max-height: 45vh !important; }
+.min-height-75-vh {
+  min-height: 75vh !important;
+}
+.max-height-45-vh {
+  max-height: 45vh !important;
+}
+.max-height-55-vh {
+  max-height: 55vh !important;
+}
 
 // Scale
 @for $i from 0 through 10 {
-  .scale-#{$i * 10} { 
+  .scale-#{$i * 10} {
     transform: scale($i / 10);
   }
 
-  .scale-#{($i * 10) + 5} { 
+  .scale-#{($i * 10) + 5} {
     transform: scale(($i / 10) + 0.05);
   }
 }

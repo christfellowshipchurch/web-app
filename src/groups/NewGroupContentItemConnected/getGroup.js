@@ -39,6 +39,14 @@ export default gql`
           meetingId
           passcode
         }
+        members {
+          id
+          nickName
+          firstName
+          photo {
+            uri
+          }
+        }
         chatChannelId
       }
     }

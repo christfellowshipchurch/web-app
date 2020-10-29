@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
-import { Media } from 'ui';
+import { Media } from '../../ui';
 
-const EventMedia = ({ title, coverImage, videos, liveStreamSource, showTheaterMode }) => (
-  <div className="mb-2">
+const BannerMain = ({ title, coverImage, videos, liveStreamSource }) => (
+  <div className="max-width-1100 mx-auto px-3 pt-6">
     <Media
       imageUrl={get(coverImage, 'sources[0].uri', '')}
       videoUrl={
@@ -16,16 +16,15 @@ const EventMedia = ({ title, coverImage, videos, liveStreamSource, showTheaterMo
       isLive={!!liveStreamSource && liveStreamSource !== ''}
       imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
       className="shadow"
-      ratio={{ xs: '16by9' }}
+      ratio={{ xs: '1by1', md: '16by9' }}
       forceRatio
       rounded
       showControls
-      showTheaterMode={showTheaterMode}
     />
   </div>
 );
 
-EventMedia.propTypes = {
+BannerMain.propTypes = {
   title: PropTypes.string,
   coverImage: PropTypes.shape({
     name: PropTypes.string,
@@ -37,14 +36,13 @@ EventMedia.propTypes = {
     })
   ),
   liveStreamSource: PropTypes.string,
-  showTheaterMode: PropTypes.bool,
 };
 
-EventMedia.defaultProps = {
+BannerMain.defaultProps = {
   title: '',
   coverImage: {},
   videos: [],
-  showTheaterMode: false,
+  liveStreamSource: '',
 };
 
-export default EventMedia;
+export default BannerMain;

@@ -5,6 +5,7 @@ import { get, isEmpty, isNil } from 'lodash';
 import { ErrorBlock } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
 
+import { TheaterModeProvider } from 'providers';
 import EventLayout from './EventLayout';
 import EventLiveLayout from './EventLiveLayout';
 import Placeholder from './Placeholder';
@@ -12,27 +13,24 @@ import Placeholder from './Placeholder';
 const EventContentItem = ({ itemId, content, loading, error }) => {
   const missingContent = isEmpty(content) || isNil(content);
 
-  if (loading && missingContent) {
-    return <Placeholder />;
-  }
-
-  if (error || (!loading && missingContent)) {
-    console.log({ error });
-    return <ErrorBlock />;
-  }
+  if (loading && missingContent) return <Placeholder />;
+  if (error || (!loading && missingContent)) return <ErrorBlock />;
 
   return (
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
         const isLive = get(liveStream, 'isLive', false);
-
-        // Live Events
-        if (isLive) {
-          return <EventLiveLayout content={content} liveStream={liveStream} />;
-        }
-
-        // Non-live Events
-        return <EventLayout content={content} />;
+        return isLive ? (
+          <TheaterModeProvider>
+            <EventLiveLayout
+              contentId={itemId}
+              content={content}
+              liveStream={liveStream}
+            />
+          </TheaterModeProvider>
+        ) : (
+          <EventLayout contentId={itemId} content={content} />
+        );
       }}
     </LiveConsumer>
   );
