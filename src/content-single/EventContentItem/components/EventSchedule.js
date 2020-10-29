@@ -4,19 +4,14 @@ import classnames from 'classnames';
 import { isEmpty, flatMapDepth, identity, uniq, groupBy, keys, get } from 'lodash';
 import moment from 'moment';
 
-import { AddToCalendar, Icon } from 'ui';
+import { AddToCalendar, Icon, Col, Card } from 'ui';
 
-import EventScheduleTimes from './EventScheduleTimes';
-import CampusSelector from './CampusSelector';
 import CallsToAction from './CallsToAction';
+import CampusSelector from './CampusSelector';
+import EventScheduleTimes from './EventScheduleTimes';
 
 function getScheduleByLocation(events) {
-  console.group('[schedule] getScheduleByLocation()');
-  console.log('[schedule] events:', events);
-
   if (!events || isEmpty(events)) {
-    console.log('[schedule] Empty events... returning []');
-    console.groupEnd();
     return [];
   }
 
@@ -29,8 +24,6 @@ function getScheduleByLocation(events) {
     return { location, dateTimes };
   });
 
-  console.log('[schedule] groupByLocationDates:', groupByLocationDates);
-  console.groupEnd();
   return groupByLocationDates;
 }
 
@@ -39,14 +32,6 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const hasEvents = !isEmpty(events);
   const scheduleByLocation = getScheduleByLocation(campusEvents);
 
-  console.groupCollapsed('[schedule] EventSchedule render()');
-  console.log('[schedule] events:', events);
-  console.log('[schedule] callsToAction:', callsToAction);
-  console.log('[schedule] defaultCampus:', defaultCampus);
-  console.log('[schedule] ---');
-  console.log('[schedule] campusEvents:', campusEvents);
-  console.log('[schedule] scheduleByLocation:', scheduleByLocation);
-
   const campusOptions = uniq(
     flatMapDepth(
       events.map((e) => e.campuses.map((c) => c.name)),
@@ -54,7 +39,6 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
       2
     )
   );
-  console.log('[schedule] campusOptions:', campusOptions);
 
   const handleChangeCampus = (campus) => {
     const campusEvents = events.filter((e) => e.campuses.find((c) => c.name === campus));
@@ -67,13 +51,12 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
   const lastEvent = hasEvents ? events.length - 1 : 0;
   const endTime = get(events, `[${lastEvent}].end`, null);
 
-  console.log('[schedule] ---');
-  console.log('[schedule] startTime:', startTime);
-  console.log('[schedule] endTime:', endTime);
-  console.groupEnd();
+  if (!hasEvents && isEmpty(callsToAction)) {
+    return null;
+  }
 
   return (
-    <section>
+    <Col className="col-12 col-lg-4 pr-lg-3">
       {hasEvents && (
         <CampusSelector
           key="CampusSelector"
@@ -83,7 +66,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
         />
       )}
 
-      <div className="p-2 px-3">
+      <Card className="mb-3">
         {scheduleByLocation.map((event, i) => {
           const { dateTimes } = event;
           const dateTimesKeys = keys(dateTimes);
@@ -110,9 +93,7 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
           );
         })}
 
-        {hasEvents && !isEmpty(callsToAction) && <h3>Get Started</h3>}
-
-        <CallsToAction eventTitle={title} items={callsToAction} />
+        <CallsToAction hasEvents={hasEvents} eventTitle={title} items={callsToAction} />
 
         {hasEvents && (
           <div className="d-flex align-items-center">
@@ -136,8 +117,8 @@ const EventSchedule = ({ defaultCampus, callsToAction, events, title, descriptio
             />
           </div>
         )}
-      </div>
-    </section>
+      </Card>
+    </Col>
   );
 };
 

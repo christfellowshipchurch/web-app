@@ -1,13 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components/macro';
 import classnames from 'classnames';
 import { get } from 'lodash';
-import PropTypes from 'prop-types';
 
-import Banner from '../../content-single/Banner';
-import { AddToCalendar, Card } from '../../ui';
-import { Icon } from '../../ui/Icons';
+import { baseUnit, themeGet } from 'styles/theme';
 
-import dateTextFormat from '../dateTextFormat';
+import Banner from 'content-single/Banner';
+import { AddToCalendar, Card, Icon } from 'ui';
+
+import dateTextFormat from 'groups/dateTextFormat';
+
+import GroupChat from '../NewGroupContentItemConnected/GroupChat';
+
+// :: Styled Components
+// ------------------------
+
+const TabsContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  z-index: 1;
+`;
+
+const Tab = styled.div`
+  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray[800])};
+  padding: ${baseUnit(1)} 1.25rem ${baseUnit(2)};
+  font-size: ${themeGet('fontSize.h5')};
+  font-weight: ${themeGet('fontWeight.bold')};
+  border-bottom: 4px ${({ theme, active }) => (active ? theme.brand : 'transparent')}
+    solid;
+  transition: all 0.15s ease-out;
+
+  &:hover {
+    cursor: pointer;
+    border-color: ${({ theme, active }) => (active ? theme.brand : theme.font[100])};
+  }
+
+  &:last-child {
+    border-right: 0;
+  }
+`;
 
 // add any additional parameters to the video urls
 const videoCallURLWithParameters = (videoURL, parameters) => {
@@ -41,7 +75,10 @@ const GroupContentItem = ({
   title,
   userName,
   videoCall,
+  chatChannelId,
 }) => {
+  const [activeTab, setActiveTab] = useState('about');
+
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
 
   if (parentVideoCall) {
@@ -67,6 +104,7 @@ const GroupContentItem = ({
 
         <section className="row mx-n2">
           <aside className={classnames('col-12', { 'col-lg-4': summary }, 'p-2')}>
+            <Tab>Resources</Tab>
             <Card key="EventOccurences" className="mb-3">
               {get(parentVideoCall, 'link') && (
                 <a
@@ -81,6 +119,7 @@ const GroupContentItem = ({
                   )}
                   onClick={() => onClickParentVideoCall('parent')}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {get(parentVideoCall, 'labelText') || `Join Meeting`}
                 </a>
@@ -150,11 +189,29 @@ const GroupContentItem = ({
               </div>
             </Card>
           </aside>
-          {summary ? (
-            <div className="col-12 col-lg-8 p-2">
-              <Card>{summary}</Card>
-            </div>
-          ) : null}
+          <div className="col-12 col-lg-8 p-2" style={{ minHeight: '50vh' }}>
+            <TabsContainer>
+              <Tab
+                active={chatChannelId && activeTab === 'about'}
+                onClick={() => setActiveTab('about')}
+              >
+                About
+              </Tab>
+              {chatChannelId && (
+                <Tab active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
+                  Chat
+                </Tab>
+              )}
+            </TabsContainer>
+            {activeTab === 'about' && (
+              <Card>{summary || 'Group summary unavailable'}</Card>
+            )}
+            {chatChannelId && activeTab === 'chat' && (
+              <Card>
+                <GroupChat channelId={chatChannelId} />
+              </Card>
+            )}
+          </div>
         </section>
       </div>
     </>
@@ -193,6 +250,7 @@ GroupContentItem.propTypes = {
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
   }),
+  chatChannelId: PropTypes.string,
 };
 
 export default GroupContentItem;

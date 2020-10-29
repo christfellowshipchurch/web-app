@@ -1,60 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, isNil } from 'lodash';
 
 import { ErrorBlock } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
 
-import {
-  EventBannerBackground,
-  EventDescriptionCard,
-  EventMedia,
-  EventPanel,
-} from './components';
-
-import EventDetail from './EventDetail';
+import { TheaterModeProvider } from 'providers';
+import EventLayout from './EventLayout';
+import EventLiveLayout from './EventLiveLayout';
 import Placeholder from './Placeholder';
 
 const EventContentItem = ({ itemId, content, loading, error }) => {
-  if (loading && isEmpty(content)) {
-    return <Placeholder />;
-  }
+  const missingContent = isEmpty(content) || isNil(content);
 
-  if (error || (!loading && isEmpty(content))) {
-    console.log({ error });
-    return <ErrorBlock />;
-  }
+  if (loading && missingContent) return <Placeholder />;
+  if (error || (!loading && missingContent)) return <ErrorBlock />;
 
   return (
     <LiveConsumer contentId={itemId}>
       {(liveStream) => {
         const isLive = get(liveStream, 'isLive', false);
-        const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
-        const channelId = get(liveStream, 'chatChannelId');
-
-        return (
-          <div style={{ minHeight: '75vh' }}>
-            <EventBannerBackground {...content} />
-
-            <div className="container-fluid max-width-1100 mx-auto mb-5">
-              <div className="row pt-4 mb-4">
-                {/* Main Column */}
-                <div className="col-lg-8">
-                  <EventMedia {...content} liveStreamSource={liveStreamSource} />
-                  <EventDetail {...content} isLive={isLive} />
-                </div>
-
-                {/* Side Column */}
-                <div className="col-lg-4">
-                  <EventPanel event={content} isLive={isLive} channelId={channelId} />
-                </div>
-              </div>
-
-              <hr />
-
-              <EventDescriptionCard {...content} />
-            </div>
-          </div>
+        return isLive ? (
+          <TheaterModeProvider>
+            <EventLiveLayout
+              contentId={itemId}
+              content={content}
+              liveStream={liveStream}
+            />
+          </TheaterModeProvider>
+        ) : (
+          <EventLayout contentId={itemId} content={content} />
         );
       }}
     </LiveConsumer>

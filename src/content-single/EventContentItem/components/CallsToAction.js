@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import { isEmpty } from 'lodash';
 
 import { GoogleAnalytics } from 'analytics';
 
-const CallsToAction = ({ eventTitle, items }) => {
+const CallsToAction = ({ eventTitle, items, hasEvents }) => {
   if (isEmpty(items)) {
     return null;
   }
 
   return (
     <div>
+      {hasEvents && <h3>Get Started</h3>}
       {items.map(({ call, action }, index) => (
         <a
           key={`cta-${index}`}
-          className={classnames('btn', 'btn-primary', 'btn-block', 'my-3')}
+          className={'btn btn-primary btn-block my-3'}
           href={action}
           target={action.includes('http') ? '_blank' : ''}
           onClick={() =>
@@ -34,6 +34,7 @@ const CallsToAction = ({ eventTitle, items }) => {
 };
 
 CallsToAction.propTypes = {
+  hasEvents: PropTypes.bool,
   eventTitle: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
@@ -41,6 +42,12 @@ CallsToAction.propTypes = {
       action: PropTypes.string,
     })
   ),
+};
+
+CallsToAction.defaultProps = {
+  hasEvents: false,
+  eventTitle: 'Christ Fellowship Church',
+  items: [],
 };
 
 export default CallsToAction;

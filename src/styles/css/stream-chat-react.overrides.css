@@ -1,3 +1,7 @@
+.group.str-chat .str-chat__list {
+  padding-top: 0;
+}
+
 /* Root / Main Containers */
 .str-chat {
   position: absolute;
@@ -14,7 +18,7 @@
 .livestream.str-chat .str-chat__list,
 .messaging.str-chat .str-chat__list {
   padding: 0;
-  padding-top: 3rem;
+  padding-top: 3.5rem;
 }
 
 /* Messages List */
@@ -34,7 +38,8 @@
 .str-chat__small-message-input {
   align-items: flex-end;
   background: #f6f6f6;
-  border-radius: 1rem;
+  border: 1px #e6e6e6 solid;
+  border-radius: 22px;
   padding-right: 0.25rem;
   padding-bottom: 0.25rem;
 }
@@ -68,3 +73,11 @@
   border: none;
   background: none;
 }
+
+/* DEBUG FOR BOOTSTRAP GRID */
+/* [class^='col'] {
+  background-color: rgba(255, 0, 0, 0.33) !important;
+}
+[class^='row'] {
+  background-color: rgba(0, 200, 255, 0.1) !important;
+} */

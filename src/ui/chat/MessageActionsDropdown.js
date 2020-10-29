@@ -66,7 +66,7 @@ const MessageActionsDropdown = ({ options }) => {
         <Dropdown.Menu>
           {options.map((option, i) =>
             option.divider ? (
-              <Dropdown.Divider />
+              <Dropdown.Divider key={`MessageActions:${i}`} />
             ) : (
               <Dropdown.Item key={`MessageActions:${i}`} eventKey={i} active={false}>
                 <OptionLabel destructive={option.destructive}>{option.label}</OptionLabel>

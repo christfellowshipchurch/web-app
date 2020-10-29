@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { MessageInput, MessageInputSmall } from 'stream-chat-react';
+import { MessageInput as StreamMessageInput, MessageInputSmall } from 'stream-chat-react';
 
 import { baseUnit } from 'styles/theme';
 import { useAuth } from 'auth';
@@ -9,6 +9,8 @@ import { useAuth } from 'auth';
 import { Icon } from 'ui';
 
 // :: Styled Components
+// ------------------------
+
 const LoggedInContainer = styled.div`
   background-color: ${({ theme }) => theme.card.background};
 `;
@@ -61,17 +63,20 @@ SendButtonComponent.propTypes = {
 };
 
 // :: Main Component
-const MessageInputLoggedOut = () => {
+// ------------------------
+
+const MessageInput = () => {
   const { isLoggedIn, logIn } = useAuth();
 
   if (isLoggedIn) {
     return (
       <LoggedInContainer>
-        <MessageInput
+        <StreamMessageInput
           Input={MessageInputSmall}
           SendButton={SendButtonComponent}
           noFiles
           publishTypingEvent={false}
+          autocompleteTriggers={{}}
         />
       </LoggedInContainer>
     );
@@ -84,4 +89,4 @@ const MessageInputLoggedOut = () => {
   );
 };
 
-export default MessageInputLoggedOut;
+export default MessageInput;

@@ -13,7 +13,6 @@ import { Icon } from './Icons';
 import Layout from './Layout';
 import Loader from './Loader';
 import Media from './Media';
-import Row from './Row';
 import Share from './Share';
 import Swoop from './Swoop';
 
@@ -33,10 +32,10 @@ export {
   Layout,
   Loader,
   Media,
-  Row,
   Share,
   Swoop,
 };
 export * from './CardGrid';
 export * from './inputs';
 export * from './cards';
+export * from './grid';

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
-import { isString } from 'lodash';
+import { isEmpty, isString } from 'lodash';
 
 import { Card, Icon } from 'ui';
+
+const safeCampusName = (value) => (isString(value) ? value : 'Unknown Campus');
 
 const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
@@ -19,14 +21,14 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
     }}
   >
     <span className="h4">
-      {isString(children) ? children : 'Unknown Campus'}
-      <Icon className="ml-2 float-right" name="angle-down" size="22" />
+      {safeCampusName(children)}
+      <Icon className="ml-2 float-right" name="angle-down" size={22} />
     </span>
   </div>
 ));
 
 CampusSelectToggle.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.string,
   onClick: PropTypes.func,
 };
 
@@ -47,18 +49,21 @@ const CampusSelector = ({ campuses, onChange, defaultCampus }) => {
   // when the selection changes, call the onChange method
   useEffect(() => onChange(selected), [selected]);
 
+  if (isEmpty(campuses)) {
+    return null;
+  }
+
+  const handleDropdownSelect = (key, e) => {
+    e.preventDefault();
+    const index = parseInt(key, 10);
+    setSelected(options[index]);
+  };
+
   return (
     <Card className="mb-3">
-      <Dropdown
-        id={id}
-        onSelect={(key, e) => {
-          e.preventDefault();
-          const index = parseInt(key, 10);
-          setSelected(options[index]);
-        }}
-      >
+      <Dropdown id={id} onSelect={handleDropdownSelect}>
         <Dropdown.Toggle variant="link" id={id} as={CampusSelectToggle}>
-          {selected}
+          {safeCampusName(selected)}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
@@ -68,7 +73,7 @@ const CampusSelector = ({ campuses, onChange, defaultCampus }) => {
               eventKey={i}
               active={campus === selected}
             >
-              {campus}
+              {safeCampusName(campus)}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
@@ -78,13 +83,13 @@ const CampusSelector = ({ campuses, onChange, defaultCampus }) => {
 };
 
 CampusSelector.propTypes = {
-  campuses: PropTypes.object,
+  campuses: PropTypes.array,
   onChange: PropTypes.func,
-  defaultCampus: PropTypes.object,
+  defaultCampus: PropTypes.string,
 };
 
 CampusSelector.defaultProps = {
-  campuses: {},
+  campuses: [],
   onChange: () => {},
   defaultCampus: {},
 };
