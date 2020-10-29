@@ -1,45 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { get } from 'lodash';
-import { useAuth, useAuthQuery } from '../../auth';
 
-import { Card, Share } from '../../ui';
+import { Card, Share } from 'ui';
 
-import { CAMPUS_KEY } from '../../keys';
-import { htmlToReactParser } from '../../utils';
+import { htmlToReactParser } from 'utils';
 
-import { GET_CURRENT_PERSON_CAMPUS } from './queries';
-import EventSchedule from './EventSchedule';
-
+import EventGroupings from './EventGroupings';
 import LiveIndicator from './components/LiveIndicator';
 
-const ConnectedEventSchedule = (props) => {
-  const { isLoggedIn } = useAuth();
-  const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON_CAMPUS);
-
-  if (isLoggedIn && (loading || error)) return null;
-
-  const fetchedCampus = get(
-    data,
-    'currentUser.profile.campus.name',
-    localStorage.getItem(CAMPUS_KEY)
-  );
-
-  return <EventSchedule {...props} defaultCampus={fetchedCampus || ''} />;
-};
-
-const EventDetail = ({
-  id,
-  title,
-  summary,
-  htmlContent,
-  tags,
-  callsToAction,
-  openLinksInNewTab,
-  events,
-  isLive,
-}) => (
+const EventDetail = ({ id, title, summary, htmlContent, tags, isLive }) => (
   <div className={classnames('container-fluid', 'mb-4', 'px-3')}>
     {(title !== '' || summary !== '') && (
       <div
@@ -59,19 +29,10 @@ const EventDetail = ({
       </div>
     )}
 
-    <div className="row mx-n2">
-      <div className="col-12 col-lg-4 p-2">
-        <ConnectedEventSchedule
-          id={id}
-          callsToAction={callsToAction}
-          openLinksInNewTab={openLinksInNewTab}
-          events={events}
-          title={title}
-          description={htmlContent}
-        />
-      </div>
+    <div className="row">
+      <EventGroupings contentId={id} />
 
-      <div className="col-12 col-lg-8 p-2">
+      <div className="col-12 col-lg-8 pl-lg-3">
         <Card>
           <div className="">{htmlToReactParser.parse(htmlContent)}</div>
 
@@ -104,14 +65,6 @@ EventDetail.propTypes = {
   summary: PropTypes.string,
   htmlContent: PropTypes.string,
   tags: PropTypes.arrayOf(PropTypes.string),
-  callsToAction: PropTypes.arrayOf(
-    PropTypes.shape({
-      call: PropTypes.string,
-      action: PropTypes.string,
-    })
-  ),
-  openLinksInNewTab: PropTypes.bool,
-  events: PropTypes.object,
   isLive: PropTypes.bool,
 };
 
@@ -121,9 +74,6 @@ EventDetail.defaultProps = {
   summary: '',
   htmlContent: '',
   tags: [],
-  callsToAction: [],
-  openLinksInNewTab: false,
-  events: {},
   isLive: false,
 };
 
