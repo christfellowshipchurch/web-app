@@ -4,7 +4,16 @@ import classnames from 'classnames';
 
 import { Loader } from '../..';
 
-const EmptyCard = ({ children, className, style, shadow, fill, loading, error }) => (
+const EmptyCard = ({
+  children,
+  className,
+  error,
+  fill,
+  loading,
+  onClick,
+  shadow,
+  style,
+}) => (
   <div
     className={classnames(
       'card',
@@ -16,6 +25,7 @@ const EmptyCard = ({ children, className, style, shadow, fill, loading, error })
       className
     )}
     style={style}
+    onClick={onClick}
   >
     <div className={`${fill ? '' : 'card-body'}`}>
       {loading && (
@@ -32,18 +42,22 @@ const EmptyCard = ({ children, className, style, shadow, fill, loading, error })
 
 EmptyCard.defaultProps = {
   className: '',
-  style: {},
-  shadow: '',
-  loading: false,
   error: null,
+  fill: null,
+  loading: false,
+  onClick: null,
+  shadow: '',
+  style: {},
 };
 
 EmptyCard.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object,
-  shadow: PropTypes.oneOf(['', 'sm', 'lg']),
-  loading: PropTypes.bool,
   error: PropTypes.string,
+  fill: PropTypes.string,
+  loading: PropTypes.bool,
+  onClick: PropTypes.func,
+  shadow: PropTypes.oneOf(['', 'sm', 'lg']),
+  style: PropTypes.object,
 };
 
 export default EmptyCard;

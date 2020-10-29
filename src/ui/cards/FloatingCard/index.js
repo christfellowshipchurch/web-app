@@ -53,6 +53,7 @@ FloatingCard.defaultProps = {
 
 FloatingCard.propTypes = {
   overlay: PropTypes.oneOf(['dark', 'light', 'white']),
+  onPressExit: PropTypes.func,
 };
 
 export default FloatingCard;
