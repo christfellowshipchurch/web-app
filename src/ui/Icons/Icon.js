@@ -10,10 +10,7 @@ const Icon = ({ name, size, fill, className, onClick }) => {
 
   return (
     <span className={className} onClick={onClick}>
-      {React.createElement(IconComponent, {
-        size,
-        fill,
-      })}
+      <IconComponent size={size} fill={fill} />
     </span>
   );
 };

@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import moment from 'moment';
 
 import { baseUnit } from 'styles/theme';
 
-import { Channel } from 'stream-chat-react';
+import { Channel as ChannelType } from 'stream-chat';
 import { ChatRoles, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
-import { Icon } from 'ui';
-
+import ChatAvatar from './ChatAvatar';
 import MessageActionsDropdown from './MessageActionsDropdown';
 import getMessageActionOptions from './getMessageActionOptions';
 
@@ -57,34 +56,6 @@ const MessageText = styled.span`
   padding-right: ${baseUnit(3)};
 `;
 
-const AVATAR_SIZE = 42;
-const AvatarContainer = styled.div`
-  position: relative;
-  min-width: ${AVATAR_SIZE}px;
-  width: ${AVATAR_SIZE}px;
-  height: ${AVATAR_SIZE}px;
-  margin-top: 0.2rem;
-  background-color: ${({ theme }) => theme.body.background};
-  border-radius: ${AVATAR_SIZE}px;
-  overflow: hidden;
-`;
-
-const AvatarImage = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: ${AVATAR_SIZE}px;
-  height: ${AVATAR_SIZE}px;
-  background-image: ${({ image }) => `url(${image})}`};
-  background-size: cover;
-`;
-
-const AvatarIcon = styled(Icon).attrs(({ theme }) => ({
-  name: 'user-circle',
-  fill: theme.font[300],
-  size: AVATAR_SIZE,
-}))``;
-
 // :: Main Component
 // ------------------------
 
@@ -117,10 +88,7 @@ const Message = (props) => {
 
   return (
     <MessageContainer {...hoverEventListeners}>
-      <AvatarContainer>
-        <AvatarIcon />
-        {image && <AvatarImage image={image} />}
-      </AvatarContainer>
+      <ChatAvatar image={image} />
       <Body>
         <div>
           <Name>{name}</Name>
@@ -138,7 +106,7 @@ const Message = (props) => {
 };
 
 Message.propTypes = {
-  channel: Channel.type.propTypes.channel.isRequired,
+  channel: PropTypes.instanceOf(ChannelType),
   message: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string,
@@ -157,4 +125,4 @@ Message.propTypes = {
 
 Message.defaultProps = {};
 
-export default Message;
+export default memo(Message);

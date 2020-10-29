@@ -2,9 +2,9 @@ import React from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
-import { ContentCard, Loader } from '../../ui';
+import { ContentCard, Loader } from 'ui';
 
-import dateTextFormat from '../dateTextFormat';
+import dateTextFormat from 'groups/dateTextFormat';
 
 const LoadingState = ({ children, isLoading }) =>
   isLoading ? (

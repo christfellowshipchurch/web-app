@@ -17,20 +17,18 @@ export const GET_EVENT = gql`
 
       tags
 
+      eventGroupings {
+        name
+        instances {
+          id
+          start
+          end
+        }
+      }
+
       callsToAction {
         call
         action
-      }
-
-      openLinksInNewTab
-
-      events {
-        start
-        end
-        campuses {
-          name
-        }
-        location
       }
     }
   }

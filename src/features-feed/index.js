@@ -13,7 +13,7 @@ const mapDataToActions = (data) => flatten(data.map(({ actions }) => actions));
 const FeatureFeed = () => {
   const { sandboxEnabled, sandbox, setSandboxValue } = useSandbox({ homeTheme: 'hero' });
   const { loading, error, data } = useQuery(GET_FEED_FEATURES, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
   });
 
   if (error) return <h1 className="text-danger">...oops</h1>;

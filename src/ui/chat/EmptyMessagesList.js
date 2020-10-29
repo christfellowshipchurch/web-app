@@ -16,24 +16,22 @@ const Container = styled.div`
 `;
 
 const Blurb = styled.p`
-  width: 75%;
+  width: 80%;
   text-align: center;
 `;
 
 // :: Main Component
 // ------------------------
-const EventChatOffline = () => {
+const EmptyMessagesList = () => {
   return (
     <Container>
-      <h4>Stay Tuned!</h4>
       <Blurb>
-        Event is not live yet. It will go live at [start date and time].
+        No messages yet.
         <br />
-        <br />
-        [Add to Calendar CTA?]
+        Be the first to share your thoughts!
       </Blurb>
     </Container>
   );
 };
 
-export default EventChatOffline;
+export default EmptyMessagesList;
