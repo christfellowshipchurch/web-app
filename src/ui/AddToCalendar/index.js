@@ -4,10 +4,8 @@ import { uniqueId } from 'lodash';
 
 import { Dropdown } from 'react-bootstrap';
 
-import { Apple, Google, Microsoft } from '../Icons';
+import { Icon } from '../Icons';
 import { googleCalLink, icsLink } from './utils';
-
-const iconSize = 20;
 
 const AddToCalendar = ({
   event,
@@ -17,6 +15,7 @@ const AddToCalendar = ({
   className,
   style,
   alternateDescription,
+  children,
 }) => (
   <Dropdown>
     <Dropdown.Toggle
@@ -25,37 +24,37 @@ const AddToCalendar = ({
       className={className}
       style={style}
     >
-      {title}
+      {title || children}
     </Dropdown.Toggle>
 
     <Dropdown.Menu>
       {/* Apple Calendar */}
       <Dropdown.Item
-        href={icsLink({ ...event, description: alternateDescription }, allDay)}
+        href={icsLink({ ...event, description: alternateDescription })}
         target="_blank"
         className="d-flex align-items-center"
       >
-        <Apple size={22} />
+        <Icon className="pr-1" name="apple" size={30} />
         Apple
       </Dropdown.Item>
 
       {/* Google Calendar */}
       <Dropdown.Item
-        href={googleCalLink(event, allDay)}
+        href={googleCalLink(event)}
         target="_blank"
         className="d-flex align-items-center"
       >
-        <Google size={iconSize} />
+        <Icon className="pr-1" name="google" />
         Google
       </Dropdown.Item>
 
       {/* Outlook */}
       <Dropdown.Item
-        href={icsLink({ ...event, description: alternateDescription }, allDay)}
+        href={icsLink({ ...event, description: alternateDescription })}
         target="_blank"
         className="d-flex align-items-center"
       >
-        <Microsoft size={iconSize} />
+        <Icon className="pr-1" name="microsoft" />
         Outlook
       </Dropdown.Item>
     </Dropdown.Menu>
@@ -85,6 +84,7 @@ AddToCalendar.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   alternateDescription: PropTypes.string,
+  allDay: PropTypes.bool,
 };
 
 AddToCalendar.defaultProps = {

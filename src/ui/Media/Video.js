@@ -7,13 +7,13 @@ import { useTheaterMode, toggleTheaterMode } from 'providers/TheaterModeProvider
 
 import { Icon } from '../Icons';
 
-const MediaVideo = ({ source, poster, isLive, showControls }) => {
+const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
   const [played, setPlayed] = useState(false);
   const [theaterMode, dispatch] = useTheaterMode();
 
-  const showTheaterButton = isLive;
+  const showTheaterButton = isLive && showTheaterMode;
 
   let videoProps = showControls
     ? {
@@ -189,6 +189,7 @@ MediaVideo.propTypes = {
   autoPlay: PropTypes.bool,
   isLive: PropTypes.bool,
   showControls: PropTypes.bool,
+  showTheaterMode: PropTypes.bool,
   loop: PropTypes.bool,
   muted: PropTypes.bool,
 };
@@ -201,6 +202,7 @@ MediaVideo.defaultProps = {
   autoPlay: true,
   loop: true,
   muted: true,
+  showTheaterMode: false,
 };
 
 export default MediaVideo;
