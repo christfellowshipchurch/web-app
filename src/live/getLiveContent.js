@@ -14,7 +14,10 @@ export default gql`
         contentItem {
           id
         }
-        chatChannelId
+        streamChatChannel {
+          id
+          channelId
+        }
       }
     }
   }
