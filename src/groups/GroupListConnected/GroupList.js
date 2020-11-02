@@ -24,18 +24,18 @@ const GroupList = ({ isLoading, groups }) => (
   <LoadingState isLoading={isLoading}>
     {groups.length ? (
       <section className="row mx-n2">
-        {groups.map((n) => (
+        {groups.map((group) => (
           <ContentCard
-            key={n.id}
+            key={group.id}
             urlBase="groups"
             className="my-4"
-            id={n.id}
-            coverImage={get(n, 'coverImage.sources', '')}
-            title={get(n, 'title', '')}
+            id={group.id}
+            coverImage={get(group, 'coverImage.sources', '')}
+            title={get(group, 'title', '')}
             label={{
               bg: 'dark',
               textColor: 'white',
-              value: dateTextFormat(get(n, 'dateTime.start')),
+              value: dateTextFormat(get(group, 'dateTime.start')),
             }}
           />
         ))}

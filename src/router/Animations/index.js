@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
-import classnames from 'classnames';
-import VisibilitySensor from 'react-visibility-sensor';
+import React from 'react';
 import { get } from 'lodash';
 
-import { Block, Button, Media, HeroSection } from '../../ui';
-import { htmlToReactParser } from '../../utils';
+import { HeroSection } from 'ui';
 
 const item = {
   id: 'WebsiteBlockItem:82aac5b9d12501f09b34f5fe56930655',

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import classnames from 'classnames';
 import { GoogleAnalytics } from 'analytics';
-import { Card, Row, Icon } from 'ui';
+import { ContentCard, Row } from 'ui';
 
 const CallsToAction = ({ eventTitle, items, hasEvents }) => {
   if (isEmpty(items)) {
@@ -15,10 +14,22 @@ const CallsToAction = ({ eventTitle, items, hasEvents }) => {
       {hasEvents && <h3>Get Started</h3>}
       <Row>
         {items.map(({ call, action }, index) => (
-          <a
+          <ContentCard
+            icon="church"
+            title={call}
+            redirectUrl={action}
             key={`cta-${index}`}
-            href={action}
-            target={action.includes('http') ? '_blank' : ''}
+            id={`cta-${index}`}
+            coverImage={{
+              name: 'Image name',
+              sources: [
+                {
+                  uri:
+                    'https://cloudfront.christfellowship.church/GetImage.ashx?guid=80fc6d71-b0c1-45af-a78e-67e91ebd4136',
+                },
+              ],
+            }}
+            label={{}}
             onClick={() =>
               GoogleAnalytics.trackEvent({
                 category: 'Event Item',
@@ -26,26 +37,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents }) => {
                 label: `${eventTitle} - ${call} Button`,
               })
             }
-            className={classnames('col-2', 'my-2', 'mx-2')}
-          >
-            <Card className={classnames('bg-white')}>
-              <div
-                className={classnames(
-                  'd-flex',
-                  'justify-content-center',
-                  'align-items-center',
-                  'flex-column'
-                )}
-              >
-                <div className="mb-1">
-                  <Icon name="church" size={32} />
-                </div>
-                <div>
-                  <span className={classnames('my-3')}>{call}</span>
-                </div>
-              </div>
-            </Card>
-          </a>
+          />
         ))}
       </Row>
     </>
