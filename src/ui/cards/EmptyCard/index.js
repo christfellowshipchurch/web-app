@@ -53,7 +53,7 @@ EmptyCard.defaultProps = {
 EmptyCard.propTypes = {
   className: PropTypes.string,
   error: PropTypes.string,
-  fill: PropTypes.string,
+  fill: PropTypes.bool,
   loading: PropTypes.bool,
   onClick: PropTypes.func,
   shadow: PropTypes.oneOf(['', 'sm', 'lg']),
