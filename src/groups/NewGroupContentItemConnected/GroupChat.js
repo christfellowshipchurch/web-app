@@ -26,7 +26,7 @@ const ChatContainer = styled.div`
 // Main Component
 // ------------------------
 
-const GroupChat = ({ channelId }) => {
+const GroupChat = ({ channelId, channelType }) => {
   // User data
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
@@ -58,11 +58,11 @@ const GroupChat = ({ channelId }) => {
             data.currentUser.streamChatToken
           );
         } else if (!isLoggedIn) {
-          await StreamChatClient.setGuestUser({ id: 'guest' });
+          setConnectionError(true);
         }
 
         // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel('group', channelId);
+        const newChannel = StreamChatClient.channel(channelType, channelId);
         setChannel(newChannel);
         console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
 
@@ -125,6 +125,7 @@ const GroupChat = ({ channelId }) => {
 
 GroupChat.propTypes = {
   channelId: PropTypes.string.isRequired,
+  channelType: PropTypes.string.isRequired,
 };
 
 GroupChat.defaultProps = {};
