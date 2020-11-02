@@ -144,8 +144,12 @@ const IdentityForm = ({ promptText, buttonText, inputLabel, update, columns }) =
             {/* Disclaimer Text with Privacy Policy Link */}
             <p className="mb-0 mt-2 ml-2 text-left" style={{ fontSize: 14 }}>
               I agree to the &nbsp;
+              <a href="/terms-of-use" target="_blank">
+                Terms of Use
+              </a>
+              &nbsp; and &nbsp;
               <a href="/privacy-policy" target="_blank">
-                policy
+                Privacy Policy
               </a>
               &nbsp; laid out by Christ Fellowship Church.
             </p>
