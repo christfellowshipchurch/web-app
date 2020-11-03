@@ -182,13 +182,17 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
         }
 
         // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel(channelType, channelId, {
-          parentId: get(event, 'id'),
-          name: get(event, 'title'),
-          startsAt: get(event, 'events[0].start'),
-          endsAt: get(event, 'events[0].end'),
-          uploads: false,
-        });
+        const newChannel = StreamChatClient.channel(
+          channelType.toLowerCase(),
+          channelId,
+          {
+            parentId: get(event, 'id'),
+            name: get(event, 'title'),
+            startsAt: get(event, 'events[0].start'),
+            endsAt: get(event, 'events[0].end'),
+            uploads: false,
+          }
+        );
         await newChannel.create();
         await newChannel.watch();
         setChannel(newChannel);
