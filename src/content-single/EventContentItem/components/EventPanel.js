@@ -60,7 +60,7 @@ const TabContent = styled.div`
 // :: Main Component
 // ------------------------
 
-const EventPanel = ({ event, channelId }) => {
+const EventPanel = ({ event, channelId, channelType }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
   const [watcherCount, setWatcherCount] = useState(null);
 
@@ -85,6 +85,7 @@ const EventPanel = ({ event, channelId }) => {
           <EventChat
             event={event}
             channelId={channelId}
+            channelType={channelType}
             onWatcherCountChange={handleWatcherCountChange}
           />
         </TabContent>
@@ -114,6 +115,7 @@ EventPanel.propTypes = {
     ),
   }),
   channelId: PropTypes.string,
+  channelType: PropTypes.string,
 };
 
 EventPanel.defaultProps = {};

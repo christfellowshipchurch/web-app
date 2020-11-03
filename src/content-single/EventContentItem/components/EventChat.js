@@ -84,7 +84,7 @@ const BackLabel = styled.span`
 
 // Main Component
 // ------------------------
-const EventChat = ({ event, channelId, onWatcherCountChange }) => {
+const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
   // User data
   const { isLoggedIn } = useAuth();
   const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
@@ -133,10 +133,10 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
 
   // Listener for events on the Stream Chat client
   const handleClientEvent = (clientEvent) => {
-    const { type: eventType, channel_type: channelType, user } = clientEvent;
+    const { type: eventType, channel_type: eventChannelType, user } = clientEvent;
 
     // :: New DM messages
-    if (eventType === 'message.new' && channelType === 'messaging') {
+    if (eventType === 'message.new' && eventChannelType === 'messaging') {
       setActiveDmChannel((currentActiveDmChannel) => {
         // Heavy handed, but just re-fetch a users' DM channels altogether when
         // we receive a message and are *not currently viewing a conversation*.
@@ -182,7 +182,7 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
         }
 
         // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel('livestream', channelId, {
+        const newChannel = StreamChatClient.channel(channelType, channelId, {
           parentId: get(event, 'id'),
           name: get(event, 'title'),
           startsAt: get(event, 'events[0].start'),
@@ -255,8 +255,8 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
     setActiveDmChannel(recipientDmChannel);
   };
 
-  if (loading || loadingRole || !channel) return <Loader />;
-  if (error || connectionError) return <ChatError />;
+  if (loading || loadingRole || (channelId && !channel)) return <Loader />;
+  if (!channelId || !channelType || error || connectionError) return <ChatError />;
 
   return (
     <ChatContainer>
@@ -300,6 +300,7 @@ EventChat.propTypes = {
     ),
   }),
   channelId: PropTypes.string.isRequired,
+  channelType: PropTypes.string.isRequired,
   onWatcherCountChange: PropTypes.func.isRequired,
 };
 
