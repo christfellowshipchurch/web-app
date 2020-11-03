@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation } from 'react-apollo';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { get, filter, has, keys } from 'lodash';
+import { Carousel } from 'react-bootstrap';
 import { Button } from '../../ui';
+import { Icon } from '../../ui/Icons';
 import { ContactForm, DemographicForm, VisitForm } from './fragments';
 
 import { SUBMIT_RSVP } from './mutations';
@@ -24,6 +26,7 @@ const Rsvp = (props) => {
   } = props;
 
   const [submitRsvp, { data, loading, error }] = useMutation(SUBMIT_RSVP);
+  const [index, setIndex] = useState(0);
   const filteredErrors = filter(errors, (n) => n !== DO_NOT_SHOW_ERROR);
   const emptyStrings = filter(values, (n) => n === '');
 
@@ -34,8 +37,12 @@ const Rsvp = (props) => {
   if (get(data, 'submitRsvp', '') === 'Completed') {
     return (
       <div className="text-success text-center">
-        <h3>We can't wait to see you!</h3>
-        <p>Check your email for more information</p>
+        <h3>Thank you!</h3>
+        <p>
+          Your reminder has been set. Be sure to check your email for all the information
+          you’ll need prior to your visit here at Christ Fellowship. We look forward to
+          seeing you soon!
+        </p>
       </div>
     );
   }
@@ -56,43 +63,81 @@ const Rsvp = (props) => {
     );
   }
 
+  const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+  };
+
   return (
     <div className="container">
-      {/* Demographic Information */}
-      <div className="row my-4">
-        <div className="col text-center">
-          <h2>{formTitle}</h2>
-          <p className="text-dark">{formDescription}</p>
-        </div>
+      <div className="text-center">
+        <h4 className="mb-0 mt-3">
+          <span className="badge badge-secondary">{`Step ${index + 1} of 2`}</span>
+        </h4>
       </div>
-      <DemographicForm
-        {...props}
-        errors={filteredErrors}
-        loading={loading || submitting}
-      />
-
-      {/* Contact Information */}
-      <ContactForm {...props} errors={filteredErrors} loading={loading || submitting} />
-
-      {/* Visit Information */}
-      <div className="row mt-6">
-        <div className="col text-left">
-          <p className="text-dark">{formAdditionalText1}</p>
-        </div>
-      </div>
-      <VisitForm {...props} errors={filteredErrors} loading={loading || submitting} />
-
-      {/* Submit */}
-      <div className="row my-6">
-        <div className="col text-center">
-          <Button
-            title={`Submit`}
-            disabled={disabled}
-            loading={submitting || loading}
-            onClick={() => submitRsvp({ variables: values })}
+      <Carousel
+        activeIndex={index}
+        onSelect={handleSelect}
+        controls={false}
+        indicators={false}
+        interval={null}
+        touch={false}
+      >
+        <Carousel.Item>
+          {/* Demographic Information */}
+          <div className="row my-4">
+            <div className="col text-center">
+              <h2>{formTitle}</h2>
+              <p className="text-dark">{formDescription}</p>
+            </div>
+          </div>
+          <DemographicForm
+            {...props}
+            errors={filteredErrors}
+            loading={loading || submitting}
           />
-        </div>
-      </div>
+          {/* Contact Information */}
+          <ContactForm
+            {...props}
+            errors={filteredErrors}
+            loading={loading || submitting}
+          />
+          <div className="row my-6">
+            <div className="col text-center">
+              <Button title="Next" onClick={() => handleSelect(1)} />
+            </div>
+          </div>
+        </Carousel.Item>
+        <Carousel.Item>
+          {/* Visit Information */}
+          <div className="my-3">
+            <Icon name="angle-left" fill="#00aeef" />
+            <Button
+              title="Back"
+              type="link"
+              onClick={() => handleSelect(0)}
+              className="pl-0 ml-0"
+            />
+          </div>
+          <div className="row mt-2">
+            <div className="col text-left">
+              <p className="text-dark">{formAdditionalText1}</p>
+            </div>
+          </div>
+          <VisitForm {...props} errors={filteredErrors} loading={loading || submitting} />
+
+          {/* Submit */}
+          <div className="row my-6">
+            <div className="col text-center">
+              <Button
+                title={`Submit`}
+                disabled={disabled}
+                loading={submitting || loading}
+                onClick={() => submitRsvp({ variables: values })}
+              />
+            </div>
+          </div>
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 };
@@ -108,9 +153,9 @@ Rsvp.propTypes = {
 };
 
 Rsvp.defaultProps = {
-  formTitle: 'RSVP',
+  formTitle: 'Set a Reminder',
   formDescription:
-    'Enter your details and one of our team will meet you before the service, grab you a coffee, give you a personalized tour of the facility, save you a seat, and help you however they can.',
+    'Enter your details below to set a reminder and we will send you an email with all the information you’ll need prior to your visit here at Christ Fellowship.',
   formAdditionalText1: 'You’ll be visiting us at:',
 };
 

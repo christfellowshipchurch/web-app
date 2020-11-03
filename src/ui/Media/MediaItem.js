@@ -109,6 +109,7 @@ MediaItem.defaultProps = {
   circle: false,
   playVidInBackground: false,
   showTheaterMode: false,
+  children: null,
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
@@ -163,8 +164,6 @@ MediaItem.propTypes = {
   ]),
   gradientDirection: PropTypes.oneOf(['bottom-top']),
   altPlayButton: PropTypes.bool,
-  circle: PropTypes.bool,
-  rounded: PropTypes.bool,
   playVidInBackground: PropTypes.bool,
 };
 
