@@ -12,23 +12,20 @@ const CallsToAction = ({ eventTitle, items, hasEvents }) => {
   return (
     <>
       {hasEvents && <h3>Get Started</h3>}
-      <Row>
+      <Row style={{ padding: 0 }}>
         {items.map(({ call, action }, index) => (
           <ContentCard
-            icon="church"
             title={call}
             redirectUrl={action}
             key={`cta-${index}`}
             id={`cta-${index}`}
-            coverImage={{
-              name: 'Image name',
-              sources: [
-                {
-                  uri:
-                    'https://cloudfront.christfellowship.church/GetImage.ashx?guid=80fc6d71-b0c1-45af-a78e-67e91ebd4136',
-                },
-              ],
-            }}
+            coverImage={[
+              {
+                name: 'Image name',
+                uri:
+                  'https://cloudfront.christfellowship.church/GetImage.ashx?guid=80fc6d71-b0c1-45af-a78e-67e91ebd4136',
+              },
+            ]}
             label={{}}
             onClick={() =>
               GoogleAnalytics.trackEvent({
