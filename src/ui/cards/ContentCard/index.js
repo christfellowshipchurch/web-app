@@ -16,13 +16,7 @@ const CardLink = ({ children, className, to: { id, href: pathname, target } = {}
     </a>
   ) : (
     // else render with react-routers internal Link.
-    <Link
-      to={{
-        pathname,
-        state: { contentId: id },
-      }}
-      className={className}
-    >
+    <Link to={{ pathname, state: { contentId: id } }} className={className}>
       {children}
     </Link>
   );
@@ -75,7 +69,7 @@ const ContentCard = ({
         >
           <Media
             imageAlt={get(coverImage, '[0].name', 'Christ Fellowship Church')}
-            imageUrl={get(coverImage, 'sources.[0].uri', '')}
+            imageUrl={get(coverImage, '[0].uri', '')}
             ratio="16by9"
             className={classnames('rounded-top', 'bg-light')}
             style={{ ...(row && { flex: 1 }) }}
@@ -139,18 +133,19 @@ ContentCard.propTypes = {
 
 ContentCard.defaultProps = {
   coverImage: null,
-  title: null,
-  onClick: null,
-  as: 'div',
   icon: null,
-  urlBase: 'content',
+  id: '',
   label: {
-    value: 'tags[0]',
+    value: '',
     bg: 'dark',
     textColor: 'white',
   },
-  row: false,
+  onClick: null,
+  summary: '',
   redirectUrl: '',
+  row: false,
+  title: null,
+  urlBase: 'content',
 };
 
 export default ContentCard;
