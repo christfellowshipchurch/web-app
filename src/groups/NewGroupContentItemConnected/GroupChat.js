@@ -62,7 +62,7 @@ const GroupChat = ({ channelId, channelType }) => {
         }
 
         // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel(channelType, channelId);
+        const newChannel = StreamChatClient.channel(channelType.toLowerCase(), channelId);
         setChannel(newChannel);
         console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
 
@@ -88,18 +88,18 @@ const GroupChat = ({ channelId, channelType }) => {
     };
   }, [isLoggedIn, loading, data, channelId]);
 
-  if (loading || !channel) {
-    return (
-      <ChatContainer>
-        <Loader />
-      </ChatContainer>
-    );
-  }
-
   if (error || connectionError) {
     return (
       <ChatContainer>
         <ChatError />
+      </ChatContainer>
+    );
+  }
+
+  if (loading || !channel) {
+    return (
+      <ChatContainer>
+        <Loader />
       </ChatContainer>
     );
   }
