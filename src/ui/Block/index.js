@@ -102,9 +102,9 @@ const Block = ({
                 {subtitle}
               </h5>
 
-              <h2 className={classnames('font-weight-bold', textColorClass)}>
+              <h1 className={classnames('font-weight-bold', textColorClass)}>
                 {!hideTitle && title}
-              </h2>
+              </h1>
 
               <div className={classnames('pb-3', textColorClass)}>
                 {htmlToReactParser.parse(htmlContent)}

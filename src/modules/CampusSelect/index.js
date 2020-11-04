@@ -77,36 +77,35 @@ export const CampusTile = ({
       </div>
       <div className="col px-3">
         <h2>{name}</h2>
-        {!isRsvp && (
-          <div>
-            {serviceTimes.length > 0 && (
-              <div className="mb-4">
-                <h3 className="mt-4">Service Times</h3>
-                {uniqBy(serviceTimes, 'time').map((n, i) => {
-                  const isDate = moment(`${n.day} ${n.time}`).isValid();
-                  const title = isDate ? n.time : `${n.day.substring(0, 3)} - ${n.time}`;
 
-                  return (
-                    <h4 key={i} className="pl-2">
-                      {title}
-                    </h4>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+        {serviceTimes.length > 0 && (
+          <>
+            <h3 className="mt-4">Service Times</h3>
+            {uniqBy(serviceTimes, 'time').map((n, i) => {
+              const isDate = moment(`${n.day} ${n.time}`).isValid();
+              const title = isDate ? n.time : `${n.day.substring(0, 3)} - ${n.time}`;
+
+              return (
+                <h4 key={i} className="pl-2">
+                  {title}
+                </h4>
+              );
+            })}
+            <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
+            <p className="text-dark mb-3">
+              {`${city}, ${state} ${postalCode.substring(0, 5)}`}
+            </p>
+          </>
         )}
-
-        <p className="text-dark mb-2">{`${street1}`}</p>
-        <p className="text-dark mb-3">
-          {`${city}, ${state} ${postalCode.substring(0, 5)}`}
-        </p>
 
         {serviceTimes.length < 1 && (
           <>
+            <h4 className="font-weight-normal py-3">
+              Join the live online experience from wherever you are!
+            </h4>
             <Button
               className="mt-3"
-              title="Watch Church Online"
+              title="Watch Online"
               href="https://live.christfellowship.church/"
             />
           </>
