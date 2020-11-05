@@ -86,12 +86,20 @@ const NewGroupContentItemConnected = ({ itemId }) => {
 
   const resources = getGroupResources(get(content, 'groupResources', []));
   console.log('[rkd] content:', content);
+
   return (
     <NewGroup
       coverImage={get(content, 'coverImage')}
       title={get(content, 'title')}
+      summary={get(content, 'summary')}
       members={get(content, 'members', [])}
       dateTime={get(content, 'dateTime')}
+      userName={
+        get(data, 'currentUser.profile.nickName') ||
+        get(data, 'currentUser.profile.firstName')
+      }
+      videoCall={get(content, 'videoCall')}
+      channelId={get(content, 'streamChatChannel.channelId')}
     />
   );
   // return (
@@ -114,8 +122,6 @@ const NewGroupContentItemConnected = ({ itemId }) => {
   //     members={get(content, 'members')}
   //   />
   // );
-
-  return <h1>hey</h1>;
 };
 
 NewGroupContentItemConnected.propTypes = {

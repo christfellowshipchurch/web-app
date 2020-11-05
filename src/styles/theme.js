@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import color from 'color';
 
 // Corresponds to bootstrap's values for styles like p-1, mr-2, px-3, etc.
@@ -19,6 +20,9 @@ export const baseUnit = (n = 1) => {
 
   return 0;
 };
+
+export const themeGet = (path, defaultValue) => ({ theme }) =>
+  get(theme, path, defaultValue);
 
 export const breakpoint = (key) => ({ theme }) => theme.breakpoints[key];
 

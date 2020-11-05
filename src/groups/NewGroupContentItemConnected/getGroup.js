@@ -48,7 +48,10 @@ export default gql`
             uri
           }
         }
-        chatChannelId
+        streamChatChannel {
+          id
+          channelId
+        }
       }
     }
     currentUser {

@@ -90,19 +90,21 @@ export const CampusTile = ({
                 </h4>
               );
             })}
+            <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
+            <p className="text-dark mb-3">
+              {`${city}, ${state} ${postalCode.substring(0, 5)}`}
+            </p>
           </>
         )}
 
-        <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
-        <p className="text-dark mb-3">
-          {`${city}, ${state} ${postalCode.substring(0, 5)}`}
-        </p>
-
         {serviceTimes.length < 1 && (
           <>
+            <h4 className="font-weight-normal py-3">
+              Join the live online experience from wherever you are!
+            </h4>
             <Button
               className="mt-3"
-              title="Watch Church Online"
+              title="Watch Online"
               href="https://live.christfellowship.church/"
             />
           </>
