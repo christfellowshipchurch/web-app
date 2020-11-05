@@ -90,16 +90,18 @@ export const CampusTile = ({
                 </h4>
               );
             })}
+            <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
+            <p className="text-dark mb-3">
+              {`${city}, ${state} ${postalCode.substring(0, 5)}`}
+            </p>
           </>
         )}
 
-        <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
-        <p className="text-dark mb-3">
-          {`${city}, ${state} ${postalCode.substring(0, 5)}`}
-        </p>
-
         {serviceTimes.length < 1 && (
           <>
+            <h4 className="font-weight-normal py-3">
+              Join the live online experience from wherever you are!
+            </h4>
             <Button
               className="mt-3"
               title="Watch Church Online"
@@ -121,7 +123,7 @@ export const CampusTile = ({
 
         {/* TEMPORARLY HIDING RSVP BUTTONS WHILE CAMPUSES ARE CLOSED */}
 
-        <h3 className="mt-6">Select a service time to RSVP for:</h3>
+        {/* <h3 className="mt-6">Select a service time to RSVP for:</h3>
         {uniqBy(serviceTimes, 'time').map((n, i) => {
           const isDate = moment(`${n.day} ${n.time}`).isValid();
           const title = isDate ? n.time : `${n.day.substring(0, 3)} ${n.time}`;
@@ -139,7 +141,7 @@ export const CampusTile = ({
               }
             />
           );
-        })}
+        })} */}
       </div>
     </div>
   );
