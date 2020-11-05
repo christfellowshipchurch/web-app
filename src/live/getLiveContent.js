@@ -18,6 +18,17 @@ export default gql`
           id
           channelId
         }
+        actions {
+          action
+          duration
+          relatedNode {
+            ... on Url {
+              url
+            }
+          }
+          start
+          title
+        }
       }
     }
   }
