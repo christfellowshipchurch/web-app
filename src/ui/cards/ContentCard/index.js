@@ -75,7 +75,7 @@ const ContentCard = ({
             style={{ ...(row && { flex: 1 }) }}
             forceRatio
           >
-            {label.value !== '' && (
+            {!!label.value && (
               <h6
                 style={{
                   position: 'absolute',
