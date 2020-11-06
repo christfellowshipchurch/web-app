@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Media } from 'ui';
 import { Icon } from '../../Icons';
-import defaultImg from '../../../modules/RsvpForm/fragments/rsvpFormImage.jpg';
 
 const FloatingCard = ({ children, overlay, onPressExit, headerImg }) => (
   <div
@@ -30,6 +29,7 @@ const FloatingCard = ({ children, overlay, onPressExit, headerImg }) => (
       style={{
         maxWidth: 600,
         width: '90%',
+        border: 'none',
       }}
     >
       {headerImg ? (
@@ -37,7 +37,10 @@ const FloatingCard = ({ children, overlay, onPressExit, headerImg }) => (
           ratio={'16by9'}
           imageUrl={headerImg}
           imageAlt={`Christ Fellowship Church `}
-          mediaItemStyles={{ zIndex: -100 }}
+          mediaItemStyles={{
+            zIndex: -100,
+            borderRadius: '0.3rem 0.3rem 0 0',
+          }}
         >
           <div
             className={classnames(
@@ -83,7 +86,7 @@ const FloatingCard = ({ children, overlay, onPressExit, headerImg }) => (
 
 FloatingCard.defaultProps = {
   overlay: 'dark',
-  headerImg: defaultImg,
+  headerImg: null,
 };
 
 FloatingCard.propTypes = {

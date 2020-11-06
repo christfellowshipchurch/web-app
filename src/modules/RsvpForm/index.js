@@ -13,8 +13,6 @@ import { SUBMIT_RSVP } from './mutations';
 
 const DO_NOT_SHOW_ERROR = '!! DO NOT SHOW THIS ERROR !!';
 
-const currentPage = window.location.href;
-
 const Rsvp = (props) => {
   const {
     errors,
@@ -27,6 +25,7 @@ const Rsvp = (props) => {
 
   const [submitRsvp, { data, loading, error }] = useMutation(SUBMIT_RSVP);
   const [index, setIndex] = useState(0);
+  const [fieldError, setFieldError] = useState(false);
   const filteredErrors = filter(errors, (n) => n !== DO_NOT_SHOW_ERROR);
   const emptyStrings = filter(values, (n) => n === '');
 
@@ -36,7 +35,7 @@ const Rsvp = (props) => {
   // Form submission successful
   if (get(data, 'submitRsvp', '') === 'Completed') {
     return (
-      <div className="text-success text-center">
+      <div className="text-center mt-3">
         <h3>Thank you!</h3>
         <p>
           Your reminder has been set. Be sure to check your email for all the information
@@ -56,7 +55,7 @@ const Rsvp = (props) => {
           It looks like there was an error submitting your information. Please make sure
           all the fields are filled in correctly.
         </h4>
-        <a className="btn btn-primary" href={currentPage}>
+        <a className="btn btn-primary" href={window.location.href}>
           try again
         </a>
       </div>
@@ -64,16 +63,20 @@ const Rsvp = (props) => {
   }
 
   const handleSelect = (selectedIndex) => {
-    setIndex(selectedIndex);
+    return setIndex(selectedIndex);
+  };
+
+  const checkContactFields = (values) => {
+    const { firstName, lastName, email } = values;
+    if (firstName !== '' && lastName !== '' && email !== '') {
+      return Promise.all([setFieldError(false), handleSelect(1)]);
+    } else {
+      return setFieldError(true);
+    }
   };
 
   return (
     <div className="container">
-      <div className="text-center">
-        <h4 className="mb-0 mt-3">
-          <span className="badge badge-secondary">{`Step ${index + 1} of 2`}</span>
-        </h4>
-      </div>
       <Carousel
         activeIndex={index}
         onSelect={handleSelect}
@@ -90,6 +93,9 @@ const Rsvp = (props) => {
               <p className="text-dark">{formDescription}</p>
             </div>
           </div>
+          {fieldError && (
+            <h6 className="text-danger mb-n4 mt-n2">Please fill out all fields</h6>
+          )}
           <DemographicForm
             {...props}
             errors={filteredErrors}
@@ -101,22 +107,20 @@ const Rsvp = (props) => {
             errors={filteredErrors}
             loading={loading || submitting}
           />
-          <div className="row my-6">
+          <div className="row mt-4">
             <div className="col text-center">
-              <Button title="Next" onClick={() => handleSelect(1)} />
+              <Button title="Next" onClick={() => checkContactFields(values)} />
             </div>
           </div>
         </Carousel.Item>
         <Carousel.Item>
           {/* Visit Information */}
-          <div className="my-3">
-            <Icon name="angle-left" fill="#00aeef" />
-            <Button
-              title="Back"
-              type="link"
-              onClick={() => handleSelect(0)}
-              className="pl-0 ml-0"
-            />
+          <div
+            className="d-flex align-items-center my-3 cursor-hover"
+            onClick={() => handleSelect(0)}
+          >
+            <Icon name="angle-left" fill="#00aeef" className="ml-n1" />
+            <h4 className="text-primary mb-0 font-weight-normal">Back</h4>
           </div>
           <div className="row mt-2">
             <div className="col text-left">
@@ -126,7 +130,7 @@ const Rsvp = (props) => {
           <VisitForm {...props} errors={filteredErrors} loading={loading || submitting} />
 
           {/* Submit */}
-          <div className="row my-6">
+          <div className="row my-4">
             <div className="col text-center">
               <Button
                 title={`Submit`}
@@ -138,6 +142,11 @@ const Rsvp = (props) => {
           </div>
         </Carousel.Item>
       </Carousel>
+      <div className="text-center mt-3 mb-n3">
+        <h4 className="mb-0">
+          <span className="badge badge-light text-white">{`${index + 1} of 2`}</span>
+        </h4>
+      </div>
     </div>
   );
 };

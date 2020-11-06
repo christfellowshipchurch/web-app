@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-apollo';
 import moment from 'moment';
-import { get, find, uniqBy, forEach, sortBy, filter, toUpper, uniq } from 'lodash';
+import { get, find, uniqBy, forEach, sortBy, filter, slice, uniq } from 'lodash';
 import { Church, CalendarAlt, Clock } from '../../../ui/Icons';
 import Loader from '../../../ui/Loader';
 import Dropdown from '../../../ui/inputs/Dropdown';
@@ -19,7 +19,7 @@ const normalizeDate = (date) => {
   return m.toISOString();
 };
 
-const NUMBER_OF_WEEKS = 12;
+const NUMBER_OF_WEEKS = 4;
 
 const VisitForm = ({ setFieldValue, values }) => {
   const { loading, error, data } = useQuery(GET_CAMPUSES);
