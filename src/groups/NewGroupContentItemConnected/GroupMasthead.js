@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import { themeGet } from 'styles/theme';
+import { baseUnit, themeGet } from 'styles/theme';
 
 // :: Styled Components
 // ------------------------
 
 const Container = styled.hgroup`
   width: 100%;
+  margin-bottom: ${({ mb }) => baseUnit(mb)};
 `;
 
 const Headline = styled.h1`
@@ -26,9 +27,10 @@ const SubHeadline = styled.h3`
 
 // :: Main Component
 // ------------------------
-const GroupMasthead = ({ headline, subHeadline }) => {
+
+const GroupMasthead = ({ mb, headline, subHeadline }) => {
   return (
-    <Container>
+    <Container mb={mb}>
       {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
       <Headline>{headline}</Headline>
     </Container>
@@ -36,8 +38,13 @@ const GroupMasthead = ({ headline, subHeadline }) => {
 };
 
 GroupMasthead.propTypes = {
+  mb: PropTypes.number,
   headline: PropTypes.string,
   subHeadline: PropTypes.string,
+};
+
+GroupMasthead.defaultProps = {
+  mb: 0,
 };
 
 export default GroupMasthead;

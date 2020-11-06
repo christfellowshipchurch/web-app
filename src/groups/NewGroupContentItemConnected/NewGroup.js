@@ -47,10 +47,8 @@ const NewGroup = ({
   onClickParentVideoCall,
 }) => {
   const [activeTab, setActiveTab] = useState('About');
-  const groupMeetingTime = dateTextFormat(get(dateTime, 'start'));
   const sortedMembers = uniq([...leaders, ...members], 'id').slice(0, 10);
 
-  console.log('[rkd] summary:', summary);
   const handleTabClick = (label) => setActiveTab(label);
 
   return (
@@ -58,24 +56,19 @@ const NewGroup = ({
       <Row>
         <GroupImage coverImage={coverImage} title={title} />
       </Row>
-      <Row className="mt-5 mb-4">
-        <Col className="col-12 col-lg-8">
-          <GroupMasthead headline={title} />
-        </Col>
-      </Row>
-      <Row className="mb-4">
+      <Row className="my-5">
         <Col className="col-12 col-lg-8 pr-lg-4">
-          <GroupMembers members={sortedMembers} displayCount={10} />
+          <GroupMasthead mb={4} headline={title} />
+          <GroupMembers members={sortedMembers} displayCount={6} />
         </Col>
-        <Col className="col-12 col-lg-4">
+        <Col className="col-12 col-lg-4 pt-2">
           <GroupCalendarData
             title={title}
             summary={summary}
             address={document.URL}
-            dateTimes={[dateTime]}
+            dateTime={dateTime}
             calendarLinkDescription={'BLah'}
           />
-          <hr />
           <GroupCTAs parentVideoCall={parentVideoCall} videoCall={videoCall} />
         </Col>
       </Row>

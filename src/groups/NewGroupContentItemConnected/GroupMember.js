@@ -36,14 +36,14 @@ const ImageOuter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 6.18rem;
-  width: 6.18rem;
-  height: 8rem;
+  min-width: 5rem;
+  width: 5rem;
+  height: 6rem;
   border-radius: ${themeGet('borderRadius.large')};
   background: ${themeGet('placeholder.image')};
   overflow: hidden;
-  animation: ${({ loading, index }) =>
-    loading
+  animation: ${({ status, index }) =>
+    status === 'loading'
       ? css`
           ${loadingAnimation} 1s alternate ${index * 0.2}s infinite
         `
@@ -99,7 +99,7 @@ const GroupMember = ({ index, member }) => {
 
   return (
     <Container>
-      <ImageOuter loading={status === 'loading'} index={index}>
+      <ImageOuter status={status} index={index}>
         <UserIcon />
         {status !== 'error' && (
           <ImageInner>
