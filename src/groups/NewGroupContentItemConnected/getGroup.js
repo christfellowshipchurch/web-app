@@ -48,6 +48,15 @@ export default gql`
             uri
           }
         }
+        leaders {
+          id
+          nickName
+          firstName
+          lastName
+          photo {
+            uri
+          }
+        }
         streamChatChannel {
           id
           channelId

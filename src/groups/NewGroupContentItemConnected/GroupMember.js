@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components/macro';
 import { get } from 'lodash';
 
-import { baseUnit } from 'styles/theme';
+import { baseUnit, themeGet } from 'styles/theme';
 
 import { Icon } from 'ui';
 
@@ -13,6 +13,7 @@ import { Icon } from 'ui';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: ${baseUnit(2)};
   margin-right: ${baseUnit(2)};
 
   &:last-child {
@@ -35,11 +36,11 @@ const ImageOuter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 6rem;
-  width: 6rem;
+  min-width: 6.18rem;
+  width: 6.18rem;
   height: 8rem;
-  border-radius: ${({ theme }) => theme.borderRadius.large};
-  background: ${({ theme }) => theme.placeholder.image};
+  border-radius: ${themeGet('borderRadius.large')};
+  background: ${themeGet('placeholder.image')};
   overflow: hidden;
   animation: ${({ loading, index }) =>
     loading
@@ -74,10 +75,11 @@ const Image = styled.img`
 
 const Name = styled.div`
   display: block;
-  margin-top: ${baseUnit(1)};
+  margin-top: 0.2rem;
   text-align: center;
-  font-weight: ${({ theme }) => theme.fontWeight.medium};
-  color: ${({ theme }) => theme.font[700]};
+  font-size: ${themeGet('fontSize.small')};
+  font-weight: ${themeGet('fontWeight.medium')};
+  color: ${themeGet('font[700]')};
 `;
 
 // :: Main Component

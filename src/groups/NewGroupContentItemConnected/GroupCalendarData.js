@@ -13,19 +13,14 @@ const GroupCalendarData = ({
   dateTimes,
   calendarLinkDescription,
 }) => (
-  <div className="my-3">
-    <h3
-      className="mt-1 content-subtitle font-weight-light"
-      style={{ textAlign: 'center' }}
-    >
-      {dateTextFormat(get(dateTimes, 'start'))}
-    </h3>
-    <div className="d-flex justify-content-center align-items-center">
-      <Icon name="calendar-plus" className="mr-2" />
+  <div className="mb-3 text-center">
+    <h4>Meets {dateTextFormat(get(dateTimes, 'start'))}</h4>
+    <div className="d-flex justify-content-center">
+      <Icon name="calendar-plus" className="mr-1" fill="#00aeef" />
       <AddToCalendar
-        className="p-0 text-dark font-weight-bold"
+        className="p-0 font-weight-bold text-cyan"
         style={{
-          fontSize: '1.125rem',
+          fontSize: '0.875rem',
           letterSpacing: 'normal',
         }}
         event={{

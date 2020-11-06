@@ -13,6 +13,7 @@ const baseUnitMap = Object.freeze([
 
 export const baseUnit = (n = 1) => {
   try {
+    if (n === 0) return 0;
     return baseUnitMap[n];
   } catch (err) {
     console.error(err);
@@ -80,10 +81,12 @@ export const theme = Object.freeze({
   font: {
     // Hypothetically, the spread key values could be reversed for dark mode
     ...colors.gray,
-    h1: colors.coolGray,
-    h2: colors.coolGray,
-    h5: colors.coolGray,
+    h1: colors.coolGray[800],
+    h2: colors.coolGray[800],
+    h4: colors.coolGray[800],
+    h5: colors.coolGray[800],
     destructive: colors.red,
+    coolGray: colors.coolGray[800],
   },
   fontSize: {
     xsmall: '0.75rem', // ~12px

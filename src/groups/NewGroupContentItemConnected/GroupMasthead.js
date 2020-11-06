@@ -2,27 +2,36 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
+import { themeGet } from 'styles/theme';
+
 // :: Styled Components
 // ------------------------
 
+const Container = styled.hgroup`
+  width: 100%;
+`;
+
 const Headline = styled.h1`
-  color: ${({ theme }) => theme.font.h1};
+  font-size: ${themeGet('fontSize.h1')};
+  color: ${themeGet('font.h1')};
+  margin-bottom: 0;
 `;
 
 const SubHeadline = styled.h3`
-  font-weight: ${({ theme }) => theme.fontWeight.light};
-  font-size: ${({ theme }) => theme.fontSize.h3};
-  color: ${({ theme }) => theme.font.h3};
+  font-size: ${themeGet('fontSize.h5')};
+  font-weight: ${themeGet('fontWeight.semiBold')};
+  color: ${themeGet('font.400')};
+  text-transform: uppercase;
 `;
 
 // :: Main Component
 // ------------------------
 const GroupMasthead = ({ headline, subHeadline }) => {
   return (
-    <hgroup>
+    <Container>
+      {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
       <Headline>{headline}</Headline>
-      <SubHeadline>{subHeadline}</SubHeadline>
-    </hgroup>
+    </Container>
   );
 };
 

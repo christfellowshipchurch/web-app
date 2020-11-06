@@ -1,56 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { get } from 'lodash';
-
-import { baseUnit } from 'styles/theme';
+import { get, uniq } from 'lodash';
 
 import dateTextFormat from 'groups/dateTextFormat';
 
-import GroupBannerBackground from './GroupBannerBackground';
-import GroupContent from './GroupContent';
+import { Row, Col } from 'ui/grid';
 
-// Cast, in order of appearance
+// Local components in order of appearance
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
 import GroupCTAs from './GroupCTAs';
 import GroupMembers from './GroupMembers';
+import GroupCalendarData from './GroupCalendarData';
+
+import { GroupTabs, GroupTab, GroupTabContent } from './GroupTabs';
+import GroupChat from './GroupChat';
+
+import GroupResources from './GroupResources';
 
 // :: Styled Components
 // ------------------------
 
 const Container = styled.div`
-  display: grid;
   min-height: 75vh;
   max-width: ${({ theme }) => theme.sizing.maxPageWidth};
   margin: 3rem auto 7rem;
-  grid-template-rows: max-content;
-  grid-template-columns: 2fr 1fr;
-  grid-gap: ${baseUnit(2)};
-  /* justify-items: stretch; */
-  grid-template-areas:
-    'cover-image cover-image'
-    'masthead ctas'
-    'members members'
-    'tabs tabs'
-    'content content';
-  /* background: rgba(255, 32, 200, 0.6); */
-
-  & > * {
-    /* background: rgba(0, 255, 255, 0.8); */
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  width: 100%;
-  max-width: 100%;
-`;
-
-const Area = styled.div`
-  grid-area: ${({ area }) => area};
 `;
 
 // :: Main Component
@@ -61,7 +36,8 @@ const NewGroup = ({
   summary,
   userName,
   dateTime,
-  members,
+  members = [],
+  leaders = [],
   parentVideoCall,
   videoCall,
   groupResources,
@@ -70,28 +46,68 @@ const NewGroup = ({
   onClickVideoCall,
   onClickParentVideoCall,
 }) => {
-  console.log('[rkd] dateTime:', dateTime);
+  const [activeTab, setActiveTab] = useState('About');
   const groupMeetingTime = dateTextFormat(get(dateTime, 'start'));
+  const sortedMembers = uniq([...leaders, ...members], 'id').slice(0, 10);
+
+  console.log('[rkd] summary:', summary);
+  const handleTabClick = (label) => setActiveTab(label);
 
   return (
-    <>
-      <Container>
-        <Area area="cover-image">
-          <GroupImage coverImage={coverImage} title={title} />
-        </Area>
-        <Area area="masthead">
-          <GroupMasthead headline={title} subHeadline={groupMeetingTime} />
-        </Area>
-        <Area area="ctas">
+    <Container>
+      <Row>
+        <GroupImage coverImage={coverImage} title={title} />
+      </Row>
+      <Row className="mt-5 mb-4">
+        <Col className="col-12 col-lg-8">
+          <GroupMasthead headline={title} />
+        </Col>
+      </Row>
+      <Row className="mb-4">
+        <Col className="col-12 col-lg-8 pr-lg-4">
+          <GroupMembers members={sortedMembers} displayCount={10} />
+        </Col>
+        <Col className="col-12 col-lg-4">
+          <GroupCalendarData
+            title={title}
+            summary={summary}
+            address={document.URL}
+            dateTimes={[dateTime]}
+            calendarLinkDescription={'BLah'}
+          />
+          <hr />
           <GroupCTAs parentVideoCall={parentVideoCall} videoCall={videoCall} />
-        </Area>
-        <Area area="members">
-          <GroupMembers members={members} />
-        </Area>
-        <Area area="tabs">Tabs</Area>
-        <Area area="content">Content</Area>
-      </Container>
-    </>
+        </Col>
+      </Row>
+      <Row>
+        <Col className="col-12 col-lg-8 pr-lg-3">
+          <GroupTabs>
+            <GroupTab
+              label="About"
+              active={activeTab === 'About'}
+              onClick={handleTabClick}
+            />
+            <GroupTab
+              label="Chat"
+              active={activeTab === 'Chat'}
+              onClick={handleTabClick}
+            />
+          </GroupTabs>
+          <GroupTabContent active={activeTab === 'About'}>
+            <p>{summary || <i>No group description</i>}</p>
+          </GroupTabContent>
+          <GroupTabContent active={activeTab === 'Chat'}>
+            <GroupChat channelId={channelId} />
+          </GroupTabContent>
+        </Col>
+        <Col className="col-12 col-lg-4">
+          <GroupResources
+            resources={groupResources}
+            onResourceClick={onClickGroupResource}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
