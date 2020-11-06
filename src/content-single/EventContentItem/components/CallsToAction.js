@@ -6,16 +6,16 @@ import { ContentCard, Row } from 'ui';
 
 const MINUTE = 60000;
 
-function filterItems(items, startTime) {
+function filterItems(items, eventStartTime) {
+  const startTime = new Date(eventStartTime).getTime();
   const currentTime = Date.now();
+
   const filteredItems = [];
   items.forEach((cta) => {
-    const timeDiff = currentTime - startTime;
+    const timeDiff = parseInt((currentTime - startTime) / MINUTE, 10);
+
     // If we should always show it
-    if (
-      (cta.start === 0 && cta.duration === 0) ||
-      (cta.start === undefined && cta.duration === undefined)
-    )
+    if ((cta.start === 0 && cta.duration === 0) || (!cta.start && !cta.duration))
       filteredItems.push(cta);
     // If we show in beginning
     else if (cta.start === 0 && timeDiff < cta.duration) filteredItems.push(cta);
@@ -26,29 +26,31 @@ function filterItems(items, startTime) {
   return filteredItems;
 }
 
-const CallsToAction = ({ eventTitle, items, hasEvents, startTime }) => {
-  const [cta, setCTA] = useState(() => filterItems(items, startTime));
+const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
+  const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
 
   if (isEmpty(items)) {
     return null;
   }
 
-  setInterval(() => setCTA(filterItems(items, startTime)), MINUTE);
+  setInterval(() => setCTA(filterItems(items, eventStartTime)), MINUTE);
 
   return (
     <>
       {hasEvents && <h3>Get Started</h3>}
       <Row style={{ padding: 0 }}>
-        {cta.map(({ call, action }, index) => (
+        {cta.map((c, index) => (
           <ContentCard
-            title={call}
-            redirectUrl={action}
+            title={c.title}
+            redirectUrl={c.relatedNode.url}
             key={`cta-${index}`}
             id={`cta-${index}`}
             coverImage={[
               {
-                name: 'Image name',
+                name: c.title,
                 uri:
+                  c.image ||
+                  // TODO: Replace with default image
                   'https://cloudfront.christfellowship.church/GetImage.ashx?guid=80fc6d71-b0c1-45af-a78e-67e91ebd4136',
               },
             ]}
@@ -57,7 +59,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, startTime }) => {
               GoogleAnalytics.trackEvent({
                 category: 'Event Item',
                 action: `${eventTitle} Call to Action`,
-                label: `${eventTitle} - ${call} Button`,
+                label: `${eventTitle} - ${c.title} Button`,
               })
             }
           />
@@ -70,7 +72,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, startTime }) => {
 CallsToAction.propTypes = {
   hasEvents: PropTypes.bool,
   eventTitle: PropTypes.string,
-  startTime: PropTypes.number,
+  eventStartTime: PropTypes.number,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
@@ -83,7 +85,7 @@ CallsToAction.defaultProps = {
   hasEvents: false,
   eventTitle: 'Christ Fellowship Church',
   items: [],
-  startTime: Date.now(),
+  eventStartTime: Date.now(),
 };
 
 export default CallsToAction;

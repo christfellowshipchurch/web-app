@@ -61,6 +61,7 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const theaterMode = useTheaterModeState();
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'streamChatChannel.channelId', null);
+  const callsToAction = liveStream?.actions || [];
 
   return (
     <main style={{ minHeight: '75vh' }}>
@@ -80,7 +81,8 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
           <Area area="cta">
             <CallsToAction
               eventTitle={get(content, 'title')}
-              items={get(content, 'callsToAction')}
+              eventStartTime={liveStream?.eventStartTime}
+              items={callsToAction}
             />
           </Area>
           <Area area="social">

@@ -5,6 +5,7 @@ export default gql`
     liveStreams {
       ... on LiveStream {
         isLive
+        eventStartTime
         media {
           sources {
             uri
@@ -27,6 +28,7 @@ export default gql`
             }
           }
           start
+          image
           title
         }
       }
