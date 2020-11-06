@@ -20,14 +20,14 @@ const GroupContent = ({
   channelId,
   calendarLinkDescription,
   coverImage,
-  members,
+  people,
 }) => {
   return (
     <div className="container-fluid mb-4 pt-6 px-3">
       <div className="row">
         <div className="col-6 bg-white p-3">
           <GroupImage coverImage={coverImage} title={title} />
-          <GroupMembers members={members} />
+          <GroupMembers people={people} />
           <GroupResources
             groupResources={groupResources}
             onClick={onClickGroupResource}
@@ -80,14 +80,17 @@ GroupContent.propTypes = {
       link: PropTypes.string,
     })
   ),
-  members: PropTypes.arrayOf(
+  people: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      firstName: PropTypes.string,
-      nickName: PropTypes.string,
-      photo: PropTypes.shape({
-        uri: PropTypes.string,
+      node: PropTypes.shape({
+        id: PropTypes.string,
+        firstName: PropTypes.string,
+        nickName: PropTypes.string,
+        photo: PropTypes.shape({
+          uri: PropTypes.string,
+        }),
       }),
+      isGroupLeader: PropTypes.bool,
     })
   ),
 };

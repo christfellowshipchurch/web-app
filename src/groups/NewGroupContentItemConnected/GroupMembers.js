@@ -4,25 +4,25 @@ import { get } from 'lodash';
 
 import { Media } from 'ui';
 
-const GroupMembers = ({ members }) => {
+const GroupMembers = ({ people }) => {
   return (
     <div className="my-3">
       <h3>Members</h3>
       <div className="row my-2" style={{ overflowY: 'auto', maxHeight: 120 }}>
-        {members.map((member) => (
+        {people.map((person) => (
           <div
             className="mx-1 d-flex align-items-center"
             style={{ flexDirection: 'column' }}
-            key={member.id}
+            key={person.id}
           >
             <Media
-              key={member.id}
-              imageUrl={get(member, 'photo.uri')}
+              key={person.id}
+              imageUrl={get(person, 'photo.uri')}
               forceRatio
               style={{ height: 42, minWidth: 42, maxWidth: 42 }}
             />
             <div style={{ fontSize: '0.75rem' }}>
-              {get(member, 'nickName') || get(member, 'firstName')}
+              {get(person, 'nickName') || get(person, 'firstName')}
             </div>
           </div>
         ))}
@@ -32,20 +32,23 @@ const GroupMembers = ({ members }) => {
 };
 
 GroupMembers.propTypes = {
-  members: PropTypes.arrayOf(
+  people: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      firstName: PropTypes.string,
-      nickName: PropTypes.string,
-      photo: PropTypes.shape({
-        uri: PropTypes.string,
+      node: PropTypes.shape({
+        id: PropTypes.string,
+        firstName: PropTypes.string,
+        nickName: PropTypes.string,
+        photo: PropTypes.shape({
+          uri: PropTypes.string,
+        }),
       }),
+      isGroupLeader: PropTypes.bool,
     })
   ),
 };
 
 GroupMembers.defaultProps = {
-  members: [],
+  people: [],
 };
 
 export default GroupMembers;

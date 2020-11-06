@@ -39,12 +39,17 @@ export default gql`
           meetingId
           passcode
         }
-        members {
-          id
-          nickName
-          firstName
-          photo {
-            uri
+        people(first: 1000) {
+          edges {
+            node {
+              id
+              nickName
+              firstName
+              photo {
+                uri
+              }
+            }
+            isGroupLeader
           }
         }
         streamChatChannel {

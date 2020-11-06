@@ -18,7 +18,7 @@ const GroupItem = ({
   userName,
   videoCall,
   channelId,
-  members,
+  people,
 }) => {
   let calendarLinkDescription = `Join us for ${title} at Christ Fellowship!\n\n`;
 
@@ -75,7 +75,7 @@ const GroupItem = ({
         channelId={channelId}
         coverImage={coverImage}
         videos={videos}
-        members={members}
+        people={people}
       ></GroupContent>
     </>
   );
@@ -114,14 +114,17 @@ GroupItem.propTypes = {
     passcode: PropTypes.string,
   }),
   channelId: PropTypes.string,
-  members: PropTypes.arrayOf(
+  people: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      firstName: PropTypes.string,
-      nickName: PropTypes.string,
-      photo: PropTypes.shape({
-        uri: PropTypes.string,
+      node: PropTypes.shape({
+        id: PropTypes.string,
+        firstName: PropTypes.string,
+        nickName: PropTypes.string,
+        photo: PropTypes.shape({
+          uri: PropTypes.string,
+        }),
       }),
+      isGroupLeader: PropTypes.bool,
     })
   ),
 };
