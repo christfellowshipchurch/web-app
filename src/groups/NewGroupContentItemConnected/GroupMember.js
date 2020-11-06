@@ -13,12 +13,10 @@ import { Icon } from 'ui';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: ${baseUnit(2)};
-  margin-right: ${baseUnit(2)};
-
-  &:last-child {
-    margin-right: 0;
-  }
+  position: relative;
+  width: 100%;
+  /* margin-top: ${baseUnit(2)}; */
+  /* margin-right: ${baseUnit(2)}; */
 `;
 
 const loadingAnimation = keyframes`
@@ -36,12 +34,11 @@ const ImageOuter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 5rem;
-  width: 5rem;
-  height: 6rem;
+  width: 100%;
+  padding-bottom: 125%;
   border-radius: ${themeGet('borderRadius.large')};
-  background: ${themeGet('placeholder.image')};
   overflow: hidden;
+  background: ${({ bg, theme }) => bg || theme.placeholder.image};
   animation: ${({ status, index }) =>
     status === 'loading'
       ? css`
@@ -52,9 +49,14 @@ const ImageOuter = styled.div`
 
 const UserIcon = styled(Icon).attrs(({ theme }) => ({
   name: 'user',
-  size: 72,
+  size: 48,
   fill: theme.font[200],
-}))``;
+}))`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 const ImageInner = styled.div`
   position: absolute;
@@ -75,12 +77,50 @@ const Image = styled.img`
 
 const Name = styled.div`
   display: block;
-  margin-top: 0.2rem;
+  margin-top: 0.5rem;
   text-align: center;
   font-size: ${themeGet('fontSize.small')};
   font-weight: ${themeGet('fontWeight.medium')};
   color: ${themeGet('font[700]')};
 `;
+
+const SeeAllPlus = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: ${themeGet('fontSize.h5')};
+  color: ${themeGet('font.300')};
+  cursor: pointer;
+  transition: all 0.2s ease-out;
+
+  &:hover {
+    color: ${themeGet('brand')};
+  }
+`;
+
+// :: Sub Component
+// ------------------------
+
+export const SeeAllTile = ({ hiddenCount, onClick }) => {
+  return (
+    <Container>
+      <ImageOuter bg="transparent">
+        <ImageInner>
+          <SeeAllPlus onClick={onClick}>+{hiddenCount}</SeeAllPlus>
+        </ImageInner>
+      </ImageOuter>
+    </Container>
+  );
+};
+
+SeeAllTile.propTypes = {
+  hiddenCount: PropTypes.number,
+  onClick: PropTypes.func,
+};
+
+SeeAllTile.defaultProps = {};
 
 // :: Main Component
 // ------------------------
@@ -135,5 +175,7 @@ GroupMember.defaultProps = {
   index: 0,
   member: [],
 };
+
+GroupMember.SeeAllTile = SeeAllTile;
 
 export default GroupMember;

@@ -1,66 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import numeral from 'numeral';
 
-import { baseUnit, themeGet } from 'styles/theme';
+import { themeGet } from 'styles/theme';
 
 import GroupMember from './GroupMember';
 
 // :: Styled Components
 // ------------------------
 
+const perRow = ({ perRow = 9 }) => perRow;
+
 const MembersList = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding-bottom: ${baseUnit(2)};
-`;
-
-const Title = styled.h4``;
-
-const MemberCount = styled.span`
-  color: ${themeGet('font.400')};
-  margin-left: ${baseUnit(1)};
-  font-weight: ${themeGet('fontWeight.medium')};
-`;
-
-const SeeAllTile = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  font-size: ${themeGet('fontSize.small')};
-  color: ${themeGet('font.300')};
-  min-width: 5rem;
-  width: 5rem;
-  height: 6rem;
-  cursor: pointer;
-  transition: all 0.25s;
-
-  &:hover {
-    color: ${themeGet('brand')};
-    transform: scale(1.1);
-  }
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(${perRow}, 1fr);
+  grid-column-gap: 1rem;
+  grid-auto-rows: 1fr;
+  grid-row-gap: 1.5rem;
 `;
 
 // :: Main Component
 // ------------------------
 
-const GroupMembers = ({ members, displayCount }) => {
+const GroupMembers = ({ members, displayCount, perRow, onSeeAllClick }) => {
   const hiddenCount = members.length - displayCount;
+  const showSeeAll = onSeeAllClick && hiddenCount >= 1;
 
   return (
-    <div>
-      <Title>
-        Members <MemberCount>{numeral(members.length).format('0,0')}</MemberCount>
-      </Title>
-      <MembersList>
-        {members.slice(0, displayCount || members.length).map((member, index) => (
-          <GroupMember key={member.id} index={index} member={member} />
-        ))}
-        {hiddenCount >= 1 && <SeeAllTile>+{hiddenCount} more</SeeAllTile>}
-      </MembersList>
-    </div>
+    <MembersList perRow={perRow}>
+      {members.slice(0, displayCount || members.length).map((member, index) => (
+        <GroupMember key={member.id} index={index} member={member} />
+      ))}
+      {showSeeAll && (
+        <GroupMember.SeeAllTile hiddenCount={hiddenCount} onClick={onSeeAllClick} />
+      )}
+    </MembersList>
   );
 };
 
@@ -77,11 +52,12 @@ GroupMembers.propTypes = {
     })
   ),
   displayCount: PropTypes.number,
+  perRow: PropTypes.number,
+  onSeeAllClick: PropTypes.func,
 };
 
 GroupMembers.defaultProps = {
   members: [],
-  displayCount: 10,
 };
 
 export default GroupMembers;

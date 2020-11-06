@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { get, uniq } from 'lodash';
+import { uniq } from 'lodash';
+import numeral from 'numeral';
 
-import dateTextFormat from 'groups/dateTextFormat';
+import { baseUnit, themeGet } from 'styles/theme';
 
 import { Row, Col } from 'ui/grid';
 
@@ -18,6 +19,7 @@ import { GroupTabs, GroupTab, GroupTabContent } from './GroupTabs';
 import GroupChat from './GroupChat';
 
 import GroupResources from './GroupResources';
+import GroupMembersModal from './GroupMembersModal';
 
 // :: Styled Components
 // ------------------------
@@ -26,6 +28,16 @@ const Container = styled.div`
   min-height: 75vh;
   max-width: ${({ theme }) => theme.sizing.maxPageWidth};
   margin: 3rem auto 7rem;
+`;
+
+const SubTitle = styled.h4`
+  margin-bottom: calc(${baseUnit(2)} + 3px);
+`;
+
+const MemberCount = styled.span`
+  color: ${themeGet('font.400')};
+  margin-left: ${baseUnit(1)};
+  font-weight: ${themeGet('fontWeight.medium')};
 `;
 
 // :: Main Component
@@ -47,9 +59,11 @@ const NewGroup = ({
   onClickParentVideoCall,
 }) => {
   const [activeTab, setActiveTab] = useState('About');
-  const sortedMembers = uniq([...leaders, ...members], 'id').slice(0, 10);
+  const [membersModalVisible, setMembersModalVisible] = useState(false);
+  const sortedMembers = uniq([...leaders, ...members], 'id');
 
   const handleTabClick = (label) => setActiveTab(label);
+  const handleToggleSeeAllMembers = () => setMembersModalVisible(!membersModalVisible);
 
   return (
     <Container>
@@ -57,9 +71,18 @@ const NewGroup = ({
         <GroupImage coverImage={coverImage} title={title} />
       </Row>
       <Row className="my-5">
-        <Col className="col-12 col-lg-8 pr-lg-4">
+        <Col className="col-12 col-lg-8 pr-lg-3">
           <GroupMasthead mb={4} headline={title} />
-          <GroupMembers members={sortedMembers} displayCount={6} />
+
+          <SubTitle>
+            Members{' '}
+            <MemberCount>{numeral(sortedMembers.length).format('0,0')}</MemberCount>
+          </SubTitle>
+          <GroupMembers
+            members={sortedMembers}
+            displayCount={8}
+            onSeeAllClick={handleToggleSeeAllMembers}
+          />
         </Col>
         <Col className="col-12 col-lg-4 pt-2">
           <GroupCalendarData
@@ -100,6 +123,11 @@ const NewGroup = ({
           />
         </Col>
       </Row>
+      <GroupMembersModal
+        visible={membersModalVisible}
+        members={sortedMembers}
+        onPressExit={handleToggleSeeAllMembers}
+      />
     </Container>
   );
 };
