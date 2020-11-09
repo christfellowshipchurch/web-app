@@ -1,7 +1,5 @@
 import gql from 'graphql-tag';
 
-import { LARGE_CARD_FRAGMENT } from '../content-card-connected';
-
 export const GET_FEED_FEATURES = gql`
   query getFeedFeatures {
     userFeedFeatures {
