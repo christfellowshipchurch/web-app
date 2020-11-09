@@ -2,23 +2,11 @@ import React from 'react';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { get, has, kebabCase } from 'lodash';
+import { get } from 'lodash';
 
-import { Card, Media } from '../..';
+import { Card, Media, Icon } from 'ui';
 
 import { generateUrlLink } from '..';
-
-const ContentCardWrapper = ({ element, children }) =>
-  React.createElement(
-    element,
-    {
-      className: classnames('col-12', 'col-md-6', 'col-lg-4', 'p-2', 'mb-2'),
-    },
-    children
-  );
-
-const parseId = ({ urlBase, id }) =>
-  urlBase === 'content' ? `-${get(id.split(':'), '[1]', '')}` : '';
 
 const CardLink = ({ children, className, to: { id, href: pathname, target } = {} }) =>
   // if we have a target it's an external link so render an anchor `a`
@@ -28,30 +16,22 @@ const CardLink = ({ children, className, to: { id, href: pathname, target } = {}
     </a>
   ) : (
     // else render with react-routers internal Link.
-    <Link
-      to={{
-        pathname,
-        state: { contentId: id },
-      }}
-      className={className}
-    >
+    <Link to={{ pathname, state: { contentId: id } }} className={className}>
       {children}
     </Link>
   );
 
 const ContentCard = ({
-  __typename,
-  id,
-  title,
   coverImage,
-  summary,
-  tags,
   icon,
-  onClick,
-  urlBase,
+  id,
   label,
-  row,
+  onClick,
   redirectUrl,
+  row,
+  summary,
+  title,
+  urlBase,
 }) => {
   const style = onClick ? { cursor: 'pointer' } : {};
   const href = generateUrlLink({
@@ -64,7 +44,6 @@ const ContentCard = ({
   return (
     <CardLink
       className={classnames(
-        'col-12',
         'col-md-6',
         'col-lg-4',
         'px-2',
@@ -77,12 +56,7 @@ const ContentCard = ({
     >
       <Card
         fill
-        className={classnames(
-          {
-            'h-100': !row,
-          },
-          'overflow-hidden'
-        )}
+        className={classnames({ 'h-100': !row }, 'overflow-hidden')}
         style={style}
       >
         <div
@@ -121,7 +95,7 @@ const ContentCard = ({
               </h6>
             )}
           </Media>
-          <div className="mt-3 mx-3 row" style={{ ...(row && { flex: 2 }) }}>
+          <div className="mt-3 mx-3 row" style={row ? { flex: 2 } : {}}>
             <div className="col pr-1">
               <h4 className="mb-2">{title}</h4>
               <p className="text-secondary" style={{ fontSize: '.8rem' }}>
@@ -130,9 +104,7 @@ const ContentCard = ({
             </div>
             {!!icon && icon !== '' && (
               <div className="col-1 text-right text-secondary">
-                <span className="h4">
-                  <i className={`fal fa-${icon}`} />
-                </span>
+                <Icon name={icon} />
               </div>
             )}
           </div>
@@ -143,36 +115,37 @@ const ContentCard = ({
 };
 
 ContentCard.propTypes = {
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
-  summary: PropTypes.string,
-  onClick: PropTypes.func,
-  as: PropTypes.string,
+  coverImage: PropTypes.object,
   icon: PropTypes.string,
-  urlBase: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.shape({
     value: PropTypes.string,
     bg: PropTypes.string,
     textColor: PropTypes.string,
   }),
-  row: PropTypes.bool,
+  onClick: PropTypes.func,
   redirectUrl: PropTypes.string,
+  row: PropTypes.bool,
+  summary: PropTypes.string,
+  title: PropTypes.string,
+  urlBase: PropTypes.string,
 };
 
 ContentCard.defaultProps = {
-  imageUrl: null,
-  title: null,
-  onClick: null,
-  as: 'div',
+  coverImage: null,
   icon: null,
-  urlBase: 'content',
+  id: '',
   label: {
-    value: 'tags[0]',
+    value: '',
     bg: 'dark',
     textColor: 'white',
   },
-  row: false,
+  onClick: null,
+  summary: '',
   redirectUrl: '',
+  row: false,
+  title: null,
+  urlBase: 'content',
 };
 
 export default ContentCard;

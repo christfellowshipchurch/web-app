@@ -1,26 +1,13 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, has, kebabCase } from 'lodash';
+import { get } from 'lodash';
 
-import { Card, Media } from '../..';
+import { Media } from '../..';
 
 import { generateUrlLink } from '..';
 
-const TileRowCard = ({
-  id,
-  title,
-  coverImage,
-  summary,
-  tags,
-  icon,
-  onClick,
-  urlBase,
-  label,
-  redirectUrl,
-}) => {
-  const style = onClick ? { cursor: 'pointer' } : {};
-
+const TileRowCard = ({ id, title, coverImage, summary, urlBase, label, redirectUrl }) => {
   return (
     <a
       className={classnames('w-100', 'p-2', 'scale-media-up-on-hover', 'no-decoration')}
@@ -42,11 +29,7 @@ const TileRowCard = ({
           'shadow'
         )}
       >
-        <div
-          style={{
-            flex: 1,
-          }}
-        >
+        <div style={{ flex: 1 }}>
           <Media
             imageAlt={get(coverImage, '[0].name', 'Christ Fellowship Church')}
             imageUrl={get(coverImage, '[0].uri', '')}
@@ -67,32 +50,31 @@ const TileRowCard = ({
 };
 
 TileRowCard.propTypes = {
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
-  summary: PropTypes.string,
-  onClick: PropTypes.func,
-  as: PropTypes.string,
-  icon: PropTypes.string,
-  urlBase: PropTypes.string,
+  coverImage: PropTypes.string,
+  id: PropTypes.string,
   label: PropTypes.shape({
-    value: PropTypes.string,
     bg: PropTypes.string,
     textColor: PropTypes.string,
+    value: PropTypes.string,
   }),
+  redirectUrl: PropTypes.string,
+  summary: PropTypes.string,
+  title: PropTypes.string,
+  urlBase: PropTypes.string,
 };
 
 TileRowCard.defaultProps = {
-  imageUrl: null,
-  title: null,
-  onClick: null,
-  as: 'div',
-  icon: null,
-  urlBase: 'content',
+  coverImage: null,
+  id: null,
   label: {
-    value: 'tags[0]',
     bg: 'dark',
     textColor: 'white',
+    value: 'tags[0]',
   },
+  redirectUrl: '/',
+  summary: '',
+  title: null,
+  urlBase: 'content',
 };
 
 export default TileRowCard;

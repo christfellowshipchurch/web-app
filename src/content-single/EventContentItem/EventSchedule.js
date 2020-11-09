@@ -17,7 +17,6 @@ import moment from 'moment';
 
 import { Card, AddToCalendar } from '../../ui';
 import { Icon } from '../../ui/Icons';
-// import { getDirectionsUrl } from '../../utils';
 import { GoogleAnalytics } from '../../analytics';
 
 const EventTimes = ({ date, times, className }) => {
@@ -95,8 +94,6 @@ CampusSelectToggle.defaultProps = {
 
 const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
   const id = 'event-campus-selection';
-  // const selectLocation = 'Select Location';
-  // const options = [selectLocation, ...campuses]
 
   // Defaults to first Campus for now
   const options = [...campuses];
@@ -149,14 +146,7 @@ CampusSelection.defaultProps = {
   defaultCampus: {},
 };
 
-const EventSchedule = ({
-  defaultCampus,
-  callsToAction,
-  // openLinksInNewTab,
-  events,
-  title,
-  description,
-}) => {
+const EventSchedule = ({ defaultCampus, callsToAction, events, title, description }) => {
   const [visibleOccurrences, setVisibleOccurrences] = useState([]);
   const noEvents = events.length < 1;
 
@@ -182,12 +172,13 @@ const EventSchedule = ({
     setVisibleOccurrences(campusEvents);
   };
 
-  //Creates a start and end time for Add to Calendar
+  // Creates a start and end time for Add to Calendar
   // takes the very first and very last time
   const startTime = get(events, '[0].start', null);
   const lastEvent = events.length > 1 ? events.length - 1 : 0;
   const endTime = get(events, `[${lastEvent}].end`, null);
-  //TEMPORARY Easter messaging
+
+  // TEMPORARY Easter messaging
   const isEaster = includes(toLower(title), 'easter');
 
   return (
@@ -203,7 +194,6 @@ const EventSchedule = ({
       <Card key="EventOccurences" className={classnames('mb-3')}>
         <div className="">
           {groupByLocationDate.map((event, i) => {
-            // const { location, dateTimes } = event;
             const { dateTimes } = event;
             return (
               <div
@@ -224,28 +214,13 @@ const EventSchedule = ({
                     })}
                   />
                 ))}
-
-                {/* <div className="my-3">
-                  <h4
-                    className="mb-2"
-                  >
-                    Address
-                  </h4>
-                  <a
-                    className="text-dark"
-                    href={getDirectionsUrl(location)}
-                    target="_blank"
-                  >
-                    {location}
-                  </a>
-                </div> */}
               </div>
             );
           })}
 
           {!!noEvents && callsToAction.length > 0 && <h3>Get Started</h3>}
 
-          <div>
+          <>
             {callsToAction.map((n, i) => (
               <a
                 key={i}
@@ -263,7 +238,7 @@ const EventSchedule = ({
                 {n.call}
               </a>
             ))}
-          </div>
+          </>
           {!noEvents && (
             <div className="d-flex align-items-center">
               <Icon name="calendar-plus" className="mr-2" />

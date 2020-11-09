@@ -14,12 +14,7 @@ const EventHeading = ({ title, summary, isLive }) => (
     })}
   >
     {(!isEmpty(title) || !isEmpty(summary)) && (
-      <Col
-        className={classnames({
-          'col-8': !isLive,
-          'col-12': isLive,
-        })}
-      >
+      <Col className={classnames('col-8')}>
         <LiveIndicator isLive={isLive} />
 
         <hgroup className="w-100">
@@ -31,12 +26,7 @@ const EventHeading = ({ title, summary, isLive }) => (
       </Col>
     )}
 
-    <Col
-      className={classnames({
-        'col-4': !isLive,
-        'col-12 mt-2': isLive,
-      })}
-    >
+    <Col className={classnames('col-4')}>
       <div className="d-flex flex-grow-1 h-100 justify-content-end align-items-center">
         <Share shareTitle="Invite" title={title} variant={'outline-dark'} />
       </div>
