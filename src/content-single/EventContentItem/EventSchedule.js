@@ -78,7 +78,7 @@ const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   >
     <span className="h4">
       {children}
-      <Icon className="ml-2 float-right" name="angle-down" size="22" />
+      <Icon className="ml-2 float-right" name="angle-down" size={22} />
     </span>
   </div>
 ));
@@ -138,9 +138,9 @@ const CampusSelection = ({ campuses, onChange, defaultCampus }) => {
 };
 
 CampusSelection.propTypes = {
-  campuses: PropTypes.object,
+  campuses: PropTypes.array,
   onChange: PropTypes.func,
-  defaultCampus: PropTypes.object,
+  defaultCampus: PropTypes.string,
 };
 
 CampusSelection.defaultProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { baseUnit, breakpoint } from 'styles/theme';
+import { baseUnit } from 'styles/theme';
 
 // :: Styled Components
 // ------------------------
@@ -15,24 +15,28 @@ const Container = styled.div`
   padding-bottom: ${baseUnit(3)};
 `;
 
-const Blurb = styled.p`
-  width: 90%;
-  text-align: center;
+const SubHeading = styled.strong``;
 
-  ${breakpoint('lg')} {
-    width: 80%;
-  }
+const Blurb = styled.p`
+  width: 80%;
+  color: ${({ theme }) => theme.font.destructive};
+  text-align: center;
 `;
 
 // :: Main Component
 // ------------------------
-const EventChatOffline = () => {
+const ChatError = () => {
   return (
     <Container>
-      <h4>Stay Tuned!</h4>
-      <Blurb>You can chat with the community when this event goes live.</Blurb>
+      <Blurb>
+        <SubHeading>Oops!</SubHeading>
+        <br />
+        Something went wrong.
+        <br />
+        Please refresh and try again.
+      </Blurb>
     </Container>
   );
 };
 
-export default EventChatOffline;
+export default ChatError;

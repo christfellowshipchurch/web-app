@@ -4,7 +4,7 @@ import { get } from 'lodash';
 
 import { Media } from 'ui';
 
-const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
+const EventMedia = ({ title, coverImage, videos, liveStreamSource, showTheaterMode }) => (
   <div className="mb-2">
     <Media
       imageUrl={get(coverImage, 'sources[0].uri', '')}
@@ -15,11 +15,12 @@ const EventMedia = ({ title, coverImage, videos, liveStreamSource }) => (
       }
       isLive={!!liveStreamSource && liveStreamSource !== ''}
       imageAlt={`${title} - ${get(coverImage, 'name', '')}`}
-      className="max-height-45-vh shadow"
+      className="shadow"
       ratio={{ xs: '16by9' }}
       forceRatio
       rounded
       showControls
+      showTheaterMode={showTheaterMode}
     />
   </div>
 );
@@ -36,12 +37,14 @@ EventMedia.propTypes = {
     })
   ),
   liveStreamSource: PropTypes.string,
+  showTheaterMode: PropTypes.bool,
 };
 
 EventMedia.defaultProps = {
   title: '',
   coverImage: {},
   videos: [],
+  showTheaterMode: false,
 };
 
 export default EventMedia;

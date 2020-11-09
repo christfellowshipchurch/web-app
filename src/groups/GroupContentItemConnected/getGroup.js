@@ -39,6 +39,10 @@ export default gql`
           meetingId
           passcode
         }
+        streamChatChannel {
+          id
+          channelId
+        }
       }
     }
     currentUser {

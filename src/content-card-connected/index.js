@@ -1,12 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
-import { get, last } from 'lodash';
+import { get, last, flatten, uniqBy, head } from 'lodash';
 import moment from 'moment';
 
 import { ContentCard } from '../ui';
 import { LiveConsumer } from '../live/LiveContext';
 import GET_CONTENT_CARD from './queries';
+
+const generateEventGroupingLabel = (eventGroups) => {
+  if (eventGroups.length === 0) return null;
+  /**
+   * The following transformations need to be applied after getting the eventGroupings
+   * Map to start dates                   : [ [date1Time, date1Time], [date2Time] ]
+   * Flatten the array                    : [date1Time, date1Time, date2Time]
+   * Filter to just get the unique dates  : [date1Time, date2Time]
+   */
+  let eventDates = eventGroups;
+  eventDates = eventDates.map((grouping) =>
+    grouping.instances.map(({ start }) => moment(start).format(''))
+  );
+  eventDates = flatten(eventDates);
+  eventDates = uniqBy(eventDates, (date) => moment(date).format('MMDD'));
+
+  if (eventDates.length === 0) return null;
+
+  /**
+   * If today with 1 date     : Today
+   * If not today with 1 date : January 1
+   * If more than 1 date      : Jan 1 - Jan 5
+   */
+  if (eventDates.length === 1) {
+    const today = moment().format('MMMM D');
+    const date = moment(eventDates[0]).format('MMMM D');
+
+    return date === today ? 'Today' : date;
+  }
+
+  eventDates = eventDates.sort((a, b) => moment(a).diff(b));
+  const firstDate = moment(head(eventDates)).format('MMM D');
+  const lastDate = moment(last(eventDates)).format('MMM D');
+
+  return `${firstDate} - ${lastDate}`;
+};
 
 const ContentCardConnectedWithQuery = ({
   contentId,
@@ -19,7 +55,7 @@ const ContentCardConnectedWithQuery = ({
 }) => {
   const { loading, error, data } = useQuery(GET_CONTENT_CARD, {
     variables: { contentId, tile: false },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
   });
 
   if (error) return null;
@@ -38,20 +74,16 @@ const ContentCardConnectedWithQuery = ({
     typeof label.field === 'string' ? get(node, label.field, '') : label.field(node);
 
   if (typename === 'EventContentItem') {
-    const hideLabel = get(node, 'hideLabel', false);
-    const comingSoon = hideLabel ? '' : 'Dates Coming Soon';
-    const events = get(node, 'events', []);
-    const startDate = moment(get(events, '[0].start', new Date()));
-    let eventDate = startDate.format('MMM D');
-
-    if (events.length > 1) {
-      const endDate = moment(get(last(events), 'start', new Date()));
-      const format = startDate.month() === endDate.month() ? 'D' : 'MMM D';
-      if (startDate.day() !== endDate.day()) {
-        eventDate = `${startDate.format('MMM D')} - ${endDate.format(format)}`;
-      }
+    /**
+     * If label is not null or an empty string, override the date duration
+     * and use the custom label instead
+     */
+    const eventLabelOverride = get(node, 'label');
+    if (!eventLabelOverride || eventLabelOverride === '') {
+      labelValue = generateEventGroupingLabel(get(node, 'eventGroupings', []));
+    } else {
+      labelValue = eventLabelOverride;
     }
-    labelValue = get(node, 'events', []).length && !hideLabel ? eventDate : comingSoon;
   }
 
   const liveLabel = {
