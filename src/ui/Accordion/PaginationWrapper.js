@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { slice, uniqueId } from 'lodash';
+import { slice } from 'lodash';
 import { Collapse } from 'react-bootstrap';
 import { AccordionItems } from '.';
 
