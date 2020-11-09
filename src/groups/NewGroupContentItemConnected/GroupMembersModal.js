@@ -40,7 +40,7 @@ const GroupMembersModal = ({ visible, members, onPressExit }) => {
         Group Members <MemberCount>{numeral(members.length).format(0, 0)}</MemberCount>
       </Title>
       <VerticalScrollBox className="pr-4">
-        <GroupMembers members={members} perRow={5} />
+        <GroupMembers members={members} showAll />
       </VerticalScrollBox>
     </FloatingCard>
   );

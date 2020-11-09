@@ -2,34 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
-import { themeGet } from 'styles/theme';
+import { breakpoint, themeGet } from 'styles/theme';
 
 import GroupMember from './GroupMember';
 
 // :: Styled Components
 // ------------------------
 
-const perRow = ({ perRow = 9 }) => perRow;
+const DISPLAY_COUNT = 9;
+const HALF_DISPLAY_COUNT = Math.ceil(DISPLAY_COUNT / 2);
+
+const columnCount = ({ showAll }) => (showAll ? HALF_DISPLAY_COUNT : DISPLAY_COUNT + 1);
 
 const MembersList = styled.div`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(${perRow}, 1fr);
+  grid-template-columns: repeat(${HALF_DISPLAY_COUNT}, 1fr);
   grid-column-gap: 1rem;
   grid-auto-rows: 1fr;
   grid-row-gap: 1.5rem;
+
+  ${breakpoint('md')} {
+    grid-template-columns: repeat(${columnCount}, 1fr);
+  }
 `;
 
 // :: Main Component
 // ------------------------
 
-const GroupMembers = ({ members, displayCount, perRow, onSeeAllClick }) => {
+const GroupMembers = ({ members, showAll, onSeeAllClick }) => {
+  const displayCount = showAll ? members.length : DISPLAY_COUNT;
   const hiddenCount = members.length - displayCount;
   const showSeeAll = onSeeAllClick && hiddenCount >= 1;
 
   return (
-    <MembersList perRow={perRow}>
-      {members.slice(0, displayCount || members.length).map((member, index) => (
+    <MembersList showAll={showAll}>
+      {members.slice(0, displayCount).map((member, index) => (
         <GroupMember key={member.id} index={index} member={member} />
       ))}
       {showSeeAll && (
@@ -51,8 +59,7 @@ GroupMembers.propTypes = {
       }),
     })
   ),
-  displayCount: PropTypes.number,
-  perRow: PropTypes.number,
+  showAll: PropTypes.bool,
   onSeeAllClick: PropTypes.func,
 };
 

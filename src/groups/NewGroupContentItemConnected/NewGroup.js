@@ -70,8 +70,8 @@ const NewGroup = ({
       <Row>
         <GroupImage coverImage={coverImage} title={title} />
       </Row>
-      <Row className="my-5">
-        <Col className="col-12 col-lg-8 pr-lg-3">
+      <Row className="my-3 my-md-3">
+        <Col className="col-12 pl-3 pr-3  col-lg-8 pl-xl-0">
           <GroupMasthead mb={4} headline={title} />
 
           <SubTitle>
@@ -84,7 +84,7 @@ const NewGroup = ({
             onSeeAllClick={handleToggleSeeAllMembers}
           />
         </Col>
-        <Col className="col-12 col-lg-4 pt-2">
+        <Col className="col-12 pt-4 px-3  col-md-8 offset-md-2  col-lg-4 offset-lg-0 pt-lg-2  px-xl-0">
           <GroupCalendarData
             title={title}
             summary={summary}
@@ -97,7 +97,7 @@ const NewGroup = ({
         </Col>
       </Row>
       <Row>
-        <Col className="col-12 col-lg-8 pr-lg-3">
+        <Col className="col-12 order-2 px-3  col-lg-8 order-lg-1  px-xl-0 pr-xl-3">
           <GroupTabs>
             <GroupTab
               label="About"
@@ -117,7 +117,7 @@ const NewGroup = ({
             <GroupChat channelId={channelId} />
           </GroupTabContent>
         </Col>
-        <Col className="col-12 col-lg-4">
+        <Col className="col-12 order-1 mt-3 mb-4 px-3  col-md-8 offset-md-2  col-lg-4 offset-lg-0 order-lg-2 mt-lg-0 mb-lg-0 px-lg-0 pr-lg-3">
           <GroupResources
             resources={groupResources}
             onResourceClick={onClickGroupResource}
