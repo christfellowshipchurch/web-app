@@ -10,4 +10,4 @@ const HomeRouter = () => {
   return isLoggedIn ? <FeaturesFeed /> : <PageBuilder title="home-page" theme="swoop" />;
 };
 
-export default FeaturesFeed;
+export default HomeRouter;
