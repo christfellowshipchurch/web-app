@@ -7,9 +7,9 @@ const BrowseFilters = ({ selected, onChange, filters }) => (
     {filters.map((n, i) => (
       <li key={i} className="list-inline-item">
         <a
-          href="#"
+          href="# "
           style={{
-            border: selected != n.id ? '1px solid #d6d6d6' : 'none',
+            border: selected !== n.id ? '1px solid #d6d6d6' : 'none',
             ...(selected === n.id ? { color: 'white' } : {}),
           }}
           className={classnames(
