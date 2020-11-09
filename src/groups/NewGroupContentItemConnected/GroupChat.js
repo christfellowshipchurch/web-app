@@ -86,7 +86,7 @@ const GroupChat = ({ channelId }) => {
       setChannel(null);
       await StreamChatClient.disconnect();
     };
-  }, [isLoggedIn, loading, data, channelId]);
+  }, [isLoggedIn, loading, data, channelId, currentUserId]);
 
   if (loading || !channel) {
     return (
