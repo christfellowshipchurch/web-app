@@ -33,33 +33,56 @@ const GroupCalendarData = ({
   summary,
   address,
   dateTime,
-  calendarLinkDescription,
-}) => (
-  <Container>
-    <SubTitle>NEXT MEETING</SubTitle>
-    <Title>{dateTextFormat(get(dateTime, 'start'))}</Title>
-    <div className="d-flex justify-content-center">
-      <Icon name="calendar-plus" className="mr-1" fill="#00aeef" />
-      <AddToCalendar
-        className="p-0 font-weight-bold text-cyan"
-        style={{
-          fontSize: '0.875rem',
-          letterSpacing: 'normal',
-        }}
-        event={{
-          title,
-          summary,
-          // Location is the webUrl for now because we have multiple potential video calls endpoints
-          address,
-          startTime: dateTime.start,
-          endTime: dateTime.end,
-          description: calendarLinkDescription,
-        }}
-        alternateDescription={calendarLinkDescription}
-      />
-    </div>
-  </Container>
-);
+  videoCall,
+  parentVideoCall,
+}) => {
+  if (!dateTime) {
+    return null;
+  }
+
+  const getNotes = () => {
+    const hasParentVideoCall = parentVideoCall && parentVideoCall.link;
+    const hasVideoCall = videoCall && videoCall.link;
+
+    if (!hasParentVideoCall && !hasVideoCall) return null;
+
+    const videoCallNote = hasVideoCall ? videoCall.link : '';
+    const parentVideoCallNote = hasParentVideoCall ? parentVideoCall.link : '';
+    const notes = `${
+      hasParentVideoCall ? `Join Zoom Meeting:\n${parentVideoCallNote}\n\n` : ''
+    }Join Zoom ${hasParentVideoCall ? 'Breakout' : ''}Meeting:\n${videoCallNote}`;
+
+    return notes.trim();
+  };
+  const notes = getNotes();
+
+  return (
+    <Container>
+      <SubTitle>NEXT MEETING</SubTitle>
+      <Title>{dateTextFormat(get(dateTime, 'start'))}</Title>
+      <div className="d-flex justify-content-center">
+        <Icon name="calendar-plus" className="mr-1" fill="#00aeef" />
+        <AddToCalendar
+          className="p-0 font-weight-bold text-cyan"
+          style={{
+            fontSize: '0.875rem',
+            letterSpacing: 'normal',
+          }}
+          event={{
+            title,
+            summary,
+            // Location is the webUrl for now because we have multiple potential video calls endpoints
+            address,
+            startTime: dateTime.start,
+            endTime: dateTime.end,
+            description: notes,
+          }}
+          alternateDescription={notes}
+        />
+      </div>
+    </Container>
+  );
+};
 
 GroupCalendarData.propTypes = {
   dateTime: PropTypes.shape({

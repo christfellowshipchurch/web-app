@@ -11,7 +11,7 @@ import { Row, Col } from 'ui/grid';
 // Local components in order of appearance
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
-import GroupCTAs from './GroupCTAs';
+import GroupMeetingActions from './GroupMeetingActions';
 import GroupMembers from './GroupMembers';
 import GroupCalendarData from './GroupCalendarData';
 
@@ -90,9 +90,10 @@ const NewGroup = ({
             summary={summary}
             address={document.URL}
             dateTime={dateTime}
-            calendarLinkDescription={'BLah'}
+            parentVideoCall={parentVideoCall}
+            videoCall={videoCall}
           />
-          <GroupCTAs parentVideoCall={parentVideoCall} videoCall={videoCall} />
+          <GroupMeetingActions parentVideoCall={parentVideoCall} videoCall={videoCall} />
         </Col>
       </Row>
       <Row>
