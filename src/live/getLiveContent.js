@@ -5,6 +5,7 @@ export default gql`
     liveStreams {
       ... on LiveStream {
         isLive
+        eventStartTime
         media {
           sources {
             uri
@@ -17,6 +18,18 @@ export default gql`
         streamChatChannel {
           id
           channelId
+        }
+        actions {
+          action
+          duration
+          relatedNode {
+            ... on Url {
+              url
+            }
+          }
+          start
+          image
+          title
         }
       }
     }
