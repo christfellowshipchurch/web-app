@@ -24,7 +24,7 @@ const CurrentProfile = ({ onChange }) => {
     <div className="container-fluid mt-md-6 mt-4 mb-6 px-4" style={{ minHeight: '30vh' }}>
       <div className="row pt-2">
         <div className="col">
-          <h1 className="mb-0">Your Dream Teams</h1>
+          <h1 className="mb-0">My Dream Team</h1>
         </div>
       </div>
       <GroupListConnected isDreamTeam />
@@ -32,7 +32,7 @@ const CurrentProfile = ({ onChange }) => {
     <div className="container-fluid mt-md-6 mt-4 mb-6 px-4">
       <div className="row pt-2">
         <div className="col">
-          <h1 className="mb-0">Your Groups</h1>
+          <h1 className="mb-0">My Groups</h1>
         </div>
       </div>
       <GroupListConnected />
