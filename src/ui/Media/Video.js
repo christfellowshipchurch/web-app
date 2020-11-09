@@ -67,7 +67,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
       videoRef.current.play();
     }
     setShowPlayButton(false);
-  }, [source, videoRef, createHLSurl]);
+  }, [source, videoRef]);
 
   useEffect(() => {
     if (isLive || isIOS) return playButtonClick();
