@@ -48,10 +48,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
             coverImage={[
               {
                 name: c.title,
-                uri:
-                  c.image ||
-                  // TODO: Replace with default image
-                  'https://cloudfront.christfellowship.church/GetImage.ashx?guid=80fc6d71-b0c1-45af-a78e-67e91ebd4136',
+                uri: c.image,
               },
             ]}
             label={{}}
