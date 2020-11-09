@@ -16,9 +16,14 @@ export default {
         tags
       }
       ... on EventContentItem {
-        nextOccurrence
-        events {
-          start
+        label
+        eventGroupings {
+          name
+          instances {
+            id
+            start
+            end
+          }
         }
       }
       ... on InformationalContentItem {
@@ -56,6 +61,7 @@ export default {
         }
         location
       }
+      label
       callsToAction {
         call
         action
