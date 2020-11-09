@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Media } from '../../ui';
 import { bookImage, onlineIcon, contactIcon, homeIcon, sermonIcon } from './images';
@@ -8,6 +7,7 @@ const ErrorLink = ({ icon, call, action }) => (
   <div className={classnames('row', 'mt-3', 'd-flex', 'align-items-center')}>
     <img
       src={icon}
+      alt=""
       style={{
         height: 40,
         width: 'auto',
