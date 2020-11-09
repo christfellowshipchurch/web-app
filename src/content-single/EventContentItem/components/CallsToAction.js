@@ -17,12 +17,20 @@ function filterItems(items, eventStartTime) {
     // If we should always show it
     if ((cta.start === 0 && cta.duration === 0) || (!cta.start && !cta.duration))
       filteredItems.push(cta);
-    // If we show in beginning
+    // If we show in beginning of stream
     else if (cta.start === 0 && timeDiff < cta.duration) filteredItems.push(cta);
     // If mid-stream
     else if (cta.start < currentTime && timeDiff < cta.start + cta.duration)
       filteredItems.push(cta);
   });
+
+  // Show most recently added items first
+  filteredItems.sort((a, b) => {
+    const startA = a?.start || 0;
+    const startB = b?.start || 0;
+    return startB - startA;
+  });
+
   return filteredItems;
 }
 
