@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useQuery } from 'react-apollo';
-import { forEach, get, find, kebabCase } from 'lodash';
+import { get, find, kebabCase } from 'lodash';
 
 import { Carousel } from 'react-bootstrap';
 import FilterRow from './FilterRow';
@@ -10,17 +10,6 @@ import CategoryList from './CategoryList';
 import SeeAllCategory from './SeeAllCategory';
 import Search from './Search';
 import { GET_FILTERS } from './queries';
-
-const generatePath = (arr) => {
-  let path = '/discover';
-
-  forEach(arr, (n) => {
-    if (n && n !== '') path = `${path}/${kebabCase(n)}`;
-    else return false;
-  });
-
-  return path;
-};
 
 const Browse = ({
   filter: defaultFilter,
@@ -32,7 +21,7 @@ const Browse = ({
   const [searchMode, setSearchMode] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const { loading, error, data } = useQuery(GET_FILTERS, {
+  const { data } = useQuery(GET_FILTERS, {
     fetchPolicy: 'cache-and-network',
     onCompleted: (data) => {
       const filters = get(

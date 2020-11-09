@@ -16,6 +16,7 @@ const Live = () => {
             frameBorder="0"
             seamless="seamless"
             allowFullScreen=""
+            title="player"
           />
         </div>
       </div>

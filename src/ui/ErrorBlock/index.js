@@ -19,7 +19,7 @@ const ErrorLink = ({ icon, call, action }) => (
   </div>
 );
 
-const ErrorBlock = ({}) => {
+const ErrorBlock = () => {
   return (
     <div
       className={classnames(
