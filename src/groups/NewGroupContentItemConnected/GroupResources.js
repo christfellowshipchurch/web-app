@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { get } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
-import { Card } from 'ui';
+import { Card, generateUrlLink } from 'ui';
 
 // :: Styled Components
 // ------------------------
@@ -18,28 +19,54 @@ const ResourcesHeading = styled.h4`
 // :: Main Component
 // ------------------------
 
-const GroupResources = ({ resources, onResourceClick }) => (
-  <>
-    <ResourcesHeading>Resources</ResourcesHeading>
-    <Card>
-      {resources.map((resource, index) => (
-        <a
-          key={resource?.url || `resource-${index}`}
-          className="btn btn-outline-dark btn-block text-dark"
-          href={resource?.url}
-          onClick={() =>
-            onResourceClick({
-              resourceTitle: resource?.title,
-            })
-          }
-          target={resource?.url?.includes('http') ? '_blank' : ''}
-        >
-          {resource?.title}
-        </a>
-      ))}
-    </Card>
-  </>
-);
+const GroupResources = ({ resources, onResourceClick }) => {
+  const processedResources = resources.map((resource) => {
+    let resourceURL = get(resource, 'relatedNode.url', '');
+
+    if (resource.action === 'READ_CONTENT') {
+      const urlBase =
+        resource.relatedNode.__typename === 'InformationalContentItem'
+          ? 'items'
+          : 'content';
+
+      const { href } = generateUrlLink({
+        urlBase,
+        id: resource.relatedNode.id,
+        title: resource.title,
+      });
+
+      resourceURL = href;
+    }
+
+    return {
+      title: resource.title,
+      url: resourceURL,
+    };
+  });
+
+  return (
+    <>
+      <ResourcesHeading>Resources</ResourcesHeading>
+      <Card>
+        {processedResources.map((resource, index) => (
+          <a
+            key={resource?.url || `resource-${index}`}
+            className="btn btn-outline-dark btn-block text-dark"
+            href={resource?.url}
+            onClick={() =>
+              onResourceClick({
+                resourceTitle: resource?.title,
+              })
+            }
+            target={resource?.url?.includes('http') ? '_blank' : ''}
+          >
+            {resource?.title}
+          </a>
+        ))}
+      </Card>
+    </>
+  );
+};
 
 GroupResources.propTypes = {
   resources: PropTypes.arrayOf(

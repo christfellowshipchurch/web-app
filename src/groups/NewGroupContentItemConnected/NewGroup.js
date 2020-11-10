@@ -70,7 +70,7 @@ const NewGroup = ({
       <Row>
         <GroupImage coverImage={coverImage} title={title} />
       </Row>
-      <Row className="my-3 my-md-3">
+      <Row className="my-3 my-md-3 my-lg-5">
         <Col className="col-12 pl-3 pr-3  col-lg-8 pl-xl-0">
           <GroupMasthead mb={4} headline={title} />
 
@@ -93,7 +93,13 @@ const NewGroup = ({
             parentVideoCall={parentVideoCall}
             videoCall={videoCall}
           />
-          <GroupMeetingActions parentVideoCall={parentVideoCall} videoCall={videoCall} />
+          <GroupMeetingActions
+            userName={userName}
+            parentVideoCall={parentVideoCall}
+            videoCall={videoCall}
+            onClickVideoCall={onClickVideoCall}
+            onClickParentVideoCall={onClickParentVideoCall}
+          />
         </Col>
       </Row>
       <Row>

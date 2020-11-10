@@ -5,42 +5,15 @@ import { get } from 'lodash';
 import moment from 'moment';
 
 import { GoogleAnalytics } from 'analytics';
-import { ErrorBlock, generateUrlLink, Loader } from 'ui';
+import { ErrorBlock, Loader } from 'ui';
 
 import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
 import NewGroup from './NewGroup';
 
-function getGroupResources(resources) {
-  return resources.map((resource) => {
-    let resourceURL = get(resource, 'relatedNode.url', '');
-
-    if (resource.action === 'READ_CONTENT') {
-      const urlBase =
-        resource.relatedNode.__typename === 'InformationalContentItem'
-          ? 'items'
-          : 'content';
-
-      const { href } = generateUrlLink({
-        urlBase,
-        id: resource.relatedNode.id,
-        title: resource.title,
-      });
-
-      resourceURL = href;
-    }
-
-    return {
-      title: resource.title,
-      url: resourceURL,
-    };
-  });
-}
-
 const NewGroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
-    // fetchPolicy: 'cache-and-network',
   });
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
@@ -84,9 +57,6 @@ const NewGroupContentItemConnected = ({ itemId }) => {
     }
   };
 
-  const resources = getGroupResources(get(content, 'groupResources', []));
-  console.log('[rkd] content:', content);
-
   return (
     <NewGroup
       coverImage={get(content, 'coverImage')}
@@ -101,28 +71,10 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       }
       videoCall={get(content, 'videoCall')}
       channelId={get(content, 'streamChatChannel.channelId')}
+      onClickGroupResource={handleOnClickGroupResource}
+      onClickVideoCall={handleOnClickVideoCall}
     />
   );
-  // return (
-  //   <Group
-  //     {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
-  //     dateTimes={get(content, 'dateTime')}
-  //     groupResources={getGroupResources}
-  //     onClickGroupResource={handleOnClickGroupResource}
-  //     onClickParentVideoCall={handleOnClickVideoCall}
-  //     onClickVideoCall={handleOnClickVideoCall}
-  //     parentVideoCall={get(content, 'parentVideoCall')}
-  //     summary={get(content, 'summary')}
-  //     title={get(content, 'title')}
-  //     userName={
-  //       get(data, 'currentUser.profile.nickName') ||
-  //       get(data, 'currentUser.profile.firstName')
-  //     }
-  //     videoCall={get(content, 'videoCall')}
-  //     channelId={get(content, 'chatChannelId')}
-  //     members={get(content, 'members')}
-  //   />
-  // );
 };
 
 NewGroupContentItemConnected.propTypes = {

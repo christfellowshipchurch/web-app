@@ -5,51 +5,89 @@ import { get, isEmpty } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
+// add any additional parameters to the video urls
+const videoCallURLWithParameters = (videoURL, parameters) => {
+  const isMSIE = /*@cc_on!@*/ false || !!document.documentMode; //eslint-disable-line spaced-comment
+  let urlWithParams = videoURL;
+
+  if (!isMSIE) {
+    urlWithParams = new URL(videoURL);
+
+    if (parameters) {
+      Object.entries(parameters).map(([key, value]) =>
+        urlWithParams.searchParams.set(key, value)
+      );
+    }
+
+    urlWithParams = urlWithParams.href;
+  }
+
+  return urlWithParams;
+};
+
 // :: Styled Components
 // ------------------------
 
 const Container = styled.div`
   display: grid;
-  /* flex: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  align-content: stretch; */
   grid-auto-rows: 1fr;
   grid-gap: ${baseUnit(1)};
 `;
 
 // :: Main Component
 // ------------------------
-const GroupMeetingActions = ({ parentVideoCall, videoCall }) => {
-  console.group('[rkd] GroupMeetingActions');
-  console.log('[rkd] parentVideoCall:', parentVideoCall);
-  console.log('[rkd] videoCall:', videoCall);
-  console.groupEnd();
-  const parentVideoCallLabel = get(parentVideoCall, 'labelText', 'Join Meeting');
-  const videoCallLabel = get(
-    videoCall,
-    'labelText',
-    !isEmpty(parentVideoCall) ? 'Join Breakout' : 'Join Meeting'
-  );
-
+const GroupMeetingActions = ({
+  userName,
+  parentVideoCall,
+  videoCall,
+  onClickParentVideoCall,
+  onClickVideoCall,
+}) => {
   return (
     <Container>
-      {!isEmpty(parentVideoCall) && (
+      {get(parentVideoCall, 'link') && (
         <a
-          href={get(parentVideoCall, 'link', '#')}
-          className="btn btn-primary text-white w-100"
+          className="btn btn-primary btn-block mb-3"
+          href={videoCallURLWithParameters(
+            get(parentVideoCall, 'link'),
+            userName
+              ? {
+                  uname: userName,
+                }
+              : null
+          )}
+          onClick={() => onClickParentVideoCall('parent')}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {parentVideoCallLabel}
+          {get(parentVideoCall, 'labelText') || `Join Meeting`}
         </a>
       )}
-      {!isEmpty(videoCall) && (
+      {get(videoCall, 'link') ? (
         <a
-          href={get(videoCall, 'link', '#')}
-          className="btn btn-primary text-white w-100"
+          className="btn btn-primary btn-block mb-3"
+          href={videoCallURLWithParameters(
+            get(videoCall, 'link'),
+            userName
+              ? {
+                  uname: userName,
+                }
+              : null
+          )}
+          onClick={() => onClickVideoCall()}
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          {videoCallLabel}
+          {get(videoCall, 'label') || parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
+        </a>
+      ) : (
+        <a
+          // allow to just checkin for in person groups
+          className="btn btn-primary btn-block mb-3"
+          href={'#'}
+          onClick={() => onClickVideoCall()}
+        >
+          Check In
         </a>
       )}
     </Container>
@@ -57,8 +95,20 @@ const GroupMeetingActions = ({ parentVideoCall, videoCall }) => {
 };
 
 GroupMeetingActions.propTypes = {
-  headline: PropTypes.string,
-  subHeadline: PropTypes.string,
+  userName: PropTypes.string,
+  parentVideoCall: PropTypes.shape({
+    link: PropTypes.string,
+    meetingId: PropTypes.string,
+    passcode: PropTypes.string,
+  }),
+  videoCall: PropTypes.shape({
+    labelText: PropTypes.shape,
+    link: PropTypes.string,
+    meetingId: PropTypes.string,
+    passcode: PropTypes.string,
+  }),
+  onClickParentVideoCall: PropTypes.func,
+  onClickVideoCall: PropTypes.func,
 };
 
 export default GroupMeetingActions;
