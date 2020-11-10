@@ -21,12 +21,17 @@ import GroupChat from './GroupChat';
 import GroupResources from './GroupResources';
 import GroupMembersModal from './GroupMembersModal';
 
+const Tabs = Object.freeze({
+  ABOUT: 'About',
+  CHAT: 'Chat',
+});
+
 // :: Styled Components
 // ------------------------
 
 const Container = styled.div`
   min-height: 75vh;
-  max-width: ${({ theme }) => theme.sizing.maxPageWidth};
+  max-width: ${themeGet('sizing.maxPageWidth')};
   margin: 3rem auto 7rem;
 `;
 
@@ -38,6 +43,12 @@ const MemberCount = styled.span`
   color: ${themeGet('font.400')};
   margin-left: ${baseUnit(1)};
   font-weight: ${themeGet('fontWeight.medium')};
+`;
+
+const EmptyStateText = styled.p`
+  color: ${themeGet('font.300')};
+  margin: ${baseUnit(4)} 0;
+  text-align: center;
 `;
 
 // :: Main Component
@@ -58,7 +69,7 @@ const NewGroup = ({
   onClickVideoCall,
   onClickParentVideoCall,
 }) => {
-  const [activeTab, setActiveTab] = useState('About');
+  const [activeTab, setActiveTab] = useState(Tabs.ABOUT);
   const [membersModalVisible, setMembersModalVisible] = useState(false);
   const sortedMembers = uniq([...leaders, ...members], 'id');
 
@@ -107,19 +118,23 @@ const NewGroup = ({
           <GroupTabs>
             <GroupTab
               label="About"
-              active={activeTab === 'About'}
+              active={activeTab === Tabs.ABOUT}
               onClick={handleTabClick}
             />
             <GroupTab
               label="Chat"
-              active={activeTab === 'Chat'}
+              active={activeTab === Tabs.CHAT}
               onClick={handleTabClick}
             />
           </GroupTabs>
-          <GroupTabContent active={activeTab === 'About'}>
-            <p>{summary || <i>No group description</i>}</p>
+          <GroupTabContent active={activeTab === Tabs.ABOUT}>
+            {summary ? (
+              <p>{summary}</p>
+            ) : (
+              <EmptyStateText>No group description</EmptyStateText>
+            )}
           </GroupTabContent>
-          <GroupTabContent active={activeTab === 'Chat'}>
+          <GroupTabContent active={activeTab === Tabs.CHAT}>
             <GroupChat channelId={channelId} />
           </GroupTabContent>
         </Col>
@@ -139,6 +154,15 @@ const NewGroup = ({
   );
 };
 
+const PersonPropType = PropTypes.shape({
+  id: PropTypes.string,
+  firstName: PropTypes.string,
+  nickName: PropTypes.string,
+  photo: PropTypes.shape({
+    uri: PropTypes.string,
+  }),
+});
+
 NewGroup.propTypes = {
   coverImage: PropTypes.shape({
     name: PropTypes.string,
@@ -151,16 +175,8 @@ NewGroup.propTypes = {
     start: PropTypes.string,
     end: PropTypes.string,
   }),
-  members: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      firstName: PropTypes.string,
-      nickName: PropTypes.string,
-      photo: PropTypes.shape({
-        uri: PropTypes.string,
-      }),
-    })
-  ),
+  leaders: PropTypes.arrayOf(PersonPropType),
+  members: PropTypes.arrayOf(PersonPropType),
   parentVideoCall: PropTypes.shape({
     link: PropTypes.string,
     meetingId: PropTypes.string,

@@ -41,13 +41,13 @@ const GroupCalendarData = ({
   }
 
   const getNotes = () => {
-    const hasParentVideoCall = parentVideoCall && parentVideoCall.link;
-    const hasVideoCall = videoCall && videoCall.link;
+    const hasParentVideoCall = parentVideoCall?.link;
+    const hasVideoCall = videoCall?.link;
 
     if (!hasParentVideoCall && !hasVideoCall) return null;
 
-    const videoCallNote = hasVideoCall ? videoCall.link : '';
-    const parentVideoCallNote = hasParentVideoCall ? parentVideoCall.link : '';
+    const videoCallNote = hasVideoCall ? videoCall?.link : '';
+    const parentVideoCallNote = hasParentVideoCall ? parentVideoCall?.link : '';
     const notes = `${
       hasParentVideoCall ? `Join Zoom Meeting:\n${parentVideoCallNote}\n\n` : ''
     }Join Zoom ${hasParentVideoCall ? 'Breakout' : ''}Meeting:\n${videoCallNote}`;

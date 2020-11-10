@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import { get } from 'lodash';
 
-import { baseUnit } from 'styles/theme';
+import { baseUnit, themeGet } from 'styles/theme';
 
 import { Card, generateUrlLink } from 'ui';
 
@@ -16,10 +16,16 @@ const ResourcesHeading = styled.h4`
   border-bottom: 3px solid transparent; // Ugly, but needs to match with GroupTab component style
 `;
 
+const EmptyStateText = styled.p`
+  color: ${themeGet('font.300')};
+  margin: ${baseUnit(4)} 0;
+  text-align: center;
+`;
+
 // :: Main Component
 // ------------------------
 
-const GroupResources = ({ resources, onResourceClick }) => {
+const GroupResources = ({ resources = [], onResourceClick }) => {
   const processedResources = resources.map((resource) => {
     let resourceURL = get(resource, 'relatedNode.url', '');
 
@@ -48,6 +54,9 @@ const GroupResources = ({ resources, onResourceClick }) => {
     <>
       <ResourcesHeading>Resources</ResourcesHeading>
       <Card>
+        {processedResources?.length === 0 && (
+          <EmptyStateText>No group resources</EmptyStateText>
+        )}
         {processedResources.map((resource, index) => (
           <a
             key={resource?.url || `resource-${index}`}
@@ -59,6 +68,7 @@ const GroupResources = ({ resources, onResourceClick }) => {
               })
             }
             target={resource?.url?.includes('http') ? '_blank' : ''}
+            rel="noopener noreferrer"
           >
             {resource?.title}
           </a>

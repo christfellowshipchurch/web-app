@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import styled, { keyframes, css } from 'styled-components/macro';
 import { get } from 'lodash';
 
-import { baseUnit, themeGet } from 'styles/theme';
+import { themeGet } from 'styles/theme';
 
 import { Icon } from 'ui';
+
+const ImageStatuses = Object.freeze({
+  LOADING: 'loading',
+  LOADED: 'loaded',
+  ERROR: 'error',
+});
 
 // :: Styled Components
 // ------------------------
@@ -15,8 +21,6 @@ const Container = styled.div`
   flex-direction: column;
   position: relative;
   width: 100%;
-  /* margin-top: ${baseUnit(2)}; */
-  /* margin-right: ${baseUnit(2)}; */
 `;
 
 const loadingAnimation = keyframes`
@@ -40,7 +44,7 @@ const ImageOuter = styled.div`
   overflow: hidden;
   background: ${({ bg, theme }) => bg || theme.placeholder.image};
   animation: ${({ status, index }) =>
-    status === 'loading'
+    status === ImageStatuses.LOADING
       ? css`
           ${loadingAnimation} 1s alternate ${index * 0.2}s infinite
         `
@@ -130,23 +134,25 @@ const GroupMember = ({ index, member }) => {
   const imageSrc = get(photo, 'uri');
   const name = nickName || `${firstName} ${lastName}`.trim();
 
-  const [status, setStatus] = useState(imageSrc ? 'loading' : 'loaded');
+  const [status, setStatus] = useState(
+    imageSrc ? ImageStatuses.LOADING : ImageStatuses.LOADED
+  );
 
   if (!member) return null;
 
-  const handleLoaded = () => setStatus('loaded');
-  const handleError = () => setStatus('error');
+  const handleLoaded = () => setStatus(ImageStatuses.LOADED);
+  const handleError = () => setStatus(ImageStatuses.ERROR);
 
   return (
     <Container>
       <ImageOuter status={status} index={index}>
         <UserIcon />
-        {status !== 'error' && (
+        {status !== ImageStatuses.ERROR && (
           <ImageInner>
             <Image
               src={imageSrc}
               alt={name}
-              loaded={status === 'loaded'}
+              loaded={status === ImageStatuses.LOADED}
               onLoad={handleLoaded}
               onError={handleError}
             />
