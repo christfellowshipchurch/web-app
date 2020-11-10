@@ -1,6 +1,6 @@
 import { Parser } from 'html-to-react';
 import moment from 'moment';
-import { get, split } from 'lodash';
+import { get } from 'lodash';
 
 export const htmlToReactParser = new Parser();
 

@@ -7,9 +7,19 @@ import { Card, Col } from 'ui';
 
 import Tags from './Tags';
 
-const EventDescriptionCard = ({ htmlContent, tags }) => {
+const EventDescriptionCard = ({ htmlContent, tags, theaterMode }) => {
   if (!htmlContent) {
     return null;
+  }
+
+  if (theaterMode) {
+    return (
+      <div style={{ marginTop: 12 }}>
+        <h3>About:</h3>
+        <div>{htmlToReactParser.parse(htmlContent)}</div>
+        <Tags tags={tags} />
+      </div>
+    );
   }
 
   return (
@@ -25,10 +35,12 @@ const EventDescriptionCard = ({ htmlContent, tags }) => {
 EventDescriptionCard.propTypes = {
   htmlContent: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string),
+  theaterMode: PropTypes.bool,
 };
 
 EventDescriptionCard.defaultProps = {
   tags: [],
+  theaterMode: false,
 };
 
 export default EventDescriptionCard;
