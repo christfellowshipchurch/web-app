@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { useMutation } from 'react-apollo';
 import { GoogleAnalytics } from 'analytics';
 import { ContentCard, Row } from 'ui';
+import { VIEW_ACTION } from 'mutations';
 
 const MINUTE = 60000;
 
@@ -34,8 +36,9 @@ function filterItems(items, eventStartTime) {
   return filteredItems;
 }
 
-const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
+const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime }) => {
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
+  const [handleInteraction] = useMutation(VIEW_ACTION);
 
   if (isEmpty(items)) {
     return null;
@@ -47,28 +50,32 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
     <>
       {hasEvents && <h3>Get Started</h3>}
       <Row style={{ padding: 0 }}>
-        {cta.map((c, index) => (
-          <ContentCard
-            title={c.title}
-            redirectUrl={c.relatedNode.url}
-            key={`cta-${index}`}
-            id={`cta-${index}`}
-            coverImage={[
-              {
-                name: c.title,
-                uri: c.image,
-              },
-            ]}
-            label={{}}
-            onClick={() =>
-              GoogleAnalytics.trackEvent({
-                category: 'Event Item',
-                action: `${eventTitle} Call to Action`,
-                label: `${eventTitle} - ${c.title} Button`,
-              })
-            }
-          />
-        ))}
+        {cta.map((c, index) => {
+          const handleOnClickAction = () => {
+            GoogleAnalytics.trackEvent({
+              category: 'Event Item',
+              action: `${eventTitle} Call to Action`,
+              label: `${eventTitle} - ${c.title} Button`,
+            });
+            handleInteraction({ variables: { nodeId } });
+          };
+          return (
+            <ContentCard
+              title={c.title}
+              redirectUrl={c.relatedNode.url}
+              key={`cta-${index}`}
+              id={`cta-${index}`}
+              coverImage={[
+                {
+                  name: c.title,
+                  uri: c.image,
+                },
+              ]}
+              label={{}}
+              onClick={handleOnClickAction}
+            />
+          );
+        })}
       </Row>
     </>
   );
@@ -84,6 +91,7 @@ CallsToAction.propTypes = {
       action: PropTypes.string,
     })
   ),
+  nodeId: PropTypes.string,
 };
 
 CallsToAction.defaultProps = {

@@ -8,15 +8,24 @@ import { Card, Media, Icon } from 'ui';
 
 import { generateUrlLink } from '..';
 
-const CardLink = ({ children, className, to: { id, href: pathname, target } = {} }) =>
+const CardLink = ({
+  onClick,
+  children,
+  className,
+  to: { id, href: pathname, target } = {},
+}) =>
   // if we have a target it's an external link so render an anchor `a`
   target ? (
-    <a className={className} href={pathname} target={target}>
+    <a onClick={onClick} className={className} href={pathname} target={target}>
       {children}
     </a>
   ) : (
     // else render with react-routers internal Link.
-    <Link to={{ pathname, state: { contentId: id } }} className={className}>
+    <Link
+      onClick={onClick}
+      to={{ pathname, state: { contentId: id } }}
+      className={className}
+    >
       {children}
     </Link>
   );
@@ -43,6 +52,7 @@ const ContentCard = ({
 
   return (
     <CardLink
+      onClick={onClick}
       className={classnames(
         'col-md-6',
         'col-lg-4',
