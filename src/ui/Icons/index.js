@@ -16,11 +16,13 @@ import Church from './church';
 import Circle from './circle';
 import Clock from './clock';
 import Comments from './comments';
+import Connected from './connected';
 import DotCircle from './dot-circle';
 import Envelope from './envelope';
 import EnvelopeOpenDollar from './envelope-open-dollar';
 import ExclamationCircle from './exclamation-circle';
 import Facebook from './facebook';
+import Gift from './gift';
 import Google from './google';
 import Handshake from './handshake';
 import Home from './home';
@@ -28,7 +30,9 @@ import Icon from './Icon';
 import Instagram from './instagram';
 import LiveDot from './live-dot';
 import LockAlt from './lock-alt';
+import Maximize from './maximize';
 import Microsoft from './microsoft';
+import Minimize from './minimize';
 import Mobile from './mobile';
 import PaperAirplane from './paper-airplane';
 import PhoneAlt from './phone-alt';
@@ -40,8 +44,6 @@ import SignOut from './sign-out';
 import Square from './square';
 import ThreeDots from './three-dots';
 import Times from './times';
-import Maximize from './maximize';
-import Minimize from './minimize';
 import Twitter from './twitter';
 import User from './user';
 import UserCircle from './user-circle';
@@ -66,16 +68,19 @@ export {
   Church,
   Clock,
   Comments,
+  Connected,
   Envelope,
   EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
+  Gift,
   Google,
   Handshake,
   Home,
   Icon,
   Instagram,
   LockAlt,
+  Maximize,
   Microsoft,
   Mobile,
   PhoneAlt,
@@ -86,7 +91,6 @@ export {
   Square,
   ThreeDots,
   Times,
-  Maximize,
   Twitter,
   User,
   Users,
@@ -112,18 +116,22 @@ export const Icons = {
   Circle,
   Clock,
   Comments,
+  Connected,
   DotCircle,
   Envelope,
   EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
+  Gift,
   Google,
   Handshake,
   Home,
   Instagram,
   LiveDot,
   LockAlt,
+  Maximize,
   Microsoft,
+  Minimize,
   Mobile,
   PaperAirplane,
   PhoneAlt,
@@ -135,8 +143,6 @@ export const Icons = {
   Square,
   ThreeDots,
   Times,
-  Maximize,
-  Minimize,
   Twitter,
   User,
   UserCircle,
