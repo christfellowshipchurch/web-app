@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { GoogleAnalytics } from 'analytics';
-import { ContentCard, Row } from 'ui';
+import { CallToActionCard, Row } from 'ui';
 
 const MINUTE = 60000;
 
@@ -48,7 +48,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
       {hasEvents && <h3>Get Started</h3>}
       <Row style={{ padding: 0 }}>
         {cta.map((c, index) => (
-          <ContentCard
+          <CallToActionCard
             title={c.title}
             redirectUrl={c.relatedNode.url}
             key={`cta-${index}`}
