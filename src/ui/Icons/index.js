@@ -3,6 +3,7 @@ import AngleLeft from './angle-left';
 import AngleRight from './angle-right';
 import AngleUp from './angle-up';
 import Apple from './apple';
+import ArrowUpRight from './arrow-up-right';
 import BabyCarriage from './baby-carriage';
 import Ban from './ban';
 import Bars from './bars';
@@ -56,6 +57,7 @@ export {
   AngleRight,
   AngleUp,
   Apple,
+  ArrowUpRight,
   BabyCarriage,
   Ban,
   Bars,
@@ -103,6 +105,7 @@ export const Icons = {
   AngleRight,
   AngleUp,
   Apple,
+  ArrowUpRight,
   BabyCarriage,
   Ban,
   Bars,
