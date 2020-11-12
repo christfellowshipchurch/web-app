@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useQuery } from 'react-apollo';
-import { get, last, capitalize, join, camelCase } from 'lodash';
+import { get, last, capitalize, join } from 'lodash';
 
 import ContentSingle from '../../content-single';
 import { CardFeed } from '../../content-feed';

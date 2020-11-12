@@ -70,7 +70,11 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
       {theaterMode ? (
         <TheaterContainer>
           <Area area="stream">
-            <EventMedia {...content} liveStreamSource={liveStreamSource} />
+            <EventMedia
+              {...content}
+              liveStreamSource={liveStreamSource}
+              showTheaterMode={theaterMode}
+            />
           </Area>
           <Area area="heading">
             <EventHeading {...content} isLive />

@@ -12,7 +12,7 @@ const RequestEmailPin = ({ children, email, update, onClick }) => {
     <>
       <a
         disabled={disabled}
-        href="#"
+        href="# "
         onClick={(e) => {
           e.preventDefault();
           onClick();

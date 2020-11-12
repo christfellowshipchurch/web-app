@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import VisibilitySensor from 'react-visibility-sensor';
 import { get } from 'lodash';
 import { Users, BookAlt, Search } from '../Icons';
 
-import { Block, Button, Media } from '../../ui';
-import { htmlToReactParser, redirectTo } from '../../utils';
+import { Media } from '../../ui';
+import { htmlToReactParser } from '../../utils';
 
 import SwoopImg from '../../images/cyan_hole_punch.svg';
 
 const Swoop = () => {
   return (
     <img
+      alt=""
       src={SwoopImg}
       style={{
         zIndex: 0,
@@ -31,7 +32,6 @@ const HeroSection = ({
   openLinksInNewTab,
   image,
   video,
-  icons,
 }) => {
   return (
     <VisibilitySensor active partialVisibility minTopValue={0}>
@@ -111,55 +111,6 @@ const HeroSection = ({
                 height: 70,
               }}
             />
-            {/* <div 
-            className={classnames(
-              'width-100', 
-              'bg-primary',
-              'd-flex',
-              'justify-content-center'
-            )}
-          >
-             <div 
-              className={classnames(
-                'row',
-                'container-fluid',
-                'mb-4'
-              )}
-            >
-             {icons.map((n, i) => (
-               <div 
-                className={classnames(
-                  'col-12',
-                  'col-md-4',
-                  'd-flex',
-                  'flex-column',
-                  'align-items-center',
-                  'mt-4'
-                )}
-                key={i}
-              >
-                <Media
-                  imageUrl={n.icon}
-                  rounded
-                  circle
-                  style={{
-                    height: 100,
-                    width: 100
-                  }}
-                />
-                <h4
-                  className={classnames(
-                    'text-white',
-                    'pt-3',
-                    'mb-0',
-                  )}
-                >
-                  {n.title}
-                </h4>
-               </div>
-              ))}
-              </div>   
-          </div> */}
           </>
         );
       }}
