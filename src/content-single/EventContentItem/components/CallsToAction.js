@@ -34,7 +34,11 @@ function filterItems(items, eventStartTime) {
   return filteredItems;
 }
 
+// If there is an icon specified, use it.
+// Otherwise try to match it with a default icon.
 function getIcon(cta) {
+  if (cta?.icon) return cta.icon;
+
   const title = cta?.title;
   if (!title) return undefined;
 
