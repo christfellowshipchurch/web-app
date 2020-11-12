@@ -53,13 +53,13 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
             redirectUrl={c.relatedNode.url}
             key={`cta-${index}`}
             id={`cta-${index}`}
+            icon="gift"
             coverImage={[
               {
                 name: c.title,
                 uri: c.image,
               },
             ]}
-            label={{}}
             onClick={() =>
               GoogleAnalytics.trackEvent({
                 category: 'Event Item',
