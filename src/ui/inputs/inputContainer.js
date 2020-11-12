@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 import { toLower, camelCase } from 'lodash';
 
 const InputContainer = ({
+  children,
+  description,
+  focused,
+  hasValue,
+  label,
+  placeholder,
   prefix,
   suffix,
-  border,
-  label,
-  description,
-  children,
-  focused,
-  placeholder,
-  hasValue,
 }) => {
   const smallLabel = focused || placeholder || hasValue;
   const forLabel = toLower(camelCase(label));

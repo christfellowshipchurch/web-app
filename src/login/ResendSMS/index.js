@@ -14,13 +14,13 @@ const ResendSMS = ({ children, phoneNumber, requestedPrompt, requestedDelay }) =
         setRequested(false);
       }, requestedDelay);
     }
-  }, [requested]);
+  }, [requested, requestedDelay]);
 
   return requested ? (
     <p>{requestedPrompt}</p>
   ) : (
     <a
-      href="#"
+      href="# "
       onClick={(e) => {
         e.preventDefault();
 

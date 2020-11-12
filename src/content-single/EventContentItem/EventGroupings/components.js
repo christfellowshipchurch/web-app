@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { Icon } from '../../../ui/Icons';
-import { AddToCalendar } from '../../../ui';
 
 export const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div

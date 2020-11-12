@@ -10,6 +10,8 @@ const CampusContentFeatureConnected = ({ campus }) => (
   </div>
 );
 
-CampusContentFeatureConnected.propTypes = {};
+CampusContentFeatureConnected.propTypes = {
+  campus: PropTypes.object,
+};
 
 export default CampusContentFeatureConnected;

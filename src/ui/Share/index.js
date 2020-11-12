@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { includes, toLower, uniqueId, merge } from 'lodash';
+import { uniqueId } from 'lodash';
 import { FacebookShareButton, TwitterShareButton, EmailShareButton } from 'react-share';
 import { Dropdown } from 'react-bootstrap';
 import { GoogleAnalytics } from '../../analytics';

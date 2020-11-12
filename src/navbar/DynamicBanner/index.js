@@ -32,7 +32,12 @@ const LiveBanner = () => {
         }
       )}
     >
-      <a className={classnames('h4', 'mb-0', 'text-white')} href={action} target="_blank">
+      <a
+        className={classnames('h4', 'mb-0', 'text-white')}
+        href={action}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {call}
       </a>
       <div

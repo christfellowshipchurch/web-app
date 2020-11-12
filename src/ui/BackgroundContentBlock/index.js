@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { camelCase, get } from 'lodash';
 import { htmlToReactParser } from '../../utils';

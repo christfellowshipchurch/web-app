@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useMutation, useQuery } from 'react-apollo';
 import classnames from 'classnames';
-import { get, has } from 'lodash';
+import { get } from 'lodash';
 import AwesomePhoneNumber from 'awesome-phonenumber';
 import { string } from 'yup';
 import moment from 'moment';
@@ -98,7 +98,7 @@ const EditUserProfile = ({
     },
   });
 
-  const [updateProfile, { loading, error }] = useMutation(UPDATE_CURRENT_USER, {
+  const [updateProfile, { loading }] = useMutation(UPDATE_CURRENT_USER, {
     update: async (
       cache,
       { data: { updateProfileFields, updateAddress, updateUserCampus } }

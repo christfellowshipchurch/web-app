@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-apollo';
 import moment from 'moment';
-import { get, find, uniqBy, forEach, sortBy, filter, toUpper, uniq } from 'lodash';
+import { get, find, uniqBy, forEach, sortBy, filter } from 'lodash';
 import { Church, CalendarAlt, Clock } from '../../../ui/Icons';
 import Loader from '../../../ui/Loader';
 import Dropdown from '../../../ui/inputs/Dropdown';
