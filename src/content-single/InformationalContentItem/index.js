@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 
 import Banner from '../Banner';
 import { ErrorBlock } from '../../ui';
 import Placeholder from './Placeholder';
 import Detail from './Detail';
 
-const InformationalContentItem = ({ itemId, content, loading, error }) => {
+const InformationalContentItem = ({ content, loading, error }) => {
   if (loading) {
     return <Placeholder />;
   }
