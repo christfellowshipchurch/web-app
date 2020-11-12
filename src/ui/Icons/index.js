@@ -16,6 +16,7 @@ import CheckSquare from './check-square';
 import Church from './church';
 import Circle from './circle';
 import Clock from './clock';
+import Coffee from './coffee';
 import Comments from './comments';
 import Connected from './connected';
 import DotCircle from './dot-circle';
@@ -69,6 +70,7 @@ export {
   CheckSquare,
   Church,
   Clock,
+  Coffee,
   Comments,
   Connected,
   Envelope,
@@ -118,6 +120,7 @@ export const Icons = {
   Church,
   Circle,
   Clock,
+  Coffee,
   Comments,
   Connected,
   DotCircle,
