@@ -50,7 +50,7 @@ const TabLabel = styled.span`
   margin-left: ${baseUnit(1)};
   font-weight: ${({ theme }) => theme.fontWeight.semiBold};
   font-size: ${({ theme }) => theme.fontSize.h5};
-  color: ${({ active, theme }) => (active ? theme.font.coolGray[800] : theme.card.color)};
+  color: ${({ active, theme }) => (active ? theme.font.h5 : theme.card.color)};
 `;
 
 const TabSubLabel = styled.span`

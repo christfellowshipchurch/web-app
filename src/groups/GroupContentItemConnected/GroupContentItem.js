@@ -25,7 +25,7 @@ const TabsContainer = styled.div`
 `;
 
 const Tab = styled.div`
-  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray[800])};
+  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray)};
   padding: ${baseUnit(1)} 1.25rem ${baseUnit(2)};
   font-size: ${themeGet('fontSize.h5')};
   font-weight: ${themeGet('fontWeight.bold')};
@@ -207,7 +207,7 @@ const GroupContentItem = ({
               <Card>{summary || 'Group summary unavailable'}</Card>
             )}
             {chatChannelId && activeTab === 'chat' && (
-              <Card>
+              <Card style={{ height: '30vh' }}>
                 <GroupChat channelId={chatChannelId} />
               </Card>
             )}
