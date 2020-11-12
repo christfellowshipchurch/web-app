@@ -58,7 +58,8 @@ const CallToActionCard = ({
           ratio="16by9"
           className={classnames('rounded-top', 'bg-light')}
           forceRatio
-          overlay
+          gradient="dark"
+          gradientDirection="bottom-top"
         >
           {!!title && (
             <h6
@@ -89,6 +90,7 @@ const CallToActionCard = ({
               position: 'absolute',
               top: 8,
               right: 8,
+              opacity: 0.65,
             }}
           >
             <Icon name="arrow-up-right" fill="#ffffff" />

@@ -53,7 +53,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
             redirectUrl={c.relatedNode.url}
             key={`cta-${index}`}
             id={`cta-${index}`}
-            icon="gift"
+            icon="coffee"
             coverImage={[
               {
                 name: c.title,
@@ -77,7 +77,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
 CallsToAction.propTypes = {
   hasEvents: PropTypes.bool,
   eventTitle: PropTypes.string,
-  eventStartTime: PropTypes.number,
+  eventStartTime: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
@@ -90,7 +90,7 @@ CallsToAction.defaultProps = {
   hasEvents: false,
   eventTitle: 'Christ Fellowship Church',
   items: [],
-  eventStartTime: Date.now(),
+  eventStartTime: Date.now().toString(),
 };
 
 export default CallsToAction;
