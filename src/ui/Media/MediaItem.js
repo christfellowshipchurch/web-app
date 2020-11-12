@@ -33,14 +33,6 @@ const MediaItem = ({
     ratioClass = 'embed-responsive-1by1';
   }
 
-  console.log(
-    '%c grad: ',
-    'background: #FF0000; color: #fff',
-    gradient,
-    gradientDirection,
-    overlay
-  );
-
   // TODO : test where the showControls is passed in, but no value URL exists
 
   return (
