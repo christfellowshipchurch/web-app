@@ -34,6 +34,15 @@ function filterItems(items, eventStartTime) {
   return filteredItems;
 }
 
+function getIcon(cta) {
+  const title = cta?.title;
+  if (!title) return undefined;
+
+  if (title.match(/give/i)) return 'gift';
+  if (title.match(/connected/i)) return 'connected';
+  if (title.match(/decided/i)) return 'check-square';
+}
+
 const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
 
@@ -53,7 +62,7 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
             redirectUrl={c.relatedNode.url}
             key={`cta-${index}`}
             id={`cta-${index}`}
-            icon="coffee"
+            icon={getIcon(c) || 'coffee'}
             coverImage={[
               {
                 name: c.title,
