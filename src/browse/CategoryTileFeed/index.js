@@ -1,13 +1,12 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types';
-import { get, take, kebabCase } from 'lodash';
+import { get, take } from 'lodash';
 
 import { Loader, ContentContainer } from '../../ui';
 import ContentCardConnected from '../../content-card-connected';
 
 import { GET_CATEGORY_PREVIEW } from '../queries';
-import { redirectTo } from '../../utils';
 
 const CategoryTileFeed = ({ contentId, title, onSeeMore }) => {
   const { loading, error, data } = useQuery(GET_CATEGORY_PREVIEW, {
@@ -41,7 +40,7 @@ const CategoryTileFeed = ({ contentId, title, onSeeMore }) => {
         {content.length > 3 && (
           <div className="col-3 text-right">
             <a
-              href="#"
+              href="# "
               className="h5"
               onClick={(e) => {
                 e.preventDefault();

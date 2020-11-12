@@ -32,7 +32,7 @@ const TheaterModeProvider = ({ children }) => {
 
   useEffect(() => {
     setValue(state);
-  }, [state]);
+  }, [state, setValue]);
 
   return (
     <TheaterModeStateContext.Provider value={state}>

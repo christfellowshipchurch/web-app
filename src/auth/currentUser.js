@@ -26,7 +26,7 @@ const useAuthQuery = (query) => {
     //  error visible, so we're overwriting it with
     //  our own
     if (isLoggedIn) refetch().catch(() => console.error('Authentication error'));
-  }, [token]);
+  }, [token, isLoggedIn]);
 
   return {
     data,
