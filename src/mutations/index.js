@@ -1,4 +1,3 @@
-import VIEW_ACTION from './interactViewAction';
 import useInteraction from './useInteraction';
 
 const ACTIONS = {
@@ -7,4 +6,4 @@ const ACTIONS = {
   GROUP_OPEN_URL: 'GROUP_OPEN_URL',
 };
 
-export { VIEW_ACTION, ACTIONS, useInteraction };
+export { ACTIONS, useInteraction };
