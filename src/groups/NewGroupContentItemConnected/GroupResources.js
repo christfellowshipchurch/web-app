@@ -7,13 +7,39 @@ import { baseUnit, themeGet } from 'styles/theme';
 
 import { Card, generateUrlLink } from 'ui';
 
+export function processResource(resource) {
+  let resourceURL = get(resource, 'relatedNode.url', '');
+
+  if (resource.action === 'READ_CONTENT') {
+    const urlBase =
+      resource.relatedNode.__typename === 'InformationalContentItem'
+        ? 'items'
+        : 'content';
+
+    const { href } = generateUrlLink({
+      urlBase,
+      id: resource.relatedNode.id,
+      title: resource.title,
+    });
+
+    resourceURL = href;
+  }
+
+  return {
+    title: resource.title,
+    url: resourceURL,
+  };
+}
+
 // :: Styled Components
 // ------------------------
 
-const ResourcesHeading = styled.h4`
+export const ResourcesHeading = styled.h4`
   margin-bottom: 0;
   padding: ${baseUnit(2)} 0;
   border-bottom: 3px solid transparent; // Ugly, but needs to match with GroupTab component style
+  display: flex;
+  justify-content: space-between;
 `;
 
 const EmptyStateText = styled.p`
@@ -26,34 +52,12 @@ const EmptyStateText = styled.p`
 // ------------------------
 
 const GroupResources = ({ resources = [], onResourceClick }) => {
-  const processedResources = resources.map((resource) => {
-    let resourceURL = get(resource, 'relatedNode.url', '');
-
-    if (resource.action === 'READ_CONTENT') {
-      const urlBase =
-        resource.relatedNode.__typename === 'InformationalContentItem'
-          ? 'items'
-          : 'content';
-
-      const { href } = generateUrlLink({
-        urlBase,
-        id: resource.relatedNode.id,
-        title: resource.title,
-      });
-
-      resourceURL = href;
-    }
-
-    return {
-      title: resource.title,
-      url: resourceURL,
-    };
-  });
+  const processedResources = resources.map(processResource);
 
   return (
     <>
       <ResourcesHeading>Resources</ResourcesHeading>
-      <Card>
+      <Card className="mb-3">
         {processedResources?.length === 0 && (
           <EmptyStateText>No group resources</EmptyStateText>
         )}
@@ -78,14 +82,15 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
   );
 };
 
+export const GroupResourceProp = PropTypes.shape({
+  title: PropTypes.string,
+  url: PropTypes.string,
+});
+
 GroupResources.propTypes = {
-  resources: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string,
-      url: PropTypes.string,
-    })
-  ),
+  resources: PropTypes.arrayOf(GroupResourceProp),
   onResourceClick: PropTypes.func,
+  onEditClick: PropTypes.func,
 };
 
 export default GroupResources;

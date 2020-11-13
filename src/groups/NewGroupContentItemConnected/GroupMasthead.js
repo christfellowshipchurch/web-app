@@ -26,14 +26,22 @@ const SubHeadline = styled.h3`
   text-transform: uppercase;
 `;
 
+const GroupEdit = styled.div`
+  font-size: ${themeGet('fontSize.xsmall')};
+  cursor: pointer;
+`;
+
 // :: Main Component
 // ------------------------
 
-const GroupMasthead = ({ mb, headline, subHeadline }) => {
+const GroupMasthead = ({ mb, headline, subHeadline, onEditClick }) => {
   return (
     <Container mb={mb}>
       {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
       <Headline>{headline}</Headline>
+      <GroupEdit className="btn-link" onClick={onEditClick}>
+        {'Edit >'}
+      </GroupEdit>
     </Container>
   );
 };
@@ -42,10 +50,12 @@ GroupMasthead.propTypes = {
   mb: PropTypes.number,
   headline: PropTypes.string,
   subHeadline: PropTypes.string,
+  onEditClick: PropTypes.func,
 };
 
 GroupMasthead.defaultProps = {
   mb: 0,
+  onEditClick: () => {},
 };
 
 export default GroupMasthead;

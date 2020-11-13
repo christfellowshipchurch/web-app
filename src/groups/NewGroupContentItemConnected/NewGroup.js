@@ -20,6 +20,7 @@ import GroupChat from './GroupChat';
 
 import GroupResources from './GroupResources';
 import GroupMembersModal from './GroupMembersModal';
+import GroupEditModal from './GroupEditModal';
 
 const Tabs = Object.freeze({
   ABOUT: 'About',
@@ -68,13 +69,21 @@ const NewGroup = ({
   onClickGroupResource,
   onClickVideoCall,
   onClickParentVideoCall,
+  userId,
+  id,
+  refetchData,
 }) => {
   const [activeTab, setActiveTab] = useState(Tabs.ABOUT);
   const [membersModalVisible, setMembersModalVisible] = useState(false);
+  const [editGroupModalVisible, setEditGroupModalVisible] = useState(false);
   const sortedMembers = uniq([...leaders, ...members], 'id');
+  const isLeader = leaders.find(
+    (leader) => leader.id.split(':')[1] === userId.split(':')[1]
+  );
 
   const handleTabClick = (label) => setActiveTab(label);
   const handleToggleSeeAllMembers = () => setMembersModalVisible(!membersModalVisible);
+  const handleToggleEditGroup = () => setEditGroupModalVisible(!editGroupModalVisible);
 
   return (
     <Container>
@@ -83,7 +92,7 @@ const NewGroup = ({
       </Row>
       <Row className="my-3 my-md-3 my-lg-5">
         <Col className="col-12 pl-3 pr-3  col-lg-8 pl-xl-0">
-          <GroupMasthead mb={4} headline={title} />
+          <GroupMasthead mb={4} headline={title} onEditClick={handleToggleEditGroup} />
 
           <SubTitle>
             Members{' '}
@@ -142,6 +151,7 @@ const NewGroup = ({
           <GroupResources
             resources={groupResources}
             onResourceClick={onClickGroupResource}
+            isLeader={isLeader}
           />
         </Col>
       </Row>
@@ -149,6 +159,13 @@ const NewGroup = ({
         visible={membersModalVisible}
         members={sortedMembers}
         onPressExit={handleToggleSeeAllMembers}
+      />
+      <GroupEditModal
+        visible={editGroupModalVisible}
+        resources={groupResources}
+        groupId={id}
+        onPressExit={handleToggleEditGroup}
+        refetchData={refetchData}
       />
     </Container>
   );
@@ -171,6 +188,7 @@ NewGroup.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   userName: PropTypes.string,
+  userId: PropTypes.string,
   dateTime: PropTypes.shape({
     start: PropTypes.string,
     end: PropTypes.string,
@@ -198,6 +216,8 @@ NewGroup.propTypes = {
   onClickGroupResource: PropTypes.func,
   onClickParentVideoCall: PropTypes.func,
   onClickVideoCall: PropTypes.func,
+  id: PropTypes.string,
+  refetchData: PropTypes.func,
 };
 
 export default NewGroup;

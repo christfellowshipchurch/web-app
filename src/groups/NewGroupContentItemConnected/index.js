@@ -12,8 +12,9 @@ import GET_GROUP from './getGroup';
 import NewGroup from './NewGroup';
 
 const NewGroupContentItemConnected = ({ itemId }) => {
-  const { loading, error, data } = useQuery(GET_GROUP, {
+  const { loading, error, data, refetch } = useQuery(GET_GROUP, {
     variables: { itemId },
+    fetchPolicy: 'network-only',
   });
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
@@ -63,16 +64,20 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       title={get(content, 'title')}
       summary={get(content, 'summary')}
       members={get(content, 'members', [])}
+      leaders={get(content, 'leaders', [])}
       groupResources={get(content, 'groupResources', [])}
       dateTime={get(content, 'dateTime')}
       userName={
         get(data, 'currentUser.profile.nickName') ||
         get(data, 'currentUser.profile.firstName')
       }
+      userId={get(data, 'currentUser.id')}
       videoCall={get(content, 'videoCall')}
       channelId={get(content, 'streamChatChannel.channelId')}
       onClickGroupResource={handleOnClickGroupResource}
       onClickVideoCall={handleOnClickVideoCall}
+      refetchData={refetch}
+      id={itemId}
     />
   );
 };
