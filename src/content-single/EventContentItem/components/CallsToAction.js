@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
+import { useMutation } from 'react-apollo';
 import { GoogleAnalytics } from 'analytics';
 import { CallToActionCard, Row } from 'ui';
+import { VIEW_ACTION } from 'mutations';
 
 const MINUTE = 60000;
 
@@ -45,10 +47,12 @@ function getIcon(cta) {
   if (title.match(/give/i)) return 'gift';
   if (title.match(/connected/i)) return 'connected';
   if (title.match(/decided/i)) return 'check-square';
+  return undefined;
 }
 
-const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
+const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime }) => {
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
+  const [handleInteraction] = useMutation(VIEW_ACTION);
 
   if (isEmpty(items)) {
     return null;
@@ -73,13 +77,15 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
                 uri: c.image,
               },
             ]}
-            onClick={() =>
+            onClick={() => {
               GoogleAnalytics.trackEvent({
                 category: 'Event Item',
                 action: `${eventTitle} Call to Action`,
                 label: `${eventTitle} - ${c.title} Button`,
-              })
-            }
+              });
+
+              handleInteraction({ variables: { nodeId } });
+            }}
           />
         ))}
       </Row>
@@ -97,6 +103,7 @@ CallsToAction.propTypes = {
       action: PropTypes.string,
     })
   ),
+  nodeId: PropTypes.string,
 };
 
 CallsToAction.defaultProps = {

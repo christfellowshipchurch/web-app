@@ -87,6 +87,7 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
               eventTitle={get(content, 'title')}
               eventStartTime={liveStream?.eventStartTime}
               items={callsToAction}
+              nodeId={contentId}
             />
           </Area>
           <Area area="social">
