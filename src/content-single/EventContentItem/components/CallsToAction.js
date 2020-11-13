@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { useMutation } from 'react-apollo';
 import { GoogleAnalytics } from 'analytics';
-import { ContentCard, Row } from 'ui';
+import { CallToActionCard, Row } from 'ui';
 import { VIEW_ACTION } from 'mutations';
 
 const MINUTE = 60000;
@@ -36,6 +36,20 @@ function filterItems(items, eventStartTime) {
   return filteredItems;
 }
 
+// If there is an icon specified, use it.
+// Otherwise try to match it with a default icon.
+function getIcon(cta) {
+  if (cta?.icon) return cta.icon;
+
+  const title = cta?.title;
+  if (!title) return undefined;
+
+  if (title.match(/give/i)) return 'gift';
+  if (title.match(/connected/i)) return 'connected';
+  if (title.match(/decided/i)) return 'check-square';
+  return undefined;
+}
+
 const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime }) => {
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
   const [handleInteraction] = useMutation(VIEW_ACTION);
@@ -50,32 +64,30 @@ const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime })
     <>
       {hasEvents && <h3>Get Started</h3>}
       <Row style={{ padding: 0 }}>
-        {cta.map((c, index) => {
-          const handleOnClickAction = () => {
-            GoogleAnalytics.trackEvent({
-              category: 'Event Item',
-              action: `${eventTitle} Call to Action`,
-              label: `${eventTitle} - ${c.title} Button`,
-            });
-            handleInteraction({ variables: { nodeId } });
-          };
-          return (
-            <ContentCard
-              title={c.title}
-              redirectUrl={c.relatedNode.url}
-              key={`cta-${index}`}
-              id={`cta-${index}`}
-              coverImage={[
-                {
-                  name: c.title,
-                  uri: c.image,
-                },
-              ]}
-              label={{}}
-              onClick={handleOnClickAction}
-            />
-          );
-        })}
+        {cta.map((c, index) => (
+          <CallToActionCard
+            title={c.title}
+            redirectUrl={c.relatedNode.url}
+            key={`cta-${index}`}
+            id={`cta-${index}`}
+            icon={getIcon(c) || 'coffee'}
+            coverImage={[
+              {
+                name: c.title,
+                uri: c.image,
+              },
+            ]}
+            onClick={() => {
+              GoogleAnalytics.trackEvent({
+                category: 'Event Item',
+                action: `${eventTitle} Call to Action`,
+                label: `${eventTitle} - ${c.title} Button`,
+              });
+
+              handleInteraction({ variables: { nodeId } });
+            }}
+          />
+        ))}
       </Row>
     </>
   );
@@ -84,7 +96,7 @@ const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime })
 CallsToAction.propTypes = {
   hasEvents: PropTypes.bool,
   eventTitle: PropTypes.string,
-  eventStartTime: PropTypes.number,
+  eventStartTime: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
@@ -98,7 +110,7 @@ CallsToAction.defaultProps = {
   hasEvents: false,
   eventTitle: 'Christ Fellowship Church',
   items: [],
-  eventStartTime: Date.now(),
+  eventStartTime: Date.now().toString(),
 };
 
 export default CallsToAction;
