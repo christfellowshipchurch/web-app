@@ -50,6 +50,7 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
     }
 
     return {
+      id: resource.relatedNode.id,
       title: resource.title,
       url: resourceURL,
     };
@@ -75,7 +76,7 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
 
               interaction({
                 variables: {
-                  nodeId: resource.relatedNode.id,
+                  nodeId: resource.id,
                   action: ACTIONS.GROUP_OPEN_URL,
                 },
               });
