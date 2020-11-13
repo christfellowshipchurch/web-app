@@ -4,7 +4,6 @@ import { isEmpty } from 'lodash';
 import { GoogleAnalytics } from 'analytics';
 import { CallToActionCard, Row } from 'ui';
 import { useInteraction, ACTIONS } from 'mutations';
-
 const MINUTE = 60000;
 
 function filterItems(items, eventStartTime) {
@@ -83,7 +82,7 @@ const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime })
                 label: `${eventTitle} - ${c.title} Button`,
               });
 
-              interaction({ variables: { nodeId, action: ACTIONS.VIEW_ACTION } });
+              interaction({ variables: { nodeId, action: ACTIONS.VIEWED_ACTION } });
             }}
           />
         ))}
