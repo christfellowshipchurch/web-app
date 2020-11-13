@@ -18,7 +18,6 @@ const Rsvp = (props) => {
     formDescription,
     formAdditionalText1,
     formAdditionalText2,
-    setSubmitting,
     values,
     submitting,
   } = props;

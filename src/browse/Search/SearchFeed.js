@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { get } from 'lodash';
 
@@ -13,7 +13,7 @@ const mapSearchData = (data) =>
   get(data, 'search.edges', []).map(({ node }) => ({ ...node }));
 
 const SearchFeed = ({ content }) => {
-  //splits content into two columns
+  // Splits content into two columns
   const half = Math.ceil(content.length / 2);
   const firstHalf = content.splice(0, half);
   const secondHalf = content.splice(-half);

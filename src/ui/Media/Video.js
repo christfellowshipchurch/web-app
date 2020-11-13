@@ -67,11 +67,11 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
       videoRef.current.play();
     }
     setShowPlayButton(false);
-  });
+  }, [source, videoRef]);
 
   useEffect(() => {
     if (isLive || isIOS) return playButtonClick();
-  }, [videoRef]);
+  }, [videoRef, isLive, playButtonClick]);
 
   const handleToggleTheater = () => {
     dispatch(toggleTheaterMode());
@@ -167,6 +167,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
             top: 0,
             right: 0,
             padding: '0.75rem',
+            cursor: 'pointer',
           }}
         >
           <Icon

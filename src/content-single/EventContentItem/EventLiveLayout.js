@@ -70,7 +70,11 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
       {theaterMode ? (
         <TheaterContainer>
           <Area area="stream">
-            <EventMedia {...content} liveStreamSource={liveStreamSource} />
+            <EventMedia
+              {...content}
+              liveStreamSource={liveStreamSource}
+              showTheaterMode={theaterMode}
+            />
           </Area>
           <Area area="heading">
             <EventHeading {...content} isLive />
@@ -83,6 +87,7 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
               eventTitle={get(content, 'title')}
               eventStartTime={liveStream?.eventStartTime}
               items={callsToAction}
+              nodeId={contentId}
             />
           </Area>
           <Area area="social">

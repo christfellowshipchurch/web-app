@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types';
-import { get, take } from 'lodash';
+import { get } from 'lodash';
 
 import { Loader, ContentContainer } from '../../ui';
 
@@ -47,6 +47,7 @@ const CategoryList = ({ filterId, onClick }) => {
 
 CategoryList.propTypes = {
   filter: PropTypes.string,
+  filterId: PropTypes.string,
   category: PropTypes.string,
   title: PropTypes.string,
   onClick: PropTypes.func,
