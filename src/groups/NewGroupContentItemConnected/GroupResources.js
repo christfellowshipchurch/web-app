@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { GoogleAnalytics } from 'analytics';
+
 import { get } from 'lodash';
 
 import { baseUnit, themeGet } from 'styles/theme';
 
+import { useInteraction, ACTIONS } from 'mutations';
 import { Card, generateUrlLink } from 'ui';
 
 // :: Styled Components
@@ -26,6 +29,8 @@ const EmptyStateText = styled.p`
 // ------------------------
 
 const GroupResources = ({ resources = [], onResourceClick }) => {
+  const [interaction] = useInteraction();
+
   const processedResources = resources.map((resource) => {
     let resourceURL = get(resource, 'relatedNode.url', '');
 
@@ -62,11 +67,24 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
             key={resource?.url || `resource-${index}`}
             className="btn btn-outline-dark btn-block text-dark"
             href={resource?.url}
-            onClick={() =>
+            onClick={() => {
               onResourceClick({
                 resourceTitle: resource?.title,
-              })
-            }
+              });
+
+              GoogleAnalytics.trackEvent({
+                category: 'Event Item',
+                action: `${resource.title} - Group Resource Action`,
+                label: `${resource.title} Button`,
+              });
+
+              interaction({
+                variables: {
+                  nodeId: resource.relatedNode.id,
+                  action: ACTIONS.GROUP_RESOURCE_OPEN_URL,
+                },
+              });
+            }}
             target={resource?.url?.includes('http') ? '_blank' : ''}
             rel="noopener noreferrer"
           >

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { useMutation } from 'react-apollo';
 import { GoogleAnalytics } from 'analytics';
 import { CallToActionCard, Row } from 'ui';
-import { VIEW_ACTION } from 'mutations';
+import { useInteraction, ACTIONS } from 'mutations';
 
 const MINUTE = 60000;
 
@@ -52,7 +51,7 @@ function getIcon(cta) {
 
 const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime }) => {
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
-  const [handleInteraction] = useMutation(VIEW_ACTION);
+  const [interaction] = useInteraction();
 
   if (isEmpty(items)) {
     return null;
@@ -84,7 +83,7 @@ const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime })
                 label: `${eventTitle} - ${c.title} Button`,
               });
 
-              handleInteraction({ variables: { nodeId } });
+              interaction({ variables: { nodeId, action: ACTIONS.VIEW_ACTION } });
             }}
           />
         ))}
