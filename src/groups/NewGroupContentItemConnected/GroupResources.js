@@ -66,12 +66,7 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
           <a
             key={resource?.url || `resource-${index}`}
             className="btn btn-outline-dark btn-block text-dark"
-            href={resource?.url}
             onClick={() => {
-              onResourceClick({
-                resourceTitle: resource?.title,
-              });
-
               GoogleAnalytics.trackEvent({
                 category: 'Event Item',
                 action: `${resource.title} - Group Resource Action`,
@@ -81,10 +76,15 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
               interaction({
                 variables: {
                   nodeId: resource.relatedNode.id,
-                  action: ACTIONS.GROUP_RESOURCE_OPEN_URL,
+                  action: ACTIONS.GROUP_OPEN_URL,
                 },
               });
+
+              onResourceClick({
+                resourceTitle: resource?.title,
+              });
             }}
+            href={resource?.url}
             target={resource?.url?.includes('http') ? '_blank' : ''}
             rel="noopener noreferrer"
           >
