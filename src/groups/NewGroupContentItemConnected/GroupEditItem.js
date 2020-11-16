@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { Collapse } from 'react-bootstrap';
 import styled from 'styled-components';
 import { AngleDown } from 'ui/Icons';
+import { colors } from 'styles/theme';
 
 const IconRotator = styled.span`
   transform: rotate(0deg);
@@ -11,13 +12,14 @@ const IconRotator = styled.span`
   transform: ${(props) => (props.rotate ? `rotate(180deg)` : '')};
 `;
 
+const Header = styled.div``;
+
 const GroupEditItem = ({ children, title }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
-      <button
-        variant="link"
+      <Header
         onClick={() => setIsOpen(!isOpen)}
         className={classnames(
           'p-3',
@@ -30,14 +32,16 @@ const GroupEditItem = ({ children, title }) => {
           'flex-row',
           'justify-content-between',
           'align-items-center',
-          'border-0'
+          'border-0',
+          'text-dark'
         )}
+        style={{ cursor: 'pointer' }}
       >
         <span>{title}</span>
         <IconRotator rotate={isOpen}>
           <AngleDown size="48" />
         </IconRotator>
-      </button>
+      </Header>
       <Collapse in={isOpen}>
         <div className="mx-3" style={{ position: 'relative' }}>
           {children}
