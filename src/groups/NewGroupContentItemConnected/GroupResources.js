@@ -34,7 +34,7 @@ export function processResource(resource) {
 // :: Styled Components
 // ------------------------
 
-export const ResourcesHeading = styled.h4`
+const ResourcesHeading = styled.h4`
   margin-bottom: 0;
   padding: ${baseUnit(2)} 0;
   border-bottom: 3px solid transparent; // Ugly, but needs to match with GroupTab component style

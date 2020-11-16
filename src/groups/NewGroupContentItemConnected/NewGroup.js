@@ -163,6 +163,7 @@ const NewGroup = ({
       <GroupEditModal
         visible={editGroupModalVisible}
         resources={groupResources}
+        coverImage={coverImage}
         groupId={id}
         onPressExit={handleToggleEditGroup}
         refetchData={refetchData}

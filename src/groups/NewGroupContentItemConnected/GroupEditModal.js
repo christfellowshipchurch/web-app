@@ -7,10 +7,12 @@ import { baseUnit, themeGet } from 'styles/theme';
 import { FloatingCard } from 'ui';
 import { useMutation, useQuery } from 'react-apollo';
 import { UPDATE_GROUP_COVER_IMAGE } from '../mutations';
-import { Button } from '../../ui';
+import { Loader } from '../../ui';
 import GET_GROUP_COVER_IMAGES from './getGroupCoverImages';
-import { GroupResourceProp, processResource, ResourcesHeading } from './GroupResources';
+import { GroupResourceProp, processResource } from './GroupResources';
 import GroupResourceForm from './GroupResourceForm';
+import GroupImage from './GroupImage';
+import GroupEditItem from './GroupEditItem';
 
 // :: Styled Components
 // ------------------------
@@ -18,6 +20,13 @@ import GroupResourceForm from './GroupResourceForm';
 const Title = styled.h2`
   color: ${themeGet('font.h2')};
   margin-bottom: ${baseUnit(3)};
+`;
+
+const CoverImagesGrid = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ResourceDetails = styled.div`
@@ -29,15 +38,6 @@ const ResourceDetails = styled.div`
 
 const ResourceUrl = styled.div`
   font-size: ${themeGet('fontSize.xsmall')};
-`;
-
-const VerticalScrollBox = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  width: 100%;
-  max-height: 600px;
-  overflow-y: scroll;
 `;
 
 const EditableResource = ({ resource, groupId }) => {
@@ -58,12 +58,20 @@ EditableResource.propTypes = {
   groupId: PropTypes.string,
 };
 
-const GroupEditModal = ({ visible, resources, groupId, onPressExit, refetchData }) => {
+const GroupEditModal = ({
+  visible,
+  resources,
+  coverImage,
+  groupId,
+  onPressExit,
+  refetchData,
+}) => {
   const { data } = useQuery(GET_GROUP_COVER_IMAGES, {
     skip: !visible,
     fetchPolicy: 'network-only',
   });
 
+  const [coverImageUpdating, setCoverImageUpdating] = useState(false);
   const [updateCoverImage] = useMutation(UPDATE_GROUP_COVER_IMAGE);
 
   if (!visible) return null;
@@ -71,24 +79,48 @@ const GroupEditModal = ({ visible, resources, groupId, onPressExit, refetchData 
   const processedResources = resources.map(processResource);
 
   return (
-    <FloatingCard bodyClassNames={'pl-4 pt-0 pb-4 pr-0'} onPressExit={onPressExit}>
+    <FloatingCard bodyClassNames={'pl-4 pt-0 pb-4 pr-4'} onPressExit={onPressExit}>
       <Title>Customize My Group</Title>
-      {data?.getGroupCoverImages?.map(({ image, guid }) => (
-        <img
-          style={{ width: 200 }}
-          key={`group-cover-image-${guid}`}
-          src={image?.sources[0].uri}
-          alt="Group Cover"
-          onClick={async () => {
-            await updateCoverImage({
-              variables: { imageId: guid, groupId },
-            });
-            refetchData();
-          }}
-        />
-      ))}
-      <VerticalScrollBox className="pb-3">
-        <ResourcesHeading>Resources</ResourcesHeading>
+      <GroupEditItem title="Cover Image">
+        <CoverImagesGrid>
+          {coverImageUpdating ? (
+            <Loader />
+          ) : (
+            data?.getGroupCoverImages?.map(({ image, guid }) => (
+              <div
+                style={{
+                  flex: '0 0 50%',
+                  cursor: 'pointer',
+                  padding: 2,
+                }}
+                onClick={async () => {
+                  setCoverImageUpdating(true);
+                  await updateCoverImage({
+                    variables: { imageId: guid, groupId },
+                  });
+                  await refetchData();
+                  setCoverImageUpdating(false);
+                }}
+              >
+                <img
+                  style={{
+                    height: '100%',
+                    width: '100%',
+                    border:
+                      image.sources[0].uri === coverImage.sources[0].uri
+                        ? '2px dashed black'
+                        : 'none',
+                  }}
+                  key={`group-cover-image-${guid}`}
+                  src={image?.sources[0].uri}
+                  alt="Group Cover"
+                />
+              </div>
+            )) || []
+          )}
+        </CoverImagesGrid>
+      </GroupEditItem>
+      <GroupEditItem title="Resources">
         {processedResources.map((resource, index) => (
           <EditableResource
             key={resource?.url || `resource-${index}`}
@@ -97,7 +129,7 @@ const GroupEditModal = ({ visible, resources, groupId, onPressExit, refetchData 
           />
         ))}
         <EditableResource groupId={groupId} />
-      </VerticalScrollBox>
+      </GroupEditItem>
     </FloatingCard>
   );
 };
@@ -108,6 +140,7 @@ GroupEditModal.propTypes = {
   onPressExit: PropTypes.func,
   groupId: PropTypes.string,
   refetchData: PropTypes.func,
+  coverImage: GroupImage.propTypes.coverImage,
 };
 
 export default GroupEditModal;
