@@ -245,7 +245,7 @@ GroupContentItem.propTypes = {
   title: PropTypes.string.isRequired,
   userName: PropTypes.string,
   videoCall: PropTypes.shape({
-    labelText: PropTypes.shape,
+    labelText: PropTypes.string,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
