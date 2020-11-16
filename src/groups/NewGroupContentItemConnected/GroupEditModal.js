@@ -26,7 +26,7 @@ const CoverImagesGrid = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const ResourceDetails = styled.div`
