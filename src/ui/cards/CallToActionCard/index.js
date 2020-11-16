@@ -8,10 +8,15 @@ import { Card, Media, Icon } from 'ui';
 
 import { generateUrlLink } from '..';
 
-const CardLink = ({ children, className, to: { id, href: pathname, target } = {} }) =>
+const CardLink = ({
+  children,
+  className,
+  onClick,
+  to: { id, href: pathname, target } = {},
+}) =>
   // if we have a target it's an external link so render an anchor `a`
   target ? (
-    <a className={className} href={pathname} target={target}>
+    <a className={className} onClick={onClick} href={pathname} target={target}>
       {children}
     </a>
   ) : (
@@ -49,6 +54,7 @@ const CallToActionCard = ({
         'no-decoration',
         'my-3'
       )}
+      onClick={onClick}
       to={href}
     >
       <Card fill className={classnames('h-100, overflow-hidden')} style={style}>
