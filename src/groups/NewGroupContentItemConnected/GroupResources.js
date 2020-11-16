@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
+import { GoogleAnalytics } from 'analytics';
+
 import { get } from 'lodash';
 
 import { baseUnit, themeGet } from 'styles/theme';
 
+import { useInteraction } from 'mutations';
 import { Card, generateUrlLink } from 'ui';
 
 export function processResource(resource) {
@@ -26,8 +29,10 @@ export function processResource(resource) {
   }
 
   return {
+    id: resource.relatedNode.id,
     title: resource.title,
     url: resourceURL,
+    action: resource.action,
   };
 }
 
@@ -52,6 +57,7 @@ const EmptyStateText = styled.p`
 // ------------------------
 
 const GroupResources = ({ resources = [], onResourceClick }) => {
+  const [interaction] = useInteraction();
   const processedResources = resources.map(processResource);
 
   return (
@@ -65,12 +71,25 @@ const GroupResources = ({ resources = [], onResourceClick }) => {
           <a
             key={resource?.url || `resource-${index}`}
             className="btn btn-outline-dark btn-block text-dark"
-            href={resource?.url}
-            onClick={() =>
+            onClick={() => {
+              GoogleAnalytics.trackEvent({
+                category: 'Event Item',
+                action: `${resource.title} - Group Resource Action`,
+                label: `${resource.title} Button`,
+              });
+
+              interaction({
+                variables: {
+                  nodeId: resource.id,
+                  action: `GROUP_${resource.action}`,
+                },
+              });
+
               onResourceClick({
                 resourceTitle: resource?.title,
-              })
-            }
+              });
+            }}
+            href={resource?.url}
             target={resource?.url?.includes('http') ? '_blank' : ''}
             rel="noopener noreferrer"
           >
