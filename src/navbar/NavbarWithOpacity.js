@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useScrollPosition } from '../hooks';
+import { useScrollPosition } from 'hooks';
 import Navbar from './index';
 
 const NavbarWithOpacity = ({ offset }) => {
@@ -9,7 +9,6 @@ const NavbarWithOpacity = ({ offset }) => {
 
   useScrollPosition(({ currPos }) => {
     const opaque = currPos.y > -1 * offset;
-
     setBgColor(opaque ? 'transparent' : 'dark');
   });
 
