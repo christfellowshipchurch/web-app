@@ -11,7 +11,7 @@ const Icon = ({ size, fill }) => {
       viewBox="0 0 24 24"
       aria-labelledby="title"
       fill="none"
-      stroke-width="2"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
