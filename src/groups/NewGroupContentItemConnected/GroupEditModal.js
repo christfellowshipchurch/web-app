@@ -41,11 +41,11 @@ const ResourceUrl = styled.div`
   font-size: ${themeGet('fontSize.xsmall')};
 `;
 
-const EditableResource = ({ resource, groupId }) => {
+const EditableResource = ({ resource, groupId, refetchData }) => {
   const [editing, setEditing] = useState(false);
 
   return editing ? (
-    <GroupResourceForm groupId={groupId} resource={resource} />
+    <GroupResourceForm groupId={groupId} resource={resource} refetchData={refetchData} />
   ) : (
     <ResourceDetails onClick={() => setEditing(true)}>
       {resource?.title || '+ Add new resource'}
@@ -57,6 +57,7 @@ const EditableResource = ({ resource, groupId }) => {
 EditableResource.propTypes = {
   resource: GroupResourceProp,
   groupId: PropTypes.string,
+  refetchData: PropTypes.func,
 };
 
 const GroupEditModal = ({
@@ -127,9 +128,10 @@ const GroupEditModal = ({
             key={resource?.url || `resource-${index}`}
             resource={resource}
             groupId={groupId}
+            refetchData={refetchData}
           />
         ))}
-        <EditableResource groupId={groupId} />
+        <EditableResource groupId={groupId} refetchData={refetchData} />
       </GroupEditItem>
     </FloatingCard>
   );

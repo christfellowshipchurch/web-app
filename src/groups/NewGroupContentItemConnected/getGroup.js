@@ -14,6 +14,7 @@ export default gql`
           }
         }
         groupResources {
+          id
           title
           action
           relatedNode {

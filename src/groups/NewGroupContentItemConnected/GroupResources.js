@@ -29,6 +29,7 @@ export function processResource(resource) {
   }
 
   return {
+    resourceId: resource.id,
     id: resource.relatedNode.id,
     title: resource.title,
     url: resourceURL,
