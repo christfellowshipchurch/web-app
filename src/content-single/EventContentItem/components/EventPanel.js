@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import numeral from 'numeral';
@@ -64,9 +64,12 @@ const EventPanel = ({ event, channelId }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
   const [watcherCount, setWatcherCount] = useState(null);
 
-  const handleWatcherCountChange = (num = 0) => {
-    setWatcherCount(numeral(num + 1).format('0,0'));
-  };
+  const handleWatcherCountChange = useCallback(
+    (num = 0) => {
+      setWatcherCount(numeral(num + 1).format('0,0'));
+    },
+    [setWatcherCount]
+  );
 
   return (
     <PanelContainer>

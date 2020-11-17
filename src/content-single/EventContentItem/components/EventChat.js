@@ -119,20 +119,20 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
   const [dmChannelsVisible, setDmChannelsVisible] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
 
-  // Fetches DMs and filters by most recent
-  const getDmChannels = async () => {
-    // All DM channels, whether recent or not
-    const dmChannelsResponse = await ChatUtils.getUserDmChannels();
-    setDmChannels(dmChannelsResponse);
-
-    // Only recently active DM channels
-    const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
-    setDmChannelsVisible(recentDmChannels);
-    console.groupEnd();
-  };
-
   // Stream Chat Connection management
   useEffect(() => {
+    // Fetches DMs and filters by most recent
+    const getDmChannels = async () => {
+      // All DM channels, whether recent or not
+      const dmChannelsResponse = await ChatUtils.getUserDmChannels();
+      setDmChannels(dmChannelsResponse);
+
+      // Only recently active DM channels
+      const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
+      setDmChannelsVisible(recentDmChannels);
+      console.groupEnd();
+    };
+
     // Listener for events on the Stream Chat client
     const handleClientEvent = (clientEvent) => {
       const { type: eventType, channel_type: channelType, user } = clientEvent;
@@ -226,8 +226,8 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
     data,
     channelId,
     currentUserId,
-    event,
     getUserRole,
+    event,
     onWatcherCountChange,
   ]);
 
