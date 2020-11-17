@@ -34,14 +34,16 @@ const GroupEdit = styled.div`
 // :: Main Component
 // ------------------------
 
-const GroupMasthead = ({ mb, headline, subHeadline, onEditClick }) => {
+const GroupMasthead = ({ mb, headline, subHeadline, onEditClick, showEditButton }) => {
   return (
     <Container mb={mb}>
       {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
       <Headline>{headline}</Headline>
-      <GroupEdit className="btn-link" onClick={onEditClick}>
-        {'Edit >'}
-      </GroupEdit>
+      {showEditButton && (
+        <GroupEdit className="btn-link" onClick={onEditClick}>
+          {'Edit >'}
+        </GroupEdit>
+      )}
     </Container>
   );
 };
@@ -51,6 +53,7 @@ GroupMasthead.propTypes = {
   headline: PropTypes.string,
   subHeadline: PropTypes.string,
   onEditClick: PropTypes.func,
+  showEditButton: PropTypes.bool,
 };
 
 GroupMasthead.defaultProps = {

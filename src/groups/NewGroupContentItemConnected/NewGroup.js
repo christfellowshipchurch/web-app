@@ -9,6 +9,7 @@ import { baseUnit, themeGet } from 'styles/theme';
 import { Row, Col } from 'ui/grid';
 
 // Local components in order of appearance
+import useFeatureFlag from '../../hooks/useFeatureFlag';
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
 import GroupMeetingActions from './GroupMeetingActions';
@@ -80,6 +81,9 @@ const NewGroup = ({
   const isLeader = leaders.find(
     (leader) => leader.id.split(':')[1] === userId.split(':')[1]
   );
+  const { enabled: editFlagEnabled } = useFeatureFlag({ key: 'GROUP_CUSTOMIZATION' });
+
+  const editEnabled = editFlagEnabled && isLeader;
 
   const handleTabClick = (label) => setActiveTab(label);
   const handleToggleSeeAllMembers = () => setMembersModalVisible(!membersModalVisible);
@@ -92,8 +96,12 @@ const NewGroup = ({
       </Row>
       <Row className="my-3 my-md-3 my-lg-5">
         <Col className="col-12 pl-3 pr-3  col-lg-8 pl-xl-0">
-          <GroupMasthead mb={4} headline={title} onEditClick={handleToggleEditGroup} />
-
+          <GroupMasthead
+            mb={4}
+            headline={title}
+            onEditClick={handleToggleEditGroup}
+            showEditButton={editEnabled}
+          />
           <SubTitle>
             Members{' '}
             <MemberCount>{numeral(sortedMembers.length).format('0,0')}</MemberCount>
@@ -160,14 +168,16 @@ const NewGroup = ({
         members={sortedMembers}
         onPressExit={handleToggleSeeAllMembers}
       />
-      <GroupEditModal
-        visible={editGroupModalVisible}
-        resources={groupResources}
-        coverImage={coverImage}
-        groupId={id}
-        onPressExit={handleToggleEditGroup}
-        refetchData={refetchData}
-      />
+      {editEnabled && (
+        <GroupEditModal
+          visible={editGroupModalVisible}
+          resources={groupResources}
+          coverImage={coverImage}
+          groupId={id}
+          onPressExit={handleToggleEditGroup}
+          refetchData={refetchData}
+        />
+      )}
     </Container>
   );
 };
