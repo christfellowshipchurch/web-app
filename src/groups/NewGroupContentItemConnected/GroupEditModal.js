@@ -8,6 +8,7 @@ import { FloatingCard } from 'ui';
 import { useMutation, useQuery } from 'react-apollo';
 import { UPDATE_GROUP_COVER_IMAGE } from '../mutations';
 import { Loader } from '../../ui';
+import { theme } from '../../styles/theme';
 import GET_GROUP_COVER_IMAGES from './getGroupCoverImages';
 import { GroupResourceProp, processResource } from './GroupResources';
 import GroupResourceForm from './GroupResourceForm';
@@ -108,7 +109,7 @@ const GroupEditModal = ({
                     width: '100%',
                     border:
                       image.sources[0].uri === coverImage.sources[0].uri
-                        ? '2px dashed black'
+                        ? `3px solid ${theme.brand}`
                         : 'none',
                   }}
                   key={`group-cover-image-${guid}`}

@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import { Collapse } from 'react-bootstrap';
 import styled from 'styled-components';
 import { AngleDown } from 'ui/Icons';
-import { colors } from 'styles/theme';
 
 const IconRotator = styled.span`
   transform: rotate(0deg);
