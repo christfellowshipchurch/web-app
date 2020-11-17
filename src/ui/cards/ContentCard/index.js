@@ -125,7 +125,7 @@ const ContentCard = ({
 };
 
 ContentCard.propTypes = {
-  coverImage: PropTypes.object,
+  coverImage: PropTypes.array,
   icon: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.shape({

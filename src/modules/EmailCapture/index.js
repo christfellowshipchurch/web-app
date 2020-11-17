@@ -34,7 +34,7 @@ const EmailCapture = ({
     checkEmptyString(values, 'lastName') ||
     checkEmptyString(values, 'email');
 
-  if (get(data, 'submitEmailCapture') == 'Completed') {
+  if (get(data, 'submitEmailCapture') === 'Completed') {
     return (
       <div className="container">
         <div className="row">
