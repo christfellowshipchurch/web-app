@@ -131,37 +131,37 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
     console.groupEnd();
   };
 
-  // Listener for events on the Stream Chat client
-  const handleClientEvent = (clientEvent) => {
-    const { type: eventType, channel_type: channelType, user } = clientEvent;
-
-    // :: New DM messages
-    if (eventType === 'message.new' && channelType === 'messaging') {
-      setActiveDmChannel((currentActiveDmChannel) => {
-        // Heavy handed, but just re-fetch a users' DM channels altogether when
-        // we receive a message and are *not currently viewing a conversation*.
-        if (!currentActiveDmChannel) {
-          getDmChannels();
-        }
-
-        // To prevent stale state data, and avoid having to useRef() etc, we'll start
-        // doing a state update on activeDmChannel but return the current value.
-        return currentActiveDmChannel;
-      });
-    }
-
-    // :: User watching count
-    if (
-      (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
-      (user.role === 'guest' || user.id !== currentUserId)
-    ) {
-      const watcherCount = get(clientEvent, 'watcher_count', 1);
-      onWatcherCountChange(watcherCount);
-    }
-  };
-
   // Stream Chat Connection management
   useEffect(() => {
+    // Listener for events on the Stream Chat client
+    const handleClientEvent = (clientEvent) => {
+      const { type: eventType, channel_type: channelType, user } = clientEvent;
+
+      // :: New DM messages
+      if (eventType === 'message.new' && channelType === 'messaging') {
+        setActiveDmChannel((currentActiveDmChannel) => {
+          // Heavy handed, but just re-fetch a users' DM channels altogether when
+          // we receive a message and are *not currently viewing a conversation*.
+          if (!currentActiveDmChannel) {
+            getDmChannels();
+          }
+
+          // To prevent stale state data, and avoid having to useRef() etc, we'll start
+          // doing a state update on activeDmChannel but return the current value.
+          return currentActiveDmChannel;
+        });
+      }
+
+      // :: User watching count
+      if (
+        (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
+        (user.role === 'guest' || user.id !== currentUserId)
+      ) {
+        const watcherCount = get(clientEvent, 'watcher_count', 1);
+        onWatcherCountChange(watcherCount);
+      }
+    };
+
     const handleUserConnection = async () => {
       try {
         // Initialize user first
@@ -220,7 +220,16 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
       StreamChatClient.off(handleClientEvent);
       await StreamChatClient.disconnect();
     };
-  }, [isLoggedIn, loading, data, channelId]);
+  }, [
+    isLoggedIn,
+    loading,
+    data,
+    channelId,
+    currentUserId,
+    event,
+    getUserRole,
+    onWatcherCountChange,
+  ]);
 
   // Handle "Send a Direct Message"
   const handleInitiateDm = async (recipientUserId) => {
