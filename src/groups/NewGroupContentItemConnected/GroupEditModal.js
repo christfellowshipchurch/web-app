@@ -88,7 +88,7 @@ const GroupEditModal = ({
           {coverImageUpdating ? (
             <Loader />
           ) : (
-            data?.getGroupCoverImages?.map(({ image, guid }) => (
+            data?.groupCoverImages?.map(({ image, guid }) => (
               <div
                 style={{
                   flex: '0 0 50%',
