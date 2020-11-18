@@ -159,7 +159,7 @@ Block.propTypes = {
   textAlignment: PropTypes.string,
   title: PropTypes.string,
   variant: PropTypes.oneOf(['light', 'dark']),
-  videos: PropTypes.string,
+  videos: PropTypes.array,
   withAnimation: PropTypes.bool,
 };
 

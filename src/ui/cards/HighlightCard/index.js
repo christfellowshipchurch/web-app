@@ -87,14 +87,14 @@ const HighlightCard = ({
 );
 
 HighlightCard.propTypes = {
-  coverImage: PropTypes.string,
+  coverImage: PropTypes.array,
   id: PropTypes.string,
   isLive: PropTypes.bool,
   isLoading: PropTypes.bool,
   mediaProps: PropTypes.object,
   ratio: PropTypes.any,
   redirectUrl: PropTypes.string,
-  style: PropTypes.string,
+  style: PropTypes.object,
   summary: PropTypes.string,
   tile: PropTypes.bool,
   title: PropTypes.string,

@@ -7,7 +7,7 @@ import { get } from 'lodash';
 
 import { baseUnit, themeGet } from 'styles/theme';
 
-import { useInteraction, ACTIONS } from 'mutations';
+import { useInteraction } from 'mutations';
 import { Card, generateUrlLink } from 'ui';
 
 // :: Styled Components

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { get, isEmpty } from 'lodash';
+import { get } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
@@ -84,7 +84,7 @@ const GroupMeetingActions = ({
         <a
           // allow to just checkin for in person groups
           className="btn btn-primary btn-block mb-3"
-          href={'#'}
+          href={'# '}
           onClick={() => onClickVideoCall()}
         >
           Check In
