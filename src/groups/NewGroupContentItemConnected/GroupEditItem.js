@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { Collapse } from 'react-bootstrap';
 import styled from 'styled-components';
 import { AngleDown } from 'ui/Icons';
+import { theme } from 'styles/theme';
 
 const IconRotator = styled.span`
   transform: rotate(0deg);
@@ -34,11 +35,11 @@ const GroupEditItem = ({ children, title }) => {
           'border-0',
           'text-dark'
         )}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: 'pointer', fontSize: theme.fontSize.h3 }}
       >
         <span>{title}</span>
         <IconRotator rotate={isOpen}>
-          <AngleDown size="48" />
+          <AngleDown size={theme.fontSize.h3} />
         </IconRotator>
       </Header>
       <Collapse in={isOpen}>

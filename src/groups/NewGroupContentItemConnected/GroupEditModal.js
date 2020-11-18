@@ -9,6 +9,7 @@ import { useMutation, useQuery } from 'react-apollo';
 import { UPDATE_GROUP_COVER_IMAGE } from '../mutations';
 import { Loader } from '../../ui';
 import { theme } from '../../styles/theme';
+import { Icon } from '../../ui/Icons';
 import GET_GROUP_COVER_IMAGES from './getGroupCoverImages';
 import { GroupResourceProp, processResource } from './GroupResources';
 import GroupResourceForm from './GroupResourceForm';
@@ -19,7 +20,7 @@ import GroupEditItem from './GroupEditItem';
 // ------------------------
 
 const Title = styled.h2`
-  color: ${themeGet('font.h2')};
+  color: ${themeGet('font.h1')};
   margin-bottom: ${baseUnit(3)};
 `;
 
@@ -32,6 +33,8 @@ const CoverImagesGrid = styled.div`
 
 const ResourceDetails = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   font-size: ${themeGet('fontSize.medium')};
   cursor: pointer;
@@ -43,13 +46,42 @@ const ResourceUrl = styled.div`
 
 const EditableResource = ({ resource, groupId, refetchData }) => {
   const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return editing ? (
-    <GroupResourceForm groupId={groupId} resource={resource} refetchData={refetchData} />
+    <GroupResourceForm
+      groupId={groupId}
+      resource={resource}
+      refetchData={refetchData}
+      onCancel={() => setEditing(false)}
+      setLoading={setLoading}
+    />
   ) : (
-    <ResourceDetails onClick={() => setEditing(true)}>
-      {resource?.title || '+ Add new resource'}
-      {resource?.url ? <ResourceUrl>{resource.url}</ResourceUrl> : null}
+    <ResourceDetails className="mb-2 text-dark">
+      <div
+        style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
+        onClick={() => setEditing(true)}
+      >
+        {resource?.title || '+ Add new resource'}
+        {resource?.url ? <ResourceUrl>{resource.url}</ResourceUrl> : null}
+      </div>
+      {resource?.url ? (
+        <Icon
+          name="times"
+          size={30}
+          fill={theme.font.destructive}
+          onClick={async () => {
+            // setLoading(true);
+            // await deleteResource({ variables: { groupId, resourceId: resource.resourceId }});
+            // refetchData();
+            // setLoading(false);
+          }}
+        />
+      ) : null}
     </ResourceDetails>
   );
 };
@@ -124,12 +156,14 @@ const GroupEditModal = ({
       </GroupEditItem>
       <GroupEditItem title="Resources">
         {processedResources.map((resource, index) => (
-          <EditableResource
-            key={resource?.url || `resource-${index}`}
-            resource={resource}
-            groupId={groupId}
-            refetchData={refetchData}
-          />
+          <div style={{ position: 'relative', minHeight: 42 }}>
+            <EditableResource
+              key={resource?.url || `resource-${index}`}
+              resource={resource}
+              groupId={groupId}
+              refetchData={refetchData}
+            />
+          </div>
         ))}
         <EditableResource groupId={groupId} refetchData={refetchData} />
       </GroupEditItem>
