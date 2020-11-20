@@ -13,7 +13,7 @@ export default gql`
             uri
           }
         }
-        groupResources {
+        resources {
           id
           title
           action

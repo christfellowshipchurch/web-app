@@ -6,13 +6,13 @@ import { baseUnit, themeGet } from 'styles/theme';
 
 import { FloatingCard } from 'ui';
 import { useMutation, useQuery } from 'react-apollo';
-import { UPDATE_GROUP_COVER_IMAGE } from '../mutations';
-import { Loader } from '../../ui';
+import { REMOVE_GROUP_RESOURCE, UPDATE_GROUP_COVER_IMAGE } from '../mutations';
+import { Button, Loader } from '../../ui';
 import { theme } from '../../styles/theme';
 import { Icon } from '../../ui/Icons';
 import GET_GROUP_COVER_IMAGES from './getGroupCoverImages';
 import { GroupResourceProp, processResource } from './GroupResources';
-import GroupResourceForm from './GroupResourceForm';
+import { EditResourceContentItem, EditResourceUrl } from './GroupResourceForm';
 import GroupImage from './GroupImage';
 import GroupEditItem from './GroupEditItem';
 
@@ -44,21 +44,49 @@ const ResourceUrl = styled.div`
   font-size: ${themeGet('fontSize.xsmall')};
 `;
 
-const EditableResource = ({ resource, groupId, refetchData }) => {
-  const [editing, setEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
+const AddResource = ({ groupId, refetchData }) => {
+  const [resourceType, setResourceType] = useState();
 
-  if (loading) {
-    return <Loader />;
+  switch (resourceType) {
+    case 'url':
+      return (
+        <EditResourceUrl
+          groupId={groupId}
+          refetchData={refetchData}
+          onCancel={() => setResourceType(null)}
+        />
+      );
+    case 'contentItem':
+      return (
+        <EditResourceContentItem
+          groupId={groupId}
+          refetchData={refetchData}
+          onCancel={() => setResourceType(null)}
+        />
+      );
+    default:
+      return (
+        <div style={{ display: 'flex' }}>
+          <Button title="URL" onClick={() => setResourceType('url')} />
+          <Button title="Content Item" onClick={() => setResourceType('contentItem')} />
+        </div>
+      );
   }
+};
+
+const EditableResourceUrl = ({ resource, groupId, refetchData }) => {
+  const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [deleteResource] = useMutation(REMOVE_GROUP_RESOURCE);
+
+  if (loading) return <Loader />;
 
   return editing ? (
-    <GroupResourceForm
+    <EditResourceContentItem
       groupId={groupId}
       resource={resource}
       refetchData={refetchData}
       onCancel={() => setEditing(false)}
-      setLoading={setLoading}
     />
   ) : (
     <ResourceDetails className="mb-2 text-dark">
@@ -66,27 +94,72 @@ const EditableResource = ({ resource, groupId, refetchData }) => {
         style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
         onClick={() => setEditing(true)}
       >
-        {resource?.title || '+ Add new resource'}
-        {resource?.url ? <ResourceUrl>{resource.url}</ResourceUrl> : null}
+        {resource?.title}
+        <ResourceUrl>{resource.url}</ResourceUrl>
       </div>
-      {resource?.url ? (
-        <Icon
-          name="times"
-          size={30}
-          fill={theme.font.destructive}
-          onClick={async () => {
-            // setLoading(true);
-            // await deleteResource({ variables: { groupId, resourceId: resource.resourceId }});
-            // refetchData();
-            // setLoading(false);
-          }}
-        />
-      ) : null}
+      <Icon
+        name="times"
+        size={30}
+        fill={theme.font.destructive}
+        onClick={async () => {
+          setLoading(true);
+          await deleteResource({
+            variables: { groupId, id: resource.resourceId },
+          });
+          await refetchData();
+          setLoading(false);
+        }}
+      />
     </ResourceDetails>
   );
 };
 
-EditableResource.propTypes = {
+EditableResourceUrl.propTypes = {
+  resource: GroupResourceProp,
+  groupId: PropTypes.string,
+  refetchData: PropTypes.func,
+};
+
+const EditableResourceContentItem = ({ resource, groupId, refetchData }) => {
+  const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [deleteResource] = useMutation(REMOVE_GROUP_RESOURCE);
+
+  if (loading) return <Loader />;
+
+  return editing ? (
+    <EditResourceContentItem
+      groupId={groupId}
+      resource={resource}
+      refetchData={refetchData}
+      onCancel={() => setEditing(false)}
+    />
+  ) : (
+    <ResourceDetails className="mb-2 text-dark">
+      <div
+        style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
+        onClick={() => setEditing(true)}
+      >
+        {resource?.title}
+      </div>
+      <Icon
+        name="times"
+        size={30}
+        fill={theme.font.destructive}
+        onClick={async () => {
+          setLoading(true);
+          await deleteResource({
+            variables: { groupId, id: resource.resourceId },
+          });
+          await refetchData();
+          setLoading(false);
+        }}
+      />
+    </ResourceDetails>
+  );
+};
+
+EditableResourceContentItem.propTypes = {
   resource: GroupResourceProp,
   groupId: PropTypes.string,
   refetchData: PropTypes.func,
@@ -102,7 +175,6 @@ const GroupEditModal = ({
 }) => {
   const { data } = useQuery(GET_GROUP_COVER_IMAGES, {
     skip: !visible,
-    fetchPolicy: 'network-only',
   });
 
   const [coverImageUpdating, setCoverImageUpdating] = useState(false);
@@ -157,15 +229,24 @@ const GroupEditModal = ({
       <GroupEditItem title="Resources">
         {processedResources.map((resource, index) => (
           <div style={{ position: 'relative', minHeight: 42 }}>
-            <EditableResource
-              key={resource?.url || `resource-${index}`}
-              resource={resource}
-              groupId={groupId}
-              refetchData={refetchData}
-            />
+            {resource.action === 'OPEN_URL' ? (
+              <EditableResourceUrl
+                key={resource?.url || `resource-${index}`}
+                resource={resource}
+                groupId={groupId}
+                refetchData={refetchData}
+              />
+            ) : (
+              <EditableResourceContentItem
+                key={resource?.contentItemId || `resource-${index}`}
+                resource={resource}
+                groupId={groupId}
+                refetchData={refetchData}
+              />
+            )}
           </div>
         ))}
-        <EditableResource groupId={groupId} refetchData={refetchData} />
+        <AddResource groupId={groupId} refetchData={refetchData} />
       </GroupEditItem>
     </FloatingCard>
   );

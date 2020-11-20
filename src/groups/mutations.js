@@ -8,9 +8,38 @@ export const UPDATE_GROUP_COVER_IMAGE = gql`
   }
 `;
 
-export const UPDATE_GROUP_RESOURCE = gql`
-  mutation updateGroupResource($url: String!, $title: String!, $groupId: ID!, $id: ID) {
-    updateGroupResource(id: $id, url: $url, title: $title, groupId: $groupId) {
+export const UPDATE_GROUP_RESOURCE_URL = gql`
+  mutation updateGroupResourceUrl(
+    $url: String!
+    $title: String!
+    $groupId: ID!
+    $id: ID
+  ) {
+    updateGroupResourceUrl(id: $id, url: $url, title: $title, groupId: $groupId) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_GROUP_RESOURCE_CONTENT_ITEM = gql`
+  mutation updateGroupResourceContentItem(
+    $contentItemId: String!
+    $groupId: ID!
+    $id: ID
+  ) {
+    updateGroupResourceContentItem(
+      id: $id
+      contentItemId: $contentItemId
+      groupId: $groupId
+    ) {
+      id
+    }
+  }
+`;
+
+export const REMOVE_GROUP_RESOURCE = gql`
+  mutation removeGroupResource($groupId: ID!, $id: ID!) {
+    removeGroupResource(id: $id, groupId: $groupId) {
       id
     }
   }

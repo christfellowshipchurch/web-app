@@ -65,7 +65,7 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       summary={get(content, 'summary')}
       members={get(content, 'members', [])}
       leaders={get(content, 'leaders', [])}
-      groupResources={get(content, 'groupResources', [])}
+      groupResources={get(content, 'resources', [])}
       dateTime={get(content, 'dateTime')}
       userName={
         get(data, 'currentUser.profile.nickName') ||
