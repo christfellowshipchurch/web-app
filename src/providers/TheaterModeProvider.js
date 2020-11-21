@@ -27,7 +27,7 @@ function reducer(state, action) {
 }
 
 const TheaterModeProvider = ({ children }) => {
-  const { storedValue: theaterMode, setValue } = useLocalStorage(THEATER_MODE, false);
+  const { storedValue: theaterMode, setValue } = useLocalStorage(THEATER_MODE, true);
   const [state, dispatch] = useReducer(reducer, theaterMode);
 
   useEffect(() => {

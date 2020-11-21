@@ -42,7 +42,10 @@ const Share = ({ title, shareTitle, variant, shareMessages }) => {
 
   return (
     <Dropdown drop="up" alignRight={false}>
-      <a onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}>
+      <a
+        href="# "
+        onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}
+      >
         <Dropdown.Toggle id={uniqueId('share-')} variant={variant}>
           <span className="mr-2">
             <Icon name="share-square" size={iconSize} />
