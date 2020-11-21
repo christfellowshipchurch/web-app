@@ -10,6 +10,7 @@ import { Row, Col } from 'ui/grid';
 
 // Local components in order of appearance
 import useFeatureFlag from '../../hooks/useFeatureFlag';
+import EditGroupModal from '../EditGroup/EditGroupModal';
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
 import GroupMeetingActions from './GroupMeetingActions';
@@ -21,7 +22,6 @@ import GroupChat from './GroupChat';
 
 import GroupResources from './GroupResources';
 import GroupMembersModal from './GroupMembersModal';
-import GroupEditModal from './GroupEditModal';
 
 const Tabs = Object.freeze({
   ABOUT: 'About',
@@ -169,7 +169,7 @@ const NewGroup = ({
         onPressExit={handleToggleSeeAllMembers}
       />
       {editEnabled && (
-        <GroupEditModal
+        <EditGroupModal
           visible={editGroupModalVisible}
           resources={groupResources}
           coverImage={coverImage}

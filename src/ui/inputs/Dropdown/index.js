@@ -77,7 +77,7 @@ Dropdown.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.string,
   hideIcon: PropTypes.bool,
-  icon: PropTypes.object,
+  icon: PropTypes.func,
   label: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,

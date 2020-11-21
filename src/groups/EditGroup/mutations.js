@@ -22,11 +22,7 @@ export const UPDATE_GROUP_RESOURCE_URL = gql`
 `;
 
 export const UPDATE_GROUP_RESOURCE_CONTENT_ITEM = gql`
-  mutation updateGroupResourceContentItem(
-    $contentItemId: String!
-    $groupId: ID!
-    $id: ID
-  ) {
+  mutation updateGroupResourceContentItem($contentItemId: ID!, $groupId: ID!, $id: ID) {
     updateGroupResourceContentItem(
       id: $id
       contentItemId: $contentItemId

@@ -14,7 +14,6 @@ import NewGroup from './NewGroup';
 const NewGroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data, refetch } = useQuery(GET_GROUP, {
     variables: { itemId },
-    fetchPolicy: 'network-only',
   });
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
