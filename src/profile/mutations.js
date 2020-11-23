@@ -48,7 +48,11 @@ export const UPDATE_CAMPUS = gql`
     updateUserCampus(campusId: $campusId) {
       id
       campus {
-        ...CampusParts
+        id
+        featuredImage {
+          uri
+        }
+        name
       }
     }
   }

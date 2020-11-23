@@ -9,12 +9,13 @@ import moment from 'moment';
 import { Envelope, Mobile, CalendarAlt, Church, Home } from '../../ui/Icons';
 
 import { useForm } from '../../hooks';
+import useCurrentUser from '../../hooks/useCurrentUser';
 import { TextInput, Checkbox, Radio, Dropdown, Loader } from '../../ui';
 import { useAuthQuery } from '../../auth';
 
 import ProfileBanner from '../ProfileBanner';
 import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES } from '../queries';
-import { UPDATE_CURRENT_USER } from '../mutations';
+import { UPDATE_CAMPUS, UPDATE_CURRENT_USER } from '../mutations';
 
 const CampusSelection = ({ onChange, value }) => {
   const { data, loading, error } = useQuery(GET_CAMPUSES, {
@@ -64,12 +65,8 @@ const validation = {
 };
 
 const EditUserProfile = ({
-  id: campusId,
-  street1,
-  street2,
-  city,
-  state,
-  postalCode,
+  campus,
+  address,
   allowSMS,
   allowEmail,
   email,
@@ -80,17 +77,24 @@ const EditUserProfile = ({
   onChange,
 }) => {
   // Form for address and profile fields
+
+  const {
+    updateProfileField,
+    updateCommunicationPreference,
+    updateAddress,
+    updateCampus,
+    loading,
+    error,
+  } = useCurrentUser();
   const { values, setValue, errors, setError } = useForm({
-    validation,
     defaultValues: {
-      street1,
-      street2,
-      city,
-      state,
-      postalCode,
+      street1: get(address, 'street1', ''),
+      city: get(address, 'city', ''),
+      state: get(address, 'state', ''),
+      postalCode: get(address, 'postalCode', ''),
       birthDate,
       gender,
-      campus: campusId,
+      campus,
       allowSMS,
       allowEmail,
       email,
@@ -98,37 +102,34 @@ const EditUserProfile = ({
     },
   });
 
-  const [updateProfile, { loading }] = useMutation(UPDATE_CURRENT_USER, {
-    update: async (
-      cache,
-      { data: { updateProfileFields, updateAddress, updateUserCampus } }
-    ) => {
-      // read the GET_CURRENT_PERSON query
-      const { currentUser } = cache.readQuery({ query: GET_CURRENT_PERSON });
-      const { gender } = updateProfileFields;
-      // write to the cache the results of the current cache
-      //  and append any new fields that have been returned from the mutation
-      await cache.writeQuery({
-        query: GET_CURRENT_PERSON,
-        data: {
-          currentUser: {
-            ...currentUser,
-            profile: {
-              ...currentUser.profile,
-              gender,
-              birthDate,
-              address: updateAddress,
-              campus: updateUserCampus.campus,
-            },
+  const handleAddressUpdate = () => {
+    if (
+      values.street1 &&
+      values.street1 !== '' &&
+      values.city &&
+      values.city !== '' &&
+      values.state &&
+      values.state !== '' &&
+      values.postalCode &&
+      values.postalCode !== ''
+    ) {
+      updateAddress({
+        variables: {
+          address: {
+            street1: get(values, 'street1', ''),
+            street2: get(values, 'street2', ''),
+            city: get(values, 'city', ''),
+            state: get(values, 'state', ''),
+            postalCode: get(values, 'postalCode', ''),
           },
         },
       });
-
-      onChange();
-    },
-  });
+    }
+  };
 
   if (loading) return <Loader />;
+
+  if (error) return console.log({ errors });
 
   return [
     <ProfileBanner
@@ -142,37 +143,41 @@ const EditUserProfile = ({
         const email = get(values, 'email', '');
         const birthDateIsValid = validateBirthDate(birthDate);
 
-        if (
-          phoneNumber.isValid() &&
-          birthDateIsValid &&
-          (await string().email().isValid(email))
-        ) {
-          updateProfile({
-            variables: {
-              address: {
-                street1: get(values, 'street1', ''),
-                street2: get(values, 'street2', ''),
-                city: get(values, 'city', ''),
-                state: get(values, 'state', ''),
-                postalCode: get(values, 'postalCode', ''),
-              },
-              profileFields: [
-                { field: 'Gender', value: get(values, 'gender', '') },
-                { field: 'BirthDate', value: get(values, 'birthDate', '') },
-                {
-                  field: 'PhoneNumber',
-                  value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, ''),
-                },
-                { field: 'Email', value: email },
-              ],
-              campusId: get(values, 'campus', ''),
-              communicationPreferences: [
-                { type: 'SMS', allow: get(values, 'allowSMS', '') },
-                { type: 'Email', allow: get(values, 'allowEmail', '') },
-              ],
-            },
-          });
-        }
+        // if (
+        //   phoneNumber.isValid() &&
+        //   birthDateIsValid &&
+        //   (await string().email().isValid(email))
+        // ) {
+        //   return [
+        //     updateCommunicationPreference({
+        //       variables: {
+        //         communicationPreferences: [
+        //           { type: 'SMS', allow: get(values, 'allowSMS', '') },
+        //           { type: 'Email', allow: get(values, 'allowEmail', '') },
+        //         ],
+        //       },
+        //     }),
+        //     handleAddressUpdate(),
+        //     updateProfileField({
+        //       variables: {
+        //         profileFields: [
+        //           { field: 'Gender', value: get(values, 'gender', '') },
+        //           { field: 'BirthDate', value: get(values, 'birthDate', '') },
+        //           {
+        //             field: 'PhoneNumber',
+        //             value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, ''),
+        //           },
+        //           { field: 'Email', value: email },
+        //         ],
+        //       },
+        //     }),
+        //     updateCampus({
+        //       variables: {
+        //         campus: get(values, 'campus.id', ''),
+        //       },
+        //     }),
+        //   ];
+        // }
 
         if (!phoneNumber.isValid())
           setError('phoneNumber', 'Please enter a valid phone number');
@@ -183,6 +188,12 @@ const EditUserProfile = ({
           );
         if (!(await string().email().isValid(email)))
           setError('email', 'Please enter a valid email address');
+
+        return updateCampus({
+          variables: {
+            campusId: get(values, 'campus.id', ''),
+          },
+        });
       }}
     />,
     <div key={`EditUserProfile:ProfileFields`} className="container my-4">
@@ -193,7 +204,7 @@ const EditUserProfile = ({
           <h4 className="mt-4 mb-3">My Campus</h4>
           <CampusSelection
             value={get(values, 'campus', '')}
-            onChange={(e) => setValue('campus', e.target.value)}
+            onChange={(e) => setValue('campus.id', e.target.value)}
           />
 
           <h4 className="mt-5 mb-2">Home Address</h4>
