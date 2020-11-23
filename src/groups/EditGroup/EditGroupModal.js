@@ -29,7 +29,11 @@ const EditGroupModal = ({
   if (!visible) return null;
 
   return (
-    <FloatingCard bodyClassNames={'pl-4 pt-0 pb-4 pr-4'} onPressExit={onPressExit}>
+    <FloatingCard
+      bodyClassNames={'pl-4 pt-0 pb-4 pr-4 overflow-y-scroll'}
+      onPressExit={onPressExit}
+      containerStyles={{ bottom: '5%' }}
+    >
       <Title>Customize My Group</Title>
       <EditGroupPhoto
         groupId={groupId}
