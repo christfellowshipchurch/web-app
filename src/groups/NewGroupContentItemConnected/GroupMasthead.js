@@ -8,8 +8,10 @@ import { baseUnit, themeGet } from 'styles/theme';
 // ------------------------
 
 const Container = styled.hgroup`
-  width: 100%;
+  align-items: center;
+  display: flex;
   margin-bottom: ${({ mb }) => baseUnit(mb)};
+  width: 100%;
 `;
 
 const Headline = styled.h1`
@@ -37,8 +39,10 @@ const GroupEdit = styled.div`
 const GroupMasthead = ({ mb, headline, subHeadline, onEditClick, showEditButton }) => {
   return (
     <Container mb={mb}>
-      {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
-      <Headline>{headline}</Headline>
+      <div>
+        {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
+        <Headline>{headline}</Headline>
+      </div>
       {showEditButton && (
         <GroupEdit className="btn-link" onClick={onEditClick}>
           {'Edit >'}
