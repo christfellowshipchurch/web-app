@@ -17,7 +17,7 @@ export default function EditResourceContentItem({
 }) {
   const { data, loading: dataLoading } = useQuery(GROUP_RESOURCE_OPTIONS, {
     variables: { groupId },
-    fetchPolicy: 'network-only',
+    fetchPolicy: 'cache-and-network',
   });
   const [contentItemId, setContentItemId] = useState(resource.id);
   const [updateResource] = useMutation(UPDATE_GROUP_RESOURCE_CONTENT_ITEM);
