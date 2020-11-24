@@ -1,85 +1,72 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMutation, useQuery } from 'react-apollo';
 import { get, isEmpty } from 'lodash';
 import { Button, Dropdown, Loader } from '../../ui';
 import { GroupResourceProp } from '../NewGroupContentItemConnected/GroupResources';
 import GET_GROUP from '../NewGroupContentItemConnected/getGroup';
+import { theme } from '../../styles/theme';
 import { UPDATE_GROUP_RESOURCE_CONTENT_ITEM } from './mutations';
 import { GROUP_RESOURCE_OPTIONS } from './queries';
 
 export default function EditResourceContentItem({
   groupId,
   resource = {},
-  refetchData,
+  resources = [],
   onCancel,
 }) {
   const { data, loading: dataLoading } = useQuery(GROUP_RESOURCE_OPTIONS, {
     variables: { groupId },
+    fetchPolicy: 'network-only',
   });
   const [contentItemId, setContentItemId] = useState(resource.id);
   const [updateResource] = useMutation(UPDATE_GROUP_RESOURCE_CONTENT_ITEM);
+  const [updateLoading, setUpdateLoading] = useState(false);
+
+  const isValid = !resources.find((r) => r.id === contentItemId);
+  const unchanged = contentItemId === resource.id;
 
   const resourceOptions = get(data, 'groupResourceOptions.edges', []).map((edge) =>
     get(edge, 'node', {})
   );
 
+  useEffect(() => {
+    if (resource.id) {
+      setUpdateLoading(false);
+    }
+  }, [resource]);
+
   const submitUpdateResource = useCallback(
     async (data) => {
+      setUpdateLoading(true);
       await updateResource({
         variables: {
           ...data,
-          id: resource.resourceId,
+          relatedNodeId: resource.id,
           groupId,
         },
-        optimisticResponse: {
-          __typename: 'Mutation',
-          updateGroupResourceContentItem: {
-            __typename: 'Resource',
-            id: resource.resourceId,
-          },
-        },
-        update: (proxy) => {
-          const cacheData = proxy.readQuery({
+        refetchQueries: [
+          {
             query: GET_GROUP,
-            variables: { itemId: groupId },
-          });
-          proxy.writeQuery({
-            query: GET_GROUP,
-            data: {
-              ...cacheData,
-              node: {
-                ...cacheData.node,
-                resources: cacheData.node.resources.map((r) => {
-                  if (r.id === resource.resourceId) {
-                    const resourceOption = resourceOptions.find(
-                      (ro) => ro.id === data.contentItemId
-                    );
-                    return {
-                      ...r,
-                      title: resourceOption.title,
-                      relatedNode: {
-                        ...r.relatedNode,
-                        id: resourceOption.id,
-                      },
-                    };
-                  }
-                  return r;
-                }),
-              },
+            variables: {
+              itemId: groupId,
             },
-          });
-        },
+          },
+        ],
       });
-      onCancel();
     },
-    [groupId, resource.resourceId]
+    [groupId, resource.id, updateResource]
   );
 
-  if (dataLoading) return <Loader />;
+  if (dataLoading || updateLoading) return <Loader />;
 
   return (
     <div>
+      {!isValid && !unchanged && (
+        <span style={{ color: theme.font.destructive }}>
+          This resource already exists!
+        </span>
+      )}
       <Dropdown
         hideIcon
         label="Study"
@@ -98,9 +85,8 @@ export default function EditResourceContentItem({
           alignItems: 'center',
         }}
       >
-        {isEmpty(contentItemId) ? null : (
+        {isValid && !isEmpty(contentItemId) && (
           <Button
-            disabled={true}
             onClick={() => {
               submitUpdateResource({ contentItemId });
             }}
@@ -124,7 +110,7 @@ export default function EditResourceContentItem({
 
 EditResourceContentItem.propTypes = {
   resource: GroupResourceProp,
+  resources: PropTypes.arrayOf(GroupResourceProp),
   groupId: PropTypes.string,
-  refetchData: PropTypes.func,
   onCancel: PropTypes.func,
 };

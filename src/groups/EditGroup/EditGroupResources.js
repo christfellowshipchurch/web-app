@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  GroupResourceProp,
-  processResource,
-} from '../NewGroupContentItemConnected/GroupResources';
+import { ProcessedResourceProps } from '../NewGroupContentItemConnected/GroupResources';
 import GroupImage from '../NewGroupContentItemConnected/GroupImage';
 import EditGroupItem from './EditGroupItem';
 import ResourceUrl from './ResourceUrl';
@@ -11,10 +8,8 @@ import ResourceContentItem from './ResourceContentItem';
 import AddResource from './AddResource';
 import ResourceDetails from './ResourceDetails';
 
-export default function EditGroupResources({ groupId, refetchData, resources }) {
+export default function EditGroupResources({ groupId, resources }) {
   const [addingResource, setAddingResource] = useState(false);
-
-  const processedResources = resources.map(processResource);
 
   // Upon refetching resource data after adding/updating a resource,
   // Reset resources area to show list of resources instead of form
@@ -28,7 +23,7 @@ export default function EditGroupResources({ groupId, refetchData, resources }) 
       action={() => setAddingResource(false)}
       actionLabel="Cancel"
     >
-      <AddResource groupId={groupId} refetchData={refetchData} />
+      <AddResource groupId={groupId} resources={resources} />
     </EditGroupItem>
   ) : (
     <EditGroupItem
@@ -36,12 +31,16 @@ export default function EditGroupResources({ groupId, refetchData, resources }) 
       action={() => setAddingResource(true)}
       actionLabel="Add"
     >
-      {processedResources.map((resource) => (
+      {resources.map((resource) => (
         <ResourceDetails key={resource.id} className="my-2 text-dark">
           {resource.action === 'OPEN_URL' ? (
-            <ResourceUrl resource={resource} groupId={groupId} />
+            <ResourceUrl resource={resource} groupId={groupId} resources={resources} />
           ) : (
-            <ResourceContentItem resource={resource} groupId={groupId} />
+            <ResourceContentItem
+              resource={resource}
+              groupId={groupId}
+              resources={resources}
+            />
           )}
         </ResourceDetails>
       ))}
@@ -51,9 +50,8 @@ export default function EditGroupResources({ groupId, refetchData, resources }) 
 
 EditGroupResources.propTypes = {
   visible: PropTypes.bool,
-  resources: PropTypes.arrayOf(GroupResourceProp),
+  resources: PropTypes.arrayOf(ProcessedResourceProps),
   onPressExit: PropTypes.func,
   groupId: PropTypes.string,
-  refetchData: PropTypes.func,
   coverImage: GroupImage.propTypes.coverImage,
 };

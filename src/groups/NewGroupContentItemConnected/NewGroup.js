@@ -72,7 +72,6 @@ const NewGroup = ({
   onClickParentVideoCall,
   userId,
   id,
-  refetchData,
 }) => {
   const [activeTab, setActiveTab] = useState(Tabs.ABOUT);
   const [membersModalVisible, setMembersModalVisible] = useState(false);
@@ -175,7 +174,6 @@ const NewGroup = ({
           coverImage={coverImage}
           groupId={id}
           onPressExit={handleToggleEditGroup}
-          refetchData={refetchData}
         />
       )}
     </Container>
@@ -228,7 +226,6 @@ NewGroup.propTypes = {
   onClickParentVideoCall: PropTypes.func,
   onClickVideoCall: PropTypes.func,
   id: PropTypes.string,
-  refetchData: PropTypes.func,
 };
 
 export default NewGroup;

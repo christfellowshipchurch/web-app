@@ -12,13 +12,16 @@ import GET_GROUP from './getGroup';
 import NewGroup from './NewGroup';
 
 const NewGroupContentItemConnected = ({ itemId }) => {
-  const { loading, error, data, refetch } = useQuery(GET_GROUP, {
+  const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
+    fetchPolicy: 'cache-and-network',
   });
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
 
-  if (loading) {
+  // When refetching data upon group edit,
+  // we don't want to show the loader again
+  if (loading && !data) {
     return (
       <div style={{ height: '50vh', width: '100vw', position: 'relative' }}>
         <Loader />
@@ -75,7 +78,6 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       channelId={get(content, 'streamChatChannel.channelId')}
       onClickGroupResource={handleOnClickGroupResource}
       onClickVideoCall={handleOnClickVideoCall}
-      refetchData={refetch}
       id={itemId}
     />
   );

@@ -5,7 +5,10 @@ import styled from 'styled-components/macro';
 import { baseUnit, themeGet } from 'styles/theme';
 
 import { FloatingCard } from 'ui';
-import { GroupResourceProp } from '../NewGroupContentItemConnected/GroupResources';
+import {
+  GroupResourceProp,
+  processResource,
+} from '../NewGroupContentItemConnected/GroupResources';
 import GroupImage from '../NewGroupContentItemConnected/GroupImage';
 import { EditGroupPhoto } from './EditGroupPhoto';
 import EditGroupResources from './EditGroupResources';
@@ -18,33 +21,18 @@ const Title = styled.h2`
   margin-bottom: ${baseUnit(3)};
 `;
 
-const EditGroupModal = ({
-  visible,
-  resources,
-  coverImage,
-  groupId,
-  onPressExit,
-  refetchData,
-}) => {
+const EditGroupModal = ({ visible, resources, coverImage, groupId, onPressExit }) => {
   if (!visible) return null;
 
   return (
     <FloatingCard
-      bodyClassNames={'pl-4 pt-0 pb-4 pr-4 overflow-y-scroll'}
+      bodyClassNames={'pl-4 pt-0 pb-4 pr-4 overflow-y-auto'}
       onPressExit={onPressExit}
       containerStyles={{ bottom: '5%' }}
     >
       <Title>Customize My Group</Title>
-      <EditGroupPhoto
-        groupId={groupId}
-        refetchData={refetchData}
-        coverImage={coverImage}
-      />
-      <EditGroupResources
-        resources={resources}
-        groupId={groupId}
-        refetchData={refetchData}
-      />
+      <EditGroupPhoto groupId={groupId} coverImage={coverImage} />
+      <EditGroupResources resources={resources.map(processResource)} groupId={groupId} />
     </FloatingCard>
   );
 };
@@ -54,7 +42,6 @@ EditGroupModal.propTypes = {
   resources: PropTypes.arrayOf(GroupResourceProp),
   onPressExit: PropTypes.func,
   groupId: PropTypes.string,
-  refetchData: PropTypes.func,
   coverImage: GroupImage.propTypes.coverImage,
 };
 

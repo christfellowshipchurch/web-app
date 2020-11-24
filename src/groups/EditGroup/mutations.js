@@ -13,18 +13,27 @@ export const UPDATE_GROUP_RESOURCE_URL = gql`
     $url: String!
     $title: String!
     $groupId: ID!
-    $id: ID
+    $relatedNodeId: ID
   ) {
-    updateGroupResourceUrl(id: $id, url: $url, title: $title, groupId: $groupId) {
+    updateGroupResourceUrl(
+      relatedNodeId: $relatedNodeId
+      url: $url
+      title: $title
+      groupId: $groupId
+    ) {
       id
     }
   }
 `;
 
 export const UPDATE_GROUP_RESOURCE_CONTENT_ITEM = gql`
-  mutation updateGroupResourceContentItem($contentItemId: ID!, $groupId: ID!, $id: ID) {
+  mutation updateGroupResourceContentItem(
+    $contentItemId: ID!
+    $groupId: ID!
+    $relatedNodeId: ID
+  ) {
     updateGroupResourceContentItem(
-      id: $id
+      relatedNodeId: $relatedNodeId
       contentItemId: $contentItemId
       groupId: $groupId
     ) {
@@ -34,8 +43,8 @@ export const UPDATE_GROUP_RESOURCE_CONTENT_ITEM = gql`
 `;
 
 export const REMOVE_GROUP_RESOURCE = gql`
-  mutation removeGroupResource($groupId: ID!, $id: ID!) {
-    removeGroupResource(id: $id, groupId: $groupId) {
+  mutation removeGroupResource($groupId: ID!, $relatedNodeId: ID!) {
+    removeGroupResource(relatedNodeId: $relatedNodeId, groupId: $groupId) {
       id
     }
   }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
@@ -6,6 +6,7 @@ import { useMutation, useQuery } from 'react-apollo';
 import { Icon, Loader } from '../../ui';
 import GroupImage from '../NewGroupContentItemConnected/GroupImage';
 import { theme } from '../../styles/theme';
+import GET_GROUP from '../NewGroupContentItemConnected/getGroup';
 import EditGroupItem from './EditGroupItem';
 import { GROUP_COVER_IMAGES } from './queries';
 import { UPDATE_GROUP_COVER_IMAGE } from './mutations';
@@ -22,12 +23,17 @@ const CoverImagesGrid = styled.div`
   justify-content: flex-start;
 `;
 
-export const EditGroupPhoto = ({ groupId, refetchData, coverImage }) => {
+export const EditGroupPhoto = ({ groupId, coverImage }) => {
   const { data } = useQuery(GROUP_COVER_IMAGES);
 
   const [coverImageSelecting, setCoverImageSelecting] = useState(false);
   const [coverImageUpdating, setCoverImageUpdating] = useState(false);
   const [updateCoverImage] = useMutation(UPDATE_GROUP_COVER_IMAGE);
+
+  useEffect(() => {
+    setCoverImageUpdating(false);
+    setCoverImageSelecting(false);
+  }, [coverImage]);
 
   return coverImageSelecting ? (
     <EditGroupItem
@@ -48,10 +54,15 @@ export const EditGroupPhoto = ({ groupId, refetchData, coverImage }) => {
                   setCoverImageUpdating(true);
                   await updateCoverImage({
                     variables: { imageId: guid, groupId },
+                    refetchQueries: [
+                      {
+                        query: GET_GROUP,
+                        variables: {
+                          itemId: groupId,
+                        },
+                      },
+                    ],
                   });
-                  await refetchData();
-                  setCoverImageUpdating(false);
-                  setCoverImageSelecting(false);
                 }}
               >
                 <img
@@ -106,6 +117,5 @@ export const EditGroupPhoto = ({ groupId, refetchData, coverImage }) => {
 
 EditGroupPhoto.propTypes = {
   groupId: PropTypes.string,
-  refetchData: PropTypes.func,
   coverImage: GroupImage.propTypes.coverImage,
 };

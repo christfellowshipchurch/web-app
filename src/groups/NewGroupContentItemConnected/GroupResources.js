@@ -29,13 +29,19 @@ export function processResource(resource) {
   }
 
   return {
-    resourceId: resource.id,
     id: resource.relatedNode.id,
     title: resource.title,
     url: resourceURL,
     action: resource.action,
   };
 }
+
+export const ProcessedResourceProps = PropTypes.shape({
+  id: PropTypes.string,
+  title: PropTypes.string,
+  url: PropTypes.string,
+  action: PropTypes.string,
+});
 
 // :: Styled Components
 // ------------------------

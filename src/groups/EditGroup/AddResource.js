@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { theme } from 'styles/theme';
 import { Button } from '../../ui';
 import { Icon } from '../../ui/Icons';
+import { ProcessedResourceProps } from '../NewGroupContentItemConnected/GroupResources';
 import EditResourceUrl from './EditResourceUrl';
 import EditResourceContentItem from './EditResourceContentItem';
 
-export default function AddResource({ groupId, refetchData }) {
+export default function AddResource({ groupId, resources = [] }) {
   const [resourceType, setResourceType] = useState();
 
   switch (resourceType) {
@@ -14,16 +15,16 @@ export default function AddResource({ groupId, refetchData }) {
       return (
         <EditResourceUrl
           groupId={groupId}
-          refetchData={refetchData}
           onCancel={() => setResourceType(null)}
+          resources={resources}
         />
       );
     case 'contentItem':
       return (
         <EditResourceContentItem
           groupId={groupId}
-          refetchData={refetchData}
           onCancel={() => setResourceType(null)}
+          resources={resources}
         />
       );
     default:
@@ -55,5 +56,5 @@ export default function AddResource({ groupId, refetchData }) {
 
 AddResource.propTypes = {
   groupId: PropTypes.string,
-  refetchData: PropTypes.func,
+  resources: PropTypes.arrayOf(ProcessedResourceProps),
 };
