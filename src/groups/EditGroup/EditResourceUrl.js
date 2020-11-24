@@ -18,8 +18,8 @@ export default function EditResourceUrl({
   const [updateResource] = useMutation(UPDATE_GROUP_RESOURCE_URL);
   const [loading, setLoading] = useState(false);
 
-  const isValid = !resources.find((r) => r.title === title && r.url === url);
-  const unchanged = resource.title === title && resource.url === url;
+  const isValid = !resources.find((r) => r.url === url);
+  const unchanged = resource.url === url;
 
   useEffect(() => {
     if (resource.id) {
