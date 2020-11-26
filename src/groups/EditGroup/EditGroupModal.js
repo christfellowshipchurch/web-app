@@ -21,6 +21,9 @@ const Title = styled.h2`
   margin-bottom: ${baseUnit(3)};
 `;
 
+// :: Main Component
+// ------------------------
+
 const EditGroupModal = ({ visible, resources, coverImage, groupId, onPressExit }) => {
   if (!visible) return null;
 
@@ -30,7 +33,7 @@ const EditGroupModal = ({ visible, resources, coverImage, groupId, onPressExit }
       onPressExit={onPressExit}
       containerStyles={{ bottom: '5%' }}
     >
-      <Title>Customize My Group</Title>
+      <Title>Edit Group Details</Title>
       <EditGroupPhoto groupId={groupId} coverImage={coverImage} />
       <EditGroupResources resources={resources.map(processResource)} groupId={groupId} />
     </FloatingCard>

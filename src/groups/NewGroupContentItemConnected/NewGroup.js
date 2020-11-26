@@ -75,7 +75,7 @@ const NewGroup = ({
 }) => {
   const [activeTab, setActiveTab] = useState(Tabs.ABOUT);
   const [membersModalVisible, setMembersModalVisible] = useState(false);
-  const [editGroupModalVisible, setEditGroupModalVisible] = useState(false);
+  const [editGroupModalVisible, setEditGroupModalVisible] = useState(true);
   const sortedMembers = uniq([...leaders, ...members], 'id');
   const isLeader = leaders.find(
     (leader) => leader.id.split(':')[1] === userId.split(':')[1]

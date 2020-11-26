@@ -1,36 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 import styled from 'styled-components';
-import { themeGet, theme } from 'styles/theme';
+
+import { themeGet, baseUnit } from 'styles/theme';
+
+// :: Styled Components
+// ------------------------
+
+const Container = styled.div`
+  margin-bottom: ${baseUnit(4)};
+`;
+
+const Header = styled.div`
+  margin-bottom: ${baseUnit(2)};
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: ${themeGet('fontSize.h4')};
+  color: ${themeGet('font.h4')};
+  font-weight: ${themeGet('fontWeight.semiBold')};
+`;
 
 const Action = styled.span`
-  font-size: ${themeGet('fontSize.xsmall')};
   cursor: pointer;
+  font-size: ${themeGet('fontSize.medium')};
+  color: ${themeGet('brand')};
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
+
+const Content = styled.div`
+  position: relative;
+  min-height: 150px;
+`;
+
+// :: Main Component
+// ------------------------
 
 const EditGroupItem = ({ children, title, action, actionLabel }) => {
   return (
-    <div>
-      <div
-        className={classnames(
-          'mt-3',
-          'd-flex',
-          'flex-row',
-          'justify-content-between',
-          'align-items-center',
-          'border-0',
-          'text-dark'
-        )}
-        style={{ fontSize: theme.fontSize.h4 }}
-      >
+    <Container>
+      <Header>
         <span>{title}</span>
-        <Action className="btn-link" onClick={action}>
-          {actionLabel}
-        </Action>
-      </div>
-      <div style={{ position: 'relative', minHeight: 50 }}>{children}</div>
-    </div>
+        <Action onClick={action}>{actionLabel}</Action>
+      </Header>
+      <Content>{children}</Content>
+    </Container>
   );
 };
 

@@ -29,7 +29,7 @@ const SubHeadline = styled.h3`
 `;
 
 const GroupEdit = styled.div`
-  font-size: ${themeGet('fontSize.xsmall')};
+  font-size: ${themeGet('fontSize.small')};
   cursor: pointer;
 `;
 
@@ -45,7 +45,7 @@ const GroupMasthead = ({ mb, headline, subHeadline, onEditClick, showEditButton 
       </div>
       {showEditButton && (
         <GroupEdit className="btn-link" onClick={onEditClick}>
-          {'Edit >'}
+          {'Edit Group'}
         </GroupEdit>
       )}
     </Container>
