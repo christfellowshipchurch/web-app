@@ -7,7 +7,107 @@
         "components": [
           {
             "/": "/content/*"
-          }
+          },
+          {
+            '/': "/day1/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day2/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day3/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day4/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day5/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day6/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day7/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day8/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day9/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day10/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day11/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day12/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day13/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day14/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day15/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day16/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day17/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day18/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day19/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day20/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day21/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day22/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day23/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day24/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/day25/",
+            'comment': "Countdown to Christmas Devotional"
+          },
         ],
         "paths": [
           "/content/*"
