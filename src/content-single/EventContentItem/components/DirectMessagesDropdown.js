@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import styled from 'styled-components/macro';
-import { withProps } from 'recompose';
 import { get, isEmpty } from 'lodash';
 
 import { Channel } from 'stream-chat';

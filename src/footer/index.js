@@ -18,7 +18,6 @@ const Footer = ({ brandImageKey }) => {
     ({ name }) => camelCase(name) === camelCase(brandImageKey)
   );
   const socialMediaLinks = get(footer, 'socialMediaLinks', []);
-  const footerLinks = get(footer, 'footerLinks', []);
 
   if (loading || error)
     return <nav className="navbar navbar-expand-lg navbar-light bg-light" />;

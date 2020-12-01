@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
-import PropTypes from 'prop-types';
 
 import classnames from 'classnames';
 import { useSandbox } from '../../sandbox';
@@ -9,7 +8,6 @@ import ContentCardConnected from '../../content-card-connected';
 import { ContentCard, HighlightCard, ContentContainer } from '../../ui';
 
 import { GET_CONTENT_FEED } from '../../content-feed';
-import { CARD_PADDING, MARGIN_Y, PADDING_X } from '.';
 
 const RATIO_MAP = {
   '-1': '4by3',
@@ -35,7 +33,7 @@ const SecondaryHighlightCard = (props) => (
 
 const AnnouncementFeed = ({ itemId }) => {
   const { sandbox } = useSandbox();
-  const { loading, error, data } = useQuery(GET_CONTENT_FEED, {
+  const { loading, data } = useQuery(GET_CONTENT_FEED, {
     fetchPolicy: 'cache-and-network',
     variables: {
       itemId,

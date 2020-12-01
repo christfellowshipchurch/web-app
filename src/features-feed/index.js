@@ -31,7 +31,7 @@ const FeatureFeed = () => {
   return (
     <div>
       {content.map((n, i) => (
-        <Feature {...n} index={i} />
+        <Feature key={`feature-${i}`} {...n} index={i} />
       ))}
       {sandboxEnabled && (
         <nav className="navbar fixed-bottom navbar-expand navbar-light bg-primary">
