@@ -105,7 +105,10 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
               'ml-3',
               'd-flex',
               'align-items-center',
-              'justify-content-center'
+              'justify-content-center',
+              'p-0',
+              'border-0',
+              'rounded'
             )}
             onClick={playButtonClick}
             style={{
