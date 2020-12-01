@@ -9,133 +9,133 @@
             "/": "/content/*"
           },
           {
-            '/': "/day1/",
+            '/': "/dec1/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day2/",
+            '/': "/dec2/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day3/",
+            '/': "/dec3/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day4/",
+            '/': "/dec4/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day5/",
+            '/': "/dec5/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day6/",
+            '/': "/dec6/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day7/",
+            '/': "/dec7/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day8/",
+            '/': "/dec8/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day9/",
+            '/': "/dec9/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day10/",
+            '/': "/dec10/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day11/",
+            '/': "/dec11/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day12/",
+            '/': "/dec12/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day13/",
+            '/': "/dec13/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day14/",
+            '/': "/dec14/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day15/",
+            '/': "/dec15/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day16/",
+            '/': "/dec16/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day17/",
+            '/': "/dec17/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day18/",
+            '/': "/dec18/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day19/",
+            '/': "/dec19/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day20/",
+            '/': "/dec20/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day21/",
+            '/': "/dec21/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day22/",
+            '/': "/dec22/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day23/",
+            '/': "/dec23/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day24/",
+            '/': "/dec24/",
             'comment': "Countdown to Christmas Devotional"          
           },
           {
-            '/': "/day25/",
+            '/': "/dec25/",
             'comment': "Countdown to Christmas Devotional"
           },
         ],
         "paths": [
           "/content/*"
-          "/day1/"
-          "/day2/"
-          "/day3/"
-          "/day4/"
-          "/day5/"
-          "/day6/"
-          "/day7/"
-          "/day8/"
-          "/day9/"
-          "/day10/"
-          "/day11/"
-          "/day12/"
-          "/day13/"
-          "/day14/"
-          "/day15/"
-          "/day16/"
-          "/day17/"
-          "/day18/"
-          "/day19/"
-          "/day20/"
-          "/day21/"
-          "/day22/"
-          "/day23/"
-          "/day24/"
-          "/day25/"
+          "/dec1/"
+          "/dec2/"
+          "/dec3/"
+          "/dec4/"
+          "/dec5/"
+          "/dec6/"
+          "/dec7/"
+          "/dec8/"
+          "/dec9/"
+          "/dec10/"
+          "/dec11/"
+          "/dec12/"
+          "/dec13/"
+          "/dec14/"
+          "/dec15/"
+          "/dec16/"
+          "/dec17/"
+          "/dec18/"
+          "/dec19/"
+          "/dec20/"
+          "/dec21/"
+          "/dec22/"
+          "/dec23/"
+          "/dec24/"
+          "/dec25/"
         ]
       }
     ]
