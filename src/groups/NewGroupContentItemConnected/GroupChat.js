@@ -17,7 +17,7 @@ import { GET_CURRENT_USER_FOR_CHAT } from 'content-single/EventContentItem/queri
 
 const ChatContainer = styled.div`
   position: relative;
-  height: 50vh;
+  height: 100%;
   width: 100%;
   overflow-x: hidden;
   background: ${({ theme }) => theme.card.background};
@@ -86,7 +86,7 @@ const GroupChat = ({ channelId }) => {
       setChannel(null);
       await StreamChatClient.disconnect();
     };
-  }, [isLoggedIn, loading, data, channelId]);
+  }, [isLoggedIn, loading, data, channelId, currentUserId]);
 
   if (loading || !channel) {
     return (
