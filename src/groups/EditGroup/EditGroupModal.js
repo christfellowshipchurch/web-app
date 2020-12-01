@@ -31,7 +31,6 @@ const EditGroupModal = ({ visible, resources, coverImage, groupId, onPressExit }
     <FloatingCard
       bodyClassNames={'pl-4 pt-0 pb-4 pr-4 overflow-y-auto'}
       onPressExit={onPressExit}
-      containerStyles={{ bottom: '5%' }}
     >
       <Title>Edit Group Details</Title>
       <EditGroupPhoto groupId={groupId} coverImage={coverImage} />

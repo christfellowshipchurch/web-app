@@ -1,20 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { theme } from 'styles/theme';
+import styled from 'styled-components/macro';
+
+import { themeGet } from 'styles/theme';
+
 import { ProcessedResourceProps } from '../NewGroupContentItemConnected/GroupResources';
-import { Loader } from '../../ui';
+
 import EditResourceUrl from './EditResourceUrl';
 import DeleteResource from './DeleteResource';
 
+// :: Styled Components
+// ------------------------
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  flex: 1;
+`;
+
+const UrlLabel = styled.span`
+  font-size: ${themeGet('fontSize.small')};
+  color: ${themeGet('font.400')};
+`;
+
+// :: Main Component
+// ------------------------
+
 export default function ResourceUrl({ resource, groupId, resources = [] }) {
   const [editing, setEditing] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [resources]);
-
-  if (loading) return <Loader />;
 
   return editing ? (
     <EditResourceUrl
@@ -24,20 +39,16 @@ export default function ResourceUrl({ resource, groupId, resources = [] }) {
       onCancel={() => setEditing(false)}
     />
   ) : (
-    <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
+    <Container>
       <div
         style={{ display: 'flex', flexDirection: 'column', flex: 1 }}
-        onClick={() => setEditing(true)}
+        // onClick={() => setEditing(true)} /* ⚠️ Temporarily Disabled */
       >
         {resource?.title}
-        <div style={{ fontSize: theme.fontSize.xsmall }}>{resource.url}</div>
+        <UrlLabel>{resource.url}</UrlLabel>
       </div>
-      <DeleteResource
-        groupId={groupId}
-        resource={resource}
-        onDelete={() => setLoading(true)}
-      />
-    </div>
+      <DeleteResource groupId={groupId} resource={resource} />
+    </Container>
   );
 }
 

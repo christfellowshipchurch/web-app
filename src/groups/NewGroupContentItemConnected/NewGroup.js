@@ -6,6 +6,7 @@ import numeral from 'numeral';
 
 import { baseUnit, themeGet } from 'styles/theme';
 
+import { Icon } from 'ui';
 import { Row, Col } from 'ui/grid';
 
 // Local components in order of appearance
@@ -53,6 +54,35 @@ const EmptyStateText = styled.p`
   text-align: center;
 `;
 
+const EditGroupButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  top: -${baseUnit(1)};
+  left: -${baseUnit(1)};
+  padding: ${baseUnit(1)} ${baseUnit(2)};
+  background: ${themeGet('font.0')};
+  border: 2px ${themeGet('brand')} solid;
+  border-radius: ${themeGet('borderRadius.medium')};
+  font-weight: ${themeGet('fontWeight.semiBold')};
+  font-size: ${themeGet('fontSize.small')};
+  color: ${themeGet('brand')};
+  box-shadow: ${themeGet('shadow.small')};
+`;
+
+const EditGroupIcon = styled(Icon).attrs(({ theme }) => ({
+  name: 'gear',
+  size: 20,
+  fill: theme.brand,
+}))`
+  margin-right: ${baseUnit(1)};
+  line-height: 1;
+  padding-bottom: 1px;
+`;
+
 // :: Main Component
 // ------------------------
 const NewGroup = ({
@@ -75,7 +105,7 @@ const NewGroup = ({
 }) => {
   const [activeTab, setActiveTab] = useState(Tabs.ABOUT);
   const [membersModalVisible, setMembersModalVisible] = useState(false);
-  const [editGroupModalVisible, setEditGroupModalVisible] = useState(true);
+  const [editGroupModalVisible, setEditGroupModalVisible] = useState(false);
   const sortedMembers = uniq([...leaders, ...members], 'id');
   const isLeader = leaders.find(
     (leader) => leader.id.split(':')[1] === userId.split(':')[1]
@@ -90,17 +120,18 @@ const NewGroup = ({
 
   return (
     <Container>
-      <Row>
+      <Row style={{ position: 'relative' }}>
         <GroupImage coverImage={coverImage} title={title} />
+        {editEnabled && (
+          <EditGroupButton onClick={handleToggleEditGroup}>
+            <EditGroupIcon />
+            Edit Group
+          </EditGroupButton>
+        )}
       </Row>
       <Row className="my-3 my-md-3 my-lg-5">
         <Col className="col-12 pl-3 pr-3  col-lg-8 pl-xl-0">
-          <GroupMasthead
-            mb={4}
-            headline={title}
-            onEditClick={handleToggleEditGroup}
-            showEditButton={editEnabled}
-          />
+          <GroupMasthead mb={4} headline={title} />
           <SubTitle>
             Members{' '}
             <MemberCount>{numeral(sortedMembers.length).format('0,0')}</MemberCount>

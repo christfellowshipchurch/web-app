@@ -53,11 +53,6 @@ export default function EditResourceUrl({
 
   return (
     <div>
-      {!isValid && !unchanged && (
-        <span style={{ color: theme.font.destructive }}>
-          This resource already exists!
-        </span>
-      )}
       <TextInput
         icon={null}
         label="Title"
@@ -70,6 +65,11 @@ export default function EditResourceUrl({
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       />
+      {!isValid && !unchanged && (
+        <span style={{ color: theme.font.destructive }}>
+          This resource already exists!
+        </span>
+      )}
       <div
         className="my-3"
         style={{

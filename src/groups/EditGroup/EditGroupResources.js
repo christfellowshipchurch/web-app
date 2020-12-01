@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+
 import { ProcessedResourceProps } from '../NewGroupContentItemConnected/GroupResources';
 import GroupImage from '../NewGroupContentItemConnected/GroupImage';
+
 import EditGroupItem from './EditGroupItem';
 import ResourceUrl from './ResourceUrl';
 import ResourceContentItem from './ResourceContentItem';
@@ -32,7 +34,7 @@ export default function EditGroupResources({ groupId, resources }) {
       actionLabel="Add"
     >
       {resources.map((resource) => (
-        <ResourceDetails key={resource.id} className="my-2 text-dark">
+        <ResourceDetails key={resource.id}>
           {resource.action === 'OPEN_URL' ? (
             <ResourceUrl resource={resource} groupId={groupId} resources={resources} />
           ) : (

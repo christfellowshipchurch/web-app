@@ -23,9 +23,18 @@ export default function ResourceContentItem({ resource, groupId, resources = [] 
       resources={resources}
     />
   ) : (
-    <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
-      <div style={{ flex: 1 }} onClick={() => setEditing(true)}>
-        {resource?.title}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1,
+      }}
+    >
+      <div
+      // onClick={() => setEditing(true)} /* ⚠️ Temporarily Disabled */
+      >
+        <span>{resource?.title}</span>
       </div>
       <DeleteResource
         groupId={groupId}

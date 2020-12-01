@@ -28,26 +28,16 @@ const SubHeadline = styled.h3`
   text-transform: uppercase;
 `;
 
-const GroupEdit = styled.div`
-  font-size: ${themeGet('fontSize.small')};
-  cursor: pointer;
-`;
-
 // :: Main Component
 // ------------------------
 
-const GroupMasthead = ({ mb, headline, subHeadline, onEditClick, showEditButton }) => {
+const GroupMasthead = ({ mb, headline, subHeadline }) => {
   return (
     <Container mb={mb}>
       <div>
         {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
         <Headline>{headline}</Headline>
       </div>
-      {showEditButton && (
-        <GroupEdit className="btn-link" onClick={onEditClick}>
-          {'Edit Group'}
-        </GroupEdit>
-      )}
     </Container>
   );
 };
@@ -56,13 +46,10 @@ GroupMasthead.propTypes = {
   mb: PropTypes.number,
   headline: PropTypes.string,
   subHeadline: PropTypes.string,
-  onEditClick: PropTypes.func,
-  showEditButton: PropTypes.bool,
 };
 
 GroupMasthead.defaultProps = {
   mb: 0,
-  onEditClick: () => {},
 };
 
 export default GroupMasthead;

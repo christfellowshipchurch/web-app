@@ -20,6 +20,7 @@ const CoverImagesGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: ${baseUnit(2)};
+  margin-top: ${baseUnit(1)};
 `;
 
 const touchableScale = ({ onClick }) =>
