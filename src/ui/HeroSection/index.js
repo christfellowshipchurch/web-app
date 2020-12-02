@@ -12,6 +12,7 @@ import SwoopImg from '../../images/cyan_hole_punch.svg';
 const Swoop = () => {
   return (
     <img
+      alt=""
       src={SwoopImg}
       style={{
         zIndex: 0,

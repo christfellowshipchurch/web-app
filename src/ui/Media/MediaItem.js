@@ -6,25 +6,25 @@ import Image from './Image';
 import Video from './Video';
 
 const MediaItem = ({
-  ratio,
-  imageUrl,
-  imageAlt,
-  videoUrl,
-  className,
   children,
-  rounded,
   circle,
-  showControls,
-  playIcon,
-  overlay,
+  className,
   gradient,
   gradientDirection,
-  withHover,
-  style,
+  imageAlt,
+  imageUrl,
   isLive,
   altPlayButton,
   playVidInBackground,
+  overlay,
+  playIcon,
+  ratio,
+  rounded,
+  showControls,
   showTheaterMode,
+  style,
+  videoUrl,
+  withHover,
 }) => {
   let ratioClass =
     typeof ratio === 'string'

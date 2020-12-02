@@ -7,18 +7,19 @@ const Icon = ({ size, fill }) => {
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      viewBox="0 0 24 24"
-      fill="none"
       stroke={fill}
+      viewBox="0 0 24 24"
+      aria-labelledby="title"
+      fill="none"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      class="feather feather-maximize-2"
     >
-      <polyline points="4 14 10 14 10 20"></polyline>
-      <polyline points="20 10 14 10 14 4"></polyline>
-      <line x1="14" y1="10" x2="21" y2="3"></line>
-      <line x1="3" y1="21" x2="10" y2="14"></line>
+      <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+      <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+      <line x1="6" y1="1" x2="6" y2="4"></line>
+      <line x1="10" y1="1" x2="10" y2="4"></line>
+      <line x1="14" y1="1" x2="14" y2="4"></line>
     </svg>
   );
 };

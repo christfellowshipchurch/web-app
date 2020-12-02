@@ -50,7 +50,7 @@ const FormattedCarousel = ({ children }) => {
                       />
 
                       <div className="d-flex justify-content-center">
-                        <h2 className={subtitle}></h2>
+                        <h2 className={subtitle}>{subtitle}</h2>
                         <div
                           className={classnames(
                             'col-10',

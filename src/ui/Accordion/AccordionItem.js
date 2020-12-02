@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Accordion as BootstrapAccordion, Card, Collapse } from 'react-bootstrap';
+import { Collapse } from 'react-bootstrap';
 import { AngleDown } from '../Icons';
 
 // Styling and layout for the physical accordion item
@@ -41,7 +41,7 @@ const AccordionItem = ({ children, title }) => {
         >
           <span>{title}</span>
           <span>
-            <AngleDown size="48" />
+            <AngleDown size={48} />
           </span>
         </button>
         <Collapse in={isOpen}>

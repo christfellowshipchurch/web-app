@@ -1,30 +1,26 @@
 import React from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import { get, has, kebabCase } from 'lodash';
+import { get } from 'lodash';
 
-import { Card, Media, Loader } from '../..';
+import { Media, Loader } from '../..';
 import { Icon } from '../../Icons';
 
 import { generateUrlLink } from '..';
 
 const HighlightCard = ({
-  id,
-  title,
   coverImage,
-  summary,
-  tags,
-  icon,
-  onClick,
-  urlBase,
-  label,
-  ratio,
-  tile,
-  isLoading,
-  style,
-  mediaProps,
-  redirectUrl,
+  id,
   isLive,
+  isLoading,
+  mediaProps,
+  ratio,
+  redirectUrl,
+  style,
+  summary,
+  tile,
+  title,
+  urlBase,
 }) => (
   <a
     className={classnames('scale-media-up-on-hover', 'no-decoration')}
@@ -91,44 +87,35 @@ const HighlightCard = ({
 );
 
 HighlightCard.propTypes = {
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
-  summary: PropTypes.string,
-  onClick: PropTypes.func,
-  as: PropTypes.string,
-  icon: PropTypes.string,
-  urlBase: PropTypes.string,
-  label: PropTypes.shape({
-    value: PropTypes.string,
-    bg: PropTypes.string,
-    textColor: PropTypes.string,
-  }),
-  ratio: PropTypes.any,
-  tile: PropTypes.bool,
+  coverImage: PropTypes.array,
+  id: PropTypes.string,
+  isLive: PropTypes.bool,
   isLoading: PropTypes.bool,
   mediaProps: PropTypes.object,
-  isLive: PropTypes.bool,
+  ratio: PropTypes.any,
+  redirectUrl: PropTypes.string,
+  style: PropTypes.object,
+  summary: PropTypes.string,
+  tile: PropTypes.bool,
+  title: PropTypes.string,
+  urlBase: PropTypes.string,
 };
 
 HighlightCard.defaultProps = {
-  imageUrl: null,
-  title: null,
-  onClick: null,
-  as: 'div',
-  icon: null,
-  urlBase: 'content',
-  label: {
-    value: 'tags[0]',
-    bg: 'dark',
-    textColor: 'white',
-  },
-  ratio: '1by1',
-  tile: false,
+  coverImage: null,
+  id: null,
+  isLive: false,
   isLoading: false,
   mediaProps: {
     overlay: 'black',
   },
-  isLive: false,
+  ratio: '1by1',
+  redirectUrl: null,
+  style: null,
+  summary: '',
+  tile: false,
+  title: null,
+  urlBase: 'content',
 };
 
 export default HighlightCard;

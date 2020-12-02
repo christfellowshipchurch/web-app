@@ -60,32 +60,32 @@ const MediaVideo = ({
 
   const videoRef = createRef();
 
-  const createHLSurl = () => {
-    let hls = new Hls({});
-    hls.loadSource(source);
-    hls.attachMedia(videoRef.current);
-    hls.on(Hls.Events.MANIFEST_PARSED, () => {
-      videoRef.current.play();
-    });
-  };
-
   const muteButtonClick = () => {
     setShowMuteButton(false);
     videoRef.current.muted = false;
   };
 
   const playButtonClick = useCallback(() => {
+    const createHLSurl = () => {
+      let hls = new Hls({});
+      hls.loadSource(source);
+      hls.attachMedia(videoRef.current);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        videoRef.current.play();
+      });
+    };
+
     if (source.includes('m3u8')) {
       createHLSurl();
     } else {
       videoRef.current.play();
     }
     setShowPlayButton(false);
-  });
+  }, [source, videoRef]);
 
   useEffect(() => {
     if (isLive || isIOS) return playButtonClick();
-  }, [videoRef]);
+  }, [videoRef, isLive, playButtonClick]);
 
   const handleToggleTheater = () => {
     dispatch(toggleTheaterMode());
@@ -136,6 +136,7 @@ const MediaVideo = ({
             top: 0,
             right: 0,
             padding: '0.75rem',
+            cursor: 'pointer',
           }}
         >
           <Icon
