@@ -43,6 +43,16 @@ export default gql`
           id
           nickName
           firstName
+          lastName
+          photo {
+            uri
+          }
+        }
+        leaders {
+          id
+          nickName
+          firstName
+          lastName
           photo {
             uri
           }

@@ -25,7 +25,7 @@ const TabsContainer = styled.div`
 `;
 
 const Tab = styled.div`
-  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray[800])};
+  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray)};
   padding: ${baseUnit(1)} 1.25rem ${baseUnit(2)};
   font-size: ${themeGet('fontSize.h5')};
   font-weight: ${themeGet('fontWeight.bold')};
@@ -246,7 +246,7 @@ GroupContentItem.propTypes = {
   title: PropTypes.string.isRequired,
   userName: PropTypes.string,
   videoCall: PropTypes.shape({
-    labelText: PropTypes.shape,
+    labelText: PropTypes.string,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,

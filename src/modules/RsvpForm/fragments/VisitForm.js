@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from 'react-apollo';
 import moment from 'moment';
-import { get, find, uniqBy, forEach, sortBy, filter, toUpper, uniq } from 'lodash';
+import { get, find, uniqBy, forEach, sortBy, filter } from 'lodash';
 import { Church, CalendarAlt, Clock } from '../../../ui/Icons';
 import Loader from '../../../ui/Loader';
 import Dropdown from '../../../ui/inputs/Dropdown';
@@ -63,7 +63,7 @@ const VisitForm = ({ setFieldValue, values }) => {
     });
   } else {
     // Loop from 0 through the number of weeks that we want to allow people to select
-    for (var i = 0; i < NUMBER_OF_WEEKS; i++) {
+    for (let i = 0; i < NUMBER_OF_WEEKS; i++) {
       // Loop through each of the service days and append the day
       //  for `i` weeks in the future to availableServices array
       forEach(days, (n) =>

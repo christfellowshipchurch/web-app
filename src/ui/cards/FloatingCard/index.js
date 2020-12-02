@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Icon } from '../../Icons';
 
-const FloatingCard = ({ children, overlay, onPressExit }) => (
+const FloatingCard = ({ children, overlay, bodyClassNames, onPressExit }) => (
   <div
     className={classnames('p-fixed', 'vw-100', 'vh-100', 'overflow-y-scroll')}
     style={{
@@ -42,17 +42,20 @@ const FloatingCard = ({ children, overlay, onPressExit }) => (
           <Icon name="times" size={30} />
         </button>
       </div>
-      <div className="card-body px-4 pt-0 pb-4">{children}</div>
+      <div className={`card-body ${bodyClassNames || 'px-4 pt-0 pb-4'}`}>{children}</div>
     </div>
   </div>
 );
 
-FloatingCard.defaultProps = {
-  overlay: 'dark',
-};
-
 FloatingCard.propTypes = {
   overlay: PropTypes.oneOf(['dark', 'light', 'white']),
+  bodyClassNames: PropTypes.string,
+  onPressExit: PropTypes.func,
+};
+
+FloatingCard.defaultProps = {
+  overlay: 'dark',
+  onPressExit: PropTypes.func,
 };
 
 export default FloatingCard;

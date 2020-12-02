@@ -29,16 +29,15 @@ const TheaterContainer = styled.div`
     'stream stream'
     'heading heading'
     'chat chat'
-    'social social'
-    'cta cta';
+    'cta cta'
+    'social social';
 
   ${breakpoint('sm')} {
     grid-template-areas:
       'stream stream'
       'heading chat'
-      'hr chat'
-      'social chat'
-      'cta cta';
+      'cta chat'
+      'social social';
   }
 
   ${breakpoint('lg')} {
@@ -50,9 +49,7 @@ const TheaterContainer = styled.div`
     grid-template-areas:
       'stream chat'
       'heading chat'
-      'hr hr'
-      'social social'
-      'cta cta';
+      'cta social';
   }
 `;
 
@@ -65,6 +62,7 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'streamChatChannel.channelId', null);
   const channelType = get(liveStream, 'streamChatChannel.channelType', null);
+  const callsToAction = liveStream?.actions || [];
 
   return (
     <main style={{ minHeight: '75vh' }}>
@@ -73,7 +71,11 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
       {theaterMode ? (
         <TheaterContainer>
           <Area area="stream">
-            <EventMedia {...content} liveStreamSource={liveStreamSource} />
+            <EventMedia
+              {...content}
+              liveStreamSource={liveStreamSource}
+              showTheaterMode={theaterMode}
+            />
           </Area>
           <Area area="heading">
             <EventHeading {...content} isLive />
@@ -86,17 +88,16 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
               channelType={channelType}
             />
           </Area>
-          <Area area="hr">
-            <hr />
-          </Area>
           <Area area="cta">
             <CallsToAction
               eventTitle={get(content, 'title')}
-              items={get(content, 'callsToAction')}
+              eventStartTime={liveStream?.eventStartTime}
+              items={callsToAction}
+              nodeId={contentId}
             />
           </Area>
           <Area area="social">
-            <EventDescriptionCard {...content} />
+            <EventDescriptionCard {...content} theaterMode={theaterMode} />
           </Area>
         </TheaterContainer>
       ) : (
@@ -142,6 +143,7 @@ EventLiveLayout.propTypes = {
   content: PropTypes.shape({
     id: PropTypes.string,
   }),
+  contentId: PropTypes.string,
   liveStream: PropTypes.shape({
     media: PropTypes.shape({
       sources: PropTypes.arrayOf(

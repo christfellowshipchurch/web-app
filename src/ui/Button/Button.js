@@ -5,20 +5,20 @@ import renamePropsWithWarning from 'react-deprecate';
 import { get } from 'lodash';
 
 const LOADER_COLORS = {
-  primary: 'white',
   dark: 'dark',
   light: 'light',
+  primary: 'white',
 };
 
 const Button = ({
-  size,
-  type,
+  className,
   color,
   gradient,
-  title,
-  className,
-  newTab,
   loading,
+  newTab,
+  size,
+  title,
+  type,
   ...buttonProps
 }) => {
   const btnType = get(
@@ -33,14 +33,12 @@ const Button = ({
   );
 
   const buttonColor = color || btnType;
-
-  // TODO : clean up
   const classes = classnames(
     'btn',
-    size !== '' ? `btn-${size}` : '',
     `btn-${btnType}`,
-    gradient ? `bg-gradient-${buttonColor} border-${buttonColor}` : '',
     type !== 'link' ? 'text-uppercase' : '',
+    size && `btn-${size}`,
+    gradient && `bg-gradient-${buttonColor} border-${buttonColor}`,
     className
   );
 
@@ -69,21 +67,25 @@ const Button = ({
 };
 
 Button.defaultProps = {
-  size: '',
-  type: 'primary',
-  title: 'default',
   className: '',
+  color: null,
+  gradient: false,
   loading: false,
   newTab: false,
+  size: '',
+  title: 'default',
+  type: 'primary',
 };
 
 Button.propTypes = {
-  size: PropTypes.string,
-  type: PropTypes.string,
-  title: PropTypes.string,
   className: PropTypes.string,
+  color: PropTypes.string,
+  gradient: PropTypes.bool,
   loading: PropTypes.bool,
   newTab: PropTypes.bool,
+  size: PropTypes.string,
+  title: PropTypes.string,
+  type: PropTypes.string,
 };
 
 export default renamePropsWithWarning(

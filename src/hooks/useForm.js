@@ -1,5 +1,5 @@
-import { useState, useEffect, useReducer } from 'react';
-import { get, keys, forEach } from 'lodash';
+import { useState, useReducer } from 'react';
+import { get } from 'lodash';
 
 const valuesReducer = (values, newValue) => ({ ...values, ...newValue });
 
@@ -12,8 +12,6 @@ export const useForm = (props) => {
   const [values, setValue] = useReducer(valuesReducer, defaultValues);
   const [errors, setError] = useReducer(valuesReducer, {});
   const [submitting, setSubmitting] = useState(false);
-
-  // Effects
 
   // Methods
   const validateValue = async (key, value) => {

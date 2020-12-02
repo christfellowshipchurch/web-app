@@ -158,7 +158,7 @@ EventGroupings.defaultProps = {
 };
 
 const EventGroupingsConnected = ({ contentId }) => {
-  const { data, loading, error } = useQuery(GET_EVENT_GROUPINGS, {
+  const { data, loading } = useQuery(GET_EVENT_GROUPINGS, {
     variables: { id: contentId },
     skip: !contentId || contentId === '',
     errorPolicy: 'all',

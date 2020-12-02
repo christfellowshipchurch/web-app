@@ -1,6 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { capitalize, join } from 'lodash';
+import { Switch, Route } from 'react-router-dom';
 
 import { PageBuilderConnected } from 'ui-connected';
 import PageBuilder from '../../page-builder';

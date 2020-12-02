@@ -1,33 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import styled from 'styled-components/macro';
 
-import { Media } from 'ui';
+import { breakpoint } from 'styles/theme';
 
-const GroupMembers = ({ members }) => {
+import GroupMember from './GroupMember';
+
+// :: Styled Components
+// ------------------------
+
+const DISPLAY_COUNT = 9;
+const HALF_DISPLAY_COUNT = Math.ceil(DISPLAY_COUNT / 2);
+
+const columnCount = ({ showAll }) => (showAll ? HALF_DISPLAY_COUNT : DISPLAY_COUNT + 1);
+
+const MembersList = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(${HALF_DISPLAY_COUNT}, 1fr);
+  grid-column-gap: 1rem;
+  grid-auto-rows: 1fr;
+  grid-row-gap: 1.5rem;
+
+  ${breakpoint('md')} {
+    grid-template-columns: repeat(${columnCount}, 1fr);
+  }
+`;
+
+// :: Main Component
+// ------------------------
+
+const GroupMembers = ({ members, showAll, onSeeAllClick }) => {
+  const displayCount = showAll ? members.length : DISPLAY_COUNT;
+  const hiddenCount = members.length - displayCount;
+  const showSeeAll = onSeeAllClick && hiddenCount >= 1;
+
   return (
-    <div className="my-3">
-      <h3>Members</h3>
-      <div className="row my-2" style={{ overflowY: 'auto', maxHeight: 120 }}>
-        {members.map((member) => (
-          <div
-            className="mx-1 d-flex align-items-center"
-            style={{ flexDirection: 'column' }}
-            key={member.id}
-          >
-            <Media
-              key={member.id}
-              imageUrl={get(member, 'photo.uri')}
-              forceRatio
-              style={{ height: 42, minWidth: 42, maxWidth: 42 }}
-            />
-            <div style={{ fontSize: '0.75rem' }}>
-              {get(member, 'nickName') || get(member, 'firstName')}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <MembersList showAll={showAll}>
+      {members.slice(0, displayCount).map((member, index) => (
+        <GroupMember key={member.id} index={index} member={member} />
+      ))}
+      {showSeeAll && (
+        <GroupMember.SeeAllTile hiddenCount={hiddenCount} onClick={onSeeAllClick} />
+      )}
+    </MembersList>
   );
 };
 
@@ -36,12 +52,15 @@ GroupMembers.propTypes = {
     PropTypes.shape({
       id: PropTypes.string,
       firstName: PropTypes.string,
+      lastName: PropTypes.string,
       nickName: PropTypes.string,
       photo: PropTypes.shape({
         uri: PropTypes.string,
       }),
     })
   ),
+  showAll: PropTypes.bool,
+  onSeeAllClick: PropTypes.func,
 };
 
 GroupMembers.defaultProps = {

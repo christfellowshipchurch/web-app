@@ -4,38 +4,34 @@ import classnames from 'classnames';
 import { camelCase, get } from 'lodash';
 import VisibilitySensor from 'react-visibility-sensor';
 
-import { propTypes } from 'react-image';
 import { htmlToReactParser } from '../../utils';
 import { Layout } from '..';
 
-import ButtonRow from '../ButtonRow';
-
 const Block = ({
-  contentLayout,
-  images,
-  videos,
-  imageAlt,
-  imageRatio,
-  subtitle,
-  title,
-  htmlContent,
   callToAction,
-  secondaryCallToAction,
-  openLinksInNewTab,
   className,
-  withAnimation,
-  textColor,
-  variant,
+  contentLayout,
   grouped,
   hideTitle,
+  htmlContent,
+  imageAlt,
+  imageRatio,
+  images,
+  openLinksInNewTab,
+  secondaryCallToAction,
+  subtitle,
   textAlignment,
+  title,
+  variant,
+  videos,
+  withAnimation,
 }) => {
   const textColorClass = classnames({
     'text-white': variant === 'dark',
     'text-dark': variant === 'light',
   });
 
-  //If Block is being grouped with 3 or more Blocks, it will remove title and padding
+  // If Block is being grouped with 3 or more Blocks, it will remove title and padding
   const groupPadding = grouped ? 'py-0' : 'py-6';
 
   return (
@@ -51,8 +47,6 @@ const Block = ({
               {
                 'opacity-0': !isVisible,
                 'opacity-100': isVisible || !withAnimation,
-                // "scale-95": !isVisible,
-                // "scale-100": isVisible,
               },
               className
             )}
@@ -150,10 +144,23 @@ const Block = ({
 };
 
 Block.propTypes = {
-  withAnimation: PropTypes.bool,
+  callToAction: PropTypes.object,
+  className: PropTypes.string,
   contentLayout: PropTypes.oneOf(['default', 'inverted', 'left', 'right']),
-  textColor: PropTypes.string,
+  grouped: PropTypes.bool,
+  hideTitle: PropTypes.bool,
+  htmlContent: PropTypes.string,
+  imageAlt: PropTypes.string,
+  imageRatio: PropTypes.string,
+  images: PropTypes.array,
+  openLinksInNewTab: PropTypes.bool,
+  secondaryCallToAction: PropTypes.object,
+  subtitle: PropTypes.string,
+  textAlignment: PropTypes.string,
+  title: PropTypes.string,
   variant: PropTypes.oneOf(['light', 'dark']),
+  videos: PropTypes.array,
+  withAnimation: PropTypes.bool,
 };
 
 Block.defaultProps = {
