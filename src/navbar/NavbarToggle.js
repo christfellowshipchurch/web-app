@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Navbar } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import { Icon } from '../ui/Icons';
 
@@ -28,10 +28,12 @@ const NavbarToggle = ({ isDark, onClick }) => {
 
 NavbarToggle.propTypes = {
   isDark: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 NavbarToggle.defaultProps = {
   isDark: false,
+  onClick: () => true,
 };
 
 export default NavbarToggle;
