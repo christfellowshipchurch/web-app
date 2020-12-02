@@ -6,7 +6,7 @@ import { Church, CalendarAlt, Clock } from '../../../ui/Icons';
 import Loader from '../../../ui/Loader';
 import Dropdown from '../../../ui/inputs/Dropdown';
 
-import { GET_CAMPUSES } from '../queries';
+import { GET_CAMPUSE_SERVICE_TIMES } from '../queries';
 
 const normalizeDate = (date) => {
   if (!date || date === '') return '';
@@ -22,7 +22,7 @@ const normalizeDate = (date) => {
 const NUMBER_OF_WEEKS = 2;
 
 const VisitForm = ({ setFieldValue, values }) => {
-  const { loading, error, data } = useQuery(GET_CAMPUSES);
+  const { loading, error, data } = useQuery(GET_CAMPUSE_SERVICE_TIMES);
 
   if (loading)
     return (
@@ -146,7 +146,7 @@ const VisitForm = ({ setFieldValue, values }) => {
 };
 
 const VisitFormWithCampuses = (props) => {
-  const { loading, error, data } = useQuery(GET_CAMPUSES);
+  const { loading, error, data } = useQuery(GET_CAMPUSE_SERVICE_TIMES);
 
   if (loading)
     return (

@@ -155,7 +155,17 @@ const CampusSelect = ({ background, isRsvp }) => {
     );
   }
 
-  const campuses = get(campusesData, 'campuses', []);
+  let campuses = get(campusesData, 'campuses', []);
+  // checks for valid campus with service times
+  const validCampuses = campuses.filter((campus) => {
+    const serviceTime = get(campus, 'serviceTimes', []);
+    if (serviceTime.length > 0) {
+      return campus;
+    }
+    return null;
+  });
+  //sets campuses to valid ones
+  campuses = validCampuses;
 
   const visibleCampus = activeCampus || campuses[0];
   const inputBackground = background === 'bg-white' ? 'bg-light' : 'bg-white';
