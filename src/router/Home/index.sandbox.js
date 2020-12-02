@@ -1,15 +1,15 @@
 // SANDBOX this is the alternate external homepage
 
 import React from 'react';
-import PageBuilder from '../../page-builder';
 import FeaturesFeed from '../../features-feed';
 
 import { useAuth } from '../../auth';
+import ExternalHome from './ExternalHome';
 
 const HomeRouter = () => {
   const { isLoggedIn } = useAuth();
 
-  return isLoggedIn ? <FeaturesFeed /> : <PageBuilder title="home-page" theme="swoop" />;
+  return isLoggedIn ? <FeaturesFeed /> : <ExternalHome />;
 };
 
 export default HomeRouter;
