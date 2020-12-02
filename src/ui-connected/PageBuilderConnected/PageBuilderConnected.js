@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
 import { get } from 'lodash';
@@ -7,7 +6,7 @@ import pageBuilderComponentMapper from './pageBuilderComponentMapper';
 import GET_PAGE_BUILDER_FEATURES from './getPageBuilderFeatures';
 
 const PageBuilderConnected = ({ url, additionalFeatures }) => {
-  const { loading, error, data } = useQuery(GET_PAGE_BUILDER_FEATURES, {
+  const { data } = useQuery(GET_PAGE_BUILDER_FEATURES, {
     fetchPolicy: 'cache-and-network',
     variables: { url },
   });

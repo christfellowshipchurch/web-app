@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { includes } from 'lodash';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { Icon } from '../ui/Icons';
 import { useAuth } from '../auth';

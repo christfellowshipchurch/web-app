@@ -37,7 +37,7 @@ const BrandImg = ({ className, uri, alt }) => (
 const NavbarConnected = ({ bg, variant, brandImageKey, fixed, onToggle }) => {
   const [menuIcon, setMenuIcon] = useState(false);
   const website = process.env.REACT_APP_WEBSITE_KEY;
-  const { loading, error, data } = useQuery(GET_WEBSITE_HEADER, {
+  const { data } = useQuery(GET_WEBSITE_HEADER, {
     variables: { website },
     fetchPolicy: 'cache-and-network',
   });
