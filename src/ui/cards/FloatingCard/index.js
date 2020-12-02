@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { Media } from 'ui';
 import { Icon } from '../../Icons';
 
-const FloatingCard = ({ children, overlay, onPressExit, headerImg, bodyClassNames }) => (
+const FloatingCard = ({ children, overlay, bodyClassNames, onPressExit, headerImg }) => (
   <div
     className={classnames('p-fixed', 'vw-100', 'vh-100', 'overflow-y-scroll')}
     style={{

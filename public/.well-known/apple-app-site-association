@@ -7,10 +7,135 @@
         "components": [
           {
             "/": "/content/*"
-          }
+          },
+          {
+            '/': "/dec1/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec2/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec3/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec4/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec5/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec6/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec7/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec8/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec9/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec10/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec11/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec12/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec13/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec14/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec15/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec16/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec17/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec18/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec19/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec20/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec21/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec22/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec23/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec24/",
+            'comment': "Countdown to Christmas Devotional"          
+          },
+          {
+            '/': "/dec25/",
+            'comment': "Countdown to Christmas Devotional"
+          },
         ],
         "paths": [
           "/content/*"
+          "/dec1/"
+          "/dec2/"
+          "/dec3/"
+          "/dec4/"
+          "/dec5/"
+          "/dec6/"
+          "/dec7/"
+          "/dec8/"
+          "/dec9/"
+          "/dec10/"
+          "/dec11/"
+          "/dec12/"
+          "/dec13/"
+          "/dec14/"
+          "/dec15/"
+          "/dec16/"
+          "/dec17/"
+          "/dec18/"
+          "/dec19/"
+          "/dec20/"
+          "/dec21/"
+          "/dec22/"
+          "/dec23/"
+          "/dec24/"
+          "/dec25/"
         ]
       }
     ]
