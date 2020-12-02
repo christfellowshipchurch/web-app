@@ -19,7 +19,7 @@ const normalizeDate = (date) => {
   return m.toISOString();
 };
 
-const NUMBER_OF_WEEKS = 4;
+const NUMBER_OF_WEEKS = 2;
 
 const VisitForm = ({ setFieldValue, values }) => {
   const { loading, error, data } = useQuery(GET_CAMPUSES);

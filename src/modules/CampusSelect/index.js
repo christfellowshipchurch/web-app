@@ -94,7 +94,11 @@ export const CampusTile = ({
             })}
 
             {isRsvp && (
-              <Button title="Remind Me" className="my-3" onClick={() => onClick({})} />
+              <Button
+                title="Set a Reminder"
+                className="my-3"
+                onClick={() => onClick({})}
+              />
             )}
 
             <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
@@ -247,7 +251,7 @@ const CampusSelect = ({ background, isRsvp }) => {
       )}
 
       {rsvpForm && (
-        <FloatingCard onPressExit={() => setRsvpForm(null)} headerImg={rsvpImg}>
+        <FloatingCard onPressExit={() => setRsvpForm(null)}>
           <RsvpForm initialValues={rsvpForm} />
         </FloatingCard>
       )}
