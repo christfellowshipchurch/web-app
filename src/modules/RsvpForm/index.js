@@ -49,14 +49,14 @@ const Rsvp = (props) => {
   // Form submission unsuccessful
   if ((has(data, 'submitRsvp') && data.submitRsvp !== 'Completed') || error) {
     return (
-      <div className="text-danger text-center">
+      <div className="text-center mt-3">
         <h3>Oops!</h3>
-        <h4 className="font-weight-normal p-3">
+        <p>
           It looks like there was an error submitting your information. Please make sure
           all the fields are filled in correctly.
-        </h4>
+        </p>
         <a className="btn btn-primary" href={window.location.href}>
-          try again
+          Try Again
         </a>
       </div>
     );

@@ -122,7 +122,8 @@ const VisitForm = ({ setFieldValue, values }) => {
             value={visitDateValue}
             onChange={(e) => setFieldValue('visitDate', e.target.value)}
             options={sortBy(availableServices, (n) => moment(n)).map((n) => ({
-              label: moment(n).format('dddd, MMM D'),
+              // label: moment(n).format('dddd, MMM D'),
+              label: n,
               value: normalizeDate(n),
             }))}
           />

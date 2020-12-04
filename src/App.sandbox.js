@@ -12,12 +12,10 @@ import { useAuth } from './auth';
 import { load as loadIntercom, boot as bootIntercom } from './intercom';
 
 const App = () => {
-  const { triggerLogIn, isLoggedin } = useAuth();
+  const { triggerLogIn, isLoggedIn } = useAuth();
   const page = window.location.pathname;
 
   const opaqueNavbarPages = ['/', '/home-page'];
-
-  window.scrollTo(0, 0);
 
   //initialize Intercom
   loadIntercom();
@@ -27,7 +25,7 @@ const App = () => {
     <>
       <Metadata />
 
-      {!isLoggedin && opaqueNavbarPages.includes(page) ? (
+      {!isLoggedIn && opaqueNavbarPages.includes(page) ? (
         <NavbarWithOpacity />
       ) : (
         <Navbar />
