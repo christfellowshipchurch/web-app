@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTheaterModeState } from 'providers/TheaterModeProvider';
-
-import { get } from 'lodash';
 import styled from 'styled-components/macro';
+import { get } from 'lodash';
+
+import { useTheaterModeState } from 'providers/TheaterModeProvider';
 import { breakpoint } from 'styles/theme';
 
 import { GridContainer, Row, Col } from 'ui';
+
+import { useInteraction } from 'hooks';
 
 import {
   EventBannerBackground,
@@ -59,9 +61,31 @@ const Area = styled.div`
 
 const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const theaterMode = useTheaterModeState();
+
+  // Interactions
+  const [joinLiveStreamInteraction] = useInteraction({
+    nodeId: contentId,
+    action: 'LIVESTREAM_JOINED',
+  });
+  const [closeLiveStreamInteraction] = useInteraction({
+    nodeId: contentId,
+    action: 'LIVESTREAM_CLOSED',
+  });
+
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'streamChatChannel.channelId', null);
   const callsToAction = liveStream?.actions || [];
+
+  // Component did mount
+  React.useEffect(() => {
+    joinLiveStreamInteraction();
+
+    window.addEventListener('beforeunload', closeLiveStreamInteraction, false);
+
+    return () => {
+      window.removeEventListener('beforeunload', closeLiveStreamInteraction, false);
+    };
+  }, []);
 
   return (
     <main style={{ minHeight: '75vh' }}>

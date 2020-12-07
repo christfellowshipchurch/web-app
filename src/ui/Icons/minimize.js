@@ -13,7 +13,6 @@ const Icon = ({ size, fill }) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      class="feather feather-maximize-2"
     >
       <polyline points="4 14 10 14 10 20"></polyline>
       <polyline points="20 10 14 10 14 4"></polyline>
