@@ -8,7 +8,7 @@ import { breakpoint } from 'styles/theme';
 
 import { GridContainer, Row, Col } from 'ui';
 
-import { useInteraction } from 'hooks';
+import useLiveStreamInteractions from './useLiveStreamInteractions';
 
 import {
   EventBannerBackground,
@@ -61,31 +61,11 @@ const Area = styled.div`
 
 const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const theaterMode = useTheaterModeState();
-
-  // Interactions
-  const [joinLiveStreamInteraction] = useInteraction({
-    nodeId: contentId,
-    action: 'LIVESTREAM_JOINED',
-  });
-  const [closeLiveStreamInteraction] = useInteraction({
-    nodeId: contentId,
-    action: 'LIVESTREAM_CLOSED',
-  });
+  useLiveStreamInteractions(contentId);
 
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'streamChatChannel.channelId', null);
   const callsToAction = liveStream?.actions || [];
-
-  // Component did mount
-  React.useEffect(() => {
-    joinLiveStreamInteraction();
-
-    window.addEventListener('beforeunload', closeLiveStreamInteraction, false);
-
-    return () => {
-      window.removeEventListener('beforeunload', closeLiveStreamInteraction, false);
-    };
-  }, []);
 
   return (
     <main style={{ minHeight: '75vh' }}>
