@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useMutation, useQuery } from 'react-apollo';
+import { useQuery } from 'react-apollo';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import AwesomePhoneNumber from 'awesome-phonenumber';
@@ -15,9 +15,8 @@ import { useAuthQuery } from '../../auth';
 
 import ProfileBanner from '../ProfileBanner';
 import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES } from '../queries';
-import { UPDATE_CAMPUS, UPDATE_CURRENT_USER } from '../mutations';
 
-const CampusSelection = ({ onChange, value }) => {
+const CampusSelection = ({ onChange, value, label }) => {
   const { data, loading, error } = useQuery(GET_CAMPUSES, {
     fetchPolicy: 'cache-and-network',
   });
@@ -32,12 +31,13 @@ const CampusSelection = ({ onChange, value }) => {
       onChange={(e) => onChange(e)}
       disabled={disabled}
       value={disabled ? '' : value}
+      label={label}
       icon={Church}
     />
   );
 };
 
-const StateSelection = ({ onChange, value }) => {
+const StateSelection = ({ onChange, value, label }) => {
   const { data, loading, error } = useQuery(GET_STATES, {
     fetchPolicy: 'cache-and-network',
   });
@@ -49,6 +49,7 @@ const StateSelection = ({ onChange, value }) => {
       onChange={(e) => onChange(e)}
       disabled={disabled}
       value={disabled ? '' : value}
+      label={label}
       hideIcon
     />
   );
@@ -129,7 +130,7 @@ const EditUserProfile = ({
 
   if (loading) return <Loader />;
 
-  if (error) return console.log({ errors });
+  if (error) return console.log({ error });
 
   return [
     <ProfileBanner
@@ -143,41 +144,42 @@ const EditUserProfile = ({
         const email = get(values, 'email', '');
         const birthDateIsValid = validateBirthDate(birthDate);
 
-        // if (
-        //   phoneNumber.isValid() &&
-        //   birthDateIsValid &&
-        //   (await string().email().isValid(email))
-        // ) {
-        //   return [
-        //     updateCommunicationPreference({
-        //       variables: {
-        //         communicationPreferences: [
-        //           { type: 'SMS', allow: get(values, 'allowSMS', '') },
-        //           { type: 'Email', allow: get(values, 'allowEmail', '') },
-        //         ],
-        //       },
-        //     }),
-        //     handleAddressUpdate(),
-        //     updateProfileField({
-        //       variables: {
-        //         profileFields: [
-        //           { field: 'Gender', value: get(values, 'gender', '') },
-        //           { field: 'BirthDate', value: get(values, 'birthDate', '') },
-        //           {
-        //             field: 'PhoneNumber',
-        //             value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, ''),
-        //           },
-        //           { field: 'Email', value: email },
-        //         ],
-        //       },
-        //     }),
-        //     updateCampus({
-        //       variables: {
-        //         campus: get(values, 'campus.id', ''),
-        //       },
-        //     }),
-        //   ];
-        // }
+        if (
+          phoneNumber.isValid() &&
+          birthDateIsValid &&
+          (await string().email().isValid(email))
+        ) {
+          return [
+            updateCampus({
+              variables: {
+                campusId: get(values, 'campus.id', ''),
+              },
+            }),
+            handleAddressUpdate(),
+            // updateProfileField({
+            //   variables: {
+            //     profileFields: [
+            //       { field: 'Gender', value: 'female' },
+            //       { field: 'BirthDate', value: get(values, 'birthDate', '') },
+            //       {
+            //         field: 'PhoneNumber',
+            //         value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, ''),
+            //       },
+            //       { field: 'Email', value: email },
+            //     ],
+            //   },
+            // }),
+            // updateCommunicationPreference({
+            //   variables: {
+            //     communicationPreferences: [
+            //       { type: 'SMS', allow: get(values, 'allowSMS', '') },
+            //       { type: 'Email', allow: get(values, 'allowEmail', '') },
+            //     ],
+            //   },
+            // }),
+            onChange(),
+          ];
+        }
 
         if (!phoneNumber.isValid())
           setError('phoneNumber', 'Please enter a valid phone number');
@@ -189,11 +191,7 @@ const EditUserProfile = ({
         if (!(await string().email().isValid(email)))
           setError('email', 'Please enter a valid email address');
 
-        return updateCampus({
-          variables: {
-            campusId: get(values, 'campus.id', ''),
-          },
-        });
+        return onChange();
       }}
     />,
     <div key={`EditUserProfile:ProfileFields`} className="container my-4">
@@ -203,7 +201,8 @@ const EditUserProfile = ({
         >
           <h4 className="mt-4 mb-3">My Campus</h4>
           <CampusSelection
-            value={get(values, 'campus', '')}
+            label={'Select Your Campus'}
+            value={get(values, 'campus.id', '')}
             onChange={(e) => setValue('campus.id', e.target.value)}
           />
 
@@ -227,7 +226,7 @@ const EditUserProfile = ({
           <div className="mb-3">
             <StateSelection
               label="State"
-              value={get(values, 'state', '')}
+              value={get(values, 'state')}
               onChange={(e) => setValue('state', e.target.value)}
             />
           </div>

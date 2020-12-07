@@ -13,6 +13,8 @@ export const UPDATE_CURRENT_USER = gql`
       lastName
       gender
       birthDate
+      phoneNumber
+      email
     }
 
     updateAddress(address: $address) {
