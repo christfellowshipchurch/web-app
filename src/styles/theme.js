@@ -35,6 +35,7 @@ export const breakpoint = (key) => ({ theme }) => theme.breakpoints[key];
 const colors = Object.freeze({
   white: '#fff',
   gray: {
+    0: '#fff',
     50: '#f6f6f6',
     100: '#e6e6e6',
     200: '#cdcdcd',

@@ -84,7 +84,7 @@ Button.propTypes = {
   loading: PropTypes.bool,
   newTab: PropTypes.bool,
   size: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   type: PropTypes.string,
 };
 

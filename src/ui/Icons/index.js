@@ -24,6 +24,7 @@ import Envelope from './envelope';
 import EnvelopeOpenDollar from './envelope-open-dollar';
 import ExclamationCircle from './exclamation-circle';
 import Facebook from './facebook';
+import Gear from './gear';
 import Gift from './gift';
 import Google from './google';
 import Handshake from './handshake';
@@ -77,6 +78,7 @@ export {
   EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
+  Gear,
   Gift,
   Google,
   Handshake,
@@ -128,6 +130,7 @@ export const Icons = {
   EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
+  Gear,
   Gift,
   Google,
   Handshake,

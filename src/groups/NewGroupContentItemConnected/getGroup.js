@@ -13,7 +13,7 @@ export default gql`
             uri
           }
         }
-        groupResources {
+        resources {
           title
           action
           relatedNode {
