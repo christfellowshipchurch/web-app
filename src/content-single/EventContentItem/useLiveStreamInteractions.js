@@ -17,11 +17,8 @@ export default function useLiveStreamInteractions(eventId) {
   });
 
   useEffect(() => {
-    console.log('[rkd] ** logged in effect');
-
     if (!isLoggedIn) return;
 
-    console.log('[rkd] ✅ Logged In >>');
     joinLiveStreamInteraction();
     window.addEventListener('beforeunload', closeLiveStreamInteraction, false);
 
