@@ -1,75 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-apollo';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import AwesomePhoneNumber from 'awesome-phonenumber';
 import { string } from 'yup';
 import moment from 'moment';
-import { Envelope, Mobile, CalendarAlt, Church, Home } from '../../ui/Icons';
+import { Envelope, Mobile, CalendarAlt, Home } from '../../ui/Icons';
 
 import { useForm } from '../../hooks';
 import useCurrentUser from '../../hooks/useCurrentUser';
-import { TextInput, Checkbox, Radio, Dropdown, Loader } from '../../ui';
+import { TextInput, Checkbox, Radio, Loader } from '../../ui';
 import { useAuthQuery } from '../../auth';
 
 import ProfileBanner from '../ProfileBanner';
-import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES } from '../queries';
+import { GET_CURRENT_PERSON } from '../queries';
 
-const CampusSelection = ({ onChange, value, label }) => {
-  const { data, loading, error } = useQuery(GET_CAMPUSES, {
-    fetchPolicy: 'cache-and-network',
-  });
-  const disabled = loading || error;
-
-  return (
-    <Dropdown
-      options={get(data, 'campuses', []).map(({ id, name }) => ({
-        value: id,
-        label: name,
-      }))}
-      onChange={(e) => onChange(e)}
-      disabled={disabled}
-      value={disabled ? '' : value}
-      label={label}
-      icon={Church}
-    />
-  );
-};
-
-const StateSelection = ({ onChange, value, label }) => {
-  const { data, loading, error } = useQuery(GET_STATES, {
-    fetchPolicy: 'cache-and-network',
-  });
-  const disabled = loading || error;
-
-  return (
-    <Dropdown
-      options={get(data, 'getStatesList.values', []).map(({ value }) => value)}
-      onChange={(e) => onChange(e)}
-      disabled={disabled}
-      value={disabled ? '' : value}
-      label={label}
-      hideIcon
-    />
-  );
-};
+import { CampusSelection, StateSelection } from './selectors';
 
 const validateBirthDate = (birthDate) =>
   !!birthDate && moment().diff(moment(birthDate), 'years') >= 13;
 
-const validation = {
-  birthDate: (value) =>
-    value && validateBirthDate(value)
-      ? false
-      : 'You must be at least 13 years old to create an account',
-};
-
 const EditUserProfile = ({
   campus,
   address,
-  allowSMS,
-  allowEmail,
+  communicationPreferences,
   email,
   phoneNumber,
   gender,
@@ -96,8 +50,8 @@ const EditUserProfile = ({
       birthDate,
       gender,
       campus,
-      allowSMS,
-      allowEmail,
+      allowSMS: get(communicationPreferences, 'allowSMS', false),
+      allowEmail: get(communicationPreferences, 'allowEmail', false),
       email,
       phoneNumber,
     },
@@ -128,6 +82,52 @@ const EditUserProfile = ({
     }
   };
 
+  const handleUpdateProfileFields = () => {
+    if (
+      values.gender &&
+      values.gender !== '' &&
+      values.birthDate &&
+      values.birthDate !== '' &&
+      values.email &&
+      values.email !== '' &&
+      values.phoneNumber &&
+      values.phoneNumber !== ''
+    ) {
+      const profileFields = [
+        { field: 'Gender', value: get(values, 'gender') },
+        { field: 'BirthDate', value: get(values, 'birthDate') },
+        { field: 'Email', value: get(values, 'email') },
+        { field: 'PhoneNumber', value: get(values, 'phoneNumber') },
+      ];
+
+      return profileFields.map((n) =>
+        updateProfileField({
+          variables: {
+            profileField: {
+              field: n.field,
+              value: n.value,
+            },
+          },
+        })
+      );
+    }
+  };
+
+  const handleCommunicationPreferences = () => {
+    const communicationPreferences = [
+      { type: 'SMS', allow: get(values, 'allowSMS') },
+      { type: 'Email', allow: get(values, 'allowEmail') },
+    ];
+    return communicationPreferences.map((n) =>
+      updateCommunicationPreference({
+        variables: {
+          type: n.type,
+          allow: n.allow,
+        },
+      })
+    );
+  };
+
   if (loading) return <Loader />;
 
   if (error) return console.log({ error });
@@ -156,27 +156,8 @@ const EditUserProfile = ({
               },
             }),
             handleAddressUpdate(),
-            // updateProfileField({
-            //   variables: {
-            //     profileFields: [
-            //       { field: 'Gender', value: 'female' },
-            //       { field: 'BirthDate', value: get(values, 'birthDate', '') },
-            //       {
-            //         field: 'PhoneNumber',
-            //         value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, ''),
-            //       },
-            //       { field: 'Email', value: email },
-            //     ],
-            //   },
-            // }),
-            // updateCommunicationPreference({
-            //   variables: {
-            //     communicationPreferences: [
-            //       { type: 'SMS', allow: get(values, 'allowSMS', '') },
-            //       { type: 'Email', allow: get(values, 'allowEmail', '') },
-            //     ],
-            //   },
-            // }),
+            handleUpdateProfileFields(),
+            handleCommunicationPreferences(),
             onChange(),
           ];
         }
@@ -313,6 +294,8 @@ EditUserProfile.propTypes = {
   campus: PropTypes.shape({
     id: PropTypes.string,
   }),
+  allowSMS: PropTypes.bool,
+  allowEmail: PropTypes.bool,
 };
 
 EditUserProfile.defaultProps = {
@@ -329,6 +312,8 @@ EditUserProfile.defaultProps = {
   campus: {
     id: '',
   },
+  allowSMS: false,
+  allowEmail: false,
 };
 
 export default ({ onChange }) => {
