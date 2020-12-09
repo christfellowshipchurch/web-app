@@ -80,7 +80,7 @@ TextInput.defaultProps = {
 
 TextInput.propTypes = {
   onChange: PropTypes.func,
-  icon: PropTypes.object,
+  icon: PropTypes.func,
   hideIcon: PropTypes.bool,
   readOnly: PropTypes.bool,
 };
