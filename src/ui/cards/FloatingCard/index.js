@@ -4,7 +4,14 @@ import classnames from 'classnames';
 import { Media } from 'ui';
 import { Icon } from '../../Icons';
 
-const FloatingCard = ({ children, overlay, bodyClassNames, onPressExit, headerImg }) => (
+const FloatingCard = ({
+  children,
+  overlay,
+  bodyClassNames,
+  onPressExit,
+  containerStyles,
+  headerImg,
+}) => (
   <div
     className={classnames('p-fixed', 'vw-100', 'vh-100', 'overflow-y-scroll')}
     style={{
@@ -30,6 +37,7 @@ const FloatingCard = ({ children, overlay, bodyClassNames, onPressExit, headerIm
         maxWidth: 600,
         width: '90%',
         border: 'none',
+        ...containerStyles,
       }}
     >
       {headerImg ? (
@@ -85,8 +93,10 @@ const FloatingCard = ({ children, overlay, bodyClassNames, onPressExit, headerIm
 );
 
 FloatingCard.defaultProps = {
-  overlay: 'dark',
   headerImg: null,
+  overlay: PropTypes.oneOf(['dark', 'light', 'white']),
+  bodyClassNames: PropTypes.string,
+  containerStyles: PropTypes.object,
   onPressExit: PropTypes.func,
 };
 
@@ -95,6 +105,7 @@ FloatingCard.propTypes = {
   headerImg: PropTypes.object,
   bodyClassNames: PropTypes.string,
   onPressExit: PropTypes.func,
+  containerStyles: {},
 };
 
 export default FloatingCard;

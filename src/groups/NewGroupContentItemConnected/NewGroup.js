@@ -6,9 +6,12 @@ import numeral from 'numeral';
 
 import { baseUnit, themeGet } from 'styles/theme';
 
+import { Icon } from 'ui';
 import { Row, Col } from 'ui/grid';
 
 // Local components in order of appearance
+import useFeatureFlag from '../../hooks/useFeatureFlag';
+import EditGroupModal from '../EditGroup/EditGroupModal';
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
 import GroupMeetingActions from './GroupMeetingActions';
@@ -51,6 +54,35 @@ const EmptyStateText = styled.p`
   text-align: center;
 `;
 
+const EditGroupButton = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  position: absolute;
+  top: -${baseUnit(1)};
+  left: -${baseUnit(1)};
+  padding: ${baseUnit(1)} ${baseUnit(2)};
+  background: ${themeGet('font.0')};
+  border: 2px ${themeGet('brand')} solid;
+  border-radius: ${themeGet('borderRadius.medium')};
+  font-weight: ${themeGet('fontWeight.semiBold')};
+  font-size: ${themeGet('fontSize.small')};
+  color: ${themeGet('brand')};
+  box-shadow: ${themeGet('shadow.small')};
+`;
+
+const EditGroupIcon = styled(Icon).attrs(({ theme }) => ({
+  name: 'gear',
+  size: 20,
+  fill: theme.brand,
+}))`
+  margin-right: ${baseUnit(1)};
+  line-height: 1;
+  padding-bottom: 1px;
+`;
+
 // :: Main Component
 // ------------------------
 const NewGroup = ({
@@ -68,23 +100,38 @@ const NewGroup = ({
   onClickGroupResource,
   onClickVideoCall,
   onClickParentVideoCall,
+  userId,
+  id,
 }) => {
   const [activeTab, setActiveTab] = useState(Tabs.ABOUT);
   const [membersModalVisible, setMembersModalVisible] = useState(false);
+  const [editGroupModalVisible, setEditGroupModalVisible] = useState(false);
   const sortedMembers = uniq([...leaders, ...members], 'id');
+  const isLeader = leaders.find(
+    (leader) => leader.id.split(':')[1] === userId.split(':')[1]
+  );
+  const { enabled: editFlagEnabled } = useFeatureFlag({ key: 'GROUP_CUSTOMIZATION' });
+
+  const editEnabled = editFlagEnabled && isLeader;
 
   const handleTabClick = (label) => setActiveTab(label);
   const handleToggleSeeAllMembers = () => setMembersModalVisible(!membersModalVisible);
+  const handleToggleEditGroup = () => setEditGroupModalVisible(!editGroupModalVisible);
 
   return (
     <Container>
-      <Row>
+      <Row style={{ position: 'relative' }}>
         <GroupImage coverImage={coverImage} title={title} />
+        {editEnabled && (
+          <EditGroupButton onClick={handleToggleEditGroup}>
+            <EditGroupIcon />
+            Edit Group
+          </EditGroupButton>
+        )}
       </Row>
       <Row className="my-3 my-md-3 my-lg-5">
         <Col className="col-12 pl-3 pr-3  col-lg-8 pl-xl-0">
           <GroupMasthead mb={4} headline={title} />
-
           <SubTitle>
             Members{' '}
             <MemberCount>{numeral(sortedMembers.length).format('0,0')}</MemberCount>
@@ -142,6 +189,7 @@ const NewGroup = ({
           <GroupResources
             resources={groupResources}
             onResourceClick={onClickGroupResource}
+            isLeader={isLeader}
           />
         </Col>
       </Row>
@@ -150,6 +198,15 @@ const NewGroup = ({
         members={sortedMembers}
         onPressExit={handleToggleSeeAllMembers}
       />
+      {editEnabled && (
+        <EditGroupModal
+          visible={editGroupModalVisible}
+          resources={groupResources}
+          coverImage={coverImage}
+          groupId={id}
+          onPressExit={handleToggleEditGroup}
+        />
+      )}
     </Container>
   );
 };
@@ -171,6 +228,7 @@ NewGroup.propTypes = {
   title: PropTypes.string.isRequired,
   summary: PropTypes.string,
   userName: PropTypes.string,
+  userId: PropTypes.string,
   dateTime: PropTypes.shape({
     start: PropTypes.string,
     end: PropTypes.string,
@@ -198,6 +256,7 @@ NewGroup.propTypes = {
   onClickGroupResource: PropTypes.func,
   onClickParentVideoCall: PropTypes.func,
   onClickVideoCall: PropTypes.func,
+  id: PropTypes.string,
 };
 
 export default NewGroup;

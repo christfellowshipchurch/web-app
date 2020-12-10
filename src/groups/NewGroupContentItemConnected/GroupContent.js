@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { useMutation } from 'react-apollo';
+import { UPDATE_GROUP_IMAGE } from '../mutations';
+import { Button } from '../../ui';
 import GroupCalendarData from './GroupCalendarData';
 import GroupChat from './GroupChat';
 import GroupEventOccurrences from './GroupEventOccurrences';
@@ -21,12 +24,18 @@ const GroupContent = ({
   calendarLinkDescription,
   coverImage,
   members,
+  id,
 }) => {
+  const [updatePhoto] = useMutation(UPDATE_GROUP_IMAGE);
   return (
     <div className="container-fluid mb-4 pt-6 px-3">
       <div className="row">
         <div className="col-6 bg-white p-3">
           <GroupImage coverImage={coverImage} title={title} />
+          <Button
+            onClick={() => updatePhoto({ variables: { groupId: id, image: 'hi' } })}
+            title="Yo"
+          />
           <GroupMembers members={members} />
           <GroupResources
             groupResources={groupResources}
@@ -90,6 +99,7 @@ GroupContent.propTypes = {
       }),
     })
   ),
+  id: PropTypes.string,
 };
 
 export default GroupContent;

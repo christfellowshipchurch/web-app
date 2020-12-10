@@ -14,11 +14,14 @@ import NewGroup from './NewGroup';
 const NewGroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
+    fetchPolicy: 'cache-and-network',
   });
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
 
-  if (loading) {
+  // When refetching data upon group edit,
+  // we don't want to show the loader again
+  if (loading && !data) {
     return (
       <div style={{ height: '50vh', width: '100vw', position: 'relative' }}>
         <Loader />
@@ -63,16 +66,19 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       title={get(content, 'title')}
       summary={get(content, 'summary')}
       members={get(content, 'members', [])}
-      groupResources={get(content, 'groupResources', [])}
+      leaders={get(content, 'leaders', []) || []}
+      groupResources={get(content, 'resources', [])}
       dateTime={get(content, 'dateTime')}
       userName={
         get(data, 'currentUser.profile.nickName') ||
         get(data, 'currentUser.profile.firstName')
       }
+      userId={get(data, 'currentUser.id')}
       videoCall={get(content, 'videoCall')}
       channelId={get(content, 'streamChatChannel.channelId')}
       onClickGroupResource={handleOnClickGroupResource}
       onClickVideoCall={handleOnClickVideoCall}
+      id={itemId}
     />
   );
 };

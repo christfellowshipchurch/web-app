@@ -8,8 +8,10 @@ import { baseUnit, themeGet } from 'styles/theme';
 // ------------------------
 
 const Container = styled.hgroup`
-  width: 100%;
+  align-items: center;
+  display: flex;
   margin-bottom: ${({ mb }) => baseUnit(mb)};
+  width: 100%;
 `;
 
 const Headline = styled.h1`
@@ -32,8 +34,10 @@ const SubHeadline = styled.h3`
 const GroupMasthead = ({ mb, headline, subHeadline }) => {
   return (
     <Container mb={mb}>
-      {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
-      <Headline>{headline}</Headline>
+      <div>
+        {subHeadline && <SubHeadline>{subHeadline}</SubHeadline>}
+        <Headline>{headline}</Headline>
+      </div>
     </Container>
   );
 };

@@ -23,6 +23,7 @@ const DefaultPage = ({ title }) => {
 
   const { loading, error, data } = useQuery(GET_BLOCK_ITEMS, {
     variables: { website, title },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) {
