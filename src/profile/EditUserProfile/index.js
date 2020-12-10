@@ -83,21 +83,10 @@ const EditUserProfile = ({
   };
 
   const handleUpdateProfileFields = () => {
-    if (
-      values.gender &&
-      values.gender !== '' &&
-      values.birthDate &&
-      values.birthDate !== '' &&
-      values.email &&
-      values.email !== '' &&
-      values.phoneNumber &&
-      values.phoneNumber !== ''
-    ) {
+    if (values.gender && values.gender !== '' && values.birthDate && values.birthDate) {
       const profileFields = [
         { field: 'Gender', value: get(values, 'gender') },
         { field: 'BirthDate', value: get(values, 'birthDate') },
-        { field: 'Email', value: get(values, 'email') },
-        { field: 'PhoneNumber', value: get(values, 'phoneNumber') },
       ];
 
       return profileFields.map((n) =>
@@ -244,6 +233,7 @@ const EditUserProfile = ({
         <div className={classnames('col-md-6', 'col-12', 'text-left', 'px-4')}>
           <h4 className="mt-4">Communication Preferences</h4>
           <TextInput
+            readOnly
             icon={Envelope}
             value={get(values, 'email', '')}
             label="Email"
@@ -260,6 +250,7 @@ const EditUserProfile = ({
           </div>
 
           <TextInput
+            readOnly
             icon={Mobile}
             value={get(values, 'phoneNumber', '')}
             label="Mobile Phone"
