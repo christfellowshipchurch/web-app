@@ -46,7 +46,6 @@ const HeroSection = ({
               playVidInBackground
               imageUrl={get(image, 'uri', '')}
               imageAlt={get(image, 'alt', '')}
-              fill="screen"
               className={classnames(
                 'vw-100',
                 'vh-100',

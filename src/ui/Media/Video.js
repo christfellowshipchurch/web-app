@@ -100,7 +100,7 @@ const MediaVideo = ({
         ref={videoRef}
         controlsList="nodownload"
         style={{
-          objectFit: played ? 'contain' : 'cover',
+          objectFit: played && !playInBackground ? 'contain' : 'cover',
           backgroundColor: 'black',
         }}
         onPlay={() => setPlayed(true)}
