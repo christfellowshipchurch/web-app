@@ -24,7 +24,7 @@ InputIcon.defaultProps = {
 };
 
 InputIcon.propTypes = {
-  icon: PropTypes.object,
+  icon: PropTypes.func,
   focused: PropTypes.bool,
   color: PropTypes.string,
 };

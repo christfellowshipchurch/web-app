@@ -14,6 +14,8 @@ const MediaItem = ({
   imageAlt,
   imageUrl,
   isLive,
+  altPlayButton,
+  playVidInBackground,
   overlay,
   playIcon,
   ratio,
@@ -48,11 +50,13 @@ const MediaItem = ({
       {videoUrl ? (
         <Video
           className={classnames('embed-responsive-item')}
+          playInBackground={playVidInBackground}
           source={videoUrl}
           poster={imageUrl}
           showControls={showControls}
           isLive={isLive}
           playIcon={playIcon}
+          altPlayButton={altPlayButton}
           showTheaterMode={showTheaterMode}
         />
       ) : (
@@ -100,7 +104,12 @@ MediaItem.defaultProps = {
   gradientDirection: 'bottom-top',
   withHover: false,
   isLive: false,
+  altPlayButton: false,
+  rounded: false,
+  circle: false,
+  playVidInBackground: false,
   showTheaterMode: false,
+  children: null,
 };
 
 const RATIOS = ['1by1', '4by3', '16by9', '21by9', '3by4'];
@@ -154,6 +163,8 @@ MediaItem.propTypes = {
     'black',
   ]),
   gradientDirection: PropTypes.oneOf(['bottom-top']),
+  altPlayButton: PropTypes.bool,
+  playVidInBackground: PropTypes.bool,
 };
 
 export default MediaItem;

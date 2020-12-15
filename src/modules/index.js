@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, lowerFirst } from 'lodash';
 
 import EmailCapture from './EmailCapture';
 import CampusSelect from './CampusSelect';
@@ -15,6 +15,8 @@ const featureMap = {
 const EmptyFragment = ({ children }) => <div>{children}</div>;
 
 export const Feature = ({ name, ...featureProps }) => {
+  name = lowerFirst(name);
+
   const Element = get(featureMap, name, EmptyFragment);
 
   return <Element {...featureProps} />;
