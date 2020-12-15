@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
-import moment from 'moment';
-import { get, find, uniqBy, forEach, sortBy, filter } from 'lodash';
+import moment, { isMoment } from 'moment';
+import { get, find, uniqBy, forEach, sortBy, filter, isObject } from 'lodash';
 import { Church, CalendarAlt, Clock } from '../../../ui/Icons';
 import Loader from '../../../ui/Loader';
 import Dropdown from '../../../ui/inputs/Dropdown';
@@ -103,6 +103,37 @@ const VisitForm = ({ setFieldValue, values }) => {
     times = uniqBy(times, 'time');
   }
 
+  /**** Format Service Days and Times for Dropdown Selects */
+  // add labels and values to the arrays,
+  // so user can select and create submission
+  availableServices.unshift('Select a Service');
+  let serviceDayOptions = sortBy(availableServices, (n) => moment(n)).map((n) => {
+    if (isMoment(n))
+      return {
+        label: moment(n).format('dddd, MMM D'),
+        value: normalizeDate(n),
+      };
+    else
+      return {
+        label: n,
+        value: 'not selected',
+      };
+  });
+
+  times.unshift('Select a Time');
+  let serviceTimeOptions = times.map((n) => {
+    if (isObject(n))
+      return {
+        label: n.time,
+        value: moment(n.time, 'h:mm a').format('H:mm:ss'),
+      };
+    else
+      return {
+        label: n,
+        value: 'not selected',
+      };
+  });
+
   return (
     <React.Fragment>
       <div className="row mb-4">
@@ -121,11 +152,7 @@ const VisitForm = ({ setFieldValue, values }) => {
             icon={CalendarAlt}
             value={visitDateValue}
             onChange={(e) => setFieldValue('visitDate', e.target.value)}
-            options={sortBy(availableServices, (n) => moment(n)).map((n) => ({
-              // label: moment(n).format('dddd, MMM D'),
-              label: n,
-              value: normalizeDate(n),
-            }))}
+            options={serviceDayOptions}
           />
         </div>
       </div>
@@ -135,10 +162,7 @@ const VisitForm = ({ setFieldValue, values }) => {
             icon={Clock}
             value={visitTimeValue}
             onChange={(e) => setFieldValue('visitTime', get(e, 'target.value', ''))}
-            options={times.map((n) => ({
-              label: n.time,
-              value: moment(n.time, 'h:mm a').format('H:mm:ss'),
-            }))}
+            options={serviceTimeOptions}
           />
         </div>
       </div>

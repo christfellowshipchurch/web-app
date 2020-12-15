@@ -95,17 +95,17 @@ const FloatingCard = ({
 FloatingCard.defaultProps = {
   headerImg: null,
   overlay: PropTypes.oneOf(['dark', 'light', 'white']),
-  bodyClassNames: PropTypes.string,
+  bodyClassNames: PropTypes.func,
   containerStyles: PropTypes.object,
   onPressExit: PropTypes.func,
 };
 
 FloatingCard.propTypes = {
-  overlay: PropTypes.oneOf(['dark', 'light', 'white']),
+  overlay: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.string)),
   headerImg: PropTypes.object,
-  bodyClassNames: PropTypes.string,
+  bodyClassNames: PropTypes.func,
   onPressExit: PropTypes.func,
-  containerStyles: {},
+  containerStyles: () => {},
 };
 
 export default FloatingCard;

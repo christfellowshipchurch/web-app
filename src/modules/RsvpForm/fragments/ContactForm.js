@@ -27,7 +27,7 @@ const ContactForm = ({ errors, setFieldValue, values, loading }) => (
 );
 
 ContactForm.propTypes = {
-  errors: PropTypes.object,
+  errors: PropTypes.array,
   setFieldValue: PropTypes.func,
   values: PropTypes.object,
   loading: PropTypes.bool,

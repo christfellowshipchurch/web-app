@@ -42,7 +42,7 @@ const DemographicForm = ({ errors, setFieldValue, values, loading }) => (
 );
 
 DemographicForm.propTypes = {
-  errors: PropTypes.object,
+  errors: PropTypes.array,
   setFieldValue: PropTypes.func,
   values: PropTypes.object,
   loading: PropTypes.bool,
