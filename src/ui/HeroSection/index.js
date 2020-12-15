@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import VisibilitySensor from 'react-visibility-sensor';
 import { get } from 'lodash';
-import { Users, BookAlt, Search } from '../Icons';
 
 import { Media } from '../../ui';
 import { htmlToReactParser } from '../../utils';
@@ -32,6 +31,8 @@ const HeroSection = ({
   openLinksInNewTab,
   image,
   video,
+  children,
+  swoop,
 }) => {
   return (
     <VisibilitySensor active partialVisibility minTopValue={0}>
@@ -42,9 +43,9 @@ const HeroSection = ({
               ratio="16by9"
               overlay="black"
               videoUrl={get(video, 'uri', null)}
+              playVidInBackground
               imageUrl={get(image, 'uri', '')}
               imageAlt={get(image, 'alt', '')}
-              fill="screen"
               className={classnames(
                 'vw-100',
                 'vh-100',
@@ -53,64 +54,74 @@ const HeroSection = ({
                 'align-items-center'
               )}
             >
-              <Swoop />
+              {swoop && <Swoop />}
 
               <div
                 className={classnames(
-                  'w-100',
-                  'max-width-1100',
-                  'text-center',
+                  'vw-100',
+                  'vh-100',
                   'd-flex',
-                  'justify-content-center'
+                  'justify-content-center',
+                  'align-items-center'
                 )}
-                style={{ zIndex: 1000 }}
               >
                 <div
-                  className={classnames('hero', 'max-width-800', 'p-3', 'pt-5', {
-                    'opacity-0': !isVisible,
-                    'opacity-100': isVisible,
-                    'animate-slide-left-right': isVisible,
-                  })}
+                  className={classnames(
+                    'w-100',
+                    'max-width-1100',
+                    'text-center',
+                    'd-flex',
+                    'justify-content-center'
+                  )}
+                  style={{ zIndex: 1000 }}
                 >
-                  <h1 className="text-white">{title}</h1>
+                  <div
+                    className={classnames('hero', 'max-width-800', 'p-3', 'pt-5', {
+                      'opacity-0': !isVisible,
+                      'opacity-100': isVisible,
+                      'animate-slide-left-right': isVisible,
+                    })}
+                  >
+                    <h1 className="text-white">{title}</h1>
 
-                  <p className="my-2 pl-0 text-white font-weight-light">
-                    {htmlToReactParser.parse(htmlContent)}
-                  </p>
+                    <p className="my-2 pl-0 text-white font-weight-light">
+                      {htmlToReactParser.parse(htmlContent)}
+                    </p>
 
-                  <div className="my-3">
-                    {callToAction && (
-                      <a
-                        href={get(callToAction, 'action', '#')}
-                        target={openLinksInNewTab ? '_blank' : ''}
-                        className={classnames('btn', 'btn-primary', 'min-width-250')}
-                      >
-                        {get(callToAction, 'call', '')}
-                      </a>
-                    )}
-                  </div>
+                    {children}
 
-                  <div className="my-3">
-                    {secondaryCallToAction && (
-                      <a
-                        href={get(secondaryCallToAction, 'action', '#')}
-                        target={openLinksInNewTab ? '_blank' : ''}
-                        className={classnames('text-white')}
-                        style={{ fontSize: 16 }}
-                      >
-                        {get(secondaryCallToAction, 'call', '')}
-                      </a>
-                    )}
+                    <div className="my-3">
+                      {callToAction && (
+                        <a
+                          href={get(callToAction, 'action', '#')}
+                          target={openLinksInNewTab ? '_blank' : ''}
+                          className={classnames('btn', 'btn-primary', 'min-width-250')}
+                        />
+                      )}
+                    </div>
+
+                    <div className="my-3">
+                      {secondaryCallToAction && (
+                        <a
+                          href={get(secondaryCallToAction, 'action', '#')}
+                          target={openLinksInNewTab ? '_blank' : ''}
+                          className={classnames('text-white')}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </Media>
-            <div
-              className={classnames('width-100', 'bg-primary')}
-              style={{
-                height: 70,
-              }}
-            />
+
+            {swoop && (
+              <div
+                className={classnames('width-100', 'bg-primary')}
+                style={{
+                  height: 70,
+                }}
+              />
+            )}
           </>
         );
       }}
@@ -136,12 +147,8 @@ HeroSection.propTypes = {
   video: PropTypes.shape({
     uri: PropTypes.string.isRequired,
   }),
-  icons: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.string,
-      title: PropTypes.string,
-    })
-  ),
+  children: PropTypes.object,
+  swoop: PropTypes.bool,
 };
 
 HeroSection.defaultProps = {
@@ -150,20 +157,8 @@ HeroSection.defaultProps = {
   secondaryCallToAction: null,
   image: null,
   video: null,
-  icons: [
-    {
-      icon: Users,
-      title: 'Find Community',
-    },
-    {
-      icon: BookAlt,
-      title: 'Grow in Your Faith',
-    },
-    {
-      icon: Search,
-      title: 'Discover Your Purpose',
-    },
-  ],
+  children: null,
+  swoop: true,
 };
 
 export default HeroSection;

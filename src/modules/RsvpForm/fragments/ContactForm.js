@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { get, has } from 'lodash';
-import { Envelope, PhoneAlt } from '../../../ui/Icons';
+import { Envelope } from '../../../ui/Icons';
 import { TextInput } from '../../../ui';
 
 const ContactForm = ({ errors, setFieldValue, values, loading }) => (
@@ -22,24 +23,14 @@ const ContactForm = ({ errors, setFieldValue, values, loading }) => (
         />
       </div>
     </div>
-    <div className="row mb-4">
-      <div className="col">
-        <TextInput
-          type="phone"
-          disabled={loading}
-          label="Phone Number"
-          icon={PhoneAlt}
-          value={get(values, 'phoneNumber', '')}
-          onChange={(e) => setFieldValue('phoneNumber', get(e, 'target.value', ''))}
-          error={
-            has(values, 'phoneNumber') && has(errors, 'phoneNumber')
-              ? get(errors, 'phoneNumber', null)
-              : null
-          }
-        />
-      </div>
-    </div>
   </React.Fragment>
 );
+
+ContactForm.propTypes = {
+  errors: PropTypes.array,
+  setFieldValue: PropTypes.func,
+  values: PropTypes.object,
+  loading: PropTypes.bool,
+};
 
 export default ContactForm;

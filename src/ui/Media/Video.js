@@ -7,7 +7,17 @@ import { useTheaterMode, toggleTheaterMode } from 'providers/TheaterModeProvider
 
 import { Icon } from '../Icons';
 
-const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) => {
+import { CenterPlayButton, ImagePlayButton } from './PlayButtons';
+
+const MediaVideo = ({
+  source,
+  poster,
+  isLive,
+  showControls,
+  altPlayButton,
+  showTheaterMode,
+  playInBackground,
+}) => {
   const [showPlayButton, setShowPlayButton] = useState(showControls);
   const [showMuteButton, setShowMuteButton] = useState(isMobile && isLive);
   const [played, setPlayed] = useState(false);
@@ -23,7 +33,11 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
         muted: false,
         controls: !showPlayButton,
       }
-    : {};
+    : {
+        autoPlay: playInBackground,
+        loop: playInBackground,
+        muted: playInBackground,
+      };
 
   if (isLive || (source.includes('m3u8') && !isMobile)) {
     videoProps = {
@@ -86,7 +100,7 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
         ref={videoRef}
         controlsList="nodownload"
         style={{
-          objectFit: played ? 'contain' : 'cover',
+          objectFit: played && !playInBackground ? 'contain' : 'cover',
           backgroundColor: 'black',
         }}
         onPlay={() => setPlayed(true)}
@@ -94,60 +108,12 @@ const MediaVideo = ({ source, poster, isLive, showControls, showTheaterMode }) =
         <source type="video/mp4" src={source} />
       </video>
       {showPlayButton && (
-        <div
-          className="fill d-flex justify-content-start align-items-end"
-          style={{ zIndex: 900 }}
-        >
-          <button
-            className={classnames(
-              'cursor-hover',
-              'scale-media-up-on-hover',
-              'ml-3',
-              'd-flex',
-              'align-items-center',
-              'justify-content-center',
-              'p-0',
-              'border-0',
-              'rounded'
-            )}
-            onClick={playButtonClick}
-            style={{
-              position: 'relative',
-              top: 20,
-            }}
-          >
-            <img
-              alt="play button"
-              className="rounded gradient-black"
-              src={poster}
-              style={{
-                height: 60,
-                width: 'auto',
-                zIndex: 950,
-              }}
-            />
-            <div
-              className="p-absolute flex-column"
-              style={{
-                zIndex: 1000,
-              }}
-            >
-              <Icon
-                className="d-flex justify-content-center"
-                name="play"
-                fill="white"
-                size={20}
-              />
-              <p
-                className="text-white mb-0"
-                style={{
-                  fontSize: 12,
-                }}
-              >
-                Play
-              </p>
-            </div>
-          </button>
+        <div>
+          {altPlayButton ? (
+            <CenterPlayButton onClick={playButtonClick} />
+          ) : (
+            <ImagePlayButton onClick={playButtonClick} image={poster} />
+          )}
         </div>
       )}
       {showMuteButton && (
@@ -196,6 +162,8 @@ MediaVideo.propTypes = {
   showTheaterMode: PropTypes.bool,
   loop: PropTypes.bool,
   muted: PropTypes.bool,
+  altPlayButton: PropTypes.bool,
+  playInBackground: PropTypes.bool,
 };
 
 // Default state of the video is to be a silent,
@@ -206,6 +174,8 @@ MediaVideo.defaultProps = {
   autoPlay: true,
   loop: true,
   muted: true,
+  altPlayButton: false,
+  playInBackground: false,
   showTheaterMode: false,
 };
 
