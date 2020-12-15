@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components/macro';
 
 import { useMutation, useQuery } from 'react-apollo';
 import { Icon, Loader } from 'ui';
-import { baseUnit, theme, themeGet } from 'styles/theme';
+import { baseUnit, themeGet } from 'styles/theme';
 
 import GroupImage from 'groups/NewGroupContentItemConnected/GroupImage';
 import GET_GROUP from 'groups/NewGroupContentItemConnected/getGroup';
