@@ -34,7 +34,7 @@ const BrandImg = ({ className, uri, alt }) => (
   </Navbar.Brand>
 );
 
-const NavbarConnected = ({ bg, variant, brandImageKey, fixed }) => {
+const NavbarConnected = ({ bg, variant, brandImageKey, fixed, onToggle }) => {
   const [menuIcon, setMenuIcon] = useState(false);
   const website = process.env.REACT_APP_WEBSITE_KEY;
   const { data } = useQuery(GET_WEBSITE_HEADER, {
@@ -53,6 +53,8 @@ const NavbarConnected = ({ bg, variant, brandImageKey, fixed }) => {
     variant,
     expand: 'lg',
   };
+
+  const isDark = variant == 'dark';
 
   // We use sticky styling as the default so that padding is respected
   //    with the option to override it to use a fixed styling if preferred
@@ -77,7 +79,7 @@ const NavbarConnected = ({ bg, variant, brandImageKey, fixed }) => {
         )}
 
         {/* { Toggle for Mobile } */}
-        <NavbarToggle onClick={() => setMenuIcon(!menuIcon)} isOpen={menuIcon} />
+        <NavbarToggle isDark={isDark} onClick={onToggle} />
 
         <Navbar.Collapse>
           <div
@@ -97,10 +99,15 @@ const NavbarConnected = ({ bg, variant, brandImageKey, fixed }) => {
               navLinks={navLinks}
               menuLinks={menuLinks}
               quickAction={quickAction}
+              isDark={isDark}
             />
 
             {/* { Mobile Navigation } */}
-            <MobileNav navLinks={[...navLinks, ...menuLinks]} quickAction={quickAction} />
+            <MobileNav
+              navLinks={[...navLinks, ...menuLinks]}
+              quickAction={quickAction}
+              isDark={isDark}
+            />
           </div>
         </Navbar.Collapse>
       </div>
@@ -113,6 +120,7 @@ NavbarConnected.propTypes = {
   variant: PropTypes.string,
   brandImageKey: PropTypes.string,
   fixed: PropTypes.bool,
+  isDark: PropTypes.bool,
 };
 
 NavbarConnected.defaultProps = {
@@ -120,6 +128,7 @@ NavbarConnected.defaultProps = {
   variant: 'light',
   brandImageKey: 'brandImage',
   fixed: false,
+  isDark: false,
 };
 
 export default NavbarConnected;

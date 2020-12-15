@@ -38,7 +38,7 @@ const Layout = ({
         grouped ? 'mx-xl-3 mx-lg-3 mx-md-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6 px-4 mx-4' : ''
       }`}
     >
-      <Media {...media} />
+      <Media {...media} altPlayButton />
     </div>
   ) : imageUrl || videoUrl ? (
     <div className={`${grouped ? 'mx-3 px-lg-4 px-md-3 px-sm-6 mx-sm-6' : ''}`}>
@@ -47,6 +47,7 @@ const Layout = ({
         imageUrl={imageUrl}
         imageAlt={imageAlt}
         videoUrl={videoUrl}
+        altPlayButton
         rounded
       />
     </div>

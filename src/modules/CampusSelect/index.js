@@ -6,8 +6,9 @@ import classnames from 'classnames';
 import zipcodes from 'zipcodes';
 import moment from 'moment';
 
-import { AngleDown } from '../../ui/Icons';
+import rsvpImg from '../../modules/RsvpForm/fragments/rsvpFormImage.jpg';
 
+import { AngleDown } from '../../ui/Icons';
 import InputIcon from '../../ui/inputs/inputIcon';
 import { FloatingCard, Button, Loader, Media, CardGrid } from '../../ui';
 import RsvpForm from '../RsvpForm';
@@ -66,6 +67,7 @@ export const CampusTile = ({
   serviceTimes,
   onClick,
   className,
+  isRsvp,
 }) => {
   const location = `${street1}+${city}+${state}+${postalCode}`;
 
@@ -74,8 +76,8 @@ export const CampusTile = ({
       <div className="col-12 col-md px-3">
         <Media ratio="1by1" imageUrl={get(image, 'uri', '')} imageAlt={name} rounded />
       </div>
-      <div className="col px-3 py-4">
-        <h2>{name}</h2>
+      <div className="col px-3">
+        <h2 className="mt-3 mt-md-0">{name}</h2>
 
         {serviceTimes.length > 0 && (
           <>
@@ -90,6 +92,15 @@ export const CampusTile = ({
                 </h4>
               );
             })}
+
+            {isRsvp && (
+              <Button
+                title="Set a Reminder"
+                className="my-3"
+                onClick={() => onClick({})}
+              />
+            )}
+
             <p className="text-dark mt-4 mb-2">{`${street1}`}</p>
             <p className="text-dark mb-3">
               {`${city}, ${state} ${postalCode.substring(0, 5)}`}
@@ -120,30 +131,6 @@ export const CampusTile = ({
             />
           </>
         )}
-
-        {/* TEMPORARLY HIDING RSVP BUTTONS WHILE CAMPUSES ARE CLOSED */}
-
-        {/* <h3 className="mt-6">
-                    Select a service time to RSVP for:
-                </h3>
-                {uniqBy(serviceTimes, 'time').map((n, i) => {
-                    const isDate = moment(`${n.day} ${n.time}`).isValid()
-                    const title = isDate
-                        ? n.time
-                        : `${n.day.substring(0, 3)} ${n.time}`
-
-                    return (
-                        <Button
-                            title={title}
-                            className="m-1 min-width-250"
-                            key={i}
-                            onClick={() => onClick({
-                                day: moment().add(1, 'week').isoWeekday(n.day),
-                                time: n.time
-                            })}
-                        />
-                    )
-                })} */}
       </div>
     </div>
   );
@@ -154,7 +141,7 @@ CampusTile.defaultProps = {
   postalCode: '',
 };
 
-const CampusSelect = ({ background }) => {
+const CampusSelect = ({ background, isRsvp }) => {
   const [rsvpForm, setRsvpForm] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [activeCampus, setActiveCampus] = useState(null);
@@ -168,19 +155,23 @@ const CampusSelect = ({ background }) => {
     );
   }
 
-  let campuses = null;
-
-  if (campusesData) {
-    campuses = get(campusesData, 'campuses', []);
-
-    if (campuses.length) campuses = sortBy(campuses, ['name']);
-  }
+  let campuses = get(campusesData, 'campuses', []);
+  // checks for valid campus with service times
+  const validCampuses = campuses.filter((campus) => {
+    const serviceTime = get(campus, 'serviceTimes', []);
+    if (serviceTime.length > 0) {
+      return campus;
+    }
+    return null;
+  });
+  //sets campuses to valid ones
+  campuses = validCampuses;
 
   const visibleCampus = activeCampus || campuses[0];
   const inputBackground = background === 'bg-white' ? 'bg-light' : 'bg-white';
 
   return (
-    <div className="container py-6">
+    <div className="container-fluid py-6">
       <div className="row">
         <div className="col text-center">
           <h2>Choose a Location Near You</h2>
@@ -255,15 +246,17 @@ const CampusSelect = ({ background }) => {
                 campus: get(visibleCampus, 'name', ''),
               });
             }}
+            isRsvp={isRsvp}
           />
-          {visibleCampus.campusFeatures.length ? (
+          {/* Removing What's available at this location, will be completely deprecated soon */}
+          {/* {visibleCampus.campusFeatures.length ? (
             <>
               <h1 className={classnames('pt-6', 'pb-5', 'mb-0', 'text-center')}>
                 What's Available at this Location
               </h1>
               <CardGrid data={visibleCampus.campusFeatures} />
             </>
-          ) : null}
+          ) : null} */}
         </>
       )}
 
@@ -286,10 +279,12 @@ CampusTile.propTypes = {
 
 CampusSelect.defaultProps = {
   background: 'bg-white',
+  isRsvp: false,
 };
 
 CampusSelect.propTypes = {
   background: PropTypes.oneOf(['bg-white', 'bg-light', 'bg-transparent']),
+  isRsvp: PropTypes.bool,
 };
 
 export default CampusSelect;

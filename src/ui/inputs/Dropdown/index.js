@@ -73,13 +73,13 @@ Dropdown.defaultProps = {
 };
 
 Dropdown.propTypes = {
+  onChange: PropTypes.func,
+  icon: PropTypes.func,
   description: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.string,
   hideIcon: PropTypes.bool,
-  icon: PropTypes.func,
   label: PropTypes.string,
-  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   success: PropTypes.bool,
   value: PropTypes.string,
