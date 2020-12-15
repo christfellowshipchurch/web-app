@@ -4,6 +4,7 @@ import styled from 'styled-components/macro';
 
 import { breakpoint } from 'styles/theme';
 
+import { uniqBy } from 'lodash';
 import GroupMember from './GroupMember';
 
 // :: Styled Components
@@ -37,9 +38,11 @@ const GroupMembers = ({ members, showAll, onSeeAllClick }) => {
 
   return (
     <MembersList showAll={showAll}>
-      {members.slice(0, displayCount).map((member, index) => (
-        <GroupMember key={member.id} index={index} member={member} />
-      ))}
+      {uniqBy(members, 'id')
+        .slice(0, displayCount)
+        .map((member, index) => (
+          <GroupMember key={member.id} index={index} member={member} />
+        ))}
       {showSeeAll && (
         <GroupMember.SeeAllTile hiddenCount={hiddenCount} onClick={onSeeAllClick} />
       )}
