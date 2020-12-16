@@ -76,6 +76,7 @@ const GroupContentItem = ({
   userName,
   videoCall,
   chatChannelId,
+  chatChannelType,
 }) => {
   const [activeTab, setActiveTab] = useState('about');
 
@@ -206,9 +207,9 @@ const GroupContentItem = ({
             {activeTab === 'about' && (
               <Card>{summary || 'Group summary unavailable'}</Card>
             )}
-            {chatChannelId && activeTab === 'chat' && (
-              <Card style={{ height: '30vh' }}>
-                <GroupChat channelId={chatChannelId} />
+            {chatChannelId && chatChannelType && activeTab === 'chat' && (
+              <Card>
+                <GroupChat channelId={chatChannelId} channelType={chatChannelType} />
               </Card>
             )}
           </div>
