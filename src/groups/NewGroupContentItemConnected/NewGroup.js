@@ -97,6 +97,7 @@ const NewGroup = ({
   videoCall,
   groupResources,
   channelId,
+  chatChannelType,
   onClickGroupResource,
   onClickVideoCall,
   onClickParentVideoCall,
@@ -182,7 +183,7 @@ const NewGroup = ({
             )}
           </GroupTabContent>
           <GroupTabContent active={activeTab === Tabs.CHAT}>
-            <GroupChat channelId={channelId} />
+            <GroupChat channelId={channelId} channelType={chatChannelType} />
           </GroupTabContent>
         </Col>
         <Col className="col-12 order-1 mt-3 mb-4 px-3  col-md-8 offset-md-2  col-lg-4 offset-lg-0 order-lg-2 mt-lg-0 mb-lg-0 px-lg-0 pr-lg-3">
@@ -253,6 +254,7 @@ NewGroup.propTypes = {
     })
   ),
   channelId: PropTypes.string,
+  chatChannelType: PropTypes.string,
   onClickGroupResource: PropTypes.func,
   onClickParentVideoCall: PropTypes.func,
   onClickVideoCall: PropTypes.func,

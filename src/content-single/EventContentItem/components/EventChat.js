@@ -85,7 +85,7 @@ const BackLabel = styled.span`
 
 // Main Component
 // ------------------------
-const EventChat = ({ event, channelId, onWatcherCountChange }) => {
+const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
   const isLoggedIn = false;
   const loading = false;
   const error = false;
@@ -172,8 +172,8 @@ const EventChat = ({ event, channelId, onWatcherCountChange }) => {
     setActiveDmChannel(recipientDmChannel);
   };
 
-  if (loading || loadingRole || !channel) return <Loader />;
-  if (error || connectionError) return <ChatError />;
+  if (loading || loadingRole || (channelId && !channel)) return <Loader />;
+  if (!channelId || !channelType || error || connectionError) return <ChatError />;
 
   return (
     <ChatContainer>
@@ -217,6 +217,7 @@ EventChat.propTypes = {
     ),
   }),
   channelId: PropTypes.string.isRequired,
+  channelType: PropTypes.string.isRequired,
   onWatcherCountChange: PropTypes.func.isRequired,
 };
 
