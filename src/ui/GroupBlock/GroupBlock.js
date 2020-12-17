@@ -14,7 +14,10 @@ import { Feature } from '../../modules';
 import GET_GROUP_BLOCK from './queries';
 
 const GroupBlock = ({ id, title, groupLayout, accordionType, withAnimation }) => {
-  const { loading, error, data } = useQuery(GET_GROUP_BLOCK, { variables: { id } });
+  const { loading, error, data } = useQuery(GET_GROUP_BLOCK, {
+    variables: { id },
+    fetchPolicy: 'cache-and-network',
+  });
 
   if (loading) {
     return (
