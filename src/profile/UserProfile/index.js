@@ -5,7 +5,7 @@ import moment from 'moment';
 import { get } from 'lodash';
 import { Envelope, Mobile } from '../../ui/Icons';
 
-import { TextInput, Checkbox, Loader } from '../../ui';
+import { TextInput, Checkbox } from '../../ui';
 import { useAuthQuery } from '../../auth';
 
 import { GET_CURRENT_PERSON } from '../queries';
@@ -23,6 +23,8 @@ const CurrentProfile = ({ onChange }) => {
   const birthDate = get(profile, 'birthDate', '');
   const address = get(profile, 'address', {});
 
+  const loadingTextClass = loading ? 'loading-bar w-50' : 'font-weight-light';
+
   return [
     <ProfileBanner key={`UserProfile:ProfileBanner`} onEdit={() => onChange(true)} />,
     <div key={`UserProfile:ProfileFields`} className="container my-4">
@@ -31,22 +33,24 @@ const CurrentProfile = ({ onChange }) => {
           className={classnames('col-md-6', 'col-12', 'text-left', 'pl-4', 'profile-bar')}
         >
           <h4 className={headerClass}>My Campus</h4>
-          <h4 className="font-weight-light mb-5">{get(profile, 'campus.name', '')}</h4>
+          <h4 className={`${loadingTextClass} mb-5`}>
+            {get(profile, 'campus.name', '')}
+          </h4>
           <h4 className={headerClass}>Home Address</h4>
-          <h4 className="font-weight-light">{get(profile, 'address.street1', '')}</h4>
-          <h4 className="font-weight-light mb-5">
-            {`${get(address, 'city', '')}, ${get(address, 'state', '')} ${get(
+          <h4 className={`${loadingTextClass}`}>{get(profile, 'address.street1', '')}</h4>
+          <h4 className={`${loadingTextClass} mb-5`}>
+            {`${get(address, 'city', '')} ${get(address, 'state', '')} ${get(
               address,
               'postalCode',
               ''
             ).substring(0, 5)}`}
           </h4>
           <h4 className={headerClass}>Date of Birth</h4>
-          <h4 className="font-weight-light mb-5">
+          <h4 className={`${loadingTextClass} mb-5`}>
             {moment(birthDate).isValid() && moment(birthDate).format('MMM DD, YYYY')}
           </h4>
           <h4 className={headerClass}>Gender</h4>
-          <h4 className="font-weight-light mb-5">{get(profile, 'gender', '')}</h4>
+          <h4 className={`${loadingTextClass} mb-5`}>{get(profile, 'gender', '')}</h4>
         </div>
         <div className={classnames('col-md-6', 'col-12', 'text-left', 'pl-4', 'pr-3')}>
           <h4 className="mt-5 mb-3">Communication Preferences</h4>
@@ -59,8 +63,8 @@ const CurrentProfile = ({ onChange }) => {
 
           <div className="d-flex align-items-center mb-5 mt-2 ml-1">
             <Checkbox
-              checked={get(profile, 'communicationPreferences.allowEmail', false)}
               disabled
+              checked={get(profile, 'communicationPreferences.allowEmail', false)}
             />
             <p className="mb-0 ml-2">Allow Email Notifications</p>
           </div>
@@ -74,19 +78,15 @@ const CurrentProfile = ({ onChange }) => {
 
           <div className="d-flex align-items-center mb-4 mt-2 ml-1">
             <Checkbox
-              checked={get(profile, 'communicationPreferences.allowSMS', false)}
               disabled
+              random
+              checked={get(profile, 'communicationPreferences.allowSMS', false)}
             />
             <p className="mb-0 ml-2">Allow Text Notifications</p>
           </div>
         </div>
       </div>
     </div>,
-    loading && (
-      <div key={`UserProfile:Loader`} className="absolute-center w-100 h-100">
-        <Loader />
-      </div>
-    ),
   ];
 };
 

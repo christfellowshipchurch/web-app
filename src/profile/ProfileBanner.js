@@ -76,7 +76,7 @@ const ProfileBanner = ({ profileImage, editMode: edit, onEdit, onSave, onCancel 
                     />
                     <Button
                       className="text-white text-upper"
-                      title="cancel"
+                      title="Cancel"
                       type="link"
                       size="sm"
                       onClick={(e) => {
