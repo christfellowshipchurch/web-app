@@ -92,7 +92,6 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
   const data = {};
   const [chatClient, connectionStatus] = useChatContext();
 
-  console.log('[EventChat] chatClient:', chatClient);
   console.log('[EventChat] connectionStatus:', connectionStatus);
 
   // User data
