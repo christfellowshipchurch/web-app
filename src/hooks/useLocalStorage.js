@@ -7,7 +7,9 @@ function useLocalStorage(itemKey, initialValue) {
 
   const [storedValue, setStoredValue] = useState(() => {
     const lsValue = localStorage.getItem(keyPath);
-    return (lsValue && JSON.parse(lsValue)) || initialValue;
+    const parsedValue = JSON.parse(lsValue);
+
+    return parsedValue === null ? initialValue : parsedValue;
   });
 
   const setValue = (value) => {
