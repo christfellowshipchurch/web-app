@@ -1,77 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useMutation, useQuery } from 'react-apollo';
 import classnames from 'classnames';
 import { get } from 'lodash';
 import AwesomePhoneNumber from 'awesome-phonenumber';
 import { string } from 'yup';
 import moment from 'moment';
-import { Envelope, Mobile, CalendarAlt, Church, Home } from '../../ui/Icons';
+import { Envelope, Mobile, CalendarAlt, Home } from '../../ui/Icons';
 
 import { useForm } from '../../hooks';
-import { TextInput, Checkbox, Radio, Dropdown, Loader } from '../../ui';
+import useCurrentUser from '../../hooks/useCurrentUser';
+import { TextInput, Checkbox, Radio, Loader } from '../../ui';
 import { useAuthQuery } from '../../auth';
 
 import ProfileBanner from '../ProfileBanner';
-import { GET_CURRENT_PERSON, GET_STATES, GET_CAMPUSES } from '../queries';
-import { UPDATE_CURRENT_USER } from '../mutations';
+import { GET_CURRENT_PERSON } from '../queries';
 
-const CampusSelection = ({ onChange, value }) => {
-  const { data, loading, error } = useQuery(GET_CAMPUSES, {
-    fetchPolicy: 'cache-and-network',
-  });
-  const disabled = loading || error;
-
-  return (
-    <Dropdown
-      options={get(data, 'campuses', []).map(({ id, name }) => ({
-        value: id,
-        label: name,
-      }))}
-      onChange={(e) => onChange(e)}
-      disabled={disabled}
-      value={disabled ? '' : value}
-      icon={Church}
-    />
-  );
-};
-
-const StateSelection = ({ onChange, value }) => {
-  const { data, loading, error } = useQuery(GET_STATES, {
-    fetchPolicy: 'cache-and-network',
-  });
-  const disabled = loading || error;
-
-  return (
-    <Dropdown
-      options={get(data, 'getStatesList.values', []).map(({ value }) => value)}
-      onChange={(e) => onChange(e)}
-      disabled={disabled}
-      value={disabled ? '' : value}
-      hideIcon
-    />
-  );
-};
+import { CampusSelection, StateSelection } from './selectors';
 
 const validateBirthDate = (birthDate) =>
   !!birthDate && moment().diff(moment(birthDate), 'years') >= 13;
 
-const validation = {
-  birthDate: (value) =>
-    value && validateBirthDate(value)
-      ? false
-      : 'You must be at least 13 years old to create an account',
-};
-
 const EditUserProfile = ({
-  id: campusId,
-  street1,
-  street2,
-  city,
-  state,
-  postalCode,
-  allowSMS,
-  allowEmail,
+  campus,
+  address,
+  communicationPreferences,
   email,
   phoneNumber,
   gender,
@@ -80,55 +32,94 @@ const EditUserProfile = ({
   onChange,
 }) => {
   // Form for address and profile fields
+
+  const {
+    updateProfileField,
+    updateCommunicationPreference,
+    updateAddress,
+    updateCampus,
+    loading,
+    error,
+  } = useCurrentUser();
   const { values, setValue, errors, setError } = useForm({
-    validation,
     defaultValues: {
-      street1,
-      street2,
-      city,
-      state,
-      postalCode,
+      street1: get(address, 'street1', ''),
+      city: get(address, 'city', ''),
+      state: get(address, 'state', ''),
+      postalCode: get(address, 'postalCode', ''),
       birthDate,
       gender,
-      campus: campusId,
-      allowSMS,
-      allowEmail,
+      campus,
+      allowSMS: get(communicationPreferences, 'allowSMS', false),
+      allowEmail: get(communicationPreferences, 'allowEmail', false),
       email,
       phoneNumber,
     },
   });
 
-  const [updateProfile, { loading }] = useMutation(UPDATE_CURRENT_USER, {
-    update: async (
-      cache,
-      { data: { updateProfileFields, updateAddress, updateUserCampus } }
-    ) => {
-      // read the GET_CURRENT_PERSON query
-      const { currentUser } = cache.readQuery({ query: GET_CURRENT_PERSON });
-      const { gender } = updateProfileFields;
-      // write to the cache the results of the current cache
-      //  and append any new fields that have been returned from the mutation
-      await cache.writeQuery({
-        query: GET_CURRENT_PERSON,
-        data: {
-          currentUser: {
-            ...currentUser,
-            profile: {
-              ...currentUser.profile,
-              gender,
-              birthDate,
-              address: updateAddress,
-              campus: updateUserCampus.campus,
-            },
+  const handleAddressUpdate = () => {
+    if (
+      values.street1 &&
+      values.street1 !== '' &&
+      values.city &&
+      values.city !== '' &&
+      values.state &&
+      values.state !== '' &&
+      values.postalCode &&
+      values.postalCode !== ''
+    ) {
+      updateAddress({
+        variables: {
+          address: {
+            street1: get(values, 'street1', ''),
+            street2: get(values, 'street2', ''),
+            city: get(values, 'city', ''),
+            state: get(values, 'state', ''),
+            postalCode: get(values, 'postalCode', ''),
           },
         },
       });
+    }
+  };
 
-      onChange();
-    },
-  });
+  const handleUpdateProfileFields = () => {
+    if (values.gender && values.gender !== '' && values.birthDate && values.birthDate) {
+      const profileFields = [
+        { field: 'Gender', value: get(values, 'gender') },
+        { field: 'BirthDate', value: get(values, 'birthDate') },
+      ];
+
+      return profileFields.map((n) =>
+        updateProfileField({
+          variables: {
+            profileField: {
+              field: n.field,
+              value: n.value,
+            },
+          },
+        })
+      );
+    }
+  };
+
+  const handleCommunicationPreferences = () => {
+    const communicationPreferences = [
+      { type: 'SMS', allow: get(values, 'allowSMS') },
+      { type: 'Email', allow: get(values, 'allowEmail') },
+    ];
+    return communicationPreferences.map((n) =>
+      updateCommunicationPreference({
+        variables: {
+          type: n.type,
+          allow: n.allow,
+        },
+      })
+    );
+  };
 
   if (loading) return <Loader />;
+
+  if (error) return console.log({ error });
 
   return [
     <ProfileBanner
@@ -147,31 +138,17 @@ const EditUserProfile = ({
           birthDateIsValid &&
           (await string().email().isValid(email))
         ) {
-          updateProfile({
-            variables: {
-              address: {
-                street1: get(values, 'street1', ''),
-                street2: get(values, 'street2', ''),
-                city: get(values, 'city', ''),
-                state: get(values, 'state', ''),
-                postalCode: get(values, 'postalCode', ''),
+          return [
+            updateCampus({
+              variables: {
+                campusId: get(values, 'campus.id', ''),
               },
-              profileFields: [
-                { field: 'Gender', value: get(values, 'gender', '') },
-                { field: 'BirthDate', value: get(values, 'birthDate', '') },
-                {
-                  field: 'PhoneNumber',
-                  value: phoneNumber.getNumber('significant').replace(/[^0-9]/gi, ''),
-                },
-                { field: 'Email', value: email },
-              ],
-              campusId: get(values, 'campus', ''),
-              communicationPreferences: [
-                { type: 'SMS', allow: get(values, 'allowSMS', '') },
-                { type: 'Email', allow: get(values, 'allowEmail', '') },
-              ],
-            },
-          });
+            }),
+            handleAddressUpdate(),
+            handleUpdateProfileFields(),
+            handleCommunicationPreferences(),
+            onChange(),
+          ];
         }
 
         if (!phoneNumber.isValid())
@@ -183,6 +160,8 @@ const EditUserProfile = ({
           );
         if (!(await string().email().isValid(email)))
           setError('email', 'Please enter a valid email address');
+
+        return onChange();
       }}
     />,
     <div key={`EditUserProfile:ProfileFields`} className="container my-4">
@@ -192,8 +171,9 @@ const EditUserProfile = ({
         >
           <h4 className="mt-4 mb-3">My Campus</h4>
           <CampusSelection
-            value={get(values, 'campus', '')}
-            onChange={(e) => setValue('campus', e.target.value)}
+            label={'Select Your Campus'}
+            value={get(values, 'campus.id', '')}
+            onChange={(e) => setValue('campus.id', e.target.value)}
           />
 
           <h4 className="mt-5 mb-2">Home Address</h4>
@@ -216,7 +196,7 @@ const EditUserProfile = ({
           <div className="mb-3">
             <StateSelection
               label="State"
-              value={get(values, 'state', '')}
+              value={get(values, 'state')}
               onChange={(e) => setValue('state', e.target.value)}
             />
           </div>
@@ -253,6 +233,7 @@ const EditUserProfile = ({
         <div className={classnames('col-md-6', 'col-12', 'text-left', 'px-4')}>
           <h4 className="mt-4">Communication Preferences</h4>
           <TextInput
+            readOnly
             icon={Envelope}
             value={get(values, 'email', '')}
             label="Email"
@@ -269,6 +250,7 @@ const EditUserProfile = ({
           </div>
 
           <TextInput
+            readOnly
             icon={Mobile}
             value={get(values, 'phoneNumber', '')}
             label="Mobile Phone"
@@ -303,6 +285,8 @@ EditUserProfile.propTypes = {
   campus: PropTypes.shape({
     id: PropTypes.string,
   }),
+  allowSMS: PropTypes.bool,
+  allowEmail: PropTypes.bool,
 };
 
 EditUserProfile.defaultProps = {
@@ -319,6 +303,8 @@ EditUserProfile.defaultProps = {
   campus: {
     id: '',
   },
+  allowSMS: false,
+  allowEmail: false,
 };
 
 export default ({ onChange }) => {
