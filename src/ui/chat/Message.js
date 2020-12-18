@@ -78,7 +78,7 @@ const Message = (props) => {
   }
 
   const userRole = ChatUtils.getRoleFromMembership(channel);
-  const canPerformActions = userRole !== ChatRoles.GUEST;
+  const canPerformActions = userRole !== ChatRoles.ANONYMOUS;
   const hoverEventListeners = canPerformActions
     ? {
         onMouseEnter: () => setHovered(true),

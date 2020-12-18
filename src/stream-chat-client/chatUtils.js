@@ -55,8 +55,9 @@ export function getRoleFromMembership(channel) {
     case 'user':
     case 'owner':
       return ChatRoles.USER;
+    case 'anonymous':
     default:
-      return ChatRoles.GUEST;
+      return ChatRoles.ANONYMOUS;
   }
 }
 
