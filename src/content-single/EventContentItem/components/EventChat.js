@@ -146,24 +146,15 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
       onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
     }
 
-    function cleanup() {
-      setChannel(null);
-    }
-
-    console.log(
-      '%c[EventChat] ************* Chat connectionStatus Change *********** => ' +
-        connectionStatus,
-      'background: blue; color: white'
-    );
-
     if (connectionStatus === ConnectionStatus.CONNECTED) {
       initEventChannel();
-      return cleanup;
     }
 
-    if (connectionStatus === ConnectionStatus.DISCONNECTED) {
-      cleanup();
-    }
+    return () => {
+      console.log('[rkd] connectionStatus: ', connectionStatus);
+      console.log('[rkd]%c 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 CLEANUP', 'color: orange');
+      setChannel(null);
+    };
   }, [connectionStatus]);
 
   // Handle "Send a Direct Message"
