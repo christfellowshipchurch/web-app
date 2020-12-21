@@ -33,7 +33,7 @@ export default function useCurrentUserForChat() {
   return {
     // getStreamUser is memoized, so consumers of this hook won't needlessly re-render
     chatUser: ChatUtils.getStreamUser(query?.data?.currentUser),
-    chatToken: query?.data?.currentUser.streamChatToken,
+    chatToken: query?.data?.currentUser?.streamChatToken,
     ...query,
   };
 }

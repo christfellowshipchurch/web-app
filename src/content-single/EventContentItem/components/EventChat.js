@@ -89,9 +89,10 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
   const { isLoggedIn } = useAuth();
   const [chatClient, connectionStatus] = useChat();
 
-  const loading =
-    !channelId || !channelType || connectionStatus === ConnectionStatus.CONNECTING;
-  const error = connectionStatus === ConnectionStatus.ERROR;
+  const connecting = connectionStatus === ConnectionStatus.CONNECTING;
+  const disconnected = connectionStatus === ConnectionStatus.DISCONNECTED;
+  const loading = connecting || disconnected;
+  const error = !channelId || !channelType || connectionStatus === ConnectionStatus.ERROR;
 
   console.log('[EventChat] connectionStatus:', connectionStatus);
 
@@ -131,7 +132,7 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
   // Stream Chat Connection management
   useEffect(() => {
     async function initEventChannel() {
-      const newChannel = chatClient.channel(channelType, channelId, {
+      const newChannel = chatClient.channel(channelType.toLowerCase(), channelId, {
         parentId: get(event, 'id'),
         name: get(event, 'title'),
         startsAt: get(event, 'events[0].start'),
@@ -145,14 +146,24 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
       onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
     }
 
-    if (connectionStatus === ConnectionStatus.CONNECTED) {
-      console.log('[rkd] ************* Chat connected and ready to do stuff with');
-      initEventChannel();
+    function cleanup() {
+      setChannel(null);
     }
 
-    return async () => {
-      setChannel(null);
-    };
+    console.log(
+      '%c[EventChat] ************* Chat connectionStatus Change *********** => ' +
+        connectionStatus,
+      'background: blue; color: white'
+    );
+
+    if (connectionStatus === ConnectionStatus.CONNECTED) {
+      initEventChannel();
+      return cleanup;
+    }
+
+    if (connectionStatus === ConnectionStatus.DISCONNECTED) {
+      cleanup();
+    }
   }, [connectionStatus]);
 
   // Handle "Send a Direct Message"
@@ -188,8 +199,8 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
     setActiveDmChannel(recipientDmChannel);
   };
 
-  if (loading || loadingRole || (channelId && !channel)) return <Loader />;
-  if (!channelId || !channelType || error) return <ChatError />;
+  if (loading) return <Loader />;
+  if (error) return <ChatError />;
 
   return (
     <ChatContainer>

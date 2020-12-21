@@ -16,6 +16,7 @@ export function stripPrefix(string) {
 
 // User
 function _getStreamUser(user) {
+  console.log('🚦 [_getStreamUser] user:', user);
   if (!user) {
     return;
   }

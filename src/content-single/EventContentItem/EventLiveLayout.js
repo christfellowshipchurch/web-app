@@ -64,9 +64,6 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const channelType = get(liveStream, 'streamChatChannel.channelType', null);
   const callsToAction = liveStream?.actions || [];
 
-  console.log('[rkd] channelId:', channelId);
-  console.log('[rkd] channelType:', channelType);
-
   return (
     <main style={{ minHeight: '75vh' }}>
       <EventBannerBackground {...content} isLive />
