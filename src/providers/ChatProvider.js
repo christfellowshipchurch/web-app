@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { useAuth } from 'auth';
 import { useCurrentUserForChat } from 'hooks'; // local folder
 
-import { StreamChatClient, ChatUtils } from 'stream-chat-client';
+import { StreamChatClient } from 'stream-chat-client';
 
 // ⚠️⚠️⚠️ Dev Only
 window.StreamChatClient = StreamChatClient;
@@ -23,42 +23,18 @@ const ChatContext = createContext(null);
 const ChatProvider = ({ children }) => {
   const { isLoggedIn } = useAuth();
   const { chatUser, chatToken } = useCurrentUserForChat();
-
   const [connectionStatus, setConnectionStatus] = useState(ConnectionStatus.DISCONNECTED);
 
-  console.groupCollapsed('💬%c ChatProvider', 'background: #00aeff; color: white');
-  console.log('isLoggedIn:', isLoggedIn);
-  console.log('chatUser:', chatUser);
-  console.log('chatToken:', chatToken);
-  console.groupEnd();
-
   useEffect(() => {
-    console.group(
-      '%c[💬 ChatProvider >> useEffect] one of these changed: [isLoggedIn, chatUser]',
-      'background: #00aeff; color: white'
-    );
-    console.log('%c isLoggedIn: %c' + isLoggedIn, 'color: #00aeff', '');
-    console.log('%c connectionStatus: %c' + connectionStatus, 'color: #00aeff', '');
-    console.log('%c chatUser.id: %c' + chatUser?.id, 'color: #00aeff', '');
-
-    if (connectionStatus === ConnectionStatus.CONNECTING) {
-      console.log('%c ❗ Already connecting', 'background: red');
-      return;
-    }
-
     async function connectUser() {
-      console.log('%c🔌 Connecting USER...', 'color: limegreen; font-weight: bold;');
       setConnectionStatus(ConnectionStatus.CONNECTING);
       await StreamChatClient.setUser(chatUser, chatToken);
-      console.log('%c  ✅ (( user connected )) ', 'color: #00aeff');
       setConnectionStatus(ConnectionStatus.CONNECTED);
     }
 
     async function connectAnonymously() {
-      console.log('%c🔌 Connecting ANONYMOUS...', 'color: limegreen; font-weight: bold;');
       setConnectionStatus(ConnectionStatus.CONNECTING);
       await StreamChatClient.setAnonymousUser();
-      console.log('%c  ✅ (( anonymous user connected )) ', 'color: #00aeff');
       setConnectionStatus(ConnectionStatus.CONNECTED);
     }
 
@@ -72,31 +48,23 @@ const ChatProvider = ({ children }) => {
           await connectAnonymously();
         }
       } catch (error) {
-        console.error('[ChatProvider] Error setting user on StreamChatClient');
-        console.error(error);
-        console.groupEnd();
-
-        // We gracefully ignore a
-        // if (!error.includes('setUser was called twice')) {
+        console.error('ChatProvider error: ', error);
         setConnectionStatus(ConnectionStatus.ERROR);
-        // }
       }
     }
 
-    connect();
-    console.groupEnd();
+    if (connectionStatus === ConnectionStatus.DISCONNECTED) {
+      connect();
+    }
 
+    // Cleanup / Disconnect
     return async () => {
-      console.log(
-        '%c🛑 Disconnecting | status before disconnect: ' + connectionStatus,
-        'color: tomato; font-weight: bold;'
-      );
       if (connectionStatus === ConnectionStatus.CONNECTED) {
         setConnectionStatus(ConnectionStatus.DISCONNECTED);
         await StreamChatClient.disconnect();
       }
     };
-  }, [chatUser]);
+  }, [isLoggedIn, chatUser, chatToken, connectionStatus]);
 
   return <ChatContext.Provider value={connectionStatus}>{children}</ChatContext.Provider>;
 };
