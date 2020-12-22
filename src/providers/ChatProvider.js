@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { useAuth } from 'auth';
-import { useCurrentUserForChat } from 'hooks'; // local folder
+import { useCurrentUserForChat } from 'hooks';
 
 import { StreamChatClient } from 'stream-chat-client';
 
@@ -22,6 +22,7 @@ const ChatProvider = ({ children }) => {
   const { chatUser, chatToken } = useCurrentUserForChat();
   const [connectionStatus, setConnectionStatus] = useState(ConnectionStatus.DISCONNECTED);
 
+  // Initialize user with Stream Chat client, and respond to changes in authentication state
   useEffect(() => {
     async function connectUser() {
       setConnectionStatus(ConnectionStatus.CONNECTING);
@@ -37,10 +38,12 @@ const ChatProvider = ({ children }) => {
 
     async function connect() {
       try {
+        // Connect as authenticated user if we're ready to do so
         if (isLoggedIn && chatUser && chatToken) {
           await connectUser();
         }
 
+        // Connect as anonymous user if unauthenticated
         if (!isLoggedIn) {
           await connectAnonymously();
         }
@@ -50,6 +53,7 @@ const ChatProvider = ({ children }) => {
       }
     }
 
+    // If we're disconnected, try to connect
     if (connectionStatus === ConnectionStatus.DISCONNECTED) {
       connect();
     }
