@@ -74,6 +74,10 @@
   background: none;
 }
 
+.str-chat__typing-indicator {
+  display: none;
+}
+
 /* DEBUG FOR BOOTSTRAP GRID */
 [class^='col'] {
   /* background-color: rgba(255, 0, 0, 0.33) !important; */
