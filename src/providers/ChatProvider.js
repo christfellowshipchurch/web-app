@@ -5,9 +5,6 @@ import { useCurrentUserForChat } from 'hooks'; // local folder
 
 import { StreamChatClient } from 'stream-chat-client';
 
-// ⚠️⚠️⚠️ Dev Only
-window.StreamChatClient = StreamChatClient;
-
 // :: Enums & Actions
 const ConnectionStatus = Object.freeze({
   CONNECTED: 'CONNECTED',
@@ -69,6 +66,7 @@ const ChatProvider = ({ children }) => {
   return <ChatContext.Provider value={connectionStatus}>{children}</ChatContext.Provider>;
 };
 
+// :: Hook
 function useChat() {
   const context = useContext(ChatContext);
 

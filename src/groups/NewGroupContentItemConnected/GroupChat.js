@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { useQuery } from 'react-apollo';
-import { get, isNil } from 'lodash';
 
-import { Streami18n, StreamChatClient, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { Streami18n } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 import { Chat, Channel, Window, MessageList } from 'stream-chat-react';
 
-import { useAuth } from 'auth';
+import { useChat, ConnectionStatus } from 'providers/ChatProvider';
 
 // UI
 import { Loader } from 'ui';
 import { Message, MessageInput, ChatError } from 'ui/chat';
-
-import { GET_CURRENT_USER_FOR_CHAT } from 'content-single/EventContentItem/queries';
 
 const ChatContainer = styled.div`
   position: relative;
@@ -28,67 +24,34 @@ const ChatContainer = styled.div`
 
 const GroupChat = ({ channelId, channelType }) => {
   // User data
-  const { isLoggedIn } = useAuth();
-  const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
-    skip: !isLoggedIn,
-  });
+  const [StreamChatClient, connectionStatus] = useChat();
 
-  const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
+  const loading =
+    connectionStatus === ConnectionStatus.CONNECTING ||
+    connectionStatus === ConnectionStatus.DISCONNECTED;
+  const error = !channelId || !channelType || connectionStatus === ConnectionStatus.ERROR;
 
   // State Data
   const [channel, setChannel] = useState(null);
-  const [connectionError, setConnectionError] = useState(false);
 
-  // Effects and Event Listeners
+  // Stream Chat Connection management
   useEffect(() => {
-    const handleUserConnection = async () => {
-      console.group('[chat]%c 🟢 handleUserConnection()', 'color: limegreen;');
-      try {
-        // Initialize user first
-        const shouldConnectAsUser =
-          isLoggedIn &&
-          !loading &&
-          data &&
-          !isNil(get(data, 'currentUser.streamChatToken')) &&
-          get(StreamChatClient, 'userID') !== currentUserId;
+    async function initGroupChannel() {
+      const newChannel = StreamChatClient.channel(channelType.toLowerCase(), channelId);
+      setChannel(newChannel);
+      console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
+    }
 
-        if (shouldConnectAsUser) {
-          await StreamChatClient.setUser(
-            ChatUtils.getStreamUser(data.currentUser),
-            data.currentUser.streamChatToken
-          );
-        } else if (!isLoggedIn) {
-          setConnectionError(true);
-        }
+    if (connectionStatus === ConnectionStatus.CONNECTED) {
+      initGroupChannel();
+    }
 
-        // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel(channelType.toLowerCase(), channelId);
-        setChannel(newChannel);
-        console.log('[chat] 🔴💬 Group channel (newChannel):', newChannel);
-
-        // ⚠️ Temporary/to be removed prior to end-user release
-        setTimeout(() => {
-          ChatUtils.logChannelMembers(newChannel);
-        }, 1000);
-      } catch (err) {
-        console.log('❌%c Chat connection error ❌', 'color: red');
-        console.error(err);
-        setConnectionError(true);
-      }
-
-      console.groupEnd();
-    };
-
-    handleUserConnection();
-
-    return async () => {
-      console.log('[chat] 🟠%c Cleanup handleUserConnection 🧹', 'color: orange');
+    return () => {
       setChannel(null);
-      await StreamChatClient.disconnect();
     };
-  }, [isLoggedIn, loading, data, channelId, currentUserId]);
+  }, [connectionStatus]);
 
-  if (error || connectionError) {
+  if (error) {
     return (
       <ChatContainer>
         <ChatError />
@@ -96,7 +59,7 @@ const GroupChat = ({ channelId, channelType }) => {
     );
   }
 
-  if (loading || !channel) {
+  if (loading) {
     return (
       <ChatContainer>
         <Loader />
