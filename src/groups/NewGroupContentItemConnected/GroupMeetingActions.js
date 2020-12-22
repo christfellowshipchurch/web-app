@@ -102,7 +102,7 @@ GroupMeetingActions.propTypes = {
     passcode: PropTypes.string,
   }),
   videoCall: PropTypes.shape({
-    labelText: PropTypes.shape,
+    labelText: PropTypes.string,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
