@@ -13,7 +13,7 @@
   "articles": "/discover/articles",
   "browse": "/discover",
   "welcome-home": "/events/were-open",
-  "join-church-online": "/",
-  "tune-in-online": "/",
-  "a-christmas-service-for-everyone": "/events/join-us-for-christmas"
+  "join-church-online": "/events/tune-in-online",
+  "a-christmas-service-for-everyone": "/events/tune-in-online",
+  "join-us-for-christmas": "/events/tune-in-online"
 }
