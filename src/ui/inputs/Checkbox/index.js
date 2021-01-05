@@ -8,28 +8,19 @@ const Checkbox = ({ checked, onClick, type, label, error, disabled, ...buttonPro
     typeof type === 'string' ? { default: type, hover: type, checked: type } : type;
 
   if (!!disabled) {
+    types.default = '#353535';
     types.checked = '#353535';
     types.hover = '#353535';
   }
 
   return (
-    <div className="text-left">
-      <a
-        href="/#"
-        onClick={(e) => {
-          e.preventDefault();
-          onClick();
-        }}
-        disabled={disabled}
-        className={classnames('btn-checkbox')}
-        {...buttonProps}
-      >
-        <Icon
-          name={checked ? 'check-square' : 'square'}
-          fill={checked ? types.checked : types.default}
-          size={22}
-        />
-      </a>
+    <div className={`text-left mb-1 ${disabled ? '' : 'cursor-hover'}`}>
+      <Icon
+        onClick={onClick}
+        name={checked ? 'check-square' : 'square'}
+        fill={checked ? types.checked : types.default}
+        size={22}
+      />
       {error && (
         <label className={classnames('ml-2', 'input-label-sm', 'text-danger')}>
           {error}
@@ -53,6 +44,7 @@ Checkbox.propTypes = {
   ]),
   label: PropTypes.string,
   disabled: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 Checkbox.defaultProps = {
@@ -64,7 +56,8 @@ Checkbox.defaultProps = {
     checked: '#00aeff',
   },
   label: null,
-  disabled: false,
+  disabled: null,
+  error: null,
 };
 
 export default Checkbox;

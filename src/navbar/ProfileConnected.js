@@ -7,7 +7,7 @@ import { Media, Loader } from '../ui';
 import { Icon } from '../ui/Icons';
 import { GET_PROFILE_IMAGE } from './queries';
 
-const ProfileConnected = ({ size }) => {
+const ProfileConnected = ({ size, isDark }) => {
   const { logIn, isLoggedIn } = useAuth();
   const { error, loading, data } = useAuthQuery(GET_PROFILE_IMAGE);
 
@@ -49,19 +49,20 @@ const ProfileConnected = ({ size }) => {
     <Icon
       onClick={() => logIn()}
       name="user-circle"
-      fill="#525252"
+      fill={isDark ? '#ffffff' : '#525252'}
       size={32}
-      className="cursor-hover"
     />
   );
 };
 
 ProfileConnected.propTypes = {
   size: PropTypes.number,
+  isDark: PropTypes.bool,
 };
 
 ProfileConnected.defaultProps = {
   size: 45,
+  isDark: false,
 };
 
 export default ProfileConnected;

@@ -65,6 +65,7 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
 
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'streamChatChannel.channelId', null);
+  const channelType = get(liveStream, 'streamChatChannel.channelType', null);
   const callsToAction = liveStream?.actions || [];
 
   return (
@@ -84,7 +85,12 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
             <EventHeading {...content} isLive />
           </Area>
           <Area area="chat">
-            <EventPanel event={content} isLive channelId={channelId} />
+            <EventPanel
+              event={content}
+              isLive
+              channelId={channelId}
+              channelType={channelType}
+            />
           </Area>
           <Area area="cta">
             <CallsToAction

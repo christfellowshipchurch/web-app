@@ -1,6 +1,7 @@
 import React from 'react';
-import { get } from 'lodash';
-import { User, Users, BabyCarriage } from '../../../ui/Icons';
+import PropTypes from 'prop-types';
+import { get, has } from 'lodash';
+import { User } from '../../../ui/Icons';
 import { TextInput } from '../../../ui';
 
 const DemographicForm = ({ errors, setFieldValue, values, loading }) => (
@@ -13,6 +14,11 @@ const DemographicForm = ({ errors, setFieldValue, values, loading }) => (
           onChange={(e) => setFieldValue('firstName', get(e, 'target.value', ''))}
           icon={User}
           disabled={loading}
+          error={
+            has(values, 'firstName') && has(errors, 'firstName')
+              ? get(errors, 'firstName', null)
+              : null
+          }
         />
       </div>
     </div>
@@ -24,38 +30,22 @@ const DemographicForm = ({ errors, setFieldValue, values, loading }) => (
           onChange={(e) => setFieldValue('lastName', get(e, 'target.value', ''))}
           icon={User}
           disabled={loading}
-        />
-      </div>
-    </div>
-    <div className="row my-4">
-      <div className="col">
-        <TextInput
-          label="Number of Adults Attending"
-          value={get(values, 'adults', 1)}
-          onChange={(e) => setFieldValue('adults', get(e, 'target.value', ''))}
-          icon={Users}
-          type="number"
-          min="1"
-          disabled={loading}
-        />
-      </div>
-    </div>
-    <div className="row my-4">
-      <div className="col">
-        <TextInput
-          label="Number of Children Attending"
-          // value={get(values, 'children', 0)}
-          //TEMPORARY FIX FOR STRING ERROR
-          value={'0'}
-          onChange={(e) => setFieldValue('children', get(e, 'target.value', ''))}
-          icon={BabyCarriage}
-          type="number"
-          min="0"
-          disabled={loading}
+          error={
+            has(values, 'lastName') && has(errors, 'lastName')
+              ? get(errors, 'lastName', null)
+              : null
+          }
         />
       </div>
     </div>
   </React.Fragment>
 );
+
+DemographicForm.propTypes = {
+  errors: PropTypes.array,
+  setFieldValue: PropTypes.func,
+  values: PropTypes.object,
+  loading: PropTypes.bool,
+};
 
 export default DemographicForm;
