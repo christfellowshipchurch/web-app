@@ -228,9 +228,22 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
     setActiveDmChannel(recipientDmChannel);
   };
 
-  if (loading) return <Loader />;
-  if (error) return <ChatError />;
+  if (loading) {
+    return (
+      <ChatContainer>
+        <Loader />
+      </ChatContainer>
+    );
+  }
 
+  if (error) {
+    return (
+      <ChatContainer>
+        <ChatError />
+      </ChatContainer>
+    );
+  }
+  
   return (
     <ChatContainer>
       <LiveStreamChat channel={channel} onInitiateDm={handleInitiateDm} />
