@@ -40,7 +40,10 @@ const LinkTree = () => {
       <div className="row">
         {actions.map((action) => (
           <div className={className}>
-            <a href={action.relatedNode.url} className="btn btn-block btn-primary">
+            <a
+              href={action.relatedNode.url}
+              className="btn btn-block btn-primary text-white"
+            >
               {action.title}
             </a>
           </div>
