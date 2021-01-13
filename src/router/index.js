@@ -17,6 +17,7 @@ import Profile from './Profile';
 import Animations from './Animations';
 import Campuses from './Campuses';
 import Live from './Live';
+import LinkTree from './LinkTree';
 
 const RedirectMapper = (props) => {
   // get page title from props
@@ -52,6 +53,7 @@ const Router = () => (
     <Route path="/locations" component={Campuses} />
     <Route path="/error" component={ErrorBlock} />
     <Route path="/live" component={Live} />
+    <Route path="/info" component={LinkTree} />
 
     <Route exact path="/:page" component={RedirectMapper} />
 
