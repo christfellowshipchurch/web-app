@@ -23,7 +23,7 @@ const GET_LINK_TREE = gql`
 
 const LinkTree = () => {
   const { data, loading, error } = useQuery(GET_LINK_TREE, {
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: 'network-only',
   });
 
   /**
