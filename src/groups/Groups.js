@@ -69,7 +69,7 @@ const Groups = () => {
               className="col-md-4 btn btn-blk btn-outline-dark"
               onClick={() => logIn()}
             >
-              Login For Your Groups
+              Log In For Your Groups
             </button>
           </div>
         </section>
