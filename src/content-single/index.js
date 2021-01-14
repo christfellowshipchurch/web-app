@@ -62,7 +62,11 @@ const ContentSingle = ({ itemId }) => {
 
   return (
     <>
-      <InteractWhenLoadedConnected isLoading={loading} nodeId={itemId} action={`VIEW`} />
+      <InteractWhenLoadedConnected
+        isLoading={loading}
+        nodeId={itemId}
+        action={`COMPLETE`}
+      />
       <Metadata
         tags={uniqBy(
           [
