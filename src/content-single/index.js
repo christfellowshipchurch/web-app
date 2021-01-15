@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
-import { get, uniqBy } from 'lodash';
+import { get, uniqBy, isEmpty } from 'lodash';
 
 import Metadata from '../metadata';
 import { InteractWhenLoadedConnected, TrackEventWhenLoaded } from '../ui-connected';
@@ -14,6 +14,7 @@ const ContentSingle = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_CONTENT_ITEM, {
     variables: {
       itemId,
+      skip: !itemId || isEmpty(itemId),
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -60,6 +61,13 @@ const ContentSingle = ({ itemId }) => {
     }
   };
 
+  const trackLoaded =
+    !!itemId &&
+    !loading &&
+    !isEmpty(itemId) &&
+    !!content.id &&
+    !(String(window.performance.getEntriesByType('navigation')[0].type) === 'reload');
+
   return (
     <>
       <InteractWhenLoadedConnected
@@ -68,7 +76,7 @@ const ContentSingle = ({ itemId }) => {
         action={`COMPLETE`}
       />
       <TrackEventWhenLoaded
-        loaded={!!(!loading && content.title)}
+        loaded={trackLoaded}
         eventName={'View Content'}
         properties={{
           title: content.title,
