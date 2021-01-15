@@ -4,8 +4,10 @@ import { useMutation } from 'apollo-client';
 import gql from 'graphql-tag';
 
 const TRACK = gql`
-  mutation track($properties: [AnalyticsMetaField]!, $eventName: String!) {
-    track(properties: $properties, eventName: $eventName) @client
+  mutation track($input: AnalyticsTrackInput!) {
+    trackEvent(input: $input) {
+      success
+    }
   }
 `;
 
