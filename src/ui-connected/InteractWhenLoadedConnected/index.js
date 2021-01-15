@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
+import { useAuth } from 'auth';
 import INTERACT_WITH_NODE from './interactWithNode';
 
 class InteractWhenLoaded extends PureComponent {
@@ -31,14 +32,20 @@ InteractWhenLoaded.propTypes = {
   mutate: PropTypes.func.isRequired,
 };
 
-const InteractWhenLoadedConnected = (props) => (
-  <Mutation
-    mutation={INTERACT_WITH_NODE}
-    variables={{ nodeId: props.nodeId, action: props.action }}
-  >
-    {(mutate) => <InteractWhenLoaded {...props} mutate={mutate} />}
-  </Mutation>
-);
+const InteractWhenLoadedConnected = (props) => {
+  const { isLoggedIn } = useAuth();
+
+  if (!isLoggedIn) return null;
+
+  return (
+    <Mutation
+      mutation={INTERACT_WITH_NODE}
+      variables={{ nodeId: props.nodeId, action: props.action }}
+    >
+      {(mutate) => <InteractWhenLoaded {...props} mutate={mutate} />}
+    </Mutation>
+  );
+};
 
 InteractWhenLoadedConnected.propTypes = {
   nodeId: PropTypes.string,

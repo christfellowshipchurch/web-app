@@ -4,7 +4,7 @@ import { useQuery } from 'react-apollo';
 import { get, uniqBy } from 'lodash';
 
 import Metadata from '../metadata';
-import { InteractWhenLoadedConnected } from '../ui-connected';
+import { InteractWhenLoadedConnected, TrackEventWhenLoaded } from '../ui-connected';
 import { GET_CONTENT_ITEM } from './queries';
 import UniversalContentItem from './UniversalContentItem';
 import EventContentItem from './EventContentItem';
@@ -66,6 +66,14 @@ const ContentSingle = ({ itemId }) => {
         isLoading={loading}
         nodeId={itemId}
         action={`COMPLETE`}
+      />
+      <TrackEventWhenLoaded
+        loaded={!!(!loading && content.title)}
+        eventName={'View Content'}
+        properties={{
+          title: content.title,
+          itemId,
+        }}
       />
       <Metadata
         tags={uniqBy(

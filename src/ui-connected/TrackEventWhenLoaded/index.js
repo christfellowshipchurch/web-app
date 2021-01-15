@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useMutation } from 'apollo-client';
+import { useMutation } from 'react-apollo';
 import gql from 'graphql-tag';
+
+import { useAuth } from 'auth';
 
 const TRACK = gql`
   mutation track($input: AnalyticsTrackInput!) {
@@ -19,17 +21,20 @@ const objectToGqlInput = (props = {}) =>
 
 const TrackEventWhenLoadedConnected = ({ loaded, eventName, properties }) => {
   const [track] = useMutation(TRACK);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && isLoggedIn) {
       track({
         variables: {
-          eventName,
-          properties: objectToGqlInput(properties),
+          input: {
+            eventName,
+            properties: objectToGqlInput(properties),
+          },
         },
       });
     }
-  }, [loaded]);
+  }, [loaded, isLoggedIn]);
 
   return null;
 };

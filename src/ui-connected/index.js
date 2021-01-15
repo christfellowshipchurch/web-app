@@ -4,8 +4,10 @@ import PageBuilderConnected, {
 } from './PageBuilderConnected';
 
 import InteractWhenLoadedConnected from './InteractWhenLoadedConnected';
+import TrackEventWhenLoaded from './TrackEventWhenLoaded';
 
 export {
+  TrackEventWhenLoaded,
   InteractWhenLoadedConnected,
   PageBuilderConnected,
   pageBuilderComponentMapper,
