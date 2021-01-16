@@ -61,12 +61,7 @@ const ContentSingle = ({ itemId }) => {
     }
   };
 
-  const trackLoaded =
-    !!itemId &&
-    !loading &&
-    !isEmpty(itemId) &&
-    !!content.id &&
-    !(String(window.performance.getEntriesByType('navigation')[0].type) === 'reload');
+  const trackLoaded = !!itemId && !loading && !isEmpty(itemId) && !!content.id;
 
   return (
     <>
