@@ -130,6 +130,7 @@ export const GET_ARTICLE_BY_TITLE = gql`
 export const GET_ARTICLE_CATEGORIES = gql`
   query getArticleCategories($id: ID!) {
     node(id: $id) {
+      id
       ... on ContentItem {
         ...accessoryFragment
       }
@@ -141,6 +142,7 @@ export const GET_ARTICLE_CATEGORIES = gql`
 export const GET_RELATED_ARTICLES = gql`
   query getRelatedArticles($id: ID!) {
     node(id: $id) {
+      id
       ... on ContentItem {
         siblingContentItemsConnection(first: 4) {
           edges {
