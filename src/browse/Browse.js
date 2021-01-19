@@ -15,6 +15,7 @@ const Browse = ({
   filter: defaultFilter,
   category: defaultCategory,
   title: defaultTitle,
+  openSearch,
 }) => {
   const [activeFilterId, setActiveFilterId] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
@@ -55,7 +56,7 @@ const Browse = ({
   return (
     <div className={classnames('container-fluid', 'mt-4', 'mt-lg-6', 'mb-0', 'px-2')}>
       <div className="row">
-        <Search onChange={({ hide }) => setSearchMode(hide)} />
+        <Search onChange={({ hide }) => setSearchMode(hide)} focus={openSearch} />
       </div>
 
       <div
@@ -112,12 +113,14 @@ Browse.propTypes = {
   filter: PropTypes.string,
   category: PropTypes.string,
   title: PropTypes.string,
+  openSearch: PropTypes.bool,
 };
 
 Browse.defaultProps = {
   filter: null,
   category: null,
   title: null,
+  openSearch: false,
 };
 
 export default Browse;

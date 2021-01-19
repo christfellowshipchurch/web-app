@@ -7,8 +7,8 @@ import { Icon } from '../../ui/Icons';
 import SearchFeed from './SearchFeed';
 import { PreSearchFeed } from './OtherFeeds';
 
-const Search = ({ onChange }) => {
-  const [isFocused, setIsFocused] = useState(false);
+const Search = ({ onChange, focus }) => {
+  const [isFocused, setIsFocused] = useState(focus);
   const [onClear, setOnClear] = useState(false);
   const [value, setValue] = useState('');
 
@@ -88,10 +88,12 @@ const Search = ({ onChange }) => {
 
 Search.propTypes = {
   onChange: PropTypes.func,
+  focus: PropTypes.bool,
 };
 
 Search.defaultProps = {
   onChange: () => {},
+  focus: false,
 };
 
 export default Search;
