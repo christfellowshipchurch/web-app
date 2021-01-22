@@ -1,7 +1,14 @@
 import React from 'react';
 import classnames from 'classnames';
 import { Media } from '../../ui';
-import { bookImage, onlineIcon, contactIcon, homeIcon, sermonIcon } from './images';
+import {
+  bookImage,
+  onlineIcon,
+  contactIcon,
+  homeIcon,
+  sermonIcon,
+  unpluggedImage,
+} from './images';
 
 const ErrorLink = ({ icon, call, action }) => (
   <div className={classnames('row', 'mt-3', 'd-flex', 'align-items-center')}>
@@ -30,7 +37,12 @@ const ErrorBlock = () => {
         'my-6'
       )}
     >
-      <Media imageUrl={bookImage} imageAlt="404 Image" ratio="21by9" className="w-75" />
+      <Media
+        imageUrl={unpluggedImage}
+        imageAlt="404 Image"
+        ratio="21by9"
+        className="w-75"
+      />
       <h1 className={classnames('mt-4')}>Page Not Found</h1>
       <p className={classnames('text-center', 'my-2', 'mx-3')}>
         The page you’re looking for doesn’t exist, or is unavailable. Here’s some helpful
