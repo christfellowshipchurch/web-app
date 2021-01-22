@@ -28,7 +28,7 @@ const DesktopNav = ({ navLinks, menuLinks, quickAction, isDark }) => {
   return (
     <div className="d-none d-lg-flex align-items-center">
       <Nav.Link href="/discover/search">
-        <Icon name="search" fill="#FFFFFF" />
+        <Icon name="search" fill="#828282" />
       </Nav.Link>
       {navLinks.map((link, i) => (
         <Nav.Link
