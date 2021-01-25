@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { GoogleAnalytics } from 'analytics';
@@ -52,11 +52,22 @@ const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime })
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
   const [interaction] = useInteraction();
 
+  useEffect(() => {
+    if (!isEmpty(items)) {
+      const intervalId = setInterval(
+        () => setCTA(filterItems(items, eventStartTime)),
+        MINUTE
+      );
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, []);
+
   if (isEmpty(items)) {
     return null;
   }
-
-  setInterval(() => setCTA(filterItems(items, eventStartTime)), MINUTE);
 
   return (
     <>

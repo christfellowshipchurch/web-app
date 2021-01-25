@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
-import { useQuery, useLazyQuery } from 'react-apollo';
-import { get, isEmpty, isNil } from 'lodash';
+import { useLazyQuery } from 'react-apollo';
+import { get, isEmpty } from 'lodash';
 
 import { baseUnit } from 'styles/theme';
 
-import { StreamChatClient, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
+import { ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import { useAuth } from 'auth';
+import { useChat, ConnectionStatus } from 'providers/ChatProvider';
 
 // UI
 import { Loader, Icon } from 'ui';
 import { ChatError } from 'ui/chat';
 
-import { GET_CURRENT_USER_FOR_CHAT, GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
+import { GET_CURRENT_USER_ROLE_FOR_CHANNEL } from '../queries';
 
 import LiveStreamChat from './LiveStreamChat';
 import DirectMessagesChat from './DirectMessagesChat';
@@ -85,11 +86,13 @@ const BackLabel = styled.span`
 // Main Component
 // ------------------------
 const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
-  // User data
   const { isLoggedIn } = useAuth();
-  const { loading, data, error } = useQuery(GET_CURRENT_USER_FOR_CHAT, {
-    skip: !isLoggedIn,
-  });
+  const [StreamChatClient, connectionStatus] = useChat();
+
+  const connecting = connectionStatus === ConnectionStatus.CONNECTING;
+  const disconnected = connectionStatus === ConnectionStatus.DISCONNECTED;
+  const loading = connecting || disconnected;
+  const error = !channelId || !channelType || connectionStatus === ConnectionStatus.ERROR;
 
   // The user role query is separate and invoked manually at the right time, since
   // the channel must exist first before we can request our role in it.
@@ -108,132 +111,89 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
   //   ? get(roleQueryData, 'currentUser.streamChatRole', null)
   //   : ChatRoles.GUEST;
 
-  const currentUserId = ChatUtils.stripPrefix(get(data, 'currentUser.id'));
-
   // State Data
   const [channel, setChannel] = useState(null);
-  const [connectionError, setConnectionError] = useState(false);
 
   // Direct Messages
   const [dmChannels, setDmChannels] = useState([]);
   const [dmChannelsVisible, setDmChannelsVisible] = useState([]);
   const [activeDmChannel, setActiveDmChannel] = useState(null);
 
+  // ✂️ ----------------------------------------------------------------------------------------------
+  // Fetches DMs and filters by most recent
+  const getDmChannels = async () => {
+    // All DM channels, whether recent or not
+    const dmChannelsResponse = await ChatUtils.getUserDmChannels();
+    setDmChannels(dmChannelsResponse);
+
+    // Only recently active DM channels
+    const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
+    setDmChannelsVisible(recentDmChannels);
+    console.groupEnd();
+  };
+
+  // Listener for events on the Stream Chat client
+  const handleClientEvent = (clientEvent) => {
+    const { type: eventType, channel_type: eventChannelType, user } = clientEvent;
+
+    // :: New DM messages
+    if (eventType === 'message.new' && eventChannelType === 'messaging') {
+      setActiveDmChannel((currentActiveDmChannel) => {
+        // Heavy handed, but just re-fetch a users' DM channels altogether when
+        // we receive a message and are *not currently viewing a conversation*.
+        if (!currentActiveDmChannel) {
+          getDmChannels();
+        }
+
+        // To prevent stale state data, and avoid having to useRef() etc, we'll start
+        // doing a state update on activeDmChannel but return the current value.
+        return currentActiveDmChannel;
+      });
+    }
+
+    // :: User watching count
+    if (
+      (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
+      (user.role === 'guest' || user.id !== StreamChatClient.user.id)
+    ) {
+      const watcherCount = get(clientEvent, 'watcher_count', 1);
+      onWatcherCountChange(watcherCount);
+    }
+  };
+  // ✂️ ----------------------------------------------------------------------------------------------
+
   // Stream Chat Connection management
   useEffect(() => {
-    // Fetches DMs and filters by most recent
-    const getDmChannels = async () => {
-      // All DM channels, whether recent or not
-      const dmChannelsResponse = await ChatUtils.getUserDmChannels();
-      setDmChannels(dmChannelsResponse);
+    async function initEventChannel() {
+      const newChannel = StreamChatClient.channel(channelType.toLowerCase(), channelId, {
+        parentId: get(event, 'id'),
+        name: get(event, 'title'),
+        startsAt: get(event, 'events[0].start'),
+        endsAt: get(event, 'events[0].end'),
+        uploads: false,
+      });
 
-      // Only recently active DM channels
-      const recentDmChannels = ChatUtils.filterRecentDmChannels(dmChannelsResponse);
-      setDmChannelsVisible(recentDmChannels);
-      console.groupEnd();
-    };
+      await newChannel.create();
+      await newChannel.watch();
+      setChannel(newChannel);
+      onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
 
-    // Listener for events on the Stream Chat client
-    const handleClientEvent = (clientEvent) => {
-      const { type: eventType, channel_type: eventChannelType, user } = clientEvent;
-
-      // :: New DM messages
-      if (eventType === 'message.new' && eventChannelType === 'messaging') {
-        setActiveDmChannel((currentActiveDmChannel) => {
-          // Heavy handed, but just re-fetch a users' DM channels altogether when
-          // we receive a message and are *not currently viewing a conversation*.
-          if (!currentActiveDmChannel) {
-            getDmChannels();
-          }
-
-          // To prevent stale state data, and avoid having to useRef() etc, we'll start
-          // doing a state update on activeDmChannel but return the current value.
-          return currentActiveDmChannel;
-        });
+      if (isLoggedIn) {
+        await getUserRole();
+        await getDmChannels();
       }
+      // subscribe to all client events and log the unread_count field
+      StreamChatClient.on(handleClientEvent);
+    }
 
-      // :: User watching count
-      if (
-        (eventType === 'user.watching.start' || eventType === 'user.watching.stop') &&
-        (user.role === 'guest' || user.id !== currentUserId)
-      ) {
-        const watcherCount = get(clientEvent, 'watcher_count', 1);
-        onWatcherCountChange(watcherCount);
-      }
-    };
+    if (connectionStatus === ConnectionStatus.CONNECTED) {
+      initEventChannel();
+    }
 
-    const handleUserConnection = async () => {
-      try {
-        // Initialize user first
-        const shouldConnectAsUser =
-          isLoggedIn &&
-          !loading &&
-          data &&
-          !isNil(get(data, 'currentUser.streamChatToken')) &&
-          get(StreamChatClient, 'userID') !== currentUserId;
-
-        if (shouldConnectAsUser) {
-          await StreamChatClient.setUser(
-            ChatUtils.getStreamUser(data.currentUser),
-            data.currentUser.streamChatToken
-          );
-        } else if (!isLoggedIn) {
-          await StreamChatClient.setGuestUser({ id: 'guest' });
-        }
-
-        // Initialize channel, if we properly connected as user or guest
-        const newChannel = StreamChatClient.channel(
-          channelType.toLowerCase(),
-          channelId,
-          {
-            parentId: get(event, 'id'),
-            name: get(event, 'title'),
-            startsAt: get(event, 'events[0].start'),
-            endsAt: get(event, 'events[0].end'),
-            uploads: false,
-          }
-        );
-        await newChannel.create();
-        await newChannel.watch();
-        setChannel(newChannel);
-
-        // Initialize value for number of people watching
-        onWatcherCountChange(get(newChannel, 'state.watcher_count', 1));
-
-        // Now that we're sure the channel exists, we can request the user's role for it
-        if (shouldConnectAsUser) {
-          await getUserRole();
-          await getDmChannels();
-
-          // subscribe to all client events and log the unread_count field
-          StreamChatClient.on(handleClientEvent);
-        }
-      } catch (err) {
-        console.error(err);
-        setConnectionError(true);
-      }
-    };
-
-    handleUserConnection();
-
-    return async () => {
+    return () => {
       setChannel(null);
-      setDmChannels([]);
-      setDmChannelsVisible([]);
-      setActiveDmChannel(null);
-      StreamChatClient.off(handleClientEvent);
-      await StreamChatClient.disconnect();
     };
-  }, [
-    isLoggedIn,
-    loading,
-    data,
-    channelId,
-    currentUserId,
-    getUserRole,
-    event,
-    onWatcherCountChange,
-  ]);
+  }, [connectionStatus]);
 
   // Handle "Send a Direct Message"
   const handleInitiateDm = async (recipientUserId) => {
@@ -245,7 +205,7 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
     // If not, create one.
     if (!recipientDmChannel) {
       recipientDmChannel = StreamChatClient.channel('messaging', {
-        members: [currentUserId, recipientUserId],
+        members: [StreamChatClient.user.id, recipientUserId],
       });
       await recipientDmChannel.create();
     }
@@ -268,7 +228,7 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
     setActiveDmChannel(recipientDmChannel);
   };
 
-  if (loading || loadingRole || !channel) {
+  if (loading) {
     return (
       <ChatContainer>
         <Loader />
@@ -276,7 +236,7 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
     );
   }
 
-  if (error || connectionError) {
+  if (error) {
     return (
       <ChatContainer>
         <ChatError />
@@ -303,7 +263,7 @@ const EventChat = ({ event, channelId, channelType, onWatcherCountChange }) => {
           )}
 
           <DirectMessagesDropdown
-            currentUserId={currentUserId}
+            currentUserId={StreamChatClient.user.id}
             channels={dmChannelsVisible}
             selectedChannel={activeDmChannel}
             onSelect={setActiveDmChannel}

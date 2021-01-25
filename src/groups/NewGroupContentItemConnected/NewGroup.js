@@ -9,8 +9,11 @@ import { baseUnit, themeGet } from 'styles/theme';
 import { Icon } from 'ui';
 import { Row, Col } from 'ui/grid';
 
+import { ChatProvider } from 'providers';
+import useFeatureFlag from 'hooks/useFeatureFlag';
+
 // Local components in order of appearance
-import useFeatureFlag from '../../hooks/useFeatureFlag';
+
 import EditGroupModal from '../EditGroup/EditGroupModal';
 import GroupImage from './GroupImage';
 import GroupMasthead from './GroupMasthead';
@@ -183,7 +186,9 @@ const NewGroup = ({
             )}
           </GroupTabContent>
           <GroupTabContent active={activeTab === Tabs.CHAT}>
-            <GroupChat channelId={channelId} channelType={chatChannelType} />
+            <ChatProvider>
+              <GroupChat channelId={channelId} channelType={chatChannelType} />
+            </ChatProvider>
           </GroupTabContent>
         </Col>
         <Col className="col-12 order-1 mt-3 mb-4 px-3  col-md-8 offset-md-2  col-lg-4 offset-lg-0 order-lg-2 mt-lg-0 mb-lg-0 px-lg-0 pr-lg-3">
@@ -242,7 +247,7 @@ NewGroup.propTypes = {
     passcode: PropTypes.string,
   }),
   videoCall: PropTypes.shape({
-    labelText: PropTypes.shape,
+    labelText: PropTypes.string,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
