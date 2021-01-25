@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
-import { get, uniqBy } from 'lodash';
+import { get, uniqBy, isEmpty } from 'lodash';
 
 import Metadata from '../metadata';
+import { InteractWhenLoadedConnected, TrackEventWhenLoaded } from '../ui-connected';
 import { GET_CONTENT_ITEM } from './queries';
 import UniversalContentItem from './UniversalContentItem';
 import EventContentItem from './EventContentItem';
@@ -13,6 +14,7 @@ const ContentSingle = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_CONTENT_ITEM, {
     variables: {
       itemId,
+      skip: !itemId || isEmpty(itemId),
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -59,8 +61,23 @@ const ContentSingle = ({ itemId }) => {
     }
   };
 
+  const trackLoaded = !!itemId && !loading && !isEmpty(itemId) && !!content.id;
+
   return (
     <>
+      <InteractWhenLoadedConnected
+        isLoading={loading}
+        nodeId={itemId}
+        action={`COMPLETE`}
+      />
+      <TrackEventWhenLoaded
+        loaded={trackLoaded}
+        eventName={'View Content'}
+        properties={{
+          title: content.title,
+          itemId,
+        }}
+      />
       <Metadata
         tags={uniqBy(
           [

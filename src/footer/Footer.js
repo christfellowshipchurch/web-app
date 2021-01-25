@@ -188,7 +188,7 @@ Footer.defaultProps = {
   connectLinks: [
     { call: 'Connect Card', action: 'https://rock.gocf.org/connect' },
     { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
-    { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
+    { call: 'Join Us In Prayer', action: '/events/first-wednesday' },
     {
       call: 'Subscribe to Updates',
       action:

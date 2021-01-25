@@ -18,9 +18,10 @@ const GroupListConnected = () => {
   }
 
   // Sort groups by date. TDOD: move this to the API
-  const groups = get(data, 'currentUser.profile.groups', []).sort((a, b) =>
-    moment(a.dateTime.start).diff(b.dateTime.start)
-  );
+  // const groups = get(data, 'currentUser.profile.groups', []).sort((a, b) =>
+  //   moment(a.dateTime.start).diff(b.dateTime.start)
+  // );
+  const groups = get(data, 'currentUser.profile.groups', []);
 
   return <GroupList isLoading={loading} groups={groups} />;
 };
