@@ -34,7 +34,7 @@ const ExternalHome = () => {
 
   const customPrimaryButtons = (
     <div className="my-6">
-      <CustomButton call="I'm New Here" action="/new" />
+      <CustomButton call="I'm New Here" action="/new-here" />
       <CustomButton call="I Attend CF" action="#login" onClick={() => logIn()} />
     </div>
   );
