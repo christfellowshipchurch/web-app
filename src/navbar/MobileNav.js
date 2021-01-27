@@ -45,7 +45,12 @@ const MobileNav = ({ navLinks, quickAction, isDark }) => {
         </div>
 
         <div className={classnames('d-flex', 'align-items-center', 'pl-3')}>
-          <Icon className="p-1" name="search" fill="#828282" size={22} />
+          <Icon
+            className="p-1"
+            name="search"
+            fill={isDark ? '#ffffff' : '#525252'}
+            size={22}
+          />
           <a
             className={classnames(
               'p-2',
