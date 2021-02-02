@@ -93,7 +93,8 @@ const UniversalContentItem = ({ itemId, loading, error, content }) => {
           )}
         </div>
       </div>
-      <RelatedArticles id={get(content, 'id')} />
+      {/* Temporarily Commenting out Realated Articles */}
+      {/* <RelatedArticles id={get(content, 'id')} /> */}
     </>
   );
 };
