@@ -93,7 +93,12 @@ const UniversalContentItem = ({ itemId, loading, error, content }) => {
           )}
         </div>
       </div>
-      {/* Temporarily Commenting out Realated Articles */}
+      {/* 
+        Temporarily commenting out Related Articles
+        due to content not reflecting what is displayed in
+        mobile app. Will be left until further notice
+      */}
+
       {/* <RelatedArticles id={get(content, 'id')} /> */}
     </>
   );
