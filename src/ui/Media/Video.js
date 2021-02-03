@@ -1,11 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isMobile } from 'react-device-detect';
 
 import LiveMediaPlayer from './LiveMediaPlayer';
 import VODMediaPlayer from './VODMediaPlayer';
 
 const MediaVideo = ({ isLive, ...props }) => {
-  return isLive ? <LiveMediaPlayer {...props} /> : <VODMediaPlayer {...props} />;
+  /**
+   * note : There's a weird issue going on where the player is getting completely remounted every time we query for more live streams. This is causing a bug where the playhead resets on certain streams. This is not happening on mobile, so we only want to use our custom "Live Player" on desktop live streams
+   */
+  return isLive && !isMobile ? (
+    <LiveMediaPlayer {...props} />
+  ) : (
+    <VODMediaPlayer {...props} />
+  );
 };
 
 MediaVideo.propTypes = {
