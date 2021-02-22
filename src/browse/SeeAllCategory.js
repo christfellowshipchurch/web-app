@@ -18,7 +18,7 @@ const SeeAllCategory = ({ categoryId, title, onBack }) => {
           }}
           className="h3 d-flex align-items-center"
         >
-          <AngleLeft size="24" />
+          <AngleLeft size={24} />
           {title}
         </a>
       </div>
