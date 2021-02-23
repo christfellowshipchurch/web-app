@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { kebabCase, toLower } from 'lodash';
 
 const BrowseFilters = ({ selected, onChange, filters }) => (
-  <ul className="list-inline text-nowrap overflow-x-scroll mb-n4">
+  <div className="row d-flex justify-content-center">
     {filters.map((n, i) => (
-      <li
+      <div
         key={i}
-        className="list-inline-item"
+        className="mr-2"
         onClick={(e) => {
           e.preventDefault();
           onChange({ id: n.id });
@@ -18,27 +18,20 @@ const BrowseFilters = ({ selected, onChange, filters }) => (
         <Link
           to={`/discover/${toLower(kebabCase(n.title))}`}
           style={{
-            border: selected !== n.id ? '1px solid #d6d6d6' : 'none',
+            border: selected !== n.id ? '2px solid #d6d6d6' : 'none',
             ...(selected === n.id ? { color: 'white' } : {}),
+            letterSpacing: 1,
           }}
-          className={classnames(
-            'h5',
-            'badge',
-            'px-3',
-            'py-1',
-            'focus-indicator-none',
-            'font-weight-normal',
-            {
-              'badge-primary': selected === n.id,
-              'badge-light': selected !== n.id,
-            }
-          )}
+          className={classnames('col', 'h5', 'btn', 'p-3', 'focus-indicator-none', {
+            'btn-primary': selected === n.id,
+            'btn-outline': selected !== n.id,
+          })}
         >
           {n.title}
         </Link>
-      </li>
+      </div>
     ))}
-  </ul>
+  </div>
 );
 
 BrowseFilters.propTypes = {
