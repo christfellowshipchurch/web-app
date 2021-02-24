@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { kebabCase, toLower } from 'lodash';
 
 const FilterButtons = ({ filters, selected, onChange, onClick }) => (
-  <div className="row justify-content-center my-0 my-md-4">
+  <div className="row justify-content-center my-0 mb-n5 my-md-4">
     {filters.map((n, i) => (
       <div
         key={i}

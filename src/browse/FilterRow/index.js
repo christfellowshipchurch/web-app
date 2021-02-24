@@ -5,7 +5,8 @@ import FilterButtons from './FilterButtons';
 import FilterModal from './FilterModal';
 
 const BrowseFilters = (props = {}) => {
-  return isMobile ? <FilterModal {...props} /> : <FilterButtons {...props} />;
+  // return isMobile ? <FilterModal {...props} /> : <FilterButtons {...props} />;
+  return <FilterButtons {...props} />;
 };
 
 export default BrowseFilters;
