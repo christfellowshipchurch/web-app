@@ -8,7 +8,7 @@ import { Card, Media, Icon } from 'ui';
 
 import { generateUrlLink } from '..';
 
-const CardLink = ({
+export const CardLink = ({
   onClick,
   children,
   className,

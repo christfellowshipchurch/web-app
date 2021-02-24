@@ -4,8 +4,10 @@ import { useQuery } from 'react-apollo';
 import { get, last, flatten, uniqBy, head } from 'lodash';
 import moment from 'moment';
 
+import { isMobile } from 'react-device-detect';
 import { ContentCard } from '../ui';
 import { LiveConsumer } from '../live/LiveContext';
+import { trimText } from '../utils';
 import GET_CONTENT_CARD from './queries';
 
 const generateEventGroupingLabel = (eventGroups) => {
@@ -147,7 +149,6 @@ const ContentCardConnected = ({
     <LiveConsumer contentId={contentId}>
       {(liveStream) => {
         const isLive = !!(liveStream && liveStream.isLive);
-
         return (
           <ContentCardConnectedWithQuery
             contentId={contentId}
