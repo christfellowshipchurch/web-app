@@ -1,63 +1,62 @@
-@import "../../../node_modules/bootstrap/scss/functions";
+@import '../../../node_modules/bootstrap/scss/functions';
 
 @import 'variables.scss';
-@import "../../../node_modules/bootstrap/scss/variables";
+@import '../../../node_modules/bootstrap/scss/variables';
 
-@import "../../../node_modules/bootstrap/scss/mixins";
+@import '../../../node_modules/bootstrap/scss/mixins';
 @import 'mixins.scss';
 
-@import "../../../node_modules/bootstrap/scss/root";
-@import "../../../node_modules/bootstrap/scss/reboot";
+@import '../../../node_modules/bootstrap/scss/root';
+@import '../../../node_modules/bootstrap/scss/reboot';
 
-@import "../../../node_modules/bootstrap/scss/type";
+@import '../../../node_modules/bootstrap/scss/type';
 @import 'type.scss';
 
-@import "../../../node_modules/bootstrap/scss/images";
-@import "../../../node_modules/bootstrap/scss/code";
-@import "../../../node_modules/bootstrap/scss/grid";
-@import "../../../node_modules/bootstrap/scss/tables";
+@import '../../../node_modules/bootstrap/scss/images';
+@import '../../../node_modules/bootstrap/scss/code';
+@import '../../../node_modules/bootstrap/scss/grid';
+@import '../../../node_modules/bootstrap/scss/tables';
 
-@import "../../../node_modules/bootstrap/scss/forms";
+@import '../../../node_modules/bootstrap/scss/forms';
 @import 'forms.scss';
 
-@import "../../../node_modules/bootstrap/scss/buttons";
+@import '../../../node_modules/bootstrap/scss/buttons';
 @import 'buttons.scss';
 
-@import "../../../node_modules/bootstrap/scss/transitions";
+@import '../../../node_modules/bootstrap/scss/transitions';
 
-@import "../../../node_modules/bootstrap/scss/dropdown";
+@import '../../../node_modules/bootstrap/scss/dropdown';
 @import 'dropdown.scss';
 
-@import "../../../node_modules/bootstrap/scss/button-group";
-@import "../../../node_modules/bootstrap/scss/input-group";
-@import "../../../node_modules/bootstrap/scss/custom-forms";
-@import "../../../node_modules/bootstrap/scss/nav";
-@import "../../../node_modules/bootstrap/scss/navbar";
+@import '../../../node_modules/bootstrap/scss/button-group';
+@import '../../../node_modules/bootstrap/scss/input-group';
+@import '../../../node_modules/bootstrap/scss/custom-forms';
+@import '../../../node_modules/bootstrap/scss/nav';
+@import '../../../node_modules/bootstrap/scss/navbar';
 
-@import "../../../node_modules/bootstrap/scss/card";
+@import '../../../node_modules/bootstrap/scss/card';
 @import 'card.scss';
 
-@import "../../../node_modules/bootstrap/scss/breadcrumb";
-@import "../../../node_modules/bootstrap/scss/pagination";
-@import "../../../node_modules/bootstrap/scss/badge";
-@import "../../../node_modules/bootstrap/scss/jumbotron";
-@import "../../../node_modules/bootstrap/scss/alert";
-@import "../../../node_modules/bootstrap/scss/progress";
-@import "../../../node_modules/bootstrap/scss/media";
-@import "../../../node_modules/bootstrap/scss/list-group";
-@import "../../../node_modules/bootstrap/scss/close";
-@import "../../../node_modules/bootstrap/scss/toasts";
-@import "../../../node_modules/bootstrap/scss/modal";
-@import "../../../node_modules/bootstrap/scss/tooltip";
-@import "../../../node_modules/bootstrap/scss/popover";
+@import '../../../node_modules/bootstrap/scss/breadcrumb';
+@import '../../../node_modules/bootstrap/scss/pagination';
+@import '../../../node_modules/bootstrap/scss/badge';
+@import '../../../node_modules/bootstrap/scss/jumbotron';
+@import '../../../node_modules/bootstrap/scss/alert';
+@import '../../../node_modules/bootstrap/scss/progress';
+@import '../../../node_modules/bootstrap/scss/media';
+@import '../../../node_modules/bootstrap/scss/list-group';
+@import '../../../node_modules/bootstrap/scss/close';
+@import '../../../node_modules/bootstrap/scss/toasts';
+@import '../../../node_modules/bootstrap/scss/modal';
+@import '../../../node_modules/bootstrap/scss/tooltip';
+@import '../../../node_modules/bootstrap/scss/popover';
 
-@import "../../../node_modules/bootstrap/scss/carousel";
+@import '../../../node_modules/bootstrap/scss/carousel';
 @import 'carousel.scss';
 
-@import "../../../node_modules/bootstrap/scss/spinners";
-@import "../../../node_modules/bootstrap/scss/utilities";
-@import "../../../node_modules/bootstrap/scss/print";
-
+@import '../../../node_modules/bootstrap/scss/spinners';
+@import '../../../node_modules/bootstrap/scss/utilities';
+@import '../../../node_modules/bootstrap/scss/print';
 
 @import 'borders.scss';
 @import 'sizing.scss';
@@ -71,7 +70,7 @@
 @import 'swoops.scss';
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 $lg-breakpoint: map-get($grid-breakpoints, lg);
@@ -81,230 +80,241 @@ $md-breakpoint: map-get($grid-breakpoints, md);
 
 // large background swoop sizing for md and up
 @media (min-width: $md-breakpoint) {
-    img.large-background-swoop {
-        object-fit: contain;
-        object-position: center bottom;
-    }
+  img.large-background-swoop {
+    object-fit: contain;
+    object-position: center bottom;
+  }
 
-    .location-banner {
-        height: 300px !important;
-    }
+  .location-banner {
+    height: 300px !important;
+  }
 }
 
 .location-banner {
-    height: 100vw;
+  height: 100vw;
 }
 
 .disable {
+  color: #e2e2e2;
+  cursor: default !important;
+  &:hover {
     color: #e2e2e2;
-    cursor: default !important;
-    &:hover {
-        color: #e2e2e2;
-    }
+  }
 
-    &:placeholder {
-        color: #e2e2e2;
-    }
+  &:placeholder {
+    color: #e2e2e2;
+  }
 }
 
 .cursor-hover {
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .opacity-hover {
-    &:hover {
-        opacity: 0.75;
-    }
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
-.focus-indicator-none:focus { 
-    outline-width: 0 !important;
-    border: none !important; 
-    border-width: 0 !important;
-    box-shadow: none !important;
+.focus-indicator-none:focus {
+  outline-width: 0 !important;
+  border: none !important;
+  border-width: 0 !important;
+  box-shadow: none !important;
 }
 
 .no-decoration,
 .no-decoration:hover,
 .no-decoration:focus {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 // Sets the sizing of the navbar for small devices only
 // This fixes a bug where a user has to scroll to the bottom
 //      of their screen to scroll down on the navbar
 @media (max-width: $lg-breakpoint) {
-    #user-profile-navbar-connected {
-        & .navbar-collapse {
-            max-height: 90vh;
-            overflow-y: scroll;
-        }
+  #user-profile-navbar-connected {
+    & .navbar-collapse {
+      max-height: 90vh;
+      overflow-y: scroll;
     }
+  }
 }
 //
 
-
 // Additional Backgrounds
-.bg-black { background-color: black !important; }
-.bg-body { background-color: $body-bg !important; }
+.bg-black {
+  background-color: black !important;
+}
+.bg-body {
+  background-color: $body-bg !important;
+}
 //
-
 
 // Image Styling
 .img-circle {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 100%;
-    align-self: center;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+  align-self: center;
 }
 //
-
 
 // Position Styling
-.p-absolute { position: absolute !important; }
-.p-relative { position: relative !important; }
-.p-fixed { position: fixed !important; }
+.p-absolute {
+  position: absolute !important;
+}
+.p-relative {
+  position: relative !important;
+}
+.p-fixed {
+  position: fixed !important;
+}
 .absolute-center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 //
-
 
 // Layout Helpers
-.fill { position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
-//
-
-
-// Nav
-.nav-link { 
-    font-weight: bold; 
+.fill {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 //
 
+// Nav
+.nav-link {
+  font-weight: bold;
+}
+//
 
 // Navbar
 .navbar-default {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    max-height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 50px;
 }
 
 .navbar-default img {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .navbar .navbar-expand {
-    .container-fluid{
-        max-width: 100%;
-    }
+  .container-fluid {
+    max-width: 100%;
+  }
 }
 //
 
-
 // Content Block
-.bg-content{
-    margin-left: 20%;
-    margin-right: 20%;
+.bg-content {
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
-.bg-body-text{
-    font-size: 1.4rem;
-    letter-spacing: 1.3px;
-    font-weight: 250;
+.bg-body-text {
+  font-size: 1.4rem;
+  letter-spacing: 1.3px;
+  font-weight: 250;
 }
 
 .subtitle {
-    letter-spacing: $letter-spacing-lg;
-    font-weight: 800;
+  letter-spacing: $letter-spacing-lg;
+  font-weight: 800;
 }
 //
-
 
 // ArticleDetail
 .author-image {
-    width: 80px;
-    height: auto;
+  width: 80px;
+  height: auto;
 }
 .article-subtitle {
-    font-size: 22px;
-    letter-spacing: 0.8px;
+  font-size: 22px;
+  letter-spacing: 0.8px;
 }
 //
 
-
 // Tabs Component
 @keyframes slideInFromRight {
-    0% {
-      transform: translateX(50px);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0px);
-      opacity: 1;
-    }
+  0% {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
 }
 .tab-icons ul {
-    animation: 1s ease-out 0s 1 slideInFromRight;
+  animation: 1s ease-out 0s 1 slideInFromRight;
 }
 //
 
 // Footer
-.footer { font-size: 14px; }
+.footer {
+  font-size: 14px;
+}
 //
 
 //Card scale
 .scale-media-up-on-hover {
-    & img, video {
-        transform: scale(1);
-        transition: 0.2s ease-out;
+  & img,
+  video {
+    transform: scale(1);
+    transition: 0.2s ease-out;
+  }
+
+  &:hover {
+    & img,
+    video {
+      transform: scale(1.03);
+      transition: 0.2s ease-out;
     }
-    
-    &:hover {
-        & img, video {
-            transform: scale(1.03);
-            transition: 0.2s ease-out;
-        }
-    }
+  }
 }
 .scale-up-on-hover:hover {
-    transform: scale(1.05);
-    transition: 0.2s ease-out;
+  transform: scale(1.05);
+  transition: 0.2s ease-out;
 }
 //
 
 // Profile
 .profile-banner {
-    max-height: 45vh !important;
-    @media (min-width: 768px) {
-        max-height: 35vh !important;
-    }
+  max-height: 45vh !important;
+  @media (min-width: 768px) {
+    max-height: 35vh !important;
+  }
 }
 .profile-bar {
-    @media (min-width: 768px) {
-        border-right: 1px solid lightgrey;
-    }
+  @media (min-width: 768px) {
+    border-right: 1px solid lightgrey;
+  }
 }
 //
 
 //Containers
-.container-fluid{ 
-    max-width: 1100px,
+.container-fluid {
+  max-width: 1100px;
 }
 //
 
 //Loading Text
 .loading-bar {
-    height: 12px;
-    background: $secondary;
-    border-radius: 0.3rem;
-    margin: 1rem;
-    animation: fadeInAndOut 1.5s infinite forwards;
+  height: 12px;
+  background: $secondary;
+  border-radius: 0.3rem;
+  margin: 1rem;
+  animation: fadeInAndOut 1.5s infinite forwards;
 }
 //
