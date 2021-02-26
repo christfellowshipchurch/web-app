@@ -86,6 +86,8 @@ const Name = styled.div`
   font-size: ${themeGet('fontSize.small')};
   font-weight: ${themeGet('fontWeight.medium')};
   color: ${themeGet('font[700]')};
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const SeeAllPlus = styled.div`
