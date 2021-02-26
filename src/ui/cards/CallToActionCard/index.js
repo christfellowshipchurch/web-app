@@ -108,7 +108,12 @@ const CallToActionCard = ({
 };
 
 CallToActionCard.propTypes = {
-  coverImage: PropTypes.object,
+  coverImage: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      uri: PropTypes.string,
+    })
+  ),
   icon: PropTypes.string,
   id: PropTypes.string,
   onClick: PropTypes.func,

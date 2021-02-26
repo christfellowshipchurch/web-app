@@ -44,6 +44,7 @@ const PanelBody = styled.div`
   z-index: 0;
   width: 100%;
   height: 100%;
+  background: ${({ theme }) => theme.card.background};
 `;
 
 const TabContent = styled.div`

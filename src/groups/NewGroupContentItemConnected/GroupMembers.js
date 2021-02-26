@@ -24,7 +24,7 @@ const MembersList = styled.div`
   grid-row-gap: 1.5rem;
 
   ${breakpoint('md')} {
-    grid-template-columns: repeat(${columnCount}, 1fr);
+    grid-template-columns: repeat(${columnCount}, minmax(0, 1fr));
   }
 `;
 

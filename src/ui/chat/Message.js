@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import { baseUnit } from 'styles/theme';
 
-import { Channel as ChannelType } from 'stream-chat';
+import { Message as StreamMessage } from 'stream-chat-react';
 import { ChatRoles, ChatUtils } from 'stream-chat-client'; // really: 'src/stream-chat-client/'
 
 import ChatAvatar from './ChatAvatar';
@@ -78,7 +78,7 @@ const Message = (props) => {
   }
 
   const userRole = ChatUtils.getRoleFromMembership(channel);
-  const canPerformActions = userRole !== ChatRoles.GUEST;
+  const canPerformActions = userRole !== ChatRoles.ANONYMOUS;
   const hoverEventListeners = canPerformActions
     ? {
         onMouseEnter: () => setHovered(true),
@@ -106,12 +106,12 @@ const Message = (props) => {
 };
 
 Message.propTypes = {
-  channel: PropTypes.instanceOf(ChannelType),
+  channel: StreamMessage.type.propTypes.channel,
   message: PropTypes.shape({
     id: PropTypes.string,
     text: PropTypes.string,
-    created_at: PropTypes.instanceOf(Date),
-    deleted_at: PropTypes.instanceOf(Date),
+    created_at: PropTypes.instanceOf(Date.constructor),
+    deleted_at: PropTypes.instanceOf(Date.constructor),
     user: PropTypes.shape({
       image: PropTypes.string,
       name: PropTypes.string,

@@ -122,7 +122,11 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
 
             {/* Side Column */}
             <Col className="col-12 col-lg-4  mt-3 mt-4-sm mt-lg-0  pr-lg-2 pr-xl-0">
-              <EventPanel event={content} channelId={channelId} />
+              <EventPanel
+                event={content}
+                channelId={channelId}
+                channelType={channelType}
+              />
             </Col>
           </Row>
 

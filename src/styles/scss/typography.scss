@@ -8,14 +8,48 @@
 }
 
 @each $breakpoint in map-keys($grid-breakpoints) {
-    @include media-breakpoint-up($breakpoint) {
-      $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
 
-      .h1#{$infix} { @include font-size($h1-font-size); @include headingsBaseStyles(); }
-      .h2#{$infix} { @include font-size($h2-font-size); @include headingsBaseStyles(); }
-      .h3#{$infix} { @include font-size($h3-font-size); @include headingsBaseStyles(); }
-      .h4#{$infix} { @include font-size($h4-font-size); @include headingsBaseStyles(); }
-      .h5#{$infix} { @include font-size($h5-font-size); @include headingsBaseStyles(); }
-      .h6#{$infix} { @include font-size($h6-font-size); @include headingsBaseStyles(); }
+    .h1#{$infix} {
+      @include font-size($h1-font-size);
+      @include headingsBaseStyles();
     }
+    .h2#{$infix} {
+      @include font-size($h2-font-size);
+      @include headingsBaseStyles();
+    }
+    .h3#{$infix} {
+      @include font-size($h3-font-size);
+      @include headingsBaseStyles();
+    }
+    .h4#{$infix} {
+      @include font-size($h4-font-size);
+      @include headingsBaseStyles();
+    }
+    .h5#{$infix} {
+      @include font-size($h5-font-size);
+      @include headingsBaseStyles();
+    }
+    .h6#{$infix} {
+      @include font-size($h6-font-size);
+      @include headingsBaseStyles();
+    }
+  }
+}
+
+.text-lines-1 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.text-lines-2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
 }

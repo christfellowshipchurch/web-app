@@ -18,6 +18,7 @@ const Browse = ({
   openSearch,
 }) => {
   const [activeFilterId, setActiveFilterId] = useState(null);
+  const [activeFilterTitle, setActiveFilterTitle] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [searchMode, setSearchMode] = useState(false);
   const [index, setIndex] = useState(0);
@@ -30,16 +31,25 @@ const Browse = ({
         'getBrowseFilters[0].childContentItemsConnection.edges',
         []
       );
-      const firstFilter = get(filters, '[0].node.id', '');
+      const firstFilter = get(filters, '[0].node', '');
       const filterId = defaultFilter
         ? get(
             find(filters, (n) => kebabCase(defaultFilter) === kebabCase(n.node.title)),
             'node.id',
-            firstFilter
+            firstFilter.id
           )
-        : firstFilter;
+        : firstFilter.id;
+
+      const filterTitle = defaultFilter
+        ? get(
+            find(filters, (n) => kebabCase(defaultFilter) === kebabCase(n.node.title)),
+            'node.title',
+            firstFilter.title
+          )
+        : firstFilter.title;
 
       setActiveFilterId(filterId);
+      setActiveFilterTitle(filterTitle);
     },
   });
 
@@ -73,13 +83,14 @@ const Browse = ({
           touch={false}
         >
           <Carousel.Item>
-            <div className="">
-              <FilterRow
-                filters={filters}
-                selected={activeFilterId}
-                onChange={({ id }) => setActiveFilterId(id)}
-              />
-            </div>
+            <FilterRow
+              filters={filters}
+              selected={{ id: activeFilterId, title: activeFilterTitle }}
+              onChange={({ id, title }) => [
+                setActiveFilterId(id),
+                setActiveFilterTitle(title),
+              ]}
+            />
 
             {!!activeFilterId && (
               <CategoryList

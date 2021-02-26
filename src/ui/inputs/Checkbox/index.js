@@ -44,7 +44,7 @@ Checkbox.propTypes = {
   ]),
   label: PropTypes.string,
   disabled: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 };
 
 Checkbox.defaultProps = {

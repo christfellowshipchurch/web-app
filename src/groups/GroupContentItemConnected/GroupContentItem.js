@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 
 import { baseUnit, themeGet } from 'styles/theme';
+import { ChatProvider } from 'providers';
 
 import Banner from 'content-single/Banner';
 import { AddToCalendar, Card, Icon } from 'ui';
@@ -92,6 +93,8 @@ const GroupContentItem = ({
     calendarLinkDescription += `\n${get(videoCall, 'link', '')}`;
   }
 
+  const chatEnabled = Boolean(chatChannelId && chatChannelType);
+
   return (
     <>
       <Banner coverImage={coverImage} shareTitle="Invite" title={title} />
@@ -104,9 +107,9 @@ const GroupContentItem = ({
         </hgroup>
 
         <section className="row mx-n2">
-          <aside className={classnames('col-12', { 'col-lg-4': summary }, 'p-2')}>
+          <aside className={classnames('col-12', 'col-lg-4', 'p-2')}>
             <Tab>Resources</Tab>
-            <Card key="EventOccurences" className="mb-3">
+            <Card key="EventOccurrences" className="mb-3">
               {get(parentVideoCall, 'link') && (
                 <a
                   className="btn btn-primary btn-block mb-3"
@@ -190,15 +193,15 @@ const GroupContentItem = ({
               </div>
             </Card>
           </aside>
-          <div className="col-12 col-lg-8 p-2" style={{ minHeight: '50vh' }}>
+          <div className="col-12 col-lg-8 p-2 mb-4" style={{ minHeight: '50vh' }}>
             <TabsContainer>
               <Tab
-                active={chatChannelId && activeTab === 'about'}
+                active={chatEnabled && activeTab === 'about'}
                 onClick={() => setActiveTab('about')}
               >
                 About
               </Tab>
-              {chatChannelId && (
+              {chatEnabled && (
                 <Tab active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
                   Chat
                 </Tab>
@@ -207,9 +210,11 @@ const GroupContentItem = ({
             {activeTab === 'about' && (
               <Card>{summary || 'Group summary unavailable'}</Card>
             )}
-            {chatChannelId && chatChannelType && activeTab === 'chat' && (
-              <Card>
-                <GroupChat channelId={chatChannelId} channelType={chatChannelType} />
+            {chatEnabled && activeTab === 'chat' && (
+              <Card style={{ height: '100%' }}>
+                <ChatProvider>
+                  <GroupChat channelId={chatChannelId} channelType={chatChannelType} />
+                </ChatProvider>
               </Card>
             )}
           </div>
@@ -252,6 +257,7 @@ GroupContentItem.propTypes = {
     passcode: PropTypes.string,
   }),
   chatChannelId: PropTypes.string,
+  chatChannelType: PropTypes.string,
 };
 
 export default GroupContentItem;

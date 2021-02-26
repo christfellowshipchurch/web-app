@@ -91,7 +91,7 @@ const EventGroupings = ({ groupings, defaultSelection, callsToAction, title }) =
         </Card>
       )}
 
-      <Card key="EventOccurences" className={classnames('mb-3')}>
+      <Card key="EventOccurrences" className={classnames('mb-3')}>
         <div className="">
           {get(selectedGroup, 'instances', []).length > 0 &&
             selectedGroup.instances.map(({ id, start, end }) => (

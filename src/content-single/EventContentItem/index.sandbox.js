@@ -5,7 +5,7 @@ import { get, isEmpty, isNil } from 'lodash';
 import { ErrorBlock } from 'ui';
 import { LiveConsumer } from 'live/LiveContext';
 
-import { TheaterModeProvider } from 'providers';
+import { TheaterModeProvider, ChatProvider } from 'providers';
 import EventLayout from './EventLayout';
 import EventLiveLayout from './EventLiveLayout';
 import Placeholder from './Placeholder';
@@ -21,13 +21,15 @@ const EventContentItem = ({ itemId, content, loading, error }) => {
       {(liveStream) => {
         const isLive = get(liveStream, 'isLive', false);
         return isLive ? (
-          <TheaterModeProvider>
-            <EventLiveLayout
-              contentId={itemId}
-              content={content}
-              liveStream={liveStream}
-            />
-          </TheaterModeProvider>
+          <ChatProvider>
+            <TheaterModeProvider>
+              <EventLiveLayout
+                contentId={itemId}
+                content={content}
+                liveStream={liveStream}
+              />
+            </TheaterModeProvider>
+          </ChatProvider>
         ) : (
           <EventLayout contentId={itemId} content={content} />
         );
