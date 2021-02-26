@@ -9,8 +9,11 @@ const BrowseUrlMapper = ({ match: { params } }) => (
     filter={get(params, 'filter', null)}
     category={get(params, 'category', null)}
     title={get(params, 'title', null)}
+    openSearch={get(params, 'filter') === 'search'}
   />
 );
+
+const SearchOnBrowse = () => <Browse openSearch={true} />;
 
 const Router = () => (
   <Switch>
