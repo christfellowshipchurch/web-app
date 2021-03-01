@@ -17,7 +17,6 @@ const RowCard = ({ id, title, coverImage, summary, urlBase, label, redirectUrl }
     redirectUrl,
   });
 
-  console.log({ href, urlBase, title, id, redirectUrl });
   return (
     <CardLink
       className={classnames('w-100', 'p-2', 'scale-media-up-on-hover', 'no-decoration')}
