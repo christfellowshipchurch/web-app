@@ -75,6 +75,7 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       }
       userId={get(data, 'currentUser.id')}
       videoCall={get(content, 'videoCall')}
+      parentVideoCall={get(content, 'parentVideoCall')}
       channelId={get(content, 'streamChatChannel.channelId')}
       chatChannelType={get(content, 'streamChatChannel.channelType', 'group')}
       onClickGroupResource={handleOnClickGroupResource}

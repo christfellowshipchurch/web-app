@@ -172,11 +172,11 @@ const NewGroup = ({
               active={activeTab === Tabs.ABOUT}
               onClick={handleTabClick}
             />
-            <GroupTab
+            {/* <GroupTab
               label="Chat"
               active={activeTab === Tabs.CHAT}
               onClick={handleTabClick}
-            />
+            /> */}
           </GroupTabs>
           <GroupTabContent active={activeTab === Tabs.ABOUT}>
             {summary ? (
