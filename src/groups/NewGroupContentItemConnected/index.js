@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useMutation, useQuery } from 'react-apollo';
-import { get } from 'lodash';
+import { useQuery } from 'react-apollo';
+import { first, get } from 'lodash';
 import moment from 'moment';
 
 import { GoogleAnalytics } from 'analytics';
 import { ErrorBlock, Loader } from 'ui';
+import { useCheckIn } from 'hooks';
 
-import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
 import NewGroup from './NewGroup';
 
@@ -17,7 +17,21 @@ const NewGroupContentItemConnected = ({ itemId }) => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const [handleAttend] = useMutation(ADD_ATTENDANCE);
+  const { options, checkInCurrentUser } = useCheckIn({
+    nodeId: itemId,
+  });
+
+  const userCheckIn = () => {
+    if (options.length > 0) {
+      const closestCheckInOption = first(
+        options.sort((a, b) => Math.abs(moment(a).diff(b)))
+      );
+
+      if (closestCheckInOption.id) {
+        checkInCurrentUser({ optionId: closestCheckInOption.id });
+      }
+    }
+  };
 
   // When refetching data upon group edit,
   // we don't want to show the loader again
@@ -50,13 +64,12 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       action: action ? `${action} Video Call` : 'Video Call',
       label: `${get(content, 'title')}`,
     });
-
     // Check to see if the current date is the date of the meeting before taking attendance.
     if (
       moment(get(content, 'dateTime.start', null)).format('MMDDYYYY') ===
       moment().format('MMDDYYYY')
     ) {
-      handleAttend({ variables: { id: itemId } });
+      userCheckIn();
     }
   };
 
