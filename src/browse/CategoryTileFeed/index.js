@@ -1,13 +1,13 @@
 import React from 'react';
 import { useQuery } from 'react-apollo';
 import PropTypes from 'prop-types';
-import { get, take, kebabCase } from 'lodash';
+import { get, take } from 'lodash';
 
-import { Loader, ContentContainer } from '../../ui';
+import { isMobile } from 'react-device-detect';
+import { Loader, ContentContainer, RowCard, ContentCard } from '../../ui';
 import ContentCardConnected from '../../content-card-connected';
 
 import { GET_CATEGORY_PREVIEW } from '../queries';
-import { redirectTo } from '../../utils';
 
 const CategoryTileFeed = ({ contentId, title, onSeeMore }) => {
   const { loading, error, data } = useQuery(GET_CATEGORY_PREVIEW, {
@@ -34,14 +34,14 @@ const CategoryTileFeed = ({ contentId, title, onSeeMore }) => {
 
   return (
     <div className="my-4">
-      <div key="CategoryTileFeed:1" className="row my-n3">
+      <div key="CategoryTileFeed:1" className="row align-items-end mt-0 mb-2 my-md-n3">
         <div className="col-9">
-          <h3 className="mb-2">{title}</h3>
+          <h3 className="mb-0">{title}</h3>
         </div>
         {content.length > 3 && (
           <div className="col-3 text-right">
             <a
-              href="#"
+              href="# "
               className="h5"
               onClick={(e) => {
                 e.preventDefault();
@@ -55,7 +55,11 @@ const CategoryTileFeed = ({ contentId, title, onSeeMore }) => {
       </div>
       <div key="CategoryTileFeed:2" className="row mx-n2 pb-1">
         {take(content, 3).map((n, i) => (
-          <ContentCardConnected key={i} contentId={get(n, 'id', '')} />
+          <ContentCardConnected
+            card={isMobile ? RowCard : ContentCard}
+            key={i}
+            contentId={get(n, 'id', '')}
+          />
         ))}
       </div>
     </div>

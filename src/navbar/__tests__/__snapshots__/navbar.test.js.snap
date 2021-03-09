@@ -24,23 +24,3 @@ exports[`Navbar renders without crashing 1`] = `
   />
 </Context.Provider>
 `;
-
-exports[`NavbarWithOpacity renders without crashing 1`] = `
-<Context.Provider
-  value={
-    Object {
-      "hideLogIn": [Function],
-      "isLoggedIn": false,
-      "logIn": [Function],
-      "logout": [Function],
-      "setToken": [Function],
-      "token": "",
-      "triggerLogIn": false,
-    }
-  }
->
-  <NavbarWithOpacity
-    offset={50}
-  />
-</Context.Provider>
-`;

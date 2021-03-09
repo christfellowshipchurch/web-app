@@ -2,27 +2,68 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import { Icon } from '../ui/Icons';
 import { useAuth } from '../auth';
 import ProfileConnected from './ProfileConnected';
 
-const MobileNav = ({ navLinks, quickAction }) => {
+const MobileNav = ({ navLinks, quickAction, isDark }) => {
   const { isLoggedIn, logout } = useAuth();
   const mobileNavLinkClass = {
     div: classnames('d-flex', 'align-items-center', 'mb-2'),
-    link: classnames('p-2', 'pl-3', 'nav-link', 'text-dark', 'no-decoration'),
+    link: classnames(
+      'p-2',
+      'pl-3',
+      'nav-link',
+      {
+        'text-dark': !isDark,
+        'text-white': isDark,
+      },
+      'no-decoration'
+    ),
   };
 
   return (
     <div className="d-lg-none">
       <div className={classnames('d-flex', 'flex-column', 'ml-3', 'vh-100', 'pt-4')}>
-        <div className={classnames('d-flex', 'align-items-center', 'pl-3')}>
-          <ProfileConnected size={30} />
+        <div className={classnames('d-flex', 'align-items-center', 'pl-3', 'mb-2')}>
+          <ProfileConnected size={30} isDark={isDark} />
 
           <a
-            className={classnames('p-2', 'nav-link', 'text-dark', 'no-decoration')}
+            className={classnames(
+              'p-2',
+              'nav-link',
+              {
+                'text-dark': !isDark,
+                'text-white': isDark,
+              },
+              'no-decoration'
+            )}
             href="/profile"
           >
             {isLoggedIn ? 'Profile' : 'Sign In'}
+          </a>
+        </div>
+
+        <div className={classnames('d-flex', 'align-items-center', 'pl-3')}>
+          <Icon
+            className="p-1"
+            name="search"
+            fill={isDark ? '#ffffff' : '#525252'}
+            size={22}
+          />
+          <a
+            className={classnames(
+              'p-2',
+              'nav-link',
+              {
+                'text-dark': !isDark,
+                'text-white': isDark,
+              },
+              'no-decoration'
+            )}
+            href="/discover/search"
+          >
+            Search
           </a>
         </div>
 
@@ -74,11 +115,13 @@ MobileNav.propTypes = {
     call: PropTypes.string,
     action: PropTypes.string,
   }),
+  isDark: PropTypes.bool,
 };
 
 MobileNav.defaultProps = {
   navLinks: [],
   quickAction: [],
+  isDark: false,
 };
 
 export default MobileNav;

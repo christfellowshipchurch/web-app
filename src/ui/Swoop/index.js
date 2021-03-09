@@ -13,6 +13,7 @@ const svgMap = {
 const Swoop = ({ type }) => (
   <div className={classnames()}>
     <img
+      alt=""
       src={svgMap[type]}
       className={classnames('swoop', {
         'swoop-top': type === 'top',

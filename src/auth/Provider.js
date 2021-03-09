@@ -1,4 +1,6 @@
 import React, { useReducer, useEffect, useState, useContext, createContext } from 'react';
+import { useApolloClient } from '@apollo/react-hooks';
+
 import { AUTH_TOKEN_KEY } from '../keys';
 
 const initialState = '';
@@ -15,11 +17,13 @@ const reducer = (token, newToken) => {
 };
 
 const AuthProvider = (props) => {
+  const client = useApolloClient();
   const [token, setToken] = useReducer(reducer, localState || initialState);
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
   const [triggerLogIn, setTriggerLogIn] = useState(false);
   const logout = () => {
     setToken(null);
+    client.resetStore();
   };
 
   useEffect(() => {

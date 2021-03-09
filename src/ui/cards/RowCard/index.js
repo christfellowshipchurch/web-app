@@ -7,16 +7,20 @@ import { Media } from '../..';
 
 import { generateUrlLink } from '..';
 
-const TileRowCard = ({ id, title, coverImage, summary, urlBase, label, redirectUrl }) => {
+import { CardLink } from '../ContentCard';
+
+const RowCard = ({ id, title, coverImage, summary, urlBase, label, redirectUrl }) => {
+  const href = generateUrlLink({
+    urlBase,
+    title,
+    id,
+    redirectUrl,
+  });
+
   return (
-    <a
+    <CardLink
       className={classnames('w-100', 'p-2', 'scale-media-up-on-hover', 'no-decoration')}
-      {...generateUrlLink({
-        urlBase,
-        title,
-        id,
-        redirectUrl,
-      })}
+      to={href}
     >
       <div
         className={classnames(
@@ -38,19 +42,19 @@ const TileRowCard = ({ id, title, coverImage, summary, urlBase, label, redirectU
           />
         </div>
         <div style={{ flex: 3 }} className={classnames('px-2')}>
-          {label.value !== '' && <h6 className="text-secondary">{label.value}</h6>}
-          <h4 className="mb-0">{title}</h4>
-          <p className="text-secondary mb-0" style={{ fontSize: '.8rem' }}>
+          {label.value !== '' && <h6 className="text-secondary mb-0">{label.value}</h6>}
+          <h4 className="mb-0 mt-1 text-lines-1">{title}</h4>
+          <p className="text-secondary mb-0 text-lines-2" style={{ fontSize: '.8rem' }}>
             {summary}
           </p>
         </div>
       </div>
-    </a>
+    </CardLink>
   );
 };
 
-TileRowCard.propTypes = {
-  coverImage: PropTypes.string,
+RowCard.propTypes = {
+  coverImage: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   id: PropTypes.string,
   label: PropTypes.shape({
     bg: PropTypes.string,
@@ -63,7 +67,7 @@ TileRowCard.propTypes = {
   urlBase: PropTypes.string,
 };
 
-TileRowCard.defaultProps = {
+RowCard.defaultProps = {
   coverImage: null,
   id: null,
   label: {
@@ -71,10 +75,10 @@ TileRowCard.defaultProps = {
     textColor: 'white',
     value: 'tags[0]',
   },
-  redirectUrl: '/',
+  redirectUrl: '',
   summary: '',
   title: null,
   urlBase: 'content',
 };
 
-export default TileRowCard;
+export default RowCard;

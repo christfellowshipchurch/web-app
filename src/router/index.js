@@ -3,6 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 
 import { ErrorBlock } from '../ui';
 import redirects from '../redirects.json';
+//temp redirect file
+import christmasRedirects from '../christmas-redirects.json';
 import PageBuilder from './PageBuilder';
 import HomePage from './Home';
 import Login from './Login';
@@ -16,11 +18,16 @@ import Profile from './Profile';
 import Animations from './Animations';
 import Campuses from './Campuses';
 import Live from './Live';
+import LinkTree from './LinkTree';
 
 const RedirectMapper = (props) => {
   // get page title from props
   const { match: { params: { page } = {} } = {} } = props;
-  const redirect = redirects[decodeURI(page)];
+
+  //const redirect = redirects[decodeURI(page)];
+  //Temporary: combined christmas redirect file for the Christmas Countdown Devos
+  const combinedRedirects = Object.assign(redirects, christmasRedirects);
+  const redirect = combinedRedirects[decodeURI(page)];
 
   // check if the redirects.json file has a redirect for this page
   if (!!redirect && redirect !== '') {
@@ -48,6 +55,7 @@ const Router = () => (
     <Route path="/locations" component={Campuses} />
     <Route path="/error" component={ErrorBlock} />
     <Route path="/live" component={Live} />
+    <Route path="/info" component={LinkTree} />
 
     <Route exact path="/:page" component={RedirectMapper} />
 

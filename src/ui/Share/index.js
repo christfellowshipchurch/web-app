@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { includes, toLower, uniqueId, merge } from 'lodash';
+import { uniqueId } from 'lodash';
 import { FacebookShareButton, TwitterShareButton, EmailShareButton } from 'react-share';
 import { Dropdown } from 'react-bootstrap';
 import { GoogleAnalytics } from '../../analytics';
@@ -43,7 +42,10 @@ const Share = ({ title, shareTitle, variant, shareMessages }) => {
 
   return (
     <Dropdown drop="up" alignRight={false}>
-      <a onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}>
+      <a
+        href="# "
+        onClick={() => buttonClick(`${title} - Invite Button`, 'Open Share Sheet')}
+      >
         <Dropdown.Toggle id={uniqueId('share-')} variant={variant}>
           <span className="mr-2">
             <Icon name="share-square" size={iconSize} />

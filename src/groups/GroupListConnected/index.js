@@ -23,12 +23,12 @@ const GroupListConnected = ({ isDreamTeam }) => {
     return <ErrorBlock />;
   }
 
+  const groups = get(data, 'currentUser.profile.groups', []);
+
   // Sort groups by date. TDOD: move this to the API
-  const groups = isDreamTeam
-    ? get(data, 'currentUser.profile.groups', [])
-    : get(data, 'currentUser.profile.groups', []).sort((a, b) =>
-        moment(a.dateTime.start).diff(b.dateTime.start)
-      );
+  // const groups = get(data, 'currentUser.profile.groups', []).sort((a, b) =>
+  //   moment(a.dateTime.start).diff(b.dateTime.start)
+  // );
 
   return (
     <GroupList

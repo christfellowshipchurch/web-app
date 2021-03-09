@@ -13,6 +13,8 @@ export const UPDATE_CURRENT_USER = gql`
       lastName
       gender
       birthDate
+      phoneNumber
+      email
     }
 
     updateAddress(address: $address) {
@@ -48,7 +50,11 @@ export const UPDATE_CAMPUS = gql`
     updateUserCampus(campusId: $campusId) {
       id
       campus {
-        ...CampusParts
+        id
+        featuredImage {
+          uri
+        }
+        name
       }
     }
   }

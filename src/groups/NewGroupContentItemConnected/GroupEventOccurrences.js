@@ -38,6 +38,7 @@ const GroupEventOccurrences = ({ videos }) => (
         )}
         onClick={onClick}
         target="_blank"
+        rel="noopener noreferrer"
       >
         {label}
       </a>

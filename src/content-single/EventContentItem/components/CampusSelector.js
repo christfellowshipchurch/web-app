@@ -47,7 +47,7 @@ const CampusSelector = ({ campuses, onChange, defaultCampus }) => {
   );
 
   // when the selection changes, call the onChange method
-  useEffect(() => onChange(selected), [selected]);
+  useEffect(() => onChange(selected), [selected, onChange]);
 
   if (isEmpty(campuses)) {
     return null;

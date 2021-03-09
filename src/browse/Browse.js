@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useQuery } from 'react-apollo';
-import { forEach, get, find, kebabCase } from 'lodash';
+import { get, find, kebabCase } from 'lodash';
 
 import { Carousel } from 'react-bootstrap';
 import FilterRow from './FilterRow';
@@ -11,28 +11,19 @@ import SeeAllCategory from './SeeAllCategory';
 import Search from './Search';
 import { GET_FILTERS } from './queries';
 
-const generatePath = (arr) => {
-  let path = '/discover';
-
-  forEach(arr, (n) => {
-    if (n && n !== '') path = `${path}/${kebabCase(n)}`;
-    else return false;
-  });
-
-  return path;
-};
-
 const Browse = ({
   filter: defaultFilter,
   category: defaultCategory,
   title: defaultTitle,
+  openSearch,
 }) => {
   const [activeFilterId, setActiveFilterId] = useState(null);
+  const [activeFilterTitle, setActiveFilterTitle] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
   const [searchMode, setSearchMode] = useState(false);
   const [index, setIndex] = useState(0);
 
-  const { loading, error, data } = useQuery(GET_FILTERS, {
+  const { data } = useQuery(GET_FILTERS, {
     fetchPolicy: 'cache-and-network',
     onCompleted: (data) => {
       const filters = get(
@@ -40,16 +31,25 @@ const Browse = ({
         'getBrowseFilters[0].childContentItemsConnection.edges',
         []
       );
-      const firstFilter = get(filters, '[0].node.id', '');
+      const firstFilter = get(filters, '[0].node', '');
       const filterId = defaultFilter
         ? get(
             find(filters, (n) => kebabCase(defaultFilter) === kebabCase(n.node.title)),
             'node.id',
-            firstFilter
+            firstFilter.id
           )
-        : firstFilter;
+        : firstFilter.id;
+
+      const filterTitle = defaultFilter
+        ? get(
+            find(filters, (n) => kebabCase(defaultFilter) === kebabCase(n.node.title)),
+            'node.title',
+            firstFilter.title
+          )
+        : firstFilter.title;
 
       setActiveFilterId(filterId);
+      setActiveFilterTitle(filterTitle);
     },
   });
 
@@ -66,7 +66,7 @@ const Browse = ({
   return (
     <div className={classnames('container-fluid', 'mt-4', 'mt-lg-6', 'mb-0', 'px-2')}>
       <div className="row">
-        <Search onChange={({ hide }) => setSearchMode(hide)} />
+        <Search onChange={({ hide }) => setSearchMode(hide)} focus={openSearch} />
       </div>
 
       <div
@@ -83,13 +83,14 @@ const Browse = ({
           touch={false}
         >
           <Carousel.Item>
-            <div className="">
-              <FilterRow
-                filters={filters}
-                selected={activeFilterId}
-                onChange={({ id }) => setActiveFilterId(id)}
-              />
-            </div>
+            <FilterRow
+              filters={filters}
+              selected={{ id: activeFilterId, title: activeFilterTitle }}
+              onChange={({ id, title }) => [
+                setActiveFilterId(id),
+                setActiveFilterTitle(title),
+              ]}
+            />
 
             {!!activeFilterId && (
               <CategoryList
@@ -123,12 +124,14 @@ Browse.propTypes = {
   filter: PropTypes.string,
   category: PropTypes.string,
   title: PropTypes.string,
+  openSearch: PropTypes.bool,
 };
 
 Browse.defaultProps = {
   filter: null,
   category: null,
   title: null,
+  openSearch: false,
 };
 
 export default Browse;

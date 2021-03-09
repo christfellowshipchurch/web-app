@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { includes } from 'lodash';
 import { Nav, NavDropdown } from 'react-bootstrap';
 import { Icon } from '../ui/Icons';
 import { useAuth } from '../auth';
@@ -18,14 +17,24 @@ const NavLink = ({ link, onClick }) => (
   </Nav.Link>
 );
 
-const dropDownIcon = (isOpen) => <Icon name={isOpen ? 'times' : 'bars'} fill="#525252" />;
+const dropDownIcon = (isOpen, isDark) => (
+  <Icon name={isOpen ? 'times' : 'bars'} fill={isDark ? '#ffffff' : '#525252'} />
+);
 
-const DesktopNav = ({ navLinks, menuLinks, quickAction }) => {
+const DesktopNav = ({ navLinks, menuLinks, quickAction, isDark }) => {
   const { logout, logIn, isLoggedIn } = useAuth();
   const [menuIcon, setMenuIcon] = useState(false);
 
   return (
     <div className="d-none d-lg-flex align-items-center">
+      <Nav.Link href="/discover/search">
+        <Icon
+          className="d-flex align-items-center"
+          name="search"
+          fill="#828282"
+          size={20}
+        />
+      </Nav.Link>
       {navLinks.map((link, i) => (
         <Nav.Link
           key={`${link.call}${i}`}
@@ -53,10 +62,13 @@ const DesktopNav = ({ navLinks, menuLinks, quickAction }) => {
         </Nav.Link>
       )}
 
-      <ProfileConnected className="d-none d-lg-block ml-2 mr-1 btn-like" />
+      <ProfileConnected
+        className="d-none d-lg-block ml-2 mr-1 btn-like"
+        isDark={isDark}
+      />
 
       <NavDropdown
-        title={dropDownIcon(menuIcon)}
+        title={dropDownIcon(menuIcon, isDark)}
         onToggle={() => setMenuIcon(!menuIcon)}
         onSelect={() => setMenuIcon(!menuIcon)}
         alignRight
@@ -102,12 +114,14 @@ DesktopNav.propTypes = {
     call: PropTypes.string,
     action: PropTypes.string,
   }),
+  isDark: PropTypes.bool,
 };
 
 DesktopNav.defaultProps = {
   navLinks: [],
   menuLinks: [],
   quickAction: [],
+  isDark: false,
 };
 
 export default DesktopNav;

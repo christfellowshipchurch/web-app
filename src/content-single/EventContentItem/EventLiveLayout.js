@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTheaterModeState } from 'providers/TheaterModeProvider';
-
-import { get } from 'lodash';
 import styled from 'styled-components/macro';
+import { get } from 'lodash';
+
+import { useTheaterModeState } from 'providers/TheaterModeProvider';
 import { breakpoint } from 'styles/theme';
 
 import { GridContainer, Row, Col } from 'ui';
+
+import useLiveStreamInteractions from './useLiveStreamInteractions';
 
 import {
   EventBannerBackground,
@@ -59,8 +61,11 @@ const Area = styled.div`
 
 const EventLiveLayout = ({ contentId, content, liveStream }) => {
   const theaterMode = useTheaterModeState();
+  useLiveStreamInteractions(contentId);
+
   const liveStreamSource = get(liveStream, 'media.sources[0].uri', null);
   const channelId = get(liveStream, 'streamChatChannel.channelId', null);
+  const channelType = get(liveStream, 'streamChatChannel.channelType', null);
   const callsToAction = liveStream?.actions || [];
 
   return (
@@ -70,19 +75,29 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
       {theaterMode ? (
         <TheaterContainer>
           <Area area="stream">
-            <EventMedia {...content} liveStreamSource={liveStreamSource} />
+            <EventMedia
+              {...content}
+              liveStreamSource={liveStreamSource}
+              showTheaterMode={theaterMode}
+            />
           </Area>
           <Area area="heading">
             <EventHeading {...content} isLive />
           </Area>
           <Area area="chat">
-            <EventPanel event={content} isLive channelId={channelId} />
+            <EventPanel
+              event={content}
+              isLive
+              channelId={channelId}
+              channelType={channelType}
+            />
           </Area>
           <Area area="cta">
             <CallsToAction
               eventTitle={get(content, 'title')}
               eventStartTime={liveStream?.eventStartTime}
               items={callsToAction}
+              nodeId={contentId}
             />
           </Area>
           <Area area="social">
@@ -107,7 +122,11 @@ const EventLiveLayout = ({ contentId, content, liveStream }) => {
 
             {/* Side Column */}
             <Col className="col-12 col-lg-4  mt-3 mt-4-sm mt-lg-0  pr-lg-2 pr-xl-0">
-              <EventPanel event={content} channelId={channelId} />
+              <EventPanel
+                event={content}
+                channelId={channelId}
+                channelType={channelType}
+              />
             </Col>
           </Row>
 

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { GoogleAnalytics } from 'analytics';
-import { ContentCard, Row } from 'ui';
-
+import { CallToActionCard, Row } from 'ui';
+import { useInteraction, ACTIONS } from 'mutations';
 const MINUTE = 60000;
 
 function filterItems(items, eventStartTime) {
@@ -34,39 +34,67 @@ function filterItems(items, eventStartTime) {
   return filteredItems;
 }
 
-const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
+// If there is an icon specified, use it.
+// Otherwise try to match it with a default icon.
+function getIcon(cta) {
+  if (cta?.icon) return cta.icon;
+
+  const title = cta?.title;
+  if (!title) return undefined;
+
+  if (title.match(/give/i)) return 'gift';
+  if (title.match(/connected/i)) return 'connected';
+  if (title.match(/decided/i)) return 'check-square';
+  return undefined;
+}
+
+const CallsToAction = ({ nodeId, eventTitle, items, hasEvents, eventStartTime }) => {
   const [cta, setCTA] = useState(() => filterItems(items, eventStartTime));
+  const [interaction] = useInteraction();
+
+  useEffect(() => {
+    if (!isEmpty(items)) {
+      const intervalId = setInterval(
+        () => setCTA(filterItems(items, eventStartTime)),
+        MINUTE
+      );
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, []);
 
   if (isEmpty(items)) {
     return null;
   }
-
-  setInterval(() => setCTA(filterItems(items, eventStartTime)), MINUTE);
 
   return (
     <>
       {hasEvents && <h3>Get Started</h3>}
       <Row style={{ padding: 0 }}>
         {cta.map((c, index) => (
-          <ContentCard
+          <CallToActionCard
             title={c.title}
             redirectUrl={c.relatedNode.url}
             key={`cta-${index}`}
             id={`cta-${index}`}
+            icon={getIcon(c) || 'coffee'}
             coverImage={[
               {
                 name: c.title,
                 uri: c.image,
               },
             ]}
-            label={{}}
-            onClick={() =>
+            onClick={() => {
               GoogleAnalytics.trackEvent({
                 category: 'Event Item',
                 action: `${eventTitle} Call to Action`,
                 label: `${eventTitle} - ${c.title} Button`,
-              })
-            }
+              });
+
+              interaction({ variables: { nodeId, action: ACTIONS.VIEWED_ACTION } });
+            }}
           />
         ))}
       </Row>
@@ -77,20 +105,21 @@ const CallsToAction = ({ eventTitle, items, hasEvents, eventStartTime }) => {
 CallsToAction.propTypes = {
   hasEvents: PropTypes.bool,
   eventTitle: PropTypes.string,
-  eventStartTime: PropTypes.number,
+  eventStartTime: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       call: PropTypes.string,
       action: PropTypes.string,
     })
   ),
+  nodeId: PropTypes.string,
 };
 
 CallsToAction.defaultProps = {
   hasEvents: false,
   eventTitle: 'Christ Fellowship Church',
   items: [],
-  eventStartTime: Date.now(),
+  eventStartTime: Date.now().toString(),
 };
 
 export default CallsToAction;

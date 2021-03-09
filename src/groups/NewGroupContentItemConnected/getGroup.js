@@ -13,7 +13,7 @@ export default gql`
             uri
           }
         }
-        groupResources {
+        resources {
           title
           action
           relatedNode {
@@ -43,6 +43,16 @@ export default gql`
           id
           nickName
           firstName
+          lastName
+          photo {
+            uri
+          }
+        }
+        leaders {
+          id
+          nickName
+          firstName
+          lastName
           photo {
             uri
           }
@@ -50,6 +60,7 @@ export default gql`
         streamChatChannel {
           id
           channelId
+          channelType
         }
       }
     }

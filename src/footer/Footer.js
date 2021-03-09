@@ -5,8 +5,6 @@ import { toLower } from 'lodash';
 
 import { Facebook, Instagram, Youtube, Twitter } from '../ui/Icons';
 
-import { useAuth } from '../auth';
-
 const SM_ICONS = {
   facebook: Facebook,
   instagram: Instagram,
@@ -38,8 +36,6 @@ const Footer = ({
   aboutLinks,
   socialMediaLinks,
 }) => {
-  const { isLoggedIn, logIn } = useAuth();
-
   return (
     <div className={classnames('bg-dark')}>
       {/* Top Dark Bar */}
@@ -98,7 +94,13 @@ const Footer = ({
         <div className={classnames('row', 'my-2')}>
           <div className={classnames('col', 'text-center')}>
             {socialMediaLinks.map(({ call, action }, i) => (
-              <a href={action} target="_blank" key={i} className="text-primary mx-3">
+              <a
+                href={action}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={i}
+                className="text-primary mx-3"
+              >
                 {React.createElement(SM_ICONS[toLower(call)], {
                   fill: '#00aeff',
                 })}
@@ -186,7 +188,7 @@ Footer.defaultProps = {
   connectLinks: [
     { call: 'Connect Card', action: 'https://rock.gocf.org/connect' },
     { call: 'Submit Prayer Request', action: 'https://rock.gocf.org/RequestPrayer' },
-    { call: 'Join Us In Prayer', action: '/events/live-prayer-at-noon' },
+    { call: 'Join Us In Prayer', action: '/events/first-wednesday' },
     {
       call: 'Subscribe to Updates',
       action:

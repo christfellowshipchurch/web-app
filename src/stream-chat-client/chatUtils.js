@@ -1,3 +1,4 @@
+import memoize from 'fast-memoize';
 import { isString, get, isEmpty } from 'lodash';
 import moment from 'moment';
 
@@ -14,13 +15,22 @@ export function stripPrefix(string) {
 }
 
 // User
-export function getStreamUser(user) {
+function _getStreamUser(user) {
+  if (!user) {
+    return;
+  }
+
   return {
     id: stripPrefix(user.id),
     name: `${user.profile.firstName} ${user.profile.lastName}`,
     image: get(user, 'profile.photo.uri', ''),
   };
 }
+
+// Memoized to allow shallow equality checks in hooks, etc.
+export const getStreamUser = memoize(_getStreamUser, {
+  serializer: (user) => user?.id,
+});
 
 export function getRoleFromMembership(channel) {
   // Not ideal, but it seems like Stream Chat provides this info in a few inconsistent ways.
@@ -45,8 +55,9 @@ export function getRoleFromMembership(channel) {
     case 'user':
     case 'owner':
       return ChatRoles.USER;
+    case 'anonymous':
     default:
-      return ChatRoles.GUEST;
+      return ChatRoles.ANONYMOUS;
   }
 }
 

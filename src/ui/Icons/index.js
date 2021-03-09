@@ -3,6 +3,7 @@ import AngleLeft from './angle-left';
 import AngleRight from './angle-right';
 import AngleUp from './angle-up';
 import Apple from './apple';
+import ArrowUpRight from './arrow-up-right';
 import BabyCarriage from './baby-carriage';
 import Ban from './ban';
 import Bars from './bars';
@@ -15,12 +16,16 @@ import CheckSquare from './check-square';
 import Church from './church';
 import Circle from './circle';
 import Clock from './clock';
+import Coffee from './coffee';
 import Comments from './comments';
+import Connected from './connected';
 import DotCircle from './dot-circle';
 import Envelope from './envelope';
 import EnvelopeOpenDollar from './envelope-open-dollar';
 import ExclamationCircle from './exclamation-circle';
 import Facebook from './facebook';
+import Gear from './gear';
+import Gift from './gift';
 import Google from './google';
 import Handshake from './handshake';
 import Home from './home';
@@ -28,7 +33,9 @@ import Icon from './Icon';
 import Instagram from './instagram';
 import LiveDot from './live-dot';
 import LockAlt from './lock-alt';
+import Maximize from './maximize';
 import Microsoft from './microsoft';
+import Minimize from './minimize';
 import Mobile from './mobile';
 import PaperAirplane from './paper-airplane';
 import PhoneAlt from './phone-alt';
@@ -40,8 +47,6 @@ import SignOut from './sign-out';
 import Square from './square';
 import ThreeDots from './three-dots';
 import Times from './times';
-import Maximize from './maximize';
-import Minimize from './minimize';
 import Twitter from './twitter';
 import User from './user';
 import UserCircle from './user-circle';
@@ -54,6 +59,7 @@ export {
   AngleRight,
   AngleUp,
   Apple,
+  ArrowUpRight,
   BabyCarriage,
   Ban,
   Bars,
@@ -65,17 +71,22 @@ export {
   CheckSquare,
   Church,
   Clock,
+  Coffee,
   Comments,
+  Connected,
   Envelope,
   EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
+  Gear,
+  Gift,
   Google,
   Handshake,
   Home,
   Icon,
   Instagram,
   LockAlt,
+  Maximize,
   Microsoft,
   Mobile,
   PhoneAlt,
@@ -86,7 +97,6 @@ export {
   Square,
   ThreeDots,
   Times,
-  Maximize,
   Twitter,
   User,
   Users,
@@ -99,6 +109,7 @@ export const Icons = {
   AngleRight,
   AngleUp,
   Apple,
+  ArrowUpRight,
   BabyCarriage,
   Ban,
   Bars,
@@ -111,19 +122,25 @@ export const Icons = {
   Church,
   Circle,
   Clock,
+  Coffee,
   Comments,
+  Connected,
   DotCircle,
   Envelope,
   EnvelopeOpenDollar,
   ExclamationCircle,
   Facebook,
+  Gear,
+  Gift,
   Google,
   Handshake,
   Home,
   Instagram,
   LiveDot,
   LockAlt,
+  Maximize,
   Microsoft,
+  Minimize,
   Mobile,
   PaperAirplane,
   PhoneAlt,
@@ -135,8 +152,6 @@ export const Icons = {
   Square,
   ThreeDots,
   Times,
-  Maximize,
-  Minimize,
   Twitter,
   User,
   UserCircle,

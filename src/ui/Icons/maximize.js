@@ -10,10 +10,9 @@ const Icon = ({ size, fill }) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke={fill}
-      stroke-width="2"
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      class="feather feather-maximize-2"
     >
       <polyline points="15 3 21 3 21 9"></polyline>
       <polyline points="9 21 3 21 3 15"></polyline>

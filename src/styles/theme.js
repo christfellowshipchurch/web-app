@@ -13,6 +13,7 @@ const baseUnitMap = Object.freeze([
 
 export const baseUnit = (n = 1) => {
   try {
+    if (n === 0) return 0;
     return baseUnitMap[n];
   } catch (err) {
     console.error(err);
@@ -34,6 +35,7 @@ export const breakpoint = (key) => ({ theme }) => theme.breakpoints[key];
 const colors = Object.freeze({
   white: '#fff',
   gray: {
+    0: '#fff',
     50: '#f6f6f6',
     100: '#e6e6e6',
     200: '#cdcdcd',
@@ -71,14 +73,21 @@ export const theme = Object.freeze({
     lg: `@media (min-width: 992px)`,
     xl: `@media (min-width: 1200px)`,
   },
+  sizing: {
+    maxPageWidth: '1100px',
+  },
   fontFamily: {
     sans: '"Gotham A", "Gotham B"',
   },
   font: {
     // Hypothetically, the spread key values could be reversed for dark mode
     ...colors.gray,
-    coolGray: colors.coolGray,
+    h1: colors.coolGray[800],
+    h2: colors.coolGray[800],
+    h4: colors.coolGray[800],
+    h5: colors.coolGray[800],
     destructive: colors.red,
+    coolGray: colors.coolGray[800],
   },
   fontSize: {
     xsmall: '0.75rem', // ~12px
@@ -92,6 +101,7 @@ export const theme = Object.freeze({
     h6: '1rem', // ~16px
   },
   fontWeight: {
+    light: 300,
     medium: 500,
     semiBold: 600,
     bold: 700,
@@ -130,4 +140,7 @@ export const theme = Object.freeze({
   },
   link: colors.cyan,
   liveEvent: colors.ruby,
+  placeholder: {
+    image: colors.gray[100],
+  },
 });

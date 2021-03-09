@@ -3,4 +3,13 @@ import PageBuilderConnected, {
   GET_PAGE_BUILDER_FEATURES,
 } from './PageBuilderConnected';
 
-export { PageBuilderConnected, pageBuilderComponentMapper, GET_PAGE_BUILDER_FEATURES };
+import InteractWhenLoadedConnected from './InteractWhenLoadedConnected';
+import TrackEventWhenLoaded from './TrackEventWhenLoaded';
+
+export {
+  TrackEventWhenLoaded,
+  InteractWhenLoadedConnected,
+  PageBuilderConnected,
+  pageBuilderComponentMapper,
+  GET_PAGE_BUILDER_FEATURES,
+};

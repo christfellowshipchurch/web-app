@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 import numeral from 'numeral';
@@ -44,6 +44,7 @@ const PanelBody = styled.div`
   z-index: 0;
   width: 100%;
   height: 100%;
+  background: ${({ theme }) => theme.card.background};
 `;
 
 const TabContent = styled.div`
@@ -60,13 +61,16 @@ const TabContent = styled.div`
 // :: Main Component
 // ------------------------
 
-const EventPanel = ({ event, channelId }) => {
+const EventPanel = ({ event, channelId, channelType }) => {
   const [activeTab, setActiveTabIndex] = useState('chat');
   const [watcherCount, setWatcherCount] = useState(null);
 
-  const handleWatcherCountChange = (num = 0) => {
-    setWatcherCount(numeral(num + 1).format('0,0'));
-  };
+  const handleWatcherCountChange = useCallback(
+    (num = 0) => {
+      setWatcherCount(numeral(num + 1).format('0,0'));
+    },
+    [setWatcherCount]
+  );
 
   return (
     <PanelContainer>
@@ -85,6 +89,7 @@ const EventPanel = ({ event, channelId }) => {
           <EventChat
             event={event}
             channelId={channelId}
+            channelType={channelType}
             onWatcherCountChange={handleWatcherCountChange}
           />
         </TabContent>
@@ -114,6 +119,7 @@ EventPanel.propTypes = {
     ),
   }),
   channelId: PropTypes.string,
+  channelType: PropTypes.string,
 };
 
 EventPanel.defaultProps = {};

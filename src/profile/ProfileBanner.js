@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { get } from 'lodash';
@@ -8,17 +8,8 @@ import { Media, Button, Loader } from '../ui';
 import { Icon } from '../ui/Icons';
 import { GET_CURRENT_PERSON } from './queries';
 
-const ProfileBanner = ({
-  coverImage,
-  profileImage,
-  name,
-  campus,
-  editMode: edit,
-  onEdit,
-  onSave,
-  onCancel,
-}) => {
-  const { loading, error, data } = useAuthQuery(GET_CURRENT_PERSON);
+const ProfileBanner = ({ profileImage, editMode: edit, onEdit, onSave, onCancel }) => {
+  const { loading, data } = useAuthQuery(GET_CURRENT_PERSON);
 
   profileImage = get(data, 'currentUser.profile.photo.uri', null);
 
@@ -85,7 +76,7 @@ const ProfileBanner = ({
                     />
                     <Button
                       className="text-white text-upper"
-                      title="cancel"
+                      title="Cancel"
                       type="link"
                       size="sm"
                       onClick={(e) => {

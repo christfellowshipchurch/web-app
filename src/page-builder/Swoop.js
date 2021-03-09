@@ -67,16 +67,14 @@ const mapItemToVisual = (item, bg) => {
             />
           );
       }
-      break;
     case 'WebsiteGroupItem':
       return <GroupBlock {...item} withAnimation />;
     case 'WebsiteHtmlBlockItem':
       return <div>{htmlToReactParser.parse(item.htmlContent)}</div>;
-      break;
     case 'WebsiteFeature':
       return (
         <div className={classnames('col', 'px-4')}>
-          <Feature name={get(item, 'feature', '')} background={bg} {...item} />
+          <Feature name={get(item, 'feature', '')} background={bg} {...item} isRsvp />
         </div>
       );
     default:
@@ -88,6 +86,7 @@ const Swoop = ({ title, backgroundColors, backgroundImages, swoopTypes }) => {
   const website = process.env.REACT_APP_WEBSITE_KEY;
   const { loading, error, data } = useQuery(GET_BLOCK_ITEMS, {
     variables: { website, title },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { get } from 'lodash';
 
 import { Browse } from '../../browse';
@@ -9,8 +9,11 @@ const BrowseUrlMapper = ({ match: { params } }) => (
     filter={get(params, 'filter', null)}
     category={get(params, 'category', null)}
     title={get(params, 'title', null)}
+    openSearch={get(params, 'filter') === 'search'}
   />
 );
+
+const SearchOnBrowse = () => <Browse openSearch={true} />;
 
 const Router = () => (
   <Switch>

@@ -1,32 +1,23 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import {
-  ExclamationCircle,
-  CheckCircle,
-  Ban,
-  User,
-  AngleDown,
-  AngleUp,
-} from '../../Icons';
+import { User, AngleDown, AngleUp } from '../../Icons';
 
 import InputContainer from '../inputContainer';
 import InputIcon from '../inputIcon';
 
 const Dropdown = ({
-  label,
-  helper,
-  placeholder,
-  disabled,
   description,
+  disabled,
   error,
-  success,
-  onChange,
-  withSuccess,
-  value,
-  icon,
   hideIcon,
+  icon,
+  label,
+  onChange,
   options,
+  placeholder,
+  success,
+  value,
   ...selectProps
 }) => {
   const [focused, setFocused] = useState(false);
@@ -83,7 +74,15 @@ Dropdown.defaultProps = {
 
 Dropdown.propTypes = {
   onChange: PropTypes.func,
-  icon: PropTypes.object,
+  icon: PropTypes.func,
+  description: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  hideIcon: PropTypes.bool,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  success: PropTypes.bool,
+  value: PropTypes.string,
 
   // Options allow an array of:
   //  strings: where the value and label are the same

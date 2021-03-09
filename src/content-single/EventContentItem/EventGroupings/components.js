@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { get } from 'lodash';
 
 import { Icon } from '../../../ui/Icons';
-import { AddToCalendar } from '../../../ui';
 
 export const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) => (
   <div
@@ -20,13 +20,13 @@ export const CampusSelectToggle = React.forwardRef(({ children, onClick }, ref) 
   >
     <span className="h4">
       {children}
-      <Icon className="ml-2 float-right" name="angle-down" size="22" />
+      <Icon className="ml-2 float-right" name="angle-down" size={22} />
     </span>
   </div>
 ));
 
 CampusSelectToggle.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.node,
   onClick: PropTypes.func,
 };
 
@@ -35,16 +35,12 @@ CampusSelectToggle.defaultProps = {
   onClick: () => {},
 };
 
-export const Row = ({ className, ...props }) => (
-  <div className={classnames('my-2', className)} {...props} />
+export const Row = (props) => (
+  <div className={classnames('my-2', get(props, 'className', ''))} {...props} />
 );
 
-Row.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-};
-
 export const TextIconRow = ({ icon, header, children }) => (
-  <div classNames={classnames('align-items-center')}>
+  <div className="align-items-center">
     <p className={`d-flex align-items-center ${header}`}>
       <Icon name={icon} className="mr-2" />
       {children}

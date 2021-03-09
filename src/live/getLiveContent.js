@@ -18,6 +18,7 @@ export default gql`
         streamChatChannel {
           id
           channelId
+          channelType
         }
         actions {
           action

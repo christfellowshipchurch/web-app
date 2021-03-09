@@ -5,13 +5,13 @@ import { get } from 'lodash';
 import moment from 'moment';
 
 import { GoogleAnalytics } from 'analytics';
-import { ErrorBlock, generateUrlLink, Loader } from 'ui';
+import { ErrorBlock, Loader } from 'ui';
 
 import ADD_ATTENDANCE from './addAttendance';
 import GET_GROUP from './getGroup';
-import Group from './Group';
+import NewGroup from './NewGroup';
 
-const GroupContentItemConnected = ({ itemId }) => {
+const NewGroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
     fetchPolicy: 'cache-and-network',
@@ -19,7 +19,9 @@ const GroupContentItemConnected = ({ itemId }) => {
 
   const [handleAttend] = useMutation(ADD_ATTENDANCE);
 
-  if (loading) {
+  // When refetching data upon group edit,
+  // we don't want to show the loader again
+  if (loading && !data) {
     return (
       <div style={{ height: '50vh', width: '100vw', position: 'relative' }}>
         <Loader />
@@ -58,54 +60,33 @@ const GroupContentItemConnected = ({ itemId }) => {
     }
   };
 
-  const getGroupResources = get(content, 'groupResources', []).map((resource) => {
-    let resourceURL = get(resource, 'relatedNode.url', '');
-
-    if (resource.action === 'READ_CONTENT') {
-      const urlBase =
-        resource.relatedNode.__typename === 'InformationalContentItem'
-          ? 'items'
-          : 'content';
-
-      const { href } = generateUrlLink({
-        urlBase,
-        id: resource.relatedNode.id,
-        title: resource.title,
-      });
-
-      resourceURL = href;
-    }
-
-    return {
-      title: resource.title,
-      url: resourceURL,
-    };
-  });
-
   return (
-    <Group
-      {...(get(content, 'coverImage') ? { coverImage: content.coverImage } : {})}
-      dateTimes={get(content, 'dateTime')}
-      groupResources={getGroupResources}
-      onClickGroupResource={handleOnClickGroupResource}
-      onClickParentVideoCall={handleOnClickVideoCall}
-      onClickVideoCall={handleOnClickVideoCall}
-      parentVideoCall={get(content, 'parentVideoCall')}
-      summary={get(content, 'summary')}
+    <NewGroup
+      coverImage={get(content, 'coverImage')}
       title={get(content, 'title')}
+      summary={get(content, 'summary')}
+      members={get(content, 'members', [])}
+      leaders={get(content, 'leaders', []) || []}
+      groupResources={get(content, 'resources', [])}
+      dateTime={get(content, 'dateTime')}
       userName={
         get(data, 'currentUser.profile.nickName') ||
         get(data, 'currentUser.profile.firstName')
       }
+      userId={get(data, 'currentUser.id')}
       videoCall={get(content, 'videoCall')}
+      parentVideoCall={get(content, 'parentVideoCall')}
       channelId={get(content, 'streamChatChannel.channelId')}
-      members={get(content, 'members')}
+      chatChannelType={get(content, 'streamChatChannel.channelType', 'group')}
+      onClickGroupResource={handleOnClickGroupResource}
+      onClickVideoCall={handleOnClickVideoCall}
+      id={itemId}
     />
   );
 };
 
-GroupContentItemConnected.propTypes = {
+NewGroupContentItemConnected.propTypes = {
   itemId: PropTypes.string.isRequired,
 };
 
-export default GroupContentItemConnected;
+export default NewGroupContentItemConnected;

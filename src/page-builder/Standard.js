@@ -20,6 +20,7 @@ const DefaultPage = ({ title }) => {
 
   const { loading, error, data } = useQuery(GET_BLOCK_ITEMS, {
     variables: { website, title },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) {
@@ -70,7 +71,12 @@ const DefaultPage = ({ title }) => {
           case 'WebsiteFeature':
             content = (
               <div className={classnames('col', 'px-4')}>
-                <Feature name={get(item, 'feature', '')} background={bg} {...item} />
+                <Feature
+                  name={get(item, 'feature', '')}
+                  background={bg}
+                  {...item}
+                  isRsvp
+                />
               </div>
             );
             break;

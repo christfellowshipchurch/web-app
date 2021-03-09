@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { get } from 'lodash';
 
 import { baseUnit, themeGet } from 'styles/theme';
+import { ChatProvider } from 'providers';
 
 import Banner from 'content-single/Banner';
 import { AddToCalendar, Card, Icon } from 'ui';
@@ -25,7 +26,7 @@ const TabsContainer = styled.div`
 `;
 
 const Tab = styled.div`
-  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray[800])};
+  color: ${({ theme, active }) => (active ? theme.brand : theme.font.coolGray)};
   padding: ${baseUnit(1)} 1.25rem ${baseUnit(2)};
   font-size: ${themeGet('fontSize.h5')};
   font-weight: ${themeGet('fontWeight.bold')};
@@ -76,6 +77,7 @@ const GroupContentItem = ({
   userName,
   videoCall,
   chatChannelId,
+  chatChannelType,
 }) => {
   const [activeTab, setActiveTab] = useState('about');
 
@@ -91,6 +93,8 @@ const GroupContentItem = ({
     calendarLinkDescription += `\n${get(videoCall, 'link', '')}`;
   }
 
+  const chatEnabled = Boolean(chatChannelId && chatChannelType);
+
   return (
     <>
       <Banner coverImage={coverImage} shareTitle="Invite" title={title} />
@@ -105,10 +109,10 @@ const GroupContentItem = ({
         </hgroup>
 
         <section className="row mx-n2">
-          <aside className={classnames('col-12', { 'col-lg-4': summary }, 'p-2')}>
+          <aside className={classnames('col-12', 'col-lg-4', 'p-2')}>
             <Tab>Resources</Tab>
-            <Card key="EventOccurences" className="mb-3">
-              {get(parentVideoCall, 'link', null) && (
+            <Card key="EventOccurrences" className="mb-3">
+              {get(parentVideoCall, 'link') && (
                 <a
                   className="btn btn-primary btn-block mb-3"
                   href={videoCallURLWithParameters(
@@ -193,15 +197,15 @@ const GroupContentItem = ({
               )}
             </Card>
           </aside>
-          <div className="col-12 col-lg-8 p-2" style={{ minHeight: '50vh' }}>
+          <div className="col-12 col-lg-8 p-2 mb-4" style={{ minHeight: '50vh' }}>
             <TabsContainer>
               <Tab
-                active={chatChannelId && activeTab === 'about'}
+                active={chatEnabled && activeTab === 'about'}
                 onClick={() => setActiveTab('about')}
               >
                 About
               </Tab>
-              {chatChannelId && (
+              {chatEnabled && (
                 <Tab active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
                   Chat
                 </Tab>
@@ -210,9 +214,11 @@ const GroupContentItem = ({
             {activeTab === 'about' && (
               <Card>{summary || 'Group summary unavailable'}</Card>
             )}
-            {chatChannelId && activeTab === 'chat' && (
-              <Card>
-                <GroupChat channelId={chatChannelId} />
+            {chatEnabled && activeTab === 'chat' && (
+              <Card style={{ height: '100%' }}>
+                <ChatProvider>
+                  <GroupChat channelId={chatChannelId} channelType={chatChannelType} />
+                </ChatProvider>
               </Card>
             )}
           </div>
@@ -249,12 +255,13 @@ GroupContentItem.propTypes = {
   title: PropTypes.string.isRequired,
   userName: PropTypes.string,
   videoCall: PropTypes.shape({
-    labelText: PropTypes.shape,
+    labelText: PropTypes.string,
     link: PropTypes.string,
     meetingId: PropTypes.string,
     passcode: PropTypes.string,
   }),
   chatChannelId: PropTypes.string,
+  chatChannelType: PropTypes.string,
 };
 
 export default GroupContentItem;

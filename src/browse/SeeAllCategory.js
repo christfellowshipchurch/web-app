@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { AngleLeft } from '../ui/Icons';
 
@@ -11,14 +11,14 @@ const SeeAllCategory = ({ categoryId, title, onBack }) => {
     <div className="container-fluid" style={{ minHeight: '100%' }}>
       <div className="row align-content-center mt-3 mb-n6">
         <a
-          href="#"
+          href="# "
           onClick={(e) => {
             e.preventDefault();
             onBack();
           }}
           className="h3 d-flex align-items-center"
         >
-          <AngleLeft size="24" />
+          <AngleLeft size={24} />
           {title}
         </a>
       </div>
@@ -30,17 +30,18 @@ const SeeAllCategory = ({ categoryId, title, onBack }) => {
 };
 
 SeeAllCategory.propTypes = {
-  filter: PropTypes.string,
   category: PropTypes.string,
-  title: PropTypes.string,
+  categoryId: PropTypes.string,
+  filter: PropTypes.string,
   onBack: PropTypes.func,
+  title: PropTypes.string,
 };
 
 SeeAllCategory.defaultProps = {
-  filter: null,
   category: null,
-  title: null,
+  filter: null,
   onBack: () => true,
+  title: null,
 };
 
 export default SeeAllCategory;
