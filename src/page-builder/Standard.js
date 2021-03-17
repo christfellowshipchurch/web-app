@@ -43,7 +43,7 @@ const DefaultPage = ({ title }) => {
   );
 
   return (
-    <div className="container-fluid">
+    <div className="w-100">
       {blockItems.map((item, i) => {
         const id = lowerCase(get(item, 'title', '')).replace(/\s/g, '-');
         const bg = bgColor[`${bgIndex}`];
@@ -89,7 +89,7 @@ const DefaultPage = ({ title }) => {
         }
 
         return (
-          <div id={id} className={`row ${bg}`} key={i}>
+          <div id={id} className={`p-relative overflow-hidden ${bg}`} key={i}>
             {content}
           </div>
         );
