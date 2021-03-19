@@ -34,7 +34,7 @@ const Groups = () => {
             {isLoggedIn ? (
               <a
                 className="btn btn-blk btn-primary mt-2"
-                href="https://rock.christfellowship.church/groups"
+                href="https://christfellowship.church/items/life-is-better-together-42eda0fe3fbf3f200a2872df727d4440"
               >
                 Find A New Group
               </a>
@@ -60,7 +60,7 @@ const Groups = () => {
           <div className="row justify-content-center align-items-center">
             <a
               className="btn btn-blk btn-primary col-md-4 my-2 mr-md-3"
-              href="https://rock.christfellowship.church/groups"
+              href="https://christfellowship.church/items/life-is-better-together-42eda0fe3fbf3f200a2872df727d4440"
             >
               Find A Group
             </a>
