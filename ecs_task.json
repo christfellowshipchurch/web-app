@@ -1,0 +1,97 @@
+{
+  "family": "web-app",
+  "executionRoleArn": "arn:aws:iam::516877585062:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "name": "web-app",
+      "image": "516877585062.dkr.ecr.us-east-2.amazonaws.com/web-app:latest",
+      "links": [],
+      "cpu": 8,
+      "memory": 512,
+      "memoryReservation": null,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "command": [],
+      "environment": [
+        {
+          "name": "SKIP_PREFLIGHT_CHECK",
+          "value": "true"
+        },
+        {
+          "name": "REACT_APP_APOLLOS_API",
+          "value": "https://apollos.christfellowship.church/"
+        },
+        {
+          "name": "REACT_APP_WEBSITE_KEY",
+          "value": "EXTERNAL_MARKETING"
+        },
+        {
+          "name": "REACT_APP_ENABLE_SANDBOX",
+          "value": "true"
+        },
+        {
+          "name": "REACT_APP_VERSION",
+          "value": "npm_package_version"
+        },
+        {
+          "name": "NODE_PATH",
+          "value": "src/"
+        },
+        {
+          "name": "REACT_APP_STREAM_APP_ID",
+          "value": "88211"
+        }
+      ],
+      "secrets": [
+        {
+          "valueFrom": "/web-app/REACT_APP_FB_CODE",
+          "name": "REACT_APP_FB_CODE"
+        },
+        {
+          "valueFrom": "/web-app/REACT_APP_GA_CODE",
+          "name": "REACT_APP_GA_CODE"
+        },
+        {
+          "valueFrom": "/web-app/FA_AUTH_TOKEN",
+          "name": "FA_AUTH_TOKEN"
+        },
+        {
+          "valueFrom": "/web-app/REACT_APP_STREAM_API_KEY",
+          "name": "REACT_APP_STREAM_API_KEY"
+        },
+        {
+          "valueFrom": "/web-app/REACT_APP_STREAM_SECRET",
+          "name": "REACT_APP_STREAM_SECRET"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "linuxParameters": null,
+      "privileged": null,
+      "readonlyRootFilesystem": null,
+      "interactive": null,
+      "pseudoTerminal": null
+    }
+  ],
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": ["EC2"],
+  "cpu": null,
+  "memory": null,
+  "tags": [
+    {
+      "key": "registeredBy",
+      "value": "github-action"
+    }
+  ],
+  "pidMode": null,
+  "ipcMode": null
+}
