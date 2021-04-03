@@ -1,2 +1,4 @@
 FROM nginx
-# COPY static-html-directory /usr/share/nginx/html
+WORKDIR /usr/share/nginx/html
+COPY netlify_copied_files.tar.gz .
+RUN tar -xvzf netlify_copied_files.tar.gz
