@@ -39,7 +39,7 @@
         },
         {
           "name": "REACT_APP_VERSION",
-          "value": "npm_package_version"
+          "value": "$npm_package_version"
         },
         {
           "name": "NODE_PATH",
