@@ -78,7 +78,9 @@ const GroupMeetingActions = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          {get(videoCall, 'label') || parentVideoCall ? 'Join Breakout' : 'Join Meeting'}
+          {get(videoCall, 'label') || parentVideoCall
+            ? 'Join Discussion Group'
+            : 'Join Meeting'}
         </a>
       ) : (
         <a
