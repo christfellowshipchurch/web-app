@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo';
-import { first, get } from 'lodash';
-import moment from 'moment';
+import { get } from 'lodash';
 
 import { GoogleAnalytics } from 'analytics';
 import { ErrorBlock, Loader } from 'ui';
@@ -23,13 +22,7 @@ const NewGroupContentItemConnected = ({ itemId }) => {
 
   const userCheckIn = () => {
     if (options.length > 0) {
-      const closestCheckInOption = first(
-        options.sort((a, b) => Math.abs(moment(a).diff(b)))
-      );
-
-      if (closestCheckInOption.id) {
-        checkInCurrentUser({ optionId: closestCheckInOption.id });
-      }
+      checkInCurrentUser({ optionIds: options.map(({ id }) => id) });
     }
   };
 
@@ -65,12 +58,7 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       label: `${get(content, 'title')}`,
     });
     // Check to see if the current date is the date of the meeting before taking attendance.
-    if (
-      moment(get(content, 'dateTime.start', null)).format('MMDDYYYY') ===
-      moment().format('MMDDYYYY')
-    ) {
-      userCheckIn();
-    }
+    userCheckIn();
   };
 
   return (
