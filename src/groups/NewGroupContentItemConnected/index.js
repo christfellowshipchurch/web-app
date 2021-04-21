@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useQuery } from 'react-apollo';
+import { useQuery, useMutation } from 'react-apollo';
 import { get } from 'lodash';
+import gql from 'graphql-tag';
 
 import { GoogleAnalytics } from 'analytics';
 import { ErrorBlock, Loader } from 'ui';
@@ -10,11 +11,20 @@ import { useCheckIn } from 'hooks';
 import GET_GROUP from './getGroup';
 import NewGroup from './NewGroup';
 
+const INTERACT_WITH_NODE = gql`
+  mutation interactWithNode($nodeId: ID!, $action: InteractionAction!) {
+    interactWithNode(nodeId: $nodeId, action: $action) {
+      success
+    }
+  }
+`;
+
 const NewGroupContentItemConnected = ({ itemId }) => {
   const { loading, error, data } = useQuery(GET_GROUP, {
     variables: { itemId },
     fetchPolicy: 'cache-and-network',
   });
+  const [interactWithNode] = useMutation(INTERACT_WITH_NODE);
 
   const { options, checkInCurrentUser } = useCheckIn({
     nodeId: itemId,
@@ -61,6 +71,22 @@ const NewGroupContentItemConnected = ({ itemId }) => {
     userCheckIn();
   };
 
+  const handleOnClickParentVideoCall = (action) => {
+    GoogleAnalytics.trackEvent({
+      category: 'Groups',
+      action: action ? `${action} Video Call` : 'Video Call',
+      label: `${get(content, 'title')}`,
+    });
+
+    console.log('INTERACT');
+    interactWithNode({
+      variables: {
+        nodeId: itemId,
+        action: 'GROUP_JOINED_PARENT_VIDEO',
+      },
+    });
+  };
+
   return (
     <NewGroup
       coverImage={get(content, 'coverImage')}
@@ -81,6 +107,7 @@ const NewGroupContentItemConnected = ({ itemId }) => {
       chatChannelType={get(content, 'streamChatChannel.channelType', 'group')}
       onClickGroupResource={handleOnClickGroupResource}
       onClickVideoCall={handleOnClickVideoCall}
+      onClickParentVideoCall={handleOnClickParentVideoCall}
       id={itemId}
     />
   );
