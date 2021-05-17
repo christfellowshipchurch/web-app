@@ -41,8 +41,8 @@ const ExternalHome = () => {
 
   return (
     <HeroSection
-      title="Live Your Best Life"
-      htmlContent="Looking for more out of life? Church is a great place to start. Christ Fellowship Church is helping thousands of people every week discover there’s more to life and that it’s easier to find than you think."
+      title="Looking for more out of life? Church is a great place to start. "
+      htmlContent="Christ Fellowship Church is helping thousands of people every week discover there’s more to life and that it’s easier to find than you think."
       video={{
         uri: backgroundVideo,
       }}
