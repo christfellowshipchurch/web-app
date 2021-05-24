@@ -76,13 +76,16 @@ const HeroSection = ({
                   style={{ zIndex: 1000 }}
                 >
                   <div
-                    className={classnames('hero', 'max-width-800', 'p-3', 'pt-5', {
+                    className={classnames('hero', 'p-3', 'pt-5', {
                       'opacity-0': !isVisible,
                       'opacity-100': isVisible,
                       'animate-slide-left-right': isVisible,
                     })}
+                    style={{
+                      maxWidth: '850px',
+                    }}
                   >
-                    <h1 className="text-white">{title}</h1>
+                    <h2 className="text-white">{title}</h2>
 
                     <p className="my-2 pl-0 text-white font-weight-light">
                       {htmlToReactParser.parse(htmlContent)}

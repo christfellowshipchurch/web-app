@@ -95,7 +95,7 @@ export const CampusTile = ({
 
             {isRsvp && (
               <Button
-                title="Set a Reminder"
+                title="Plan Your Visit"
                 className="my-3"
                 onClick={() => onClick({})}
               />
