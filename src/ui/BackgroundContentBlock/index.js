@@ -22,46 +22,36 @@ const BackgroundContentBlock = ({
   const titleSize = lg ? 'display-3' : 'h1';
   const fontSize = lg ? 'bg-body-text' : '';
 
+  // ! WARNING
+  // These changes are for only DEMOING the External site `/new-here` page, and will BREAK site if merged!!!
+  // ! WARNING
+
   return (
     <div
       className={classnames(
         'col',
         lg ? 'py-6' : '',
         className,
-        lg ? 'min-vh-100' : '',
         'd-flex',
+        'flex-column',
         'align-items-center'
       )}
     >
-      <div
-        className="p-absolute w-100 h-100"
-        style={{ top: 0, left: 0, overflow: 'hidden' }}
-      >
+      <div className="w-100" style={{ top: 0, left: 0, overflow: 'hidden' }}>
         <Media
           imageUrl={get(images, '[0].sources[0].uri', '')}
           imageAlt={imageAlt}
           videoUrl={get(videos, '[0].sources[0].uri', '')}
-          ratio={imageRatio}
-          className="h-100 w-100"
+          ratio={'21by9'}
         />
       </div>
 
-      <div
-        className="p-absolute w-100 h-100"
-        style={{
-          top: 0,
-          left: 0,
-          overflow: 'hidden',
-          background: 'rgba(0, 0, 0, 0.4)',
-        }}
-      ></div>
-
-      <Layout contentLayout="default" className="text-white max-width-800 py-6">
-        <div className={classnames(titleSize, 'text-white', { 'mb-4': lg })}>{title}</div>
+      <Layout contentLayout="default" className="max-width-800 py-6">
+        <h1>{title}</h1>
 
         <div>{subtitle}</div>
 
-        <p className={`pb-4 ${fontSize}`}>{htmlToReactParser.parse(htmlContent)}</p>
+        <p className={`pb-4`}>{htmlToReactParser.parse(htmlContent)}</p>
 
         <ButtonRow
           callToAction={callToAction}

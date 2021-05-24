@@ -57,6 +57,9 @@ const DefaultPage = ({ title }) => {
           case 'WebsiteBlockItem':
             if (camelCase(get(item, 'contentLayout', '')).includes('background')) {
               content = <BackgroundContentBlock {...item} />;
+            }
+            if (item?.title === 'Church Made Simple') {
+              content = <BackgroundContentBlock {...item} />;
             } else {
               content = <Block {...item} />;
             }
